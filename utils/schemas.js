@@ -5,163 +5,163 @@ export const BodyStaticAPP = [
   {
     title: "Empresas",
     children: [
-       {
-         title: "Empresas",
-         route: "business",
-         getData: FetchGraphQL.business.getBusinessAll,
-         getByID: FetchGraphQL.business.getOneBusiness,
-         createEntry: FetchGraphQL.business.createBusiness, 
-         updateEntry: FetchGraphQL.business.updateBusiness, 
-         deleteEntry: FetchGraphQL.business.deleteBusiness, 
-         visibleColumns: ["_id", "businessName", "slug", "createdAt"],
-         schema: [
-           {
-             Header: "Nombre de empresa",
-             accessor: "businessName",
-             type: "string",
-             required: true,
-           },
-           {
-             Header: "Slug",
-             accessor: "slug",
-             type: "slug",
-             
-           },
-           {
+      {
+        title: "Empresas",
+        route: "business",
+        getData: FetchGraphQL.business.getBusinessAll,
+        getByID: FetchGraphQL.business.getOneBusiness,
+        createEntry: FetchGraphQL.business.createBusiness,
+        updateEntry: FetchGraphQL.business.updateBusiness,
+        deleteEntry: FetchGraphQL.business.deleteBusiness,
+        visibleColumns: ["_id", "businessName", "slug", "createdAt"],
+        schema: [
+          {
+            Header: "Nombre de empresa",
+            accessor: "businessName",
+            type: "stringL",
+            required: true,
+          },
+          {
+            Header: "Slug",
+            accessor: "slug",
+            type: "slug",
+
+          },
+          {
             Header: "¿Publicar?",
             accessor: "status",
             type: "switch",
           },
-           {
-             Header: "Pagina web",
-             accessor: "webPage",
-             type: "url",
-           },
-           {
-             Header: "Imagen Miniatura",
-             accessor: "imgMiniatura",
-             type: "image",
-            },
-           {
-             Header: "Logotipo",
-             accessor: "imgLogo",
-             type: "image",
-            },
-           {
-             Header: "Carrusel de imagenes",
-             accessor: "imgCarrusel",
-             type: "imageMultiple",
-            },
-            
-           {
-             Header: "Contenido",
-             accessor: "content",
-             type: "ckeditor",
-           },
-           {
-             Header: "ID",
-             accessor: "_id",
-           },
-           {
-             Header: "Usuario UID",
-             accessor: "userUid",
-           },
-           {
-             Header: "Elegir categorias",
-             accessor: "subCategories",
-             type: "questions",
-           },
-           {
-             Header: "Nombre de contacto",
-             accessor: "contactName",
-             type: "string",
-           },
-           {
-             Header: "Email de contacto",
-             accessor: "contactEmail",
-             type: "email",
-           },
-           {
-             Header: "Telefono fijo",
-             accessor: "landline",
-             type: "string",
-           },
-           {
-             Header: "Telefono movil",
-             accessor: "mobilePhone",
-             type: "string",
-           },
-           {
-             Header: "Whatsapp",
-             accessor: "whatsapp",
-             type: "string",
-           },
-           {
-             Header: "Twitter",
-             accessor: "twitter",
-             type: "url",
-           },
-           {
-             Header: "Facebook",
-             accessor: "facebook",
-             type: "url",
-           },
-           {
-             Header: "Linkedin",
-             accessor: "linkedin",
-             type: "url",
-           },
-           {
-             Header: "Youtube",
-             accessor: "youtube",
-             type: "url",
-           },
-           {
-             Header: "Instagram",
-             accessor: "instagram",
-             type: "url",
-           },
-           {
-             Header: "País",//
-             accessor: "country",
-             type: "country",
-           },
-           {
-             Header: "Ciudad",//
-             accessor: "city",
-             type: "string",
-           },
-           {
-             Header: "Codigo Postal",
-             accessor: "zip",
-             type: "number",
-           },
-           {
-             Header: "Direccion",//
-             accessor: "address",
-             type: "string",
-           },
-           {
-             Header: "Fase",
-             accessor: "fase",
-           },
-           {
-             Header: "Creado el",
-             accessor: "createdAt",
-             Cell: (props) => formatTime(props.value, "es"),
-           },
-           {
-             Header: "Actualizado el",
-             accessor: "updatedAt",
-           },
-           {
-             Header: "Ubicacion exacta",
-             accessor: "coordinates",
-             type: "maps"
-           },
-           
-         ],
-       },
+          {
+            Header: "Pagina web",
+            accessor: "webPage",
+            type: "url",
+          },
+          {
+            Header: "Imagen Miniatura",
+            accessor: "imgMiniatura",
+            type: "image",
+          },
+          {
+            Header: "Logotipo",
+            accessor: "imgLogo",
+            type: "image",
+          },
+          {
+            Header: "Carrusel de imagenes",
+            accessor: "imgCarrusel",
+            type: "imageMultiple",
+          },
+
+          {
+            Header: "Contenido",
+            accessor: "content",
+            type: "ckeditor",
+          },
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Usuario UID",
+            accessor: "userUid",
+          },
+          {
+            Header: "Elegir categorias",
+            accessor: "subCategories",
+            type: "questions",
+          },
+          {
+            Header: "Nombre de contacto",
+            accessor: "contactName",
+            type: "string",
+          },
+          {
+            Header: "Email de contacto",
+            accessor: "contactEmail",
+            type: "email",
+          },
+          {
+            Header: "Telefono fijo",
+            accessor: "landline",
+            type: "string",
+          },
+          {
+            Header: "Telefono movil",
+            accessor: "mobilePhone",
+            type: "string",
+          },
+          {
+            Header: "Whatsapp",
+            accessor: "whatsapp",
+            type: "string",
+          },
+          {
+            Header: "Twitter",
+            accessor: "twitter",
+            type: "url",
+          },
+          {
+            Header: "Facebook",
+            accessor: "facebook",
+            type: "url",
+          },
+          {
+            Header: "Linkedin",
+            accessor: "linkedin",
+            type: "url",
+          },
+          {
+            Header: "Youtube",
+            accessor: "youtube",
+            type: "url",
+          },
+          {
+            Header: "Instagram",
+            accessor: "instagram",
+            type: "url",
+          },
+          {
+            Header: "País",//
+            accessor: "country",
+            type: "country",
+          },
+          {
+            Header: "Ciudad",//
+            accessor: "city",
+            type: "string",
+          },
+          {
+            Header: "Codigo Postal",
+            accessor: "zip",
+            type: "number",
+          },
+          {
+            Header: "Direccion",//
+            accessor: "address",
+            type: "stringL",
+          },
+          {
+            Header: "Fase",
+            accessor: "fase",
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+          },
+          {
+            Header: "Ubicacion exacta",
+            accessor: "coordinates",
+            type: "maps"
+          },
+
+        ],
+      },
       {
         title: "Categorias",
         route: "categoryBusiness",
@@ -256,7 +256,7 @@ export const BodyStaticAPP = [
             accessor: "createdAt",
             Cell: (props) => formatTime(props.value, "es"),
           },
-          
+
           {
             Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
@@ -324,7 +324,7 @@ export const BodyStaticAPP = [
             Header: "Elementos",
             accessor: "items",
             type: "fieldArray",
-            schema : "object"
+            schema: "object"
           },
           {
             Header: "Creado el",
@@ -370,9 +370,9 @@ export const BodyStaticAPP = [
         route: "posts",
         getData: FetchGraphQL.posts.getAllPost,
         getByID: FetchGraphQL.posts.getOnePost,
-        createEntry : FetchGraphQL.posts.createPost,
-        deleteEntry : FetchGraphQL.posts.deletePost,
-        updateEntry : FetchGraphQL.posts.updatePost,
+        createEntry: FetchGraphQL.posts.createPost,
+        deleteEntry: FetchGraphQL.posts.deletePost,
+        updateEntry: FetchGraphQL.posts.updatePost,
         visibleColumns: ["_id", "title", "slug", "createdAt"],
         schema: [
           {
@@ -402,14 +402,14 @@ export const BodyStaticAPP = [
             type: "ckeditor",
             required: true,
           },
-          
+
           {
             Header: "SEO Descripción",
             accessor: "seoDescription",
             type: "string",
             required: true,
           },
-          
+
           {
             Header: "Categorias",
             accessor: "subCategories",
@@ -420,7 +420,7 @@ export const BodyStaticAPP = [
             Header: "Etiquetas",
             accessor: "tags",
             type: "fieldArray",
-            schema : "string"
+            schema: "string"
           },
           {
             Header: "Imagen Miniatura",
@@ -450,7 +450,7 @@ export const BodyStaticAPP = [
             accessor: "updatedAt",
             Cell: (props) => formatTime(props.value, "es"),
           },
-          
+
         ],
       },
       {
@@ -517,9 +517,9 @@ export const BodyStaticAPP = [
         route: "subcategoriesPost",
         getData: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
         getByID: FetchGraphQL.subCategoryPost.getOneSubCategoryPost,
-        createEntry : FetchGraphQL.subCategoryPost.createSubCategoryPost,
-        updateEntry : FetchGraphQL.subCategoryPost.updateSubCategoryPost,
-        deleteEntry : FetchGraphQL.subCategoryPost.deleteSubCategoryPost,
+        createEntry: FetchGraphQL.subCategoryPost.createSubCategoryPost,
+        updateEntry: FetchGraphQL.subCategoryPost.updateSubCategoryPost,
+        deleteEntry: FetchGraphQL.subCategoryPost.deleteSubCategoryPost,
         visibleColumns: ["_id", "title", "slug", "createdAt"],
         schema: [
           {
@@ -575,9 +575,9 @@ export const BodyStaticAPP = [
         route: "sections",
         getData: FetchGraphQL.sections.getAllPage,
         getByID: FetchGraphQL.sections.getOnePage,
-        createEntry : FetchGraphQL.sections.createPage,
-        deleteEntry : FetchGraphQL.sections.deletePage,
-        updateEntry : FetchGraphQL.sections.updatePage,
+        createEntry: FetchGraphQL.sections.createPage,
+        deleteEntry: FetchGraphQL.sections.deletePage,
+        updateEntry: FetchGraphQL.sections.updatePage,
         visibleColumns: ["_id", "title", "slug", "createdAt"],
         schema: [
           {
@@ -609,7 +609,7 @@ export const BodyStaticAPP = [
             accessor: "content",
             type: "ckeditor",
           },
-          
+
         ],
       },
     ]

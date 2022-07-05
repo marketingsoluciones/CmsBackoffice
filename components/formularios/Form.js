@@ -29,13 +29,13 @@ export const FormDinamical = forwardRef(
     const [schema, setSchema] = useState(null);
 
     const reduceInitialValues = Object?.entries(initialValues ?? {}).reduce((acc, item) => {
-      if(item[1] !== null){ 
+      if (item[1] !== null) {
         //@ts-ignore
         acc[item[0]] = item[1]
       }
       return acc
-    },{})
-    
+    }, {})
+
     const initialValuesCreated = schema?.reduce((acc, { type, accessor }) => {
       switch (type) {
         case "string":
@@ -55,7 +55,7 @@ export const FormDinamical = forwardRef(
           break;
 
         default:
-          if(type) acc[accessor] = undefined
+          if (type) acc[accessor] = undefined
           break;
           break;
       }
@@ -67,14 +67,14 @@ export const FormDinamical = forwardRef(
       string: Yup.string().nullable(),
       email: Yup.string().email().nullable(),
       url: Yup.string().matches(
-        /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+        /^[a-zA-Z0-9][a-zA-Z0-9-_:/?#=]{0,61}[a-zA-Z0-9]{0,1}\.([a-zA-Z]{2,6}|[a-zA-Z0-9-]{1,30}\.[a-zA-Z]{2,3})/,
         "URL invalida"
       ).nullable(),
       country: Yup.string().nullable(),
       number: Yup.number().nullable(),
       relationship: Yup.array().of(Yup.string()).nullable(),
-      questions : Yup.array().of(Yup.object().shape({
-        _id : Yup.string()
+      questions: Yup.array().of(Yup.object().shape({
+        _id: Yup.string()
       })).nullable()
     };
 
@@ -123,6 +123,27 @@ export const FormDinamical = forwardRef(
                               />
                             );
                             break;
+                          case "stringM":
+                            return (
+                              <GridItem colSpan={[1, , , 2]}>
+                                <InputField
+                                  key={idx}
+                                  name={item.accessor}
+                                  label={item.Header}
+                                />
+                              </GridItem>
+                            );
+                          case "stringL":
+                            return (
+                              <GridItem colSpan={[1, , , 3]}>
+                                <InputField
+                                  key={idx}
+                                  name={item.accessor}
+                                  label={item.Header}
+                                />
+                              </GridItem>
+                            );
+                            break;
                           case "switch":
                             return (
                               <SwitchField
@@ -134,12 +155,14 @@ export const FormDinamical = forwardRef(
                             break;
                           case "slug":
                             return (
-                              <InputField
-                                key={idx}
-                                name={item.accessor}
-                                label={item.Header}
-                                disabled={true}
-                              />
+                              <GridItem colSpan={[1, , , 2]}>
+                                <InputField
+                                  key={idx}
+                                  name={item.accessor}
+                                  label={item.Header}
+                                  disabled={true}
+                                />
+                              </GridItem>
                             );
                             break;
                           case "number":
@@ -153,12 +176,14 @@ export const FormDinamical = forwardRef(
                             break;
                           case "email":
                             return (
-                              <InputField
-                                key={idx}
-                                name={item.accessor}
-                                label={item.Header}
-                                type={"email"}
-                              />
+                              <GridItem colSpan={[1, , , 3]}>
+                                <InputField
+                                  key={idx}
+                                  name={item.accessor}
+                                  label={item.Header}
+                                  type={"email"}
+                                />
+                              </GridItem>
                             );
                             break;
                           case "password":
@@ -195,11 +220,13 @@ export const FormDinamical = forwardRef(
                             break;
                           case "url":
                             return (
-                              <URLInputField
-                                key={idx}
-                                name={item.accessor}
-                                label={item.Header}
-                              />
+                              <GridItem colSpan={[1, , , 3]}>
+                                <URLInputField
+                                  key={idx}
+                                  name={item.accessor}
+                                  label={item.Header}
+                                />
+                              </GridItem>
                             );
                             break;
                           case "image":

@@ -10,9 +10,23 @@ import {
 } from "@chakra-ui/react";
 import { useField } from "formik";
 
+const splitUrl = (urlString) => {
+  try {
+    const sep = urlString.split("//")
+    if (sep.length > 1) {
+      return sep[1]
+    }
+    return urlString
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const URLInputField = ({ label, ...props }) => {
   const [field, meta, helpers] = useField(props);
-
+  if (field.value) {
+    field.value = splitUrl(field.value)
+  }
   return (
     <Box>
       <Divider />
@@ -33,7 +47,7 @@ export const URLInputField = ({ label, ...props }) => {
       </FormLabel>
       <InputGroup fontSize={"sm"}>
         <InputLeftAddon children="https://" />
-        <Input variant={"filled"} fontSize={"sm"} {...field} {...props} />
+        <Input fontSize={"sm"} {...field} {...props} />
       </InputGroup>
     </Box>
   );
