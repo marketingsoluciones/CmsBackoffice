@@ -26,18 +26,17 @@ const GoogleMapsField = ({ label, ...props }) => {
   const [field, meta, { setValue }] = useField({ ...props });
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_API_KEY_CONSOLE_GOOGLE ?? "",
-    //@ts-ignore
     libraries,
   });
   const [marker, setMarker] = useState(null);
 
   useEffect(() => {
     field?.value && setCenter({
-      lng : field.value.coordinates[0],
-      lat: field.value.coordinates[1]
+      lat: field.value.coordinates[0],
+      lng: field.value.coordinates[1]
     })
   }, [field.value])
-  
+
   const onMapClick = useCallback((event) => {
     setValue({
       type: "Point",
@@ -55,7 +54,7 @@ const GoogleMapsField = ({ label, ...props }) => {
     mapRef?.current?.setZoom(16);
     setValue({
       type: "Point",
-      coordinates:[lng, lat]
+      coordinates: [lat, lng]
     });
   }, []);
 
@@ -64,14 +63,14 @@ const GoogleMapsField = ({ label, ...props }) => {
       {isLoaded && (
         <div className="w-full">
           <Flex gap={"0.3rem"} alignItems={"center"} fontWeight={"900"}
-        fontSize={"sm"}>
-          {label}
-          {meta.touched && meta.error && (
-            <Text color={"red"} fontSize={"xs"} fontWeight={"500"}>
-              {meta.error}
-            </Text>
-          )}
-        </Flex>
+            fontSize={"sm"}>
+            {label}
+            {meta.touched && meta.error && (
+              <Text color={"red"} fontSize={"xs"} fontWeight={"500"}>
+                {meta.error}
+              </Text>
+            )}
+          </Flex>
 
           <div className="relative w-full">
             <Search panTo={panTo} center={center} />
@@ -159,7 +158,7 @@ const Search = ({ panTo, center }) => {
               key={item.id}
               paddingBlock={"0.5rem"}
               fontSize={"sm"}
-              
+
               cursor={"pointer"}
               paddingInline={"1rem"}
               _hover={{ bg: "gray.100" }}
