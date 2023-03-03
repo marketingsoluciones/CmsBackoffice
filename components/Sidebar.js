@@ -8,6 +8,8 @@ import {
   Menu,
   MenuItem,
   MenuGroup,
+  MenuButton,
+  MenuList,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useState } from "react";
@@ -15,10 +17,27 @@ import { BodyStaticAPP, CivitasStaticAPP } from "../utils/schemas";
 import { AuthContextProvider } from "../context/AuthContext";
 import { useRouter } from "next/router";
 import { Tooltip } from "@chakra-ui/react";
+import { ArrowDownIcon } from "./../components/Icons/index";
 
 export const Sidebar = ({ state }) => {
-  const { user,development,setDevelopment } = AuthContextProvider()
+  const { user, development, setDevelopment } = AuthContextProvider()
   const { asPath } = useRouter()
+
+  const Options = [
+    {
+      title: "Bodasdehoy.com",
+      value: "Bodasdehoy.com"
+    },
+    {
+      title: "DiarioCivitas.com",
+      value: "DiarioCivitas.com"
+    },
+    {
+      title: "AlquilaTuMaquinaria.com",
+      value: "AlquilaTuMaquinaria.com"
+    },
+
+  ]
 
   return (
     <Flex
@@ -36,29 +55,75 @@ export const Sidebar = ({ state }) => {
     >
 
       <Flex alignItems={"center"} gap={"0.5rem"} p={"0.5rem"}>
-        <div className={`flex  ${state ? "justify-star" : " justify-end "} items-center gap-2 w-full bg-gray-100 py-2 px-2 rounded-xl`}>
-          <Avatar size={"sm"} />
-          <div>
-            <Text className={`${state ? "block" : "hidden"} ml-1 text-tituloPrimario`}>{user?.displayName ? user?.displayName : "Recarga Expres"}</Text>
-            <select value={development} onChange={(e) => setDevelopment(e.target.value)} className={` ${state ? "block" : "hidden"} w-36 rounded py-1 truncate bg-transparent focus:outline-none cursor-pointer `}>
-              <option value={"bodasdehoy"}>Bodasdehoy.com</option>
-              <option value={"diario"}>DiarioCivitas.com</option>
-              <option value={"atm"}>AlquilaTuMaquinaria.com</option>
-            </select>
 
-            {/* <Text className={`${state ? "block" : "hidden"} text-tituloSecundario text-sm`}>Admin</Text> */}
+        <Tooltip label={`${state ? "" : development}`} ml="14" top="-10">
+
+          <div className={`flex  ${state ? "justify-star" : " justify-end "} items-center gap-2 w-full bg-gray-100 py-2 px-2 rounded-xl`}>
+
+            <div className={`${state ? "hidden" : "block"}`} >
+              <Menu  >
+                <MenuButton pr={"0.3rem"}>
+                  <Avatar size={"sm"} />
+                </MenuButton>
+                <MenuList p={"0"} fontSize={"sm"} ml={"8"}>
+                  {Options.map((item, idx) => (
+                    <div key={idx}>
+                      <MenuItem color={"gray.500"} onClick={() => setDevelopment(item.value)}>{item.title}</MenuItem>
+                    </div>
+                  ))}
+                </MenuList>
+              </Menu>
+            </div>
+
+            <div className={`flex items-center justify-star ${state ? "block" : "hidden"}`}>
+              <Avatar size={"sm"} mr={"0.1rem"} />
+              <div className={``}>
+                <Text pl={"0.1rem"} className={` text-tituloPrimario`}>{"Consorcio J.C"}</Text>
+                <div className="flex">
+                  <Menu >
+                    <MenuButton w={"8rem"} display="flex">
+                      <Text noOfLines={1}>{development}</Text>
+                    </MenuButton>
+                    <ArrowDownIcon h={2} w={3}/>
+                    <MenuList p={"0"} fontSize={"sm"} ml={"8"}>
+                      {Options.map((item, idx) => (
+                        <div key={idx}>
+                          <MenuItem color={"gray.500"} onClick={() => setDevelopment(item.value)}>{item.title}</MenuItem>
+                        </div>
+                      ))}
+                    </MenuList>
+                  </Menu>
+                  
+                </div>
+              </div>
+
+            </div>
+
+
+
+            {/* <Avatar size={"sm"} />
+
+            <div>
+              <Text className={`${state ? "block" : "hidden"} ml-1 text-tituloPrimario`}>{"Consorcio J.C"}</Text>
+              <select value={development} onChange={(e) => setDevelopment(e.target.value)} className={` ${state ? "block" : "hidden"} w-36 rounded py-1 truncate bg-transparent focus:outline-none cursor-pointer `}>
+                <option value={"bodasdehoy"}>Bodasdehoy.com</option>
+                <option value={"diario"}>DiarioCivitas.com</option>
+                <option value={"atm"}>AlquilaTuMaquinaria.com</option>
+              </select>
+            </div> */}
+
           </div>
-        </div>
+        </Tooltip>
       </Flex>
 
       <Flex flexDir={"column"} className="overflow-y-auto overflow-x-hidden">
         {(() => {
-          if (development === "bodasdehoy") {
+          if (development === "Bodasdehoy.com") {
             return (
               <>
                 {
                   BodyStaticAPP.map((item, idx) => (
-                    <Box key={idx} paddingBlock={"0.5rem"} paddingTop="">
+                    <Box key={idx} >
                       <Menu>
                         <MenuGroup key={idx} title={item.title} fontSize={"sm"} className={` ${state ? "block" : "hidden"} text-tituloPrimario`}>
                           {item.children.map((item, idx) => (
@@ -73,16 +138,9 @@ export const Sidebar = ({ state }) => {
                                 className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
                               >
                                 <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
-
-                                  <div className={`flex justify-estar ${state ? "" : `relative`}`}
-                                    data-tip={`${item.title}`}
-                                  >
+                                  <div className={`flex justify-estar ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
                                     <div className={` pr-2 `}>{item.icon}</div>
-                                    <div className={
-                                      `pt-0.5                         
-                              ${state ? "block" : `hidden`}
-                              `}
-                                    >
+                                    <div className={`${state ? "block " : "hidden"}`}>
                                       {item.title}
                                     </div>
                                   </div>
@@ -98,12 +156,12 @@ export const Sidebar = ({ state }) => {
                 }
               </>
             )
-          } else if (development === "diario") {
+          } else if (development === "DiarioCivitas.com") {
             return (
               <>
                 {
                   CivitasStaticAPP.map((item, idx) => (
-                    <Box key={idx} paddingBlock={"0.5rem"} paddingTop="">
+                    <Box key={idx}  >
                       <Menu>
                         <MenuGroup key={idx} title={item.title} fontSize={"sm"} className={` ${state ? "block" : "hidden"} text-tituloPrimario`}>
                           {item.children.map((item, idx) => (
@@ -118,16 +176,9 @@ export const Sidebar = ({ state }) => {
                                 className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
                               >
                                 <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
-
-                                  <div className={`flex justify-estar ${state ? "" : `relative`}`}
-                                    data-tip={`${item.title}`}
-                                  >
+                                  <div className={`flex justify-estar ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
                                     <div className={` pr-2 `}>{item.icon}</div>
-                                    <div className={
-                                      `pt-0.5                         
-                              ${state ? "block" : `hidden`}
-                              `}
-                                    >
+                                    <div className={`pt-0.5 ${state ? "block" : `hidden`}`}>
                                       {item.title}
                                     </div>
                                   </div>
@@ -143,8 +194,8 @@ export const Sidebar = ({ state }) => {
                 }
               </>
             )
-          }else if (development === "atm"){
-            return(
+          } else if (development === "AlquilaTuMaquinaria.com") {
+            return (
               <>estoy en atm</>
             )
           }

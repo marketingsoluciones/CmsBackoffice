@@ -1,6 +1,6 @@
 import { FetchGraphQL } from "../utils/Fetching";
 import { formatTime } from "../utils/formatTime";
-import { PermisosIcon, CampañasIcon,MetricasSociales, MarcasEmIcon, InicioIcon,PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon} from "../components/Icons/index";
+import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon } from "../components/Icons/index";
 
 // componentes que definen la estructura del menu, fetchs,columnas visibles en la tabla y los inputs que componen el formulario
 
@@ -10,15 +10,21 @@ import { PermisosIcon, CampañasIcon,MetricasSociales, MarcasEmIcon, InicioIcon,
 
 export const BodyStaticAPP = [
   {
-    title: "Empresas",
+    title: "",
     children: [
       {
-        icon:<InicioIcon className=""/>,
+        icon: <InicioIcon className="" />,
         title: "Inicio",
-        route: "/",        
+        route: "/",
       },
+    ]
+  },
+  {
+    title: "Empresas",
+    children: [
+      
       {
-        icon:<MarcasEmIcon className="h-6 w-6"/>,
+        icon: <MarcasEmIcon className="h-6 w-6" />,
         title: "Marcas",
         route: "business",
         getData: FetchGraphQL.business.getBusinessAll,
@@ -175,7 +181,7 @@ export const BodyStaticAPP = [
         ],
       },
       {
-        icon: <CategoriasIcon/>,
+        icon: <CategoriasIcon />,
         title: "Categorias",
         route: "categoryBusiness",
         getData: FetchGraphQL.catBusiness.getCategoryBusiness,
@@ -234,7 +240,7 @@ export const BodyStaticAPP = [
         ],
       },
       {
-        icon: <SubCategoriaIcon className="h-6 w-6"/>,
+        icon: <SubCategoriaIcon className="h-6 w-6" />,
         title: "Sub Categorias",
         route: "subcategoriesBusiness",
         getData: FetchGraphQL.subCatBusiness.getSubCategoryBusiness,
@@ -310,7 +316,7 @@ export const BodyStaticAPP = [
         ],
       },
       {
-        icon: <CaracteristicasIcon/>,
+        icon: <CaracteristicasIcon />,
         title: "Caracteristicas",
         route: "characteristics",
         getData: FetchGraphQL.characteristics.getAllCharacteristics,
@@ -349,7 +355,7 @@ export const BodyStaticAPP = [
         ],
       },
       {
-        icon:<CampañasIcon/>,
+        icon: <CampañasIcon />,
         title: "Campañas",
         route: "page404",
         getData: FetchGraphQL.questions.getAllQuestions,
@@ -377,7 +383,7 @@ export const BodyStaticAPP = [
         ],
       },
       {
-        icon:<PreguntasFrecuentes/>,
+        icon: <PreguntasFrecuentes />,
         title: "Preguntas frecuentes",
         route: "questions",
         getData: FetchGraphQL.questions.getAllQuestions,
@@ -404,18 +410,24 @@ export const BodyStaticAPP = [
           },
         ],
       },
-      {
-        icon:<MetricasSociales className=""/>,
-        title: "Metricas Sociales",
-        route: "page404",        
-      },
+      
     ],
+  },
+  {
+    title: "Redes Sociales",
+    children: [
+      {
+        icon: <MetricasSociales className="" />,
+        title: "Metricas Sociales",
+        route: "page404",
+      },
+    ]
   },
   {
     title: "Blog",
     children: [
       {
-        icon: <PostIcon/>,
+        icon: <PostIcon />,
         title: "Posts",
         route: "posts",
         getData: FetchGraphQL.posts.getAllPost,
@@ -504,7 +516,7 @@ export const BodyStaticAPP = [
         ],
       },
       {
-        icon: <CategoriasIcon/>,
+        icon: <CategoriasIcon />,
         title: "Categorias",
         route: "categoriesPosts",
         getData: FetchGraphQL.categoryPost.getAllCategoryPost,
@@ -564,7 +576,7 @@ export const BodyStaticAPP = [
         ],
       },
       {
-        icon: <SubCategoriaIcon/>,
+        icon: <SubCategoriaIcon />,
         title: "Sub Categorias",
         route: "subcategoriesPost",
         getData: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
@@ -623,7 +635,7 @@ export const BodyStaticAPP = [
     title: "Paginas",
     children: [
       {
-        icon: <Secciones2Icon/>,
+        icon: <Secciones2Icon />,
         title: "Secciones",
         route: "sections",
         getData: FetchGraphQL.sections.getAllPage,
@@ -668,28 +680,36 @@ export const BodyStaticAPP = [
     ]
   },
   {
-    title:"Configuracion",
-    children:[
+    title: "Configuracion",
+    children: [
       {
-        icon:<PermisosIcon/>,
-        title:"Permisos",
-        route:"page404"
+        icon: <PermisosIcon />,
+        title: "Permisos",
+        route: "page404"
       }
     ]
   }
 ];
 
 export const CivitasStaticAPP = [
+
   {
-    title: "Noticias",
+    title: "",
     children: [
       {
-        icon:<InicioIcon className=""/>,
+        icon: <InicioIcon className="" />,
         title: "Inicio",
-        route: "/",        
+        route: "/",
       },
+    ]
+  },
+  /* {
+
+    title: "Noticias",
+    children: [
+
       {
-        icon:<MarcasEmIcon className="h-6 w-6"/>,
+        icon: <MarcasEmIcon className="h-6 w-6" />,
         title: "Noticias",
         route: "Noticias",
         getData: FetchGraphQL.business.getBusinessAll,
@@ -705,55 +725,55 @@ export const CivitasStaticAPP = [
             type: "stringL",
             required: true,
           },
-           {
+          {
             Header: "Slug",
             accessor: "slug",
             type: "slug",
-          }, 
-           {
+          },
+          {
             Header: "¿Publicar?",
             accessor: "status",
             type: "switch",
-          }, 
-           {
+          },
+          {
             Header: "Pagina web",
             accessor: "webPage",
             type: "url",
-          }, 
-           {
+          },
+          {
             Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
-          }, 
-           {
+          },
+          {
             Header: "Logotipo",
             accessor: "imgLogo",
             type: "image",
-          }, 
-           {
+          },
+          {
             Header: "Carrusel de imagenes",
             accessor: "imgCarrusel",
             type: "imageMultiple",
-          }, 
-           {
+          },
+          {
             Header: "Contenido",
             accessor: "content",
             type: "ckeditor",
-          }, 
-           {
+          },
+          {
             Header: "ID",
             accessor: "_id",
-          }, 
-           {
+          },
+          {
             Header: "Usuario UID",
             accessor: "userUid",
-          }, 
-           {
+          },
+          {
             Header: "Elegir categorias",
             accessor: "subCategories",
             type: "questions",
-          }, 
-           {
+          },
+          {
             Header: "Nombre de contacto",
             accessor: "contactName",
             type: "string",
@@ -840,21 +860,21 @@ export const CivitasStaticAPP = [
             Header: "Ubicacion exacta",
             accessor: "coordinates",
             type: "maps"
-          }, 
+          },
 
         ],
       },
-      /* {
-        icon: <CategoriasIcon/>,
+      {
+        icon: <CategoriasIcon />,
         title: "Categorias",
         route: "category",
-        //getData: FetchGraphQL.catBusiness.getCategoryBusiness,
-        //getByID: FetchGraphQL.catBusiness.getOneCategoryBusiness,
-        //createEntry: FetchGraphQL.catBusiness.createCategoryBusiness,
-        //deleteEntry: FetchGraphQL.catBusiness.deleteCategoryBusiness,
-        //updateEntry: FetchGraphQL.catBusiness.updateCategoryBusiness,
-        //visibleColumns: ["_id", "title", "slug", "createdAt"],
-         schema: [
+        getData: FetchGraphQL.catBusiness.getCategoryBusiness,
+        getByID: FetchGraphQL.catBusiness.getOneCategoryBusiness,
+        createEntry: FetchGraphQL.catBusiness.createCategoryBusiness,
+        deleteEntry: FetchGraphQL.catBusiness.deleteCategoryBusiness,
+        updateEntry: FetchGraphQL.catBusiness.updateCategoryBusiness,
+        visibleColumns: ["_id", "title", "slug", "createdAt"],
+        schema: [
           {
             Header: "ID",
             accessor: "_id",
@@ -901,13 +921,13 @@ export const CivitasStaticAPP = [
             accessor: "createdAt",
             Cell: (props) => formatTime(props.value, "es"),
           },
-        ], 
-      }, */
+        ],
+      },
       {
-        icon: <SubCategoriaIcon className="h-6 w-6"/>,
+        icon: <SubCategoriaIcon className="h-6 w-6" />,
         title: "Sub Categorias",
         route: "subcategoriesBusiness",
-        /* getData: FetchGraphQL.subCatBusiness.getSubCategoryBusiness,
+        getData: FetchGraphQL.subCatBusiness.getSubCategoryBusiness,
         getByID: FetchGraphQL.subCatBusiness.getOneSubCategoryBusiness,
         createEntry: FetchGraphQL.subCatBusiness.createSubCategoryBusiness,
         deleteEntry: FetchGraphQL.subCatBusiness.deleteSubCategoryBusiness,
@@ -977,10 +997,10 @@ export const CivitasStaticAPP = [
             tabList: FetchGraphQL.questions.getAllQuestions,
             required: true,
           },
-        ], */
+        ],
       },
       {
-        icon: <CaracteristicasIcon/>,
+        icon: <CaracteristicasIcon />,
         title: "Caracteristicas",
         route: "character",
         getData: FetchGraphQL.characteristics.getAllCharacteristics,
@@ -1016,13 +1036,13 @@ export const CivitasStaticAPP = [
             accessor: "createdAt",
             Cell: (props) => formatTime(props.value, "es"),
           },
-        ], 
+        ],
       },
       {
-        icon:<CampañasIcon/>,
+        icon: <CampañasIcon />,
         title: "Campañas",
         route: "page404",
-        /* getData: FetchGraphQL.questions.getAllQuestions,
+        getData: FetchGraphQL.questions.getAllQuestions,
         getByID: FetchGraphQL.questions.getOneQuestion,
         createEntry: FetchGraphQL.questions.createQuestions,
         deleteEntry: FetchGraphQL.questions.deleteQuestions,
@@ -1044,13 +1064,13 @@ export const CivitasStaticAPP = [
             accessor: "createdAt",
             Cell: (props) => formatTime(props.value, "es"),
           },
-        ], */
+        ],
       },
       {
-        icon:<PreguntasFrecuentes/>,
+        icon: <PreguntasFrecuentes />,
         title: "Preguntas frecuentes",
         route: "questions",
-        /* getData: FetchGraphQL.questions.getAllQuestions,
+        getData: FetchGraphQL.questions.getAllQuestions,
         getByID: FetchGraphQL.questions.getOneQuestion,
         createEntry: FetchGraphQL.questions.createQuestions,
         deleteEntry: FetchGraphQL.questions.deleteQuestions,
@@ -1072,228 +1092,235 @@ export const CivitasStaticAPP = [
             accessor: "createdAt",
             Cell: (props) => formatTime(props.value, "es"),
           },
-        ], */
+        ],
       },
-      {
-        icon:<MetricasSociales className=""/>,
-        title: "Metricas Sociales",
-        route: "page404",        
-      },
+
     ],
+  }, */
+  {
+    title: "Redes Sociales",
+    children: [
+      {
+        icon: <MetricasSociales className="" />,
+        title: "Metricas Sociales",
+        route: "page404",
+      },
+    ]
   },
+
   {
     title: "Blog",
     children: [
       {
-        icon: <PostIcon/>,
+        icon: <PostIcon />,
         title: "Posts",
         route: "posts",
-       /*  getData: FetchGraphQL.posts.getAllPost,
-        getByID: FetchGraphQL.posts.getOnePost,
-        createEntry: FetchGraphQL.posts.createPost,
-        deleteEntry: FetchGraphQL.posts.deletePost,
-        updateEntry: FetchGraphQL.posts.updatePost,
-        visibleColumns: ["_id", "title", "slug", "createdAt"],
-        schema: [
-          {
-            Header: "ID",
-            accessor: "_id",
-          },
-          {
-            Header: "Titulo",
-            accessor: "title",
-            type: "string",
-            required: true,
-          },
-          {
-            Header: "Subtitulo",
-            accessor: "subTitle",
-            type: "string",
-          },
-          {
-            Header: "Slug",
-            accessor: "slug",
-            type: "string",
-            required: true,
-          },
-          {
-            Header: "Contenido",
-            accessor: "content",
-            type: "ckeditor",
-            required: true,
-          },
-
-          {
-            Header: "SEO Descripción",
-            accessor: "seoDescription",
-            type: "string",
-            required: true,
-          },
-
-          {
-            Header: "Categorias",
-            accessor: "subCategories",
-            type: "relationship",
-            tabList: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
-          },
-          {
-            Header: "Etiquetas",
-            accessor: "tags",
-            type: "fieldArray",
-            schema: "string"
-          },
-          {
-            Header: "Imagen Miniatura",
-            accessor: "imgMiniatura",
-            type: "image",
-          },
-          {
-            Header: "Carrusel de imagenes",
-            accessor: "imgCarrusel",
-            type: "imageMultiple",
-          },
-          {
-            Header: "Status",
-            accessor: "status",
-          },
-          {
-            Header: "Vistas",
-            accessor: "views",
-          },
-          {
-            Header: "Creado el",
-            accessor: "createdAt",
-            Cell: (props) => formatTime(props.value, "es"),
-          },
-          {
-            Header: "Creado el",
-            accessor: "updatedAt",
-            Cell: (props) => formatTime(props.value, "es"),
-          },
-
-        ], */
+         getData: FetchGraphQL.posts.getAllPost,
+         getByID: FetchGraphQL.posts.getOnePost,
+         createEntry: FetchGraphQL.posts.createPost,
+         deleteEntry: FetchGraphQL.posts.deletePost,
+         updateEntry: FetchGraphQL.posts.updatePost,
+         visibleColumns: ["_id", "title", "slug", "createdAt"],
+         schema: [
+           {
+             Header: "ID",
+             accessor: "_id",
+           },
+           {
+             Header: "Titulo",
+             accessor: "title",
+             type: "string",
+             required: true,
+           },
+           {
+             Header: "Subtitulo",
+             accessor: "subTitle",
+             type: "string",
+           },
+           {
+             Header: "Slug",
+             accessor: "slug",
+             type: "string",
+             required: true,
+           },
+           {
+             Header: "Contenido",
+             accessor: "content",
+             type: "ckeditor",
+             required: true,
+           },
+ 
+           {
+             Header: "SEO Descripción",
+             accessor: "seoDescription",
+             type: "string",
+             required: true,
+           },
+ 
+           {
+             Header: "Categorias",
+             accessor: "subCategories",
+             type: "relationship",
+             tabList: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
+           },
+           {
+             Header: "Etiquetas",
+             accessor: "tags",
+             type: "fieldArray",
+             schema: "string"
+           },
+           {
+             Header: "Imagen Miniatura",
+             accessor: "imgMiniatura",
+             type: "image",
+           },
+           {
+             Header: "Carrusel de imagenes",
+             accessor: "imgCarrusel",
+             type: "imageMultiple",
+           },
+           {
+             Header: "Status",
+             accessor: "status",
+           },
+           {
+             Header: "Vistas",
+             accessor: "views",
+           },
+           {
+             Header: "Creado el",
+             accessor: "createdAt",
+             Cell: (props) => formatTime(props.value, "es"),
+           },
+           {
+             Header: "Creado el",
+             accessor: "updatedAt",
+             Cell: (props) => formatTime(props.value, "es"),
+           },
+ 
+         ],
       },
-     /*  {
-        icon: <CategoriasIcon/>,
-        title: "Categorias",
-        route: "categoriesPosts",
-        getData: FetchGraphQL.categoryPost.getAllCategoryPost,
-        getByID: FetchGraphQL.categoryPost.getOneCategoryPost,
-        createEntry: FetchGraphQL.categoryPost.createCategoryPost,
-        updateEntry: FetchGraphQL.categoryPost.updateCategoryPost,
-        deleteEntry: FetchGraphQL.categoryPost.deleteCategoryPost,
-        visibleColumns: ["_id", "title", "slug", "createdAt"],
-        schema: [
-          {
-            Header: "Identificador",
-            accessor: "_id",
-          },
-          {
-            Header: "Titulo",
-            accessor: "title",
-            type: "string",
-            required: true,
-          },
-          {
-            Header: "Encabezado",
-            accessor: "heading",
-            type: "string",
-          },
-          {
-            Header: "Slug",
-            accessor: "slug",
-            type: "string",
-            required: true,
-          },
-          {
-            Header: "Imagen Miniatura",
-            accessor: "imgMiniatura",
-            type: "image",
-          },
-          {
-            Header: "Imagen Banner",
-            accessor: "imgBanner",
-            type: "image",
-          },
-          {
-            Header: "Icon",
-            accessor: "icon",
-            type: "image",
-          },
-          {
-            Header: "Sub Categorias",
-            accessor: "subCategories",
-            type: "relationship",
-            tabList: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
-          },
-          {
-            Header: "Creado el",
-            accessor: "createdAt",
-            Cell: (props) => formatTime(props.value, "es"),
-          },
-        ],
-      }, */
-     /*  {
-        icon: <SubCategoriaIcon/>,
-        title: "Sub Categorias",
-        route: "subcategoriesPost",
-        getData: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
-        getByID: FetchGraphQL.subCategoryPost.getOneSubCategoryPost,
-        createEntry: FetchGraphQL.subCategoryPost.createSubCategoryPost,
-        updateEntry: FetchGraphQL.subCategoryPost.updateSubCategoryPost,
-        deleteEntry: FetchGraphQL.subCategoryPost.deleteSubCategoryPost,
-        visibleColumns: ["_id", "title", "slug", "createdAt"],
-        schema: [
-          {
-            Header: "Identificador",
-            accessor: "_id",
-          },
-          {
-            Header: "Titulo",
-            accessor: "title",
-            type: "string",
-            required: true,
-          },
-          {
-            Header: "Encabezado",
-            accessor: "heading",
-            type: "string",
-          },
-          {
-            Header: "Slug",
-            accessor: "slug",
-            type: "string",
-            required: true,
-          },
-          {
-            Header: "Imagen Miniatura",
-            accessor: "imgMiniatura",
-            type: "image",
-          },
-          {
-            Header: "Imagen Banner",
-            accessor: "imgBanner",
-            type: "image",
-          },
-          {
-            Header: "Icon",
-            accessor: "icon",
-            type: "image",
-          },
-          {
-            Header: "Creado el",
-            accessor: "createdAt",
-            Cell: (props) => formatTime(props.value, "es"),
-          },
-        ],
-      }, */
+       {
+         icon: <CategoriasIcon/>,
+         title: "Categorias",
+         route: "categoriesPosts",
+         getData: FetchGraphQL.categoryPost.getAllCategoryPost,
+         getByID: FetchGraphQL.categoryPost.getOneCategoryPost,
+         createEntry: FetchGraphQL.categoryPost.createCategoryPost,
+         updateEntry: FetchGraphQL.categoryPost.updateCategoryPost,
+         deleteEntry: FetchGraphQL.categoryPost.deleteCategoryPost,
+         visibleColumns: ["_id", "title", "slug", "createdAt"],
+         schema: [
+           {
+             Header: "Identificador",
+             accessor: "_id",
+           },
+           {
+             Header: "Titulo",
+             accessor: "title",
+             type: "string",
+             required: true,
+           },
+           {
+             Header: "Encabezado",
+             accessor: "heading",
+             type: "string",
+           },
+           {
+             Header: "Slug",
+             accessor: "slug",
+             type: "string",
+             required: true,
+           },
+           {
+             Header: "Imagen Miniatura",
+             accessor: "imgMiniatura",
+             type: "image",
+           },
+           {
+             Header: "Imagen Banner",
+             accessor: "imgBanner",
+             type: "image",
+           },
+           {
+             Header: "Icon",
+             accessor: "icon",
+             type: "image",
+           },
+           {
+             Header: "Sub Categorias",
+             accessor: "subCategories",
+             type: "relationship",
+             tabList: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
+           },
+           {
+             Header: "Creado el",
+             accessor: "createdAt",
+             Cell: (props) => formatTime(props.value, "es"),
+           },
+         ],
+       },
+       {
+         icon: <SubCategoriaIcon/>,
+         title: "Sub Categorias",
+         route: "subcategoriesPost",
+         getData: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
+         getByID: FetchGraphQL.subCategoryPost.getOneSubCategoryPost,
+         createEntry: FetchGraphQL.subCategoryPost.createSubCategoryPost,
+         updateEntry: FetchGraphQL.subCategoryPost.updateSubCategoryPost,
+         deleteEntry: FetchGraphQL.subCategoryPost.deleteSubCategoryPost,
+         visibleColumns: ["_id", "title", "slug", "createdAt"],
+         schema: [
+           {
+             Header: "Identificador",
+             accessor: "_id",
+           },
+           {
+             Header: "Titulo",
+             accessor: "title",
+             type: "string",
+             required: true,
+           },
+           {
+             Header: "Encabezado",
+             accessor: "heading",
+             type: "string",
+           },
+           {
+             Header: "Slug",
+             accessor: "slug",
+             type: "string",
+             required: true,
+           },
+           {
+             Header: "Imagen Miniatura",
+             accessor: "imgMiniatura",
+             type: "image",
+           },
+           {
+             Header: "Imagen Banner",
+             accessor: "imgBanner",
+             type: "image",
+           },
+           {
+             Header: "Icon",
+             accessor: "icon",
+             type: "image",
+           },
+           {
+             Header: "Creado el",
+             accessor: "createdAt",
+             Cell: (props) => formatTime(props.value, "es"),
+           },
+         ],
+       },
     ],
   },
-  /* {
+  {
     title: "Paginas",
     children: [
       {
-        icon: <Secciones2Icon/>,
+        icon: <Secciones2Icon />,
         title: "Secciones",
         route: "sections",
         getData: FetchGraphQL.sections.getAllPage,
@@ -1336,15 +1363,15 @@ export const CivitasStaticAPP = [
         ],
       },
     ]
-  }, */
-  /* {
-    title:"Configuracion",
-    children:[
+  },
+  {
+    title: "Configuracion",
+    children: [
       {
-        icon:<PermisosIcon/>,
-        title:"Permisos",
-        route:"page404"
+        icon: <PermisosIcon />,
+        title: "Permisos",
+        route: "page404"
       }
     ]
-  } */
+  }
 ];

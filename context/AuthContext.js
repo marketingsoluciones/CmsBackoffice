@@ -43,7 +43,7 @@ const AuthContext = createContext(initialContext);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(initialContext.user);
   const [state, dispatch] = useReducer(reducer, new Action("view", {}));
-  const [development, setDevelopment] = useState("bodasdehoy");
+  const [development, setDevelopment] = useState("Bodasdehoy.com");
 
 
 
