@@ -1,4 +1,4 @@
-import { api } from "utils/api";
+import { api } from "../utils/api";
 
 export const fetchApi = async (
   query = ``,
@@ -12,7 +12,7 @@ export const fetchApi = async (
     if (type === "json") {
       const {
         data: { data },
-      } = await api.GraphQL({query, variables});
+      } = await api.GraphQL({ query, variables });
       return Object.values(data)[0]
 
       //Form data
@@ -47,7 +47,7 @@ export const fetchApi = async (
 
       // Agregar filas al FORM DATA
 
-      formData.append("operations", JSON.stringify({query, variables}));
+      formData.append("operations", JSON.stringify({ query, variables }));
       formData.append("map", JSON.stringify(map));
       values.forEach((item) => {
         if (item[1] instanceof File) {
@@ -71,15 +71,15 @@ export const fetchApi = async (
 
       const {
         data: { data },
-      }  = await api.GraphQL(formData, {
+      } = await api.GraphQL(formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
       return Object.values(data)[0]
     }
-    
-};
+
+  };
 }
 
 export const FetchGraphQL = {
@@ -87,8 +87,8 @@ export const FetchGraphQL = {
   business: {
     // @READ Buscar todos los listing
     getBusinessAll: {
-      query: `query {
-              getAllBusinesses{
+      query: `query($development: String!) {
+              getAllBusinesses(development:$development){
                 total
                 results{
                   _id
@@ -190,7 +190,7 @@ export const FetchGraphQL = {
         }
       }`,
     },
-    
+
     // @READ Buscar según ID
     getBusinessByID: {
       query: `query ($id: ID) {
@@ -209,8 +209,8 @@ export const FetchGraphQL = {
     },
 
     // @CREATE Crear empresa
-    createBusiness : {
-      query : `mutation (
+    createBusiness: {
+      query: `mutation (
         $id : ID
         $slug: String
         $userUid: ID
@@ -242,6 +242,7 @@ export const FetchGraphQL = {
         $imgMiniatura : Upload
         $imgLogo : Upload
         $status: Boolean
+        $development: String!
       ){
         createBusinessCms(id: $id, args: {
           slug: $slug
@@ -274,6 +275,7 @@ export const FetchGraphQL = {
           imgMiniatura : $imgMiniatura
           imgLogo: $imgLogo
           status: $status
+          development: $development
         } ){
           _id
            
@@ -282,8 +284,8 @@ export const FetchGraphQL = {
     },
 
     // @UPDATE Actualizar empresa
-    updateBusiness : {
-      query : `mutation ($id :ID, $args: inputBusiness) {
+    updateBusiness: {
+      query: `mutation ($id :ID, $args: inputBusiness) {
         updateBusinessCms(_id: $id, args: $args){
            _id
         }
@@ -291,8 +293,8 @@ export const FetchGraphQL = {
     },
 
     // @DELETE Borrar empresa
-    deleteBusiness :{
-      query : `mutation ($id : [ID]){
+    deleteBusiness: {
+      query: `mutation ($id : [ID]){
         deleteBusinesses(id: $id)
       }`
     }
@@ -301,8 +303,8 @@ export const FetchGraphQL = {
   catBusiness: {
     // @READ Buscar todas las categorias
     getCategoryBusiness: {
-      query: `query{
-        getCategoryBusiness{
+      query: `query ($development: String!){
+        getCategoryBusiness (development: $development){
           total
           results{
             _id
@@ -366,7 +368,8 @@ export const FetchGraphQL = {
         $subCategories: [ID],
         $imgBanner : Upload
         $imgMiniatura : Upload
-        $icon : Upload
+        $icon : Upload,
+        $development: String!
       ) {
         createCategoryBusiness(args: {
           title: $title,
@@ -377,7 +380,8 @@ export const FetchGraphQL = {
           imgBanner : $imgBanner
           imgMiniatura : $imgMiniatura
           icon : $icon
-        }){
+        },
+        development: $development){
           _id
           title
         }
@@ -413,8 +417,8 @@ export const FetchGraphQL = {
   subCatBusiness: {
     // @READ Buscar todos los registros
     getSubCategoryBusiness: {
-      query: `query{
-        getSubCategoryBusiness{
+      query: `query($development: String!){
+        getSubCategoryBusiness(development:$development){
           total
           results{
             _id
@@ -475,19 +479,20 @@ export const FetchGraphQL = {
 
     //@CREATE Crear sub Categoria
     createSubCategoryBusiness: {
-      //done
       query: `mutation (
         $title: String,
         $heading :String,
         $slug: String,
         $description: String,
+        $development: String!
       ) {
         createSubCategoryBusiness(args: {
           title: $title,
           heading: $heading,
           slug: $slug,
           description: $description,
-        }){
+        },
+        development:$development){
           _id
           title
           heading
@@ -522,8 +527,8 @@ export const FetchGraphQL = {
   characteristics: {
     // @READ Buscar todos los registros
     getAllCharacteristics: {
-      query: `query {
-        getCharacteristics{
+      query: `query ($development: String!) {
+        getCharacteristics(development: $development){
           total
           results{
             _id
@@ -545,7 +550,6 @@ export const FetchGraphQL = {
       }`,
       variables: {},
     },
-
     // @READ Buscar caracteristica segun ID
     getOneCharacteristics: {
       query: `query ($id: ID) {
@@ -561,16 +565,14 @@ export const FetchGraphQL = {
           }
       }`,
     },
-
     //@CREATE create caracteristicas
     createCharacteristics: {
-      query: `mutation ($title: String, $icon : Upload, $items : [inputCharacteristicsItems] ){
-        createCharacteristics(args:{title: $title, icon : $icon, items: $items  }){
+      query: `mutation ($title: String, $icon : Upload, $items : [inputCharacteristicsItems], $development: String! ){
+        createCharacteristics(args:{title: $title, icon : $icon, items: $items }, development: $development){
           _id
         }
       }`,
     },
-
     //@DELETE eliminar caracteristica
     deleteCharacteristics: {
       //revisar
@@ -587,12 +589,13 @@ export const FetchGraphQL = {
       }`,
     },
   },
+
   //ENDPOINTS DE PREGUNTAS FRECUENTES
   questions: {
     // @READ Buscar todas las preguntas
     getAllQuestions: {
-      query: `query {
-      getQuestions{
+      query: `query($development: String!) {
+      getQuestions(development: $development){
         total
         results{
           _id
@@ -623,8 +626,9 @@ export const FetchGraphQL = {
       //revisar... error por no aceptar null
       query: `mutation (
         $title: String,
+        $development: String!
         ){
-        createQuestions(title: $title){
+        createQuestions(title: $title, development: $development){
           _id
           title
         }
@@ -656,8 +660,8 @@ export const FetchGraphQL = {
   posts: {
     // @READ Buscar todos los posts
     getAllPost: {
-      query: `query{
-        getAllPost{
+      query: `query($development: String!){
+        getAllPost(development: $development){
           total
           results{
             _id
@@ -674,8 +678,8 @@ export const FetchGraphQL = {
     },
 
     // @READ Buscar post por ID
-    getOnePost : {
-      query : `query ($id :ID) {
+    getOnePost: {
+      query: `query ($id :ID) {
         getOnePost(_id:$id){
           _id
           title
@@ -709,8 +713,8 @@ export const FetchGraphQL = {
     },
 
     // @CREATE Crear post
-    createPost : {
-      query : `mutation (
+    createPost: {
+      query: `mutation (
         $title: String,
         $subTitle :String,
         $content: String,
@@ -720,7 +724,8 @@ export const FetchGraphQL = {
         $tags :[String],
         $authorUsername :String,
         $imgCarrusel : [Upload],
-        $imgMiniatura : Upload
+        $imgMiniatura : Upload,
+        $development: String!
       ){
         createPost (args:{
           title: $title,
@@ -733,36 +738,37 @@ export const FetchGraphQL = {
           authorUsername :$authorUsername,
           imgCarrusel: $imgCarrusel,
           imgMiniatura : $imgMiniatura,
-        }){
+        },
+        development: $development){
           _id
         }
       }`
     },
 
     // @DELETE Eliminar post
-    deletePost : {
-      query : `mutation ($id :[ID]){
+    deletePost: {
+      query: `mutation ($id :[ID]){
         deletePost(_id: $id)
       }`
     },
 
     // @UPDATE Actualizar post
     updatePost: {
-      query :`mutation ($id :ID, $args : inputPost){
+      query: `mutation ($id :ID, $args : inputPost){
         updatePost(_id: $id, args:$args){
           _id
         }
       }`
     },
-    
+
   },
 
   //ENDPOINTS DE CATEGORIAS DE POSTS
   categoryPost: {
     // @READ Buscar todas las categorias
     getAllCategoryPost: {
-      query: `query{
-        getCategoryPost{
+      query: `query ($development: String!){
+        getCategoryPost(development: $development){
           total
           results{
             _id
@@ -815,8 +821,8 @@ export const FetchGraphQL = {
     },
 
     //@CREATE Crear categoria
-    createCategoryPost : {
-      query :`mutation ($title:String, $heading: String, $slug : String, $description: String, $imgMiniatura : Upload, $imgBanner :Upload, $icon: Upload, $subCategories: [ID] ) {
+    createCategoryPost: {
+      query: `mutation ($development: String! ,$title:String, $heading: String, $slug : String, $description: String, $imgMiniatura : Upload, $imgBanner :Upload, $icon: Upload, $subCategories: [ID] ) {
         createCategoryPost(args: {
           title: $title,
           heading: $heading,
@@ -826,21 +832,21 @@ export const FetchGraphQL = {
           imgBanner: $imgBanner,
           icon: $icon,
           subCategories: $subCategories
-        }){
+        }development:$development){
           _id
         }
       }`
     },
 
-    updateCategoryPost : {
-      query : `mutation ($id :ID, $args: inputCategoryPost ) {
+    updateCategoryPost: {
+      query: `mutation ($id :ID, $args: inputCategoryPost ) {
         updateCategoryPost(_id: $id, args: $args){
           _id
         }
       }`
     },
     deleteCategoryPost: {
-      query : `mutation ($id : [ID]) {
+      query: `mutation ($id : [ID]) {
         deleteCategoryPost(_id: $id)
       }`
     }
@@ -850,8 +856,8 @@ export const FetchGraphQL = {
   subCategoryPost: {
     // @READ Buscar todas las subcategorias
     getAllSubCategoryPost: {
-      query: `query {
-        getSubCategoryPost{
+      query: `query ($development: String!) {
+        getSubCategoryPost(development: $development){
           total
           results{
             _id
@@ -903,8 +909,8 @@ export const FetchGraphQL = {
     },
 
     // @CREATE Crear subcategoria
-    createSubCategoryPost : {
-      query : `mutation ($title :String, $heading :String, $slug:String, $description: String, $imgMiniatura: Upload, $imgBanner :Upload, $icon :Upload ){
+    createSubCategoryPost: {
+      query: `mutation ($development:String!, $title :String, $heading :String, $slug:String, $description: String, $imgMiniatura: Upload, $imgBanner :Upload, $icon :Upload ){
         createSubCategoryPost(args:{
           title :$title,
           heading: $heading,
@@ -913,22 +919,22 @@ export const FetchGraphQL = {
           imgMiniatura : $imgMiniatura,
           imgBanner : $imgBanner,
           icon : $icon
-        }){
+        }development:$development){
           _id
         }
       }`
     },
     //@UPDATE Actualizar subcategoria
-    updateSubCategoryPost : {
-      query : `mutation ($id: ID, $args :inputSubCategoryPost ){
+    updateSubCategoryPost: {
+      query: `mutation ($id: ID, $args :inputSubCategoryPost ){
         updateSubCategoryPost(_id: $id, args: $args){
           _id
         }
       }`
     },
 
-    deleteSubCategoryPost : {
-      query : `mutation ($id:[ID]) {
+    deleteSubCategoryPost: {
+      query: `mutation ($id:[ID]) {
         deleteSubCategoryPost(_id: $id)
       }`
     },
@@ -938,8 +944,8 @@ export const FetchGraphQL = {
   sections: {
 
     getAllPage: {
-      query: `query{
-        getAllPage{
+      query: `query($development: String!){
+        getAllPage(development: $development){
           total
           results{
             _id
@@ -969,7 +975,7 @@ export const FetchGraphQL = {
           createdAt
           updatedAt
         }
-      }` 
+      }`
     },
 
     createPage: {
@@ -992,7 +998,7 @@ export const FetchGraphQL = {
         {
           _id
         }
-      }` 
+      }`
     },
 
     deletePage: {
