@@ -26,19 +26,19 @@ export const Sidebar = ({ state }) => {
   const Options = [
     {
       title: "Bodasdehoy.com",
-      value: "Bodasdehoy.com"
+      value: "bodasdehoy"
     },
     {
       title: "DiarioCivitas.com",
-      value: "DiarioCivitas.com"
+      value: "diariocivitas"
     },
     {
       title: "AlquilaTuMaquinaria.com",
-      value: "AlquilaTuMaquinaria.com"
+      value: "alquilatumaquinaria"
     },
 
   ]
-
+  
   return (
     <Flex
       pos={"relative"}
@@ -81,11 +81,11 @@ export const Sidebar = ({ state }) => {
                 <Text pl={"0.1rem"} className={` text-tituloPrimario`}>{"Consorcio J.C"}</Text>
                 <div className="flex">
                   <Menu >
-                    <MenuButton w={"8rem"} display="flex">
-                      <Text noOfLines={1}>{development}</Text>
+                    <MenuButton  w={"8rem"}>
+                      <Text noOfLines={1} textAlign={"start"} ml={"2px"}>{development}</Text>
                     </MenuButton>
                     <ArrowDownIcon h={2} w={3}/>
-                    <MenuList p={"0"} fontSize={"sm"} ml={"8"}>
+                    <MenuList p={"0"} fontSize={"sm"} ml={""} justifyItems={"start"}>
                       {Options.map((item, idx) => (
                         <div key={idx}>
                           <MenuItem color={"gray.500"} onClick={() => setDevelopment(item.value)}>{item.title}</MenuItem>
@@ -96,7 +96,6 @@ export const Sidebar = ({ state }) => {
                   
                 </div>
               </div>
-
             </div>
 
 
@@ -118,7 +117,7 @@ export const Sidebar = ({ state }) => {
 
       <Flex flexDir={"column"} className="overflow-y-auto overflow-x-hidden">
         {(() => {
-          if (development === "Bodasdehoy.com") {
+          if (development === "bodasdehoy") {
             return (
               <>
                 {
@@ -156,7 +155,7 @@ export const Sidebar = ({ state }) => {
                 }
               </>
             )
-          } else if (development === "DiarioCivitas.com") {
+          } else if (development === "diariocivitas") {
             return (
               <>
                 {
@@ -194,7 +193,7 @@ export const Sidebar = ({ state }) => {
                 }
               </>
             )
-          } else if (development === "AlquilaTuMaquinaria.com") {
+          } else if (development === "alquilatumaquinaria") {
             return (
               <>estoy en atm</>
             )
