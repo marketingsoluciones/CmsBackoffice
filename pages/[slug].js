@@ -9,7 +9,6 @@ import { AuthContextProvider } from '../context/AuthContext'
 
 
 const Module = ({ slug, props }) => {
-console.log("props",props)
   const { state, dispatch } = AuthContextProvider()
 
   useEffect(() => {

@@ -43,7 +43,7 @@ export const PanelViewTable = ({ slug, state, dispatch }) => {
   };
 
   useEffect(() => {
-    console.log(1001, seteador)
+   /*  console.log(1001, seteador) */
   }, [seteador])
 
   return (
@@ -51,7 +51,6 @@ export const PanelViewTable = ({ slug, state, dispatch }) => {
 
       <div className="w-full px-5">
         <div className=" flex justify-between w-100%">
-
           <Box>
             <Heading fontSize={"2xl"} textTransform={"capitalize"} className="mt-2">
               {(() => {
@@ -99,22 +98,9 @@ export const PanelViewTable = ({ slug, state, dispatch }) => {
               })()}
             </Heading>
           </Box>
-
-          {/* <div className="flex gap-2 w-auto mt-2 " >
-              <button className="h-8 w-auto gap-2 border-2 border-gray-200 rounded-md flex justify-center items-center px-2">
-                <FiltrarIcon />
-                <Text className="text-sm">Juan Carlos</Text>
-                <ArrowDownIcon />
-              </button>
-              <button className="h-8 w-auto border-2 border-gray-200 rounded-md flex justify-center items-center px-2">
-                <OptionIcon />
-              </button>
-            </div> */}
-
         </div>
 
         <div className="flex justify-between w-100% relative">
-
           <button
             w={"fit-content"}
             px={"0.5rem"}
@@ -127,7 +113,7 @@ export const PanelViewTable = ({ slug, state, dispatch }) => {
             Añadir registro
           </button>
 
-          <div className=" absolute h-8  rounded-md px-2 flex items-center  border-gray-400 border-2  bottom-0 right-0 ">
+          <div className=" absolute h-8  rounded-md px-2 flex items-center  border-gray-400 border-2  bottom-0 right-0 w-1/3 ">
             <SearchIcon />
             <GlobalFilter
               globalFilter={global}

@@ -21,6 +21,7 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import { formatTime } from "../utils/formatTime";
 import { fetchApi } from "../utils/Fetching";
 import { AuthContextProvider } from "../context/AuthContext";
+import { ArrowLeft } from "./Icons/index"
 
 export const PanelEditAndCreate = ({ slug, setAction, state }) => {
 
@@ -32,36 +33,35 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const { user, development } = AuthContextProvider();
 
   useEffect(() => {
-      if (state.type === "edit") {
-        setQueryValues({
-          ...options?.getByID,
-          variables: { id: state.data._id },
-          type: "json",
-        });
-      }
-    
+    if (state.type === "edit") {
+      setQueryValues({
+        ...options?.getByID,
+        variables: { id: state.data._id },
+        type: "json",
+      });
+    }
+
   }, [state]);
 
   /* Fetch para crear */
   const fetchCreate = useCallback(
     async (values) => {
-      console.log(9999, values)
       try {
-          const data = await fetchApi(
-            options?.createEntry?.query,
+        const data = await fetchApi(
+          options?.createEntry?.query,
 
-            { ...values , development:development},
-            "formData"
-          );
-          if (data) {
-            toast({
-              status: "success",
-              title: "Operacion exitosa",
-              isClosable: true,
-            });
-            setAction({ type: "VIEW", payload: {} });
-          }
-        
+          { ...values, development: development },
+          "formData"
+        );
+        if (data) {
+          toast({
+            status: "success",
+            title: "Operacion exitosa",
+            isClosable: true,
+          });
+          setAction({ type: "VIEW", payload: {} });
+        }
+
       } catch (error) {
         toast({
           status: "error",
@@ -85,26 +85,25 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       ...values
     }) => {
       try {
-       
-          delete values.createdAt;
-          delete values.updatedAt;
-          const data = await fetchApi(
-            options?.updateEntry?.query,
-            { id: _id, args: values },
-            "formData"
-          );
-          console.log(data);
-          if (data) {
-            toast({
-              status: "success",
-              title: "Operacion exitosa",
-              isClosable: true,
-            });
-            setAction({ type: "VIEW", payload: {} });
-          } else {
-            throw new Error("Error en la peticion");
-          }
-        
+
+        delete values.createdAt;
+        delete values.updatedAt;
+        const data = await fetchApi(
+          options?.updateEntry?.query,
+          { id: _id, args: values },
+          "formData"
+        );
+        if (data) {
+          toast({
+            status: "success",
+            title: "Operacion exitosa",
+            isClosable: true,
+          });
+          setAction({ type: "VIEW", payload: {} });
+        } else {
+          throw new Error("Error en la peticion");
+        }
+
       } catch (error) {
         toast({
           status: "error",
@@ -126,10 +125,21 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   /* componente que indica la actualizacion y por quien se creo la empresa o post */
   const Information = [
     {
+      title: "Creado el",
+      value: "18/5/85"
+    },
+    {
       title: "Ultima Actualización",
       value: formatTime(valuesEdit?.updatedAt, "es"),
     },
-    { title: "Creado por", value: user.email },
+    {
+      title: "Creado por",
+      value: user.email
+    },
+    {
+      title: "Editado por",
+      value: user.email
+    },
   ];
 
   return (
@@ -141,44 +151,48 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
 
             {/* Titulo del componente */}
             <Box>
-              <Heading fontSize={"3xl"} as={"h1"} textTransform={"capitalize"}>
-                {valuesEdit?.businessName ||
-                  valuesEdit?.title ||
-                  "Crear Registro"}
-              </Heading>
+              <div className="flex items-center">
+
+                <button onClick={() => setAction({ type: "VIEW", payload: {} })}>
+                  <ArrowLeft />
+                </button>
+
+                <Heading fontSize={"3xl"} as={"h1"} marginX={"2"} textTransform={"capitalize"}>
+                  {valuesEdit?.businessName ||
+                    valuesEdit?.title ||
+                    "Crear Registro"}
+                </Heading>
+
+                <button
+                 
+                  
+                  color={"white"}
+                  fontWeight={"500"}
+                  _hover={{
+                    bg: "blue.700",
+                  }}
+                  className="bg-verde h-8 w-20 rounded-lg text-white"
+                  onClick={async () => {
+                    try {
+                      await refButton.current.handleSubmit();
+                      // setAction({ type: "VIEW", payload: {} })
+                    } catch (error) {
+                      console.log(error);
+                    }
+                  }}
+                >
+                  Guardar
+                </button>
+              </div>
+
               <Text fontSize={"xs"}>Identificador: {valuesEdit?._id}</Text>
             </Box>
 
             {/* Botones funcionales DESCARTAR O GUARDAR */}
             <Flex gap={"1rem"} alignItems={"center"}>
-              <utton
-                w={"fit-content"}
-                className="cursor-pointer bg-botonBack h-10 w-24 rounded-lg text-white flex justify-center items-center"
-                onClick={() => setAction({ type: "VIEW", payload: {} })}
-              >
-                Descartar
-              </utton>
 
-              <button
-                w={"fit-content"}
-                bg={"blue.600"}
-                color={"white"}
-                fontWeight={"500"}
-                _hover={{
-                  bg: "blue.700",
-                }}
-                className="bg-verde h-10 w-20 rounded-lg text-white"
-                onClick={async () => {
-                  try {
-                    await refButton.current.handleSubmit();
-                    // setAction({ type: "VIEW", payload: {} })
-                  } catch (error) {
-                    console.log(error);
-                  }
-                }}
-              >
-                Guardar
-              </button>
+
+
             </Flex>
           </Flex>
 
@@ -197,16 +211,16 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
               shadow={"sm"}
               rounded={"xl"}
             >
-        
-                  <FormDinamical
-                    schema={options?.schema}
-                    initialValues={valuesEdit}
-                    onSubmit={handleSubmit}
-                    ref={refButton}
-                    columns={["repeat(1, 1fr)", , , "repeat(3, 1fr)"]}
-                  />
-                
-         
+
+              <FormDinamical
+                schema={options?.schema}
+                initialValues={valuesEdit}
+                onSubmit={handleSubmit}
+                ref={refButton}
+                columns={["repeat(1, 1fr)", , , "repeat(3, 1fr)"]}
+              />
+
+
 
             </GridItem>
 

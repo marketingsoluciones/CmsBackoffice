@@ -742,7 +742,6 @@ export const CuadroItems = ({ title, info, tacs }) => {
 
                     <div className="grid grid-cols-4  justify-items-center py-2 gap-2">
                         {tacs?.map((item, idx) => {
-                            console.log("123", item)
 
                             return (
 

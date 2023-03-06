@@ -9,7 +9,7 @@ import { FindOptionBodas } from "../../components/Datatable/Columns";
 import { LoadingComponent } from "../../components/LoadingComponent";
 import { fetchApi } from "../../utils/Fetching";
 import { CuadroItems, CuadroImagenSmall, CuadroTituloSlug, CuadroInfoSimple, CuadroMultiInfo, CuadroContacto, CuadroSocial, CuadroImg } from "./CuadroInfo";
-import { LinkedinI, TwitterIconI, YoutubeIconI, WhatsappIconI, UserIcon, EmailIconn, PhoneMobile, WebSiteIcon, FacebookIcon2, InstagramIcon2 } from "../Icons/index";
+import { LinkedinI, TwitterIconI, YoutubeIconI, WhatsappIconI, UserIcon, EmailIconn, PhoneMobile, WebSiteIcon, FacebookIcon2, InstagramIcon2, ArrowLeft } from "../Icons/index";
 
 export const FormDinamicalNEW = ({ slug, setAction, state }) => {
 
@@ -46,7 +46,7 @@ export const FormDinamicalNEW = ({ slug, setAction, state }) => {
                     { id: _id, args: values },
                     "formData"
                 );
-                console.log(data);
+              
                 if (data) {
                     toast({
                         status: "success",
@@ -74,23 +74,26 @@ export const FormDinamicalNEW = ({ slug, setAction, state }) => {
         state.type === "edit" && fetchUpdate(values);
     };
 
-    //console.log(valuesEdit)
-    console.log(valuesEdit)
     return (
         <Flex flexDir={"column"} overflow={"auto"} maxH={"100%"} mb={"4rem"}>
             {!loadingValues && !errorValues ? (
                 <>
                     <div className="p-6">
-                        <div className="mb-7 flex  justify-between items-center">
-                            <div className="flex flex-col">
-                                <label className="text-3xl text-slate-600">{valuesEdit?.businessName || valuesEdit?.title}</label>
-                                <label className="text-sm text-slate-600">Resumen</label>
+                        <div className="flex flex-col mb-5">
+                            <div className="flex  items-center">
+
+                                <button onClick={() => setAction({ type: "VIEW", payload: {} })}>
+                                    <ArrowLeft />
+                                </button>
+
+                                <label className="mx-2 text-3xl text-slate-600">{valuesEdit?.businessName || valuesEdit?.title}</label>
+
+                                <button className="bg-verde h-8 w-16 rounded-lg text-white" onClick={() => setAction({ type: "EDIT", payload: { _id: valuesEdit?._id } })}>Editar</button>
                             </div>
-                            <div className="flex gap-2">
-                                <button className=" bg-botonBack h-10 w-20 rounded-lg text-white" onClick={() => setAction({ type: "VIEW", payload: {} })}>Volver</button>
-                                <button className="bg-verde h-10 w-20 rounded-lg text-white" onClick={() => setAction({ type: "EDIT", payload: { _id: valuesEdit?._id } })}>Editar</button>
-                            </div>
+
+                            <label className="text-sm text-slate-600 ml-9">Resumen</label>
                         </div>
+                        
 
                         {(() => {
                             switch (slug) {

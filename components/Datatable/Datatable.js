@@ -39,7 +39,7 @@ import { useRouter } from "next/router";
 
 export const Datatable = ({ isLoading, initialState, columns, data = [], handleRemoveItem, setAction, setSeteador, ...props }) => {
 
-  const {asPath} = useRouter()
+  const { asPath } = useRouter()
   const filterTypes = useMemo(
     () => ({
       text: (rows, id, filterValue) => {
@@ -156,63 +156,9 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
             </Text>
           </Button>
         )}
-        <Menu>
-          <Tooltip label={"Editar columnas"}>
-            <MenuButton>
-              <IconButton icon={<SettingsIcon />} />
-            </MenuButton>
-          </Tooltip>
-          <MenuList
-            h={"15rem"}
-            overflow={"auto"}
-            bg={"white"}
-            p={"1rem"}
-            rounded={"lg"}
-            shadow={"md"}
-          >
-            <Flex flexDir={"column"}>
-              <Heading as={"p"} fontSize={"sm"}>
-                Campos mostrados
-              </Heading>
-              <Divider paddingBlock={"0.3rem"} />
-              <FormLabel
-                paddingTop={"0.5rem"}
-                display={"flex"}
-                alignItems={"center"}
-                gap={"0.5rem"}
-                fontSize={"sm"}
-              >
-                <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} />
-                Seleccionar todos
-              </FormLabel>
-              {allColumns.map((column) => (
-                <FormLabel
-                  display={"flex"}
-                  alignItems={"center"}
-                  gap={"0.5rem"}
-                  fontSize={"sm"}
-                  
-                >
-                  <Checkbox
-                    type={"checkbox"}
-                    isChecked={column.getToggleHiddenProps().checked}
-                    {...column.getToggleHiddenProps()}                  
-                  />
-                  {typeof column.Header === "string"
-                    ? column.Header
-                    : column.id}
-                </FormLabel>
-              ))}
-            </Flex>
-          </MenuList>
-        </Menu>
+        
       </Flex> */}
-      {/* <div className="my-2  mr-11 flex justify-end ">
-        <GlobalFilter
-          globalFilter={globalFilter}
-          setGlobalFilter={setGlobalFilter}
-        />
-      </div> */}
+
 
 
       {!isLoading ? (
@@ -220,12 +166,10 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
           <Table {...getTableProps()} bg={"white"} >
             <Thead overflow={"auto"}   >
               {headerGroups.map((headerGroup, idx) => (
-
                 <Tr key={idx} {...headerGroup.getHeaderGroupProps()}  >
-
                   {headerGroup.headers.map((column, idx) => (
                     <Th
-                    key={idx}
+                      key={idx}
                       {...column.getHeaderProps(column.getSortByToggleProps())}
                     >
                       {column.render("Header")}
@@ -239,76 +183,115 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
                     </Th>
                   ))}
                   <Th display={"flex"} justifyContent={"center"} justifyItems={"center"}>
-                    <Menu>
-                      <Tooltip label={"Editar columnas"}>
-                        <MenuButton>
-                          <IconButton icon={<SettingsIcon />} />
-                        </MenuButton>
-                      </Tooltip>
-                      <MenuList
-                        h={"15rem"}
-                        overflow={"auto"}
-                        bg={"white"}
-                        p={"1rem"}
-                        rounded={"lg"}
-                        shadow={"md"}
-                      >
-                        <Flex flexDir={"column"}>
-                          <Heading as={"p"} fontSize={"sm"}>
-                            Campos mostrados
-                          </Heading>
-                          <Divider paddingBlock={"0.3rem"} />
-                          <FormLabel
-                            paddingTop={"0.5rem"}
-                            display={"flex"}
-                            alignItems={"center"}
-                            gap={"0.5rem"}
-                            fontSize={"sm"}
-                          >
-                            <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} />
-                            Seleccionar todos
-                          </FormLabel>
-                          {allColumns.map((column, idx) => (
-                            <FormLabel
-                              key={idx}
-                              display={"flex"}
-                              alignItems={"center"}
-                              gap={"0.5rem"}
-                              fontSize={"sm"}
-
+                    {(() => {
+                      if (selectedFlatRows.length > 0) {
+                        return (
+                          <>
+                            <Button
+                              transition={"all"}
+                              bg={"red.400"}
+                              color={"white"}
+                              _hover={{ bg: "red.500" }}
+                              onClick={() => {
+                                handleRemoveItem(selectedFlatRows.map(item => item.original._id))
+                              }}
                             >
-                              <Checkbox
-                                type={"checkbox"}
-                                isChecked={column.getToggleHiddenProps().checked}
-                                {...column.getToggleHiddenProps()}
-                              />
-                              {typeof column.Header === "string"
-                                ? column.Header
-                                : column.id}
-                            </FormLabel>
-                          ))}
-                        </Flex>
-                      </MenuList>
-                    </Menu>
+                              <Text
+                                display={"flex"}
+                                gap={"2px"}
+                                alignItems={"center"}
+                                justifyItems={"center"}
+                                w={"1.5px"}
+                                fontSize={"sm"}
+                                justifyContent={"center"}
+                                fontWeight={"medium"}
+                              >
+                                <DeleteIcon />
+                                {selectedFlatRows.length}
+                              </Text>
+                            </Button>
+                          </>
+                        )
+
+                      } else {
+                        return (<>
+                          <Menu>
+                            <Tooltip label={"Editar columnas"}>
+                              <MenuButton>
+                                <IconButton icon={<SettingsIcon />} />
+                              </MenuButton>
+                            </Tooltip>
+                            <MenuList
+                              h={"15rem"}
+                              overflow={"auto"}
+                              bg={"white"}
+                              p={"1rem"}
+                              rounded={"lg"}
+                              shadow={"md"}
+                            >
+                              <Flex flexDir={"column"}>
+                                <Heading as={"p"} fontSize={"sm"}>
+                                  Campos mostrados
+                                </Heading>
+                                <Divider paddingBlock={"0.3rem"} />
+                                <FormLabel
+                                  paddingTop={"0.5rem"}
+                                  display={"flex"}
+                                  alignItems={"center"}
+                                  gap={"0.5rem"}
+                                  fontSize={"sm"}
+                                >
+                                  <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} />
+                                  Seleccionar todos
+                                </FormLabel>
+                                {allColumns.map((column, idx) => (
+                                  <FormLabel
+                                    key={idx}
+                                    display={"flex"}
+                                    alignItems={"center"}
+                                    gap={"0.5rem"}
+                                    fontSize={"sm"}
+
+                                  >
+                                    <Checkbox
+                                      type={"checkbox"}
+                                      isChecked={column.getToggleHiddenProps().checked}
+                                      {...column.getToggleHiddenProps()}
+                                    />
+                                    {typeof column.Header === "string"
+                                      ? column.Header
+                                      : column.id}
+                                  </FormLabel>
+                                ))}
+                              </Flex>
+                            </MenuList>
+                          </Menu>
+                        </>)
+                      }
+                    })()}
                   </Th>
-
                 </Tr>
-
               ))}
-
             </Thead>
-
             <Tbody {...getTableBodyProps()} overflow={"auto"}>
               {page.map((row, i) => {
                 prepareRow(row);
-
-
                 return (
-
-                  <Tr fontSize={"xs"} {...row.getRowProps()} _hover={{ bg: "gray.100" }} className={`${row.isSelected && "bg-gray-100"}`}>
+                  <Tr key={i} fontSize={"xs"} {...row.getRowProps()} _hover={{ bg: "gray.100" }} className={`${row.isSelected && "bg-gray-100"}`}>
                     {row.cells.map((cell) => {
+                      const datacell = row.cells
+                      const check = datacell.find(box =>box.column.id === "selection")
+                      const others = datacell.find(box =>box.column.id !== "selection")
+                      console.log(cell)
                       return (
-                        <Td {...cell.getCellProps()} paddingY="0.9rem" paddingInlineEnd={"1rem"}  onClick={() => setAction( asPath!== "/questions"?{ type: "VIEWW", payload: { _id: row.original._id } }:{ type: "EDIT", payload: { _id: row.original._id } })}> <Text noOfLines={1} > {cell.render("Cell")}</Text></Td>
+                        <>
+                          
+                          <Td className="cursor-pointer" {...cell.getCellProps()} paddingY="0.9rem" paddingInlineEnd={"1rem"} onClick={() => setAction(asPath !== "/questions" ? { type: "VIEWW", payload: { _id: row.original._id } } : { type: "EDIT", payload: { _id: row.original._id } })}>
+                            <Text noOfLines={1} >
+                              {cell.render("Cell")}
+                            </Text>
+                          </Td>
+                        </>
                       );
                     })}
                     <Td

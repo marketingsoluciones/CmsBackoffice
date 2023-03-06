@@ -185,7 +185,6 @@ const QuestionsComponent = ({ data = [] }) => {
           acc.push({ questions: {_id : item[0]}, answers: item[1] });
         return acc;
       }, []);
-      console.log("reduce", reduce)
       values && setFieldValue("questionsAndAnswers", reduce);
     }
   }, [values.questionsAndAnswers2]);
