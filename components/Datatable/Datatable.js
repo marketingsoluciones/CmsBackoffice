@@ -35,11 +35,17 @@ import GlobalFilter from "../../components/Datatable/GlobalFilter";
 import { useMemo, useState, useEffect } from "react";
 import { ActionsCell } from "./ActionsCell";
 import { useRouter } from "next/router";
+import { ModalAlert,ModalMasivoAlert } from "../modals/Alert";
+
 
 
 export const Datatable = ({ isLoading, initialState, columns, data = [], handleRemoveItem, setAction, setSeteador, ...props }) => {
 
   const { asPath } = useRouter()
+  const [modal, setModal] = useState(false)
+  const [modalMasivo, setModalMasivo] = useState(false)
+  const [saveId, setSaveId] = useState("")
+
   const filterTypes = useMemo(
     () => ({
       text: (rows, id, filterValue) => {
@@ -128,38 +134,6 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
 
   return (
     <>
-      {/* <Flex justifyContent={"star"} gap={"1rem"} paddingBottom={"1rem"}>
-       
-        {selectedFlatRows.length > 0 && (
-          <Button
-            w={"fit-content"}
-            px={"1rem"}
-            transition={"all"}
-            bg={"red.400"}
-            color={"white"}
-            _hover={{ bg: "red.500" }}
-            onClick={() => {
-              handleRemoveItem(selectedFlatRows.map(item => item.original._id))
-            }}
-          >
-            <Text
-              display={"flex"}
-              alignItems={"center"}
-              gap={"0.5rem"}
-              w={"27rem"}
-              fontSize={"sm"}
-              justifyContent={"center"}
-              fontWeight={"medium"}
-            >
-              <DeleteIcon /> Eliminar registros seleccionados (
-              {selectedFlatRows.length})
-            </Text>
-          </Button>
-        )}
-        
-      </Flex> */}
-
-
 
       {!isLoading ? (
         <>
@@ -187,13 +161,17 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
                       if (selectedFlatRows.length > 0) {
                         return (
                           <>
+                            {modalMasivo ? (
+                              <ModalMasivoAlert  setModalMasivo={setModalMasivo} modalMasivo={modalMasivo} handleRemoveItem={handleRemoveItem}  onClickList={selectedFlatRows.map(item => item.original._id)} />
+                            ) : null}
+                            
                             <Button
                               transition={"all"}
                               bg={"red.400"}
                               color={"white"}
                               _hover={{ bg: "red.500" }}
                               onClick={() => {
-                                handleRemoveItem(selectedFlatRows.map(item => item.original._id))
+                                setModalMasivo(!modalMasivo)
                               }}
                             >
                               <Text
@@ -251,7 +229,6 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
                                     alignItems={"center"}
                                     gap={"0.5rem"}
                                     fontSize={"sm"}
-
                                   >
                                     <Checkbox
                                       type={"checkbox"}
@@ -274,19 +251,18 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
               ))}
             </Thead>
             <Tbody {...getTableBodyProps()} overflow={"auto"}>
-              {page.map((row, i) => {
+              {page.map((row, idx) => {
                 prepareRow(row);
+
+               
+
                 return (
-                  <Tr key={i} fontSize={"xs"} {...row.getRowProps()} _hover={{ bg: "gray.100" }} className={`${row.isSelected && "bg-gray-100"}`}>
-                    {row.cells.map((cell) => {
-                      const datacell = row.cells
-                      const check = datacell.find(box =>box.column.id === "selection")
-                      const others = datacell.find(box =>box.column.id !== "selection")
-                      console.log(cell)
+                  <Tr key={idx} fontSize={"xs"} {...row.getRowProps()} _hover={{ bg: "gray.100" }} className={`${row.isSelected && "bg-gray-100"}`}>
+                    {row.cells.map((cell , idx) => {
+                      
                       return (
                         <>
-                          
-                          <Td className="cursor-pointer" {...cell.getCellProps()} paddingY="0.9rem" paddingInlineEnd={"1rem"} onClick={() => setAction(asPath !== "/questions" ? { type: "VIEWW", payload: { _id: row.original._id } } : { type: "EDIT", payload: { _id: row.original._id } })}>
+                          <Td key={idx} className="cursor-pointer" {...cell.getCellProps()} paddingY="0.9rem" paddingInlineEnd={"1rem"} onClick={() => setAction(asPath !== "/questions" ? { type: "VIEWW", payload: { _id: row.original._id } } : { type: "EDIT", payload: { _id: row.original._id } })}>
                             <Text noOfLines={1} >
                               {cell.render("Cell")}
                             </Text>
@@ -299,7 +275,12 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
                       justifyContent={"center"}
                       justifyItems={"center"}
                     >
-                      <ActionsCell id={row.original._id} handleRemoveItem={handleRemoveItem} />
+                      {modal ? (
+                      <ModalAlert id={saveId} handleRemoveItem={handleRemoveItem} setModal={setModal} modal={modal} />
+                      ) : null}
+                      <button onClick={() => [setModal(!modal), setSaveId(row.original._id)]} className="cursor-pointer bg"  >
+                        <IconButton size={"sm"} icon={<DeleteIcon/>}  />
+                      </button>
                     </Td>
                   </Tr>
 

@@ -73,7 +73,6 @@ const FormLogin = () => {
       });
     }
 
-    console.log(values);
   };
   const initialValues = {
     email: "",

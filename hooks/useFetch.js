@@ -32,7 +32,6 @@ export const useFetch = (toast = false) => {
           const formData = new FormData();
           const values = Object?.entries(query.variables);
 
-          console.log(values);
           // Generar el map del Form Data para las imagenes
           const map = values?.reduce((acc, item) => {
             if (item[1] instanceof File) {

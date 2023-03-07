@@ -7,7 +7,6 @@ const prueba = () => {
         try {
         const url = "https://dev.bodasdehoy.com/event"
         const res = await axios.post(url)
-        console.log(res)
         } catch (error) {
             console.log(error);
         }

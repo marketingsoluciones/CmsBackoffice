@@ -148,7 +148,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
         <>
           {/* Header del componente */}
           <Flex justifyContent={"space-between"} paddingY={"2rem"} paddingX={"2rem"}>
-
             {/* Titulo del componente */}
             <Box>
               <div className="flex items-center">
@@ -187,13 +186,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
 
               <Text fontSize={"xs"}>Identificador: {valuesEdit?._id}</Text>
             </Box>
-
-            {/* Botones funcionales DESCARTAR O GUARDAR */}
-            <Flex gap={"1rem"} alignItems={"center"}>
-
-
-
-            </Flex>
           </Flex>
 
           {/* Cuerpo del componente Grilla */}

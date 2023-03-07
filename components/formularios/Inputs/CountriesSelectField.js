@@ -13,7 +13,6 @@ export const CounstriesSelectField = memo(({ label, ...props }) => {
         try {
             const { data } = await api.getAllCountries()
             const map = data?.map(item => ({ name: item?.translations?.spa?.common.toLowerCase() }))
-            console.log(map)
             setData(map)
         } catch (error) {
             console.log(error);

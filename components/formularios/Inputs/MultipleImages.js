@@ -38,7 +38,6 @@ export const MultipleImages = memo(({ label, ...props }) => {
       const arrayOfFiles = Object.values(file);
 
       arrayOfFiles?.forEach((item) => {
-        console.log(item);
         let reader = new FileReader();
         reader.onloadend = async () => {
           if (reader.result) {

@@ -19,7 +19,6 @@ export const fetchApi = async (
     } else if (type === "formData") {
       const formData = new FormData();
       const values = Object?.entries(variables);
-      console.log(values)
 
       // Generar el map del Form Data para las imagenes
       const map = values?.reduce((acc, item) => {
@@ -275,8 +274,8 @@ export const FetchGraphQL = {
           imgMiniatura : $imgMiniatura
           imgLogo: $imgLogo
           status: $status
-          development: $development
-        } ){
+          
+        }development: $development ){
           _id
            
         }

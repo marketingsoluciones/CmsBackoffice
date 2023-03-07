@@ -38,7 +38,7 @@ export const Sidebar = ({ state }) => {
     },
 
   ]
-  
+
   return (
     <Flex
       pos={"relative"}
@@ -81,10 +81,10 @@ export const Sidebar = ({ state }) => {
                 <Text pl={"0.1rem"} className={` text-tituloPrimario`}>{"Consorcio J.C"}</Text>
                 <div className="flex">
                   <Menu >
-                    <MenuButton  w={"8rem"}>
+                    <MenuButton w={"8rem"}>
                       <Text noOfLines={1} textAlign={"start"} ml={"2px"}>{development}</Text>
                     </MenuButton>
-                    <ArrowDownIcon h={2} w={3}/>
+                    <ArrowDownIcon h={2} w={3} />
                     <MenuList p={"0"} fontSize={"sm"} ml={""} justifyItems={"start"}>
                       {Options.map((item, idx) => (
                         <div key={idx}>
@@ -93,24 +93,9 @@ export const Sidebar = ({ state }) => {
                       ))}
                     </MenuList>
                   </Menu>
-                  
                 </div>
               </div>
             </div>
-
-
-
-            {/* <Avatar size={"sm"} />
-
-            <div>
-              <Text className={`${state ? "block" : "hidden"} ml-1 text-tituloPrimario`}>{"Consorcio J.C"}</Text>
-              <select value={development} onChange={(e) => setDevelopment(e.target.value)} className={` ${state ? "block" : "hidden"} w-36 rounded py-1 truncate bg-transparent focus:outline-none cursor-pointer `}>
-                <option value={"bodasdehoy"}>Bodasdehoy.com</option>
-                <option value={"diario"}>DiarioCivitas.com</option>
-                <option value={"atm"}>AlquilaTuMaquinaria.com</option>
-              </select>
-            </div> */}
-
           </div>
         </Tooltip>
       </Flex>
