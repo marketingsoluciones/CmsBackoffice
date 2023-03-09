@@ -4,8 +4,6 @@ import {
     Flex,
 } from "@chakra-ui/react";
 import { Markup } from "interweave";
-import QuestionInputsForBusiness from "../formularios/Inputs/QuestionInputsForBusiness";
-import { useState } from "react";
 
 export const CuadroInfoSimple = ({ info, icon, title }) => {
     return (
@@ -261,9 +259,6 @@ export const CuadroImagenSmall = ({ title, imgBanner, imgMiniatura, imgIcon, img
                 <div className="flex justify-between px-4  mb-4">
                     <label className="text-2xl text-slate-600">{title}</label>
                 </div>
-
-
-
                 <div className="grid grid-cols-3 py-2 gap-6">
                     {(() => {
                         if (imgBanner?.i320) {
@@ -383,7 +378,7 @@ export const CuadroImagenSmall = ({ title, imgBanner, imgMiniatura, imgIcon, img
                         if (imgIcon?.i320) {
                             return (
                                 <div className={`${imgIcon?.i320 ? "block" : "hidden"}`}>
-                                    <label className="text-slate-600 text-lg">Imagen Banner</label>
+                                    <label className="text-slate-600 text-lg">Imagen Icono</label>
                                     <Flex
                                         alignItems={"center"}
                                         justifyContent={"center"}
@@ -410,7 +405,7 @@ export const CuadroImagenSmall = ({ title, imgBanner, imgMiniatura, imgIcon, img
                         } else if (imgIcon?.i640) {
                             return (
                                 <div className={`${imgIcon?.i640 ? "block" : "hidden"}`}>
-                                    <label className="text-slate-600 text-lg">Imagen Banner</label>
+                                    <label className="text-slate-600 text-lg">Imagen Icono</label>
                                     <Flex
                                         alignItems={"center"}
                                         justifyContent={"center"}
@@ -437,7 +432,7 @@ export const CuadroImagenSmall = ({ title, imgBanner, imgMiniatura, imgIcon, img
                         } else if (imgIcon?.i800) {
                             return (
                                 <div className={`${imgIcon?.i800 ? "block" : "hidden"}`}>
-                                    <label className="text-slate-600 text-lg">Imagen Banner</label>
+                                    <label className="text-slate-600 text-lg">Imagen Icono</label>
                                     <Flex
                                         alignItems={"center"}
                                         justifyContent={"center"}
@@ -464,7 +459,7 @@ export const CuadroImagenSmall = ({ title, imgBanner, imgMiniatura, imgIcon, img
                         } else if (imgIcon?.i1024) {
                             return (
                                 <div className={`${imgIcon?.i1024 ? "block" : "hidden"}`}>
-                                    <label className="text-slate-600 text-lg">Imagen Banner</label>
+                                    <label className="text-slate-600 text-lg">Imagen Icono</label>
                                     <Flex
                                         alignItems={"center"}
                                         justifyContent={"center"}
@@ -497,7 +492,7 @@ export const CuadroImagenSmall = ({ title, imgBanner, imgMiniatura, imgIcon, img
                         if (imgMiniatura?.i320) {
                             return (
                                 <div className={`${imgMiniatura?.i320 ? "block" : "hidden"}`}>
-                                    <label className="text-slate-600 text-lg">Imagen Banner</label>
+                                    <label className="text-slate-600 text-lg">Imagen Miniatura</label>
                                     <Flex
                                         alignItems={"center"}
                                         justifyContent={"center"}
@@ -524,7 +519,7 @@ export const CuadroImagenSmall = ({ title, imgBanner, imgMiniatura, imgIcon, img
                         } else if (imgMiniatura?.i640) {
                             return (
                                 <div className={`${imgMiniatura?.i640 ? "block" : "hidden"}`}>
-                                    <label className="text-slate-600 text-lg">Imagen Banner</label>
+                                    <label className="text-slate-600 text-lg">Imagen Miniatura</label>
                                     <Flex
                                         alignItems={"center"}
                                         justifyContent={"center"}
@@ -551,7 +546,7 @@ export const CuadroImagenSmall = ({ title, imgBanner, imgMiniatura, imgIcon, img
                         } else if (imgMiniatura?.i800) {
                             return (
                                 <div className={`${imgMiniatura?.i800 ? "block" : "hidden"}`}>
-                                    <label className="text-slate-600 text-lg">Imagen Banner</label>
+                                    <label className="text-slate-600 text-lg">Imagen Miniatura</label>
                                     <Flex
                                         alignItems={"center"}
                                         justifyContent={"center"}
@@ -578,7 +573,7 @@ export const CuadroImagenSmall = ({ title, imgBanner, imgMiniatura, imgIcon, img
                         } else if (imgMiniatura?.i1024) {
                             return (
                                 <div className={`${imgMiniatura?.i1024 ? "block" : "hidden"}`}>
-                                    <label className="text-slate-600 text-lg">Imagen Banner</label>
+                                    <label className="text-slate-600 text-lg">Imagen Miniatura</label>
                                     <Flex
                                         alignItems={"center"}
                                         justifyContent={"center"}
@@ -605,11 +600,12 @@ export const CuadroImagenSmall = ({ title, imgBanner, imgMiniatura, imgIcon, img
                         } else {
                         }
                     })()}
-                     {(() => {
+
+                    {(() => {
                         if (imgLogo?.i320) {
                             return (
                                 <div className={`${imgLogo?.i320 ? "block" : "hidden"}`}>
-                                    <label className="text-slate-600 text-lg">Imagen Banner</label>
+                                    <label className="text-slate-600 text-lg">Imagen Logo</label>
                                     <Flex
                                         alignItems={"center"}
                                         justifyContent={"center"}
@@ -636,7 +632,7 @@ export const CuadroImagenSmall = ({ title, imgBanner, imgMiniatura, imgIcon, img
                         } else if (imgLogo?.i640) {
                             return (
                                 <div className={`${imgLogo?.i640 ? "block" : "hidden"}`}>
-                                    <label className="text-slate-600 text-lg">Imagen Banner</label>
+                                    <label className="text-slate-600 text-lg">Imagen Logo</label>
                                     <Flex
                                         alignItems={"center"}
                                         justifyContent={"center"}
@@ -663,7 +659,7 @@ export const CuadroImagenSmall = ({ title, imgBanner, imgMiniatura, imgIcon, img
                         } else if (imgLogo?.i800) {
                             return (
                                 <div className={`${imgLogo?.i800 ? "block" : "hidden"}`}>
-                                    <label className="text-slate-600 text-lg">Imagen Banner</label>
+                                    <label className="text-slate-600 text-lg">Imagen Logo</label>
                                     <Flex
                                         alignItems={"center"}
                                         justifyContent={"center"}
@@ -690,7 +686,7 @@ export const CuadroImagenSmall = ({ title, imgBanner, imgMiniatura, imgIcon, img
                         } else if (imgLogo?.i1024) {
                             return (
                                 <div className={`${imgLogo?.i1024 ? "block" : "hidden"}`}>
-                                    <label className="text-slate-600 text-lg">Imagen Banner</label>
+                                    <label className="text-slate-600 text-lg">Imagen Logo</label>
                                     <Flex
                                         alignItems={"center"}
                                         justifyContent={"center"}
@@ -718,8 +714,6 @@ export const CuadroImagenSmall = ({ title, imgBanner, imgMiniatura, imgIcon, img
                         }
                     })()}
                 </div>
-
-
             </div>
         </>
     )
@@ -732,29 +726,18 @@ export const CuadroItems = ({ title, info, tacs }) => {
                 <div className="flex justify-between px-4  mb-4">
                     <label className="text-2xl text-slate-600">{title}</label>
                 </div>
-
                 <div className="flex flex-col px-8 pt-4">
                     <label className="text-slate-600 pb-2 ">{info}</label>
-
-
-
-
-
                     <div className="grid grid-cols-4  justify-items-center py-2 gap-2">
                         {tacs?.map((item, idx) => {
-
                             return (
-
                                 <div key={idx} className=" w-max text-sm    p-2 bg-gray-100 rounded-lg ">
                                     <label className="text-tituloSecundario" >{item.title}</label>
                                 </div>
-
                             )
-
                         })}
                     </div>
                 </div>
-
             </div>
         </>
     )

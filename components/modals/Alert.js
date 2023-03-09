@@ -63,7 +63,7 @@ export const ModalMasivoAlert = ({ setModalMasivo, modalMasivo, onClickList, han
 
             {/* <ClickAwayListener onClickAway={() => setModal(!modal)}> */}
             <div className="space-y-4 bg-white w-max h-fit shadow-lg fixed m-auto inset-0 z-50 rounded-xl px-10 py-5">
-                <h1 className="text-xl ">Estas seguro de que deseas eliminar este registro ?</h1>
+                <h1 className="text-xl ">Estas seguro de que deseas eliminar estos registros ?</h1>
                 <div className="flex justify-center items-center gap-3">
                     <button className="bg-botonBack h-10 w-20 rounded-lg text-white" onClick={() => setModalMasivo(!modalMasivo)}>Descartar</button>
                     <Button

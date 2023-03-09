@@ -153,9 +153,9 @@ const Search = ({ panTo, center }) => {
           bg={"white"}
           w={"full"}
         >
-          {data.map((item, idx) => (
+          {data.map((item) => (
             <ListItem
-              key={idx}
+              key={item.id}
               paddingBlock={"0.5rem"}
               fontSize={"sm"}
 

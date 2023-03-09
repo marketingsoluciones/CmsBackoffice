@@ -4,11 +4,9 @@ import {
   Button,
   Divider,
   Flex,
-  FormLabel,
   Grid,
   GridItem,
   Heading,
-  Switch,
   Text,
   useToast,
 } from "@chakra-ui/react";
@@ -36,7 +34,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
     if (state.type === "edit") {
       setQueryValues({
         ...options?.getByID,
-        variables: { id: state.data._id },
+        variables: { id: state.data._id  },
         type: "json",
       });
     }
@@ -147,7 +145,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       {!loadingValues && !errorValues ? (
         <>
           {/* Header del componente */}
-          <Flex justifyContent={"space-between"} paddingY={"2rem"} paddingX={"2rem"}>
+          <Flex justifyContent={"space-between"}   className="mb-5 px-5 mt-2"> 
             {/* Titulo del componente */}
             <Box>
               <div className="flex items-center">
@@ -156,11 +154,11 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                   <ArrowLeft />
                 </button>
 
-                <Heading fontSize={"3xl"} as={"h1"} marginX={"2"} textTransform={"capitalize"}>
+                <div className="text-slate-600 mx-2  text-3xl" fontSize={"3xl"} as={"h1"} marginX={"2"} textTransform={"capitalize"} >
                   {valuesEdit?.businessName ||
                     valuesEdit?.title ||
                     "Crear Registro"}
-                </Heading>
+                </div >
 
                 <button
                  
@@ -184,7 +182,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                 </button>
               </div>
 
-              <Text fontSize={"xs"}>Identificador: {valuesEdit?._id}</Text>
+              <Text  className="ml-9 text-slate-600 text-sm ">Identificador: {valuesEdit?._id}</Text>
             </Box>
           </Flex>
 
@@ -203,7 +201,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
               shadow={"sm"}
               rounded={"xl"}
             >
-
               <FormDinamical
                 schema={options?.schema}
                 initialValues={valuesEdit}
@@ -211,9 +208,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                 ref={refButton}
                 columns={["repeat(1, 1fr)", , , "repeat(3, 1fr)"]}
               />
-
-
-
             </GridItem>
 
             <GridItem

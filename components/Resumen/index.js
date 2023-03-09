@@ -78,8 +78,8 @@ export const FormDinamicalNEW = ({ slug, setAction, state }) => {
         <Flex flexDir={"column"} overflow={"auto"} maxH={"100%"} mb={"4rem"}>
             {!loadingValues && !errorValues ? (
                 <>
-                    <div className="p-6">
-                        <div className="flex flex-col mb-5">
+                    <div className="px-5">
+                        <div className="flex flex-col mb-5 mt-2">
                             <div className="flex  items-center">
 
                                 <button onClick={() => setAction({ type: "VIEW", payload: {} })}>
@@ -348,29 +348,3 @@ export const FormDinamicalNEW = ({ slug, setAction, state }) => {
     );
 };
 
-/* const ButtonDeleteEntry = ({ values, options }) => {
-    const [data, isLoading, isError, setQuery] = useFetch(true);
-
-    const handleRemove = () => {
-        setQuery({
-            ...options.deleteEntry,
-            variables: { id: values?._id },
-            type: "json",
-        });
-    };
-
-    return (
-        <Button
-            bg={"white"}
-            rounded={"xl"}
-            size={"sm"}
-            w={"100%"}
-            color={"red.500"}
-            leftIcon={<DeleteIcon />}
-            isLoading={isLoading}
-            onClick={handleRemove}
-        >
-            Eliminar entrada
-        </Button>
-    );
-}; */

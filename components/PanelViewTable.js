@@ -52,11 +52,12 @@ export const PanelViewTable = ({ slug, state, dispatch }) => {
       <div className="w-full px-5">
         <div className=" flex justify-between w-100%">
           <Box>
-            <Heading fontSize={"2xl"} textTransform={"capitalize"} className="mt-2">
+           {/*  <Heading  textTransform={"capitalize"} className="mt-2 text-3xl"> */}
+           <div className="text-slate-600 mt-2 text-3xl">
               {(() => {
                 if (selected?.title === "Marcas") {
                   return (
-                    <Text>Empresas/{selected?.title}</Text>
+                    <Text className="">Empresas/{selected?.title}</Text>
                   )
                 } else if (selected?.route === "categoryBusiness") {
                   return (
@@ -96,14 +97,13 @@ export const PanelViewTable = ({ slug, state, dispatch }) => {
                   )
                 }
               })()}
-            </Heading>
+              </div>
+        {/*     </Heading> */}
           </Box>
         </div>
 
         <div className="flex justify-between w-100% relative">
           <button
-            w={"fit-content"}
-            px={"0.5rem"}
             color={"white"}
             fontWeight={"400"}
             _hover={"green.500"}

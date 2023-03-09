@@ -1,14 +1,4 @@
-import {
-  Box,
-  Flex,
-  FormLabel,
-  Input,
-  Square,
-  Text,
-  Image,
-  Icon,
-  IconButton,
-} from "@chakra-ui/react";
+import {Box,Flex,FormLabel,Input,Square,Text,Image,IconButton,} from "@chakra-ui/react";
 import { useField } from "formik";
 import { memo, useEffect, useState } from "react";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -31,7 +21,6 @@ export const MultipleImages = memo(({ label, ...props }) => {
     field.value && setImage(field.value)
   }, []);
   
-
   const handleChange = async (e) => {
     try {
       let file = e.target.files;
@@ -61,9 +50,23 @@ export const MultipleImages = memo(({ label, ...props }) => {
   const handleRemove = (id) => {
     setImage((old) => old.filter((item) => item._id !== id));
   };
+
   return (
     <Box>
-      {label}
+      <FormLabel
+        fontWeight={"900"}
+        textAlign={"left"}
+        fontSize={"sm"}
+      >
+        <Flex gap={"0.3rem"} alignItems={"center"}>
+          {label}{" "}
+          {meta.touched && meta.error && (
+            <Text color={"red"} fontSize={"xs"} fontWeight={"500"}>
+              {meta.error}
+            </Text>
+          )}
+        </Flex>
+      </FormLabel>
       <Flex
         alignItems={"center"}
         w={"100%"}
@@ -158,43 +161,6 @@ export const MultipleImages = memo(({ label, ...props }) => {
             )
           }
         })}
-
-
-      {/* {field?.value?.length > 0 && field?.value?.map((item, idx) => {
-            if (item.i640) {
-              return (
-                <Square
-                  key={idx}
-                  shadow={"md"}
-                  h={"8rem"}
-                  w={"8rem"}
-                  rounded={"lg"}
-                  border={"1px solid"}
-                  borderColor={"gray.100"}
-                  pos={"relative"}
-                >
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_BASE_URL}${item?.i640}`}
-                    objectFit={"contain"}
-                    pos={"absolute"}
-                    h={"100%"}
-                    w={"100%"}
-                  />
-                  <IconButton
-                    onClick={() => handleRemove(item._id)}
-                    size={"xs"}
-                    pos={"absolute"}
-                    bottom={"2"}
-                    right={"2"}
-                    icon={<DeleteIcon />}
-                  />
-                </Square>
-              )
-            }
-          })} */}
-
-
-        
       </Flex>
     </Box>
   );

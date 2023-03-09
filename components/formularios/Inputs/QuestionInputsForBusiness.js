@@ -22,9 +22,10 @@ import { FetchGraphQL } from "../../../utils/Fetching";
 import {useFormikContext} from 'formik'
 import {InputField} from '../../../components/formularios/Inputs/InputField'
 import { memo } from "react";
+import { AuthContextProvider } from "../../../context/AuthContext";
 
 const queryResults = `query ($id: [inputObjectID]){
-  getQuestionsAndCharacteristics(_id: $id,){
+  getQuestionsAndCharacteristics(_id: $id){
     characteristics{
       _id
       title
@@ -41,19 +42,21 @@ const queryResults = `query ($id: [inputObjectID]){
 }`;
 
 const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) => {
+  const {development} = AuthContextProvider()
   const [field, meta, helpers] = useField(props);
 
   //Fetching de lista de subcategorias
   const [catBusiness, isError, isLoading, setQueryTabList] = useFetch();
   //Fetching de questions y characteristics
-  const [results, isErrorResults, isLoadingResults, setQueryResults] =
-    useFetch();
+  const [results, isErrorResults, isLoadingResults, setQueryResults] = useFetch();
+  console.log(1111,results)
+  console.log(1112,isErrorResults)
 
   // Al montar el componente traer las subcategorias para listar
   useEffect(() => {
     setQueryTabList({
       ...FetchGraphQL.subCatBusiness.getSubCategoryBusiness,
-      variables: {},
+      variables: {development: development},
       type: "json",
     });
   }, []);
@@ -62,8 +65,6 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
     const r = selection?.filter(select => select === options._id)
     return r
   }
-
- 
 
   // Cada vez que cambie la seleccion de categorias solicitar preguntas y caracteristicas
   useEffect(() => {
@@ -75,9 +76,6 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
       });
     }
   }, [field.value]);
-  
-
- 
 
   return (
     <Box w={"100%"}>

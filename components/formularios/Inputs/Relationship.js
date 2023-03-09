@@ -11,13 +11,15 @@ import {
 import { FieldArray, useField } from "formik";
 import { useFetch } from "../../../hooks/useFetch";
 import { useEffect, memo } from "react";
+import { AuthContextProvider } from "../../../context/AuthContext"
 
 const Relationship = memo(({ label, tabList = {}, ...props }) => {
+  const {development} = AuthContextProvider()
   const [field, meta, helpers] = useField(props);
   const [dataTabList, isError, isLoading, setQueryTabList] = useFetch();
 
   useEffect(() => {
-    setQueryTabList({ ...tabList, variables: {}, type: "json" });
+    setQueryTabList({ ...tabList, variables: {development: development}, type: "json" });
   }, []);
 
   useEffect(() => {

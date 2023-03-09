@@ -274,7 +274,6 @@ export const FetchGraphQL = {
           imgMiniatura : $imgMiniatura
           imgLogo: $imgLogo
           status: $status
-          
         }development: $development ){
           _id
            

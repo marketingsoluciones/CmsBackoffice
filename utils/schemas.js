@@ -60,21 +60,26 @@ export const BodyStaticAPP = [
             Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
+            required: true,
           },
           {
             Header: "Logotipo",
             accessor: "imgLogo",
             type: "image",
+            required: true,
           },
           {
             Header: "Carrusel de imagenes",
             accessor: "imgCarrusel",
             type: "imageMultiple",
+           /*  required: true,
+ */
           },
           {
             Header: "Contenido",
             accessor: "content",
             type: "ckeditor",
+            required: true,
           },
           {
             Header: "ID",
@@ -88,16 +93,19 @@ export const BodyStaticAPP = [
             Header: "Elegir categorias",
             accessor: "subCategories",
             type: "questions",
+            required: true,
           },
           {
             Header: "Nombre de contacto",
             accessor: "contactName",
             type: "string",
+            required: true,
           },
           {
             Header: "Email de contacto",
             accessor: "contactEmail",
             type: "email",
+            required: true,
           },
           {
             Header: "Telefono fijo",
@@ -143,11 +151,14 @@ export const BodyStaticAPP = [
             Header: "País",//
             accessor: "country",
             type: "country",
+            required: true,
           },
           {
             Header: "Ciudad",//
             accessor: "city",
             type: "string",
+            required: true,
+
           },
           {
             Header: "Codigo Postal",
@@ -158,6 +169,8 @@ export const BodyStaticAPP = [
             Header: "Direccion",//
             accessor: "address",
             type: "stringL",
+            required: true,
+
           },
           {
             Header: "Fase",
@@ -175,7 +188,9 @@ export const BodyStaticAPP = [
           {
             Header: "Ubicacion exacta",
             accessor: "coordinates",
-            type: "maps"
+            type: "maps",
+            required: true,
+
           },
 
         ],
@@ -223,7 +238,9 @@ export const BodyStaticAPP = [
             Header: "Icono",
             accessor: "icon",
             type: "image",
-            typeFile: "svg"
+            typeFile: "svg",
+            required: true,
+
           },
           {
             Header: "Sub Categorias",
@@ -281,17 +298,23 @@ export const BodyStaticAPP = [
             Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
+            required: true,
+
           },
           {
             Header: "Imagen Banner",
             accessor: "imgBanner",
             type: "image",
+            required: true,
+
           },
           {
             Header: "Icono",
             accessor: "icon",
             type: "image",
-            typeFile: "svg"
+            typeFile: "svg",
+            required: true,
+
           },
           {
             Header: "Descripcion",
@@ -345,7 +368,7 @@ export const BodyStaticAPP = [
             Header: "Elementos",
             accessor: "items",
             type: "fieldArray",
-            schema: "object"
+            schema: "object",
           },
           {
             Header: "Creado el",

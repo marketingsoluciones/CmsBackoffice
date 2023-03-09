@@ -41,6 +41,9 @@ export const FormDinamical = forwardRef(
         case "string":
           acc[accessor] = "";
           break;
+        case "stringL":
+          acc[accessor] = "";
+          break;
         case "email":
           acc[accessor] = "";
           break;
@@ -53,10 +56,11 @@ export const FormDinamical = forwardRef(
         case "image":
           acc[accessor] = null;
           break;
-
+        case "imageMultiple":
+          acc[accessor] = "";
+          break;
         default:
           if (type) acc[accessor] = undefined
-          break;
           break;
       }
       return acc;
@@ -65,6 +69,8 @@ export const FormDinamical = forwardRef(
     const ValidationOptions = {
       ckeditor: Yup.string().nullable(),
       string: Yup.string().nullable(),
+      image: Yup.string().nullable(),
+      stringL: Yup.string().nullable(),
       email: Yup.string().email().nullable(),
       url: Yup.string().matches(
         /^[a-zA-Z0-9][a-zA-Z0-9-_:/?#=]{0,61}[a-zA-Z0-9]{0,1}\.([a-zA-Z]{2,6}|[a-zA-Z0-9-]{1,30}\.[a-zA-Z]{2,3})/,
@@ -75,7 +81,9 @@ export const FormDinamical = forwardRef(
       relationship: Yup.array().of(Yup.string()).nullable(),
       questions: Yup.array().of(Yup.object().shape({
         _id: Yup.string()
-      })).nullable()
+      })).nullable(),
+      imageMultiple: Yup.array().of(Yup.string()).nullable(),
+      textarea: Yup.string().nullable(),
     };
 
     const dynamicalValidationSchema = schema?.reduce((acc, field) => {
@@ -197,11 +205,16 @@ export const FormDinamical = forwardRef(
                             break;
                           case "textarea":
                             return (
+                              <GridItem colSpan={[1, , , 3]}>
+
                               <TextareaField
                                 key={idx}
                                 name={item.accessor}
                                 label={item.Header}
+                                
                               />
+                              </GridItem>
+
                             );
                             break;
                           case "ckeditor":
@@ -288,11 +301,15 @@ export const FormDinamical = forwardRef(
                             break;
                           case "country":
                             return (
-                              <CounstriesSelectField
-                                key={idx}
-                                name={item.accessor}
-                                label={item.Header}
-                              />
+                              <GridItem colSpan={[1, , , 1]}>
+
+                                <CounstriesSelectField
+                                  key={idx}
+                                  name={item.accessor}
+                                  label={item.Header}
+                                />
+                              </GridItem>
+
                             );
                             break;
                           case "fieldArray":
