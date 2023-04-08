@@ -1,10 +1,10 @@
 import { api } from "../utils/api";
 
-export const fetchApi = async (
+export const fetchApi = async ({
   query = ``,
   variables = {},
   type = "json"
-) => {
+}) => {
   if (query) {
     // Determinar si se usara json o form data
 
@@ -79,6 +79,28 @@ export const fetchApi = async (
     }
 
   };
+}
+
+export const queries = {
+  getUser: `query ($uid: ID) {
+        getUser(uid:$uid){
+          phoneNumber
+          role
+          typeRole
+          city
+          country
+          weddingDate
+          signUpProgress
+          status
+          createdAt
+          updatedAt
+        }
+      }`,
+  authStatus: `mutation ($sessionCookie : String){
+        status(sessionCookie: $sessionCookie){
+          customToken
+        }
+      }`,
 }
 
 export const FetchGraphQL = {

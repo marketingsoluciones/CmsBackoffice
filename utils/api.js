@@ -1,12 +1,13 @@
 import axios from "axios"
 
-const instance = axios.create({baseURL : process.env.NEXT_PUBLIC_BASE_URL})
+const instance = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL })
 
 export const api = {
-    GraphQL : async (data, config) => {
+    GraphQL: async (data, config) => {
+        console.log(12345678, data, config)
         return await instance.post("/graphql", data, config)
     },
-    getAllCountries : async () => {
+    getAllCountries: async () => {
         return await axios.get('https://restcountries.com/v3.1/all')
     }
 }

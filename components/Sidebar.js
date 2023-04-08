@@ -22,7 +22,7 @@ import { ArrowDownIcon } from "./../components/Icons/index";
 export const Sidebar = ({ state }) => {
   const { user, development, setDevelopment } = AuthContextProvider()
   const { asPath } = useRouter()
-  
+
   const Options = [
     {
       title: "Bodasdehoy.com",
@@ -106,47 +106,48 @@ export const Sidebar = ({ state }) => {
               <>
                 {
                   BodyStaticAPP.map((item, idx) => {
-                  
-                    return(
-                   
-                    <Box key={idx} >
-                      <Menu autoSelect={false}>
-                        <MenuGroup key={idx} title={item.title} fontSize={"sm"} className={` ${state ? "block" : "hidden"} text-tituloPrimario`}>
-                          {item.children.map((item, idx) => {
-                            return (
 
-                              <Link key={idx} href={item.route}>
-                                <MenuItem
-                                  _hover={{ bg: "#F3F3F3" }}
-                                  key={idx}
-                                  color={"#637381"}
-                                  padding={`${state ? "2" : ""}`}
-                                  marginLeft={"2"}
-                                  w={"95%"}
-                                  fontSize={"sm"}
-                                  className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
-                                  style={"/" + item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' } && item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }}
+                    return (
 
-                                >
-                                  <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
-                                    <div className={`flex justify-estar items-center  ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
-                                      <div className={` pr-2 `}>
-                                        {item.icon}
+                      <Box key={idx} >
+                        <Menu autoSelect={false}>
+                          <MenuGroup key={idx} title={item.title} fontSize={"sm"} className={` ${state ? "block" : "hidden"} text-tituloPrimario`}>
+                            {item.children.map((item, idx) => {
+                              return (
+
+                                <Link key={idx} href={item.route}>
+                                  <MenuItem
+                                    _hover={{ bg: "#F3F3F3" }}
+                                    key={idx}
+                                    color={"#637381"}
+                                    padding={`${state ? "2" : ""}`}
+                                    marginLeft={"2"}
+                                    w={"95%"}
+                                    fontSize={"sm"}
+                                    className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
+                                    style={"/" + item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' } && item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }}
+
+                                  >
+                                    <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
+                                      <div className={`flex justify-estar items-center  ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
+                                        <div className={` pr-2 `}>
+                                          {item.icon}
+                                        </div>
+                                        <div className={`${state ? "block " : "hidden"}`}>
+                                          {item.title}
+                                        </div>
                                       </div>
-                                      <div className={`${state ? "block " : "hidden"}`}>
-                                        {item.title}
-                                      </div>
-                                    </div>
-                                  </Tooltip>
+                                    </Tooltip>
 
-                                </MenuItem>
-                              </Link>
-                            )
-                          })}
-                        </MenuGroup>
-                      </Menu>
-                    </Box>
-                  )})
+                                  </MenuItem>
+                                </Link>
+                              )
+                            })}
+                          </MenuGroup>
+                        </Menu>
+                      </Box>
+                    )
+                  })
                 }
               </>
             )
