@@ -57,18 +57,19 @@ const AuthProvider = ({ children }) => {
         console.info("Tengo cookie de sesion", user);
         if (user) {
           console.info("Tengo user de contexto firebase");
-          const moreInfo = await fetchApi({
+          await fetchApi({
             query: queries.getUser,
             variables: { uid: user?.uid }
-          }).then(() => {
+          }).then((moreInfo) => {
             setVerificandoCookie(true)
+            console.log(8877, moreInfo)
+            moreInfo && console.info("Tengo datos de la base de datos");
+            setUser({ ...user, ...moreInfo });
+            console.info("Guardo datos en contexto react");
           })
-          moreInfo && console.info("Tengo datos de la base de datos");
-          setUser({ ...user, ...moreInfo });
-          console.info("Guardo datos en contexto react");
         } else {
           console.info("NO tengo user de contexto de firebase");
-          const asdf = await fetchApi({
+          await fetchApi({
             query: queries.authStatus,
             variables: { sessionCookie }
           }).then((asdf) => {

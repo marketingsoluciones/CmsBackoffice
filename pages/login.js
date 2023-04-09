@@ -10,7 +10,7 @@ import { AuthContextProvider } from "../context/AuthContext";
 import { useRouter } from "next/router";
 import { FormDinamical } from "../components/formularios/Form";
 const Login = () => {
-  
+
   return (
     <Flex
       h={"100vh"}
@@ -32,21 +32,21 @@ export default Login;
 const FormLogin = () => {
 
   const schemaLogin = [
-    {Header: "Correo electronico", accessor : "email", type: "email"},
-    {Header: "Contraseña", accessor : "password", type: "password"},
+    { Header: "Correo electronico", accessor: "email", type: "email" },
+    { Header: "Contraseña", accessor: "password", type: "password" },
 
   ]
-  
+
   const toast = useToast();
   const router = useRouter()
-  const {setUser} = AuthContextProvider()
+  const { setUser } = AuthContextProvider()
   const refButton = useRef()
 
   const handleSubmit = async (values, actions) => {
     try {
       const auth = getAuth();
       // Autenticacion con firebase
-      const {user} = await signInWithEmailAndPassword(
+      const { user } = await signInWithEmailAndPassword(
         auth,
         values.email,
         values.password
@@ -62,7 +62,7 @@ const FormLogin = () => {
       });
 
       await router.push("/")
-      
+
     } catch (error) {
       console.log(error);
       toast({
@@ -90,19 +90,19 @@ const FormLogin = () => {
       flexDir={"column"}
       gap={"0.5rem"}
     >
-          <Heading
-            fontSize={"2xl"}
-            fontWeight={"900"}
-            pb={"1rem"}
-            w={"100%"}
-            textAlign={"center"}
-          >
-            Iniciar sesión
-          </Heading>
-          
-      <FormDinamical  schema={schemaLogin} columns={[`repeat(1, 1fr)`]} onSubmit={handleSubmit} initialValues={initialValues} ref={refButton}/>
-      <Button  type={"submit"} w={"100%"} mt={"2rem"} onClick={() => refButton.current.handleSubmit()}>
-              Entrar
+      <Heading
+        fontSize={"2xl"}
+        fontWeight={"900"}
+        pb={"1rem"}
+        w={"100%"}
+        textAlign={"center"}
+      >
+        Iniciar sesión
+      </Heading>
+
+      <FormDinamical schema={schemaLogin} columns={[`repeat(1, 1fr)`]} onSubmit={handleSubmit} initialValues={initialValues} ref={refButton} />
+      <Button type={"submit"} w={"100%"} mt={"2rem"} onClick={() => refButton.current.handleSubmit()}>
+        Entrar
       </Button>
     </Flex>
   );

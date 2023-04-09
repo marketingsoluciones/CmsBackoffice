@@ -92,6 +92,13 @@ export const queries = {
           weddingDate
           signUpProgress
           status
+          authDevelopments {
+            title
+            role
+            status
+            createdAt
+            updatedAt
+          }
           createdAt
           updatedAt
         }

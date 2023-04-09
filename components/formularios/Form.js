@@ -133,9 +133,8 @@ export const FormDinamical = forwardRef(
                             break;
                           case "stringM":
                             return (
-                              <GridItem colSpan={[1, , , 2]}>
+                              <GridItem colSpan={[1, , , 2]} key={idx}>
                                 <InputField
-                                  key={idx}
                                   name={item.accessor}
                                   label={item.Header}
                                 />
@@ -143,9 +142,8 @@ export const FormDinamical = forwardRef(
                             );
                           case "stringL":
                             return (
-                              <GridItem colSpan={[1, , , 3]}>
+                              <GridItem colSpan={[1, , , 3]} key={idx}>
                                 <InputField
-                                  key={idx}
                                   name={item.accessor}
                                   label={item.Header}
                                 />
@@ -163,9 +161,8 @@ export const FormDinamical = forwardRef(
                             break;
                           case "slug":
                             return (
-                              <GridItem colSpan={[1, , , 2]}>
+                              <GridItem colSpan={[1, , , 2]} key={idx}>
                                 <InputField
-                                  key={idx}
                                   name={item.accessor}
                                   label={item.Header}
                                   disabled={true}
@@ -184,9 +181,8 @@ export const FormDinamical = forwardRef(
                             break;
                           case "email":
                             return (
-                              <GridItem colSpan={[1, , , 3]}>
+                              <GridItem colSpan={[1, , , 3]} key={idx}>
                                 <InputField
-                                  key={idx}
                                   name={item.accessor}
                                   label={item.Header}
                                   type={"email"}
@@ -205,14 +201,11 @@ export const FormDinamical = forwardRef(
                             break;
                           case "textarea":
                             return (
-                              <GridItem colSpan={[1, , , 3]}>
-
-                              <TextareaField
-                                key={idx}
-                                name={item.accessor}
-                                label={item.Header}
-                                
-                              />
+                              <GridItem colSpan={[1, , , 3]} key={idx}>
+                                <TextareaField
+                                  name={item.accessor}
+                                  label={item.Header}
+                                />
                               </GridItem>
 
                             );
@@ -233,9 +226,8 @@ export const FormDinamical = forwardRef(
                             break;
                           case "url":
                             return (
-                              <GridItem colSpan={[1, , , 3]}>
+                              <GridItem colSpan={[1, , , 3]} key={idx}>
                                 <URLInputField
-                                  key={idx}
                                   name={item.accessor}
                                   label={item.Header}
                                 />
@@ -254,9 +246,8 @@ export const FormDinamical = forwardRef(
                             break;
                           case "imageMultiple":
                             return (
-                              <GridItem colSpan={[1, , , 3]}>
+                              <GridItem colSpan={[1, , , 3]} key={idx}>
                                 <MultipleImages
-                                  key={idx}
                                   name={item.accessor}
                                   label={item.Header}
                                 />
@@ -265,9 +256,8 @@ export const FormDinamical = forwardRef(
                             break;
                           case "relationship":
                             return (
-                              <GridItem colSpan={[1, , , 3]}>
+                              <GridItem colSpan={[1, , , 3]} key={idx}>
                                 <Relationship
-                                  key={idx}
                                   name={item.accessor}
                                   label={item.Header}
                                   tabList={item.tabList}
@@ -277,9 +267,8 @@ export const FormDinamical = forwardRef(
                             break;
                           case "questions":
                             return (
-                              <GridItem colSpan={[1, , , 3]}>
+                              <GridItem colSpan={[1, , , 3]} key={idx}>
                                 <QuestionInputsForBusiness
-                                  key={idx}
                                   name={item.accessor}
                                   label={item.Header}
                                   values={values}
@@ -290,9 +279,8 @@ export const FormDinamical = forwardRef(
                             break;
                           case "maps":
                             return (
-                              <GridItem colSpan={[1, , , 3]}>
+                              <GridItem colSpan={[1, , , 3]} key={idx}>
                                 <GoogleMapsField
-                                  key={idx}
                                   name={item.accessor}
                                   label={item.Header}
                                 />
@@ -301,10 +289,8 @@ export const FormDinamical = forwardRef(
                             break;
                           case "country":
                             return (
-                              <GridItem colSpan={[1, , , 1]}>
-
+                              <GridItem colSpan={[1, , , 1]} key={idx}>
                                 <CounstriesSelectField
-                                  key={idx}
                                   name={item.accessor}
                                   label={item.Header}
                                 />
