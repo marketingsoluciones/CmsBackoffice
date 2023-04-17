@@ -1,9 +1,10 @@
 import { createContext, useContext, useState, useEffect, useCallback, useReducer } from "react";
 import { signInWithCustomToken } from 'firebase/auth'
 import Cookies from 'js-cookie'
-import { auth } from "../firebase";
+import { auth, developments } from "../firebase";
 import { fetchApi, queries } from "../utils/Fetching";
 import { boolean } from "yup";
+import { useRouter } from "next/router";
 
 
 class Action {
@@ -43,15 +44,23 @@ const AuthContext = createContext(initialContext);
 
 
 const AuthProvider = ({ children }) => {
+  const r = useRouter()
+  //if (r?.query?.d === "app") {
+  //}
   const [user, setUser] = useState(initialContext.user);
   const [verificationDone, setVerificationDone] = useState(false);
   const [verificandoCookie, setVerificandoCookie] = useState(null);
   const [state, dispatch] = useReducer(reducer, new Action("view", {}));
-  const [development, setDevelopment] = useState("bodasdehoy");
-
+  const [development, setDevelopment] = useState(null);
+  let resp = undefined
   useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      const sessionCookie = Cookies.get("sessionBodas");
+    const domain = window.location.hostname.split(".")[1]
+    resp = developments.filter(elem => elem.name === domain)[0]
+    if (!resp?.cookie) resp = { cookie: "sessionBodas", name: "bodasdehoy" }
+    setDevelopment(resp.name)
+    console.log(resp?.cookie)
+    auth(resp.name).onAuthStateChanged(async (user) => {
+      const sessionCookie = Cookies.get(resp?.cookie);
       console.info("Verificando cookie", sessionCookie);
       if (sessionCookie) {
         console.info("Tengo cookie de sesion", user);
@@ -92,8 +101,8 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    auth.onIdTokenChanged(async user => {
-      const sessionCookie = Cookies.get("sessionBodas");
+    auth(resp.name).onIdTokenChanged(async user => {
+      const sessionCookie = Cookies.get(resp.cookie);
       if (user && sessionCookie) {
         console.log(1111111, "Cookies.set: idToken en ", process.env.NEXT_PUBLIC_DOMINIO ?? "")
         Cookies.set("idToken", await user.getIdToken())

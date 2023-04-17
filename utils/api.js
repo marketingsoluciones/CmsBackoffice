@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 const instance = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL })
 
 export const api = {
-    GraphQL: async (data, development = "", config) => {
+    GraphQL: async (data, development = "bodasdehoy", config) => {
         console.log(12300002, data)
         console.log(12300004, config)
         console.log(12300006, development)

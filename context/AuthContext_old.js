@@ -40,7 +40,7 @@ const AuthProvider = ({ children }) => {
   const [development, setDevelopment] = useState("bodasdehoy");
 
   useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
+    auth().onAuthStateChanged(async (user) => {
       if (user) {
         setUser(user);
         // Setear en localStorage token JWT

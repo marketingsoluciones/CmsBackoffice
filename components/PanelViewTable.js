@@ -20,7 +20,7 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   const router = useRouter()
 
   useEffect(() => {
-    const userRole = user?.authDevelopments.filter(elem => elem.title === development)[0].role
+    const userRole = user?.authDevelopments.filter(elem => elem.title === development)[0]?.role
     console.log(70014, development, userRole, selected.roles, hasRole(development, user, selected.roles))
     if (hasRole(development, user, selected.roles)) {
       setQuery({
