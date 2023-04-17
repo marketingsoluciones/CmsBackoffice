@@ -36,7 +36,7 @@ export const developments = [
 ]
 
 
-const firebase = developments.reduce((acc, elem) => {
+export const firebase = developments.reduce((acc, elem) => {
   elem.app = initializeApp(elem.fileConfig, elem.name)
   acc.push(elem)
   return acc

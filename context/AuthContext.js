@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback, useReducer } from "react";
 import { signInWithCustomToken } from 'firebase/auth'
 import Cookies from 'js-cookie'
-import { auth, developments } from "../firebase";
+import { auth, developments, firebase } from "../firebase";
 import { fetchApi, queries } from "../utils/Fetching";
 import { boolean } from "yup";
 import { useRouter } from "next/router";
@@ -54,6 +54,7 @@ const AuthProvider = ({ children }) => {
   const [development, setDevelopment] = useState(null);
   let resp = undefined
   useEffect(() => {
+    console.log(66001, firebase)
     const domain = window.location.hostname.split(".")[1]
     resp = developments.filter(elem => elem.name === domain)[0]
     if (!resp?.cookie) {
