@@ -3,7 +3,8 @@ import { api } from "../utils/api";
 export const fetchApi = async ({
   query = ``,
   variables = {},
-  type = "json"
+  type = "json",
+  development
 }) => {
   if (query) {
     // Determinar si se usara json o form data
@@ -12,7 +13,7 @@ export const fetchApi = async ({
     if (type === "json") {
       const {
         data: { data },
-      } = await api.GraphQL({ query, variables });
+      } = await api.GraphQL({ query, variables }, development);
       return Object.values(data)[0]
 
       //Form data
@@ -70,7 +71,7 @@ export const fetchApi = async ({
 
       const {
         data: { data },
-      } = await api.GraphQL(formData, {
+      } = await api.GraphQL(formData, development, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -12,33 +12,17 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BodyStaticAPP, CivitasStaticAPP } from "../utils/schemas";
 import { AuthContextProvider } from "../context/AuthContext";
 import { useRouter } from "next/router";
 import { Tooltip } from "@chakra-ui/react";
 import { ArrowDownIcon } from "./../components/Icons/index";
+import { hasRole } from "../utils/auth";
 
 export const Sidebar = ({ state }) => {
   const { user, development, setDevelopment } = AuthContextProvider()
   const { asPath } = useRouter()
-
-  const Options = [
-    {
-      title: "Bodasdehoy.com",
-      value: "bodasdehoy"
-    },
-    {
-      title: "DiarioCivitas.com",
-      value: "diariocivitas"
-    },
-    {
-      title: "AlquilaTuMaquinaria.com",
-      value: "alquilatumaquinaria"
-    },
-
-  ]
-
   return (
     <Flex
       pos={"relative"}
@@ -63,9 +47,9 @@ export const Sidebar = ({ state }) => {
                   <Avatar size={"sm"} />
                 </MenuButton>
                 <MenuList p={"0"} fontSize={"sm"} ml={"8"}>
-                  {Options.map((item, idx) => (
+                  {user?.authDevelopments.map((item, idx) => (
                     <div key={idx}>
-                      <MenuItem style={item.value === development ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }} color={"gray.500"} onClick={() => setDevelopment(item.value)}>{item.title}</MenuItem>
+                      <MenuItem style={item.title === development ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }} color={"gray.500"} onClick={() => setDevelopment(item.title)}>{`${item.title}.com`}</MenuItem>
                     </div>
                   ))}
                 </MenuList>
@@ -85,9 +69,9 @@ export const Sidebar = ({ state }) => {
                       </div>
                     </MenuButton>
                     <MenuList p={"0"} fontSize={"sm"} justifyItems={"start"}>
-                      {Options.map((item, idx) => (
+                      {user?.authDevelopments.map((item, idx) => (
 
-                        <MenuItem key={idx} style={item.value === development ? { backgroundColor: '#F3F4F6' } : { backgroundColor: '' }} color={"gray.500"} onClick={() => setDevelopment(item.value)}>{item.title}</MenuItem>
+                        <MenuItem key={idx} style={item.title === development ? { backgroundColor: '#F3F4F6' } : { backgroundColor: '' }} color={"gray.500"} onClick={() => setDevelopment(item.title)}>{`${item.title}.com`}</MenuItem>
 
                       ))}
                     </MenuList>
@@ -101,105 +85,56 @@ export const Sidebar = ({ state }) => {
 
       <Flex flexDir={"column"} className="overflow-y-auto overflow-x-hidden">
         {(() => {
-          if (development === "bodasdehoy") {
-            return (
-              <>
-                {
-                  BodyStaticAPP.map((item, idx) => {
-
+          return (
+            <>
+              {
+                BodyStaticAPP.map((item, idx) => {
+                  if (hasRole(development, user, item.roles)) {
                     return (
-
                       <Box key={idx} >
                         <Menu autoSelect={false}>
                           <MenuGroup key={idx} title={item.title} fontSize={"sm"} className={` ${state ? "block" : "hidden"} text-tituloPrimario`}>
                             {item.children.map((item, idx) => {
-                              return (
-
-                                <Link key={idx} href={item.route}>
-                                  <MenuItem
-                                    _hover={{ bg: "#F3F3F3" }}
-                                    key={idx}
-                                    color={"#637381"}
-                                    padding={`${state ? "2" : ""}`}
-                                    marginLeft={"2"}
-                                    w={"95%"}
-                                    fontSize={"sm"}
-                                    className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
-                                    style={"/" + item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' } && item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }}
-
-                                  >
-                                    <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
-                                      <div className={`flex justify-estar items-center  ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
-                                        <div className={` pr-2 `}>
-                                          {item.icon}
+                              if (hasRole(development, user, item.roles)) {
+                                return (
+                                  <Link key={idx} href={item.route}>
+                                    <MenuItem
+                                      _hover={{ bg: "#F3F3F3" }}
+                                      key={idx}
+                                      color={"#637381"}
+                                      padding={`${state ? "2" : ""}`}
+                                      marginLeft={"2"}
+                                      w={"95%"}
+                                      fontSize={"sm"}
+                                      className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
+                                      style={"/" + item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' } && item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }}
+                                    >
+                                      <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
+                                        <div className={`flex justify-estar items-center  ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
+                                          <div className={` pr-2 `}>
+                                            {item.icon}
+                                          </div>
+                                          <div className={`${state ? "block " : "hidden"}`}>
+                                            {item.title}
+                                          </div>
                                         </div>
-                                        <div className={`${state ? "block " : "hidden"}`}>
-                                          {item.title}
-                                        </div>
-                                      </div>
-                                    </Tooltip>
-
-                                  </MenuItem>
-                                </Link>
-                              )
+                                      </Tooltip>
+                                    </MenuItem>
+                                  </Link>
+                                )
+                              }
                             })}
                           </MenuGroup>
                         </Menu>
                       </Box>
                     )
-                  })
-                }
-              </>
-            )
-          } else if (development === "diariocivitas") {
-            return (
-              <>
-                {
-                  CivitasStaticAPP.map((item, idx) => (
-                    <Box key={idx}  >
-                      <Menu autoSelect={false}>
-                        <MenuGroup key={idx} title={item.title} fontSize={"sm"} className={` ${state ? "block" : "hidden"} text-tituloPrimario`}>
-                          {item.children.map((item, idx) => (
-                            <Link key={idx} href={item.route}>
-                              <MenuItem
-                                _hover={{ bg: "#F3F3F3" }}
-                                key={idx}
-                                color={"#637381"}
-                                padding={`${state ? "2" : ""}`}
-                                marginLeft={"2"}
-                                w={"95%"}
-                                fontSize={"sm"}
-                                className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
-                                style={"/" + item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }}
-                              >
-                                <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
-                                  <div className={`flex justify-estar ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
-                                    <div className={` pr-2 `}>{item.icon}</div>
-                                    <div className={`pt-0.5 ${state ? "block" : `hidden`}`}>
-                                      {item.title}
-                                    </div>
-                                  </div>
-                                </Tooltip>
-
-                              </MenuItem>
-                            </Link>
-                          ))}
-                        </MenuGroup>
-                      </Menu>
-                    </Box>
-                  ))
-                }
-              </>
-            )
-          } else if (development === "alquilatumaquinaria") {
-            return (
-              <>estoy en atm</>
-            )
-          }
+                  }
+                })
+              }
+            </>
+          )
         })()}
-
       </Flex>
-
     </Flex>
   );
 };

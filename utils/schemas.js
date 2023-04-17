@@ -11,21 +11,25 @@ import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon
 export const BodyStaticAPP = [
   {
     title: "",
+    roles: ["all"],
     children: [
       {
         icon: <InicioIcon className="" />,
         title: "Inicio",
+        roles: ["all"],
         route: "/",
       },
     ]
   },
   {
     title: "Empresas",
+    roles: ["empresa"],
     children: [
 
       {
         icon: <MarcasEmIcon className="h-6 w-6" />,
         title: "Marcas",
+        roles: ["admin", "empresa"],
         route: "business",
         getData: FetchGraphQL.business.getBusinessAll,
         getByID: FetchGraphQL.business.getOneBusiness,
@@ -72,8 +76,7 @@ export const BodyStaticAPP = [
             Header: "Carrusel de imagenes",
             accessor: "imgCarrusel",
             type: "imageMultiple",
-            /*  required: true,
-  */
+            /*  required: true,*/
           },
           {
             Header: "Contenido",
@@ -199,6 +202,7 @@ export const BodyStaticAPP = [
       {
         icon: <CategoriasIcon />,
         title: "Categorias",
+        roles: ["admin"],
         route: "categoryBusiness",
         getData: FetchGraphQL.catBusiness.getCategoryBusiness,
         getByID: FetchGraphQL.catBusiness.getOneCategoryBusiness,
@@ -260,6 +264,7 @@ export const BodyStaticAPP = [
       {
         icon: <SubCategoriaIcon className="h-6 w-6" />,
         title: "Sub Categorias",
+        roles: ["admin"],
         route: "subcategoriesBusiness",
         getData: FetchGraphQL.subCatBusiness.getSubCategoryBusiness,
         getByID: FetchGraphQL.subCatBusiness.getOneSubCategoryBusiness,
@@ -342,6 +347,7 @@ export const BodyStaticAPP = [
       {
         icon: <CaracteristicasIcon />,
         title: "Caracteristicas",
+        roles: ["admin"],
         route: "characteristics",
         getData: FetchGraphQL.characteristics.getAllCharacteristics,
         getByID: FetchGraphQL.characteristics.getOneCharacteristics,
@@ -381,6 +387,7 @@ export const BodyStaticAPP = [
       {
         icon: <CampañasIcon />,
         title: "Campañas",
+        roles: ["empresa"],
         route: "page404",
         getData: FetchGraphQL.questions.getAllQuestions,
         getByID: FetchGraphQL.questions.getOneQuestion,
@@ -409,6 +416,7 @@ export const BodyStaticAPP = [
       {
         icon: <PreguntasFrecuentes />,
         title: "Preguntas frecuentes",
+        roles: ["admin"],
         route: "questions",
         getData: FetchGraphQL.questions.getAllQuestions,
         getByID: FetchGraphQL.questions.getOneQuestion,
@@ -439,20 +447,24 @@ export const BodyStaticAPP = [
   },
   {
     title: "Redes Sociales",
+    roles: ["all"],
     children: [
       {
         icon: <MetricasSociales className="" />,
         title: "Metricas Sociales",
+        roles: ["all"],
         route: "page404",
       },
     ]
   },
   {
     title: "Blog",
+    roles: ["all"],
     children: [
       {
         icon: <PostIcon />,
         title: "Posts",
+        roles: ["all"],
         route: "posts",
         getData: FetchGraphQL.posts.getAllPost,
         getByID: FetchGraphQL.posts.getOnePost,
@@ -547,6 +559,7 @@ export const BodyStaticAPP = [
       {
         icon: <CategoriasIcon />,
         title: "Categorias",
+        roles: ["all"],
         route: "categoriesPosts",
         getData: FetchGraphQL.categoryPost.getAllCategoryPost,
         getByID: FetchGraphQL.categoryPost.getOneCategoryPost,
@@ -607,6 +620,7 @@ export const BodyStaticAPP = [
       {
         icon: <SubCategoriaIcon />,
         title: "Sub Categorias",
+        roles: ["all"],
         route: "subcategoriesPost",
         getData: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
         getByID: FetchGraphQL.subCategoryPost.getOneSubCategoryPost,
@@ -662,10 +676,12 @@ export const BodyStaticAPP = [
   },
   {
     title: "Paginas",
+    roles: ["all"],
     children: [
       {
         icon: <Secciones2Icon />,
         title: "Secciones",
+        roles: ["all"],
         route: "sections",
         getData: FetchGraphQL.sections.getAllPage,
         getByID: FetchGraphQL.sections.getOnePage,
@@ -710,10 +726,12 @@ export const BodyStaticAPP = [
   },
   {
     title: "Configuracion",
+    roles: ["all"],
     children: [
       {
         icon: <PermisosIcon />,
         title: "Permisos",
+        roles: ["all"],
         route: "page404"
       }
     ]
@@ -724,10 +742,12 @@ export const CivitasStaticAPP = [
 
   {
     title: "",
+    roles: ["all"],
     children: [
       {
         icon: <InicioIcon className="" />,
         title: "Inicio",
+        roles: ["all"],
         route: "/",
       },
     ]
@@ -735,11 +755,13 @@ export const CivitasStaticAPP = [
   /* {
 
     title: "Noticias",
-    children: [
+    roles: ["all"],
+        children:  [
 
       {
         icon: <MarcasEmIcon className="h-6 w-6" />,
         title: "Noticias",
+        roles: ["all"],
         route: "Noticias",
         getData: FetchGraphQL.business.getBusinessAll,
         getByID: FetchGraphQL.business.getOneBusiness,
@@ -896,6 +918,7 @@ export const CivitasStaticAPP = [
       {
         icon: <CategoriasIcon />,
         title: "Categorias",
+        roles: ["all"],
         route: "category",
         getData: FetchGraphQL.catBusiness.getCategoryBusiness,
         getByID: FetchGraphQL.catBusiness.getOneCategoryBusiness,
@@ -955,6 +978,7 @@ export const CivitasStaticAPP = [
       {
         icon: <SubCategoriaIcon className="h-6 w-6" />,
         title: "Sub Categorias",
+        roles: ["all"],
         route: "subcategoriesBusiness",
         getData: FetchGraphQL.subCatBusiness.getSubCategoryBusiness,
         getByID: FetchGraphQL.subCatBusiness.getOneSubCategoryBusiness,
@@ -1031,6 +1055,7 @@ export const CivitasStaticAPP = [
       {
         icon: <CaracteristicasIcon />,
         title: "Caracteristicas",
+        roles: ["all"],
         route: "character",
         getData: FetchGraphQL.characteristics.getAllCharacteristics,
         getByID: FetchGraphQL.characteristics.getOneCharacteristics,
@@ -1070,6 +1095,7 @@ export const CivitasStaticAPP = [
       {
         icon: <CampañasIcon />,
         title: "Campañas",
+        roles: ["all"],
         route: "page404",
         getData: FetchGraphQL.questions.getAllQuestions,
         getByID: FetchGraphQL.questions.getOneQuestion,
@@ -1098,6 +1124,7 @@ export const CivitasStaticAPP = [
       {
         icon: <PreguntasFrecuentes />,
         title: "Preguntas frecuentes",
+        roles: ["all"],
         route: "questions",
         getData: FetchGraphQL.questions.getAllQuestions,
         getByID: FetchGraphQL.questions.getOneQuestion,
@@ -1128,10 +1155,12 @@ export const CivitasStaticAPP = [
   }, */
   {
     title: "Redes Sociales",
+    roles: ["all"],
     children: [
       {
         icon: <MetricasSociales className="" />,
         title: "Metricas Sociales",
+        roles: ["all"],
         route: "page404",
       },
     ]
@@ -1139,10 +1168,12 @@ export const CivitasStaticAPP = [
 
   {
     title: "Blog",
+    roles: ["all"],
     children: [
       {
         icon: <PostIcon />,
         title: "Posts",
+        roles: ["all"],
         route: "posts",
         getData: FetchGraphQL.posts.getAllPost,
         getByID: FetchGraphQL.posts.getOnePost,
@@ -1232,6 +1263,7 @@ export const CivitasStaticAPP = [
       {
         icon: <CategoriasIcon />,
         title: "Categorias",
+        roles: ["all"],
         route: "categoriesPosts",
         getData: FetchGraphQL.categoryPost.getAllCategoryPost,
         getByID: FetchGraphQL.categoryPost.getOneCategoryPost,
@@ -1292,6 +1324,7 @@ export const CivitasStaticAPP = [
       {
         icon: <SubCategoriaIcon />,
         title: "Sub Categorias",
+        roles: ["all"],
         route: "subcategoriesPost",
         getData: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
         getByID: FetchGraphQL.subCategoryPost.getOneSubCategoryPost,
@@ -1347,10 +1380,12 @@ export const CivitasStaticAPP = [
   },
   {
     title: "Paginas",
+    roles: ["all"],
     children: [
       {
         icon: <Secciones2Icon />,
         title: "Secciones",
+        roles: ["all"],
         route: "sections",
         getData: FetchGraphQL.sections.getAllPage,
         getByID: FetchGraphQL.sections.getOnePage,
@@ -1395,10 +1430,12 @@ export const CivitasStaticAPP = [
   },
   {
     title: "Configuracion",
+    roles: ["all"],
     children: [
       {
         icon: <PermisosIcon />,
         title: "Permisos",
+        roles: ["all"],
         route: "page404"
       }
     ]

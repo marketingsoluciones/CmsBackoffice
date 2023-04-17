@@ -5,7 +5,7 @@ import {
 import { EditIcon } from '@chakra-ui/icons';
 import { useEffect, useCallback, useRef, useState } from "react";
 import { useFetch } from "../../hooks/useFetch";
-import { FindOptionBodas } from "../../components/Datatable/Columns";
+import { FindOption } from "../../components/Datatable/Columns";
 import { LoadingComponent } from "../../components/LoadingComponent";
 import { fetchApi } from "../../utils/Fetching";
 import { CuadroItems, CuadroImagenSmall, CuadroTituloSlug, CuadroInfoSimple, CuadroMultiInfo, CuadroContacto, CuadroSocial, CuadroImg } from "./CuadroInfo";
@@ -15,7 +15,7 @@ export const FormDinamicalNEW = ({ slug, setAction, state }) => {
 
     const [valuesEdit, loadingValues, errorValues, setQueryValues] = useFetch();
     const toast = useToast();
-    const options = FindOptionBodas(slug);
+    const options = FindOption(slug);
     const imagee = valuesEdit?.imgCarrusel
 
 
@@ -46,7 +46,7 @@ export const FormDinamicalNEW = ({ slug, setAction, state }) => {
                     { id: _id, args: values },
                     "formData"
                 );
-              
+
                 if (data) {
                     toast({
                         status: "success",
@@ -93,7 +93,7 @@ export const FormDinamicalNEW = ({ slug, setAction, state }) => {
 
                             <label className="text-sm text-slate-600 ml-9">Resumen</label>
                         </div>
-                        
+
 
                         {(() => {
                             switch (slug) {

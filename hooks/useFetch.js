@@ -80,7 +80,7 @@ export const useFetch = (toast = false) => {
             }
           });
 
-          const { data } = await api.GraphQL(formData, {
+          const { data } = await api.GraphQL(formData, "", {
             headers: {
               "Content-Type": "multipart/form-data",
             },

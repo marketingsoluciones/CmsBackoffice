@@ -8,7 +8,7 @@ import { FormDinamicalNEW } from "../components/Resumen"
 import { AuthContextProvider } from '../context/AuthContext'
 
 
-const Module = ({ slug, props }) => {
+const Slug = ({ slug, props }) => {
   const { state, dispatch } = AuthContextProvider()
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const Module = ({ slug, props }) => {
   return (
     <Flex as={"section"} flexDir={"column"} gap={"1rem"} h={"100%"}>
       {state.type === "view" && (
-        <PanelViewTable slug={slug} state={state} dispatch={dispatch} />
+        <PanelViewTable slug={slug} dispatch={dispatch} />
       )}
       {state.type === "vieww" && (
         <FormDinamicalNEW setAction={dispatch} slug={slug} state={state} />
@@ -30,7 +30,7 @@ const Module = ({ slug, props }) => {
   );
 };
 
-export default PagesWithAuth(Module);
+export default Slug;
 
 export async function getServerSideProps({ params }) {
   return {

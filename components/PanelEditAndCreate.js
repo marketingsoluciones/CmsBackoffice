@@ -13,7 +13,7 @@ import {
 import { useEffect, useCallback, useRef, useState } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { FormDinamical } from "../components/formularios/Form";
-import { FindOptionBodas, FindOptionCivitas } from "../components/Datatable/Columns";
+import { FindOption } from "../components/Datatable/Columns";
 import { LoadingComponent } from "../components/LoadingComponent";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { formatTime } from "../utils/formatTime";
@@ -26,15 +26,14 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const [valuesEdit, loadingValues, errorValues, setQueryValues] = useFetch();
   const refButton = useRef();
   const toast = useToast();
-  const options = FindOptionBodas(slug);
-  const optionsCivitas = FindOptionCivitas(slug);
+  const options = FindOption(slug);
   const { user, development } = AuthContextProvider();
 
   useEffect(() => {
     if (state.type === "edit") {
       setQueryValues({
         ...options?.getByID,
-        variables: { id: state.data._id  },
+        variables: { id: state.data._id },
         type: "json",
       });
     }
@@ -145,7 +144,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       {!loadingValues && !errorValues ? (
         <>
           {/* Header del componente */}
-          <Flex justifyContent={"space-between"}   className="mb-5 px-5 mt-2"> 
+          <Flex justifyContent={"space-between"} className="mb-5 px-5 mt-2">
             {/* Titulo del componente */}
             <Box>
               <div className="flex items-center">
@@ -161,8 +160,8 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                 </div >
 
                 <button
-                 
-                  
+
+
                   color={"white"}
                   fontWeight={"500"}
                   _hover={{
@@ -182,7 +181,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                 </button>
               </div>
 
-              <Text  className="ml-9 text-slate-600 text-sm ">Identificador: {valuesEdit?._id}</Text>
+              <Text className="ml-9 text-slate-600 text-sm ">Identificador: {valuesEdit?._id}</Text>
             </Box>
           </Flex>
 
