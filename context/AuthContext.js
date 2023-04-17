@@ -56,10 +56,14 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const domain = window.location.hostname.split(".")[1]
     resp = developments.filter(elem => elem.name === domain)[0]
-    if (!resp?.cookie) resp = { cookie: "sessionBodas", name: "bodasdehoy" }
+    if (!resp?.cookie) {
+      console.log(70000, "no hay resp.cookie")
+      resp = { cookie: "sessionBodas", name: "bodasdehoy" }
+    }
     setDevelopment(resp.name)
-    console.log(resp?.cookie)
+    console.log(70001, resp?.cookie)
     auth(resp.name).onAuthStateChanged(async (user) => {
+      console.log(70002, user)
       const sessionCookie = Cookies.get(resp?.cookie);
       console.info("Verificando cookie", sessionCookie);
       if (sessionCookie) {
