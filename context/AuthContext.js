@@ -51,7 +51,7 @@ const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, new Action("view", {}));
   const [development, setDevelopment] = useState();
   const [config, setConfig] = useState();
-  let auth = undefined
+  //let auth = undefined
   useEffect(() => {
     const domain = window.location.hostname.split(".")[1]
     console.log(55000, domain)
@@ -67,7 +67,7 @@ const AuthProvider = ({ children }) => {
     } catch (error) {
       console.log(90001, error)
     }
-    auth = getAuth()
+    //auth = getAuth()
     setConfig(resp)
     console.log(40001, getAuth())
   }, [])
@@ -106,7 +106,7 @@ const AuthProvider = ({ children }) => {
               const customToken = asdf?.customToken
               console.info("Llamo con mi sessionCookie para traerme customToken");
               console.info("Custom token", customToken)
-              customToken && signInWithCustomToken(auth, customToken);
+              customToken && signInWithCustomToken(getAuth(), customToken);
               console.info("Hago sesion con el custom token");
             })
           }
