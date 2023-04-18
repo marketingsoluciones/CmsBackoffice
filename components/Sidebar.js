@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { BodyStaticAPP, CivitasStaticAPP } from "../utils/schemas";
+import { BodyStaticAPP } from "../utils/schemas";
 import { AuthContextProvider } from "../context/AuthContext";
 import { useRouter } from "next/router";
 import { Tooltip } from "@chakra-ui/react";

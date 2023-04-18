@@ -7,7 +7,6 @@ export const PagesWithAuth = (WrappedComponent) => {
     // checks whether we are on client / browser or server.
     if (typeof window !== "undefined") {
       const { user } = AuthContextProvider()
-      console.log(60010, "Verificar PagesWithAuth")
       const router = useRouter();
 
 

@@ -41,11 +41,11 @@ export const FormDinamicalNEW = ({ slug, setAction, state }) => {
             try {
                 delete values.createdAt;
                 delete values.updatedAt;
-                const data = await fetchApi(
-                    options?.updateEntry?.query,
-                    { id: _id, args: values },
-                    "formData"
-                );
+                const data = await fetchApi({
+                    query: options?.updateEntry?.query,
+                    variables: { id: _id, args: values },
+                    type: "formData"
+                });
 
                 if (data) {
                     toast({
@@ -55,7 +55,7 @@ export const FormDinamicalNEW = ({ slug, setAction, state }) => {
                     });
                     setAction({ type: "VIEW", payload: {} });
                 } else {
-                    throw new Error("Error en la peticion");
+                    throw new Error(10012, "Error en la peticion");
                 }
             } catch (error) {
                 toast({

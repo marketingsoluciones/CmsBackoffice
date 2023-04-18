@@ -3,7 +3,6 @@ export const isAllowed = (user, rights) =>
 
 export const hasRole = (development, user, roles = []) => {
   const userRole = user?.authDevelopments.filter(elem => elem.title === development)[0].role
-  //console.log(5002, userRole, roles)
   if (roles.includes("all")) return true
   return roles.some(role => userRole?.includes(role))
 }

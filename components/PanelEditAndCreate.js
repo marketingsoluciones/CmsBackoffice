@@ -44,12 +44,11 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const fetchCreate = useCallback(
     async (values) => {
       try {
-        const data = await fetchApi(
-          options?.createEntry?.query,
-
-          { ...values, development: development },
-          "formData"
-        );
+        const data = await fetchApi({
+          query: options?.createEntry?.query,
+          variables:{ ...values, development: development },
+          type: "formData"
+        });
         if (data) {
           toast({
             status: "success",
@@ -85,11 +84,11 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
 
         delete values.createdAt;
         delete values.updatedAt;
-        const data = await fetchApi(
-          options?.updateEntry?.query,
-          { id: _id, args: values },
-          "formData"
-        );
+        const data = await fetchApi({
+          query: options?.updateEntry?.query,
+          variables: { id: _id, args: values },
+          type: "formData"
+        });
         if (data) {
           toast({
             status: "success",
@@ -98,17 +97,18 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
           });
           setAction({ type: "VIEW", payload: {} });
         } else {
-          throw new Error("Error en la peticion");
+          throw new Error(10011, "Error en la peticion");
         }
 
       } catch (error) {
+        console.log(8001, error)
         toast({
           status: "error",
           title: "Error",
           description: JSON.stringify(error),
           isClosable: true,
         });
-        console.log(error);
+        console.log(8002,error);
       }
     },
     [slug]

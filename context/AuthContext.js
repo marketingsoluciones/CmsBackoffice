@@ -127,7 +127,6 @@ const AuthProvider = ({ children }) => {
     getAuth().onIdTokenChanged(async user => {
       const sessionCookie = Cookies.get(config?.cookie);
       if (user && sessionCookie) {
-        console.log(1111111, "Cookies.set: idToken en ", process.env.NEXT_PUBLIC_DOMINIO ?? "")
         Cookies.set("idToken", await user.getIdToken())
       }
     })

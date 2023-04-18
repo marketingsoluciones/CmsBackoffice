@@ -5,9 +5,6 @@ const instance = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL })
 
 export const api = {
     GraphQL: async (data, development = "", config) => {
-        console.log(12300002, data)
-        console.log(12300004, development)
-        console.log(12300006, config)
         const tokenFinal = Cookies.get("idToken")
         return await instance.post("/graphql", data, {
             headers: {

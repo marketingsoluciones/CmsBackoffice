@@ -21,7 +21,6 @@ export const PanelViewTable = ({ slug, dispatch }) => {
 
   useEffect(() => {
     const userRole = user?.authDevelopments.filter(elem => elem.title === development)[0].role
-    console.log(70014, development, userRole, selected.roles, hasRole(development, user, selected.roles))
     if (hasRole(development, user, selected.roles)) {
       setQuery({
         ...selected.getData,
@@ -49,10 +48,6 @@ export const PanelViewTable = ({ slug, dispatch }) => {
       type: "json",
     });
   };
-
-  useEffect(() => {
-    /*  console.log(1001, seteador) */
-  }, [seteador])
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { BodyStaticAPP, CivitasStaticAPP } from "../../utils/schemas";
+import { BodyStaticAPP } from "../../utils/schemas";
 import MenuFilter from "../MenuFilter";
 
 //componente para visualizar las columnas deacuerdo al esquema 

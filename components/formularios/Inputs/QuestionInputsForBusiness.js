@@ -49,8 +49,6 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
   const [catBusiness, isError, isLoading, setQueryTabList] = useFetch();
   //Fetching de questions y characteristics
   const [results, isErrorResults, isLoadingResults, setQueryResults] = useFetch();
-  console.log(1111,results)
-  console.log(1112,isErrorResults)
 
   // Al montar el componente traer las subcategorias para listar
   useEffect(() => {
