@@ -85,7 +85,8 @@ const AuthProvider = ({ children }) => {
             console.info("Tengo user de contexto firebase");
             await fetchApi({
               query: queries.getUser,
-              variables: { uid: user?.uid }
+              variables: { uid: user?.uid },
+              development: config?.name
             }).then((moreInfo) => {
               setVerificandoCookie(true)
               console.log(8877, moreInfo)
@@ -97,7 +98,8 @@ const AuthProvider = ({ children }) => {
             console.info("NO tengo user de contexto de firebase");
             await fetchApi({
               query: queries.authStatus,
-              variables: { sessionCookie }
+              variables: { sessionCookie },
+              development: config?.name
             }).then((asdf) => {
               setVerificandoCookie(true)
               console.log(333, asdf)
