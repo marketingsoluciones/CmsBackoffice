@@ -69,7 +69,7 @@ export const Sidebar = ({ state }) => {
                       </div>
                     </MenuButton>
                     <MenuList p={"0"} fontSize={"sm"} justifyItems={"start"}>
-                      {user?.authDevelopments.map((item, idx) => (
+                      {user?.authDevelopments?.map((item, idx) => (
 
                         <MenuItem key={idx} style={item.title === development ? { backgroundColor: '#F3F4F6' } : { backgroundColor: '' }} color={"gray.500"} onClick={() => setDevelopment(item.title)}>{`${item.title}.com`}</MenuItem>
 
