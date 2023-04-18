@@ -1,10 +1,11 @@
 import { createContext, useContext, useState, useEffect, useCallback, useReducer } from "react";
-import { signInWithCustomToken } from 'firebase/auth'
+import { getAuth, signInWithCustomToken } from 'firebase/auth'
 import Cookies from 'js-cookie'
-import { auth, developments, firebase } from "../firebase";
+import { auth, developments } from "../firebase";
 import { fetchApi, queries } from "../utils/Fetching";
 import { boolean } from "yup";
-import { useRouter } from "next/router";
+import { initializeApp } from "firebase/app";
+
 
 
 class Action {
@@ -44,28 +45,30 @@ const AuthContext = createContext(initialContext);
 
 
 const AuthProvider = ({ children }) => {
-  const r = useRouter()
-  //if (r?.query?.d === "app") {
-  //}
   const [user, setUser] = useState(initialContext.user);
   const [verificationDone, setVerificationDone] = useState(false);
   const [verificandoCookie, setVerificandoCookie] = useState(null);
   const [state, dispatch] = useReducer(reducer, new Action("view", {}));
-  const [development, setDevelopment] = useState(null);
-  let resp = undefined
+  const [development, setDevelopment] = useState("bodasdehoy");
+  const [config, setConfig] = useState();
+  let auth = undefined
   useEffect(() => {
-    console.log(66001, firebase)
     const domain = window.location.hostname.split(".")[1]
-    resp = developments.filter(elem => elem.name === domain)[0]
-    if (!resp?.cookie) {
-      console.log(70000, "no hay resp.cookie")
-      resp = { cookie: "sessionBodas", name: "bodasdehoy" }
-    }
-    setDevelopment(resp.name)
-    console.log(70001, resp?.cookie)
-    auth(resp.name).onAuthStateChanged(async (user) => {
-      console.log(70002, user)
-      const sessionCookie = Cookies.get(resp?.cookie);
+    console.log(55000, domain)
+    const resp = developments.filter(elem => elem.name === domain)[0]
+    if (!resp?.cookie) resp = developments[0]
+    console.log(55001, resp)
+    setConfig(resp)
+    const firebaseClient = initializeApp(resp.fileConfig);
+    firebaseClient
+    auth = getAuth()
+    console.log(40001, getAuth)
+  }, [])
+
+
+  useEffect(() => {
+    getAuth().onAuthStateChanged(async (user) => {
+      const sessionCookie = Cookies.get("sessionBodas");
       console.info("Verificando cookie", sessionCookie);
       if (sessionCookie) {
         console.info("Tengo cookie de sesion", user);
@@ -103,17 +106,17 @@ const AuthProvider = ({ children }) => {
         setVerificationDone(true)
       }, 800);
     });
-  }, []);
+  }, [config]);
 
   useEffect(() => {
-    auth(resp.name).onIdTokenChanged(async user => {
-      const sessionCookie = Cookies.get(resp.cookie);
+    getAuth().onIdTokenChanged(async user => {
+      const sessionCookie = Cookies.get("sessionBodas");
       if (user && sessionCookie) {
         console.log(1111111, "Cookies.set: idToken en ", process.env.NEXT_PUBLIC_DOMINIO ?? "")
         Cookies.set("idToken", await user.getIdToken())
       }
     })
-  }, [])
+  }, [config])
 
 
   return (

@@ -47,7 +47,7 @@ export const Sidebar = ({ state }) => {
                   <Avatar size={"sm"} />
                 </MenuButton>
                 <MenuList p={"0"} fontSize={"sm"} ml={"8"}>
-                  {user?.authDevelopments.map((item, idx) => (
+                  {user?.authDevelopments?.map((item, idx) => (
                     <div key={idx}>
                       <MenuItem style={item.title === development ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }} color={"gray.500"} onClick={() => setDevelopment(item.title)}>{`${item.title}.com`}</MenuItem>
                     </div>
