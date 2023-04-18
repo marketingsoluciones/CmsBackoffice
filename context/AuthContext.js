@@ -49,7 +49,7 @@ const AuthProvider = ({ children }) => {
   const [verificationDone, setVerificationDone] = useState(false);
   const [verificandoCookie, setVerificandoCookie] = useState(null);
   const [state, dispatch] = useReducer(reducer, new Action("view", {}));
-  const [development, setDevelopment] = useState("bodasdehoy");
+  const [development, setDevelopment] = useState();
   const [config, setConfig] = useState();
   let auth = undefined
   useEffect(() => {
@@ -57,18 +57,20 @@ const AuthProvider = ({ children }) => {
     console.log(55000, domain)
     const resp = developments.filter(elem => elem.name === domain)[0]
     if (!resp?.cookie) resp = developments[0]
+    setDevelopment(resp.name)
     console.log(55001, resp)
-    setConfig(resp)
     const firebaseClient = initializeApp(resp.fileConfig);
     firebaseClient
     auth = getAuth()
+    setConfig(resp)
     console.log(40001, getAuth)
   }, [])
 
 
   useEffect(() => {
     getAuth().onAuthStateChanged(async (user) => {
-      const sessionCookie = Cookies.get("sessionBodas");
+      const sessionCookie = Cookies.get(config?.cookie);
+      console.log(70001, sessionCookie)
       console.info("Verificando cookie", sessionCookie);
       if (sessionCookie) {
         console.info("Tengo cookie de sesion", user);
@@ -110,7 +112,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     getAuth().onIdTokenChanged(async user => {
-      const sessionCookie = Cookies.get("sessionBodas");
+      const sessionCookie = Cookies.get(config?.cookie);
       if (user && sessionCookie) {
         console.log(1111111, "Cookies.set: idToken en ", process.env.NEXT_PUBLIC_DOMINIO ?? "")
         Cookies.set("idToken", await user.getIdToken())
