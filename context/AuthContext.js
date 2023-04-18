@@ -57,7 +57,8 @@ const AuthProvider = ({ children }) => {
     console.log(55000, domain)
     const resp = developments.filter(elem => elem.name === domain)[0]
     console.log(55061, resp?.cookie)
-    if (!resp?.cookie) resp = developments[1]
+    if (!resp?.cookie) resp = developments[0]
+    console.log(55062, resp?.cookie)
     setDevelopment(resp.name)
     console.log(55001, resp)
     try {
