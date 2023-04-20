@@ -122,13 +122,16 @@ export const FormDinamical = forwardRef(
                     {schema &&
                       schema?.map((item, idx) => {
                         switch (item.type) {
+
                           case "string":
                             return (
-                              <InputField
-                                key={idx}
-                                name={item.accessor}
-                                label={item.Header}
-                              />
+                              <GridItem colSpan={[1, , , 3]}>
+                                <InputField
+                                  key={idx}
+                                  name={item.accessor}
+                                  label={item.Header}
+                                />
+                              </GridItem>
                             );
                             break;
                           case "stringM":
@@ -142,6 +145,17 @@ export const FormDinamical = forwardRef(
                               </GridItem>
                             );
                           case "stringL":
+                            return (
+                              <GridItem colSpan={[1, , , 3]}>
+                                <InputField
+                                  key={idx}
+                                  name={item.accessor}
+                                  label={item.Header}
+                                />
+                              </GridItem>
+                            );
+                            break;
+                          case "stringSEO":
                             return (
                               <GridItem colSpan={[1, , , 3]}>
                                 <InputField
@@ -207,12 +221,12 @@ export const FormDinamical = forwardRef(
                             return (
                               <GridItem colSpan={[1, , , 3]}>
 
-                              <TextareaField
-                                key={idx}
-                                name={item.accessor}
-                                label={item.Header}
-                                
-                              />
+                                <TextareaField
+                                  key={idx}
+                                  name={item.accessor}
+                                  label={item.Header}
+
+                                />
                               </GridItem>
 
                             );
@@ -244,12 +258,14 @@ export const FormDinamical = forwardRef(
                             break;
                           case "image":
                             return (
-                              <UploadImage
-                                key={idx}
-                                name={item.accessor}
-                                label={item.Header}
-                                typeFile={item.typeFile}
-                              />
+                              <GridItem colSpan={[1, , , 3]}>
+                                <UploadImage
+                                  key={idx}
+                                  name={item.accessor}
+                                  label={item.Header}
+                                  typeFile={item.typeFile}
+                                />
+                              </GridItem>
                             );
                             break;
                           case "imageMultiple":
@@ -314,12 +330,14 @@ export const FormDinamical = forwardRef(
                             break;
                           case "fieldArray":
                             return (
-                              <FieldArrayField
-                                key={idx}
-                                name={item.accessor}
-                                label={item.Header}
-                                schema={item.schema}
-                              />
+                              <GridItem colSpan={[1, , , 3]}>
+                                <FieldArrayField
+                                  key={idx}
+                                  name={item.accessor}
+                                  label={item.Header}
+                                  schema={item.schema}
+                                />
+                              </GridItem>
                             );
                             break;
                           default:

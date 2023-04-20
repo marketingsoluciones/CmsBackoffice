@@ -1,4 +1,4 @@
-import {Box,Flex,FormLabel,Input,Square,Text,Image,IconButton,} from "@chakra-ui/react";
+import { Box, Flex, FormLabel, Input, Square, Text, Image, IconButton, } from "@chakra-ui/react";
 import { useField } from "formik";
 import { memo, useEffect, useState } from "react";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -7,6 +7,7 @@ import { IDGenerator } from "../../../utils/IDGenerator";
 export const MultipleImages = memo(({ label, ...props }) => {
   const [field, meta, helpers] = useField(props);
   const [image, setImage] = useState([]);
+  console.log("imagen",image)
 
   useEffect(() => {
     const files = image.reduce((acc, item) => {
@@ -14,13 +15,13 @@ export const MultipleImages = memo(({ label, ...props }) => {
       item.i640 && acc.push(item._id)
       return acc
     }, [])
-    helpers.setValue( files );
+    helpers.setValue(files);
   }, [image]);
-  
+
   useEffect(() => {
     field.value && setImage(field.value)
   }, []);
-  
+
   const handleChange = async (e) => {
     try {
       let file = e.target.files;
@@ -78,19 +79,54 @@ export const MultipleImages = memo(({ label, ...props }) => {
         p={"2rem"}
         gap={"2rem"}
         flexWrap={"wrap"}
+        bgColor={"gray.100"}
       >
         <FormLabel>
-          <Square
-            shadow={"md"}
-            h={"8rem"}
-            w={"8rem"}
-            rounded={"lg"}
-            border={"1px solid"}
-            borderColor={"gray.100"}
-            cursor={"pointer"}
-          >
-            <AddIcon />
-          </Square>
+
+          {image.length === 0 && (
+            <>
+              <div className="grid grid-cols-2 h-full items-center place-items-center ">
+               
+                  <Square
+                    shadow={"md"}
+                    h={"8rem"}
+                    w={"8rem"}
+                    rounded={"lg"}
+                    border={"1px solid"}
+                    borderColor={""}
+                    cursor={"pointer"}
+                    bgColor={"white"}
+                  >
+                    <AddIcon />
+                  </Square>
+                
+                <div>
+                  <label className="text-black font-semibold text-md">Selecciona varias imágenes para mostrar</label>
+                </div>
+              </div>
+            </>
+          )}
+          {image.length > 0 && (
+            <>
+              
+               
+                  <Square
+                    shadow={"md"}
+                    h={"8rem"}
+                    w={"8rem"}
+                    rounded={"lg"}
+                    border={"1px solid"}
+                    borderColor={""}
+                    cursor={"pointer"}
+                    bgColor={"white"}
+                  >
+                    <AddIcon />
+                  </Square>
+                
+             
+            </>
+          )}
+
           <Input
             type="file"
             display={"none"}
@@ -100,7 +136,7 @@ export const MultipleImages = memo(({ label, ...props }) => {
           />
         </FormLabel>
         {image?.map((item, idx) => {
-          if(item.image){
+          if (item.image) {
             return (
               <Square
                 key={idx}
@@ -111,6 +147,7 @@ export const MultipleImages = memo(({ label, ...props }) => {
                 border={"1px solid"}
                 borderColor={"gray.100"}
                 pos={"relative"}
+                bgColor={"white"}
               >
                 <Image
                   src={item.image}
@@ -130,7 +167,7 @@ export const MultipleImages = memo(({ label, ...props }) => {
               </Square>
             )
           }
-          if(item.i800){
+          if (item.i800) {
             return (
               <Square
                 key={idx}

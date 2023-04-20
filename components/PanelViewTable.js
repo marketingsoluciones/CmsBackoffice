@@ -18,6 +18,9 @@ export const PanelViewTable = ({ slug, state, dispatch }) => {
   const [seteador, setSeteador] = useState(() => () => { })
   const {development,setDevelopment} = AuthContextProvider()
   const router= useRouter()
+  const headerOrderTable = useMemo(() => selected?.headerOrderTable, [selected]);
+
+  console.log(data)
 
   useEffect(() => {
     setQuery({
@@ -32,7 +35,6 @@ export const PanelViewTable = ({ slug, state, dispatch }) => {
     setSelected(columnsDataTable({ slug }));
   }, [slug, development]);
 
-  
 
   const handleRemoveItem = (idSelected) => {
     setQueryRemove({
@@ -135,7 +137,7 @@ export const PanelViewTable = ({ slug, state, dispatch }) => {
         >
           <Datatable
             setSeteador={setSeteador}
-            columns={columns}
+            columns={headerOrderTable}
             data={data?.results?.filter((item) => item && item) ?? []}
             isLoading={isLoading}
             handleRemoveItem={handleRemoveItem}

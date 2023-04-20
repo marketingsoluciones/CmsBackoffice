@@ -194,6 +194,167 @@ export const BodyStaticAPP = [
           },
 
         ],
+        headerOrderTable: [
+          {
+            Header: "Nombre de empresa",
+            accessor: "businessName",
+            type: "stringL",
+            required: true,
+          },
+          {
+            Header: "Slug",
+            accessor: "slug",
+            type: "slug",
+
+          },
+          {
+            Header: "¿Publicar?",
+            accessor: "status",
+            type: "switch",
+          },
+          {
+            Header: "Pagina web",
+            accessor: "webPage",
+            type: "url",
+          },
+          {
+            Header: "Imagen Miniatura",
+            accessor: "imgMiniatura",
+            type: "image",
+            required: true,
+          },
+          {
+            Header: "Logotipo",
+            accessor: "imgLogo",
+            type: "image",
+            required: true,
+          },
+          {
+            Header: "Carrusel de imagenes",
+            accessor: "imgCarrusel",
+            type: "imageMultiple",
+           /*  required: true,
+ */
+          },
+          {
+            Header: "Contenido",
+            accessor: "content",
+            type: "ckeditor",
+            required: true,
+          },
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Usuario UID",
+            accessor: "userUid",
+          },
+          {
+            Header: "Elegir categorias",
+            accessor: "subCategories",
+            type: "questions",
+            required: true,
+          },
+          {
+            Header: "Nombre de contacto",
+            accessor: "contactName",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Email de contacto",
+            accessor: "contactEmail",
+            type: "email",
+            required: true,
+          },
+          {
+            Header: "Telefono fijo",
+            accessor: "landline",
+            type: "string",
+          },
+          {
+            Header: "Telefono movil",
+            accessor: "mobilePhone",
+            type: "string",
+          },
+          {
+            Header: "Whatsapp",
+            accessor: "whatsapp",
+            type: "string",
+          },
+          {
+            Header: "Twitter",
+            accessor: "twitter",
+            type: "url",
+          },
+          {
+            Header: "Facebook",
+            accessor: "facebook",
+            type: "url",
+          },
+          {
+            Header: "Linkedin",
+            accessor: "linkedin",
+            type: "url",
+          },
+          {
+            Header: "Youtube",
+            accessor: "youtube",
+            type: "url",
+          },
+          {
+            Header: "Instagram",
+            accessor: "instagram",
+            type: "url",
+          },
+          {
+            Header: "País",//
+            accessor: "country",
+            type: "country",
+            required: true,
+          },
+          {
+            Header: "Ciudad",//
+            accessor: "city",
+            type: "string",
+            required: true,
+
+          },
+          {
+            Header: "Codigo Postal",
+            accessor: "zip",
+            type: "number",
+          },
+          {
+            Header: "Direccion",//
+            accessor: "address",
+            type: "stringL",
+            required: true,
+
+          },
+          {
+            Header: "Fase",
+            accessor: "fase",
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+          },
+          {
+            Header: "Ubicacion exacta",
+            accessor: "coordinates",
+            type: "maps",
+            required: true,
+
+          },
+
+        ],
       },
       {
         icon: <CategoriasIcon />,
@@ -206,6 +367,56 @@ export const BodyStaticAPP = [
         updateEntry: FetchGraphQL.catBusiness.updateCategoryBusiness,
         visibleColumns: ["_id", "title", "slug", "createdAt"],
         schema: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Slug",
+            accessor: "slug",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Imagen Banner",
+            accessor: "imgBanner",
+            type: "image",
+            required: true,
+          },
+          {
+            Header: "Imagen Miniatura",
+            accessor: "imgMiniatura",
+            type: "image",
+            required: true,
+          },
+          {
+            Header: "Icono",
+            accessor: "icon",
+            type: "image",
+            typeFile: "svg",
+            required: true,
+
+          },
+          {
+            Header: "Sub Categorias",
+            accessor: "subCategories",
+            type: "relationship",
+            tabList: FetchGraphQL.subCatBusiness.getSubCategoryBusiness,
+            required: true,
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+        ],
+        headerOrderTable: [
           {
             Header: "ID",
             accessor: "_id",
@@ -337,6 +548,77 @@ export const BodyStaticAPP = [
             required: true,
           },
         ],
+        headerOrderTable: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Encabezado H1",
+            accessor: "heading",
+            type: "string",
+          },
+          {
+            Header: "Slug",
+            accessor: "slug",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+
+          {
+            Header: "Imagen Miniatura",
+            accessor: "imgMiniatura",
+            type: "image",
+            required: true,
+
+          },
+          {
+            Header: "Imagen Banner",
+            accessor: "imgBanner",
+            type: "image",
+            required: true,
+
+          },
+          {
+            Header: "Icono",
+            accessor: "icon",
+            type: "image",
+            typeFile: "svg",
+            required: true,
+
+          },
+          {
+            Header: "Descripcion",
+            accessor: "description",
+            type: "textarea",
+            required: true,
+          },
+          {
+            Header: "Caracteristicas",
+            accessor: "characteristics",
+            type: "relationship",
+            tabList: FetchGraphQL.characteristics.getAllCharacteristics,
+            required: true,
+          },
+          {
+            Header: "Preguntas Frecuentes",
+            accessor: "questions",
+            type: "relationship",
+            tabList: FetchGraphQL.questions.getAllQuestions,
+            required: true,
+          },
+        ],
       },
       {
         icon: <CaracteristicasIcon />,
@@ -349,6 +631,34 @@ export const BodyStaticAPP = [
         updateEntry: FetchGraphQL.characteristics.updateCharacteristics,
         visibleColumns: ["_id", "title", "slug", "createdAt"],
         schema: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Icono",
+            accessor: "icon",
+            type: "image",
+          },
+          {
+            Header: "Elementos",
+            accessor: "items",
+            type: "fieldArray",
+            schema: "object",
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+        ],
+        headerOrderTable: [
           {
             Header: "ID",
             accessor: "_id",
@@ -404,6 +714,23 @@ export const BodyStaticAPP = [
             Cell: (props) => formatTime(props.value, "es"),
           },
         ],
+        headerOrderTable: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+        ],
       },
       {
         icon: <PreguntasFrecuentes />,
@@ -416,6 +743,23 @@ export const BodyStaticAPP = [
         updateEntry: FetchGraphQL.questions.updateQuestions,
         visibleColumns: ["_id", "title", "slug", "createdAt"],
         schema: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+        ],
+        headerOrderTable: [
           {
             Header: "ID",
             accessor: "_id",
@@ -482,24 +826,10 @@ export const BodyStaticAPP = [
             required: true,
           },
           {
-            Header: "Contenido",
-            accessor: "content",
-            type: "ckeditor",
-            required: true,
-          },
-
-          {
             Header: "SEO Descripción",
             accessor: "seoDescription",
-            type: "string",
+            type: "stringSEO",
             required: true,
-          },
-
-          {
-            Header: "Categorias",
-            accessor: "subCategories",
-            type: "relationship",
-            tabList: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
           },
           {
             Header: "Etiquetas",
@@ -508,10 +838,100 @@ export const BodyStaticAPP = [
             schema: "string"
           },
           {
+            Header: "Contenido",
+            accessor: "content",
+            type: "ckeditor",
+            required: true,
+          },
+          {
+            Header: "Categorias",
+            accessor: "subCategories",
+            type: "relationship",
+            tabList: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
+          },
+          {
             Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
           },
+          {
+            Header: "Carrusel de imagenes",
+            accessor: "imgCarrusel",
+            type: "imageMultiple",
+          },
+          {
+            Header: "Status",
+            accessor: "status",
+          },
+          {
+            Header: "Vistas",
+            accessor: "views",
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+          {
+            Header: "Creado el",
+            accessor: "updatedAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+
+        ],
+        headerOrderTable: [
+          {
+            Header: "Imagen Miniatura",
+            accessor: "imgMiniatura",
+            type: "image",
+          },
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Subtitulo",
+            accessor: "subTitle",
+            type: "string",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+            type: "string",
+            required: true,
+          },
+          
+          {
+            Header: "Slug",
+            accessor: "slug",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "SEO Descripción",
+            accessor: "seoDescription",
+            type: "stringSEO",
+            required: true,
+          },
+          {
+            Header: "Etiquetas",
+            accessor: "tags",
+            type: "fieldArray",
+            schema: "string"
+          },
+          {
+            Header: "Contenido",
+            accessor: "content",
+            type: "ckeditor",
+            required: true,
+          },
+          {
+            Header: "Categorias",
+            accessor: "subCategories",
+            type: "relationship",
+            tabList: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
+          },
+          
           {
             Header: "Carrusel de imagenes",
             accessor: "imgCarrusel",
@@ -549,6 +969,55 @@ export const BodyStaticAPP = [
         deleteEntry: FetchGraphQL.categoryPost.deleteCategoryPost,
         visibleColumns: ["_id", "title", "slug", "createdAt"],
         schema: [
+          {
+            Header: "Identificador",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Encabezado",
+            accessor: "heading",
+            type: "string",
+          },
+          {
+            Header: "Slug",
+            accessor: "slug",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Imagen Miniatura",
+            accessor: "imgMiniatura",
+            type: "image",
+          },
+          {
+            Header: "Imagen Banner",
+            accessor: "imgBanner",
+            type: "image",
+          },
+          {
+            Header: "Icon",
+            accessor: "icon",
+            type: "image",
+          },
+          {
+            Header: "Sub Categorias",
+            accessor: "subCategories",
+            type: "relationship",
+            tabList: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+        ],
+        headerOrderTable: [
           {
             Header: "Identificador",
             accessor: "_id",
@@ -651,6 +1120,49 @@ export const BodyStaticAPP = [
             Cell: (props) => formatTime(props.value, "es"),
           },
         ],
+        headerOrderTable: [
+          {
+            Header: "Identificador",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Encabezado",
+            accessor: "heading",
+            type: "string",
+          },
+          {
+            Header: "Slug",
+            accessor: "slug",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Imagen Miniatura",
+            accessor: "imgMiniatura",
+            type: "image",
+          },
+          {
+            Header: "Imagen Banner",
+            accessor: "imgBanner",
+            type: "image",
+          },
+          {
+            Header: "Icon",
+            accessor: "icon",
+            type: "image",
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+        ],
       },
     ],
   },
@@ -668,6 +1180,38 @@ export const BodyStaticAPP = [
         updateEntry: FetchGraphQL.sections.updatePage,
         visibleColumns: ["_id", "title", "slug", "createdAt"],
         schema: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+            type: "string",
+          },
+          {
+            Header: "Subtitulo",
+            accessor: "subTitle",
+            type: "string",
+          },
+          {
+            Header: "Slug",
+            accessor: "slug",
+            type: "string",
+          },
+          {
+            Header: "estatus",
+            accessor: "status",
+            type: "switch",
+          },
+          {
+            Header: "Contenido",
+            accessor: "content",
+            type: "ckeditor",
+          },
+
+        ],
+        headerOrderTable: [
           {
             Header: "ID",
             accessor: "_id",

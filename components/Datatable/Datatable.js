@@ -35,7 +35,7 @@ import GlobalFilter from "../../components/Datatable/GlobalFilter";
 import { useMemo, useState, useEffect } from "react";
 import { ActionsCell } from "./ActionsCell";
 import { useRouter } from "next/router";
-import { ModalAlert,ModalMasivoAlert } from "../modals/Alert";
+import { ModalAlert, ModalMasivoAlert } from "../modals/Alert";
 
 
 
@@ -45,6 +45,8 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
   const [modal, setModal] = useState(false)
   const [modalMasivo, setModalMasivo] = useState(false)
   const [saveId, setSaveId] = useState("")
+
+
 
   const filterTypes = useMemo(
     () => ({
@@ -162,9 +164,9 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
                         return (
                           <>
                             {modalMasivo ? (
-                              <ModalMasivoAlert  setModalMasivo={setModalMasivo} modalMasivo={modalMasivo} handleRemoveItem={handleRemoveItem}  onClickList={selectedFlatRows.map(item => item.original._id)} />
+                              <ModalMasivoAlert setModalMasivo={setModalMasivo} modalMasivo={modalMasivo} handleRemoveItem={handleRemoveItem} onClickList={selectedFlatRows.map(item => item.original._id)} />
                             ) : null}
-                            
+
                             <Button
                               transition={"all"}
                               bg={"red.400"}
@@ -254,12 +256,12 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
               {page.map((row, idx) => {
                 prepareRow(row);
 
-               
 
+           
                 return (
                   <Tr key={idx} fontSize={"xs"} {...row.getRowProps()} _hover={{ bg: "gray.100" }} className={`${row.isSelected && "bg-gray-100"}`}>
                     {row.cells.map((cell , idx) => {
-                      
+
                       return (
                         <>
                           <Td key={idx} className="cursor-pointer" {...cell.getCellProps()} paddingY="0.9rem" paddingInlineEnd={"1rem"} onClick={() => setAction(asPath !== "/questions" ? { type: "VIEWW", payload: { _id: row.original._id } } : { type: "EDIT", payload: { _id: row.original._id } })}>
@@ -276,7 +278,7 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
                       justifyItems={"center"}
                     >
                       {modal ? (
-                      <ModalAlert id={saveId} handleRemoveItem={handleRemoveItem} setModal={setModal} modal={modal} />
+                        <ModalAlert id={saveId} handleRemoveItem={handleRemoveItem} setModal={setModal} modal={modal} />
                       ) : null}
                       <button onClick={() => [setModal(!modal), setSaveId(row.original._id)]} className="cursor-pointer bg"  >
                         <IconButton size={"sm"} icon={<DeleteIcon/>}  />
