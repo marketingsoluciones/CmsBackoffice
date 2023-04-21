@@ -3,32 +3,39 @@ import { columnsDataTable } from "../components/Datatable/Columns";
 import { Datatable } from "../components/Datatable/Datatable";
 import { useFetch } from "../hooks/useFetch";
 import { useEffect, useMemo, useState } from "react";
-import { BodyStaticAPP } from "../utils/schemas";
-import { FiltrarIcon, SearchIcon, PermisosIcon, ArrowDownIcon, OptionIcon } from "../components/Icons/index"
+import { FiltrarIcon, SearchIcon, PermisosIcon, ArrowDownIcon, OptionIcon } from "../components/Icons/index/"
 import GlobalFilter from "./Datatable/GlobalFilter";
 import { AuthContextProvider } from "../context/AuthContext";
 import { useRouter } from "next/router";
+import { hasRole } from "../utils/auth";
 
-export const PanelViewTable = ({ slug, state, dispatch }) => {
+export const PanelViewTable = ({ slug, dispatch }) => {
   const [data, isLoading, isError, setQuery] = useFetch();
   const [dataRemove, isLoadingRemove, isErrorRemove, setQueryRemove] = useFetch(true);
   const [selected, setSelected] = useState(columnsDataTable({ slug }));
   const columns = useMemo(() => selected?.schema, [selected]);
   const [global, setGlobal] = useState()
   const [seteador, setSeteador] = useState(() => () => { })
-  const {development,setDevelopment} = AuthContextProvider()
-  const router= useRouter()
   const headerOrderTable = useMemo(() => selected?.headerOrderTable, [selected]);
 
   console.log(data)
+  const { development, user } = AuthContextProvider()
+  const router = useRouter()
 
   useEffect(() => {
-    setQuery({
-      ...selected.getData,
-      variables: { development:development },
-      type: "json"
-    });
-  }, [selected, state, isLoadingRemove]);
+    const userRole = user?.authDevelopments.filter(elem => elem.title === development)[0].role
+    if (hasRole(development, user, selected.roles)) {
+      setQuery({
+        ...selected.getData,
+        variables: { development: development },
+        type: "json"
+      });
+    } else {
+      setTimeout(() => {
+        router.push("/")
+      }, 100);
+    }
+  }, [selected, isLoadingRemove]);
 
   useEffect(() => {
     dispatch({ type: "VIEW", payload: {} });
@@ -44,63 +51,17 @@ export const PanelViewTable = ({ slug, state, dispatch }) => {
     });
   };
 
-  useEffect(() => {
-   /*  console.log(1001, seteador) */
-  }, [seteador])
-
   return (
     <>
 
       <div className="w-full px-5">
         <div className=" flex justify-between w-100%">
           <Box>
-           {/*  <Heading  textTransform={"capitalize"} className="mt-2 text-3xl"> */}
-           <div className="text-slate-600 mt-2 text-3xl">
-              {(() => {
-                if (selected?.title === "Marcas") {
-                  return (
-                    <Text className="">Empresas/{selected?.title}</Text>
-                  )
-                } else if (selected?.route === "categoryBusiness") {
-                  return (
-                    <Text>Empresas/{selected?.title}</Text>
-                  )
-                } else if (selected?.route === "subcategoriesBusiness") {
-                  return (
-                    <Text>Empresas/{selected?.title}</Text>
-                  )
-                } else if (selected?.title === "Caracteristicas") {
-                  return (
-                    <Text>Empresas/{selected?.title}</Text>
-                  )
-                } else if (selected?.title === "Campañas") {
-                  return (
-                    <Text>Empresas/{selected?.title}</Text>
-                  )
-                } else if (selected?.route === "questions") {
-                  return (
-                    <Text>Empresas/{selected?.title}</Text>
-                  )
-                } else if (selected?.title === "Posts") {
-                  return (
-                    <Text>Blog/{selected?.title}</Text>
-                  )
-                } else if (selected?.route === "categoriesPosts") {
-                  return (
-                    <Text>Blog/{selected?.title}</Text>
-                  )
-                } else if (selected?.route === "subcategoriesPost") {
-                  return (
-                    <Text>Blog/{selected?.title}</Text>
-                  )
-                } else if (selected?.route === "sections") {
-                  return (
-                    <Text>Paginas/{selected?.title}</Text>
-                  )
-                }
-              })()}
+            <Heading textTransform={"capitalize"} className="mt-2 text-3xl">
+              <div className="text-slate-600 mt-2 text-3xl">
+                <Text className="">{`${selected?.father}/${selected?.title}`}</Text>
               </div>
-        {/*     </Heading> */}
+            </Heading>
           </Box>
         </div>
 
@@ -133,7 +94,6 @@ export const PanelViewTable = ({ slug, state, dispatch }) => {
           overflow={"auto"}
           mb={"4rem"}
           w={"100%"}
-
         >
           <Datatable
             setSeteador={setSeteador}

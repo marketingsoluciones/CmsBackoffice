@@ -1,20 +1,20 @@
 // import App from 'next/app'
 import "../styles/globals.css";
-import { ChakraProvider} from "@chakra-ui/react";
-import {DefaultLayout} from "../layouts/DefaultLayout";
+import { ChakraProvider } from "@chakra-ui/react";
+import { DefaultLayout } from "../layouts/DefaultLayout";
 import "@fontsource/poppins"
-import {theme} from '../theme'
+import { theme } from '../theme'
 import '../styles/CKEditor.css'
 
 function MyApp({ Component, pageProps }) {
   return (
     <>
-    <ChakraProvider theme={theme}>
+      <ChakraProvider theme={theme}>
         <DefaultLayout>
-      <Component {...pageProps} />
-      </DefaultLayout>
-    </ChakraProvider>
-    <style jsx global>
+          <Component {...pageProps} />
+        </DefaultLayout>
+      </ChakraProvider>
+      <style jsx global>
         {`
         body {
   overscroll-behavior: contain;

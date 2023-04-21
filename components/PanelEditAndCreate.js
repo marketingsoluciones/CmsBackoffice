@@ -14,13 +14,13 @@ import {
 import { useEffect, useCallback, useRef, useState } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { FormDinamical } from "../components/formularios/Form";
-import { FindOptionBodas, FindOptionCivitas } from "../components/Datatable/Columns";
+import { FindOption } from "../components/Datatable/Columns";
 import { LoadingComponent } from "../components/LoadingComponent";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { formatTime } from "../utils/formatTime";
 import { fetchApi } from "../utils/Fetching";
 import { AuthContextProvider } from "../context/AuthContext";
-import { ArrowLeft } from "./Icons/index"
+import { ArrowLeft } from "./Icons/index/"
 import { SwitchField } from "./formularios/Inputs/SwitchField";
 
 export const PanelEditAndCreate = ({ slug, setAction, state }) => {
@@ -28,8 +28,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const [valuesEdit, loadingValues, errorValues, setQueryValues] = useFetch();
   const refButton = useRef();
   const toast = useToast();
-  const options = FindOptionBodas(slug);
-  const optionsCivitas = FindOptionCivitas(slug);
+  const options = FindOption(slug);
   const { user, development } = AuthContextProvider();
 
   useEffect(() => {
@@ -47,12 +46,11 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const fetchCreate = useCallback(
     async (values) => {
       try {
-        const data = await fetchApi(
-          options?.createEntry?.query,
-
-          { ...values, development: development },
-          "formData"
-        );
+        const data = await fetchApi({
+          query: options?.createEntry?.query,
+          variables:{ ...values, development: development },
+          type: "formData"
+        });
         if (data) {
           toast({
             status: "success",
@@ -88,11 +86,11 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
 
         delete values.createdAt;
         delete values.updatedAt;
-        const data = await fetchApi(
-          options?.updateEntry?.query,
-          { id: _id, args: values },
-          "formData"
-        );
+        const data = await fetchApi({
+          query: options?.updateEntry?.query,
+          variables: { id: _id, args: values },
+          type: "formData"
+        });
         if (data) {
           toast({
             status: "success",
@@ -101,17 +99,18 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
           });
           setAction({ type: "VIEW", payload: {} });
         } else {
-          throw new Error("Error en la peticion");
+          throw new Error(10011, "Error en la peticion");
         }
 
       } catch (error) {
+        console.log(8001, error)
         toast({
           status: "error",
           title: "Error",
           description: JSON.stringify(error),
           isClosable: true,
         });
-        console.log(error);
+        console.log(8002,error);
       }
     },
     [slug]

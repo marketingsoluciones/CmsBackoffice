@@ -14,9 +14,9 @@ import ClickAwayListener from "react-click-away-listener";
 
 export const Navigation = ({ set, state, }) => {
   const router = useRouter()
-  
+
   const Options = [
-  
+
     { title: "Ayuda", route: "/" },
     {
       title: "Cerrar Sesión", function: async () => {

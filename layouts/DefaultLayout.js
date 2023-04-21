@@ -11,7 +11,7 @@ export const DefaultLayout = ({ children }) => {
   const [show, setShow] = useState(true);
 
 
- 
+
 
   return (
     <AuthProvider>
@@ -21,7 +21,7 @@ export const DefaultLayout = ({ children }) => {
           <Sidebar state={show} />
         </div>
         <Flex flexDir={"column"} w={show ? "calc(100% - 14rem)" : "100%"}>
-          <Navigation set={setShow} state={show}  />
+          <Navigation set={setShow} state={show} />
           <Box as={"main"} p={"0.5rem"} /* bg={"gray.100"} */ h={"full"} w={"100%"} className="bg-bg">
             {children}
 
