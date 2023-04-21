@@ -7,6 +7,7 @@ import {
   Grid,
   GridItem,
   Heading,
+  Switch,
   Text,
   useToast,
 } from "@chakra-ui/react";
@@ -20,6 +21,7 @@ import { formatTime } from "../utils/formatTime";
 import { fetchApi } from "../utils/Fetching";
 import { AuthContextProvider } from "../context/AuthContext";
 import { ArrowLeft } from "./Icons/index"
+import { SwitchField } from "./formularios/Inputs/SwitchField";
 
 export const PanelEditAndCreate = ({ slug, setAction, state }) => {
 
@@ -122,8 +124,8 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   /* componente que indica la actualizacion y por quien se creo la empresa o post */
   const Information = [
     {
-      title: "Creado el",
-      value: "18/5/85"
+      title: "Fecha de Publicacion",
+      value: formatTime(valuesEdit?.createdAt, "es"),
     },
     {
       title: "Ultima Actualización",
@@ -159,29 +161,10 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                     "Crear Registro"}
                 </div >
 
-                <button
 
-
-                  color={"white"}
-                  fontWeight={"500"}
-                  _hover={{
-                    bg: "blue.700",
-                  }}
-                  className="bg-verde h-8 w-20 rounded-lg text-white"
-                  onClick={async () => {
-                    try {
-                      await refButton.current.handleSubmit();
-                      // setAction({ type: "VIEW", payload: {} })
-                    } catch (error) {
-                      console.log(error);
-                    }
-                  }}
-                >
-                  Guardar
-                </button>
               </div>
 
-              <Text className="ml-9 text-slate-600 text-sm ">Identificador: {valuesEdit?._id}</Text>
+              {/* <Text  className="ml-9 text-slate-600 text-sm ">Identificador: {valuesEdit?._id}</Text> */}
             </Box>
           </Flex>
 
@@ -197,8 +180,9 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
               colSpan={["1", , , , "4"]}
               bg={"white"}
               p={"1rem"}
-              shadow={"sm"}
+              shadow={"md"}
               rounded={"xl"}
+            
             >
               <FormDinamical
                 schema={options?.schema}
@@ -215,12 +199,45 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
               flexDir={"column"}
               gap={"1rem"}
             >
-              <Box bg={"white"} p={"1rem"} shadow={"sm"} rounded={"xl"}>
-                <Heading pb={"1rem"} fontSize={"sm"} color={"gray.500"}>
+              <div className="space-x-1 flex">
+                <button className=" border-2 border-gray-300  rounded-lg px-2 py-3 text-sm font-semibold" >Pre-Visualizar</button>
+
+                <button
+
+
+                  color={"white"}
+                  fontWeight={"500"}
+                  _hover={{
+                    bg: "blue.700",
+                  }}
+                  className="border-2 border-verde bg-verde py-3 px-2 rounded-lg text-white text-sm  "
+                  onClick={async () => {
+                    try {
+                      await refButton.current.handleSubmit();
+                      // setAction({ type: "VIEW", payload: {} })
+                    } catch (error) {
+                      console.log(error);
+                    }
+                  }}
+                >
+                  Guardar
+                </button>
+              </div>
+              <Box bg={"white"} p={"1rem"} shadow={"md"} rounded={"xl"}>
+
+                {/* <Heading pb={"1rem"} fontSize={"sm"} color={"gray.500"}>
                   Información
                 </Heading>
 
-                <Divider />
+                <Divider /> */}
+                <div className="flex justify-between px-2 mt-2">
+                  <span>Publicar</span>
+                  <Switch></Switch>
+                </div>
+                <div className="flex justify-between px-2 mt-3">
+                  <span>Comentarios</span>
+                  <Switch></Switch>
+                </div>
                 {Information?.map((item, idx) => (
                   <Flex
                     key={idx}
@@ -231,15 +248,19 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                     justifyContent={"space-between"}
                     fontSize={"xs"}
                   >
+
                     <Text color={"gray.400"}>{item.title}</Text>
-                    <Badge
+                    <div className="w-100% border-2 w-full text-sm px-2 py-1 rounded-md">
+                      {item.value}
+                    </div>
+                   {/*  <Badge
                       w={"100%"}
                       textAlign={"center"}
                       color={"gray.700"}
                       p={"0.25rem"}
                     >
                       {item.value}
-                    </Badge>
+                    </Badge> */}
                   </Flex>
                 ))}
               </Box>

@@ -16,6 +16,9 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   const columns = useMemo(() => selected?.schema, [selected]);
   const [global, setGlobal] = useState()
   const [seteador, setSeteador] = useState(() => () => { })
+  const headerOrderTable = useMemo(() => selected?.headerOrderTable, [selected]);
+
+  console.log(data)
   const { development, user } = AuthContextProvider()
   const router = useRouter()
 
@@ -38,7 +41,6 @@ export const PanelViewTable = ({ slug, dispatch }) => {
     dispatch({ type: "VIEW", payload: {} });
     setSelected(columnsDataTable({ slug }));
   }, [slug, development]);
-
 
 
   const handleRemoveItem = (idSelected) => {
@@ -76,10 +78,10 @@ export const PanelViewTable = ({ slug, dispatch }) => {
 
           <div className=" absolute h-8  rounded-md px-2 flex items-center  border-gray-400 border-2  bottom-0 right-0 w-1/3 ">
             <SearchIcon />
-            <GlobalFilter
+          {/*   <GlobalFilter
               globalFilter={global}
               setGlobalFilter={seteador}
-            />
+            /> */}
           </div>
         </div>
       </div>
@@ -95,7 +97,7 @@ export const PanelViewTable = ({ slug, dispatch }) => {
         >
           <Datatable
             setSeteador={setSeteador}
-            columns={columns}
+            columns={headerOrderTable}
             data={data?.results?.filter((item) => item && item) ?? []}
             isLoading={isLoading}
             handleRemoveItem={handleRemoveItem}

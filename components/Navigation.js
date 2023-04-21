@@ -154,10 +154,11 @@ export const SearchNavigation = ({ }) => {
 };
 
 export const Hit = ({ hit, }) => {
+ 
   const { dispatch } = AuthContextProvider()
   return (
     <>
-      <div className="gap-3 flex py-3 px-5  transition-all cursor-pointer items-center" onClick={() => { dispatch({ type: "VIEWW", payload: { _id: hit.objectID } }) }}>
+      <div className="gap-3 flex py-3 px-5  transition-all cursor-pointer items-center" onClick={() => { dispatch({ type: "EDIT", payload: { _id: hit.objectID } }) }}>
         <img
           alt={hit?.title}
           src={
