@@ -1,7 +1,8 @@
 import { SimpleGrid, Stat, StatLabel, StatNumber } from "@chakra-ui/react"
 import { PagesWithAuth } from "../HOC/PageWithAuth"
 import { AuthContextProvider } from "../context/AuthContext";
-import Login from "./login"
+import { Login } from "../components/login";
+import { useEffect } from "react";
 
 function HomePage() {
   const { user, verificandoCookie } = AuthContextProvider();

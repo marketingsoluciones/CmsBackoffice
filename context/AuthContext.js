@@ -57,7 +57,7 @@ const AuthProvider = ({ children }) => {
     console.log(55000, domain)
     const resp = developments.filter(elem => elem.name === domain)[0]
     console.log(55061, resp?.cookie)
-    if (!resp?.cookie) resp = developments[0]
+    if (!resp?.cookie) resp = developments[1]
     console.log(55062, resp?.cookie)
     setDevelopment(resp.name)
     console.log(55001, resp)
@@ -88,11 +88,13 @@ const AuthProvider = ({ children }) => {
               variables: { uid: user?.uid },
               development: config?.name
             }).then((moreInfo) => {
-              setVerificandoCookie(true)
               console.log(8877, moreInfo)
               moreInfo && console.info("Tengo datos de la base de datos");
               setUser({ ...user, ...moreInfo });
               console.info("Guardo datos en contexto react");
+              setTimeout(() => {
+                setVerificandoCookie(true)
+              }, 50);
             })
           } else {
             console.info("NO tengo user de contexto de firebase");
@@ -101,12 +103,13 @@ const AuthProvider = ({ children }) => {
               variables: { sessionCookie },
               development: config?.name
             }).then((asdf) => {
-              setVerificandoCookie(true)
               console.log(333, asdf)
               const customToken = asdf?.customToken
               console.info("Llamo con mi sessionCookie para traerme customToken");
               console.info("Custom token", customToken)
-              customToken && signInWithCustomToken(getAuth(), customToken);
+              customToken && signInWithCustomToken(getAuth(), customToken).then(
+                setVerificandoCookie(true)
+              )
               console.info("Hago sesion con el custom token");
             })
           }

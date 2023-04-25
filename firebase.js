@@ -23,12 +23,14 @@ export const developments = [
   {
     name: "bodasdehoy",
     fileConfig: firebaseConfigBodas,
-    cookie: "sessionBodas"
+    cookie: "sessionBodas",
+    domain: "https://bodasdehoy.com"
   },
   {
     name: "diariocivitas",
     fileConfig: firebaseConfigCivitas,
-    cookie: "sessionCivitas"
+    cookie: "sessionCivitas",
+    domain: "https://diariocivitas.com"
   },
 ]
 

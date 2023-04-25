@@ -9,13 +9,19 @@ const Navigation = dynamic(() => import('../components/Navigation').then(mod => 
 
 export const DefaultLayout = ({ children }) => {
   const [show, setShow] = useState(true);
+  const [valir, setValir] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setValir(true)
+    }, 500);
+  }, [])
 
 
 
 
   return (
     <AuthProvider>
-      <Flex h={"100vh"} w={"100%"} overflow={"hidden"} position={"relative"} >
+      {valir && <Flex h={"100vh"} w={"100%"} overflow={"hidden"} position={"relative"} >
 
         <div className="">
           <Sidebar state={show} />
@@ -27,7 +33,7 @@ export const DefaultLayout = ({ children }) => {
 
           </Box>
         </Flex>
-      </Flex>
+      </Flex>}
     </AuthProvider>
   );
 };
