@@ -1,4 +1,4 @@
-import { Box, Divider, FormLabel, Textarea, Flex,Text } from "@chakra-ui/react"
+import { Box, Divider, FormLabel, Textarea, Flex, Text } from "@chakra-ui/react"
 import { useField } from "formik";
 
 
@@ -20,7 +20,7 @@ export const TextareaField = ({ label, ...props }) => {
                 <Flex gap={"0.3rem"} paddingBottom={"0.5rem"} alignItems={"center"}>
                     {label}{" "}
                     {meta.touched && meta.error && (
-                        <Text color={"red"} fontSize={"xs"} fontWeight={"500"}>
+                        <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
                             {meta.error}
                         </Text>
                     )}

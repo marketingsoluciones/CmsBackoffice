@@ -17,12 +17,12 @@ export const PasswordInput = ({ label, ...props }) => {
 
   return (
     <Box>
-       <Divider />
-    <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>{label}</FormLabel>
+      <Divider />
+      <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>{label}</FormLabel>
       <InputGroup>
         <Input fontSize={"sm"} {...field} {...props} type={show ? 'text' : 'password'} />
         <InputRightElement width="4.5rem" pr={"0.5rem"}>
-          <Button bg={"gray.300"} h="1.75rem" size="sm" fontSize={"xs"} onClick={handleClick}>
+          <Button bg={"gray.300"} h="1.75rem" size="sm" fontSize={"sm"} onClick={handleClick}>
             {show ? "Ocultar" : "Mostrar"}
           </Button>
         </InputRightElement>

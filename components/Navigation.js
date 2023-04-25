@@ -166,11 +166,11 @@ export const Hit = ({ hit, }) => {
           className={"w-14 h-14 rounded-lg object-cover object-center"}
         />
         <div className="col-span-3">
-          <h3 className="text-xs md:text-sm font-semibold text-gray-500">
+          <h3 className="text-sm md:text-sm font-semibold text-gray-500">
             {hit?.title}
           </h3>
           <span
-            className={` text-xs   rounded  text-gray-500`}
+            className={` text-sm   rounded  text-gray-500`}
           >
             {hit?.type}
           </span>

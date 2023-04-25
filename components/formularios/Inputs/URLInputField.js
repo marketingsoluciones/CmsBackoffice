@@ -39,7 +39,7 @@ export const URLInputField = ({ label, ...props }) => {
         <Flex gap={"0.3rem"} alignItems={"center"}>
           {label}
           {meta.touched && meta.error && (
-            <Text color={"red"} fontSize={"xs"} fontWeight={"500"}>
+            <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
               {meta.error}
             </Text>
           )}

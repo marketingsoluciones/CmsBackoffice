@@ -1,4 +1,4 @@
-import {Box,Flex,FormLabel,Input,Square,Text,Image,IconButton,} from "@chakra-ui/react";
+import { Box, Flex, FormLabel, Input, Square, Text, Image, IconButton, } from "@chakra-ui/react";
 import { useField } from "formik";
 import { memo, useEffect, useState } from "react";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -14,13 +14,13 @@ export const MultipleImages = memo(({ label, ...props }) => {
       item.i640 && acc.push(item._id)
       return acc
     }, [])
-    helpers.setValue( files );
+    helpers.setValue(files);
   }, [image]);
-  
+
   useEffect(() => {
     field.value && setImage(field.value)
   }, []);
-  
+
   const handleChange = async (e) => {
     try {
       let file = e.target.files;
@@ -61,7 +61,7 @@ export const MultipleImages = memo(({ label, ...props }) => {
         <Flex gap={"0.3rem"} alignItems={"center"}>
           {label}{" "}
           {meta.touched && meta.error && (
-            <Text color={"red"} fontSize={"xs"} fontWeight={"500"}>
+            <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
               {meta.error}
             </Text>
           )}
@@ -100,7 +100,7 @@ export const MultipleImages = memo(({ label, ...props }) => {
           />
         </FormLabel>
         {image?.map((item, idx) => {
-          if(item.image){
+          if (item.image) {
             return (
               <Square
                 key={idx}
@@ -121,7 +121,7 @@ export const MultipleImages = memo(({ label, ...props }) => {
                 />
                 <IconButton
                   onClick={() => handleRemove(item._id)}
-                  size={"xs"}
+                  size={"sm"}
                   pos={"absolute"}
                   bottom={"2"}
                   right={"2"}
@@ -130,7 +130,7 @@ export const MultipleImages = memo(({ label, ...props }) => {
               </Square>
             )
           }
-          if(item.i800){
+          if (item.i800) {
             return (
               <Square
                 key={idx}
@@ -151,7 +151,7 @@ export const MultipleImages = memo(({ label, ...props }) => {
                 />
                 <IconButton
                   onClick={() => handleRemove(item._id)}
-                  size={"xs"}
+                  size={"sm"}
                   pos={"absolute"}
                   bottom={"2"}
                   right={"2"}

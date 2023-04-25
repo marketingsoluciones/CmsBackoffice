@@ -19,8 +19,8 @@ import { FieldArray, useField } from "formik";
 import { useFetch } from "../../../hooks/useFetch";
 import { useEffect, useState } from "react";
 import { FetchGraphQL } from "../../../utils/Fetching";
-import {useFormikContext} from 'formik'
-import {InputField} from '../../../components/formularios/Inputs/InputField'
+import { useFormikContext } from 'formik'
+import { InputField } from '../../../components/formularios/Inputs/InputField'
 import { memo } from "react";
 import { AuthContextProvider } from "../../../context/AuthContext";
 
@@ -42,7 +42,7 @@ const queryResults = `query ($id: [inputObjectID]){
 }`;
 
 const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) => {
-  const {development} = AuthContextProvider()
+  const { development } = AuthContextProvider()
   const [field, meta, helpers] = useField(props);
 
   //Fetching de lista de subcategorias
@@ -54,7 +54,7 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
   useEffect(() => {
     setQueryTabList({
       ...FetchGraphQL.subCatBusiness.getSubCategoryBusiness,
-      variables: {development: development},
+      variables: { development: development },
       type: "json",
     });
   }, []);
@@ -87,7 +87,7 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
                 <Flex gap={"0.3rem"} alignItems={"center"}>
                   {label}
                   {meta.touched && meta.error && (
-                    <Text color={"red"} fontSize={"xs"} fontWeight={"500"}>
+                    <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
                       {meta.error}
                     </Text>
                   )}
@@ -113,9 +113,9 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
                                 (el) => el._id === item._id
                               );
                             e.currentTarget.checked
-                              ? push({_id : item._id})
+                              ? push({ _id: item._id })
                               : remove(idx);
-                           
+
                           }}
                         >
                           {item?.title}
@@ -134,7 +134,7 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
           Preguntas frecuentes
         </FormLabel>
         {!isLoadingResults && !isErrorResults ? (
-          <QuestionsComponent data={results?.questions} setValues={setValues} values={values}/>
+          <QuestionsComponent data={results?.questions} setValues={setValues} values={values} />
         ) : (
           <LoadingComponent />
         )}
@@ -160,25 +160,25 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
 export default QuestionInputsForBusiness;
 
 const QuestionsComponent = ({ data = [] }) => {
-  
-  const {values, setFieldValue} = useFormikContext()
+
+  const { values, setFieldValue } = useFormikContext()
 
   useEffect(() => {
-    if(values.questionsAndAnswers){
-      const mapResult = values.questionsAndAnswers.reduce((acc,item ) => {
+    if (values.questionsAndAnswers) {
+      const mapResult = values.questionsAndAnswers.reduce((acc, item) => {
         acc[item.questions._id] = item.answers
         return acc
       }, {})
       setFieldValue("questionsAndAnswers2", mapResult)
     }
-  }, []) 
+  }, [])
 
-  
+
   useEffect(() => {
     if (values.questionsAndAnswers2) {
       const arrCharac = Object?.entries(values?.questionsAndAnswers2 ?? {});
       const reduce = arrCharac?.reduce((acc, item) => {
-          acc.push({ questions: {_id : item[0]}, answers: item[1] });
+        acc.push({ questions: { _id: item[0] }, answers: item[1] });
         return acc;
       }, []);
       values && setFieldValue("questionsAndAnswers", reduce);
@@ -214,27 +214,27 @@ const QuestionsComponent = ({ data = [] }) => {
 };
 
 const CharactesticsComponent = ({ data = [] }) => {
- 
-  const {values, setFieldValue} = useFormikContext()
+
+  const { values, setFieldValue } = useFormikContext()
 
   useEffect(() => {
-    if(values.characteristics){
-      const mapResult = values.characteristics.reduce((acc,item ) => {
-        if(item.characteristic._id){
+    if (values.characteristics) {
+      const mapResult = values.characteristics.reduce((acc, item) => {
+        if (item.characteristic._id) {
           acc[item.characteristic._id] = item.items.map((character) => character.title)
         }
         return acc
       }, {})
       setFieldValue("characteristics2", mapResult)
     }
-  }, []) 
+  }, [])
 
   useEffect(() => {
     if (values.characteristics2) {
       const arrCharac = Object?.entries(values?.characteristics2 ?? {});
       const reduce = arrCharac?.reduce((acc, item) => {
         if (item[1]?.length > 0) {
-          acc.push({ characteristic: {_id : item[0]}, items: item[1]?.map((item) => ({title: item})) });
+          acc.push({ characteristic: { _id: item[0] }, items: item[1]?.map((item) => ({ title: item })) });
         }
         return acc;
       }, []);
@@ -244,42 +244,42 @@ const CharactesticsComponent = ({ data = [] }) => {
 
   return (
     <Grid templateColumns={"repeat(3, 1fr)"} gap={"2rem"}>
-            {data?.length > 0 ? (
-              <>
-                {data
-                  ?.filter((item) => item && item)
-                  ?.map((item) => {
-                    return (
-                      <GridItem colSpan={[3]}>
-                      <FieldArrayWithProps
-                      key={item?._id}
-                      data={item?.items}
-                      label={item?.title}
-                      name={`characteristics2.${item?._id}`}
-                      values={values?.characteristics2 && values?.characteristics2[item._id]}
-                      />
-                    </GridItem>
-                    );
-                  })}
-              </>
-            ) : (
-              <GridItem colSpan={[3]}>
-                <Text
-                  fontSize={"sm"}
-                  textAlign={"center"}
-                  color={"gray.400"}
-                  w={"100%"}
-                  py={"4rem"}
-                >
-                  Debes seleccionar una categoria que contenga items
-                </Text>
-              </GridItem>
-            )}
-          </Grid>
+      {data?.length > 0 ? (
+        <>
+          {data
+            ?.filter((item) => item && item)
+            ?.map((item) => {
+              return (
+                <GridItem colSpan={[3]}>
+                  <FieldArrayWithProps
+                    key={item?._id}
+                    data={item?.items}
+                    label={item?.title}
+                    name={`characteristics2.${item?._id}`}
+                    values={values?.characteristics2 && values?.characteristics2[item._id]}
+                  />
+                </GridItem>
+              );
+            })}
+        </>
+      ) : (
+        <GridItem colSpan={[3]}>
+          <Text
+            fontSize={"sm"}
+            textAlign={"center"}
+            color={"gray.400"}
+            w={"100%"}
+            py={"4rem"}
+          >
+            Debes seleccionar una categoria que contenga items
+          </Text>
+        </GridItem>
+      )}
+    </Grid>
   );
 };
 
-const FieldArrayWithProps= ({
+const FieldArrayWithProps = ({
   data,
   label,
   name,
@@ -291,7 +291,7 @@ const FieldArrayWithProps= ({
     setDataArray(data);
   }, [data]);
 
-  const handleRemove = (values, id ) => {
+  const handleRemove = (values, id) => {
     return values.findIndex((item) => item === id);
   };
 
@@ -312,8 +312,8 @@ const FieldArrayWithProps= ({
                   e.target.checked
                     ? push(item.title)
                     : remove(
-                        handleRemove(values, item.title)
-                      )
+                      handleRemove(values, item.title)
+                    )
                 }
               >{item.title}</Checkbox>
             ))}

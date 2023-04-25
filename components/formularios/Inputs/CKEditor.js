@@ -23,27 +23,27 @@ export const CKEditorComponent = ({ label, ...props }) => {
   })
 
   const editorConfiguration = {
-    
-    extraPlugins : [CustomUploadAdapterPlugin],
+
+    extraPlugins: [CustomUploadAdapterPlugin],
     toolbar: [
-			'heading',
-			'|',
-			'bold',
-			'italic',
-			'link',
-			'bulletedList',
-			'numberedList',
-			'|',
-			'outdent',
-			'indent',
-			'|',
-			'imageUpload',
-			'blockQuote',
-			'insertTable',
-			'mediaEmbed',
-			'undo',
-			'redo'
-		],
+      'heading',
+      '|',
+      'bold',
+      'italic',
+      'link',
+      'bulletedList',
+      'numberedList',
+      '|',
+      'outdent',
+      'indent',
+      '|',
+      'imageUpload',
+      'blockQuote',
+      'insertTable',
+      'mediaEmbed',
+      'undo',
+      'redo'
+    ],
     language: 'es',
     image: {
       toolbar: [
@@ -60,22 +60,22 @@ export const CKEditorComponent = ({ label, ...props }) => {
         'mergeTableCells'
       ]
     },
-    
+
   }
   return (
     <>
       {typeof window !== "undefined" && (
         <>
-        <Divider />
-        <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>
-        <Flex gap={"0.3rem"} alignItems={"center"}>
-          {label}
-          {meta.touched && meta.error && (
-            <Text color={"red"} fontSize={"xs"} fontWeight={"500"}>
-              {meta.error}
-            </Text>
-          )}
-        </Flex>
+          <Divider />
+          <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>
+            <Flex gap={"0.3rem"} alignItems={"center"}>
+              {label}
+              {meta.touched && meta.error && (
+                <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
+                  {meta.error}
+                </Text>
+              )}
+            </Flex>
           </FormLabel>
           <CKEditor
             editor={Editor}

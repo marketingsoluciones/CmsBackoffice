@@ -34,7 +34,7 @@ export const CpaSuscripcion = () => {
                         Suscribete a Campañas
                     </button>
                     <Link >
-                        <p className="text-xs text-blue-500 underline">ver precios</p>
+                        <p className="text-sm text-blue-500 underline">ver precios</p>
                     </Link>
                 </div>
 

@@ -9,6 +9,8 @@ import {
   Heading,
   Text,
   useToast,
+  Center,
+  Square
 } from "@chakra-ui/react";
 import { useEffect, useCallback, useRef, useState } from "react";
 import { useFetch } from "../hooks/useFetch";
@@ -46,7 +48,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       try {
         const data = await fetchApi({
           query: options?.createEntry?.query,
-          variables:{ ...values, development: development },
+          variables: { ...values, development: development },
           type: "formData"
         });
         if (data) {
@@ -108,7 +110,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
           description: JSON.stringify(error),
           isClosable: true,
         });
-        console.log(8002,error);
+        console.log(8002, error);
       }
     },
     [slug]
@@ -160,8 +162,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                 </div >
 
                 <button
-
-
                   color={"white"}
                   fontWeight={"500"}
                   _hover={{
@@ -185,70 +185,80 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
             </Box>
           </Flex>
 
-          {/* Cuerpo del componente Grilla */}
-          <Grid
-            templateColumns={["repeat(1, 1fr)", , , , "repeat(5, 1fr)"]}
-            gap={"1rem"}
-            overflow={"auto"}
-            h={"100%"}
-            paddingX={"1rem"}
-          >
-            <GridItem
-              colSpan={["1", , , , "4"]}
-              bg={"white"}
-              p={"1rem"}
-              shadow={"sm"}
-              rounded={"xl"}
-            >
-              <FormDinamical
-                schema={options?.schema}
-                initialValues={valuesEdit}
-                onSubmit={handleSubmit}
-                ref={refButton}
-                columns={["repeat(1, 1fr)", , , "repeat(3, 1fr)"]}
-              />
-            </GridItem>
+          <Flex h={"90%"}>
+            <Box w="80%" h={"100%"}>
+              <Grid
+                gap={"1rem"}
+                overflow={"auto"}
+                h={"100%"}
+                paddingX={"1rem"}
+              >
+                <GridItem
+                  colSpan={["1", , , , "4"]}
+                  bg={"white"}
+                  p={"1rem"}
+                  shadow={"sm"}
+                  rounded={"xl"}
+                >
+                  <FormDinamical
+                    schema={options?.schema}
+                    initialValues={valuesEdit}
+                    onSubmit={handleSubmit}
+                    ref={refButton}
+                    columns={["repeat(1, 1fr)", , , "repeat(3, 1fr)"]}
+                  />
+                </GridItem>
+              </Grid>
+            </Box>
+            <Box w="20%" h={"100%"}>
+              <Grid
+                gap={"1rem"}
+                overflow={"auto"}
+                h={"100%"}
+                paddingX={"1rem"}
+              >
+                <GridItem
+                  colSpan={"1"}
+                  display={"flex"}
+                  flexDir={"column"}
+                  gap={"1rem"}
+                >
+                  <Box bg={"white"} p={"1rem"} shadow={"sm"} rounded={"xl"}>
+                    <Heading pb={"1rem"} fontSize={"sm"} color={"gray.500"}>
+                      Información
+                    </Heading>
 
-            <GridItem
-              colSpan={"1"}
-              display={"flex"}
-              flexDir={"column"}
-              gap={"1rem"}
-            >
-              <Box bg={"white"} p={"1rem"} shadow={"sm"} rounded={"xl"}>
-                <Heading pb={"1rem"} fontSize={"sm"} color={"gray.500"}>
-                  Información
-                </Heading>
+                    <Divider />
+                    {Information?.map((item, idx) => (
+                      <Flex
+                        key={idx}
+                        pt={"1rem"}
+                        w={"100%"}
+                        flexDir={"column"}
+                        alignItems={"center"}
+                        justifyContent={"space-between"}
+                        fontSize={"sm"}
+                      >
+                        <Text color={"gray.400"}>{item.title}</Text>
+                        <Badge
+                          w={"100%"}
+                          textAlign={"center"}
+                          color={"gray.700"}
+                          p={"0.25rem"}
+                        >
+                          {item.value}
+                        </Badge>
+                      </Flex>
+                    ))}
+                  </Box>
 
-                <Divider />
-                {Information?.map((item, idx) => (
-                  <Flex
-                    key={idx}
-                    pt={"1rem"}
-                    w={"100%"}
-                    flexDir={"column"}
-                    alignItems={"center"}
-                    justifyContent={"space-between"}
-                    fontSize={"xs"}
-                  >
-                    <Text color={"gray.400"}>{item.title}</Text>
-                    <Badge
-                      w={"100%"}
-                      textAlign={"center"}
-                      color={"gray.700"}
-                      p={"0.25rem"}
-                    >
-                      {item.value}
-                    </Badge>
-                  </Flex>
-                ))}
-              </Box>
-
-              {state.type === "edit" && (
-                <ButtonDeleteEntry values={valuesEdit} options={options} />
-              )}
-            </GridItem>
-          </Grid>
+                  {state.type === "edit" && (
+                    <ButtonDeleteEntry values={valuesEdit} options={options} />
+                  )}
+                </GridItem>
+              </Grid>
+            </Box>
+          </Flex>
         </>
       ) : (
         <LoadingComponent />

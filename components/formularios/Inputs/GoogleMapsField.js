@@ -66,7 +66,7 @@ const GoogleMapsField = ({ label, ...props }) => {
             fontSize={"sm"}>
             {label}
             {meta.touched && meta.error && (
-              <Text color={"red"} fontSize={"xs"} fontWeight={"500"}>
+              <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
                 {meta.error}
               </Text>
             )}
@@ -75,7 +75,7 @@ const GoogleMapsField = ({ label, ...props }) => {
           <div className="relative w-full">
             <Search panTo={panTo} center={center} />
             <Box paddingTop={"0.5rem"} >
-              <Text fontSize={"xs"} fontWeight={"bold"} color={"gray.500"} paddingBottom={"0.25rem"} textAlign={"center"} >
+              <Text fontSize={"sm"} fontWeight={"bold"} color={"gray.500"} paddingBottom={"0.25rem"} textAlign={"center"} >
                 Selecciona la ubicación con el click derecho
               </Text>
               <GoogleMap

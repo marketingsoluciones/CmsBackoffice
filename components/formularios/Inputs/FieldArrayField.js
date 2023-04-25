@@ -21,8 +21,8 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
   const [value, setValue] = useState("");
 
   const schemas = {
-    string : value,
-    object : {title : value}
+    string: value,
+    object: { title: value }
   }
 
   return (
@@ -32,7 +32,7 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
         render={(arrayHelpers) => (
           <>
             <Divider />
-          <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>{label}</FormLabel>
+            <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>{label}</FormLabel>
             <Flex gap={"0.5rem"}>
               <Input
                 size={"sm"}
@@ -52,9 +52,9 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
               {field.value &&
                 field?.value?.map((item, idx) => {
 
-                  if(typeof item === "string"){
+                  if (typeof item === "string") {
                     return (
-                    item && (
+                      item && (
                         <ListItem
                           textTransform={"capitalize"}
                           fontSize={"sm"}
@@ -64,16 +64,16 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
                         >
                           <ListIcon key={idx} as={CheckIcon} color="green.500" />
                           {item}
-                          <IconButton size={"xs"} onClick={() => {
-                              const indice = arrayHelpers.form.values[props.name].findIndex(ele => item === ele)
-                              arrayHelpers.remove(indice)
-                          }}><CloseIcon/></IconButton>
+                          <IconButton size={"sm"} onClick={() => {
+                            const indice = arrayHelpers.form.values[props.name].findIndex(ele => item === ele)
+                            arrayHelpers.remove(indice)
+                          }}><CloseIcon /></IconButton>
                         </ListItem>
                       )
                     )
                   }
 
-                  if(item instanceof Object){
+                  if (item instanceof Object) {
                     return (
                       <>
                         {item.title && (
@@ -86,21 +86,21 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
                           >
                             <ListIcon key={idx} as={CheckIcon} color="green.500" />
                             {item.title}
-                            <IconButton size={"xs"} onClick={() => {
-                                const indice = arrayHelpers.form.values[props.name].findIndex(ele => item === ele)
-                                arrayHelpers.remove(indice)
-                            }}><CloseIcon/></IconButton>
+                            <IconButton size={"sm"} onClick={() => {
+                              const indice = arrayHelpers.form.values[props.name].findIndex(ele => item === ele)
+                              arrayHelpers.remove(indice)
+                            }}><CloseIcon /></IconButton>
                           </ListItem>
                         )}
                       </>
                     )
                   }
 
-                  
+
                 })}
             </List>
             {meta.touched && meta.error && (
-              <Text color={"red"} fontSize={"xs"}>
+              <Text color={"red"} fontSize={"sm"}>
                 {meta.error}
               </Text>
             )}

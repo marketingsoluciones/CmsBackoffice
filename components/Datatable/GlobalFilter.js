@@ -10,14 +10,14 @@ const GlobalFilter = ({ setGlobalFilter }) => {
   }, 200)
 
   return (
-    
-       
-      <input className="bg-transparent focus:outline-none text-sm ml-2" variant={"filled"} value={value} onChange={e => {
-        setValue(e.target.value);
-        onChange(e.target.value);
-      }}
-        placeholder={`Buscar...`} />
-    
+
+
+    <input className="bg-transparent focus:outline-none text-sm ml-2" variant={"filled"} value={value} onChange={e => {
+      setValue(e.target.value);
+      onChange(e.target.value);
+    }}
+      placeholder={`Buscar...`} />
+
   )
 };
 

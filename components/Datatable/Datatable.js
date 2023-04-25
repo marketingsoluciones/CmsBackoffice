@@ -35,7 +35,7 @@ import GlobalFilter from "../../components/Datatable/GlobalFilter";
 import { useMemo, useState, useEffect } from "react";
 import { ActionsCell } from "./ActionsCell";
 import { useRouter } from "next/router";
-import { ModalAlert,ModalMasivoAlert } from "../modals/Alert";
+import { ModalAlert, ModalMasivoAlert } from "../modals/Alert";
 
 
 
@@ -138,33 +138,37 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
       {!isLoading ? (
         <>
           <Table {...getTableProps()} bg={"white"} >
-            <Thead overflow={"auto"}   >
+            <Thead overflow={"auto"} >
               {headerGroups.map((headerGroup, idx) => (
                 <Tr key={idx} {...headerGroup.getHeaderGroupProps()}  >
-                  {headerGroup.headers.map((column, idx) => (
-                    <Th
-                      key={idx}
-                      {...column.getHeaderProps(column.getSortByToggleProps())}
-                    >
-                      {column.render("Header")}
-                      {/*  <span>
+                  {headerGroup.headers.map((column, idx) => {
+                    const propsNew = { ...column.getHeaderProps(column.getSortByToggleProps()), style: { cursor: 'pointer', fontSize: "12px" } }
+                    console.log({ ...column.getHeaderProps(column.getSortByToggleProps()), style: { cursor: 'pointer', fontSize: "12px" } })
+                    return (
+                      <Th
+                        key={idx}
+                        {...propsNew}
+                      >
+                        {column.render("Header")}
+                        {/*  <span>
                         {column.isSorted
                           ? column.isSortedDesc
                             ? " 🔽"
                             : " 🔼"
                           : ""}
                       </span> */}
-                    </Th>
-                  ))}
-                  <Th display={"flex"} justifyContent={"center"} justifyItems={"center"}>
+                      </Th>
+                    )
+                  })}
+                  <Th display={"flex"} justifyContent={"center"} justifyItems={"center"} >
                     {(() => {
                       if (selectedFlatRows.length > 0) {
                         return (
                           <>
                             {modalMasivo ? (
-                              <ModalMasivoAlert  setModalMasivo={setModalMasivo} modalMasivo={modalMasivo} handleRemoveItem={handleRemoveItem}  onClickList={selectedFlatRows.map(item => item.original._id)} />
+                              <ModalMasivoAlert setModalMasivo={setModalMasivo} modalMasivo={modalMasivo} handleRemoveItem={handleRemoveItem} onClickList={selectedFlatRows.map(item => item.original._id)} />
                             ) : null}
-                            
+
                             <Button
                               transition={"all"}
                               bg={"red.400"}
@@ -195,7 +199,7 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
                         return (<>
                           <Menu>
                             <Tooltip label={"Editar columnas"}>
-                              <MenuButton>
+                              <MenuButton className="mt-[-0.5rem] mb-[-0.5rem]">
                                 <IconButton icon={<SettingsIcon />} />
                               </MenuButton>
                             </Tooltip>
@@ -254,12 +258,12 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
               {page.map((row, idx) => {
                 prepareRow(row);
 
-               
+
 
                 return (
-                  <Tr key={idx} fontSize={"xs"} {...row.getRowProps()} _hover={{ bg: "gray.100" }} className={`${row.isSelected && "bg-gray-100"}`}>
-                    {row.cells.map((cell , idx) => {
-                      
+                  <Tr key={idx} fontSize={"sm"} {...row.getRowProps()} _hover={{ bg: "gray.100" }} className={`${row.isSelected && "bg-gray-100"}`}>
+                    {row.cells.map((cell, idx) => {
+
                       return (
                         <>
                           <Td key={idx} className="cursor-pointer" {...cell.getCellProps()} paddingY="0.9rem" paddingInlineEnd={"1rem"} onClick={() => setAction(asPath !== "/questions" ? { type: "VIEWW", payload: { _id: row.original._id } } : { type: "EDIT", payload: { _id: row.original._id } })}>
@@ -274,12 +278,13 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
                       display={"flex"}
                       justifyContent={"center"}
                       justifyItems={"center"}
+                      className="cursor-pointer mt-[-0.5rem] mb-[-0.5rem] 2xl:mt-[0rem] 2xl:mb-[0rem]"
                     >
                       {modal ? (
-                      <ModalAlert id={saveId} handleRemoveItem={handleRemoveItem} setModal={setModal} modal={modal} />
+                        <ModalAlert id={saveId} handleRemoveItem={handleRemoveItem} setModal={setModal} modal={modal} />
                       ) : null}
-                      <button onClick={() => [setModal(!modal), setSaveId(row.original._id)]} className="cursor-pointer bg"  >
-                        <IconButton size={"sm"} icon={<DeleteIcon/>}  />
+                      <button onClick={() => [setModal(!modal), setSaveId(row.original._id)]} className="cursor-pointer mb-[-0.5rem] 2xl:mt-[0rem] 2xl:mb-[0rem]"  >
+                        <IconButton size={"sm"} icon={<DeleteIcon />} />
                       </button>
                     </Td>
                   </Tr>
@@ -312,7 +317,7 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
                   </option>
                 ))}
               </Select>
-              <Text color={"gray.500"} fontSize={"xs"} fontStyle={"italic"}>
+              <Text color={"gray.500"} fontSize={"sm"} fontStyle={"italic"}>
                 Entradas por pagina
               </Text>
             </Flex>
@@ -350,7 +355,8 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
         </>
       ) : (
         <LoadingComponent />
-      )}
+      )
+      }
     </>
   );
 };

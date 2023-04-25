@@ -14,67 +14,68 @@ import { useEffect, memo } from "react";
 import { AuthContextProvider } from "../../../context/AuthContext"
 
 const Relationship = memo(({ label, tabList = {}, ...props }) => {
-  const {development} = AuthContextProvider()
+  const { development } = AuthContextProvider()
   const [field, meta, helpers] = useField(props);
   const [dataTabList, isError, isLoading, setQueryTabList] = useFetch();
 
   useEffect(() => {
-    setQueryTabList({ ...tabList, variables: {development: development}, type: "json" });
+    setQueryTabList({ ...tabList, variables: { development: development }, type: "json" });
   }, []);
 
   useEffect(() => {
     field?.value?.length > 0 && field?.value[0] instanceof Object && helpers?.setValue(field?.value?.map(item => item?._id))
   }, []);
-  
+
   return (
     <Box w={"100%"}>
       <FieldArray
         name={props.name}
-        render={({push, remove, form}) => {
-        return (
-          <>
-             <Divider />
-    <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>
+        render={({ push, remove, form }) => {
+          return (
+            <>
+              <Divider />
+              <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>
 
-    <Flex gap={"0.3rem"} alignItems={"center"}>
-          {label}{" "}
-          {meta.touched && meta.error && (
-            <Text color={"red"} fontSize={"xs"} fontWeight={"500"}>
-              {meta.error}
-            </Text>
-          )}
-        </Flex>
+                <Flex gap={"0.3rem"} alignItems={"center"}>
+                  {label}{" "}
+                  {meta.touched && meta.error && (
+                    <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
+                      {meta.error}
+                    </Text>
+                  )}
+                </Flex>
 
-    </FormLabel>
-            <RadioGroup
-              w={"100%"}
-              p={"0.5rem"}
-              rounded={"lg"}
+              </FormLabel>
+              <RadioGroup
+                w={"100%"}
+                p={"0.5rem"}
+                rounded={"lg"}
               // maxH={"10rem"}
               // overflow={"visible"}
-            >
-              <Grid templateColumns={"repeat(3, 1fr)"} gap={"1rem"}>
-                {!isError &&
-                  !isLoading &&
-                  dataTabList?.results
-                    ?.filter((item) => item && item)
-                    ?.sort((a,b) => a.title.localeCompare(b.title))
-                    ?.map((item) => {
-                      return (
-                        <Checkbox key={item?._id} size={"sm"} variant={""} isChecked={form?.values[props?.name]?.includes(item._id)} textTransform={"capitalize"}  onChange={(e) => {
-                          const idx = form?.values[props?.name]?.length > 0 && form.values[props.name].findIndex(el =>  el === item._id)
-                          e.currentTarget.checked ? push(item._id) : remove(idx)
-                        }}>
-                          {item?.title}
-                        </Checkbox>
-                      )
-                    })}
-              </Grid>
-            </RadioGroup>
-          </>
-        )}}
+              >
+                <Grid templateColumns={"repeat(3, 1fr)"} gap={"1rem"}>
+                  {!isError &&
+                    !isLoading &&
+                    dataTabList?.results
+                      ?.filter((item) => item && item)
+                      ?.sort((a, b) => a.title.localeCompare(b.title))
+                      ?.map((item) => {
+                        return (
+                          <Checkbox key={item?._id} size={"sm"} variant={""} isChecked={form?.values[props?.name]?.includes(item._id)} textTransform={"capitalize"} onChange={(e) => {
+                            const idx = form?.values[props?.name]?.length > 0 && form.values[props.name].findIndex(el => el === item._id)
+                            e.currentTarget.checked ? push(item._id) : remove(idx)
+                          }}>
+                            {item?.title}
+                          </Checkbox>
+                        )
+                      })}
+                </Grid>
+              </RadioGroup>
+            </>
+          )
+        }}
       />
-      
+
     </Box>
   );
 });

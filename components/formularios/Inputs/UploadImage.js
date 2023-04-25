@@ -16,7 +16,7 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
 
       reader.onloadend = async () => {
         if (reader.result) {
-          
+
           helpers.setValue(file)
           setImage(reader.result)
         }
@@ -29,19 +29,19 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
   };
 
   const typesFile = {
-    all : "image/*",
-    svg : "image/svg+xml"
+    all: "image/*",
+    svg: "image/svg+xml"
   }
 
   return (
     <Box>
-       <Divider />
-       <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>
-         
-         <Flex gap={"0.3rem"} alignItems={"center"}>
-         {label} {meta.touched && meta.error && <Text color={"red"} fontSize={"xs"} fontWeight={"500"}>{meta.error}</Text>}
+      <Divider />
+      <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>
 
-         </Flex>
+        <Flex gap={"0.3rem"} alignItems={"center"}>
+          {label} {meta.touched && meta.error && <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>{meta.error}</Text>}
+
+        </Flex>
         <Flex
           alignItems={"center"}
           justifyContent={"center"}
@@ -55,13 +55,13 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
           mt={"0.5rem"}
         >
           {!field?.value?.i640 && !image && (
-              <>
+            <>
               <ImageIcon w={"3rem"} h={"3rem"} />
               <Text>Subir imagen</Text>
-              </>
+            </>
           )}
-          {field?.value?.i640 && <Image layout="fill" src={`${process.env.NEXT_PUBLIC_BASE_URL}${field.value.i640}`} objectFit="contain" objectPosition={"center"}/>}
-          {image && <Image layout="fill" src={image} objectFit="contain" objectPosition={"center"}/>}
+          {field?.value?.i640 && <Image layout="fill" src={`${process.env.NEXT_PUBLIC_BASE_URL}${field.value.i640}`} objectFit="contain" objectPosition={"center"} />}
+          {image && <Image layout="fill" src={image} objectFit="contain" objectPosition={"center"} />}
         </Flex>
         <Input
           type="file"

@@ -500,13 +500,6 @@ export const BodyStaticAPP = [
             type: "switch",
           },
           {
-            Header: "Contenido",
-            accessor: "content",
-            type: "ckeditor",
-            required: true,
-          },
-
-          {
             Header: "SEO Descripción",
             accessor: "seoDescription",
             type: "string",
@@ -534,6 +527,12 @@ export const BodyStaticAPP = [
             Header: "Carrusel de imagenes",
             accessor: "imgCarrusel",
             type: "imageMultiple",
+          },
+          {
+            Header: "Contenido",
+            accessor: "content",
+            type: "ckeditor",
+            required: true,
           },
           // {
           //   Header: "Status",
