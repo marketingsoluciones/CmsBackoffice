@@ -132,10 +132,11 @@ const AuthProvider = ({ children }) => {
     getAuth().onIdTokenChanged(async user => {
       const sessionCookie = Cookies.get(config?.cookie);
       if (user && sessionCookie) {
-        Cookies.set("idToken", await user.getIdToken())
+        Cookies.set("idToken", await user.getIdToken(), { domain: `.${domain}.com` })
       }
     })
   }, [config])
+
 
 
   return (
