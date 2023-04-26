@@ -134,11 +134,11 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
     },
     {
       title: "Creado por",
-      value: user.email
+      value: user?.email
     },
     {
       title: "Editado por",
-      value: user.email
+      value: user?.email
     },
   ];
 

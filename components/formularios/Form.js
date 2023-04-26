@@ -23,9 +23,11 @@ import { MultipleImages } from "../../components/formularios/Inputs/MultipleImag
 import QuestionInputsForBusiness from "../../components/formularios/Inputs/QuestionInputsForBusiness";
 import { SwitchField } from "../../components/formularios/Inputs/SwitchField";
 import GoogleMapsField from "../../components/formularios/Inputs/GoogleMapsField";
+import { AuthContextProvider } from "../../context/AuthContext";
 
 export const FormDinamical = forwardRef(
   ({ schema: state, initialValues, columns, onSubmit }, ref) => {
+    const { user } = AuthContextProvider()
     const [schema, setSchema] = useState(null);
 
     const reduceInitialValues = Object?.entries(initialValues ?? {}).reduce((acc, item) => {
@@ -121,7 +123,7 @@ export const FormDinamical = forwardRef(
                   <Grid templateColumns={columns} gap={"2rem"}>
                     {schema &&
                       schema?.map((item, idx) => {
-                        const valir = !item?.roles?.includes("admin", "editor")
+                        const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
                         switch (valir && item.type) {
                           case "string":
                             return (
