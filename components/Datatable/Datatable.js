@@ -143,7 +143,6 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
                 <Tr key={idx} {...headerGroup.getHeaderGroupProps()}  >
                   {headerGroup.headers.map((column, idx) => {
                     const propsNew = { ...column.getHeaderProps(column.getSortByToggleProps()), style: { cursor: 'pointer', fontSize: "12px" } }
-                    console.log({ ...column.getHeaderProps(column.getSortByToggleProps()), style: { cursor: 'pointer', fontSize: "12px" } })
                     return (
                       <Th
                         key={idx}

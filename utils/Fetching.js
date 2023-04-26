@@ -688,8 +688,13 @@ export const FetchGraphQL = {
   posts: {
     // @READ Buscar todos los posts
     getAllPost: {
-      query: `query($development: String!){
-        getAllPost(development: $development){
+      query: `query($development: String!, $authorUid:String){
+        getAllPost(
+          development: $development, 
+          searchCriteria:{
+            authorUid:$authorUid
+          }
+        ){
           total
           results{
             _id
@@ -750,6 +755,7 @@ export const FetchGraphQL = {
         $seoDescription : String,
         $subCategories: [ID],
         $tags :[String],
+        $authorUid: String,
         $authorUsername :String,
         $imgCarrusel : [Upload],
         $imgMiniatura : Upload,
@@ -763,6 +769,7 @@ export const FetchGraphQL = {
           seoDescription: $seoDescription,
           subCategories :$subCategories,
           tags: $tags,
+          authorUid:$authorUid,
           authorUsername :$authorUsername,
           imgCarrusel: $imgCarrusel,
           imgMiniatura : $imgMiniatura,

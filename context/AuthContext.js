@@ -50,16 +50,18 @@ const AuthProvider = ({ children }) => {
   const [verificandoCookie, setVerificandoCookie] = useState(null);
   const [state, dispatch] = useReducer(reducer, new Action("view", {}));
   const [development, setDevelopment] = useState();
+  const [domain, setDomain] = useState();
   const [config, setConfig] = useState();
   //let auth = undefined
   useEffect(() => {
-    const domain = window.location.hostname.split(".")[1]
-    console.log(55000, domain)
-    const resp = developments.filter(elem => elem.name === domain)[0]
+    const domainDevelop = window.location.hostname.split(".")[1]
+    console.log(55000, domainDevelop)
+    const resp = developments.filter(elem => elem.name === domainDevelop)[0]
     console.log(55061, resp?.cookie)
     if (!resp?.cookie) resp = developments[1]
     console.log(55062, resp?.cookie)
     setDevelopment(resp.name)
+    setDomain(resp.name)
     console.log(55001, resp)
     try {
       const firebaseClient = initializeApp(resp.fileConfig);
@@ -137,7 +139,7 @@ const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ user, setUser, verificationDone, setVerificationDone, state, dispatch, development, setDevelopment, verificandoCookie, setVerificandoCookie, }}>
+    <AuthContext.Provider value={{ user, setUser, verificationDone, setVerificationDone, state, dispatch, development, setDevelopment, domain, verificandoCookie, setVerificandoCookie, }}>
       {children}
     </AuthContext.Provider>
   );

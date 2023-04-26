@@ -46,9 +46,10 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const fetchCreate = useCallback(
     async (values) => {
       try {
+
         const data = await fetchApi({
           query: options?.createEntry?.query,
-          variables: { ...values, development: development },
+          variables: { ...values, development: development, authorUid: user?.uid },
           type: "formData"
         });
         if (data) {
@@ -67,7 +68,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
           description: JSON.stringify(error),
           isClosable: true,
         });
-        console.log(error);
+        console.log(8003, error);
       }
     },
     [slug]
@@ -173,7 +174,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                       await refButton.current.handleSubmit();
                       // setAction({ type: "VIEW", payload: {} })
                     } catch (error) {
-                      console.log(error);
+                      console.log(8004, error);
                     }
                   }}
                 >

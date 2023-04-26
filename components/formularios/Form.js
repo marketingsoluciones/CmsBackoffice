@@ -121,7 +121,8 @@ export const FormDinamical = forwardRef(
                   <Grid templateColumns={columns} gap={"2rem"}>
                     {schema &&
                       schema?.map((item, idx) => {
-                        switch (item.type) {
+                        const valir = !item?.roles?.includes("admin", "editor")
+                        switch (valir && item.type) {
                           case "string":
                             return (
                               <InputField

@@ -16,15 +16,19 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   const columns = useMemo(() => selected?.schema, [selected]);
   const [global, setGlobal] = useState()
   const [seteador, setSeteador] = useState(() => () => { })
-  const { development, user } = AuthContextProvider()
+  const { development, user, domain } = AuthContextProvider()
   const router = useRouter()
 
   useEffect(() => {
     const userRole = user?.authDevelopments.filter(elem => elem.title === development)[0].role
     if (hasRole(development, user, selected.roles)) {
+      const variables = { development: development, domain: "diariocivitas" }
+      if (!user?.role.includes("admin", "editor")) {
+        variables = { ...variables, authorUid: user?.uid }
+      }
       setQuery({
         ...selected.getData,
-        variables: { development: development },
+        variables,
         type: "json"
       });
     } else {

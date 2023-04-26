@@ -54,6 +54,7 @@ export const BodyStaticAPP = [
             Header: "¿Publicar?",
             accessor: "status",
             type: "switch",
+            roles: ["admin", "editor"]
           },
           {
             Header: "Pagina web",
@@ -498,6 +499,7 @@ export const BodyStaticAPP = [
             Header: "¿Publicar?",
             accessor: "status",
             type: "switch",
+            roles: ["admin", "editor"]
           },
           {
             Header: "SEO Descripción",
@@ -558,7 +560,7 @@ export const BodyStaticAPP = [
       {
         icon: <CategoriasIcon />,
         title: "Categorias",
-        roles: ["all"],
+        roles: ["admin"],
         route: "categoriesPosts",
         getData: FetchGraphQL.categoryPost.getAllCategoryPost,
         getByID: FetchGraphQL.categoryPost.getOneCategoryPost,
@@ -619,7 +621,7 @@ export const BodyStaticAPP = [
       {
         icon: <SubCategoriaIcon />,
         title: "Sub Categorias",
-        roles: ["all"],
+        roles: ["admin"],
         route: "subcategoriesPost",
         getData: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
         getByID: FetchGraphQL.subCategoryPost.getOneSubCategoryPost,
@@ -680,7 +682,7 @@ export const BodyStaticAPP = [
       {
         icon: <Secciones2Icon />,
         title: "Secciones",
-        roles: ["all"],
+        roles: ["admin"],
         route: "sections",
         getData: FetchGraphQL.sections.getAllPage,
         getByID: FetchGraphQL.sections.getOnePage,
