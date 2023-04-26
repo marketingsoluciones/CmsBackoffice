@@ -1,9 +1,33 @@
-import { signOut } from "@firebase/auth";
-import { auth } from "../firebase";
+import { useCallback } from "react";
+import { fetchApi, queries } from "./Fetching";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+import { AuthContextProvider } from "../context/AuthContext";
+import { getAuth, signOut } from 'firebase/auth';
+import { useToast } from "@chakra-ui/react";
 
 export const authentication = {
   SignOut: async () => {
     await signOut(auth);
     return null;
   },
+};
+
+
+
+export const useAuthentication = () => {
+  const toast = useToast();
+  const router = useRouter()
+  const { setUser, domain, config } = AuthContextProvider()
+
+  const _signOut = useCallback(async () => {
+    await fetchApi({ query: queries.signOut, variables: { sessionCookie: Cookies.get(config?.cookie) }, development: domain })
+    Cookies.remove(config?.cookie, { domain: process.env.NEXT_PUBLIC_DOMINIO ?? "" });
+    Cookies.remove("idToken", { domain: process.env.NEXT_PUBLIC_DOMINIO ?? "" });
+    setUser(null);
+    await signOut(getAuth());
+    await router.push("/");
+    //toast("success", "Gracias por visitarnos, te esperamos luego 😀");
+  }, [router, setUser, toast])
+  return { _signOut };
 };

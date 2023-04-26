@@ -83,6 +83,9 @@ export const fetchApi = async ({
 }
 
 export const queries = {
+  signOut: `mutation ($sessionCookie :String){
+    signOut(sessionCookie:$sessionCookie)
+  }`,
   getUser: `query ($uid: ID) {
         getUser(uid:$uid){
           phoneNumber

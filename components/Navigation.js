@@ -1,8 +1,7 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Avatar, Box, Flex, MenuButton, MenuItem, Menu, MenuList, Text, IconButton, Input } from "@chakra-ui/react";
 import Link from 'next/link';
-import { useRouter } from "next/router";
-import { authentication } from "../utils/Authentication";
+import { useAuthentication } from "../utils/Authentication";
 import { BombillaIcon, AddUserIcon, AyudaIcon, ArrowDownIcon, SearchIcon, CloseIcon } from "../components/Icons/index";
 import algoliasearch from "algoliasearch";
 import { InstantSearch, connectSearchBox, Hits, SearchBox } from "react-instantsearch-dom";
@@ -13,16 +12,15 @@ import ClickAwayListener from "react-click-away-listener";
 
 
 export const Navigation = ({ set, state, }) => {
-  const router = useRouter()
+  const { _signOut } = useAuthentication()
 
   const Options = [
 
     { title: "Ayuda", route: "/" },
     {
       title: "Cerrar Sesión", function: async () => {
-        authentication.SignOut()
-        localStorage.removeItem("tokenAdminBodas")
-        await router.push("/login")
+        _signOut()
+
       }
     },
 

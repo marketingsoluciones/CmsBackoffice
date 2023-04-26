@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect, useCallback, useReducer } from "react";
 import { getAuth, signInWithCustomToken } from 'firebase/auth'
 import Cookies from 'js-cookie'
-import { auth, developments } from "../firebase";
+import { developments } from "../firebase";
 import { fetchApi, queries } from "../utils/Fetching";
 import { boolean } from "yup";
 import { initializeApp } from "firebase/app";
@@ -139,7 +139,7 @@ const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ user, setUser, verificationDone, setVerificationDone, state, dispatch, development, setDevelopment, domain, verificandoCookie, setVerificandoCookie, }}>
+    <AuthContext.Provider value={{ user, setUser, verificationDone, setVerificationDone, state, dispatch, development, setDevelopment, domain, config, verificandoCookie, setVerificandoCookie, }}>
       {children}
     </AuthContext.Provider>
   );
