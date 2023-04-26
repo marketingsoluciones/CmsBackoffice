@@ -21,9 +21,11 @@ export const useAuthentication = () => {
   const { setUser, domain, config } = AuthContextProvider()
 
   const _signOut = useCallback(async () => {
+    const domainCookie = `.${domain}.com`
+    console.log(854001, config?.cookie, domainCookie)
     await fetchApi({ query: queries.signOut, variables: { sessionCookie: Cookies.get(config?.cookie) }, development: domain })
-    Cookies.remove(config?.cookie, { domain: process.env.NEXT_PUBLIC_DOMINIO ?? "" });
-    Cookies.remove("idToken", { domain: process.env.NEXT_PUBLIC_DOMINIO ?? "" });
+    Cookies.remove(config?.cookie, { domain: domainCookie });
+    Cookies.remove("idToken", { domain: domainCookie });
     setUser(null);
     await signOut(getAuth());
     await router.push("/");
