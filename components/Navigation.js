@@ -13,6 +13,7 @@ import ClickAwayListener from "react-click-away-listener";
 
 export const Navigation = ({ set, state, }) => {
   const { _signOut } = useAuthentication()
+  const { user } = AuthContextProvider()
 
   const Options = [
 
@@ -50,7 +51,8 @@ export const Navigation = ({ set, state, }) => {
           </div> */}
 
           <Menu>
-            <MenuButton>
+            <span className="w-60 text-right truncate">{user?.displayName}</span>
+            <MenuButton mr={"0.5rem"}>
               <Flex alignItems={"center"} gap={"0.5rem"}>
                 <Avatar size={"sm"} />
               </Flex>

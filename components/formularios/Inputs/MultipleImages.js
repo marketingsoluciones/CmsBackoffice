@@ -10,8 +10,8 @@ export const MultipleImages = memo(({ label, ...props }) => {
 
   useEffect(() => {
     const files = image.reduce((acc, item) => {
-      item.file && acc.push(item.file)
-      item.i640 && acc.push(item._id)
+      item?.file && acc.push(item?.file)
+      item?.i640 && acc.push(item?._id)
       return acc
     }, [])
     helpers.setValue(files);
@@ -48,7 +48,7 @@ export const MultipleImages = memo(({ label, ...props }) => {
   };
 
   const handleRemove = (id) => {
-    setImage((old) => old.filter((item) => item._id !== id));
+    setImage((old) => old.filter((item) => item?._id !== id));
   };
 
   return (
@@ -100,7 +100,7 @@ export const MultipleImages = memo(({ label, ...props }) => {
           />
         </FormLabel>
         {image?.map((item, idx) => {
-          if (item.image) {
+          if (item?.image) {
             return (
               <Square
                 key={idx}
@@ -113,14 +113,14 @@ export const MultipleImages = memo(({ label, ...props }) => {
                 pos={"relative"}
               >
                 <Image
-                  src={item.image}
+                  src={item?.image}
                   objectFit={"contain"}
                   pos={"absolute"}
                   h={"100%"}
                   w={"100%"}
                 />
                 <IconButton
-                  onClick={() => handleRemove(item._id)}
+                  onClick={() => handleRemove(item?._id)}
                   size={"sm"}
                   pos={"absolute"}
                   bottom={"2"}
@@ -130,7 +130,7 @@ export const MultipleImages = memo(({ label, ...props }) => {
               </Square>
             )
           }
-          if (item.i800) {
+          if (item?.i800) {
             return (
               <Square
                 key={idx}
@@ -150,7 +150,7 @@ export const MultipleImages = memo(({ label, ...props }) => {
                   w={"100%"}
                 />
                 <IconButton
-                  onClick={() => handleRemove(item._id)}
+                  onClick={() => handleRemove(item?._id)}
                   size={"sm"}
                   pos={"absolute"}
                   bottom={"2"}

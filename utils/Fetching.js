@@ -741,6 +741,7 @@ export const FetchGraphQL = {
             i320
           }
           authorUsername
+          updaterUsername
           status
           createdAt
           updatedAt

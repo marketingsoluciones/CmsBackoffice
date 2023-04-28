@@ -32,6 +32,12 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const { user, development } = AuthContextProvider();
 
   useEffect(() => {
+    console.log(500021, valuesEdit)
+
+  }, [valuesEdit])
+
+
+  useEffect(() => {
     if (state.type === "edit") {
       setQueryValues({
         ...options?.getByID,
@@ -49,7 +55,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
 
         const data = await fetchApi({
           query: options?.createEntry?.query,
-          variables: { ...values, development: development, authorUid: user?.uid },
+          variables: { ...values, development: development, authorUid: user?.uid, authorUsername: user?.displayName },
           type: "formData"
         });
         if (data) {
@@ -89,7 +95,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
         delete values.updatedAt;
         const data = await fetchApi({
           query: options?.updateEntry?.query,
-          variables: { id: _id, args: values },
+          variables: { id: _id, args: { ...values, updaterUsername: user?.displayName } },
           type: "formData"
         });
         if (data) {
@@ -123,22 +129,32 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   };
 
   /* componente que indica la actualizacion y por quien se creo la empresa o post */
+  const optionsFormatTime = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: true,
+    //timeZone: "America/Los_Angeles",
+  };
   const Information = [
     {
       title: "Creado el",
-      value: "18/5/85"
+      value: formatTime(valuesEdit?.createdAt, "es", optionsFormatTime)
     },
     {
       title: "Ultima Actualización",
-      value: formatTime(valuesEdit?.updatedAt, "es"),
+      value: formatTime(valuesEdit?.updatedAt, "es", optionsFormatTime)
     },
     {
       title: "Creado por",
-      value: user?.email
+      value: valuesEdit?.authorUsername
     },
     {
       title: "Editado por",
-      value: user?.email
+      value: valuesEdit?.updaterUsername
     },
   ];
 

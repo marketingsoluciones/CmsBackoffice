@@ -493,7 +493,6 @@ export const BodyStaticAPP = [
             Header: "Slug",
             accessor: "slug",
             type: "slug",
-            required: true,
           },
           {
             Header: "¿Publicar?",
