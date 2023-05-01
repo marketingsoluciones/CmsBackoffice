@@ -67,7 +67,7 @@ export const CKEditorComponent = ({ label, ...props }) => {
       {typeof window !== "undefined" && (
         <>
           <Divider />
-          <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>
+          <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"} className="w-[50%] md:w-full">
             <Flex gap={"0.3rem"} alignItems={"center"}>
               {label}
               {meta.touched && meta.error && (

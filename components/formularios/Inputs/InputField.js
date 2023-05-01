@@ -6,7 +6,7 @@ export const InputField = memo(({ label, ...props }) => {
   const [field, meta, helpers] = useField(props);
 
   return (
-    <Box>
+    <Box className="w-[50%] md:w-full"> 
       <Divider />
       <FormLabel
         paddingTop={"1rem"}

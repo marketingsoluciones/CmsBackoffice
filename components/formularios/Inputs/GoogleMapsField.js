@@ -72,7 +72,7 @@ const GoogleMapsField = ({ label, ...props }) => {
             )}
           </Flex>
 
-          <div className="relative w-full">
+          <div className="relative w-[50%] md:w-full">
             <Search panTo={panTo} center={center} />
             <Box paddingTop={"0.5rem"} >
               <Text fontSize={"sm"} fontWeight={"bold"} color={"gray.500"} paddingBottom={"0.25rem"} textAlign={"center"} >

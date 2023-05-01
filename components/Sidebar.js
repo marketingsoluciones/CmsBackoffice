@@ -10,6 +10,7 @@ import {
   MenuGroup,
   MenuButton,
   MenuList,
+  Button,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -32,10 +33,11 @@ export const Sidebar = ({ state }) => {
       bg={"white"}
       justifyContent={"start"}
       flexDir={"column"}
-      marginLeft={`${state ? "" : "-9.5rem"}`}
+      /* marginLeft={`${state ? "" : "-9.5rem"}`} */
       transitionProperty={"all"}
       transitionTimingFunction={"cubic-bezier(0.4, 0, 0.2, 1)"}
       transitionDuration={"150ms"}
+      className={`${state ? "" : "ml-[-15rem] md:ml-[-9.5rem]"}`}
     >
 
       <Flex alignItems={"center"} gap={"0.5rem"} p={"0.5rem"}>
@@ -59,7 +61,12 @@ export const Sidebar = ({ state }) => {
             <div className={`flex items-center justify-star w-full ${state ? "block" : "hidden"}`}>
               <Avatar size={"sm"} mr={"0.4rem"} />
               <div className={`w-full`}>
-                <Text pl={"0.1rem"} className={` text-tituloPrimario`}>{"Consorcio J.C"}</Text>
+                <div className={`flex gap-4 `}>
+                  <Text pl={"0.1rem"} className={` text-tituloPrimario`}>{"Consorcio J.C"}</Text>
+
+                
+
+                </div>
                 <div className="flex">
                   <Menu autoSelect={false} foc >
                     <MenuButton flex={"2"} w={"8rem"}>
@@ -97,7 +104,7 @@ export const Sidebar = ({ state }) => {
                             {item.children.map((item, idx) => {
                               if (hasRole(development, user, item.roles)) {
                                 return (
-                                  <Link key={idx} href={item.route}>
+                                  <Link key={idx} href={item.route}  >
                                     <MenuItem
                                       _hover={{ bg: "#F3F3F3" }}
                                       key={idx}
@@ -108,7 +115,7 @@ export const Sidebar = ({ state }) => {
                                       fontSize={"sm"}
                                       className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
                                       style={"/" + item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' } && item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }}
-                                    >
+                                   >
                                       <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
                                         <div className={`flex justify-estar items-center  ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
                                           <div className={` pr-2 `}>

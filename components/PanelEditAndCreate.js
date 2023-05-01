@@ -202,8 +202,8 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
             </Box>
           </Flex>
 
-          <Flex h={"90%"}>
-            <Box w="80%" h={"100%"}>
+          <Flex h={"100%"}>
+            <Box  h={"100%"} className="w-[100%] md:w-[80%] ">
               <Grid
                 gap={"1rem"}
                 overflow={"auto"}
@@ -227,7 +227,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                 </GridItem>
               </Grid>
             </Box>
-            <Box w="20%" h={"100%"}>
+            <Box w="20%" h={"100%"} className="hidden md:block">
               <Grid
                 gap={"1rem"}
                 overflow={"auto"}

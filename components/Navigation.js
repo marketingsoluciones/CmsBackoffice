@@ -35,7 +35,8 @@ export const Navigation = ({ set, state, }) => {
         <IconButton onClick={() => set(!state)}>
           <HamburgerIcon w={"1.5rem"} h={"1.5rem"} color={"gray.500"} />
         </IconButton>
-        <div className="w-1/2">
+
+        <div className="w-44 md:w-1/2">
           <SearchNavigation />
         </div>
 
@@ -51,7 +52,7 @@ export const Navigation = ({ set, state, }) => {
           </div> */}
 
           <Menu>
-            <span className="w-60 text-right truncate">{user?.displayName}</span>
+            <span className="w-20  md:w-60 text-right truncate">{user?.displayName}</span>
             <MenuButton mr={"0.5rem"}>
               <Flex alignItems={"center"} gap={"0.5rem"}>
                 <Avatar size={"sm"} />
@@ -70,7 +71,6 @@ export const Navigation = ({ set, state, }) => {
             </MenuList>
           </Menu>
         </div>
-
       </div>
       {/*  </Flex> */}
     </Flex>
@@ -133,21 +133,12 @@ export const SearchNavigation = ({ }) => {
         searchClient={conditionalQuery}
         stalledSearchDelay={50}
       >
-
         <ConnectedSearchBox
           searchAsYouType={false}
-
         />
-
-
-
-
-        <div className={`absolute z-50 top-80px inset-x-0 left-0  w-[90%] mx-auto  bg-white shadow max-h-60 overflow-auto  rounded-b-3xl `}>
+        <div className={`absolute z-50 top-80px inset-x-0 left-0 w-[150%] md:w-[90%] mx-auto  bg-white shadow max-h-60 overflow-auto  rounded-b-3xl `}>
           <Hits hitComponent={Hit} />
-
         </div>
-
-
       </InstantSearch>
     </div>
   );
