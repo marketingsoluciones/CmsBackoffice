@@ -36,15 +36,18 @@ import { useMemo, useState, useEffect } from "react";
 import { ActionsCell } from "./ActionsCell";
 import { useRouter } from "next/router";
 import { ModalAlert, ModalMasivoAlert } from "../modals/Alert";
+import { set } from "react-hook-form";
 
 
 
-export const Datatable = ({ isLoading, initialState, columns, data = [], handleRemoveItem, setAction, setSeteador, ...props }) => {
+export const Datatable = ({ isLoading, initialState, columns, data = [], total, handleRemoveItem, setAction, setSeteador, skip, setSkip, limit, setLimit, setSortCriteria, setSort, ...props }) => {
 
   const { asPath } = useRouter()
   const [modal, setModal] = useState(false)
   const [modalMasivo, setModalMasivo] = useState(false)
   const [saveId, setSaveId] = useState("")
+
+  const totalPage = Math.trunc(total / limit) + 1
 
   const filterTypes = useMemo(
     () => ({
@@ -94,7 +97,7 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
     },
     useFilters,
     useGlobalFilter,
-    useSortBy,
+    //useSortBy,
     usePagination,
     useRowSelect,
     (hooks) => {
@@ -142,11 +145,22 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
               {headerGroups.map((headerGroup, idx) => (
                 <Tr key={idx} {...headerGroup.getHeaderGroupProps()}  >
                   {headerGroup.headers.map((column, idx) => {
-                    const propsNew = { ...column.getHeaderProps(column.getSortByToggleProps()), style: { cursor: 'pointer', fontSize: "12px" } }
+                    const propsNew = { ...column.getHeaderProps(/*column.getSortByToggleProps()*/), style: { cursor: 'pointer', fontSize: "12px" } }
                     return (
                       <Th
                         key={idx}
                         {...propsNew}
+                        onClick={() => {
+                          setSortCriteria((old) => {
+                            if (old !== column.id) {
+                              setSort(1)
+                              return column.id
+                            }
+                            setSort(old => old === 1 ? -1 : 1)
+                            return old
+                          })
+                          setSkip(0)
+                        }}
                       >
                         {column.render("Header")}
                         {/*  <span>
@@ -309,6 +323,8 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
                 value={pageSize}
                 onChange={(e) => {
                   setPageSize(Number(e.target.value));
+                  setLimit(Number(e.target.value))
+                  setSkip(0)
                 }}
               >
                 {[5, 10, 20, 30, 40, 50].map((pageSize) => (
@@ -321,33 +337,38 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], handleR
                 Entradas por pagina
               </Text>
             </Flex>
+            <Flex>
+              <Text color={"gray.500"} fontSize={"sm"} fontStyle={"italic"}>
+                Total de Entradas {total}
+              </Text>
+            </Flex>
             <Flex alignItems={"center"} gap={"0.5rem"}>
               <Text fontSize={"sm"}>
-                Pagina {pageIndex + 1} de {pageOptions.length}
+                Pagina {(skip + limit) / limit} de {totalPage}
               </Text>
               <IconButton
                 size={"sm"}
-                onClick={() => gotoPage(0)}
-                isDisabled={!canPreviousPage}
+                onClick={() => setSkip(0)}
+                isDisabled={!((skip + limit) / limit > 1)}
                 icon={<ArrowLeftIcon h={3} w={3} />}
               />
               <IconButton
                 size={"sm"}
-                onClick={previousPage}
-                isDisabled={!canPreviousPage}
+                onClick={() => setSkip(old => old - limit)}
+                isDisabled={!((skip + limit) / limit > 1)}
                 icon={<ChevronLeftIcon h={6} w={6} />}
               />
 
               <IconButton
                 size={"sm"}
-                onClick={nextPage}
-                isDisabled={!canNextPage}
+                onClick={() => setSkip(old => old + limit)}
+                isDisabled={!((skip + limit) / limit < totalPage)}
                 icon={<ChevronRightIcon h={6} w={6} />}
               />
               <IconButton
                 size={"sm"}
-                onClick={() => gotoPage(pageCount - 1)}
-                isDisabled={!canNextPage}
+                onClick={() => setSkip((totalPage - 1) * limit)}
+                isDisabled={!((skip + limit) / limit < totalPage)}
                 icon={<ArrowRightIcon h={3} w={3} />}
               />
             </Flex>

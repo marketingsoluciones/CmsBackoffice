@@ -10,6 +10,13 @@ import { useRouter } from "next/router";
 import { hasRole } from "../utils/auth";
 
 export const PanelViewTable = ({ slug, dispatch }) => {
+
+  //const [pageSize, setPageSize] = useState(10)
+  const [skip, setSkip] = useState(0)
+  const [limit, setLimit] = useState(10)
+  const [sortCriteria, setSortCriteria] = useState()
+  const [sort, setSort] = useState()
+
   const [data, isLoading, isError, setQuery] = useFetch();
   const [dataRemove, isLoadingRemove, isErrorRemove, setQueryRemove] = useFetch(true);
   const [selected, setSelected] = useState(columnsDataTable({ slug }));
@@ -29,9 +36,9 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   useEffect(() => {
     const userRole = user?.authDevelopments.filter(elem => elem.title === development)[0].role
     if (hasRole(development, user, selected.roles)) {
-      const variables = { development: development, domain: "diariocivitas" }
+      const variables = { development: development, domain: "diariocivitas", authorUid: user?.uid, skip, limit, sort: { [sortCriteria]: sort } }
       if (!user?.role.includes("admin", "editor")) {
-        variables = { ...variables, authorUid: user?.uid }
+        variables = { ...variables }
       }
       setQuery({
         ...selected.getData,
@@ -43,7 +50,7 @@ export const PanelViewTable = ({ slug, dispatch }) => {
         router.push("/")
       }, 100);
     }
-  }, [selected, isLoadingRemove]);
+  }, [selected, isLoadingRemove, skip, limit, sortCriteria, sort]);
 
   useEffect(() => {
     dispatch({ type: "VIEW", payload: {} });
@@ -105,9 +112,18 @@ export const PanelViewTable = ({ slug, dispatch }) => {
           w={"100%"}
         >
           <Datatable
+            skip={skip}
+            setSkip={setSkip}
+            limit={limit}
+            setLimit={setLimit}
+            sortCriteria={sortCriteria}
+            setSortCriteria={setSortCriteria}
+            sort={sort}
+            setSort={setSort}
             setSeteador={setSeteador}
             columns={columns}
             data={data?.results?.filter((item) => item && item) ?? []}
+            total={data?.total}
             isLoading={isLoading}
             handleRemoveItem={handleRemoveItem}
             initialState={{

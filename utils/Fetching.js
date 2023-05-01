@@ -119,8 +119,8 @@ export const FetchGraphQL = {
   business: {
     // @READ Buscar todos los listing
     getBusinessAll: {
-      query: `query($development: String!) {
-              getAllBusinesses(development:$development){
+      query: `query($development: String!, $skip: Int, $limit: Int, $sort: sortCriteriaBusiness) {
+              getAllBusinesses(development:$development, skip:$skip, limit:$limit, sort:$sort){
                 total
                 results{
                   _id
