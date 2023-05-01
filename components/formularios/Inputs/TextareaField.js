@@ -8,7 +8,7 @@ export const TextareaField = ({ label, ...props }) => {
 
     return (
         
-        <Box className="w-[50%] md:w-full">
+        <Box >
             <Divider />
             {/* <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>{label}</FormLabel> */}
 

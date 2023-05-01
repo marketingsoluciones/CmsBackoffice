@@ -16,7 +16,7 @@ export const PasswordInput = ({ label, ...props }) => {
   const handleClick = () => setShow(!show);
 
   return (
-    <Box className="w-[50%] md:w-full">
+    <Box >
       <Divider />
       <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>{label}</FormLabel>
       <InputGroup>

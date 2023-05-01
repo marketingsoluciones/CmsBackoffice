@@ -24,9 +24,9 @@ export const DefaultLayout = ({ children }) => {
         {(() => {
           if (screen.width < 640) {
             return (<>
-              <div onClick={() => setShow(!show)} className="absolute z-[100]">
-                <Sidebar state={show} />
-              </div>
+                <div className="absolute z-[100]">
+                  <Sidebar state={show} setState={setShow} />
+                </div>
             </>)
           } else {
             return (<>
@@ -37,7 +37,7 @@ export const DefaultLayout = ({ children }) => {
           }
         })()}
 
-        <Flex flexDir={"column"} w={show ? "calc(100%)" : "100%"} onClick={() => show ? setShow(!show) : null} >
+        <Flex flexDir={"column"} w={show ? "calc(100%)" : "100%"} onClick={() => screen.width < 640 ? show ? setShow(!show) : null : null} >
           <Navigation set={setShow} state={show} />
           <Box as={"main"} p={"0.5rem"} /* bg={"gray.100"} */ h={"full"} w={"100%"} className="bg-bg">
             {children}

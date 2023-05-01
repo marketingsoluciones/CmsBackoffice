@@ -28,7 +28,7 @@ export const URLInputField = ({ label, ...props }) => {
     field.value = splitUrl(field.value)
   }
   return (
-    <Box className="w-[50%] md:w-full">
+    <Box >
       <Divider />
       <FormLabel
         paddingTop={"1rem"}

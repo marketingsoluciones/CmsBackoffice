@@ -34,7 +34,7 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
   }
 
   return (
-    <Box className="w-[50%] md:w-full">
+    <Box >
       <Divider />
       <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>
 
