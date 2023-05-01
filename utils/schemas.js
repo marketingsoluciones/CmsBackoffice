@@ -36,7 +36,7 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.business.createBusiness,
         updateEntry: FetchGraphQL.business.updateBusiness,
         deleteEntry: FetchGraphQL.business.deleteBusiness,
-        visibleColumns: ["_id", "businessName", "slug", "createdAt"],
+        visibleColumns: [{ accessor: "imgMiniatura", show: true }, { accessor: "businessName", show: true }, { accessor: "createdAt", show: true }, { accessor: "city", show: false }],
         schema: [
           {
             Header: "Nombre de empresa",
@@ -162,7 +162,6 @@ export const BodyStaticAPP = [
             accessor: "city",
             type: "string",
             required: true,
-
           },
           {
             Header: "Codigo Postal",

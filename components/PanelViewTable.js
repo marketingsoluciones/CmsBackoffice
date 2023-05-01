@@ -13,7 +13,14 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   const [data, isLoading, isError, setQuery] = useFetch();
   const [dataRemove, isLoadingRemove, isErrorRemove, setQueryRemove] = useFetch(true);
   const [selected, setSelected] = useState(columnsDataTable({ slug }));
-  const columns = useMemo(() => selected?.schema, [selected]);
+  const columns = useMemo(() => {
+    const avalibleShowColumns = selected?.visibleColumns?.map(elem => elem.accessor)
+    return selected?.schema?.reduce((acc, item) => {
+      if (avalibleShowColumns?.includes(item?.accessor))
+        acc.push(item)
+      return acc
+    }, [])
+  }, [selected]);
   const [global, setGlobal] = useState()
   const [seteador, setSeteador] = useState(() => () => { })
   const { development, user, domain } = AuthContextProvider()
