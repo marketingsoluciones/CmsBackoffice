@@ -121,7 +121,7 @@ export const FormDinamical = forwardRef(
           >
             {({ values, setValues }) => {
               return (
-                <Form > 
+                <Form >
                   <Grid templateColumns={columns} gap={"2rem"}   >
                     {schema &&
                       schema?.map((item, idx) => {
@@ -313,11 +313,17 @@ export const FormDinamical = forwardRef(
                               />
                             );
                             break;
+                          case "desarrollo":
+                            return (
+                              <GridItem colSpan={[1, , , 1]} key={idx}>
+                                <SeoDev />
+                              </GridItem>
+                            );
                           default:
                             break;
                         }
                       })}
-       {/*  <SeoDev/>
+                    {/*  <SeoDev/>
         <AlertDesarrollo/> */}
                   </Grid>
                 </Form>

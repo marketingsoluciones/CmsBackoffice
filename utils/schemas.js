@@ -88,6 +88,10 @@ export const BodyStaticAPP = [
             /*  required: true,*/
           },
           {
+            Header:"SEO",
+            type:"desarrollo"
+          },
+          {
             Header: "Contenido",
             accessor: "content",
             type: "ckeditor",
@@ -580,7 +584,10 @@ export const BodyStaticAPP = [
             type: "string",
             required: true,
           },
-
+          {
+            Header:"SEO",
+            type:"desarrollo"
+          },
           {
             Header: "Categorias",
             accessor: "subCategories",

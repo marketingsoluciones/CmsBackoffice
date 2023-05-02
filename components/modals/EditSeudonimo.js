@@ -1,25 +1,24 @@
 /* Code generated with AutoHTML Plugin for Figma */
-import "./EdicionDeSeudonimo.css";
 
-export const EdicionDeSeudonimo = ({ ...props }) => {
+export const EdicionDeSeudonimo = () => {
   return (
     <div
-      className="bg-_12-background-light-02-paper rounded-2xl pt-2.5 pr-[5px] pb-2.5 pl-[5px] flex flex-col gap-2.5 items-center justify-center w-[577px] h-[610px] relative"
+      className="bg-white rounded-2xl pt-2.5 pr-[5px] pb-2.5 pl-[5px] flex flex-col gap-2.5 items-center justify-center w-[577px] h-[610px] relative"
       style={{
         boxShadow:
           "0px 12px 24px -4px rgba(145, 158, 171, 0.16), 0px 16px 16px 0px rgba(0, 0, 0, 0.25)",
       }}
     >
-      <div className="flex flex-row gap-0 items-center justify-start shrink-0 w-[552px] h-[52px] relative">
+      <div className="flex flex-row gap-2 items-center justify-start shrink-0 w-[552px]*  h-[52px] relative">
         <div
-          className="text-_11-text-color-light-01-text-primary text-center relative w-[204px] h-[52px] flex items-center justify-center"
+          className="text-center relative w-[204px]* h-[52px] flex items-center justify-center"
           style={{ font: "600 20px/24px 'Public Sans', sans-serif" }}
         >
           Editando seudónimo:
         </div>
 
         <div
-          className="text-_11-text-color-light-03-text-disabled text-left relative"
+          className="relative"
           style={{
             font: "var(--body-1, 400 16px/24px 'Public Sans', sans-serif)",
           }}
@@ -28,22 +27,10 @@ export const EdicionDeSeudonimo = ({ ...props }) => {
         </div>
       </div>
 
-      <div className="p-6 flex flex-col gap-6 items-start justify-start shrink-0 w-[573px] relative">
+      <div className="p-6 flex flex-col gap-6 items-start justify-start shrink-0 w-[573px]* relative">
         <div className="flex flex-row gap-2.5 items-start justify-start shrink-0 relative">
-          <div className="rounded-[100px] border-dashed border-_14-others-button-input border shrink-0 w-[120px] h-[120px] relative">
-            <div className="rounded-[100px] w-[106.67px] h-[106.67px] absolute left-[6.67px] top-[6.67px]">
-              <img
-                className="rounded-[100px] w-[106.67px] h-[106.67px] absolute left-0 top-0"
-                src="img.png"
-              />
-            </div>
-
-            <div className="rounded-[100px] w-[106.67px] h-[106.67px] absolute left-[6.67px] top-[6.67px]">
-              <img
-                className="rounded-[100px] w-[106.67px] h-[106.67px] absolute left-0 top-0"
-                src="img2.png"
-              />
-            </div>
+          <div className="rounded-[100px] border-dashed border-_14-others-button-input border shrink-0 w-[120px] h-[120px] relative bg-gray-400">
+          
 
             <div className="bg-_12-background-overlay-01-dark w-[106.67px] h-[106.67px] absolute left-[6.67px] top-[6.67px]"></div>
 
@@ -92,16 +79,8 @@ export const EdicionDeSeudonimo = ({ ...props }) => {
             </div>
 
             <div className="flex flex-row gap-4 items-start justify-start shrink-0 w-[260px] h-14 relative">
-              <div className="rounded-lg border-solid border-_14-others-button-input border flex-1 h-14 relative">
-                <div
-                  className="text-_11-text-color-light-03-text-disabled text-left absolute left-3.5 top-[calc(50%_-_12px)]"
-                  style={{
-                    font: "var(--body-1, 400 16px/24px 'Public Sans', sans-serif)",
-                  }}
-                >
-                  Pedro Gonzales
-                </div>
-              </div>
+              <input placeholder="Pedro Gonzales" className=" pl-2 focus:outline-none rounded-lg border-solid border-_14-others-button-input border flex-1 h-14 relative"/>
+              
             </div>
           </div>
         </div>
@@ -153,16 +132,8 @@ export const EdicionDeSeudonimo = ({ ...props }) => {
               </div>
             </div>
 
-            <div className="rounded-lg border-solid border-_14-others-button-input border shrink-0 w-[230px] h-8 relative">
-              <div
-                className="text-_11-text-color-light-03-text-disabled text-left absolute left-3.5 top-[calc(50%_-_12px)]"
-                style={{
-                  font: "var(--body-1, 400 16px/24px 'Public Sans', sans-serif)",
-                }}
-              >
-                www.facebook.com/pgonza
-              </div>
-            </div>
+            <input placeholder="www.facebook.com/pgonza" className="focus:outline-none pl-2 rounded-lg border-solid border-_14-others-button-input border shrink-0 w-[250px] h-8 relative">
+            </input>
           </div>
 
           <div className="pt-0 pr-[5px] pb-0 pl-[5px] flex flex-row gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
@@ -223,16 +194,9 @@ export const EdicionDeSeudonimo = ({ ...props }) => {
               </div>
             </div>
 
-            <div className="rounded-lg border-solid border-_14-others-button-input border shrink-0 w-[230px] h-8 relative">
-              <div
-                className="text-_11-text-color-light-03-text-disabled text-left absolute left-3.5 top-[calc(50%_-_12px)]"
-                style={{
-                  font: "var(--body-1, 400 16px/24px 'Public Sans', sans-serif)",
-                }}
-              >
-                www.instagram.com/pgonza
-              </div>
-            </div>
+            <input placeholder="www.instagram.com/pgonza" className="focus:outline-none pl-2 rounded-lg border-solid border-_14-others-button-input border shrink-0 w-[250px] h-8 relative">
+    
+            </input>
           </div>
 
           <div className="pt-0 pr-[5px] pb-0 pl-[5px] flex flex-row gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
@@ -281,16 +245,9 @@ export const EdicionDeSeudonimo = ({ ...props }) => {
               </div>
             </div>
 
-            <div className="rounded-lg border-solid border-_14-others-button-input border shrink-0 w-[230px] h-8 relative">
-              <div
-                className="text-_11-text-color-light-03-text-disabled text-left absolute left-3.5 top-[calc(50%_-_12px)]"
-                style={{
-                  font: "var(--body-1, 400 16px/24px 'Public Sans', sans-serif)",
-                }}
-              >
-                www.twitter.com/pgonza
-              </div>
-            </div>
+            <input placeholder="www.twitter.com/pgonza" className="focus:outline-none pl-2 rounded-lg border-solid border-_14-others-button-input border shrink-0 w-[250px] h-8 relative">
+              
+            </input >
           </div>
 
           <div className="pt-0 pr-[5px] pb-0 pl-[5px] flex flex-row gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
@@ -339,16 +296,9 @@ export const EdicionDeSeudonimo = ({ ...props }) => {
               </div>
             </div>
 
-            <div className="rounded-lg border-solid border-_14-others-button-input border shrink-0 w-[230px] h-8 relative">
-              <div
-                className="text-_11-text-color-light-03-text-disabled text-left absolute left-3.5 top-[calc(50%_-_12px)]"
-                style={{
-                  font: "var(--body-1, 400 16px/24px 'Public Sans', sans-serif)",
-                }}
-              >
-                www.whatsapp.com/pgonza
-              </div>
-            </div>
+            <input placeholder="www.whatsapp.com/pgonza" className=" focus:outline-none pl-2 rounded-lg border-solid border-_14-others-button-input border shrink-0 w-[250px] h-8 relative">
+             
+            </input>
           </div>
         </div>
 
@@ -364,21 +314,9 @@ export const EdicionDeSeudonimo = ({ ...props }) => {
 
           <div className="flex flex-col gap-2.5 items-start justify-start shrink-0 relative">
             <div className="flex flex-row gap-2.5 items-center justify-center shrink-0 relative">
-              <svg
-                className="shrink-0 relative overflow-visible"
-                style={{}}
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 2V16H2V2H16ZM16 0H2C0.9 0 0 0.9 0 2V16C0 17.1 0.9 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0Z"
-                  fill="black"
-                  fillOpacity="0.6"
-                />
-              </svg>
+              <input type="checkbox"/>
+              
+             
 
               <div
                 className="text-gris text-left relative"
@@ -391,22 +329,8 @@ export const EdicionDeSeudonimo = ({ ...props }) => {
             </div>
 
             <div className="flex flex-row gap-2.5 items-center justify-center shrink-0 relative">
-              <svg
-                className="shrink-0 relative overflow-visible"
-                style={{}}
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 2V16H2V2H16ZM16 0H2C0.9 0 0 0.9 0 2V16C0 17.1 0.9 18 2 18H16C17.1 18 18 17.1 18 16V2C18 0.9 17.1 0 16 0Z"
-                  fill="black"
-                  fillOpacity="0.6"
-                />
-              </svg>
-
+            
+            <input type="checkbox"/>
               <div
                 className="text-gris text-left relative"
                 style={{
@@ -429,7 +353,7 @@ export const EdicionDeSeudonimo = ({ ...props }) => {
           }}
         >
           <div
-            className="text-_08-common-01-white text-center relative flex items-center justify-center"
+            className="text-white text-center relative flex items-center justify-center cursor-pointer"
             style={{
               font: "var(--_01-button-02-medium, 700 14px/24px 'Public Sans', sans-serif)",
             }}
@@ -438,7 +362,7 @@ export const EdicionDeSeudonimo = ({ ...props }) => {
           </div>
         </div>
 
-        <div className="rounded-lg border-solid border-_14-others-button-input border pt-1.5 pr-4 pb-1.5 pl-4 flex flex-row gap-0 items-center justify-center shrink-0 relative">
+        <div className="cursor-poiinter rounded-lg border-solid border-_14-others-button-input border pt-1.5 pr-4 pb-1.5 pl-4 flex flex-row gap-0 items-center justify-center shrink-0 relative">
           <div
             className="text-_11-text-color-light-01-text-primary text-center relative flex items-center justify-center"
             style={{
