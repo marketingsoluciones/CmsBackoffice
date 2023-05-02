@@ -118,9 +118,11 @@ export const FetchGraphQL = {
   //ENDPOINTS DE EMPRESAS
   business: {
     // @READ Buscar todos los listing
+
+
     getBusinessAll: {
-      query: `query($development: String!, $skip: Int, $limit: Int, $sort: sortCriteriaBusiness) {
-              getAllBusinesses(development:$development, skip:$skip, limit:$limit, sort:$sort){
+      query: `query($development: String!, $userUid: ID, $skip: Int, $limit: Int, $sort: sortCriteriaBusiness) {
+              getAllBusinesses(development:$development, searchCriteria:{userUid:$userUid}, skip:$skip, limit:$limit, sort:$sort){
                 total
                 results{
                   _id
@@ -691,12 +693,13 @@ export const FetchGraphQL = {
   posts: {
     // @READ Buscar todos los posts
     getAllPost: {
-      query: `query($development: String!, $authorUid:String){
+      query: `query($development: String!, $authorUid:String, $skip: Int, $limit: Int, $sort: sortCriteriaPost){
         getAllPost(
           development: $development, 
           searchCriteria:{
             authorUid:$authorUid
           }
+           skip:$skip, limit:$limit, sort:$sort
         ){
           total
           results{

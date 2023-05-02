@@ -36,7 +36,15 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.business.createBusiness,
         updateEntry: FetchGraphQL.business.updateBusiness,
         deleteEntry: FetchGraphQL.business.deleteBusiness,
-        visibleColumns: [{ accessor: "imgMiniatura", show: true }, { accessor: "businessName", show: true }, { accessor: "createdAt", show: true }, { accessor: "city", show: false }],
+        visibleColumns: [
+          { accessor: "imgMiniatura", show: true },
+          { accessor: "businessName", show: true },
+          { accessor: "createdAt", show: true },
+          { accessor: "status", show: false },
+          { accessor: "updatedAt", show: false },
+          { accessor: "userUid", show: false },
+          { accessor: "_id", show: false },
+        ],
         schema: [
           {
             Header: "Nombre de empresa",
@@ -209,7 +217,13 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.catBusiness.createCategoryBusiness,
         deleteEntry: FetchGraphQL.catBusiness.deleteCategoryBusiness,
         updateEntry: FetchGraphQL.catBusiness.updateCategoryBusiness,
-        visibleColumns: ["_id", "title", "slug", "createdAt"],
+        visibleColumns: [
+          { accessor: "_id", show: true },
+          { accessor: "title", show: true },
+          { accessor: "slug", show: true },
+          { accessor: "createdAt", show: true },
+          { accessor: "updatedAt", show: false },
+        ],
         schema: [
           {
             Header: "ID",
@@ -259,6 +273,11 @@ export const BodyStaticAPP = [
             accessor: "createdAt",
             Cell: (props) => formatTime(props.value, "es"),
           },
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
         ],
       },
       {
@@ -271,7 +290,13 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.subCatBusiness.createSubCategoryBusiness,
         deleteEntry: FetchGraphQL.subCatBusiness.deleteSubCategoryBusiness,
         updateEntry: FetchGraphQL.subCatBusiness.updateSubCategoryBusiness,
-        visibleColumns: ["_id", "title", "slug", "createdAt"],
+        visibleColumns: [
+          { accessor: "_id", show: true },
+          { accessor: "title", show: true },
+          { accessor: "slug", show: true },
+          { accessor: "createdAt", show: true },
+          { accessor: "updatedAt", show: false },
+        ],
         schema: [
           {
             Header: "ID",
@@ -299,7 +324,11 @@ export const BodyStaticAPP = [
             accessor: "createdAt",
             Cell: (props) => formatTime(props.value, "es"),
           },
-
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
           {
             Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
@@ -354,7 +383,12 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.characteristics.createCharacteristics,
         deleteEntry: FetchGraphQL.characteristics.deleteCharacteristics,
         updateEntry: FetchGraphQL.characteristics.updateCharacteristics,
-        visibleColumns: ["_id", "title", "slug", "createdAt"],
+        visibleColumns: [
+          { accessor: "_id", show: true },
+          { accessor: "title", show: true },
+          { accessor: "createdAt", show: true },
+          { accessor: "updatedAt", show: false },
+        ],
         schema: [
           {
             Header: "ID",
@@ -382,6 +416,11 @@ export const BodyStaticAPP = [
             accessor: "createdAt",
             Cell: (props) => formatTime(props.value, "es"),
           },
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
         ],
       },
       {
@@ -394,7 +433,59 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.questions.createQuestions,
         deleteEntry: FetchGraphQL.questions.deleteQuestions,
         updateEntry: FetchGraphQL.questions.updateQuestions,
-        visibleColumns: ["_id", "title", "slug", "createdAt"],
+        visibleColumns: [
+          { accessor: "_id", show: true },
+          { accessor: "title", show: true },
+          { accessor: "slug", show: true },
+          { accessor: "createdAt", show: true },
+          { accessor: "updatedAt", show: false },
+        ],
+        schema: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Slug",
+            accessor: "slug",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+        ],
+      },
+      {
+        icon: <PreguntasFrecuentes />,
+        title: "Preguntas frecuentes",
+        roles: ["admin"],
+        route: "questions",
+        getData: FetchGraphQL.questions.getAllQuestions,
+        getByID: FetchGraphQL.questions.getOneQuestion,
+        createEntry: FetchGraphQL.questions.createQuestions,
+        deleteEntry: FetchGraphQL.questions.deleteQuestions,
+        updateEntry: FetchGraphQL.questions.updateQuestions,
+        visibleColumns: [
+          { accessor: "_id", show: true },
+          { accessor: "title", show: true },
+          { accessor: "slug", show: true },
+          { accessor: "createdAt", show: true },
+          { accessor: "updatedAt", show: false },
+        ],
         schema: [
           {
             Header: "ID",
@@ -411,33 +502,9 @@ export const BodyStaticAPP = [
             accessor: "createdAt",
             Cell: (props) => formatTime(props.value, "es"),
           },
-        ],
-      },
-      {
-        icon: <PreguntasFrecuentes />,
-        title: "Preguntas frecuentes",
-        roles: ["admin"],
-        route: "questions",
-        getData: FetchGraphQL.questions.getAllQuestions,
-        getByID: FetchGraphQL.questions.getOneQuestion,
-        createEntry: FetchGraphQL.questions.createQuestions,
-        deleteEntry: FetchGraphQL.questions.deleteQuestions,
-        updateEntry: FetchGraphQL.questions.updateQuestions,
-        visibleColumns: ["_id", "title", "slug", "createdAt"],
-        schema: [
           {
-            Header: "ID",
-            accessor: "_id",
-          },
-          {
-            Header: "Titulo",
-            accessor: "title",
-            type: "string",
-            required: true,
-          },
-          {
-            Header: "Creado el",
-            accessor: "createdAt",
+            Header: "Actualizado el",
+            accessor: "updatedAt",
             Cell: (props) => formatTime(props.value, "es"),
           },
         ],
@@ -471,7 +538,15 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.posts.createPost,
         deleteEntry: FetchGraphQL.posts.deletePost,
         updateEntry: FetchGraphQL.posts.updatePost,
-        visibleColumns: ["_id", "title", "slug", "createdAt"],
+        visibleColumns: [
+          { accessor: "_id", show: false },
+          { accessor: "title", show: true },
+          { accessor: "slug", show: false },
+          { accessor: "status", show: true },
+          { accessor: "imgMiniatura", show: true },
+          { accessor: "createdAt", show: true },
+          { accessor: "updatedAt", show: false },
+        ],
         schema: [
           {
             Header: "ID",
@@ -548,7 +623,7 @@ export const BodyStaticAPP = [
             Cell: (props) => formatTime(props.value, "es"),
           },
           {
-            Header: "Creado el",
+            Header: "Actualizado el",
             accessor: "updatedAt",
             Cell: (props) => formatTime(props.value, "es"),
           },
@@ -565,7 +640,13 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.categoryPost.createCategoryPost,
         updateEntry: FetchGraphQL.categoryPost.updateCategoryPost,
         deleteEntry: FetchGraphQL.categoryPost.deleteCategoryPost,
-        visibleColumns: ["_id", "title", "slug", "createdAt"],
+        visibleColumns: [
+          { accessor: "_id", show: true },
+          { accessor: "title", show: true },
+          { accessor: "slug", show: true },
+          { accessor: "createdAt", show: true },
+          { accessor: "updatedAt", show: false },
+        ],
         schema: [
           {
             Header: "Identificador",
@@ -614,6 +695,11 @@ export const BodyStaticAPP = [
             accessor: "createdAt",
             Cell: (props) => formatTime(props.value, "es"),
           },
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
         ],
       },
       {
@@ -626,7 +712,13 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.subCategoryPost.createSubCategoryPost,
         updateEntry: FetchGraphQL.subCategoryPost.updateSubCategoryPost,
         deleteEntry: FetchGraphQL.subCategoryPost.deleteSubCategoryPost,
-        visibleColumns: ["_id", "title", "slug", "createdAt"],
+        visibleColumns: [
+          { accessor: "_id", show: true },
+          { accessor: "title", show: true },
+          { accessor: "slug", show: true },
+          { accessor: "createdAt", show: true },
+          { accessor: "updatedAt", show: false },
+        ],
         schema: [
           {
             Header: "Identificador",
@@ -669,6 +761,11 @@ export const BodyStaticAPP = [
             accessor: "createdAt",
             Cell: (props) => formatTime(props.value, "es"),
           },
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
         ],
       },
     ],
@@ -687,7 +784,11 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.sections.createPage,
         deleteEntry: FetchGraphQL.sections.deletePage,
         updateEntry: FetchGraphQL.sections.updatePage,
-        visibleColumns: ["_id", "title", "slug", "createdAt"],
+        visibleColumns: [
+          { accessor: "title", show: true },
+          { accessor: "slug", show: true },
+          { accessor: "status", show: true },
+        ],
         schema: [
           {
             Header: "ID",

@@ -36,9 +36,9 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   useEffect(() => {
     const userRole = user?.authDevelopments.filter(elem => elem.title === development)[0].role
     if (hasRole(development, user, selected.roles)) {
-      const variables = { development: development, domain: "diariocivitas", authorUid: user?.uid, skip, limit, sort: { [sortCriteria]: sort } }
+      const variables = { development: development, domain: "diariocivitas", skip, limit, sort: { [sortCriteria]: sort } }
       if (!user?.role.includes("admin", "editor")) {
-        variables = { ...variables }
+        variables = { ...variables, authorUid: user?.uid, userUid: user?.uid }
       }
       setQuery({
         ...selected.getData,

@@ -55,7 +55,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
 
         const data = await fetchApi({
           query: options?.createEntry?.query,
-          variables: { ...values, development: development, authorUid: user?.uid, authorUsername: user?.displayName },
+          variables: { ...values, development: development, authorUid: user?.uid, userUid: user?.uid, authorUsername: user?.displayName },
           type: "formData"
         });
         if (data) {
