@@ -52,7 +52,7 @@ export const MultipleImages = memo(({ label, ...props }) => {
   };
 
   return (
-    <Box>
+    <Box >
       <FormLabel
         fontWeight={"900"}
         textAlign={"left"}

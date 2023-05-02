@@ -6,7 +6,7 @@ export const InputNumberField = ({label, ...props}) => {
     const [field, meta, helpers] = useField({...props});
     const parse = (val) => val.replace(/^\$/, '')
   return (
-    <Box>
+    <Box >
       <Divider />
     <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>{label}</FormLabel>
     <NumberInput variant={"filled"}  {...field} {...props} onChange={(e) => helpers.setValue(parse(e))} value={field.value ?? undefined}  >
