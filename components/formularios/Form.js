@@ -24,6 +24,8 @@ import QuestionInputsForBusiness from "../../components/formularios/Inputs/Quest
 import { SwitchField } from "../../components/formularios/Inputs/SwitchField";
 import GoogleMapsField from "../../components/formularios/Inputs/GoogleMapsField";
 import { AuthContextProvider } from "../../context/AuthContext";
+import { SeoDev } from "./Inputs/SeoDev";
+import { AlertDesarrollo } from "../modals/AlertDesarrollo";
 
 export const FormDinamical = forwardRef(
   ({ schema: state, initialValues, columns, onSubmit }, ref) => {
@@ -315,6 +317,8 @@ export const FormDinamical = forwardRef(
                             break;
                         }
                       })}
+       {/*  <SeoDev/>
+        <AlertDesarrollo/> */}
                   </Grid>
                 </Form>
               );
