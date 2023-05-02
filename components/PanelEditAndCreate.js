@@ -22,6 +22,9 @@ import { formatTime } from "../utils/formatTime";
 import { fetchApi } from "../utils/Fetching";
 import { AuthContextProvider } from "../context/AuthContext";
 import { ArrowLeft } from "./Icons/index"
+import { OptionsForm } from "./formularios/OptionsForm";
+import { Seudonimo } from "./formularios/Seudonimo";
+import { EdicionDeSeudonimo } from "./modals/EditSeudonimo";
 
 export const PanelEditAndCreate = ({ slug, setAction, state }) => {
 
@@ -30,6 +33,8 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const toast = useToast();
   const options = FindOption(slug);
   const { user, development } = AuthContextProvider();
+  const [modal, setModal] = useState(false)
+
 
   useEffect(() => {
     console.log(500021, valuesEdit)
@@ -206,7 +211,9 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
 
             </Box>
           </Flex>
-
+          {modal ? (
+              <EdicionDeSeudonimo modal={modal} setModal={setModal} />
+            ) : null}
 
           <Flex h={"100%"}  >
             <Box h={"100%"}  >
@@ -229,13 +236,13 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                     initialValues={valuesEdit}
                     onSubmit={handleSubmit}
                     ref={refButton}
-                    columns={["repeat(1, 1fr)", , , "repeat(3, 1fr)"]}
+                    columns={["repeat(1, 1fr)", , , "repeat(1, 1fr)"]}
 
                   />
                 </GridItem>
               </Grid>
             </Box>
-            <Box w="20%" h={"100%"} className="hidden md:block">
+            <Box w="30%" h={"100%"} className="hidden md:block">
               <Grid
                 gap={"1rem"}
                 overflow={"auto"}
@@ -248,6 +255,11 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                   flexDir={"column"}
                   gap={"1rem"}
                 >
+
+
+                  <OptionsForm />
+                  <Seudonimo modal={modal} setModal={setModal} />
+
                   <Box bg={"white"} p={"1rem"} shadow={"sm"} rounded={"xl"}>
                     <Heading pb={"1rem"} fontSize={"sm"} color={"gray.500"}>
                       Información
