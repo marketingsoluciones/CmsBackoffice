@@ -514,7 +514,7 @@ export const BodyStaticAPP = [
   },
   {
     title: "Redes Sociales",
-    roles: ["all"],
+    roles: ["dev"],
     children: [
       {
         icon: <MetricasSociales className="" />,
@@ -771,8 +771,8 @@ export const BodyStaticAPP = [
     ],
   },
   {
-    title: "Paginas",
-    roles: ["all"],
+    title: "Páginas",
+    roles: ["admin"],
     children: [
       {
         icon: <Secciones2Icon />,
@@ -826,7 +826,7 @@ export const BodyStaticAPP = [
   },
   {
     title: "Configuracion",
-    roles: ["all"],
+    roles: ["dev"],
     children: [
       {
         icon: <PermisosIcon />,
