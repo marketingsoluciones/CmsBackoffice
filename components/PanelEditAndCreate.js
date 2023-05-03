@@ -150,7 +150,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
     },
     {
       title: "Creado por",
-      value: valuesEdit?.authorUsername
+      value: valuesEdit?.contactName || valuesEdit?.authorUsername || user?.displayName
     },
     {
       title: "Editado por",

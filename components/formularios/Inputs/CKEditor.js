@@ -10,9 +10,14 @@ import Editor from '@ckeditor/ckeditor5-build-classic'
 import { Divider, Flex, FormLabel, Text } from "@chakra-ui/react";
 import { useField } from "formik";
 import { UploadAdapter } from "../../../utils/UploadAdapter";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 export const CKEditorComponent = ({ label, ...props }) => {
+  const [valir, setValir] = useState(false)
+  setTimeout(() => {
+    setValir(true)
+  }, 500);
+
   const [field, meta, helpers] = useField({ ...props });
 
   const CustomUploadAdapterPlugin = useCallback((editor) => {
@@ -77,12 +82,12 @@ export const CKEditorComponent = ({ label, ...props }) => {
               )}
             </Flex>
           </FormLabel>
-          <CKEditor
+          {valir && <CKEditor
             editor={Editor}
             config={editorConfiguration}
             onChange={(event, editor) => helpers.setValue(editor.getData())}
             data={field.value}
-          />
+          />}
         </>
       )}
     </>
