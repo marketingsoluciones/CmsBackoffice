@@ -30,7 +30,7 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   useEffect(() => {
     if (data_?.results?.length) {
       const results = data_?.results.map(item => {
-        return { ...item, imgMiniatura: item.imgMiniatura.i320 }
+        return { ...item, imgMiniatura: item?.imgMiniatura?.i320 }
       })
       setData({ total: data_.total, results })
     }
