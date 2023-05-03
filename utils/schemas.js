@@ -543,7 +543,7 @@ export const BodyStaticAPP = [
           { accessor: "title", show: true },
           { accessor: "slug", show: false },
           { accessor: "status", show: true },
-          { accessor: "imgMiniatura", show: true },
+          { accessor: "imgMiniatura", show: false },
           { accessor: "createdAt", show: true },
           { accessor: "updatedAt", show: false },
         ],

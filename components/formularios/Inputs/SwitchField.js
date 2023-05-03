@@ -4,6 +4,7 @@ import { memo } from "react";
 
 export const SwitchField = memo(({ label, ...props }) => {
   const [field, meta, helpers] = useField(props);
+  console.log(54100, { ...props })
 
   return (
     <Box>

@@ -27,12 +27,14 @@ import {
   MenuButton,
   MenuList,
   Link,
+  Switch,
+  Image,
 } from "@chakra-ui/react";
 import { useTable, useSortBy, usePagination, useRowSelect, useFilters, useGlobalFilter, } from "react-table";
 import { LoadingComponent } from "../../components/LoadingComponent";
 import { IndeterminateCheckbox } from "../../components/Datatable/IndeterminateCheckbox";
 import GlobalFilter from "../../components/Datatable/GlobalFilter";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { ActionsCell } from "./ActionsCell";
 import { useRouter } from "next/router";
 import { ModalAlert, ModalMasivoAlert } from "../modals/Alert";
@@ -42,6 +44,8 @@ import { set } from "react-hook-form";
 
 export const Datatable = ({ isLoading, initialState, columns, data = [], total, handleRemoveItem, setAction, setSeteador, skip, setSkip, limit, setLimit, setSortCriteria, setSort, ...props }) => {
 
+
+  const tdRef = useRef(null)
   const { asPath } = useRouter()
   const [modal, setModal] = useState(false)
   const [modalMasivo, setModalMasivo] = useState(false)
@@ -277,13 +281,38 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                 return (
                   <Tr key={idx} fontSize={"sm"} {...row.getRowProps()} _hover={{ bg: "gray.100" }} className={`${row.isSelected && "bg-gray-100"}`}>
                     {row.cells.map((cell, idx) => {
-
+                      console.log(9991, cell)
                       return (
                         <>
-                          <Td key={idx} className="cursor-pointer" {...cell.getCellProps()} paddingY="0.9rem" paddingInlineEnd={"1rem"} onClick={() => setAction(asPath !== "/questions" ? { type: "VIEWW", payload: { _id: row.original._id } } : { type: "EDIT", payload: { _id: row.original._id } })}>
-                            <Text noOfLines={1} >
-                              {cell.render("Cell")}
-                            </Text>
+                          <Td key={idx} className="" {...cell.getCellProps()} paddingY="0.9rem" paddingInlineEnd={"1rem"}>
+                            {
+                              cell.column.id === "imgMiniatura" ?
+                                <Image
+                                  src={`${process.env.NEXT_PUBLIC_BASE_URL}${cell?.value}`}
+                                  objectFit={"contain"}
+                                  w={"60px"}
+                                  h={"35px"}
+                                />
+                                :
+                                cell.column.id === "status" ?
+                                  <Switch size={"sm"} value={cell?.value} />
+                                  :
+                                  cell.column.id === "title" ? (() => {
+                                    tdRef?.current?.parentElement?.classList?.add("cursor-pointer")
+                                    return (
+                                      <Text
+                                        ref={tdRef}
+                                        noOfLines={1}
+                                        onClick={() => setAction(asPath !== "/questions" ? { type: "VIEWW", payload: { _id: row.original._id } } : { type: "EDIT", payload: { _id: row.original._id } })}>
+                                        {cell.render("Cell")}
+                                      </Text>
+                                    )
+                                  })()
+                                    :
+                                    <Text noOfLines={1} >
+                                      {cell.render("Cell")}
+                                    </Text>
+                            }
                           </Td>
                         </>
                       );

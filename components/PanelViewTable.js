@@ -16,39 +16,66 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   const [limit, setLimit] = useState(10)
   const [sortCriteria, setSortCriteria] = useState()
   const [sort, setSort] = useState()
+  const [data, setData] = useState()
+  const [isMounted, setIsMounted] = useState(false)
 
-  const [data, isLoading, isError, setQuery] = useFetch();
+  const [data_, isLoading, isError, setQuery] = useFetch();
+
+  useEffect(() => {
+    if (!isMounted) {
+      setIsMounted(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (data_?.results?.length) {
+      const results = data_?.results.map(item => {
+        return { ...item, imgMiniatura: item.imgMiniatura.i320 }
+      })
+      setData({ total: data_.total, results })
+    }
+  }, [data_])
+
+  useEffect(() => {
+    console.log(data)
+  }, [data])
+
+
   const [dataRemove, isLoadingRemove, isErrorRemove, setQueryRemove] = useFetch(true);
   const [selected, setSelected] = useState(columnsDataTable({ slug }));
-  const columns = useMemo(() => {
-    const avalibleShowColumns = selected?.visibleColumns?.map(elem => elem.accessor)
-    return selected?.schema?.reduce((acc, item) => {
-      if (avalibleShowColumns?.includes(item?.accessor))
-        acc.push(item)
-      return acc
-    }, [])
-  }, [selected]);
   const [global, setGlobal] = useState()
   const [seteador, setSeteador] = useState(() => () => { })
   const { development, user, domain } = AuthContextProvider()
   const router = useRouter()
 
+  const columns = useMemo(() => {
+    const avalibleShowColumns = selected?.visibleColumns?.map(elem => elem.accessor)
+    return selected?.schema?.reduce((acc, item) => {
+      if (avalibleShowColumns?.includes(item?.accessor) && !item?.roles)
+        acc.push(item)
+      if (item?.roles && hasRole(development, user, item?.roles))
+        acc.push(item)
+      return acc
+    }, [])
+  }, [selected]);
   useEffect(() => {
-    const userRole = user?.authDevelopments.filter(elem => elem.title === development)[0].role
-    if (hasRole(development, user, selected.roles)) {
-      const variables = { development: development, domain: "diariocivitas", skip, limit, sort: { [sortCriteria]: sort } }
-      if (!user?.role.includes("admin", "editor")) {
-        variables = { ...variables, authorUid: user?.uid, userUid: user?.uid }
+    if (isMounted) {
+
+      if (hasRole(development, user, selected.roles)) {
+        const variables = { development: development, domain: "diariocivitas", skip, limit, sort: { [sortCriteria]: sort } }
+        if (!user?.role.includes("admin", "editor")) {
+          variables = { ...variables, authorUid: user?.uid, userUid: user?.uid }
+        }
+        setQuery({
+          ...selected.getData,
+          variables,
+          type: "json"
+        });
+      } else {
+        setTimeout(() => {
+          router.push("/")
+        }, 100);
       }
-      setQuery({
-        ...selected.getData,
-        variables,
-        type: "json"
-      });
-    } else {
-      setTimeout(() => {
-        router.push("/")
-      }, 100);
     }
   }, [selected, isLoadingRemove, skip, limit, sortCriteria, sort]);
 

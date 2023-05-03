@@ -711,6 +711,13 @@ export const FetchGraphQL = {
             updatedAt
             status
             views
+            imgMiniatura{
+              _id
+              i1024
+              i800
+              i640
+              i320
+            }
           }
         }
       }`
