@@ -4,8 +4,11 @@ import { AddPerfilImg } from "../formularios/Inputs/AddPerfilImg";
 export const EdicionDeSeudonimo = ({ modal, setModal }) => {
   return (
     <>
+      <div className="z-50 fixed top-0 left-0 w-screen h-screen overflow-hidden" />
+      <div className="backdrop-blur backdrop-filter bg-gray-919EAB opacity-10 z-50 fixed top-0 left-0 w-screen h-screen overflow-hidden " />
+
       <div
-        className="bg-white rounded-2xl pt-2.5 pr-[5px] pb-2.5 pl-[5px] flex flex-col gap-2.5 items-center justify-center w-[577px] h-[610px] relative"
+        className=" inset-0 m-auto z-50 bg-white rounded-2xl pt-2.5 pr-[5px] pb-2.5 pl-[5px] flex flex-col gap-2.5 items-center justify-center w-[577px] h-[550px]  fixed "
         style={{
           boxShadow:
             "0px 12px 24px -4px rgba(145, 158, 171, 0.16), 0px 16px 16px 0px rgba(0, 0, 0, 0.25)",
@@ -122,7 +125,7 @@ export const EdicionDeSeudonimo = ({ modal, setModal }) => {
             </div>
             <div className="flex flex-col gap-2.5 items-start justify-start shrink-0 relative">
               <div className="flex flex-row gap-2.5 items-center justify-center shrink-0 relative">
-                <input type="checkbox" />
+                <input type="checkbox" className="cursor-pointer" />
                 <div
                   style={{
                     font: "var(--body-2, 400 14px/22px 'Public Sans', sans-serif)",
@@ -131,7 +134,7 @@ export const EdicionDeSeudonimo = ({ modal, setModal }) => {
                 </div>
               </div>
               <div className="flex flex-row gap-2.5 items-center justify-center shrink-0 relative">
-                <input type="checkbox" />
+                <input type="checkbox"  className="cursor-pointer"/>
                 <div
                   style={{
                     font: "var(--body-2, 400 14px/22px 'Public Sans', sans-serif)",
@@ -160,7 +163,7 @@ export const EdicionDeSeudonimo = ({ modal, setModal }) => {
           <div
             style={{ font: "var(--_01-button-02-medium, 700 14px/24px 'Public Sans', sans-serif)" }}
             onClick={() => setModal(!modal)} className="cursor-pointer rounded-lg border-solid border pt-1.5 pr-4 pb-1.5 pl-4 shrink-0 ">
-              Cancelar
+            Cancelar
           </div>
         </div>
       </div>
