@@ -33,14 +33,11 @@ import { SeudonimoList } from "../Seudonimo/SeudonimoList";
 import { InfoForm } from "./InfoForm";
 
 export const FormDinamical = forwardRef(
-  ({ schema: state, initialValues, columns, onSubmit ,Information}, ref) => {
+  ({ schema: state, initialValues, columns, onSubmit, Information }, ref) => {
     const { user } = AuthContextProvider()
     const [schema, setSchema] = useState(null);
     const [modal, setModal] = useState(false)
     const [listDown, setListDown] = useState(false)
-
-
-    console.log(444,Information )
 
     const reduceInitialValues = Object?.entries(initialValues ?? {}).reduce((acc, item) => {
       if (item[1] !== null) {
@@ -139,7 +136,7 @@ export const FormDinamical = forwardRef(
       }
 
     ]
-   
+
 
     return (
       <>
@@ -157,6 +154,8 @@ export const FormDinamical = forwardRef(
               return (
                 <Form >
                   <Grid templateColumns={columns} gap={"1rem"} >
+
+                    {/* columna izquierda */}
                     <GridItem bg={"white"} p={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={3} >
                       {schema &&
                         schema?.map((item, idx) => {
@@ -203,13 +202,17 @@ export const FormDinamical = forwardRef(
                               break;
                             case "slug":
                               return (
-                                <GridItem colSpan={[1, , , 2]} key={idx}>
-                                  <InputField
-                                    name={item.accessor}
-                                    label={item.Header}
-                                    disabled={true}
-                                  />
-                                </GridItem>
+                                <div className="hidden">
+
+                                  <GridItem colSpan={[1, , , 2]} key={idx}>
+                                    <InputField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                      disabled={true}
+                                    />
+                                  </GridItem>
+                                </div>
+
                               );
                               break;
                             case "number":
@@ -275,28 +278,6 @@ export const FormDinamical = forwardRef(
                                 </GridItem>
                               );
                               break;
-                           /*  case "image":
-                              return (
-                                <GridItem colSpan={[1, , , 3]} key={idx}>
-                                  <UploadImage
-                                    key={idx}
-                                    name={item.accessor}
-                                    label={item.Header}
-                                    typeFile={item.typeFile}
-                                  />
-                                </GridItem>
-                              );
-                              break; */
-                            case "imageMultiple":
-                              return (
-                                <GridItem colSpan={[1, , , 3]} key={idx}>
-                                  <MultipleImages
-                                    name={item.accessor}
-                                    label={item.Header}
-                                  />
-                                </GridItem>
-                              );
-                              break;
                             case "relationship":
                               return (
                                 <GridItem colSpan={[1, , , 3]} key={idx}>
@@ -340,16 +321,7 @@ export const FormDinamical = forwardRef(
                                 </GridItem>
                               );
                               break;
-                            case "fieldArray":
-                              return (
-                                <FieldArrayField
-                                  key={idx}
-                                  name={item.accessor}
-                                  label={item.Header}
-                                  schema={item.schema}
-                                />
-                              );
-                              break;
+
                             case "desarrollo":
                               return (
                                 <GridItem colSpan={[1, , , 1]} key={idx}>
@@ -362,37 +334,50 @@ export const FormDinamical = forwardRef(
                         })}
                     </GridItem>
 
+                    {/* columna derecha */}
                     <GridItem className="space-y-2 w-max relative" colSpan={1} >
-                      
                       <OptionsForm />
-
                       <Seudonimo modal={modal} setModal={setModal} listDown={listDown} setListDown={setListDown} />
-
-                      <div  className={`${listDown?"block":"hidden"}  absolute w-full z-30`}>
+                      <div className={`${listDown ? "block" : "hidden"}  absolute  z-30`}>
                         <SeudonimoList list={SeudonimoListEjm} listDown={listDown} setListDown={setListDown} />
                       </div>
-
                       {schema &&
-                        schema?.map((item,idx) =>{
+                        schema?.map((item, idx) => {
                           const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
-                            switch(valir && item.type){
-                              case "image":
-                                return(
-                                  <UploadImage
+                          switch (valir && item.type) {
+                            case "image":
+                              return (
+                                <UploadImage
                                   key={idx}
                                   name={item.accessor}
                                   label={item.Header}
                                   typeFile={item.typeFile}
                                 />
-                                )
-                            }
+                              );
+                              break
+                            case "imageMultiple":
+                              return (
+                                <MultipleImages
+                                  name={item.accessor}
+                                  label={item.Header}
+                                />
+                              );
+                              break;
+                            case "fieldArray":
+                              return (
+                                <FieldArrayField
+                                  key={idx}
+                                  name={item.accessor}
+                                  label={item.Header}
+                                  schema={item.schema}
+                                />
+                              );
+                              break;
+                          }
                         })
                       }
-
                       <InfoForm Information={Information} />
-
                     </GridItem>
-
                   </Grid>
                 </Form>
               );

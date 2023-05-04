@@ -52,13 +52,9 @@ export const MultipleImages = memo(({ label, ...props }) => {
   };
 
   return (
-    <Box >
-      <FormLabel
-        fontWeight={"900"}
-        textAlign={"left"}
-        fontSize={"sm"}
-      >
-        <Flex gap={"0.3rem"} alignItems={"center"}>
+    <Box  bg={"white"} p={"0.5rem"} rounded={"xl"} w={"250px"} shadow={"md"} >
+      <FormLabel fontWeight={"900"} textAlign={"left"} fontSize={"sm"}  p={"0.5rem"}>
+        <Flex gap={"0.3rem"} alignItems={"center"} justify={"center"}  m={"0"} >
           {label}{" "}
           {meta.touched && meta.error && (
             <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
@@ -67,8 +63,10 @@ export const MultipleImages = memo(({ label, ...props }) => {
           )}
         </Flex>
       </FormLabel>
+
       <Flex
         alignItems={"center"}
+        justify={"center"}
         w={"100%"}
         border={"2px dotted"}
         borderColor={"gray.300"}
@@ -79,7 +77,7 @@ export const MultipleImages = memo(({ label, ...props }) => {
         gap={"2rem"}
         flexWrap={"wrap"}
       >
-        <FormLabel>
+        <FormLabel m={0}>
           <Square
             shadow={"md"}
             h={"8rem"}

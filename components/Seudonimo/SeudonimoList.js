@@ -1,7 +1,7 @@
 export const SeudonimoList = ({ list, listDown, setListDown }) => {
     return (
         <>
-            <div className="bg-white rounded-xl p-3 space-y-1 ">
+            <div className="bg-white rounded-xl p-3 space-y-0.5 w-[200px]  shadow-xl">
                 {list.map(list => (
                     <div
                         onClick={()=>setListDown(!listDown)}                    
@@ -9,7 +9,9 @@ export const SeudonimoList = ({ list, listDown, setListDown }) => {
                         <div >
                             {list.icon}
                         </div>
-                        <span>{list.nombre}</span>
+                        <span 
+                        className="text-sm truncate"
+                        > {list.nombre}</span>
                     </div>
                 ))}
             </div>
