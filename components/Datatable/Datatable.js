@@ -46,8 +46,7 @@ import { set } from "react-hook-form";
 export const Datatable = ({ isLoading, initialState, columns, data = [], total, handleRemoveItem, setAction, setSeteador, skip, setSkip, limit, setLimit, setSortCriteria, setSort, ...props }) => {
 
 
-  const tdRef = useRef(null)
-  const { asPath } = useRouter()
+
   const [modal, setModal] = useState(false)
   const [modalMasivo, setModalMasivo] = useState(false)
   const [saveId, setSaveId] = useState("")
@@ -289,9 +288,9 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
 
                 return (
                   <Tr key={idx} fontSize={"sm"} {...row.getRowProps()} _hover={{ bg: "gray.100" }} className={`${row.isSelected && "bg-gray-100"}`}>
-                    {row.cells.map((cell, idx) => {
+                    {row.cells.map((cell, i) => {
                       return (
-                        <Td key={idx} className="" {...cell.getCellProps()} w={cell.column.id === "selection" && "16"}>
+                        <Td key={i} className="" {...cell.getCellProps()} w={cell.column.id === "selection" && "16"}>
                           {
                             cell.column.id === "imgMiniatura" ?
                               <Center>
@@ -308,25 +307,14 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                                   <Switch size={"sm"} value={cell?.value} />
                                 </Center>
                                 :
-                                cell.column.id === "title" ? (() => {
-                                  tdRef?.current?.parentElement?.classList?.add("cursor-pointer")
-                                  return (
-                                    <Text
-                                      ref={tdRef}
-                                      noOfLines={1}
-                                      onClick={() => setAction(asPath !== "/questions" ? { type: "VIEWW", payload: { _id: row.original._id } } : { type: "EDIT", payload: { _id: row.original._id } })}>
-                                      {cell.render("Cell")}
-                                    </Text>
-                                  )
-                                })()
+                                cell.column.id === "title" || cell.column.id === "businessName" ?
+                                  <ComponentCursorPointer cell={cell} setAction={setAction} row={row} />
                                   : cell.column.id === "slug" ?
                                     <Text noOfLines={1} >
                                       {cell.render("Cell")}
                                     </Text>
                                     : cell.column.id === "_id" ?
-                                      <Text noOfLines={1} >
-                                        {cell.render("Cell")}
-                                      </Text>
+                                      <ComponentCursorPointer cell={cell} setAction={setAction} row={row} />
                                       :
                                       <Center>
                                         <Text noOfLines={1} >
@@ -430,3 +418,20 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
     </>
   );
 };
+
+const ComponentCursorPointer = ({ cell, setAction, row }) => {
+  const { asPath } = useRouter()
+  const tdRef = useRef()
+  useEffect(() => {
+    tdRef?.current?.parentElement?.classList?.add("cursor-pointer")
+  }, [tdRef])
+  return (
+    <Text
+      ref={tdRef}
+      noOfLines={1}
+      onClick={() => setAction(asPath !== "/questions" ? { type: "VIEWW", payload: { _id: row.original._id } } : { type: "EDIT", payload: { _id: row.original._id } })}>
+      {cell.render("Cell")}
+    </Text>
+  )
+
+}

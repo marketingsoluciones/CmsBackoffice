@@ -131,6 +131,12 @@ export const FetchGraphQL = {
                   createdAt
                   updatedAt
                   contactName
+                  status
+                  userUid
+                  contactName
+                  imgMiniatura{
+                    i320
+                  }
                 }
               }
             }`
@@ -345,7 +351,11 @@ export const FetchGraphQL = {
           heading
           slug
           description
-          
+          createdAt
+          updatedAt
+          imgMiniatura{
+            i320
+          }
           }
         }
       }`,
@@ -455,10 +465,15 @@ export const FetchGraphQL = {
           total
           results{
             _id
-          title
-          heading
-          slug
-          description
+            title
+            heading
+            slug
+            description
+            imgMiniatura{
+              i320
+            }
+            createdAt
+            updatedAt
           }
         }
       }`,
@@ -827,6 +842,9 @@ export const FetchGraphQL = {
             description
             createdAt
             updatedAt
+            imgMiniatura{
+              i320
+            }
           }
         }
       }`,
@@ -916,6 +934,9 @@ export const FetchGraphQL = {
             description
             createdAt
             updatedAt
+            imgMiniatura{
+              i320
+            }
           }
         }
       }`,

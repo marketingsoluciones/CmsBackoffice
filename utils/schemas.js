@@ -223,6 +223,7 @@ export const BodyStaticAPP = [
           { accessor: "slug", show: true },
           { accessor: "createdAt", show: true },
           { accessor: "updatedAt", show: false },
+          { accessor: "imgMiniatura", show: true },
         ],
         schema: [
           {
@@ -296,6 +297,7 @@ export const BodyStaticAPP = [
           { accessor: "slug", show: true },
           { accessor: "createdAt", show: true },
           { accessor: "updatedAt", show: false },
+          { accessor: "imgMiniatura", show: true },
         ],
         schema: [
           {
@@ -539,13 +541,13 @@ export const BodyStaticAPP = [
         deleteEntry: FetchGraphQL.posts.deletePost,
         updateEntry: FetchGraphQL.posts.updatePost,
         visibleColumns: [
-          { accessor: "_id", show: false, width: 20, center: true },
-          { accessor: "title", show: true, width: 20, center: true },
-          { accessor: "slug", show: false, width: 20, center: true },
-          { accessor: "status", show: true, width: 20, center: true },
-          { accessor: "imgMiniatura", show: false, width: 20, center: true },
-          { accessor: "createdAt", show: true, width: 20, center: true },
-          { accessor: "updatedAt", show: false, width: 20, center: true },
+          { accessor: "_id", show: false },
+          { accessor: "title", show: true },
+          { accessor: "slug", show: false },
+          { accessor: "status", show: true },
+          { accessor: "imgMiniatura", show: false },
+          { accessor: "createdAt", show: true },
+          { accessor: "updatedAt", show: false },
         ],
         schema: [
           {
@@ -646,6 +648,7 @@ export const BodyStaticAPP = [
           { accessor: "slug", show: true },
           { accessor: "createdAt", show: true },
           { accessor: "updatedAt", show: false },
+          { accessor: "imgMiniatura", show: true },
         ],
         schema: [
           {
@@ -718,6 +721,7 @@ export const BodyStaticAPP = [
           { accessor: "slug", show: true },
           { accessor: "createdAt", show: true },
           { accessor: "updatedAt", show: false },
+          { accessor: "imgMiniatura", show: true },
         ],
         schema: [
           {
