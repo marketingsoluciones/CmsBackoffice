@@ -36,11 +36,6 @@ export const PanelViewTable = ({ slug, dispatch }) => {
     }
   }, [data_])
 
-  useEffect(() => {
-    console.log(data)
-  }, [data])
-
-
   const [dataRemove, isLoadingRemove, isErrorRemove, setQueryRemove] = useFetch(true);
   const [selected, setSelected] = useState(columnsDataTable({ slug }));
   const [global, setGlobal] = useState()

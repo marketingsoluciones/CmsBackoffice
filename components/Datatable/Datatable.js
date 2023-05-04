@@ -29,6 +29,7 @@ import {
   Link,
   Switch,
   Image,
+  Center,
 } from "@chakra-ui/react";
 import { useTable, useSortBy, usePagination, useRowSelect, useFilters, useGlobalFilter, } from "react-table";
 import { LoadingComponent } from "../../components/LoadingComponent";
@@ -146,94 +147,101 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
         <>
           <Table {...getTableProps()} bg={"white"} >
             <Thead overflow={"auto"} >
-              {headerGroups.map((headerGroup, idx) => (
-                <Tr key={idx} {...headerGroup.getHeaderGroupProps()}  >
-                  {headerGroup.headers.map((column, idx) => {
-                    const propsNew = { ...column.getHeaderProps(/*column.getSortByToggleProps()*/), style: { cursor: 'pointer', fontSize: "12px" } }
-                    return (
-                      <Th
-                        key={idx}
-                        {...propsNew}
-                        onClick={() => {
-                          setSortCriteria((old) => {
-                            if (old !== column.id) {
-                              setSort(1)
-                              return column.id
-                            }
-                            setSort(old => old === 1 ? -1 : 1)
-                            return old
-                          })
-                          setSkip(0)
-                        }}
-                      >
-                        {column.render("Header")}
-                        {/*  <span>
+              {headerGroups.map((headerGroup, idx) => {
+                return (
+                  <Tr key={idx} {...headerGroup.getHeaderGroupProps()}  >
+                    {headerGroup.headers.map((column, idx) => {
+                      const propsNew = { ...column.getHeaderProps(/*column.getSortByToggleProps()*/), style: { cursor: 'pointer', fontSize: "14px" } }
+                      return (
+                        <Th
+                          key={idx}
+                          {...propsNew}
+                          onClick={
+                            column.id === "selection" ? () => { }
+                              : () => {
+                                setSortCriteria((old) => {
+                                  if (old !== column.id) {
+                                    setSort(1)
+                                    return column.id
+                                  }
+                                  setSort(old => old === 1 ? -1 : 1)
+                                  return old
+                                })
+                                setSkip(0)
+                              }
+                          }
+                        >
+                          <Center>
+                            {column.render("Header")}
+                            {/*  <span>
                         {column.isSorted
                           ? column.isSortedDesc
-                            ? " 🔽"
-                            : " 🔼"
+                          ? " 🔽"
+                          : " 🔼"
                           : ""}
-                      </span> */}
-                      </Th>
-                    )
-                  })}
-                  <Th display={"flex"} justifyContent={"center"} justifyItems={"center"} >
-                    {(() => {
-                      if (selectedFlatRows.length > 0) {
-                        return (
-                          <>
-                            {modalMasivo ? (
-                              <ModalMasivoAlert setModalMasivo={setModalMasivo} modalMasivo={modalMasivo} handleRemoveItem={handleRemoveItem} onClickList={selectedFlatRows.map(item => item.original._id)} />
-                            ) : null}
+                        </span> */}
+                          </Center>
+                        </Th>
+                      )
+                    })}
+                    <Th >
+                      {(() => {
+                        if (selectedFlatRows.length > 0) {
+                          return (
+                            <>
+                              {modalMasivo ? (
+                                <ModalMasivoAlert setModalMasivo={setModalMasivo} modalMasivo={modalMasivo} handleRemoveItem={handleRemoveItem} onClickList={selectedFlatRows.map(item => item.original._id)} />
+                              ) : null}
 
-                            <Button
-                              transition={"all"}
-                              bg={"red.400"}
-                              color={"white"}
-                              _hover={{ bg: "red.500" }}
-                              onClick={() => {
-                                setModalMasivo(!modalMasivo)
-                              }}
-                            >
-                              <Text
-                                display={"flex"}
-                                gap={"2px"}
-                                alignItems={"center"}
-                                justifyItems={"center"}
-                                w={"1.5px"}
-                                fontSize={"sm"}
-                                justifyContent={"center"}
-                                fontWeight={"medium"}
+                              <Button
+                                className="mt-[-0.5rem] mb-[-0.5rem]"
+                                transition={"all"}
+                                bg={"red.400"}
+                                color={"white"}
+                                _hover={{ bg: "red.500" }}
+                                onClick={() => {
+                                  setModalMasivo(!modalMasivo)
+                                }}
                               >
-                                <DeleteIcon />
-                                {selectedFlatRows.length}
-                              </Text>
-                            </Button>
-                          </>
-                        )
+                                <Text
+                                  display={"flex"}
+                                  gap={"2px"}
+                                  alignItems={"center"}
+                                  justifyItems={"center"}
+                                  w={"1.5px"}
+                                  fontSize={"sm"}
+                                  justifyContent={"center"}
+                                  fontWeight={"medium"}
+                                >
+                                  <DeleteIcon />
+                                  {selectedFlatRows.length}
+                                </Text>
+                              </Button>
+                            </>
+                          )
 
-                      } else {
-                        return (<>
-                          <Menu>
-                            <Tooltip label={"Editar columnas"}>
-                              <MenuButton className="mt-[-0.5rem] mb-[-0.5rem]">
-                                <IconButton icon={<SettingsIcon />} />
-                              </MenuButton>
-                            </Tooltip>
-                            <MenuList
-                              h={"15rem"}
-                              overflow={"auto"}
-                              bg={"white"}
-                              p={"1rem"}
-                              rounded={"lg"}
-                              shadow={"md"}
-                            >
-                              <Flex flexDir={"column"}>
-                                <Heading as={"p"} fontSize={"sm"}>
-                                  Campos mostrados
-                                </Heading>
-                                <Divider paddingBlock={"0.3rem"} />
-                                {/* <FormLabel
+                        } else {
+                          return (<>
+                            <Menu>
+                              <Tooltip label={"Editar columnas"}>
+                                <MenuButton className="mt-[-0.5rem] mb-[-0.5rem]">
+                                  <IconButton icon={<SettingsIcon />} />
+                                </MenuButton>
+                              </Tooltip>
+                              <MenuList
+                                h={"15rem"}
+                                overflow={"auto"}
+                                bg={"white"}
+                                p={"1rem"}
+                                rounded={"lg"}
+                                shadow={"md"}
+                              >
+                                <Flex flexDir={"column"}>
+                                  <Heading as={"p"} fontSize={"sm"}>
+                                    Campos mostrados
+                                  </Heading>
+                                  <Divider paddingBlock={"0.3rem"} />
+                                  {/* <FormLabel
                                   paddingTop={"0.5rem"}
                                   display={"flex"}
                                   alignItems={"center"}
@@ -243,34 +251,35 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                                   <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} />
                                   Seleccionar todos
                                 </FormLabel> */}
-                                {allColumns?.slice(1).map((column, idx) => (
-                                  <FormLabel
-                                    key={idx}
-                                    display={"flex"}
+                                  {allColumns?.slice(1).map((column, idx) => (
+                                    <FormLabel
+                                      key={idx}
+                                      display={"flex"}
 
-                                    alignItems={"center"}
-                                    gap={"0.5rem"}
-                                    fontSize={"sm"}
-                                  >
-                                    <Checkbox
-                                      type={"checkbox"}
-                                      isChecked={column.getToggleHiddenProps().checked}
-                                      {...column.getToggleHiddenProps()}
-                                    />
-                                    {typeof column.Header === "string"
-                                      ? column.Header
-                                      : column.id}
-                                  </FormLabel>
-                                ))}
-                              </Flex>
-                            </MenuList>
-                          </Menu>
-                        </>)
-                      }
-                    })()}
-                  </Th>
-                </Tr>
-              ))}
+                                      alignItems={"center"}
+                                      gap={"0.5rem"}
+                                      fontSize={"sm"}
+                                    >
+                                      <Checkbox
+                                        type={"checkbox"}
+                                        isChecked={column.getToggleHiddenProps().checked}
+                                        {...column.getToggleHiddenProps()}
+                                      />
+                                      {typeof column.Header === "string"
+                                        ? column.Header
+                                        : column.id}
+                                    </FormLabel>
+                                  ))}
+                                </Flex>
+                              </MenuList>
+                            </Menu>
+                          </>)
+                        }
+                      })()}
+                    </Th>
+                  </Tr>
+                )
+              })}
             </Thead>
             <Tbody {...getTableBodyProps()} overflow={"auto"}>
               {page.map((row, idx) => {
@@ -281,54 +290,65 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                 return (
                   <Tr key={idx} fontSize={"sm"} {...row.getRowProps()} _hover={{ bg: "gray.100" }} className={`${row.isSelected && "bg-gray-100"}`}>
                     {row.cells.map((cell, idx) => {
-                      console.log(9991, cell)
                       return (
-                        <>
-                          <Td key={idx} className="" {...cell.getCellProps()} paddingY="0.9rem" paddingInlineEnd={"1rem"}>
-                            {
-                              cell.column.id === "imgMiniatura" ?
+                        <Td key={idx} className="" {...cell.getCellProps()} w={cell.column.id === "selection" && "16"}>
+                          {
+                            cell.column.id === "imgMiniatura" ?
+                              <Center>
                                 <Image
                                   src={`${process.env.NEXT_PUBLIC_BASE_URL}${cell?.value}`}
                                   objectFit={"contain"}
                                   w={"60px"}
                                   h={"35px"}
                                 />
-                                :
-                                cell.column.id === "status" ?
+                              </Center>
+                              :
+                              cell.column.id === "status" ?
+                                <Center>
                                   <Switch size={"sm"} value={cell?.value} />
-                                  :
-                                  cell.column.id === "title" ? (() => {
-                                    tdRef?.current?.parentElement?.classList?.add("cursor-pointer")
-                                    return (
-                                      <Text
-                                        ref={tdRef}
-                                        noOfLines={1}
-                                        onClick={() => setAction(asPath !== "/questions" ? { type: "VIEWW", payload: { _id: row.original._id } } : { type: "EDIT", payload: { _id: row.original._id } })}>
-                                        {cell.render("Cell")}
-                                      </Text>
-                                    )
-                                  })()
-                                    :
+                                </Center>
+                                :
+                                cell.column.id === "title" ? (() => {
+                                  tdRef?.current?.parentElement?.classList?.add("cursor-pointer")
+                                  return (
+                                    <Text
+                                      ref={tdRef}
+                                      noOfLines={1}
+                                      onClick={() => setAction(asPath !== "/questions" ? { type: "VIEWW", payload: { _id: row.original._id } } : { type: "EDIT", payload: { _id: row.original._id } })}>
+                                      {cell.render("Cell")}
+                                    </Text>
+                                  )
+                                })()
+                                  : cell.column.id === "slug" ?
                                     <Text noOfLines={1} >
                                       {cell.render("Cell")}
                                     </Text>
-                            }
-                          </Td>
-                        </>
+                                    : cell.column.id === "_id" ?
+                                      <Text noOfLines={1} >
+                                        {cell.render("Cell")}
+                                      </Text>
+                                      :
+                                      <Center>
+                                        <Text noOfLines={1} >
+                                          {cell.render("Cell")}
+                                        </Text>
+                                      </Center>
+                          }
+                        </Td>
                       );
                     })}
                     <Td
-                      display={"flex"}
-                      justifyContent={"center"}
-                      justifyItems={"center"}
-                      className="cursor-pointer mt-[-0.5rem] mb-[-0.5rem] 2xl:mt-[0rem] 2xl:mb-[0rem]"
+                      className="mt-[-0.5rem] mb-[-0.5rem] 2xl:mt-[0rem] 2xl:mb-[0rem]"
+                      w={"16"}
                     >
                       {modal ? (
                         <ModalAlert id={saveId} handleRemoveItem={handleRemoveItem} setModal={setModal} modal={modal} />
                       ) : null}
-                      <button onClick={() => [setModal(!modal), setSaveId(row.original._id)]} className="cursor-pointer mb-[-0.5rem] 2xl:mt-[0rem] 2xl:mb-[0rem]"  >
-                        <IconButton size={"sm"} icon={<DeleteIcon />} />
-                      </button>
+                      <Center>
+                        <button onClick={() => [setModal(!modal), setSaveId(row.original._id)]} className="cursor-pointer mb-[-0.5rem] 2xl:mt-[0rem] 2xl:mb-[0rem]"  >
+                          <IconButton size={"sm"} icon={<DeleteIcon />} />
+                        </button>
+                      </Center>
                     </Td>
                   </Tr>
 

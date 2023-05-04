@@ -9,7 +9,10 @@ export const columnsDataTable = ({ slug }) => {
 
   // Verificar si la seleccion no es nula
   if (options) {
-    const newVisibleColumns = options?.visibleColumns?.map(elem => elem?.show && elem.accessor)
+    const newVisibleColumns = options?.visibleColumns?.reduce((acc, item) => {
+      item?.show && acc.push(item.accessor)
+      return acc
+    }, [])
     options.hiddenColumns = options?.schema?.reduce((acc, item) => {
       !newVisibleColumns?.includes(item?.accessor) &&
         acc?.push(item?.accessor);
