@@ -34,13 +34,11 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
   }
 
   return (
-    <Box >
-      <Divider />
-      <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>
-
-        <Flex gap={"0.3rem"} alignItems={"center"}>
+    <Box bg={"white"} p={"2px"} rounded={"xl"} >
+      {/* <Divider /> */}
+      <FormLabel p={"0.5rem"} m={"0"} fontWeight={"900"} textAlign={"center"} alignItems={"center"} fontSize={"sm"} >
+        <Flex gap={"0.3rem"} alignItems={"center"} justify={"center"}  >
           {label} {meta.touched && meta.error && <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>{meta.error}</Text>}
-
         </Flex>
         <Flex
           alignItems={"center"}
@@ -53,6 +51,7 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
           color={"gray.400"}
           pos={"relative"}
           mt={"0.5rem"}
+          className="cursor-pointer"
         >
           {!field?.value?.i640 && !image && (
             <>

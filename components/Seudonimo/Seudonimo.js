@@ -1,6 +1,6 @@
 import { Avatar } from "@chakra-ui/react";
 
-export const Seudonimo = ({modal, setModal}) => {
+export const Seudonimo = ({ modal, setModal, listDown, setListDown }) => {
 
     return (
         <div className="bg-white rounded-2xl p-2.5 flex flex-col gap-2.5 items-start justify-start shrink-0 w-[250px] h-[104px] relative" style={{ boxShadow: "var(--_01-shadows-light-z-card-box-shadow, 0px 12px 24px -4px rgba(145, 158, 171, 0.12), 0px 0px 2px 0px rgba(145, 158, 171, 0.20))" }}>
@@ -109,77 +109,79 @@ export const Seudonimo = ({modal, setModal}) => {
                     </div>
 
                     <div className="flex flex-row gap-[5px] items-center *justify-start shrink-0 relative">
-                        <svg
-                            className="rounded-lg shrink-0 relative overflow-visible"
-                            style={{}}
-                            width="24"
-                            height="26"
-                            viewBox="0 0 24 26"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <g filter="url(#filter0_d_442_11570)">
-                                <rect
-                                    y="0.5"
-                                    width="24"
-                                    height="25"
-                                    rx="8"
-                                    fill="white"
-                                    shapeRendering="crispEdges"
-                                />
-                                <path
-                                    d="M15.88 10.177L12 14.2187L8.11998 10.177C7.72998 9.77075 7.09998 9.77075 6.70998 10.177C6.31998 10.5833 6.31998 11.2395 6.70998 11.6458L11.3 16.427C11.69 16.8333 12.32 16.8333 12.71 16.427L17.3 11.6458C17.69 11.2395 17.69 10.5833 17.3 10.177C16.91 9.78117 16.27 9.77075 15.88 10.177V10.177Z"
-                                    fill="#14532D"
-                                />
-                                <rect
-                                    x="0.25"
-                                    y="0.75"
-                                    width="23.5"
-                                    height="24.5"
-                                    rx="7.75"
-                                    stroke="#047857"
-                                    strokeWidth="0.5"
-                                    shapeRendering="crispEdges"
-                                />
-                            </g>
-                            <defs>
-                                <filter
-                                    id="filter0_d_442_11570"
-                                    x="0"
-                                    y="0.5"
-                                    width="28"
-                                    height="29"
-                                    filterUnits="userSpaceOnUse"
-                                    colorInterpolationFilters="sRGB"
-                                >
-                                    <feFlood floodOpacity="0" result="BackgroundImageFix" />
-                                    <feColorMatrix
-                                        in="SourceAlpha"
-                                        type="matrix"
-                                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                                        result="hardAlpha"
+                        <div onClick={() =>setListDown(!listDown)}>
+                            <svg
+                                className="rounded-lg shrink-0 relative overflow-visible"
+                                style={{}}
+                                width="24"
+                                height="26"
+                                viewBox="0 0 24 26"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <g filter="url(#filter0_d_442_11570)">
+                                    <rect
+                                        y="0.5"
+                                        width="24"
+                                        height="25"
+                                        rx="8"
+                                        fill="white"
+                                        shapeRendering="crispEdges"
                                     />
-                                    <feOffset dx="2" dy="2" />
-                                    <feGaussianBlur stdDeviation="1" />
-                                    <feComposite in2="hardAlpha" operator="out" />
-                                    <feColorMatrix
-                                        type="matrix"
-                                        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                                    <path
+                                        d="M15.88 10.177L12 14.2187L8.11998 10.177C7.72998 9.77075 7.09998 9.77075 6.70998 10.177C6.31998 10.5833 6.31998 11.2395 6.70998 11.6458L11.3 16.427C11.69 16.8333 12.32 16.8333 12.71 16.427L17.3 11.6458C17.69 11.2395 17.69 10.5833 17.3 10.177C16.91 9.78117 16.27 9.77075 15.88 10.177V10.177Z"
+                                        fill="#14532D"
                                     />
-                                    <feBlend
-                                        mode="normal"
-                                        in2="BackgroundImageFix"
-                                        result="effect1_dropShadow_442_11570"
+                                    <rect
+                                        x="0.25"
+                                        y="0.75"
+                                        width="23.5"
+                                        height="24.5"
+                                        rx="7.75"
+                                        stroke="#047857"
+                                        strokeWidth="0.5"
+                                        shapeRendering="crispEdges"
                                     />
-                                    <feBlend
-                                        mode="normal"
-                                        in="SourceGraphic"
-                                        in2="effect1_dropShadow_442_11570"
-                                        result="shape"
-                                    />
-                                </filter>
-                            </defs>
-                        </svg>
+                                </g>
+                                <defs>
+                                    <filter
+                                        id="filter0_d_442_11570"
+                                        x="0"
+                                        y="0.5"
+                                        width="28"
+                                        height="29"
+                                        filterUnits="userSpaceOnUse"
+                                        colorInterpolationFilters="sRGB"
+                                    >
+                                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
+                                        <feColorMatrix
+                                            in="SourceAlpha"
+                                            type="matrix"
+                                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                                            result="hardAlpha"
+                                        />
+                                        <feOffset dx="2" dy="2" />
+                                        <feGaussianBlur stdDeviation="1" />
+                                        <feComposite in2="hardAlpha" operator="out" />
+                                        <feColorMatrix
+                                            type="matrix"
+                                            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+                                        />
+                                        <feBlend
+                                            mode="normal"
+                                            in2="BackgroundImageFix"
+                                            result="effect1_dropShadow_442_11570"
+                                        />
+                                        <feBlend
+                                            mode="normal"
+                                            in="SourceGraphic"
+                                            in2="effect1_dropShadow_442_11570"
+                                            result="shape"
+                                        />
+                                    </filter>
+                                </defs>
+                            </svg>
+                        </div>
 
                         <div className="rounded-lg flex flex-row gap-[5px] items-center justify-start shrink-0 relative">
                             <svg

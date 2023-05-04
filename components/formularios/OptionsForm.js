@@ -12,11 +12,11 @@ export const OptionsForm = () => {
             <div className="flex flex-row gap-[3px] items-center justify-center shrink-0 w-[250px]* h-9 relative" >
 
                 <div className="text-white text-sm relative bg-green-700 rounded-lg pt-[11px] pr-[22px] pb-[11px] pl-[22px] flex flex-row gap-0 items-center justify-center shrink-0 w-[100px] h-[30px] relative" style={{ boxShadow: "4px 4px 4px 0px rgba(4, 120, 87, 0.25)" }}>
-                        Guardar
+                    Guardar
                 </div>
 
                 <div className=" text-white text-sm relative bg-green-700 rounded-lg pt-[11px] *pr-[2px] pb-[11px] *pl-[2px] flex flex-row  items-center justify-center shrink-0 w-[120px] h-[30px] relative" style={{ boxShadow: "4px 4px 4px 0px rgba(4, 120, 87, 0.25)" }}>
-                        Pre-visualizar
+                    Pre-visualizar
                 </div>
 
             </div>

@@ -1,17 +1,4 @@
-import {
-  Badge,
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Grid,
-  GridItem,
-  Heading,
-  Text,
-  useToast,
-  Center,
-  Square
-} from "@chakra-ui/react";
+import {Badge,Box,Button,Divider,Flex,Grid,GridItem,Heading,Text,useToast,Center,Square} from "@chakra-ui/react";
 import { useEffect, useCallback, useRef, useState } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { FormDinamical } from "../components/formularios/Form";
@@ -22,9 +9,6 @@ import { formatTime } from "../utils/formatTime";
 import { fetchApi } from "../utils/Fetching";
 import { AuthContextProvider } from "../context/AuthContext";
 import { ArrowLeft } from "./Icons/index"
-import { OptionsForm } from "./formularios/OptionsForm";
-import { Seudonimo } from "./formularios/Seudonimo";
-import { EdicionDeSeudonimo } from "./modals/EditSeudonimo";
 
 export const PanelEditAndCreate = ({ slug, setAction, state }) => {
 
@@ -33,12 +17,9 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const toast = useToast();
   const options = FindOption(slug);
   const { user, development } = AuthContextProvider();
-  const [modal, setModal] = useState(false)
-
 
   useEffect(() => {
     console.log(500021, valuesEdit)
-
   }, [valuesEdit])
 
 
@@ -95,7 +76,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       ...values
     }) => {
       try {
-
         delete values.createdAt;
         delete values.updatedAt;
         const data = await fetchApi({
@@ -113,7 +93,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
         } else {
           throw new Error(10011, "Error en la peticion");
         }
-
       } catch (error) {
         console.log(8001, error)
         toast({
@@ -173,18 +152,15 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
             <Box>
               <div className="flex flex-col md:flex-row md:items-center ">
                 <div className="flex">
-
                   <button onClick={() => setAction({ type: "VIEW", payload: {} })}>
                     <ArrowLeft />
                   </button>
-
                   <div className="text-slate-600 mx-2  text-3xl" fontSize={"3xl"} as={"h1"} marginX={"2"} textTransform={"capitalize"} >
                     {valuesEdit?.businessName ||
                       valuesEdit?.title ||
                       "Crear Registro"}
                   </div >
                 </div>
-
                 <div>
                   <button
                     color={"white"}
@@ -205,95 +181,20 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                     Guardar
                   </button>
                 </div>
-
               </div>
-
-
             </Box>
           </Flex>
-          {modal ? (
-              <EdicionDeSeudonimo modal={modal} setModal={setModal} />
-            ) : null}
-
-          <Flex h={"100%"}  >
-            <Box h={"100%"}  >
-              <Grid
-                gap={"1rem"}
-                overflow={"auto"}
-                h={"100%"}
-                className="md:px-[1rem] "
-              >
-                <GridItem
-                  colSpan={["1", , , "3"]}
-                  bg={"white"}
-                  p={"1rem"}
-                  shadow={"sm"}
-                  rounded={"xl"}
-
-                >
+          {/* Cuerpo del formulario */}
+          <Flex h={"85%"}  >
+            <Box  w={"100%"}  >
                   <FormDinamical
                     schema={options?.schema}
                     initialValues={valuesEdit}
                     onSubmit={handleSubmit}
                     ref={refButton}
-                    columns={["repeat(1, 1fr)", , , "repeat(1, 1fr)"]}
-
+                    Information={Information}
+                    columns={["repeat(1, 1fr)", , , "repeat(4, 1fr)"]}
                   />
-                </GridItem>
-              </Grid>
-            </Box>
-            <Box w="30%" h={"100%"} className="hidden md:block">
-              <Grid
-                gap={"1rem"}
-                overflow={"auto"}
-                h={"100%"}
-                paddingX={"1rem"}
-              >
-                <GridItem
-                  colSpan={"1"}
-                  display={"flex"}
-                  flexDir={"column"}
-                  gap={"1rem"}
-                >
-
-
-                  <OptionsForm />
-                  <Seudonimo modal={modal} setModal={setModal} />
-
-                  <Box bg={"white"} p={"1rem"} shadow={"sm"} rounded={"xl"}>
-                    <Heading pb={"1rem"} fontSize={"sm"} color={"gray.500"}>
-                      Información
-                    </Heading>
-
-                    <Divider />
-                    {Information?.map((item, idx) => (
-                      <Flex
-                        key={idx}
-                        pt={"1rem"}
-                        w={"100%"}
-                        flexDir={"column"}
-                        alignItems={"center"}
-                        justifyContent={"space-between"}
-                        fontSize={"sm"}
-                      >
-                        <Text color={"gray.400"}>{item.title}</Text>
-                        <Badge
-                          w={"100%"}
-                          textAlign={"center"}
-                          color={"gray.700"}
-                          p={"0.25rem"}
-                        >
-                          {item.value}
-                        </Badge>
-                      </Flex>
-                    ))}
-                  </Box>
-
-                  {state.type === "edit" && (
-                    <ButtonDeleteEntry values={valuesEdit} options={options} />
-                  )}
-                </GridItem>
-              </Grid>
             </Box>
           </Flex>
         </>
