@@ -39,6 +39,8 @@ export const FormDinamical = forwardRef(
     const [modal, setModal] = useState(false)
     const [listDown, setListDown] = useState(false)
     const [foundList, setFoundList] = useState("")
+    const [alertDev, setAlertDev] = useState(false)
+
     const reduceInitialValues = Object?.entries(initialValues ?? {}).reduce((acc, item) => {
       if (item[1] !== null) {
         //@ts-ignore
@@ -148,6 +150,10 @@ console.log(found)
         {modal ? (
           <EdicionDeSeudonimo modal={modal} setModal={setModal} />
         ) : null}
+        {alertDev ? (
+          <AlertDesarrollo alertDev={alertDev} setAlertDev={setAlertDev} />
+        ) : null}
+
         {initialValuesCreated && (
           <Formik
             onSubmit={onSubmit}
@@ -341,7 +347,7 @@ console.log(found)
 
                     {/* columna derecha */}
                     <GridItem className="space-y-2 w-max relative" colSpan={1} >
-                      <OptionsForm />
+                      <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev}  />
                       <Seudonimo modal={modal} setModal={setModal} listDown={listDown} setListDown={setListDown} found={found} user={user}/>
                       <div className={`${listDown ? "block" : "hidden"}  absolute  right-[1.5rem] z-30`}>
                         <SeudonimoList list={SeudonimoListEjm} listDown={listDown} setListDown={setListDown} foundList={foundList} setFoundList={setFoundList} />

@@ -1,4 +1,4 @@
-export const OptionsForm = () => {
+export const OptionsForm = ({alertDev, setAlertDev}) => {
 
     return (
         <div className="bg-white rounded-2xl pt-2.5 pr-3.5 pb-2.5 pl-3.5 flex flex-col gap-2.5 items-start justify-start shrink-0 w-[250px] relative" style={{ boxShadow: "var(--_01-shadows-light-z-card-box-shadow, 0px 12px 24px -4px rgba(145, 158, 171, 0.12), 0px 0px 2px 0px rgba(145, 158, 171, 0.20))" }}>
@@ -15,9 +15,9 @@ export const OptionsForm = () => {
                     Guardar
                 </button>
 
-                <div className=" text-white text-sm relative bg-green-700 rounded-lg pt-[11px] *pr-[2px] pb-[11px] *pl-[2px] flex flex-row  items-center justify-center shrink-0 w-[120px] h-[30px] relative" style={{ boxShadow: "4px 4px 4px 0px rgba(4, 120, 87, 0.25)" }}>
+                <button type="button" onClick={()=>setAlertDev(!alertDev)} className=" text-white text-sm relative bg-green-700 rounded-lg pt-[11px] *pr-[2px] pb-[11px] *pl-[2px] flex flex-row  items-center justify-center shrink-0 w-[120px] h-[30px] relative" style={{ boxShadow: "4px 4px 4px 0px rgba(4, 120, 87, 0.25)" }}>
                     Pre-visualizar
-                </div>
+                </button>
 
             </div>
 
