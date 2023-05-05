@@ -25,7 +25,7 @@ export const CounstriesSelectField = memo(({ label, ...props }) => {
 
 
     return (
-        <Box>
+        <Box >
             <Divider />
             <FormLabel paddingTop={"1rem"}
                 fontWeight={"900"}

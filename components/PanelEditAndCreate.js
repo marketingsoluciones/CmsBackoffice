@@ -1,17 +1,4 @@
-import {
-  Badge,
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Grid,
-  GridItem,
-  Heading,
-  Text,
-  useToast,
-  Center,
-  Square
-} from "@chakra-ui/react";
+import {Badge,Box,Button,Divider,Flex,Grid,GridItem,Heading,Text,useToast,Center,Square} from "@chakra-ui/react";
 import { useEffect, useCallback, useRef, useState } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { FormDinamical } from "../components/formularios/Form";
@@ -33,7 +20,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
 
   useEffect(() => {
     console.log(500021, valuesEdit)
-
   }, [valuesEdit])
 
 
@@ -90,7 +76,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       ...values
     }) => {
       try {
-
         delete values.createdAt;
         delete values.updatedAt;
         const data = await fetchApi({
@@ -108,7 +93,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
         } else {
           throw new Error(10011, "Error en la peticion");
         }
-
       } catch (error) {
         console.log(8001, error)
         toast({
@@ -159,121 +143,58 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   ];
 
   return (
-    <Flex flexDir={"column"} overflow={"auto"} maxH={"100%"} mb={"4rem"}>
+    <Flex flexDir={"column"} overflow={"auto"} maxH={"100%"} mb={"4rem"} >
       {!loadingValues && !errorValues ? (
         <>
           {/* Header del componente */}
           <Flex justifyContent={"space-between"} className="mb-5 px-5 mt-2">
             {/* Titulo del componente */}
             <Box>
-              <div className="flex items-center">
-
-                <button onClick={() => setAction({ type: "VIEW", payload: {} })}>
-                  <ArrowLeft />
-                </button>
-
-                <div className="text-slate-600 mx-2  text-3xl" fontSize={"3xl"} as={"h1"} marginX={"2"} textTransform={"capitalize"} >
-                  {valuesEdit?.businessName ||
-                    valuesEdit?.title ||
-                    "Crear Registro"}
-                </div >
-
-                <button
-                  color={"white"}
-                  fontWeight={"500"}
-                  _hover={{
-                    bg: "blue.700",
-                  }}
-                  className="bg-verde h-8 w-20 rounded-lg text-white"
-                  onClick={async () => {
-                    try {
-                      await refButton.current.handleSubmit();
-                      // setAction({ type: "VIEW", payload: {} })
-                    } catch (error) {
-                      console.log(8004, error);
-                    }
-                  }}
-                >
-                  Guardar
-                </button>
+              <div className="flex flex-col md:flex-row md:items-center ">
+                <div className="flex">
+                  <button onClick={() => setAction({ type: "VIEW", payload: {} })}>
+                    <ArrowLeft />
+                  </button>
+                  <div className="text-slate-600 mx-2  text-3xl" fontSize={"3xl"} as={"h1"} marginX={"2"} textTransform={"capitalize"} >
+                    {valuesEdit?.businessName ||
+                      valuesEdit?.title ||
+                      "Crear Registro"}
+                  </div >
+                </div>
+                <div>
+                  <button
+                    color={"white"}
+                    fontWeight={"500"}
+                    _hover={{
+                      bg: "blue.700",
+                    }}
+                    className="bg-verde h-8 w-20 rounded-lg text-white"
+                    onClick={async () => {
+                      try {
+                        await refButton.current.handleSubmit();
+                        // setAction({ type: "VIEW", payload: {} })
+                      } catch (error) {
+                        console.log(8004, error);
+                      }
+                    }}
+                  >
+                    Guardar
+                  </button>
+                </div>
               </div>
-
-              <Text className="ml-9 text-slate-600 text-sm ">Identificador: {valuesEdit?._id}</Text>
             </Box>
           </Flex>
-
-          <Flex h={"90%"}>
-            <Box w="80%" h={"100%"}>
-              <Grid
-                gap={"1rem"}
-                overflow={"auto"}
-                h={"100%"}
-                paddingX={"1rem"}
-              >
-                <GridItem
-                  colSpan={["1", , , , "4"]}
-                  bg={"white"}
-                  p={"1rem"}
-                  shadow={"sm"}
-                  rounded={"xl"}
-                >
+          {/* Cuerpo del formulario */}
+          <Flex h={"85%"}  >
+            <Box  w={"100%"}  >
                   <FormDinamical
                     schema={options?.schema}
                     initialValues={valuesEdit}
                     onSubmit={handleSubmit}
                     ref={refButton}
-                    columns={["repeat(1, 1fr)", , , "repeat(3, 1fr)"]}
+                    Information={Information}
+                    columns={["repeat(1, 1fr)", , , "repeat(4, 1fr)"]}
                   />
-                </GridItem>
-              </Grid>
-            </Box>
-            <Box w="20%" h={"100%"}>
-              <Grid
-                gap={"1rem"}
-                overflow={"auto"}
-                h={"100%"}
-                paddingX={"1rem"}
-              >
-                <GridItem
-                  colSpan={"1"}
-                  display={"flex"}
-                  flexDir={"column"}
-                  gap={"1rem"}
-                >
-                  <Box bg={"white"} p={"1rem"} shadow={"sm"} rounded={"xl"}>
-                    <Heading pb={"1rem"} fontSize={"sm"} color={"gray.500"}>
-                      Información
-                    </Heading>
-
-                    <Divider />
-                    {Information?.map((item, idx) => (
-                      <Flex
-                        key={idx}
-                        pt={"1rem"}
-                        w={"100%"}
-                        flexDir={"column"}
-                        alignItems={"center"}
-                        justifyContent={"space-between"}
-                        fontSize={"sm"}
-                      >
-                        <Text color={"gray.400"}>{item.title}</Text>
-                        <Badge
-                          w={"100%"}
-                          textAlign={"center"}
-                          color={"gray.700"}
-                          p={"0.25rem"}
-                        >
-                          {item.value}
-                        </Badge>
-                      </Flex>
-                    ))}
-                  </Box>
-
-                  {state.type === "edit" && (
-                    <ButtonDeleteEntry values={valuesEdit} options={options} />
-                  )}
-                </GridItem>
-              </Grid>
             </Box>
           </Flex>
         </>

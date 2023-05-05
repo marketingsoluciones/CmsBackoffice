@@ -27,7 +27,7 @@ const Relationship = memo(({ label, tabList = {}, ...props }) => {
   }, []);
 
   return (
-    <Box w={"100%"}>
+    <Box >
       <FieldArray
         name={props.name}
         render={({ push, remove, form }) => {

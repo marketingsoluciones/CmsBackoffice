@@ -12,3 +12,12 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+ 
+
+  .ck-blurred {
+    height: 300px !important;
+  }
+  .ck-focused{
+    height: 300px !important;
+  }

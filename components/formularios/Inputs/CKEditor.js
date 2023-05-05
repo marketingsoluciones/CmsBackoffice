@@ -71,23 +71,26 @@ export const CKEditorComponent = ({ label, ...props }) => {
     <>
       {typeof window !== "undefined" && (
         <>
-          <Divider />
-          <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>
-            <Flex gap={"0.3rem"} alignItems={"center"}>
-              {label}
-              {meta.touched && meta.error && (
-                <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
-                  {meta.error}
-                </Text>
-              )}
-            </Flex>
-          </FormLabel>
-          {valir && <CKEditor
-            editor={Editor}
-            config={editorConfiguration}
-            onChange={(event, editor) => helpers.setValue(editor.getData())}
-            data={field.value}
-          />}
+          <div className="w-[95%] md:w-full ">
+
+            <Divider />
+            <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"} >
+              <Flex gap={"0.3rem"} alignItems={"center"}>
+                {label}
+                {meta.touched && meta.error && (
+                  <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
+                    {meta.error}
+                  </Text>
+                )}
+              </Flex>
+            </FormLabel>
+            <CKEditor
+              editor={Editor}
+              config={editorConfiguration}
+              onChange={(event, editor) => helpers.setValue(editor.getData())}
+              data={field.value}
+            />
+          </div>
         </>
       )}
     </>

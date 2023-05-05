@@ -76,7 +76,7 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
   }, [field.value]);
 
   return (
-    <Box w={"100%"}>
+    <Box >
       <FieldArray
         name={props.name}
         render={({ push, remove, form }) => {
@@ -128,7 +128,7 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
         }}
       />
 
-      <Flex w={"100%"} flexDir={"column"} py={"1.5rem"}>
+      <Flex w={"100%"} flexDir={"column"} py={"1.5rem"}  >
         <Divider />
         <FormLabel py={"1.5rem"} fontWeight={"900"} textAlign={"left"}>
           Preguntas frecuentes
@@ -139,7 +139,8 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
           <LoadingComponent />
         )}
       </Flex>
-      <Flex w={"100%"} flexDir={"column"} py={"1.5rem"}>
+
+      <Flex w={"100%"} flexDir={"column"} py={"1.5rem"} >
         <Divider />
         <FormLabel py={"1.5rem"} fontWeight={"900"} textAlign={"left"}>
           Caracteristicas
