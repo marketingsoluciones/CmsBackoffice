@@ -38,7 +38,7 @@ export const FormDinamical = forwardRef(
     const [schema, setSchema] = useState(null);
     const [modal, setModal] = useState(false)
     const [listDown, setListDown] = useState(false)
-
+    const [foundList, setFoundList] = useState("")
     const reduceInitialValues = Object?.entries(initialValues ?? {}).reduce((acc, item) => {
       if (item[1] !== null) {
         //@ts-ignore
@@ -120,6 +120,10 @@ export const FormDinamical = forwardRef(
     const SeudonimoListEjm = [
       {
         icon: <Avatar h={"35px"} w={"35px"} />,
+        nombre: user.displayName
+      },
+      {
+        icon: <Avatar h={"35px"} w={"35px"} />,
         nombre: "pedro"
       },
       {
@@ -134,10 +138,11 @@ export const FormDinamical = forwardRef(
         icon: <Avatar h={"35px"} w={"35px"} />,
         nombre: "Antonio "
       }
-
     ]
 
+    const found = SeudonimoListEjm.find( element => element.nombre === foundList)
 
+console.log(found)
     return (
       <>
         {modal ? (
@@ -337,9 +342,9 @@ export const FormDinamical = forwardRef(
                     {/* columna derecha */}
                     <GridItem className="space-y-2 w-max relative" colSpan={1} >
                       <OptionsForm />
-                      <Seudonimo modal={modal} setModal={setModal} listDown={listDown} setListDown={setListDown} />
-                      <div className={`${listDown ? "block" : "hidden"}  absolute  z-30`}>
-                        <SeudonimoList list={SeudonimoListEjm} listDown={listDown} setListDown={setListDown} />
+                      <Seudonimo modal={modal} setModal={setModal} listDown={listDown} setListDown={setListDown} found={found} user={user}/>
+                      <div className={`${listDown ? "block" : "hidden"}  absolute  right-[1.5rem] z-30`}>
+                        <SeudonimoList list={SeudonimoListEjm} listDown={listDown} setListDown={setListDown} foundList={foundList} setFoundList={setFoundList} />
                       </div>
                       {schema &&
                         schema?.map((item, idx) => {

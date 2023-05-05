@@ -1,13 +1,13 @@
 import { Avatar } from "@chakra-ui/react";
 
-export const Seudonimo = ({ modal, setModal, listDown, setListDown }) => {
+export const Seudonimo = ({ modal, setModal, listDown, setListDown, found,user }) => {
 
     return (
         <div className="bg-white rounded-2xl p-2.5 flex flex-col gap-2.5 items-start justify-start shrink-0 w-[250px] h-[104px] relative" style={{ boxShadow: "var(--_01-shadows-light-z-card-box-shadow, 0px 12px 24px -4px rgba(145, 158, 171, 0.12), 0px 0px 2px 0px rgba(145, 158, 171, 0.20))" }}>
 
             <div className="flex flex-col gap-[9px] items-center self-stretch shrink-0 relative" >
 
-                <div className="text-_11-text-color-light-01-text-primary text-left relative flex-1 font-bold text-sm" >
+                <div className=" text-left relative flex-1 font-bold text-sm" >
                     Elija o cree su seudónimo
                 </div>
 
@@ -15,22 +15,21 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown }) => {
 
                     <div className="flex flex-row gap-[5px] items-center *justify-start shrink-0 relative">
                         <div >
-
-                            <Avatar h={"35px"} w={"35px"} />
+                            {found?.icon ? found.icon : <Avatar h={"35px"} w={"35px"} />}
                         </div>
 
 
                         <div className="flex flex-col gap-0 items-start justify-center shrink-0 relative overflow-hidden">
                             <div
-                                className="text-_11-text-color-light-01-text-primary text-left relative"
+                                className=" cursor-default text-left relative w-[5.5rem] truncate"
                                 style={{
                                     font: "var(--subtitle-2, 600 14px/22px 'Public Sans', sans-serif)",
                                 }}
                             >
-                                Pedro G.
+                               {found?.nombre? found.nombre: user.displayName }
                             </div>
 
-                            <div className="flex flex-row gap-0 items-start justify-start shrink-0 relative">
+                            <div className=" flex flex-row gap-0 items-start justify-start shrink-0 relative">
                                 <svg
                                     className="shrink-0 relative overflow-visible"
                                     style={{}}
@@ -109,7 +108,7 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown }) => {
                     </div>
 
                     <div className="flex flex-row gap-[5px] items-center *justify-start shrink-0 relative">
-                        <div onClick={() =>setListDown(!listDown)}>
+                        <div className="cursor-pointer" onClick={() => setListDown(!listDown)}>
                             <svg
                                 className="rounded-lg shrink-0 relative overflow-visible"
                                 style={{}}
@@ -261,7 +260,7 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown }) => {
 
                         <div
                             onClick={() => setModal(!modal)}
-                            className="bg-[#ffffff] rounded-lg border-solid border-green-700 border-[0.5px] p-[5px] flex flex-row gap-2.5 items-center justify-center shrink-0 w-6 h-6 relative"
+                            className="bg-[#ffffff] cursor-pointer rounded-lg border-solid border-green-700 border-[0.5px] p-[5px] flex flex-row gap-2.5 items-center justify-center shrink-0 w-6 h-6 relative"
                             style={{ boxShadow: "2px 2px 2px 0px rgba(0, 0, 0, 0.25)" }}
                         >
                             <svg
