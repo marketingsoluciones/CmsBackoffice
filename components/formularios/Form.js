@@ -142,9 +142,9 @@ export const FormDinamical = forwardRef(
       }
     ]
 
-    const found = SeudonimoListEjm.find( element => element.nombre === foundList)
+    const found = SeudonimoListEjm.find(element => element.nombre === foundList)
 
-console.log(found)
+    console.log(found)
     return (
       <>
         {modal ? (
@@ -214,7 +214,6 @@ console.log(found)
                             case "slug":
                               return (
                                 <div className="hidden">
-
                                   <GridItem colSpan={[1, , , 2]} key={idx}>
                                     <InputField
                                       name={item.accessor}
@@ -335,9 +334,11 @@ console.log(found)
 
                             case "desarrollo":
                               return (
-                                <GridItem colSpan={[1, , , 1]} key={idx}>
-                                  <SeoDev />
-                                </GridItem>
+                                <div onClick={()=>setAlertDev(!alertDev)}>
+                                  <GridItem colSpan={[1, , , 1]} key={idx}>
+                                    <SeoDev />
+                                  </GridItem>
+                                </div>
                               );
                             default:
                               break;
@@ -347,8 +348,8 @@ console.log(found)
 
                     {/* columna derecha */}
                     <GridItem className="space-y-2 w-max relative" colSpan={1} >
-                      <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev}  />
-                      <Seudonimo modal={modal} setModal={setModal} listDown={listDown} setListDown={setListDown} found={found} user={user}/>
+                      <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} />
+                      <Seudonimo modal={modal} setModal={setModal} listDown={listDown} setListDown={setListDown} found={found} user={user} />
                       <div className={`${listDown ? "block" : "hidden"}  absolute  right-[1.5rem] z-30`}>
                         <SeudonimoList list={SeudonimoListEjm} listDown={listDown} setListDown={setListDown} foundList={foundList} setFoundList={setFoundList} />
                       </div>
