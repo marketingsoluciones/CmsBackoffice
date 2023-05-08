@@ -8,14 +8,14 @@ export const EdicionDeSeudonimo = ({ modal, setModal }) => {
       <div className="backdrop-blur backdrop-filter bg-gray-919EAB opacity-10 z-50 fixed top-0 left-0 w-screen h-screen overflow-hidden " />
 
       <div
-        className=" inset-0 m-auto z-50 bg-white rounded-2xl pt-2.5 pr-[5px] pb-2.5 pl-[5px] flex flex-col gap-2.5 items-center justify-center w-[577px] h-[550px]  fixed "
+        className=" inset-0 m-auto z-50 bg-white rounded-2xl pt-2.5 md:px-[5px] pb-2.5  flex flex-col gap-2.5 items-center justify-center  md:w-[577px] w-screen h-[680px] md:h-[550px]  fixed "
         style={{
           boxShadow:
             "0px 12px 24px -4px rgba(145, 158, 171, 0.16), 0px 16px 16px 0px rgba(0, 0, 0, 0.25)",
         }}>
         <div
           style={{ font: "600 20px/24px 'Public Sans', sans-serif" }}
-          className="flex flex-row gap-2 items-center  shrink-0 relative mt-3">
+          className="flex flex-col md:flex-row  gap-2 items-center  shrink-0 relative mt-3">
           <span>
             Editando seudónimo:
           </span>
@@ -25,8 +25,8 @@ export const EdicionDeSeudonimo = ({ modal, setModal }) => {
             Admin [Admin]
           </span>
         </div>
-        <div className="p-2 flex flex-col gap-4 items-start justify-start shrink-0 relative">
-          <div className="flex flex-row items-center gap-2.5 shrink-0 relative">
+        <div className="p-2 flex flex-col gap-4 md:items-start items-center md:justify-start shrink-0 relative">
+          <div className="flex md:flex-row flex-col  items-center gap-2.5 shrink-0 *relative">
             <AddPerfilImg />
             <div className="flex flex-col gap-2 shrink-0  relative">
               <div
@@ -36,7 +36,7 @@ export const EdicionDeSeudonimo = ({ modal, setModal }) => {
                 }}>
                 Ingresa tu seudonimo
               </div>
-              <div className="flex flex-row gap-4 items-start justify-start shrink-0 w-[260px] h-14 relative">
+              <div className="flex flex-row gap-4 items-start justify-start shrink-0 md:w-[260px] h-14 relative">
                 <input placeholder="Pedro Gonzales" className=" pl-2 focus:outline-none rounded-lg border-solid border-_14-others-button-input border flex-1 h-14 relative" />
               </div>
             </div>
@@ -115,8 +115,9 @@ export const EdicionDeSeudonimo = ({ modal, setModal }) => {
               <input placeholder="www.whatsapp.com/pgonza" className=" focus:outline-none pl-2 rounded-lg border-solid border-_14-others-button-input border shrink-0 w-[250px] h-8 relative" />
             </div>
           </div>
+
           <div className="flex flex-col gap-2.5 items-start justify-start shrink-0 relative">
-            <div className="flex flex-row gap-[9px] items-center justify-end shrink-0 w-[525px] relative">
+            <div className="flex flex-row gap-[9px] items-center justify-end shrink-0 md:w-[525px] relative">
               <div
                 className="flex-1"
                 style={{ font: "700 14px/22px 'Public Sans', sans-serif" }}>
@@ -144,6 +145,7 @@ export const EdicionDeSeudonimo = ({ modal, setModal }) => {
               </div>
             </div>
           </div>
+
         </div>
         <div className="p-6 flex flex-row gap-3 items-center justify-end self-stretch shrink-0 h-14 relative">
           <div

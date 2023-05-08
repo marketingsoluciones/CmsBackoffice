@@ -592,10 +592,7 @@ export const BodyStaticAPP = [
             type: "string",
             required: true,
           },
-          {
-            Header:"SEO",
-            type:"desarrollo"
-          },
+          
           {
             Header: "Categorias",
             accessor: "subCategories",
@@ -636,6 +633,10 @@ export const BodyStaticAPP = [
             Header: "Actualizado el",
             accessor: "updatedAt",
             Cell: (props) => formatTime(props.value, "es"),
+          },
+          {
+            Header:"SEO",
+            type:"desarrollo"
           },
 
         ],

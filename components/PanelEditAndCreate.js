@@ -168,7 +168,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                     _hover={{
                       bg: "blue.700",
                     }}
-                    className="bg-verde h-8 w-20 rounded-lg text-white"
+                    className="hidden bg-verde h-8 w-20 rounded-lg text-white"
                     onClick={async () => {
                       try {
                         await refButton.current.handleSubmit();
