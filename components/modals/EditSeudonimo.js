@@ -3,9 +3,11 @@ import { AddPerfilImg } from "../formularios/Inputs/AddPerfilImg";
 import { Formik, Form } from "formik";
 import { InputFieldGlobal } from "../formularios/Inputs/InputFieldGlobal"
 import { fetchApi,queries } from "../../utils/Fetching";
+import { AuthContextProvider } from "../../context/AuthContext";
 
 export const EdicionDeSeudonimo = ({ modal, setModal, user }) => {
 
+  const {domain, development, setUser} = AuthContextProvider()
   console.log(user?.uid )
 
   const initialValue = {
@@ -19,11 +21,18 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user }) => {
   const onsubmit = async(values) =>{
     console.log(values)
     try{
-      await fetchApi({
+    const result =  await fetchApi({
         query: queries.createNickName,
-        variables: { ...values, development: "diariocivitas",uid: user?.uid ,nickName:"ediardp" },
+        variables: { ...values, development:development ,uid: user?.uid  },
+        development: domain ,
         type:"formData"
       });
+      if(result === "ok"){
+        setUser((old)=>{
+          console.log(old)
+          return old
+        })
+      }
     }catch(error){
       console.log(error)
     }

@@ -1,24 +1,19 @@
 import { Avatar } from "@chakra-ui/react";
 
-export const Seudonimo = ({ modal, setModal, listDown, setListDown, found,user }) => {
-
+export const Seudonimo = ({ modal, setModal, listDown, setListDown, found, user , nickNames }) => {
+    console.log(nickNames)
+    const faund = nickNames.find(seudonimo => seudonimo.nickName === found )
     return (
         <div className="bg-white rounded-2xl p-2.5 flex flex-col gap-2.5 items-start justify-start shrink-0 w-[250px] h-[104px] relative" style={{ boxShadow: "var(--_01-shadows-light-z-card-box-shadow, 0px 12px 24px -4px rgba(145, 158, 171, 0.12), 0px 0px 2px 0px rgba(145, 158, 171, 0.20))" }}>
-
             <div className="flex flex-col gap-[9px] items-center self-stretch shrink-0 relative" >
-
                 <div className=" text-left relative flex-1 font-bold text-sm" >
                     Elija o cree su seudónimo
                 </div>
-
                 <div className="flex gap-0.5  ">
-
                     <div className="flex flex-row gap-[5px] items-center *justify-start shrink-0 relative border p-0.5 pr-2 rounded-2xl ">
                         <div >
-                            {found?.icon ? found.icon : <Avatar h={"35px"} w={"35px"} />}
+                            {faund?.imgAvatar ? faund.imgAvatar : <Avatar h={"35px"} w={"35px"} />}
                         </div>
-
-
                         <div className="flex flex-col gap-0 items-start justify-center shrink-0 relative overflow-hidden">
                             <div
                                 className=" cursor-default text-left relative w-[5.5rem] truncate"
@@ -26,9 +21,8 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found,user }
                                     font: "var(--subtitle-2, 600 14px/22px 'Public Sans', sans-serif)",
                                 }}
                             >
-                               {found?.nombre? found.nombre: user.displayName }
+                               {faund?.nickName? faund.nickName: user?.displayName }
                             </div>
-
                             <div className=" flex flex-row gap-0 items-start justify-start shrink-0 relative">
                                 <svg
                                     className="shrink-0 relative overflow-visible"
@@ -44,7 +38,6 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found,user }
                                         fill="black"
                                     />
                                 </svg>
-
                                 <div className="shrink-0 w-4 h-4 relative overflow-hidden">
                                     <svg
                                         className="absolute left-0.5 top-0.5 overflow-visible"
@@ -105,8 +98,7 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found,user }
                                 </svg>
                             </div>
                         </div>
-
-                        <div className="cursor-pointer" onClick={() => setListDown(!listDown)}>
+                        <div className="cursor-pointer" onClick={() =>nickNames.length >0 ? setListDown(!listDown):null}>
                             <svg
                                 className="rounded-lg shrink-0 relative overflow-visible"
                                 style={{}}
@@ -180,10 +172,7 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found,user }
                             </svg>
                         </div>
                     </div>
-
                     <div className="flex flex-row gap-[5px] items-center *justify-start shrink-0 relative ">
-                        
-
                         <div className="rounded-lg flex flex-row gap-[5px] items-center justify-start shrink-0 relative cursor-pointer">
                             <svg
                                 className="rounded-lg p-[5px] flex flex-row gap-2.5 items-start justify-start shrink-0 relative overflow-visible"
@@ -259,7 +248,6 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found,user }
                                 </defs>
                             </svg>
                         </div>
-
                         <div
                             onClick={() => setModal(!modal)}
                             className="bg-[#ffffff] cursor-pointer rounded-lg border-solid border-green-700 border-[0.5px] p-[5px] flex flex-row gap-2.5 items-center justify-center shrink-0 w-6 h-6 relative"
@@ -291,12 +279,8 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found,user }
                             </svg>
                         </div>
                     </div>
-
                 </div>
-
-
             </div>
-
         </div>
     )
 }

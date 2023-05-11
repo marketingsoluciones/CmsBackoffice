@@ -34,12 +34,15 @@ import { InfoForm } from "./InfoForm";
 
 export const FormDinamical = forwardRef(
   ({ schema: state, initialValues, columns, onSubmit, Information, values, options, estado,setAction }, ref) => {
-    const { user } = AuthContextProvider()
+    const { user , development } = AuthContextProvider()
     const [schema, setSchema] = useState(null);
     const [modal, setModal] = useState(false)
     const [listDown, setListDown] = useState(false)
     const [foundList, setFoundList] = useState("")
     const [alertDev, setAlertDev] = useState(false)
+    const dataUser = user?.authDevelopments
+    const faund = dataUser.find(entorno => entorno.title === development)
+    const nickNames = faund.nickNames
 
     const reduceInitialValues = Object?.entries(initialValues ?? {}).reduce((acc, item) => {
       if (item[1] !== null) {
@@ -108,8 +111,6 @@ export const FormDinamical = forwardRef(
           acc[field.accessor] = ValidationOptions[field.type];
         }
       }
-
-
       return acc;
     }, {});
 
@@ -118,33 +119,7 @@ export const FormDinamical = forwardRef(
     useEffect(() => {
       setSchema(state);
     }, [state]);
-
-    const SeudonimoListEjm = [
-      {
-        icon: <Avatar h={"35px"} w={"35px"} />,
-        nombre: user?.displayName
-      },
-      {
-        icon: <Avatar h={"35px"} w={"35px"} />,
-        nombre: "pedro"
-      },
-      {
-        icon: <Avatar h={"35px"} w={"35px"} />,
-        nombre: "maria"
-      },
-      {
-        icon: <Avatar h={"35px"} w={"35px"} />,
-        nombre: "jose"
-      },
-      {
-        icon: <Avatar h={"35px"} w={"35px"} />,
-        nombre: "Antonio "
-      }
-    ]
-
-    const found = SeudonimoListEjm.find(element => element.nombre === foundList)
-
-    console.log(found)
+   
     return (
       <>
         {modal ? (
@@ -153,7 +128,6 @@ export const FormDinamical = forwardRef(
         {alertDev ? (
           <AlertDesarrollo alertDev={alertDev} setAlertDev={setAlertDev} />
         ) : null}
-
         {initialValuesCreated && (
           <Formik
             onSubmit={onSubmit}
@@ -349,9 +323,9 @@ export const FormDinamical = forwardRef(
                     {/* columna derecha */}
                     <GridItem className="space-y-2 w-max relative" colSpan={1} >
                       <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
-                      <Seudonimo modal={modal} setModal={setModal} listDown={listDown} setListDown={setListDown} found={found} user={user} />
+                      <Seudonimo modal={modal} setModal={setModal} listDown={listDown} setListDown={setListDown} found={foundList} user={user} nickNames={nickNames} />
                       <div className={`${listDown ? "block" : "hidden"}  absolute  right-[1.5rem] z-30`}>
-                        <SeudonimoList list={SeudonimoListEjm} listDown={listDown} setListDown={setListDown} foundList={foundList} setFoundList={setFoundList} />
+                        <SeudonimoList  listDown={listDown} setListDown={setListDown} setFoundList={setFoundList} nickNames={nickNames} />
                       </div>
                       {schema &&
                         schema?.map((item, idx) => {

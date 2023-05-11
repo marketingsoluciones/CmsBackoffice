@@ -100,6 +100,16 @@ export const queries = {
             title
             role
             status
+            nickNames{
+              imgAvatar{
+                i320
+              }
+              nickName
+              facebook
+              twitter
+              instagram
+              whatsapp
+            }
             createdAt
             updatedAt
           }
