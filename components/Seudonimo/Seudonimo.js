@@ -11,9 +11,9 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found,user }
                     Elija o cree su seudónimo
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex gap-0.5  ">
 
-                    <div className="flex flex-row gap-[5px] items-center *justify-start shrink-0 relative">
+                    <div className="flex flex-row gap-[5px] items-center *justify-start shrink-0 relative border p-0.5 pr-2 rounded-2xl ">
                         <div >
                             {found?.icon ? found.icon : <Avatar h={"35px"} w={"35px"} />}
                         </div>
@@ -105,9 +105,7 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found,user }
                                 </svg>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="flex flex-row gap-[5px] items-center *justify-start shrink-0 relative">
                         <div className="cursor-pointer" onClick={() => setListDown(!listDown)}>
                             <svg
                                 className="rounded-lg shrink-0 relative overflow-visible"
@@ -181,13 +179,17 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found,user }
                                 </defs>
                             </svg>
                         </div>
+                    </div>
 
-                        <div className="rounded-lg flex flex-row gap-[5px] items-center justify-start shrink-0 relative">
+                    <div className="flex flex-row gap-[5px] items-center *justify-start shrink-0 relative ">
+                        
+
+                        <div className="rounded-lg flex flex-row gap-[5px] items-center justify-start shrink-0 relative cursor-pointer">
                             <svg
                                 className="rounded-lg p-[5px] flex flex-row gap-2.5 items-start justify-start shrink-0 relative overflow-visible"
                                 style={{}}
-                                width="24"
-                                height="24"
+                                width="34"
+                                height="34"
                                 viewBox="0 0 24 24"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
