@@ -148,7 +148,7 @@ export const FormDinamical = forwardRef(
     return (
       <>
         {modal ? (
-          <EdicionDeSeudonimo modal={modal} setModal={setModal} />
+          <EdicionDeSeudonimo modal={modal} setModal={setModal} user={user} />
         ) : null}
         {alertDev ? (
           <AlertDesarrollo alertDev={alertDev} setAlertDev={setAlertDev} />

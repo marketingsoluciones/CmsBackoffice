@@ -112,6 +112,15 @@ export const queries = {
           customToken
         }
       }`,
+  createNickName: `
+  mutation  ($uid : ID!,$imgAvatar:Upload , $nickName: String!, $facebook : String, $instagram : String, $whatsapp : String, $twitter:String ) {
+    createNickName (args:{uid:$uid, nickName: $nickName, facebook : $facebook, instagram : $instagram, whatsapp : $whatsapp, twitter: $twitter,imgAvatar:$imgAvatar })
+      }`,
+  updateNickName: `
+  mutation  ($uid : ID!,$imgAvatar:Upload , $nickName: String!, $facebook : String, $instagram : String, $whatsapp : String, $twitter:String ) {
+    updateNickName (args:{uid:$uid, nickName: $nickName, facebook : $facebook, instagram : $instagram, whatsapp : $whatsapp, twitter: $twitter,imgAvatar:$imgAvatar })
+      }`,
+
 }
 
 export const FetchGraphQL = {
