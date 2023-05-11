@@ -1,6 +1,6 @@
 import { Avatar } from "@chakra-ui/react";
 
-export const Seudonimo = ({ modal, setModal, listDown, setListDown, found,user }) => {
+export const Seudonimo = ({ modal, setModal, listDown, setListDown, found, user }) => {
 
     return (
         <div className="bg-white rounded-2xl p-2.5 flex flex-col gap-2.5 items-start justify-start shrink-0 w-[250px] h-[104px] relative" style={{ boxShadow: "var(--_01-shadows-light-z-card-box-shadow, 0px 12px 24px -4px rgba(145, 158, 171, 0.12), 0px 0px 2px 0px rgba(145, 158, 171, 0.20))" }}>
