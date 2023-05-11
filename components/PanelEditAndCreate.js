@@ -1,4 +1,4 @@
-import {Badge,Box,Button,Divider,Flex,Grid,GridItem,Heading,Text,useToast,Center,Square} from "@chakra-ui/react";
+import { Badge, Box, Button, Divider, Flex, Grid, GridItem, Heading, Text, useToast, Center, Square } from "@chakra-ui/react";
 import { useEffect, useCallback, useRef, useState } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { FormDinamical } from "../components/formularios/Form";
@@ -186,15 +186,19 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
           </Flex>
           {/* Cuerpo del formulario */}
           <Flex h={"85%"}  >
-            <Box  w={"100%"}  >
-                  <FormDinamical
-                    schema={options?.schema}
-                    initialValues={valuesEdit}
-                    onSubmit={handleSubmit}
-                    ref={refButton}
-                    Information={Information}
-                    columns={["repeat(1, 1fr)", , , "repeat(4, 1fr)"]}
-                  />
+            <Box w={"100%"}  >
+              <FormDinamical
+                schema={options?.schema}
+                initialValues={valuesEdit}
+                onSubmit={handleSubmit}
+                ref={refButton}
+                Information={Information}
+                values={valuesEdit}
+                options={options}
+                estado={state}
+                setAction={setAction}
+                columns={["repeat(1, 1fr)", , , "repeat(4, 1fr)"]}
+              />
             </Box>
           </Flex>
         </>

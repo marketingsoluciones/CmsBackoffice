@@ -33,7 +33,7 @@ import { SeudonimoList } from "../Seudonimo/SeudonimoList";
 import { InfoForm } from "./InfoForm";
 
 export const FormDinamical = forwardRef(
-  ({ schema: state, initialValues, columns, onSubmit, Information }, ref) => {
+  ({ schema: state, initialValues, columns, onSubmit, Information, values, options, estado,setAction }, ref) => {
     const { user } = AuthContextProvider()
     const [schema, setSchema] = useState(null);
     const [modal, setModal] = useState(false)
@@ -122,7 +122,7 @@ export const FormDinamical = forwardRef(
     const SeudonimoListEjm = [
       {
         icon: <Avatar h={"35px"} w={"35px"} />,
-        nombre: user.displayName
+        nombre: user?.displayName
       },
       {
         icon: <Avatar h={"35px"} w={"35px"} />,
@@ -388,7 +388,7 @@ export const FormDinamical = forwardRef(
                           }
                         })
                       }
-                      <InfoForm Information={Information} />
+                      <InfoForm Information={Information} state={state} values={values} options={options} estado={estado}  setAction={setAction} />
                     </GridItem>
                   </Grid>
                 </Form>

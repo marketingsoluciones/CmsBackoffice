@@ -1,6 +1,9 @@
 import { Badge, Box, Button, Divider, Flex, Grid, GridItem, Heading, Text, useToast, Center, Square } from "@chakra-ui/react";
+import { useFetch } from "../../hooks/useFetch";
+import { DeleteIcon } from "@chakra-ui/icons";
 
-export const InfoForm = ({ Information}) => {
+
+export const InfoForm = ({ Information, values, options, estado, setAction }) => {
 
   return (
     <>
@@ -18,7 +21,7 @@ export const InfoForm = ({ Information}) => {
             alignItems={"center"}
             justifyContent={"space-between"}
             fontSize={"sm"}
-            className={`${item.value != null?"block pt-[1rem] text-sm":"hidden"}`}
+            className={`${item.value != null ? "block pt-[1rem] text-sm" : "hidden"}`}
           >
             <Text color={"gray.400"}>{item?.title}</Text>
             <Badge
@@ -32,9 +35,39 @@ export const InfoForm = ({ Information}) => {
           </div>
         ))}
       </Box>
-      {/*  {state.type === "edit" && (
-              <ButtonDeleteEntry values={valuesEdit} options={options} />
-            )} */}
+      {estado.type === "edit" && (
+        <ButtonDeleteEntry values={values} options={options} setAction={setAction} />
+      )}
     </>
   )
 }
+
+const ButtonDeleteEntry = ({ values, options, setAction }) => {
+  const [data, isLoading, isError, setQuery] = useFetch(true);
+  const handleRemove = () => {
+      setQuery({
+        ...options.deleteEntry,
+        variables: { id: values?._id },
+        type: "json",
+      })
+  };
+  const redirect = () => {
+    setAction({ type: "VIEW", payload: {} })
+
+  }
+
+  return (
+    <Button
+      bg={"white"}
+      rounded={"xl"}
+      size={"sm"}
+      w={"100%"}
+      color={"red.500"}
+      leftIcon={<DeleteIcon />}
+      isLoading={isLoading}
+      onClick={handleRemove}
+    >
+      Eliminar entrada
+    </Button>
+  );
+};
