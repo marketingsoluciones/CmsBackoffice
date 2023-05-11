@@ -71,26 +71,34 @@ export const CKEditorComponent = ({ label, ...props }) => {
     <>
       {typeof window !== "undefined" && (
         <>
-          <div className="w-[95%] md:w-full ">
+          <Divider />
+          <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>
+            <Flex gap={"0.3rem"} alignItems={"center"}>
+              {label}
+              {meta.touched && meta.error && (
+                <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
+                  {meta.error}
+                </Text>
+              )}
+            </Flex>
+          </FormLabel>
+          {valir && <CKEditor
 
-            <Divider />
-            <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"} >
-              <Flex gap={"0.3rem"} alignItems={"center"}>
-                {label}
-                {meta.touched && meta.error && (
-                  <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
-                    {meta.error}
-                  </Text>
-                )}
-              </Flex>
-            </FormLabel>
-            <CKEditor
-              editor={Editor}
-              config={editorConfiguration}
-              onChange={(event, editor) => helpers.setValue(editor.getData())}
-              data={field.value}
-            />
-          </div>
+            editor={Editor}
+            config={editorConfiguration}
+            onChange={(event, editor) => helpers.setValue(editor.getData())}
+            data={field.value}
+          // para fijar alto fijo del ckeditor
+          // onReady={(editor) => {
+          //   editor.editing.view.change((writer) => {
+          //     writer.setStyle(
+          //       "height",
+          //       "600px",
+          //       editor.editing.view.document.getRoot()
+          //     );
+          //   });
+          // }}
+          />}
         </>
       )}
     </>
