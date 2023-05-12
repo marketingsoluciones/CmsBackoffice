@@ -1,7 +1,8 @@
-import { Box, Divider, Flex, FormLabel, Input, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, FormLabel, Input, Text, } from "@chakra-ui/react";
 import { useField } from "formik";
 import Image from "next/image";
-import { ImageIcon } from "../../icons"
+import { ImageIcon} from "../../icons"
+import { EditIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 
 export const UploadImage = ({ label, typeFile = "all", ...props }) => {
@@ -60,7 +61,15 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
             </>
           )}
           {field?.value?.i640 && <Image layout="fill" src={`${process.env.NEXT_PUBLIC_BASE_URL}${field.value.i640}`} objectFit="contain" objectPosition={"center"} />}
-          {image && <Image layout="fill" src={image} objectFit="contain" objectPosition={"center"} />}
+          {image &&
+            <div className="relative w-full h-full flex justify-center ">
+
+              <Image width={"120rem"} height={"120rem"} src={image} objectFit="contain" objectPosition={"center"} />
+              <div className="absolute top-5 right-5">
+                <EditIcon w={"1rem"} h={"1rem"} />
+              </div>
+            </div>
+          }
         </Flex>
         <Input
           type="file"
