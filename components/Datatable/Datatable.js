@@ -283,22 +283,21 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
             <Tbody {...getTableBodyProps()} overflow={"auto"}>
               {page.map((row, idx) => {
                 prepareRow(row);
-
-
-
                 return (
                   <Tr key={idx} fontSize={"sm"} {...row.getRowProps()} _hover={{ bg: "gray.100" }} className={`${row.isSelected && "bg-gray-100"}`}>
                     {row.cells.map((cell, i) => {
+                      console.log(cell)
                       return (
                         <Td key={i} className="" {...cell.getCellProps()} w={cell.column.id === "selection" && "16"}>
                           {
                             cell.column.id === "imgMiniatura" ?
                               <Center>
                                 <Image
-                                  src={`${process.env.NEXT_PUBLIC_BASE_URL}${cell?.value}`}
+                                  src={`${cell?.value? `${process.env.NEXT_PUBLIC_BASE_URL}${cell?.value}`: "/placeholder/image.png"}`}
                                   objectFit={"contain"}
-                                  w={"60px"}
+                                  w={"50px"}
                                   h={"35px"}
+                                  rounded={"lg"}
                                 />
                               </Center>
                               :

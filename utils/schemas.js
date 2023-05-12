@@ -659,7 +659,7 @@ export const BodyStaticAPP = [
           { accessor: "slug", show: true },
           { accessor: "createdAt", show: true },
           { accessor: "updatedAt", show: false },
-          { accessor: "imgMiniatura", show: true },
+          { accessor: "imgMiniatura", show: false },
         ],
         schema: [
           {
@@ -732,7 +732,7 @@ export const BodyStaticAPP = [
           { accessor: "slug", show: true },
           { accessor: "createdAt", show: true },
           { accessor: "updatedAt", show: false },
-          { accessor: "imgMiniatura", show: true },
+          { accessor: "imgMiniatura", show: false },
         ],
         schema: [
           {
