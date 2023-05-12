@@ -70,7 +70,7 @@ export const BodyStaticAPP = [
             type: "url",
           },
           {
-            Header: "Imagen Miniatura",
+            Header: "Imagen o Video Principal",
             accessor: "imgMiniatura",
             type: "image",
             required: true,
@@ -88,8 +88,8 @@ export const BodyStaticAPP = [
             /*  required: true,*/
           },
           {
-            Header:"SEO",
-            type:"desarrollo"
+            Header: "SEO",
+            type: "desarrollo"
           },
           {
             Header: "Contenido",
@@ -253,7 +253,7 @@ export const BodyStaticAPP = [
             required: true,
           },
           {
-            Header: "Imagen Miniatura",
+            Header: "Imagen o Video Principal",
             accessor: "imgMiniatura",
             type: "image",
             required: true,
@@ -336,7 +336,7 @@ export const BodyStaticAPP = [
             Cell: (props) => formatTime(props.value, "es"),
           },
           {
-            Header: "Imagen Miniatura",
+            Header: "Imagen o Video Principal",
             accessor: "imgMiniatura",
             type: "image",
             required: true,
@@ -592,7 +592,7 @@ export const BodyStaticAPP = [
             type: "string",
             required: true,
           },
-          
+
           {
             Header: "Categorias",
             accessor: "subCategories",
@@ -606,7 +606,7 @@ export const BodyStaticAPP = [
             schema: "string"
           },
           {
-            Header: "Imagen Miniatura",
+            Header: "Imagen o Video Principal",
             accessor: "imgMiniatura",
             type: "image",
           },
@@ -615,7 +615,7 @@ export const BodyStaticAPP = [
             accessor: "imgCarrusel",
             type: "imageMultiple",
           },
-          
+
           // {
           //   Header: "Status",
           //   accessor: "status",
@@ -635,8 +635,8 @@ export const BodyStaticAPP = [
             Cell: (props) => formatTime(props.value, "es"),
           },
           {
-            Header:"SEO",
-            type:"desarrollo"
+            Header: "SEO",
+            type: "desarrollo"
           },
 
         ],
@@ -682,7 +682,7 @@ export const BodyStaticAPP = [
             required: true,
           },
           {
-            Header: "Imagen Miniatura",
+            Header: "Imagen o Video Principal",
             accessor: "imgMiniatura",
             type: "image",
           },
@@ -755,7 +755,7 @@ export const BodyStaticAPP = [
             required: true,
           },
           {
-            Header: "Imagen Miniatura",
+            Header: "Imagen o Video Principal",
             accessor: "imgMiniatura",
             type: "image",
           },
