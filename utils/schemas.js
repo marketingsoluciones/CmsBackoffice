@@ -609,11 +609,13 @@ export const BodyStaticAPP = [
             Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
+            required: true,
           },
           {
             Header: "Carrusel de imagenes",
             accessor: "imgCarrusel",
             type: "imageMultiple",
+            required: true,
           },
           
           // {

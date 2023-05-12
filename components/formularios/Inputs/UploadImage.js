@@ -38,7 +38,7 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
       {/* <Divider /> */}
       <FormLabel p={"0.5rem"} m={"0"} fontWeight={"900"} textAlign={"center"} alignItems={"center"} fontSize={"sm"} >
         <Flex gap={"0.3rem"} alignItems={"center"} justify={"center"}  >
-          {label} {meta.touched && meta.error && <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>{meta.error}</Text>}
+          {label} {" "} {meta.touched && meta.error && (<Text color={"red"} fontSize={"sm"} fontWeight={"500"}>{meta.error}</Text>)}
         </Flex>
         <Flex
           alignItems={"center"}
