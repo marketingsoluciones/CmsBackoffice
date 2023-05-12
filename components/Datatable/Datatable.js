@@ -222,7 +222,7 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                         } else {
                           return (<>
                             <Menu>
-                              <Tooltip label={"Editar columnas"}>
+                              <Tooltip label={"Edit. columnas"}>
                                 <MenuButton className="mt-[-0.5rem] mb-[-0.5rem]">
                                   <IconButton icon={<SettingsIcon />} />
                                 </MenuButton>
