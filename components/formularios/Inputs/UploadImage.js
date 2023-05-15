@@ -10,6 +10,7 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
   const [video, setVideo] = useState(null)
   const [imageFile, setImageFile] = useState(null)
   const [videoFile, setVideoFile] = useState(null)
+  const [valirCanvas, setValirCanvas] = useState(false)
 
   useEffect(() => {
     console.log(54121, field?.value)
@@ -48,6 +49,7 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
   };
   const handleCapture = () => {
     try {
+      setValirCanvas(true)
       const canvas = document.getElementById("canvas");
       const video = document.querySelector("video");
       canvas.width = video.videoWidth;
@@ -102,30 +104,33 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
           pos={"relative"}
           mt={"0.5rem"}
         >
-          {!field?.value?.i640 && !image && !video ?
-            (
-              <>
+          {!field?.value?.videoUrl ?
+            !field?.value?.i640 && !image && !video ?
+              (
+                <>
 
-                {
-                  typeFile === "all" ?
-                    <Text>Subir imagen o video</Text>
-                    : <>
-                      <ImageIcon w={"3rem"} h={"3rem"} />
-                      <Text>Subir imagen</Text>
-                    </>
-                }
-              </>
-            )
+                  {
+                    typeFile === "all" ?
+                      <Text>Subir imagen o video</Text>
+                      : <>
+                        <ImageIcon w={"3rem"} h={"3rem"} />
+                        <Text>Subir imagen</Text>
+                      </>
+                  }
+                </>
+              )
+              :
+              (
+                <div className="border w-[216px] h-[122px]">
+                  {field?.value?.i640 && <Image width={"214"} height={"120"} layout="intrinsic" src={`${process.env.NEXT_PUBLIC_BASE_URL}${field.value.i640}`} objectFit="contain" objectPosition={"center"} />}
+                  {image && !video && <Image width={"214"} height={"120"} layout="intrinsic" src={image} objectFit="contain" objectPosition={"center"} />}
+                  {video && <video id="video" style={{ maxHeight: "120px" }} width={"214px"} height={"120px"} src={video} controls />}
+                </div>
+
+
+              )
             :
-            (
-              <div className="border w-[216px] h-[122px]">
-                {field?.value?.i640 && <Image width={"214"} height={"120"} layout="intrinsic" src={`${process.env.NEXT_PUBLIC_BASE_URL}${field.value.i640}`} objectFit="contain" objectPosition={"center"} />}
-                {image && !video && <Image width={"214"} height={"120"} layout="intrinsic" src={image} objectFit="contain" objectPosition={"center"} />}
-                {video && <video id="video" style={{ maxHeight: "120px" }} width={"214px"} height={"120px"} src={video} controls />}
-              </div>
-
-
-            )
+            (<video id="video" style={{ maxHeight: "120px" }} width={"214px"} height={"120px"} src={`${process.env.NEXT_PUBLIC_BASE_URL}${field.value.videoUrl}`} controls />)
           }
         </Flex>
         <Input
@@ -136,7 +141,7 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
           bg={"red"}
         />
       </FormLabel>
-      {video &&
+      {video || field?.value?.videoUrl ?
         <Flex w={"100%"} flexDir={"column"} pt={"0.5rem"} px={"1.5rem"}>
           <>
             <Button
@@ -146,6 +151,7 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
               fontFamily={""}
               textColor={"white"}
               onClick={handleCapture}
+              disabled={!video}
             >
               Captura Imagen Miniatura
             </Button>
@@ -161,11 +167,12 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
               pos={"relative"}
               my={"0.5rem"}
             >
-
-              <canvas style={{ overflow: "auto", maxHeight: "120px" }} width={"214px"} className="border" id="canvas"></canvas>
+              {video || field?.value?.videoUrl ? <canvas hidden={!valirCanvas} style={{ overflow: "auto", maxHeight: "120px" }} width={"214px"} className="border" id="canvas"></canvas> : ""}
+              {field?.value?.videoUrl && !valirCanvas && <Image width={"214"} height={"120"} layout="intrinsic" src={`${process.env.NEXT_PUBLIC_BASE_URL}${field.value.i640}`} objectFit="contain" objectPosition={"center"} />}
             </Flex>
           </>
         </Flex>
+        : ""
       }
     </Box>
   );
