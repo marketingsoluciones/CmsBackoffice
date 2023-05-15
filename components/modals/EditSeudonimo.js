@@ -2,14 +2,15 @@ import { BlackFacebookIcon, BlackInstagramIcon, BlackTwitterIcon, BlackWhatsappI
 import { AddPerfilImg } from "../formularios/Inputs/AddPerfilImg";
 import { Formik, Form } from "formik";
 import { InputFieldGlobal } from "../formularios/Inputs/InputFieldGlobal"
-import { fetchApi,queries } from "../../utils/Fetching";
+import { fetchApi, queries } from "../../utils/Fetching";
 import { AuthContextProvider } from "../../context/AuthContext";
+import {useToast} from "@chakra-ui/react";
+import * as Yup from "yup";
 
 export const EdicionDeSeudonimo = ({ modal, setModal, user }) => {
 
-  const {domain, development, setUser} = AuthContextProvider()
-  console.log(user?.uid )
-
+  const { domain, development, setUser } = AuthContextProvider()
+  const toast = useToast();
   const initialValue = {
     nickName: "",
     facebook: "",
@@ -17,23 +18,33 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user }) => {
     instagram: "",
     whatsapp: "",
   }
+  const validationSchema = Yup.object({
+    nickName: Yup.string().required("requerido"),
+    /* image: Yup.string().nullable(), */
+  });
 
-  const onsubmit = async(values) =>{
+  const onsubmit = async (values) => {
     console.log(values)
-    try{
-    const result =  await fetchApi({
+    try {
+      const result = await fetchApi({
         query: queries.createNickName,
-        variables: { ...values, development:development ,uid: user?.uid  },
-        development: domain ,
-        type:"formData"
+        variables: { ...values, development: development, uid: user?.uid },
+        development: domain,
+        type: "formData"
       });
-      if(result === "ok"){
-        setUser((old)=>{
+      if (result === "ok") {
+        toast({
+          status: "success",
+          title: "Operacion exitosa",
+          isClosable: true,
+        });
+        setUser((old) => {
           console.log(old)
           return old
-        })
+        });
+        setModal(!modal)
       }
-    }catch(error){
+    } catch (error) {
       console.log(error)
     }
   }
@@ -64,6 +75,7 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user }) => {
         <Formik
           onSubmit={onsubmit}
           initialValues={initialValue}
+          validationSchema={validationSchema}
         >
           <Form>
             <div className="p-2 flex flex-col gap-4 md:items-start items-center md:justify-start shrink-0 relative">
@@ -83,6 +95,7 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user }) => {
                       name="nickName"
                       className="focus:outline-none w-full border border-solid rounded-lg py-1 px-3 truncate "
                       placeholder="Pedro Gonzales"
+
                     />
                   </div>
                 </div>
@@ -218,6 +231,7 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user }) => {
                 }}>
                 <button
                   type="submit"
+                  /*  onClick={() => setModal(!modal)} */
                   className="text-white text-center relative flex items-center justify-center cursor-pointer"
                   style={{
                     font: "var(--_01-button-02-medium, 700 14px/24px 'Public Sans', sans-serif)",
