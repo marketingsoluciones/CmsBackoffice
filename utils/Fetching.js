@@ -783,6 +783,10 @@ export const FetchGraphQL = {
             i800
             i640
             i320
+            videoUrl
+          }
+          video{
+            url
           }
           authorUsername
           updaterUsername
@@ -807,6 +811,7 @@ export const FetchGraphQL = {
         $authorUsername :String,
         $imgCarrusel : [Upload],
         $imgMiniatura : Upload,
+        $video: Upload,
         $development: String!
       ){
         createPost (args:{
@@ -821,6 +826,7 @@ export const FetchGraphQL = {
           authorUsername :$authorUsername,
           imgCarrusel: $imgCarrusel,
           imgMiniatura : $imgMiniatura,
+          video: $video
         },
         development: $development){
           _id

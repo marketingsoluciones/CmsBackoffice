@@ -73,12 +73,14 @@ export const BodyStaticAPP = [
             Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
+            typeFile: "image",
             required: true,
           },
           {
             Header: "Logotipo",
             accessor: "imgLogo",
             type: "image",
+            typeFile: "image",
             required: true,
           },
           {
@@ -88,8 +90,8 @@ export const BodyStaticAPP = [
             /*  required: true,*/
           },
           {
-            Header:"SEO",
-            type:"desarrollo"
+            Header: "SEO",
+            type: "desarrollo"
           },
           {
             Header: "Contenido",
@@ -250,18 +252,21 @@ export const BodyStaticAPP = [
             Header: "Imagen Banner",
             accessor: "imgBanner",
             type: "image",
+            typeFile: "image",
             required: true,
           },
           {
             Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
+            typeFile: "image",
             required: true,
           },
           {
             Header: "Icono",
             accessor: "icon",
             type: "image",
+            typeFile: "image",
             typeFile: "svg",
             required: true,
 
@@ -339,6 +344,7 @@ export const BodyStaticAPP = [
             Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
+            typeFile: "image",
             required: true,
 
           },
@@ -346,6 +352,7 @@ export const BodyStaticAPP = [
             Header: "Imagen Banner",
             accessor: "imgBanner",
             type: "image",
+            typeFile: "image",
             required: true,
 
           },
@@ -353,6 +360,7 @@ export const BodyStaticAPP = [
             Header: "Icono",
             accessor: "icon",
             type: "image",
+            typeFile: "image",
             typeFile: "svg",
             required: true,
 
@@ -410,6 +418,7 @@ export const BodyStaticAPP = [
             Header: "Icono",
             accessor: "icon",
             type: "image",
+            typeFile: "image",
           },
           {
             Header: "Elementos",
@@ -592,7 +601,7 @@ export const BodyStaticAPP = [
             type: "string",
             required: true,
           },
-          
+
           {
             Header: "Categorias",
             accessor: "subCategories",
@@ -606,9 +615,10 @@ export const BodyStaticAPP = [
             schema: "string"
           },
           {
-            Header: "Imagen Miniatura",
+            Header: "Imagen o Video Principal",
             accessor: "imgMiniatura",
             type: "image",
+            typeFile: "all",
             required: true,
           },
           {
@@ -617,7 +627,7 @@ export const BodyStaticAPP = [
             type: "imageMultiple",
             required: true,
           },
-          
+
           // {
           //   Header: "Status",
           //   accessor: "status",
@@ -637,8 +647,8 @@ export const BodyStaticAPP = [
             Cell: (props) => formatTime(props.value, "es"),
           },
           {
-            Header:"SEO",
-            type:"desarrollo"
+            Header: "SEO",
+            type: "desarrollo"
           },
 
         ],
@@ -687,16 +697,19 @@ export const BodyStaticAPP = [
             Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
+            typeFile: "image",
           },
           {
             Header: "Imagen Banner",
             accessor: "imgBanner",
             type: "image",
+            typeFile: "image",
           },
           {
             Header: "Icon",
             accessor: "icon",
             type: "image",
+            typeFile: "image",
           },
           {
             Header: "Sub Categorias",
@@ -760,16 +773,19 @@ export const BodyStaticAPP = [
             Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
+            typeFile: "image",
           },
           {
             Header: "Imagen Banner",
             accessor: "imgBanner",
             type: "image",
+            typeFile: "image",
           },
           {
             Header: "Icon",
             accessor: "icon",
             type: "image",
+            typeFile: "image",
           },
           {
             Header: "Creado el",
