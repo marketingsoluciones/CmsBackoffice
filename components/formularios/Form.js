@@ -323,14 +323,25 @@ export const FormDinamical = forwardRef(
                     {/* columna derecha */}
                     <GridItem className="space-y-2 w-max relative" colSpan={1} >
                       <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
-                      <Seudonimo modal={modal} setModal={setModal} listDown={listDown} setListDown={setListDown} found={foundList} user={user} nickNames={nickNames} />
-                      <div className={`${listDown ? "block" : "hidden"}  absolute  right-[1.5rem] z-30`}>
-                        <SeudonimoList listDown={listDown} setListDown={setListDown} setFoundList={setFoundList} nickNames={nickNames} />
-                      </div>
                       {schema &&
                         schema?.map((item, idx) => {
                           const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
                           switch (valir && item.type) {
+                            case "Seudonimo":
+                              return (
+                                <Seudonimo
+                                  modal={modal}
+                                  setModal={setModal}
+                                  listDown={listDown}
+                                  setListDown={setListDown}
+                                  found={foundList}
+                                  user={user}
+                                  nickNames={nickNames}
+                                  setFoundList={setFoundList}
+                                  foundList={foundList}
+                                />
+                              );
+                              break
                             case "image":
                               return (
                                 <UploadImage

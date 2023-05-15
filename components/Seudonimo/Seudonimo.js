@@ -1,8 +1,9 @@
 import { Avatar } from "@chakra-ui/react";
+import { SeudonimoList } from "./SeudonimoList";
 
-export const Seudonimo = ({ modal, setModal, listDown, setListDown, found, user , nickNames }) => {
+export const Seudonimo = ({ modal, setModal, listDown, setListDown, found, user, nickNames,setFoundList,foundList }) => {
     console.log(nickNames)
-    const faund = nickNames.find(seudonimo => seudonimo.nickName === found )
+    const faund = nickNames.find(seudonimo => seudonimo.nickName === found)
     return (
         <div className="bg-white rounded-2xl p-2.5 flex flex-col gap-2.5 items-start justify-start shrink-0 w-[250px] h-[104px] relative" style={{ boxShadow: "var(--_01-shadows-light-z-card-box-shadow, 0px 12px 24px -4px rgba(145, 158, 171, 0.12), 0px 0px 2px 0px rgba(145, 158, 171, 0.20))" }}>
             <div className="flex flex-col gap-[9px] items-center self-stretch shrink-0 relative" >
@@ -21,7 +22,7 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found, user 
                                     font: "var(--subtitle-2, 600 14px/22px 'Public Sans', sans-serif)",
                                 }}
                             >
-                               {faund?.nickName? faund.nickName: user?.displayName }
+                                {faund?.nickName ? faund.nickName : user?.displayName}
                             </div>
                             <div className=" flex flex-row gap-0 items-start justify-start shrink-0 relative">
                                 <svg
@@ -98,7 +99,7 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found, user 
                                 </svg>
                             </div>
                         </div>
-                        <div className="cursor-pointer" onClick={() =>nickNames.length >0 ? setListDown(!listDown):null}>
+                        <div className="cursor-pointer" onClick={() => nickNames.length > 0 ? setListDown(!listDown) : null}>
                             <svg
                                 className="rounded-lg shrink-0 relative overflow-visible"
                                 style={{}}
@@ -280,6 +281,9 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found, user 
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className={`${listDown ? "block" : "hidden"} z-30`}>
+                <SeudonimoList listDown={listDown} setListDown={setListDown} setFoundList={setFoundList} nickNames={nickNames} foundList={foundList}/>
             </div>
         </div>
     )
