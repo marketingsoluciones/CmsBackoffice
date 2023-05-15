@@ -18,9 +18,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const options = FindOption(slug);
   const { user, development } = AuthContextProvider();
 
-  useEffect(() => {
-    console.log(500021, valuesEdit)
-  }, [valuesEdit])
 
 
   useEffect(() => {
@@ -76,6 +73,9 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       ...values
     }) => {
       try {
+        values.video = values?.imgMiniatura?.videoFile
+        values.imgMiniatura = values?.imgMiniatura?.imageFile
+        console.log(13444, values)
         delete values.createdAt;
         delete values.updatedAt;
         const data = await fetchApi({

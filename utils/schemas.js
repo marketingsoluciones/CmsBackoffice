@@ -70,15 +70,17 @@ export const BodyStaticAPP = [
             type: "url",
           },
           {
-            Header: "Imagen o Video Principal",
+            Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
+            typeFile: "image",
             required: true,
           },
           {
             Header: "Logotipo",
             accessor: "imgLogo",
             type: "image",
+            typeFile: "image",
             required: true,
           },
           {
@@ -250,18 +252,21 @@ export const BodyStaticAPP = [
             Header: "Imagen Banner",
             accessor: "imgBanner",
             type: "image",
+            typeFile: "image",
             required: true,
           },
           {
-            Header: "Imagen o Video Principal",
+            Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
+            typeFile: "image",
             required: true,
           },
           {
             Header: "Icono",
             accessor: "icon",
             type: "image",
+            typeFile: "image",
             typeFile: "svg",
             required: true,
 
@@ -336,9 +341,10 @@ export const BodyStaticAPP = [
             Cell: (props) => formatTime(props.value, "es"),
           },
           {
-            Header: "Imagen o Video Principal",
+            Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
+            typeFile: "image",
             required: true,
 
           },
@@ -346,6 +352,7 @@ export const BodyStaticAPP = [
             Header: "Imagen Banner",
             accessor: "imgBanner",
             type: "image",
+            typeFile: "image",
             required: true,
 
           },
@@ -353,6 +360,7 @@ export const BodyStaticAPP = [
             Header: "Icono",
             accessor: "icon",
             type: "image",
+            typeFile: "image",
             typeFile: "svg",
             required: true,
 
@@ -410,6 +418,7 @@ export const BodyStaticAPP = [
             Header: "Icono",
             accessor: "icon",
             type: "image",
+            typeFile: "image",
           },
           {
             Header: "Elementos",
@@ -609,6 +618,8 @@ export const BodyStaticAPP = [
             Header: "Imagen o Video Principal",
             accessor: "imgMiniatura",
             type: "image",
+            typeFile: "all",
+            required: true,
           },
           {
             Header: "Carrusel de imagenes",
@@ -682,19 +693,22 @@ export const BodyStaticAPP = [
             required: true,
           },
           {
-            Header: "Imagen o Video Principal",
+            Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
+            typeFile: "image",
           },
           {
             Header: "Imagen Banner",
             accessor: "imgBanner",
             type: "image",
+            typeFile: "image",
           },
           {
             Header: "Icon",
             accessor: "icon",
             type: "image",
+            typeFile: "image",
           },
           {
             Header: "Sub Categorias",
@@ -755,19 +769,22 @@ export const BodyStaticAPP = [
             required: true,
           },
           {
-            Header: "Imagen o Video Principal",
+            Header: "Imagen Miniatura",
             accessor: "imgMiniatura",
             type: "image",
+            typeFile: "image",
           },
           {
             Header: "Imagen Banner",
             accessor: "imgBanner",
             type: "image",
+            typeFile: "image",
           },
           {
             Header: "Icon",
             accessor: "icon",
             type: "image",
+            typeFile: "image",
           },
           {
             Header: "Creado el",

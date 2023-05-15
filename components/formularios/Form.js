@@ -33,8 +33,8 @@ import { SeudonimoList } from "../Seudonimo/SeudonimoList";
 import { InfoForm } from "./InfoForm";
 
 export const FormDinamical = forwardRef(
-  ({ schema: state, initialValues, columns, onSubmit, Information, values, options, estado,setAction }, ref) => {
-    const { user , development } = AuthContextProvider()
+  ({ schema: state, initialValues, columns, onSubmit, Information, values, options, estado, setAction }, ref) => {
+    const { user, development } = AuthContextProvider()
     const [schema, setSchema] = useState(null);
     const [modal, setModal] = useState(false)
     const [listDown, setListDown] = useState(false)
@@ -119,7 +119,7 @@ export const FormDinamical = forwardRef(
     useEffect(() => {
       setSchema(state);
     }, [state]);
-   
+
     return (
       <>
         {modal ? (
@@ -176,15 +176,15 @@ export const FormDinamical = forwardRef(
                                 </GridItem>
                               );
                               break;
-                           /*  case "switch":
-                              return (
-                                <SwitchField
-                                  key={idx}
-                                  name={item.accessor}
-                                  label={item.Header}
-                                />
-                              );
-                              break; */
+                            /*  case "switch":
+                               return (
+                                 <SwitchField
+                                   key={idx}
+                                   name={item.accessor}
+                                   label={item.Header}
+                                 />
+                               );
+                               break; */
                             case "slug":
                               return (
                                 <div className="hidden">
@@ -308,7 +308,7 @@ export const FormDinamical = forwardRef(
 
                             case "desarrollo":
                               return (
-                                <div onClick={()=>setAlertDev(!alertDev)}>
+                                <div onClick={() => setAlertDev(!alertDev)}>
                                   <GridItem colSpan={[1, , , 1]} key={idx}>
                                     <SeoDev />
                                   </GridItem>
@@ -325,7 +325,7 @@ export const FormDinamical = forwardRef(
                       <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
                       <Seudonimo modal={modal} setModal={setModal} listDown={listDown} setListDown={setListDown} found={foundList} user={user} nickNames={nickNames} />
                       <div className={`${listDown ? "block" : "hidden"}  absolute  right-[1.5rem] z-30`}>
-                        <SeudonimoList  listDown={listDown} setListDown={setListDown} setFoundList={setFoundList} nickNames={nickNames} />
+                        <SeudonimoList listDown={listDown} setListDown={setListDown} setFoundList={setFoundList} nickNames={nickNames} />
                       </div>
                       {schema &&
                         schema?.map((item, idx) => {
@@ -362,7 +362,7 @@ export const FormDinamical = forwardRef(
                           }
                         })
                       }
-                      <InfoForm Information={Information} state={state} values={values} options={options} estado={estado}  setAction={setAction} />
+                      <InfoForm Information={Information} state={state} values={values} options={options} estado={estado} setAction={setAction} />
                     </GridItem>
                   </Grid>
                 </Form>
