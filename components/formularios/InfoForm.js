@@ -1,13 +1,30 @@
-import { Badge, Box, Button, Divider, Flex, Grid, GridItem, Heading, Text, useToast, Center, Square } from "@chakra-ui/react";
+import { Badge, Box, Button, Divider, Heading, Text } from "@chakra-ui/react";
 import { useFetch } from "../../hooks/useFetch";
 import { DeleteIcon } from "@chakra-ui/icons";
+import { DeleteModall } from "../modals/Alert";
+import { useState } from "react";
 
-
-export const InfoForm = ({ Information, values, options, estado, setAction }) => {
+export const InfoForm = ({ Information, values, options, estado, setAction, deleteModal, setDeleteModal }) => {
+  const [modal, setModal] = useState(false)
+  const [data, isLoading, isError, setQuery] = useFetch(true);
+  
+  const handleRemove = () => {
+   const borrar= setQuery({
+      ...options.deleteEntry,
+      variables: { id: values?._id },
+      type: "json",
+    })
+    if(borrar){
+      setAction({ type: "VIEW", payload: {} })
+    }
+  };
 
   return (
     <>
       <Box bg={"white"} p={"1rem"} shadow={"sm"} rounded={"xl"} w={"250px"}>
+        {modal ? (
+          <DeleteModall setModal={setModal} modal={modal} handleRemove={handleRemove} setAction={setAction}   />
+        ) : null}
         <Heading pb={"1rem"} fontSize={"sm"} color={"gray.500"}>
           Información
         </Heading>
@@ -36,26 +53,20 @@ export const InfoForm = ({ Information, values, options, estado, setAction }) =>
         ))}
       </Box>
       {estado.type === "edit" && (
-        <ButtonDeleteEntry values={values} options={options} setAction={setAction} />
+        <ButtonDeleteEntry
+          values={values}
+          options={options}
+          setAction={setAction}
+          modal={modal}
+          setModal={setModal}
+        />
       )}
     </>
   )
 }
 
-const ButtonDeleteEntry = ({ values, options, setAction }) => {
+const ButtonDeleteEntry = ({ modal, setModal }) => {
   const [data, isLoading, isError, setQuery] = useFetch(true);
-  const handleRemove = () => {
-      setQuery({
-        ...options.deleteEntry,
-        variables: { id: values?._id },
-        type: "json",
-      })
-  };
-  const redirect = () => {
-    setAction({ type: "VIEW", payload: {} })
-
-  }
-
   return (
     <Button
       bg={"white"}
@@ -65,9 +76,10 @@ const ButtonDeleteEntry = ({ values, options, setAction }) => {
       color={"red.500"}
       leftIcon={<DeleteIcon />}
       isLoading={isLoading}
-      onClick={handleRemove}
+      onClick={() => setModal(!modal)}
     >
       Eliminar entrada
     </Button>
   );
 };
+
