@@ -155,7 +155,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                   <button onClick={() => setAction({ type: "VIEW", payload: {} })}>
                     <ArrowLeft />
                   </button>
-                  <div className="text-slate-600 mx-2  text-3xl" fontSize={"3xl"} as={"h1"} marginX={"2"} textTransform={"capitalize"} >
+                  <div className="text-slate-600 mx-2  text-3xl"  >
                     {valuesEdit?.businessName ||
                       valuesEdit?.title ||
                       "Crear Registro"}

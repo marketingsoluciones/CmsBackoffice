@@ -31,6 +31,7 @@ import { Seudonimo } from "../Seudonimo/Seudonimo";
 import { EdicionDeSeudonimo } from "../modals/EditSeudonimo";
 import { SeudonimoList } from "../Seudonimo/SeudonimoList";
 import { InfoForm } from "./InfoForm";
+import { DeleteModal } from "../modals/Alert";
 
 export const FormDinamical = forwardRef(
   ({ schema: state, initialValues, columns, onSubmit, Information, values, options, estado, setAction }, ref) => {
@@ -43,6 +44,7 @@ export const FormDinamical = forwardRef(
     const dataUser = user?.authDevelopments
     const faund = dataUser.find(entorno => entorno.title === development)
     const nickNames = faund.nickNames
+
 
     const reduceInitialValues = Object?.entries(initialValues ?? {}).reduce((acc, item) => {
       if (item[1] !== null) {
@@ -85,7 +87,7 @@ export const FormDinamical = forwardRef(
     const ValidationOptions = {
       ckeditor: Yup.string().nullable(),
       string: Yup.string().nullable(),
-      image: Yup.string().nullable(),
+      /* image: Yup.string().nullable(), */
       stringL: Yup.string().nullable(),
       email: Yup.string().email().nullable(),
       url: Yup.string().matches(
@@ -323,14 +325,25 @@ export const FormDinamical = forwardRef(
                     {/* columna derecha */}
                     <GridItem className="space-y-2 w-max relative" colSpan={1} >
                       <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
-                      <Seudonimo modal={modal} setModal={setModal} listDown={listDown} setListDown={setListDown} found={foundList} user={user} nickNames={nickNames} />
-                      <div className={`${listDown ? "block" : "hidden"}  absolute  right-[1.5rem] z-30`}>
-                        <SeudonimoList listDown={listDown} setListDown={setListDown} setFoundList={setFoundList} nickNames={nickNames} />
-                      </div>
                       {schema &&
                         schema?.map((item, idx) => {
                           const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
                           switch (valir && item.type) {
+                            case "Seudonimo":
+                              return (
+                                <Seudonimo
+                                  modal={modal}
+                                  setModal={setModal}
+                                  listDown={listDown}
+                                  setListDown={setListDown}
+                                  found={foundList}
+                                  user={user}
+                                  nickNames={nickNames}
+                                  setFoundList={setFoundList}
+                                  foundList={foundList}
+                                />
+                              );
+                              break
                             case "image":
                               return (
                                 <UploadImage
@@ -362,7 +375,14 @@ export const FormDinamical = forwardRef(
                           }
                         })
                       }
-                      <InfoForm Information={Information} state={state} values={values} options={options} estado={estado} setAction={setAction} />
+                      <InfoForm
+                        Information={Information}
+                        state={state}
+                        values={values}
+                        options={options}
+                        estado={estado}
+                        setAction={setAction} 
+                        />
                     </GridItem>
                   </Grid>
                 </Form>

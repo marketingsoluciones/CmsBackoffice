@@ -564,6 +564,10 @@ export const BodyStaticAPP = [
         ],
         schema: [
           {
+            Header: "seudonimo",
+            type: "Seudonimo"
+          },
+          {
             Header: "ID",
             accessor: "_id",
           },
@@ -650,6 +654,7 @@ export const BodyStaticAPP = [
             Header: "SEO",
             type: "desarrollo"
           },
+         
 
         ],
       },

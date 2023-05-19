@@ -29,6 +29,84 @@ export const MenuIcon: FC<PropsIcon> = (props) => {
   )
 }
 
+export const GreenEditIcon: FC<PropsIcon> = (props) => {
+  return (
+    <svg
+      className="rounded-lg p-[5px] flex flex-row gap-2.5 items-start justify-start shrink-0 relative overflow-visible"
+      style={{}}
+      width="34"
+      height="34"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g filter="url(#filter0_d_442_13012)">
+        <rect
+          width="24"
+          height="24"
+          rx="8"
+          fill="white"
+          shapeRendering="crispEdges"
+        />
+        <path
+          d="M13.441 7.18265L15.3765 5.24714C15.5348 5.0889 15.7494 5 15.9733 5C16.1971 5 16.4117 5.0889 16.57 5.24714L18.7529 7.42997C18.9111 7.58826 19 7.80292 19 8.02675C19 8.25057 18.9111 8.46523 18.7529 8.62352L16.8173 10.559M13.441 7.18265L5.24732 15.3763C5.08901 15.5346 5.00005 15.7492 5 15.9731V18.1559C5 18.3798 5.08893 18.5945 5.24723 18.7528C5.40553 18.9111 5.62023 19 5.8441 19H8.02693C8.25078 19 8.46544 18.911 8.62371 18.7527L16.8173 10.559M13.441 7.18265L16.8173 10.559"
+          stroke="#14532D"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <rect
+          x="0.25"
+          y="0.25"
+          width="23.5"
+          height="23.5"
+          rx="7.75"
+          stroke="#047857"
+          strokeWidth="0.5"
+          shapeRendering="crispEdges"
+        />
+      </g>
+      <defs>
+        <filter
+          id="filter0_d_442_13012"
+          x="0"
+          y="0"
+          width="28"
+          height="28"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dx="2" dy="2" />
+          <feGaussianBlur stdDeviation="1" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_442_13012"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect1_dropShadow_442_13012"
+            result="shape"
+          />
+        </filter>
+      </defs>
+    </svg>
+  )
+}
+
 export const BlackFacebookIcon: FC<PropsIcon> = (props) => {
   return (
     <svg
