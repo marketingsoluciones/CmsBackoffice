@@ -52,7 +52,7 @@ export const Navigation = ({ set, state, }) => {
           </div> */}
 
           <Menu>
-            <span className="w-20  md:w-60 text-right truncate">{user?.displayName}</span>
+            <Text className="w-20 md:w-60 text-right truncate" textTransform={"capitalize"}>{user?.displayName}</Text>
             <MenuButton mr={"0.5rem"}>
               <Flex alignItems={"center"} gap={"0.5rem"}>
                 <Avatar size={"sm"} />
