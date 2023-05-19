@@ -153,12 +153,11 @@ const Search = ({ panTo, center }) => {
           bg={"white"}
           w={"full"}
         >
-          {data.map((item) => (
+          {data.map((item, idx) => (
             <ListItem
-              key={item.id}
+              key={idx}
               paddingBlock={"0.5rem"}
               fontSize={"sm"}
-
               cursor={"pointer"}
               paddingInline={"1rem"}
               _hover={{ bg: "gray.100" }}

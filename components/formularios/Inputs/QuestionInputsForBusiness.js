@@ -249,9 +249,9 @@ const CharactesticsComponent = ({ data = [] }) => {
         <>
           {data
             ?.filter((item) => item && item)
-            ?.map((item) => {
+            ?.map((item, idx) => {
               return (
-                <GridItem colSpan={[3]}>
+                <GridItem key={idx} colSpan={[3]}>
                   <FieldArrayWithProps
                     key={item?._id}
                     data={item?.items}
@@ -264,7 +264,7 @@ const CharactesticsComponent = ({ data = [] }) => {
             })}
         </>
       ) : (
-        <GridItem colSpan={[3]}>
+        <GridItem key={idx} colSpan={[3]}>
           <Text
             fontSize={"sm"}
             textAlign={"center"}

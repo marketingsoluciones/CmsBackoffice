@@ -1,8 +1,7 @@
 import { Avatar } from "@chakra-ui/react";
 import { SeudonimoList } from "./SeudonimoList";
 
-export const Seudonimo = ({ modal, setModal, listDown, setListDown, found, user, nickNames,setFoundList,foundList }) => {
-    console.log(nickNames)
+export const Seudonimo = ({ modal, setModal, listDown, setListDown, found, user, nickNames, setFoundList, foundList }) => {
     const faund = nickNames.find(seudonimo => seudonimo.nickName === found)
     return (
         <div className="bg-white rounded-2xl p-2.5 flex flex-col gap-2.5 items-start justify-start shrink-0 w-[250px] h-[104px] relative" style={{ boxShadow: "var(--_01-shadows-light-z-card-box-shadow, 0px 12px 24px -4px rgba(145, 158, 171, 0.12), 0px 0px 2px 0px rgba(145, 158, 171, 0.20))" }}>
@@ -283,7 +282,7 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found, user,
                 </div>
             </div>
             <div className={`${listDown ? "block" : "hidden"} z-30`}>
-                <SeudonimoList listDown={listDown} setListDown={setListDown} setFoundList={setFoundList} nickNames={nickNames} foundList={foundList}/>
+                <SeudonimoList listDown={listDown} setListDown={setListDown} setFoundList={setFoundList} nickNames={nickNames} foundList={foundList} />
             </div>
         </div>
     )

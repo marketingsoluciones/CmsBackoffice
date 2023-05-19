@@ -152,7 +152,6 @@ export const FormDinamical = forwardRef(
                               return (
                                 <GridItem colSpan={[1, , , 3]} key={idx}>
                                   <InputField
-                                    key={idx}
                                     name={item.accessor}
                                     label={item.Header}
                                   />
@@ -189,7 +188,7 @@ export const FormDinamical = forwardRef(
                                break; */
                             case "slug":
                               return (
-                                <div className="hidden">
+                                <div key={idx} className="hidden">
                                   <GridItem colSpan={[1, , , 2]} key={idx}>
                                     <InputField
                                       name={item.accessor}
@@ -310,8 +309,8 @@ export const FormDinamical = forwardRef(
 
                             case "desarrollo":
                               return (
-                                <div onClick={() => setAlertDev(!alertDev)}>
-                                  <GridItem colSpan={[1, , , 1]} key={idx}>
+                                <div key={idx} onClick={() => setAlertDev(!alertDev)}>
+                                  <GridItem colSpan={[1, , , 1]} >
                                     <SeoDev />
                                   </GridItem>
                                 </div>
@@ -341,6 +340,7 @@ export const FormDinamical = forwardRef(
                                   nickNames={nickNames}
                                   setFoundList={setFoundList}
                                   foundList={foundList}
+                                  key={idx}
                                 />
                               );
                               break
@@ -359,6 +359,7 @@ export const FormDinamical = forwardRef(
                                 <MultipleImages
                                   name={item.accessor}
                                   label={item.Header}
+                                  key={idx}
                                 />
                               );
                               break;
@@ -381,8 +382,8 @@ export const FormDinamical = forwardRef(
                         values={values}
                         options={options}
                         estado={estado}
-                        setAction={setAction} 
-                        />
+                        setAction={setAction}
+                      />
                     </GridItem>
                   </Grid>
                 </Form>

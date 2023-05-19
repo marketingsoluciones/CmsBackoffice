@@ -7,14 +7,14 @@ import { useState } from "react";
 export const InfoForm = ({ Information, values, options, estado, setAction, deleteModal, setDeleteModal }) => {
   const [modal, setModal] = useState(false)
   const [data, isLoading, isError, setQuery] = useFetch(true);
-  
+
   const handleRemove = () => {
-   const borrar= setQuery({
+    const borrar = setQuery({
       ...options.deleteEntry,
       variables: { id: values?._id },
       type: "json",
     })
-    if(borrar){
+    if (borrar) {
       setAction({ type: "VIEW", payload: {} })
     }
   };
@@ -23,7 +23,7 @@ export const InfoForm = ({ Information, values, options, estado, setAction, dele
     <>
       <Box bg={"white"} p={"1rem"} shadow={"sm"} rounded={"xl"} w={"250px"}>
         {modal ? (
-          <DeleteModall setModal={setModal} modal={modal} handleRemove={handleRemove} setAction={setAction}   />
+          <DeleteModall setModal={setModal} modal={modal} handleRemove={handleRemove} setAction={setAction} />
         ) : null}
         <Heading pb={"1rem"} fontSize={"sm"} color={"gray.500"}>
           Información
@@ -32,14 +32,13 @@ export const InfoForm = ({ Information, values, options, estado, setAction, dele
         {Information?.map((item, idx) => (
           <div
             key={idx}
-            pt={"1rem"}
-            w={"100%"}
-            flexDir={"column"}
-            alignItems={"center"}
-            justifyContent={"space-between"}
-            fontSize={"sm"}
-            className={`${item.value != null ? "block pt-[1rem] text-sm" : "hidden"}`}
-          >
+            // pt={"1rem"}
+            // w={"100%"}
+            // flexDir={"column"}
+            // alignItems={"center"}
+            // justifyContent={"space-between"}
+            // fontSize={"sm"}
+            className={`${item.value != null ? "block pt-[1rem] text-sm" : "hidden"}`}>
             <Text color={"gray.400"}>{item?.title}</Text>
             <Badge
               w={"100%"}

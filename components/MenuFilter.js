@@ -46,13 +46,13 @@ const MenuFilter = () => {
                             <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} />
                             Seleccionar todos
                         </FormLabel>
-                        {allColumns.map((column) => (
+                        {allColumns.map((column, idx) => (
                             <FormLabel
                                 display={"flex"}
                                 alignItems={"center"}
                                 gap={"0.5rem"}
                                 fontSize={"sm"}
-
+                                key={idx}
                             >
                                 <Checkbox
                                     type={"checkbox"}

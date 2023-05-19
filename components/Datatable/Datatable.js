@@ -223,8 +223,8 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                           return (<>
                             <Menu>
                               <Tooltip label={"Edit. columnas"}>
-                                <MenuButton className="mt-[-0.5rem] mb-[-0.5rem]">
-                                  <IconButton icon={<SettingsIcon />} />
+                                <MenuButton className="mt-[-0.5rem] mb-[-0.5rem] p-2 w-8 h-8">
+                                  <SettingsIcon w={""} h={""} />
                                 </MenuButton>
                               </Tooltip>
                               <MenuList
@@ -286,14 +286,13 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                 return (
                   <Tr key={idx} fontSize={"sm"} {...row.getRowProps()} _hover={{ bg: "gray.100" }} className={`${row.isSelected && "bg-gray-100"}`}>
                     {row.cells.map((cell, i) => {
-                      console.log(cell)
                       return (
                         <Td key={i} className="" {...cell.getCellProps()} w={cell.column.id === "selection" && "16"}>
                           {
                             cell.column.id === "imgMiniatura" ?
                               <Center>
                                 <Image
-                                  src={`${cell?.value? `${process.env.NEXT_PUBLIC_BASE_URL}${cell?.value}`: "/placeholder/image.png"}`}
+                                  src={`${cell?.value ? `${process.env.NEXT_PUBLIC_BASE_URL}${cell?.value}` : "/placeholder/image.png"}`}
                                   objectFit={"contain"}
                                   w={"50px"}
                                   h={"35px"}
@@ -316,9 +315,7 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                                       <ComponentCursorPointer cell={cell} setAction={setAction} row={row} />
                                       :
                                       <Center>
-                                        <Text noOfLines={1} >
-                                          {cell.render("Cell")}
-                                        </Text>
+                                        {cell.render("Cell")}
                                       </Center>
                           }
                         </Td>
@@ -331,10 +328,8 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                       {modal ? (
                         <ModalAlert id={saveId} handleRemoveItem={handleRemoveItem} setModal={setModal} modal={modal} />
                       ) : null}
-                      <Center>
-                        <button onClick={() => [setModal(!modal), setSaveId(row.original._id)]} className="cursor-pointer mb-[-0.5rem] 2xl:mt-[0rem] 2xl:mb-[0rem]"  >
-                          <IconButton size={"sm"} icon={<DeleteIcon />} />
-                        </button>
+                      <Center onClick={() => [setModal(!modal), setSaveId(row.original._id)]} className="cursor-pointer mb-[-0.5rem] 2xl:mt-[0rem] 2xl:mb-[0rem]" >
+                        <IconButton size={"sm"} icon={<DeleteIcon />} />
                       </Center>
                     </Td>
                   </Tr>
@@ -363,8 +358,8 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                   setSkip(0)
                 }}
               >
-                {[5, 10, 20, 30, 40, 50].map((pageSize) => (
-                  <option key={pageSize} value={pageSize}>
+                {[5, 10, 20, 30, 40, 50].map((pageSize, idx) => (
+                  <option key={idx} value={pageSize}>
                     {pageSize}
                   </option>
                 ))}

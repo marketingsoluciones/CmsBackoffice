@@ -35,7 +35,7 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
               <Button
                 size={"sm"}
                 bg={"#15803d"}
-                _hover={"none"}
+                _hover={false}
                 fontFamily={""}
                 textColor={"white"}
                 onClick={() => arrayHelpers.push(schemas[schema])}
@@ -58,9 +58,9 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
                           alignItems={"center"}
                           justifyContent={"space-between"}
                           className="truncate cursor-default mt-3"
-
+                          key={idx}
                         >
-                          <ListIcon key={idx} as={CheckIcon} color="green.500" />
+                          <ListIcon as={CheckIcon} color="green.500" />
                           <span className="truncate">
                             {item}
                           </span>
@@ -85,8 +85,9 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
                             display={"flex"}
                             alignItems={"center"}
                             justifyContent={"space-between"}
+                            key={idx}
                           >
-                            <ListIcon key={idx} as={CheckIcon} color="green.500" />
+                            <ListIcon as={CheckIcon} color="green.500" />
                             {item.title}
                             <IconButton size={"sm"} onClick={() => {
                               const indice = arrayHelpers.form.values[props.name].findIndex(ele => item === ele)
