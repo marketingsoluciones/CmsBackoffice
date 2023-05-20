@@ -722,3 +722,52 @@ export const IconFolderOpenOutline: FC<PropsIcon> = (props) => {
     </svg>
   );
 }
+export const IconStatus: FC<PropsIcon> = (props) => {
+  return (
+    <svg className="pt-0.5 pr-0 pb-0.5 pl-0 flex flex-row gap-2.5 items-center justify-center shrink-0 relative overflow-visible" style={{}} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <path d="M12 10C13.0609 10 14.0783 9.57857 14.8284 8.82843C15.5786 8.07828 16 7.06087 16 6C16 4.93913 15.5786 3.92172 14.8284 3.17157C14.0783 2.42143 13.0609 2 12 2C10.9391 2 9.92172 2.42143 9.17157 3.17157C8.42143 3.92172 8 4.93913 8 6C8 7.06087 8.42143 8.07828 9.17157 8.82843C9.92172 9.57857 10.9391 10 12 10ZM12 10V22" stroke="#637381" strokeWidth="2" />
+    </svg>
+  );
+}
+export const IconVisibility: FC<PropsIcon> = (props) => {
+  return (
+    <svg className="shrink-0 relative overflow-visible" style={{}} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <path d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z" fill="#637381" />
+    </svg>
+  );
+}
+export const IconVisits: FC<PropsIcon> = (props) => {
+  return (
+    <svg className="shrink-0 relative overflow-visible" style={{}} width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} >
+      <g clipPath="url(#clip0_395_9913)">
+        <path d="M8.14289 12.8572H0.857178V23.1429H8.14289M8.14289 23.1429V7.71432H15.8572M8.14289 23.1429H15.8572M15.8572 23.1429H23.1429V0.857178H15.8572V23.1429Z" stroke="#637381" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
+
+    </svg>
+  );
+}
+export const IconCalendary: FC<PropsIcon> = (props) => {
+  return (
+    <svg className="shrink-0 relative overflow-visible" style={{}} width="20" height="24" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <path d="M9 10V12H7V10H9ZM13 10V12H11V10H13ZM17 10V12H15V10H17ZM19 3C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H6V1H8V3H16V1H18V3H19ZM19 19V8H5V19H19ZM9 14V16H7V14H9ZM13 14V16H11V14H13ZM17 14V16H15V14H17Z" fill="#637381" />
+    </svg>
+  );
+}
+export const IconEdit: FC<PropsIcon> = (props) => {
+  return (
+    <svg
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      viewBox="0 0 24 24"
+      height="1em"
+      width="1em"
+      {...props}
+    >
+      <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />
+      <path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" />
+    </svg>
+  );
+}

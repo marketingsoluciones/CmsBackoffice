@@ -1,4 +1,4 @@
-import { Avatar, Button, Grid, GridItem } from "@chakra-ui/react";
+import { Avatar, Button, Grid, GridItem, SimpleGrid } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import { InputField } from "../../components/formularios/Inputs/InputField";
 import { InputNumberField } from "../../components/formularios/Inputs/InputNumberField";
@@ -121,6 +121,8 @@ export const FormDinamical = forwardRef(
     useEffect(() => {
       setSchema(state);
     }, [state]);
+    let colorBaground = "white"
+    //colorBaground = { base: "red", sm: "orange", md: "green", lg: "blue", xl: "violet", '2xl': "yellow" }
 
     return (
       <>
@@ -140,10 +142,10 @@ export const FormDinamical = forwardRef(
             {({ values, setValues }) => {
               return (
                 <Form >
-                  <Grid templateColumns={columns} gap={"1rem"} >
+                  <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(5, 1fr)"]} gap={"1rem"} >
 
                     {/* columna izquierda */}
-                    <GridItem bg={"white"} p={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={3} >
+                    <GridItem bg={colorBaground} p={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={4} >
                       {schema &&
                         schema?.map((item, idx) => {
                           const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
@@ -321,8 +323,10 @@ export const FormDinamical = forwardRef(
                         })}
                     </GridItem>
 
+                    {/* {sm: "red", md: "green", lg: "blue", xl: "violet", '2xl': "yellow" } */}
+
                     {/* columna derecha */}
-                    <GridItem className="space-y-2 w-max relative" colSpan={1} >
+                    <GridItem bg={colorBaground} p={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={{ base: 4, lg: 1 }} >
                       <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
                       {schema &&
                         schema?.map((item, idx) => {
@@ -330,6 +334,7 @@ export const FormDinamical = forwardRef(
                           switch (valir && item.type) {
                             case "Seudonimo":
                               return (
+                                // <GridItem bg={"blue"} colSpan={[1, , , 1]} key={idx}>
                                 <Seudonimo
                                   modal={modal}
                                   setModal={setModal}
@@ -342,6 +347,7 @@ export const FormDinamical = forwardRef(
                                   foundList={foundList}
                                   key={idx}
                                 />
+                                //</GridItem>
                               );
                               break
                             case "image":

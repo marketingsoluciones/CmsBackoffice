@@ -264,7 +264,7 @@ const CharactesticsComponent = ({ data = [] }) => {
             })}
         </>
       ) : (
-        <GridItem key={idx} colSpan={[3]}>
+        <GridItem colSpan={[3]}>
           <Text
             fontSize={"sm"}
             textAlign={"center"}

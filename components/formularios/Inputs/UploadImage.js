@@ -76,16 +76,14 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
   }
 
   return (
-    <Box bg={"white"} p={"2px"} rounded={"xl"} w={"250px"} shadow={"md"} >
-      {/* <Divider /> */}
-      {/* <div className="flex flex-col">
-        <span className="text-[10px]">typeFile: {typeFile}</span>
-        <span className="text-[10px]">video: {video?.length || "false"}</span>
-        <span className="text-[10px]">image: {image?.length || "false"}</span>
-        <span className="text-[10px]">field?.value?.i640: {field?.value?.i640?.length || "false"}</span>
-        <span className="text-[10px]">field?.value?.videoUrl: {field?.value?.videoUrl?.length || "false"}</span>
-      </div> */}
-      <FormLabel p={"0.5rem"} m={"0"} fontWeight={"900"} textAlign={"center"} alignItems={"center"} fontSize={"sm"} className="cursor-pointer">
+    <Box >
+      <Divider />
+      <FormLabel
+        paddingTop={"1rem"}
+        fontWeight={"900"}
+        textAlign={"left"}
+        fontSize={"sm"}
+      >
         <Flex gap={"0.3rem"} alignItems={"center"} justify={"center"}  >
           {label} {" "} {meta.touched && meta.error && (<Text color={"red"} fontSize={"sm"} fontWeight={"500"}>{meta.error}</Text>)}
           <GreenEditIcon />

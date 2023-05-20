@@ -1,4 +1,4 @@
-import { Box, Flex, FormLabel, Input, Square, Text, Image, IconButton, } from "@chakra-ui/react";
+import { Box, Flex, FormLabel, Input, Square, Text, Image, IconButton, Divider, } from "@chakra-ui/react";
 import { useField } from "formik";
 import { memo, useEffect, useState } from "react";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -52,9 +52,15 @@ export const MultipleImages = memo(({ label, ...props }) => {
   };
 
   return (
-    <Box  bg={"white"} p={"0.5rem"} rounded={"xl"} w={"250px"} shadow={"md"} >
-      <FormLabel fontWeight={"900"} textAlign={"left"} fontSize={"sm"}  p={"0.5rem"}>
-        <Flex gap={"0.3rem"} alignItems={"center"} justify={"center"}  m={"0"} >
+    <Box >
+      <Divider />
+      <FormLabel
+        paddingTop={"1rem"}
+        fontWeight={"900"}
+        textAlign={"left"}
+        fontSize={"sm"}
+      >
+        <Flex gap={"0.3rem"} alignItems={"center"} justify={"center"} m={"0"} >
           {label}{" "}
           {meta.touched && meta.error && (
             <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>

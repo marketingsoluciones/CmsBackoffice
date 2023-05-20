@@ -197,7 +197,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                 options={options}
                 estado={state}
                 setAction={setAction}
-                columns={["repeat(1, 1fr)", , , "repeat(4, 1fr)"]}
+                columns={["repeat(1, 1fr)", , , "repeat(5, 1fr)"]}
               />
             </Box>
           </Flex>

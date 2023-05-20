@@ -47,7 +47,7 @@ export const Sidebar = ({ state, setState }) => {
               <Menu autoSelect={false}  >
                 <MenuButton pr={"0.3rem"}>
                   {/* <Avatar size={"sm"} /> */}
-                  {<IconFolderOpenOutline className="w-8 h-8" />}
+                  {<IconFolderOpenOutline className="w-8 h-8 text-gray-600" />}
                 </MenuButton>
                 <MenuList p={"0"} fontSize={"sm"} ml={"8"}>
                   {user?.authDevelopments?.map((item, idx) => (
