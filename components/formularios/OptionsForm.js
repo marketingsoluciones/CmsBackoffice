@@ -3,14 +3,16 @@ import { SwitchField } from "./Inputs/SwitchField";
 import { IconCalendary, IconEdit, IconStatus, IconVisibility, IconVisits } from "../Icons";
 
 export const OptionsForm = ({ alertDev, setAlertDev, schema, user }) => {
-
     return (
         <Box >
             <Divider />
-
-
-
-            <Flex gap={"0.3rem"} alignItems={"center"}>
+            <Flex
+                paddingTop={"1rem"}
+                fontWeight={"900"}
+                textAlign={"left"}
+                fontSize={"md"}
+                gap={"0.3rem"} alignItems={"center"}
+            >
                 Publico
             </Flex>
             <Flex my={"0.5rem"} justifyContent={"space-between"} >
@@ -67,10 +69,7 @@ export const OptionsForm = ({ alertDev, setAlertDev, schema, user }) => {
                 </Flex>
                 <IconEdit className={"w-6 h-6 text-gray-600"} />
             </Flex>
-
-
             <div className="flex flex-row gap-4 items-center justify-center shrink-0 w-[100%] relative" >
-
                 {schema && schema?.map((item, idx) => {
                     const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
                     switch (valir && item.type) {
@@ -85,8 +84,6 @@ export const OptionsForm = ({ alertDev, setAlertDev, schema, user }) => {
                             break;
                     }
                 })}
-
-
                 {/* <div className="bg-green-700 rounded-lg pt-[11px] pr-[22px] pb-[11px] pl-[22px] flex flex-row gap-0 items-center justify-center shrink-0 w-[110px]* h-[30px] relative" style={{ boxShadow: "var(--_01-shadows-color-01-primary-box-shadow, 0px 8px 16px 0px rgba(0, 171, 85, 0.24))" }}>
 
                     <div className="text-white text-sm relative" >
@@ -94,10 +91,7 @@ export const OptionsForm = ({ alertDev, setAlertDev, schema, user }) => {
                     </div>
 
                 </div> */}
-
             </div>
-
-
         </Box>
     )
 }

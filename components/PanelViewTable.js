@@ -37,14 +37,14 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   }, [data_])
 
   const [dataRemove, isLoadingRemove, isErrorRemove, setQueryRemove] = useFetch(true);
-  const [selected, setSelected] = useState(columnsDataTable({ slug }));
+  const { development, user, domain } = AuthContextProvider()
+  const [selected, setSelected] = useState(columnsDataTable({ slug , user}));
   const [global, setGlobal] = useState()
   const [seteador, setSeteador] = useState(() => () => { })
-  const { development, user, domain } = AuthContextProvider()
   const router = useRouter()
 
   const columns = useMemo(() => {
-    const avalibleShowColumns = selected?.visibleColumns?.map(elem => elem.accessor)
+    const avalibleShowColumns = user?.visibleColumns?.map(elem => elem.accessor) //selected?.visibleColumns?.map(elem => elem.accessor)
     return selected?.schema?.reduce((acc, item) => {
       if (avalibleShowColumns?.includes(item?.accessor) && !item?.roles)
         acc.push(item)
@@ -76,7 +76,7 @@ export const PanelViewTable = ({ slug, dispatch }) => {
 
   useEffect(() => {
     dispatch({ type: "VIEW", payload: {} });
-    setSelected(columnsDataTable({ slug }));
+    setSelected(columnsDataTable({ slug, user }));
   }, [slug, development]);
 
 

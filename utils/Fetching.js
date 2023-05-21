@@ -96,6 +96,10 @@ export const queries = {
           weddingDate
           signUpProgress
           status
+          visibleColumns {
+            accessor
+            show
+          }
           authDevelopments {
             title
             role
@@ -130,7 +134,13 @@ export const queries = {
   mutation  ($uid : ID!,$imgAvatar:Upload , $nickName: String!, $facebook : String, $instagram : String, $whatsapp : String, $twitter:String ) {
     updateNickName (args:{uid:$uid, nickName: $nickName, facebook : $facebook, instagram : $instagram, whatsapp : $whatsapp, twitter: $twitter,imgAvatar:$imgAvatar })
       }`,
-
+  updateVisibleColumns: `
+    mutation  ($uid : ID!, $args:[inputVisibleColumn]) {
+      updateVisibleColumns (uid:$uid, args:$args){
+        accessor
+        show
+      }
+        }`,
 }
 
 export const FetchGraphQL = {

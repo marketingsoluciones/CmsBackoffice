@@ -3,13 +3,13 @@ import MenuFilter from "../MenuFilter";
 
 //componente para visualizar las columnas deacuerdo al esquema 
 
-export const columnsDataTable = ({ slug }) => {
+export const columnsDataTable = ({ slug, user }) => {
 
   const options = FindOption(slug)
 
   // Verificar si la seleccion no es nula
   if (options) {
-    const newVisibleColumns = options?.visibleColumns?.reduce((acc, item) => {
+    const newVisibleColumns = user?.visibleColumns?.reduce((acc, item) => {//options?.visibleColumns?.reduce((acc, item) => {
       item?.show && acc.push(item.accessor)
       return acc
     }, [])

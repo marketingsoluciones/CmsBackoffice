@@ -8,6 +8,18 @@ import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon
 //  1- Crea el componente que define la estructura 
 //  2- Sigue los pasos en el componente ./components/Datatable/Columns.js
 
+export const visibleColumns = [
+  { accessor: "_id", show: false },
+  { accessor: "businessName", show: true },
+  { accessor: "createdAt", show: true },
+  { accessor: "imgMiniatura", show: false },
+  { accessor: "slug", show: false },
+  { accessor: "status", show: false },
+  { accessor: "title", show: true },
+  { accessor: "updatedAt", show: false },
+  { accessor: "userUid", show: false },
+]
+
 export const BodyStaticAPP = [
   {
     title: "",
@@ -25,7 +37,6 @@ export const BodyStaticAPP = [
     title: "Empresas",
     roles: ["empresa"],
     children: [
-
       {
         icon: <MarcasEmIcon className="h-6 w-6" />,
         title: "Marcas",
@@ -36,15 +47,6 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.business.createBusiness,
         updateEntry: FetchGraphQL.business.updateBusiness,
         deleteEntry: FetchGraphQL.business.deleteBusiness,
-        visibleColumns: [
-          { accessor: "imgMiniatura", show: true },
-          { accessor: "businessName", show: true },
-          { accessor: "createdAt", show: true },
-          { accessor: "status", show: false },
-          { accessor: "updatedAt", show: false },
-          { accessor: "userUid", show: false },
-          { accessor: "_id", show: false },
-        ],
         schema: [
           {
             Header: "Nombre de empresa",
@@ -223,14 +225,6 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.catBusiness.createCategoryBusiness,
         deleteEntry: FetchGraphQL.catBusiness.deleteCategoryBusiness,
         updateEntry: FetchGraphQL.catBusiness.updateCategoryBusiness,
-        visibleColumns: [
-          { accessor: "_id", show: true },
-          { accessor: "title", show: true },
-          { accessor: "slug", show: true },
-          { accessor: "createdAt", show: true },
-          { accessor: "updatedAt", show: false },
-          { accessor: "imgMiniatura", show: true },
-        ],
         schema: [
           {
             Header: "ID",
@@ -300,14 +294,6 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.subCatBusiness.createSubCategoryBusiness,
         deleteEntry: FetchGraphQL.subCatBusiness.deleteSubCategoryBusiness,
         updateEntry: FetchGraphQL.subCatBusiness.updateSubCategoryBusiness,
-        visibleColumns: [
-          { accessor: "_id", show: true },
-          { accessor: "title", show: true },
-          { accessor: "slug", show: true },
-          { accessor: "createdAt", show: true },
-          { accessor: "updatedAt", show: false },
-          { accessor: "imgMiniatura", show: true },
-        ],
         schema: [
           {
             Header: "ID",
@@ -397,12 +383,6 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.characteristics.createCharacteristics,
         deleteEntry: FetchGraphQL.characteristics.deleteCharacteristics,
         updateEntry: FetchGraphQL.characteristics.updateCharacteristics,
-        visibleColumns: [
-          { accessor: "_id", show: true },
-          { accessor: "title", show: true },
-          { accessor: "createdAt", show: true },
-          { accessor: "updatedAt", show: false },
-        ],
         schema: [
           {
             Header: "ID",
@@ -448,13 +428,6 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.questions.createQuestions,
         deleteEntry: FetchGraphQL.questions.deleteQuestions,
         updateEntry: FetchGraphQL.questions.updateQuestions,
-        visibleColumns: [
-          { accessor: "_id", show: true },
-          { accessor: "title", show: true },
-          { accessor: "slug", show: true },
-          { accessor: "createdAt", show: true },
-          { accessor: "updatedAt", show: false },
-        ],
         schema: [
           {
             Header: "ID",
@@ -494,13 +467,6 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.questions.createQuestions,
         deleteEntry: FetchGraphQL.questions.deleteQuestions,
         updateEntry: FetchGraphQL.questions.updateQuestions,
-        visibleColumns: [
-          { accessor: "_id", show: true },
-          { accessor: "title", show: true },
-          { accessor: "slug", show: true },
-          { accessor: "createdAt", show: true },
-          { accessor: "updatedAt", show: false },
-        ],
         schema: [
           {
             Header: "ID",
@@ -553,15 +519,6 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.posts.createPost,
         deleteEntry: FetchGraphQL.posts.deletePost,
         updateEntry: FetchGraphQL.posts.updatePost,
-        visibleColumns: [
-          { accessor: "_id", show: false },
-          { accessor: "title", show: true },
-          { accessor: "slug", show: false },
-          { accessor: "status", show: true },
-          { accessor: "imgMiniatura", show: false },
-          { accessor: "createdAt", show: true },
-          { accessor: "updatedAt", show: false },
-        ],
         schema: [
           {
             Header: "seudonimo",
@@ -654,7 +611,7 @@ export const BodyStaticAPP = [
             Header: "SEO",
             type: "desarrollo"
           },
-         
+
 
         ],
       },
@@ -668,14 +625,6 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.categoryPost.createCategoryPost,
         updateEntry: FetchGraphQL.categoryPost.updateCategoryPost,
         deleteEntry: FetchGraphQL.categoryPost.deleteCategoryPost,
-        visibleColumns: [
-          { accessor: "_id", show: true },
-          { accessor: "title", show: true },
-          { accessor: "slug", show: true },
-          { accessor: "createdAt", show: true },
-          { accessor: "updatedAt", show: false },
-          { accessor: "imgMiniatura", show: false },
-        ],
         schema: [
           {
             Header: "Identificador",
@@ -744,14 +693,6 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.subCategoryPost.createSubCategoryPost,
         updateEntry: FetchGraphQL.subCategoryPost.updateSubCategoryPost,
         deleteEntry: FetchGraphQL.subCategoryPost.deleteSubCategoryPost,
-        visibleColumns: [
-          { accessor: "_id", show: true },
-          { accessor: "title", show: true },
-          { accessor: "slug", show: true },
-          { accessor: "createdAt", show: true },
-          { accessor: "updatedAt", show: false },
-          { accessor: "imgMiniatura", show: false },
-        ],
         schema: [
           {
             Header: "Identificador",
@@ -820,11 +761,6 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.sections.createPage,
         deleteEntry: FetchGraphQL.sections.deletePage,
         updateEntry: FetchGraphQL.sections.updatePage,
-        visibleColumns: [
-          { accessor: "title", show: true },
-          { accessor: "slug", show: true },
-          { accessor: "status", show: true },
-        ],
         schema: [
           {
             Header: "ID",

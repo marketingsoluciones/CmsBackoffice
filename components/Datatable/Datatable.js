@@ -40,13 +40,13 @@ import { ActionsCell } from "./ActionsCell";
 import { useRouter } from "next/router";
 import { ModalAlert, ModalMasivoAlert } from "../modals/Alert";
 import { set } from "react-hook-form";
+import { fetchApi, queries } from "../../utils/Fetching";
+import { AuthContextProvider } from "../../context/AuthContext";
 
 
 
 export const Datatable = ({ isLoading, initialState, columns, data = [], total, handleRemoveItem, setAction, setSeteador, skip, setSkip, limit, setLimit, setSortCriteria, setSort, ...props }) => {
-
-
-
+  const { user, config } = AuthContextProvider()
   const [modal, setModal] = useState(false)
   const [modalMasivo, setModalMasivo] = useState(false)
   const [saveId, setSaveId] = useState("")
@@ -134,6 +134,19 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
       ]);
     }
   );
+
+  const handleChecked = (column) => {
+    fetchApi({
+      query: queries.updateVisibleColumns,
+      variables: {
+        uid: user?.uid, args: {
+          accessor: column?.id,
+          show: !column.isVisible
+        }
+      },
+      development: config?.name
+    })
+  }
 
   useEffect(() => {
     setSeteador(() => setGlobalFilter)
@@ -250,25 +263,31 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                                   <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} />
                                   Seleccionar todos
                                 </FormLabel> */}
-                                  {allColumns?.slice(1).map((column, idx) => (
-                                    <FormLabel
-                                      key={idx}
-                                      display={"flex"}
+                                  {allColumns?.slice(1).map((column, idx) => {
+                                    return (
+                                      <FormLabel
+                                        key={idx}
+                                        display={"flex"}
 
-                                      alignItems={"center"}
-                                      gap={"0.5rem"}
-                                      fontSize={"sm"}
-                                    >
-                                      <Checkbox
-                                        type={"checkbox"}
-                                        isChecked={column.getToggleHiddenProps().checked}
-                                        {...column.getToggleHiddenProps()}
-                                      />
-                                      {typeof column.Header === "string"
-                                        ? column.Header
-                                        : column.id}
-                                    </FormLabel>
-                                  ))}
+                                        alignItems={"center"}
+                                        gap={"0.5rem"}
+                                        fontSize={"sm"}
+                                      >
+                                        <Checkbox
+                                          type={"checkbox"}
+                                          isChecked={column.getToggleHiddenProps().checked}
+                                          onChange={(e) => {
+                                            column.toggleHidden(!e.target.checked);
+                                            handleChecked(column)
+                                          }}
+
+                                        />
+                                        {typeof column.Header === "string"
+                                          ? column.Header
+                                          : column.id}
+                                      </FormLabel>
+                                    )
+                                  })}
                                 </Flex>
                               </MenuList>
                             </Menu>
