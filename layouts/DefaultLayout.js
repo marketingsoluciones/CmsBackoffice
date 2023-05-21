@@ -9,11 +9,12 @@ const Navigation = dynamic(() => import('../components/Navigation').then(mod => 
 
 
 export const DefaultLayout = ({ children }) => {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const [valir, setValir] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       setValir(true)
+      setShow(screen?.width < 640 ? false : true)
     }, 500);
   }, [])
 
@@ -24,9 +25,9 @@ export const DefaultLayout = ({ children }) => {
         {(() => {
           if (screen.width < 640) {
             return (<>
-                <div className="absolute z-[100]">
-                  <Sidebar state={show} setState={setShow} />
-                </div>
+              <div className="absolute z-[100]">
+                <Sidebar state={show} setState={setShow} />
+              </div>
             </>)
           } else {
             return (<>
