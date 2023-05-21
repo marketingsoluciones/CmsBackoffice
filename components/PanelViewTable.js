@@ -38,7 +38,7 @@ export const PanelViewTable = ({ slug, dispatch }) => {
 
   const [dataRemove, isLoadingRemove, isErrorRemove, setQueryRemove] = useFetch(true);
   const { development, user, domain } = AuthContextProvider()
-  const [selected, setSelected] = useState(columnsDataTable({ slug , user}));
+  const [selected, setSelected] = useState(columnsDataTable({ slug, user }));
   const [global, setGlobal] = useState()
   const [seteador, setSeteador] = useState(() => () => { })
   const router = useRouter()

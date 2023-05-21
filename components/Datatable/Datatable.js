@@ -46,7 +46,7 @@ import { AuthContextProvider } from "../../context/AuthContext";
 
 
 export const Datatable = ({ isLoading, initialState, columns, data = [], total, handleRemoveItem, setAction, setSeteador, skip, setSkip, limit, setLimit, setSortCriteria, setSort, ...props }) => {
-  const { user, config } = AuthContextProvider()
+  const { user, setUser, config } = AuthContextProvider()
   const [modal, setModal] = useState(false)
   const [modalMasivo, setModalMasivo] = useState(false)
   const [saveId, setSaveId] = useState("")
@@ -136,6 +136,7 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
   );
 
   const handleChecked = (column) => {
+
     fetchApi({
       query: queries.updateVisibleColumns,
       variables: {
@@ -145,6 +146,16 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
         }
       },
       development: config?.name
+    }).then((resp) => {
+      setUser((old) => {
+
+        const idx = old.visibleColumns.findIndex((elem) => elem.accessor === column.id);
+        old.visibleColumns[idx] = {
+          accessor: column?.id,
+          show: !!column.isVisible
+        }
+        return { ...old }
+      })
     })
   }
 

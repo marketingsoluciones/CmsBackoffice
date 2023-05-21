@@ -49,6 +49,10 @@ export const BodyStaticAPP = [
         deleteEntry: FetchGraphQL.business.deleteBusiness,
         schema: [
           {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
             Header: "Nombre de empresa",
             accessor: "businessName",
             type: "stringL",
@@ -100,10 +104,6 @@ export const BodyStaticAPP = [
             accessor: "content",
             type: "ckeditor",
             required: true,
-          },
-          {
-            Header: "ID",
-            accessor: "_id",
           },
           {
             Header: "Usuario UID",
