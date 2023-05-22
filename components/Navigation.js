@@ -1,5 +1,5 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Avatar, Box, Flex, MenuButton, MenuItem, Menu, MenuList, Text, IconButton, Input } from "@chakra-ui/react";
+import { Avatar, Box, Flex, MenuButton, MenuItem, Menu, MenuList, Text, IconButton, Input, Center } from "@chakra-ui/react";
 import Link from 'next/link';
 import { useAuthentication } from "../utils/Authentication";
 import { BombillaIcon, AddUserIcon, AyudaIcon, ArrowDownIcon, SearchIcon, CloseIcon } from "../components/Icons/index";
@@ -8,12 +8,16 @@ import { InstantSearch, connectSearchBox, Hits, SearchBox } from "react-instants
 import { createURL } from "../utils/UrlImage"
 import { AuthContextProvider } from "../context/AuthContext";
 import ClickAwayListener from "react-click-away-listener";
+import { useEffect, useRef, useState } from "react";
+import { set } from "react-hook-form";
 
 
 
 export const Navigation = ({ set, state, }) => {
   const { _signOut } = useAuthentication()
   const { user } = AuthContextProvider()
+  const [show, setShow] = useState(false)
+
 
   const Options = [
 
@@ -29,30 +33,25 @@ export const Navigation = ({ set, state, }) => {
 
   return (
     <Flex bg={"white"} shadow={"sm"} w={"100%"} padding={"0.5rem"}>
-      {/* <Flex alignItems={"center"} justifyContent={"space-between"} w={"100%"} px={"1.5rem"} > */}
-      < div className="flex justify-between w-full">
-
+      <Flex alignItems={"center"} justifyContent={"space-between"} w={"100%"} gap={{ base: "1", md: "4" }} >
         <IconButton onClick={() => set(!state)}>
           <HamburgerIcon w={"1.5rem"} h={"1.5rem"} color={"gray.500"} />
         </IconButton>
-
-        <div className="w-44 md:w-1/2">
-          <SearchNavigation />
-        </div>
-
-        <div className="flex justify-center items-center gap-2 ">
-          {/*  <div className="">
-            <AyudaIcon className="" />
-          </div>
-          <div className="">
-            <AddUserIcon />
-          </div>
-          <div className="">
-            <BombillaIcon />
-          </div> */}
-
-          <Menu>
-            <Text className="w-20 md:w-60 text-right truncate" textTransform={"capitalize"}>{user?.displayName}</Text>
+        <Center w={`${show ? "100%" : "60%"}`}>
+          <SearchNavigation show={show} setShow={setShow} />
+        </Center>
+        <Center gap={"2"}>
+          <Menu >
+            {screen.width > 764 ?
+              <Text w={{ base: "5rem", sm: "10rem", md: "12rem" }} className="text-right truncate" textTransform={"capitalize"}>
+                {user?.displayName}
+              </Text>
+              : !show ?
+                <Text w={{ base: "5rem", sm: "10rem", md: "12rem" }} className="text-right truncate" textTransform={"capitalize"}>
+                  {user?.displayName}
+                </Text>
+                : <></>
+            }
             <MenuButton mr={"0.5rem"}>
               <Flex alignItems={"center"} gap={"0.5rem"}>
                 <Avatar size={"sm"} />
@@ -70,18 +69,28 @@ export const Navigation = ({ set, state, }) => {
               ))}
             </MenuList>
           </Menu>
-        </div>
-      </div>
-      {/*  </Flex> */}
+        </Center>
+        {/*  <div className="">
+            <AyudaIcon className="" />
+          </div>
+          <div className="">
+            <AddUserIcon />
+          </div>
+          <div className="">
+            <BombillaIcon />
+          </div> */}
+      </Flex>
     </Flex>
   );
 };
 
-const MySearchBox = ({ currentRefinement, refine, }) => {
+const MySearchBox = ({ currentRefinement, refine, show, setShow }) => {
+
+
   return (
     <>
       <ClickAwayListener onClickAway={() => refine("")}>
-        <div className={` transition-all  flex jistify-center items-center  w-full border-gray-200 border-2 rounded-md py-1 text-gray-600`}>
+        <div className={`bg-white transition-all  flex jistify-center items-center  w-full border-gray-200 border-2 rounded-md py-1 text-gray-600`}>
           <div className="ml-2">
             <SearchIcon />
           </div>
@@ -90,18 +99,24 @@ const MySearchBox = ({ currentRefinement, refine, }) => {
             className="w-full h-full focus:outline-none text-sm pl-2"
             placeholder="Buscar "
             type="input"
-
             value={currentRefinement}
-            onChange={(e) => refine(e.currentTarget.value)}
+            onChange={(e) => {
+              if (!show && e.target.value.length > 0) setShow(true)
+              if (e.target.value.length == 0) setShow(false)
+              refine(e.currentTarget.value)
+            }}
           />
-          <button className={`justify-end pr-2 `} onClick={() => refine("")}><CloseIcon /></button>
+          {show && <button className={`justify-end pr-2 `} onClick={() => {
+            setShow(false)
+            refine("")
+          }}><CloseIcon /></button>}
         </div>
       </ClickAwayListener>
     </>
   );
 };
 
-export const SearchNavigation = ({ }) => {
+export const SearchNavigation = ({ show, setShow }) => {
   const conditionalQuery = {
     search(requests) {
       if (
@@ -135,6 +150,8 @@ export const SearchNavigation = ({ }) => {
       >
         <ConnectedSearchBox
           searchAsYouType={false}
+          show={show}
+          setShow={setShow}
         />
         <div className={`absolute z-50 top-80px inset-x-0 left-0 w-[150%] md:w-[90%] mx-auto  bg-white shadow max-h-60 overflow-auto  rounded-b-3xl `}>
           <Hits hitComponent={Hit} />

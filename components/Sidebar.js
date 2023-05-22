@@ -18,7 +18,7 @@ import { BodyStaticAPP } from "../utils/schemas";
 import { AuthContextProvider } from "../context/AuthContext";
 import { useRouter } from "next/router";
 import { Tooltip } from "@chakra-ui/react";
-import { ArrowDownIcon, IconFolderOpenOutline } from "./../components/Icons/index";
+import { ArrowDownIcon, ArrowLeft, IconFolderOpenOutline } from "./../components/Icons/index";
 import { hasRole } from "../utils/auth";
 
 export const Sidebar = ({ state, setState }) => {
@@ -43,10 +43,10 @@ export const Sidebar = ({ state, setState }) => {
       <Flex alignItems={"center"} gap={"0.5rem"} p={"0.5rem"}>
         <Tooltip label={`${state ? "" : development}`} ml="14" top="-10">
           <div className={`flex  ${state ? "justify-star" : " justify-end "} items-center gap-2 w-full bg-gray-100 py-2 px-2 rounded-xl`}>
+
             <div className={`${state ? "hidden" : "block"}`} >
               <Menu autoSelect={false}  >
                 <MenuButton pr={"0.3rem"}>
-                  {/* <Avatar size={"sm"} /> */}
                   {<IconFolderOpenOutline className="w-8 h-8 text-gray-600" />}
                 </MenuButton>
                 <MenuList p={"0"} fontSize={"sm"} ml={"8"}>
@@ -60,14 +60,12 @@ export const Sidebar = ({ state, setState }) => {
             </div>
 
             <div className={`flex items-center justify-star w-full ${state ? "block" : "hidden"}`}>
-              {/* <Avatar size={"sm"} mr={"0.4rem"} /> */}
-              {<IconFolderOpenOutline className="w-8 h-8 mr-2 text-gray-600" />}
+              {screen.width < 640 ?
+                <ArrowLeft className="w-8 h-8 mr-2 text-gray-600" onClick={() => setState(!state)} />
+                : <IconFolderOpenOutline className="w-8 h-8 mr-2 text-gray-600" />}
               <div className={`w-full`}>
                 <div className={`flex gap-4 `}>
                   <Text pl={"0.1rem"} className={`text-gray-500 font-semibold`}>{"Portal:"}</Text>
-
-
-
                 </div>
                 <div className="flex">
                   <Menu autoSelect={false} foc >
@@ -79,14 +77,13 @@ export const Sidebar = ({ state, setState }) => {
                     </MenuButton>
                     <MenuList p={"0"} fontSize={"sm"} justifyItems={"start"}>
                       {user?.authDevelopments?.map((item, idx) => (
-
                         <MenuItem key={idx} style={item.title === development ? { backgroundColor: '#F3F4F6' } : { backgroundColor: '' }} color={"gray.500"} onClick={() => setDevelopment(item.title)}>{`${item.title}.com`}</MenuItem>
-
                       ))}
                     </MenuList>
                   </Menu>
                 </div>
               </div>
+
             </div>
           </div>
         </Tooltip>
