@@ -37,7 +37,7 @@ export const Navigation = ({ set, state, }) => {
         <IconButton onClick={() => set(!state)}>
           <HamburgerIcon w={"1.5rem"} h={"1.5rem"} color={"gray.500"} />
         </IconButton>
-        <Center w={`${show ? "100%" : "60%"}`}>
+        <Center w={{ base: `${show ? "100%" : "60%"}`, md: "60%" }}>
           <SearchNavigation show={show} setShow={setShow} />
         </Center>
         <Center gap={"2"}>
