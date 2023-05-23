@@ -7,10 +7,11 @@ const CKEditor = dynamic(
 import Editor from '@ckeditor/ckeditor5-build-classic'
 
 
-import { Divider, Flex, FormLabel, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 import { useField } from "formik";
 import { UploadAdapter } from "../../../utils/UploadAdapter";
 import { useCallback, useState } from "react";
+import { FormLabelMod } from "./FormLabelMod";
 
 export const CKEditorComponent = ({ label, ...props }) => {
   const [valir, setValir] = useState(false)
@@ -72,33 +73,36 @@ export const CKEditorComponent = ({ label, ...props }) => {
       {typeof window !== "undefined" && (
         <>
           <Divider />
-          <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>
+          <FormLabelMod >
+            {label}
             <Flex gap={"0.3rem"} alignItems={"center"}>
-              {label}
               {meta.touched && meta.error && (
                 <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
                   {meta.error}
                 </Text>
               )}
             </Flex>
-          </FormLabel>
-          {valir && <CKEditor
-
-            editor={Editor}
-            config={editorConfiguration}
-            onChange={(event, editor) => helpers.setValue(editor.getData())}
-            data={field.value}
-          // para fijar alto fijo del ckeditor
-          // onReady={(editor) => {
-          //   editor.editing.view.change((writer) => {
-          //     writer.setStyle(
-          //       "height",
-          //       "600px",
-          //       editor.editing.view.document.getRoot()
-          //     );
-          //   });
-          // }}
-          />}
+            {valir &&
+              <Box my={{ base: "0rem", md: "0.3rem" }} >
+                <CKEditor
+                  editor={Editor}
+                  config={editorConfiguration}
+                  onChange={(event, editor) => helpers.setValue(editor.getData())}
+                  data={field.value}
+                // para fijar alto fijo del ckeditor
+                // onReady={(editor) => {
+                //   editor.editing.view.change((writer) => {
+                //     writer.setStyle(
+                //       "height",
+                //       "600px",
+                //       editor.editing.view.document.getRoot()
+                //     );
+                //   });
+                // }}
+                />
+              </Box>
+            }
+          </FormLabelMod>
         </>
       )}
     </>

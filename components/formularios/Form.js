@@ -145,7 +145,7 @@ export const FormDinamical = forwardRef(
                   <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(5, 1fr)"]} gap={"1rem"} >
 
                     {/* columna izquierda */}
-                    <GridItem bg={colorBaground} p={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={4} >
+                    <GridItem bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={4} >
                       {schema &&
                         schema?.map((item, idx) => {
                           const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))

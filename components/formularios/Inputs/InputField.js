@@ -1,6 +1,7 @@
-import { Box, Text, FormLabel, Input, Divider, Flex } from "@chakra-ui/react";
+import { Box, Text, Input, Divider, Flex } from "@chakra-ui/react";
 import { useField } from "formik";
 import { memo } from "react";
+import { FormLabelMod } from "./FormLabelMod";
 
 export const InputField = memo(({ label, ...props }) => {
   const [field, meta, helpers] = useField(props);
@@ -8,22 +9,17 @@ export const InputField = memo(({ label, ...props }) => {
   return (
     <Box>
       <Divider />
-      <FormLabel
-        paddingTop={"1rem"}
-        fontWeight={"900"}
-        textAlign={"left"}
-        fontSize={"sm"}
-      >
-        <Flex gap={"0.3rem"} alignItems={"center"}>
+      <FormLabelMod>
+        <Box gap={"0.3rem"} alignItems={"center"}>
           {label}{" "}
           {meta.touched && meta.error && (
             <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
               {meta.error}
             </Text>
           )}
-        </Flex>
-        <Input my={"0.5rem"} variant={"filled"} fontSize={"sm"} {...field} {...props} />
-      </FormLabel>
+        </Box>
+        <Input my={{ base: "0rem", md: "0.3rem" }} variant={"filled"} fontSize={"sm"} {...field} {...props} />
+      </FormLabelMod>
     </Box>
   );
 });

@@ -1,4 +1,4 @@
-import { Box, Flex, Input, List, ListItem, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Input, List, ListItem, Text } from "@chakra-ui/react";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useField } from "formik";
 import { useCallback, useState, useRef, FC, useEffect } from "react";
@@ -6,6 +6,7 @@ import usePlacesAutoComplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
+import { FormLabelMod } from "./FormLabelMod";
 
 const mapContainerStyle = {
   width: "100%",
@@ -61,36 +62,39 @@ const GoogleMapsField = ({ label, ...props }) => {
   return (
     <>
       {isLoaded && (
-        <div className="w-full">
-          <Flex gap={"0.3rem"} alignItems={"center"} fontWeight={"900"}
-            fontSize={"sm"}>
-            {label}
-            {meta.touched && meta.error && (
-              <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
-                {meta.error}
-              </Text>
-            )}
-          </Flex>
+        <Box>
+          <Divider />
+          <FormLabelMod>
+            <Flex gap={"0.3rem"} alignItems={"center"}>
+              {label}
+              {meta.touched && meta.error && (
+                <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
+                  {meta.error}
+                </Text>
+              )}
+            </Flex>
 
-          <div >
-            <Search panTo={panTo} center={center} />
-            <Box paddingTop={"0.5rem"} >
-              <Text fontSize={"sm"} fontWeight={"bold"} color={"gray.500"} paddingBottom={"0.25rem"} textAlign={"center"} >
-                Selecciona la ubicación con el click derecho
-              </Text>
-              <GoogleMap
-                mapContainerStyle={mapContainerStyle}
-                zoom={13}
-                center={center}
-                options={options}
-                onRightClick={onMapClick}
-                onLoad={onMapLoad}
-              >
-                {field?.value?.coordinates?.length > 0 && <Marker position={center} />}
-              </GoogleMap>
-            </Box>
-          </div>
-        </div>
+            <Box my={{ base: "0rem", md: "0.3rem" }} >
+              <Search panTo={panTo} center={center} />
+              <Box paddingTop={"0.5rem"} >
+                <Text fontSize={"sm"} fontWeight={"bold"} color={"gray.500"} paddingBottom={"0.25rem"} textAlign={"center"} >
+                  Selecciona la ubicación con el click derecho
+                </Text>
+                <GoogleMap
+                  mapContainerStyle={mapContainerStyle}
+                  zoom={13}
+                  center={center}
+                  options={options}
+                  onRightClick={onMapClick}
+                  onLoad={onMapLoad}
+                >
+                  {field?.value?.coordinates?.length > 0 && <Marker position={center} />}
+                </GoogleMap>
+              </Box>
+            </Box >
+          </FormLabelMod >
+        </Box >
+
       )}
     </>
   );
