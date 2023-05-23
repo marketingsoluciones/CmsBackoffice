@@ -82,27 +82,25 @@ export const CKEditorComponent = ({ label, ...props }) => {
                 </Text>
               )}
             </Flex>
-            {valir &&
-              <Box my={{ base: "0rem", md: "0.3rem" }} >
-                <CKEditor
-                  editor={Editor}
-                  config={editorConfiguration}
-                  onChange={(event, editor) => helpers.setValue(editor.getData())}
-                  data={field.value}
-                // para fijar alto fijo del ckeditor
-                // onReady={(editor) => {
-                //   editor.editing.view.change((writer) => {
-                //     writer.setStyle(
-                //       "height",
-                //       "600px",
-                //       editor.editing.view.document.getRoot()
-                //     );
-                //   });
-                // }}
-                />
-              </Box>
-            }
           </FormLabelMod>
+          {valir &&
+            <CKEditor
+              editor={Editor}
+              config={editorConfiguration}
+              onChange={(event, editor) => helpers.setValue(editor.getData())}
+              data={field.value}
+            // para fijar alto fijo del ckeditor
+            // onReady={(editor) => {
+            //   editor.editing.view.change((writer) => {
+            //     writer.setStyle(
+            //       "height",
+            //       "600px",
+            //       editor.editing.view.document.getRoot()
+            //     );
+            //   });
+            // }}
+            />
+          }
         </>
       )}
     </>
