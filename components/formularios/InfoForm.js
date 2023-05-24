@@ -3,6 +3,7 @@ import { useFetch } from "../../hooks/useFetch";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { DeleteModall } from "../modals/Alert";
 import { useState } from "react";
+import { FormLabelMod } from "./Inputs/FormLabelMod";
 
 export const InfoForm = ({ Information, values, options, estado, setAction, deleteModal, setDeleteModal }) => {
   const [modal, setModal] = useState(false)
@@ -23,18 +24,11 @@ export const InfoForm = ({ Information, values, options, estado, setAction, dele
     <>
       <Box >
         <Divider />
-        <FormLabel
-          paddingTop={"1rem"}
-          fontWeight={"900"}
-          textAlign={"left"}
-          fontSize={"sm"}
-        >
+        <FormLabelMod>
           {modal ? (
             <DeleteModall setModal={setModal} modal={modal} handleRemove={handleRemove} setAction={setAction} />
           ) : null}
-          <Heading pb={"1rem"} fontSize={"sm"} color={"gray.500"}>
-            Información
-          </Heading>
+          Información
           <Divider />
           {Information?.map((item, idx) => (
             <div
@@ -45,8 +39,8 @@ export const InfoForm = ({ Information, values, options, estado, setAction, dele
               // alignItems={"center"}
               // justifyContent={"space-between"}
               // fontSize={"sm"}
-              className={`${item.value != null ? "block pt-[1rem] text-sm" : "hidden"}`}>
-              <Text color={"gray.400"}>{item?.title}</Text>
+              className={`${item.value != null ? "block pt-[0.4rem] text-xs" : "hidden"}`}>
+              <Text >{item?.title}</Text>
               <Badge
                 w={"100%"}
                 textAlign={"center"}
@@ -57,7 +51,7 @@ export const InfoForm = ({ Information, values, options, estado, setAction, dele
               </Badge>
             </div>
           ))}
-        </FormLabel>
+        </FormLabelMod>
       </Box>
       {estado.type === "edit" && (
         <ButtonDeleteEntry

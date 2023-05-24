@@ -83,7 +83,7 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
           return (
             <Box>
               <Divider />
-              <FormLabel py={"1.5rem"} fontWeight={"900"} textAlign={"left"}>
+              <FormLabel py={{ base: "0.2rem", md: "1rem" }} fontWeight={"900"} textAlign={"left"}>
                 <Flex gap={"0.3rem"} alignItems={"center"}>
                   {label}
                   {meta.touched && meta.error && (
@@ -94,7 +94,7 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
                 </Flex>
               </FormLabel>
 
-              <Grid templateColumns={"repeat(3, 1fr)"} gap={"1rem"}>
+              <Grid templateColumns={"repeat(3, 1fr)"} gap={{ base: "0.2rem", md: "1rem" }} alignItems={"start"}>
                 {!isError &&
                   !isLoading &&
                   catBusiness?.results
@@ -117,8 +117,12 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
                               : remove(idx);
 
                           }}
+                          mt={"0.5rem"}
+                          alignItems={"start"}
                         >
-                          {item?.title}
+                          <label className="flex mt-[-1px] leading-[95%]">
+                            {item?.title}
+                          </label>
                         </Checkbox>
                       );
                     })}
@@ -128,9 +132,9 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
         }}
       />
 
-      <Flex w={"100%"} flexDir={"column"} py={"1.5rem"}  >
+      <Flex w={"100%"} flexDir={"column"} py={{ base: "0.2rem", md: "1rem" }}  >
         <Divider />
-        <FormLabel py={"1.5rem"} fontWeight={"900"} textAlign={"left"}>
+        <FormLabel py={{ base: "0.2rem", md: "1rem" }} fontWeight={"900"} textAlign={"left"}>
           Preguntas frecuentes
         </FormLabel>
         {!isLoadingResults && !isErrorResults ? (
@@ -140,9 +144,9 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
         )}
       </Flex>
 
-      <Flex w={"100%"} flexDir={"column"} py={"1.5rem"} >
+      <Flex w={"100%"} flexDir={"column"} py={{ base: "0.2rem", md: "1rem" }} >
         <Divider />
-        <FormLabel py={"1.5rem"} fontWeight={"900"} textAlign={"left"}>
+        <FormLabel py={{ base: "0.2rem", md: "1rem" }} fontWeight={"900"} textAlign={"left"}>
           Caracteristicas
         </FormLabel>
         {!isLoadingResults && !isErrorResults ? (
@@ -244,7 +248,7 @@ const CharactesticsComponent = ({ data = [] }) => {
   }, [values.characteristics2]);
 
   return (
-    <Grid templateColumns={"repeat(3, 1fr)"} gap={"2rem"}>
+    <Grid templateColumns={"repeat(3, 1fr)"} gap={{ base: "0.2rem", md: "1rem" }}>
       {data?.length > 0 ? (
         <>
           {data
@@ -298,10 +302,10 @@ const FieldArrayWithProps = ({
 
   return (
     <div className="w-full">
-      <h3 className="text-primary font-medium capitalize">{label}</h3>
+      <h3 className="text-primary font-medium capitalize bg-red-500">{label}</h3>
       <FieldArray name={name}>
         {({ remove, push }) => (
-          <SimpleGrid columns={"3"} paddingBlock={"1rem"} gap={"1rem"} >
+          <SimpleGrid columns={"3"} paddingBlock={{ base: "0.2rem", md: "1rem" }} gap={{ base: "0.3rem", md: "1rem" }} >
             {dataArray?.map((item) => (
               <Checkbox
                 key={item._id}
@@ -316,7 +320,13 @@ const FieldArrayWithProps = ({
                       handleRemove(values, item.title)
                     )
                 }
-              >{item.title}</Checkbox>
+                mt={"0.5rem"}
+                alignItems={"start"}
+              >
+                <label className="flex mt-[-1px] leading-[95%]">
+                  {item.title}
+                </label>
+              </Checkbox>
             ))}
           </SimpleGrid>
         )}

@@ -5,6 +5,7 @@ import { ImageIcon } from "../../icons"
 import { EditIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import { GreenEditIcon } from "../../Icons/index";
+import { FormLabelMod } from "./FormLabelMod";
 
 export const UploadImage = ({ label, typeFile = "all", ...props }) => {
   const [field, meta, helpers] = useField(props);
@@ -78,15 +79,15 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
   return (
     <Box >
       <Divider />
-      <FormLabel
-        paddingTop={"1rem"}
-        fontWeight={"900"}
-        textAlign={"left"}
-        fontSize={"sm"}
-      >
-        <Flex gap={"0.3rem"} alignItems={"center"} justify={"center"}  >
-          {label} {" "} {meta.touched && meta.error && (<Text color={"red"} fontSize={"sm"} fontWeight={"500"}>{meta.error}</Text>)}
-          <GreenEditIcon />
+      <FormLabelMod>
+        <Flex gap={"0.3rem"} alignItems={"center"} justify={"space-between"}  >
+          {label} {" "}
+          <EditIcon w={"6"} h={"6"} />
+          {meta.touched && meta.error && (
+            <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
+              {meta.error}
+            </Text>
+          )}
         </Flex>
         <Flex
           alignItems={"center"}
@@ -136,40 +137,41 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
           onChange={handleChange}
           bg={"red"}
         />
-      </FormLabel>
-      {video || field?.value?.videoUrl ?
-        <Flex w={"100%"} flexDir={"column"} pt={"0.5rem"} px={"1.5rem"}>
-          <>
-            <Button
-              size={"sm"}
-              bg={"#15803d"}
-              _hover={false}
-              fontFamily={""}
-              textColor={"white"}
-              onClick={handleCapture}
-              disabled={!video}
-            >
-              Captura Imagen Miniatura
-            </Button>
-            <Flex
-              alignItems={"center"}
-              justifyContent={"center"}
-              w={"100%"}
-              border={"2px dotted"}
-              borderColor={"gray.300"}
-              h={"8rem"}
-              rounded={"xl"}
-              color={"gray.400"}
-              pos={"relative"}
-              my={"0.5rem"}
-            >
-              {video || field?.value?.videoUrl ? <canvas hidden={!valirCanvas} style={{ overflow: "auto", maxHeight: "120px" }} width={"214px"} className="border" id="canvas"></canvas> : ""}
-              {field?.value?.videoUrl && !valirCanvas && <Image width={"214"} height={"120"} layout="intrinsic" src={`${process.env.NEXT_PUBLIC_BASE_URL}${field.value.i640}`} objectFit="contain" objectPosition={"center"} />}
-            </Flex>
-          </>
-        </Flex>
-        : ""
-      }
+
+        {video || field?.value?.videoUrl ?
+          <Flex w={"100%"} flexDir={"column"} pt={"0.5rem"} px={"1.5rem"}>
+            <>
+              <Button
+                size={"sm"}
+                bg={"#15803d"}
+                _hover={false}
+                fontFamily={""}
+                textColor={"white"}
+                onClick={handleCapture}
+                disabled={!video}
+              >
+                Captura Imagen Miniatura
+              </Button>
+              <Flex
+                alignItems={"center"}
+                justifyContent={"center"}
+                w={"100%"}
+                border={"2px dotted"}
+                borderColor={"gray.300"}
+                h={"8rem"}
+                rounded={"xl"}
+                color={"gray.400"}
+                pos={"relative"}
+                my={"0.5rem"}
+              >
+                {video || field?.value?.videoUrl ? <canvas hidden={!valirCanvas} style={{ overflow: "auto", maxHeight: "120px" }} width={"214px"} className="border" id="canvas"></canvas> : ""}
+                {field?.value?.videoUrl && !valirCanvas && <Image width={"214"} height={"120"} layout="intrinsic" src={`${process.env.NEXT_PUBLIC_BASE_URL}${field.value.i640}`} objectFit="contain" objectPosition={"center"} />}
+              </Flex>
+            </>
+          </Flex>
+          : ""
+        }
+      </FormLabelMod>
     </Box>
   );
 };

@@ -37,13 +37,14 @@ export const FormDinamical = forwardRef(
   ({ schema: state, initialValues, columns, onSubmit, Information, values, options, estado, setAction }, ref) => {
     const { user, development } = AuthContextProvider()
     const [schema, setSchema] = useState(null);
-    const [modal, setModal] = useState(false)
+    const [modal, setModal] = useState({ show: false, create: false })
     const [listDown, setListDown] = useState(false)
     const [foundList, setFoundList] = useState("")
     const [alertDev, setAlertDev] = useState(false)
     const dataUser = user?.authDevelopments
     const faund = dataUser.find(entorno => entorno.title === development)
     const nickNames = faund.nickNames
+    const [nickName, setNickName] = useState()
 
 
     const reduceInitialValues = Object?.entries(initialValues ?? {}).reduce((acc, item) => {
@@ -126,8 +127,8 @@ export const FormDinamical = forwardRef(
 
     return (
       <>
-        {modal ? (
-          <EdicionDeSeudonimo modal={modal} setModal={setModal} user={user} />
+        {modal.show ? (
+          <EdicionDeSeudonimo modal={modal} setModal={setModal} user={user} nickName={nickName} setNickName={setNickName} />
         ) : null}
         {alertDev ? (
           <AlertDesarrollo alertDev={alertDev} setAlertDev={setAlertDev} />
@@ -145,7 +146,7 @@ export const FormDinamical = forwardRef(
                   <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(5, 1fr)"]} gap={"1rem"} >
 
                     {/* columna izquierda */}
-                    <GridItem bg={colorBaground} p={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={4} >
+                    <GridItem bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={4} >
                       {schema &&
                         schema?.map((item, idx) => {
                           const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
@@ -345,6 +346,8 @@ export const FormDinamical = forwardRef(
                                   nickNames={nickNames}
                                   setFoundList={setFoundList}
                                   foundList={foundList}
+                                  nickName={nickName}
+                                  setNickName={setNickName}
                                   key={idx}
                                 />
                                 //</GridItem>

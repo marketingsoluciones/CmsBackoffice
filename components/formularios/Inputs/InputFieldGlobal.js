@@ -3,11 +3,10 @@ import { useField } from "formik";
 import { memo } from "react";
 
 export const InputFieldGlobal = memo(({ className, placeholder, ...props }) => {
-
   const [field, meta, helpers] = useField(props);
 
   return (
-    <div>
+    <div className="w-[100%]">
       <input placeholder={placeholder} className={className} {...field} {...props} />
       {meta.touched && meta.error && (
         <span className="text-xs text-red-600">

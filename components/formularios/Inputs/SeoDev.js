@@ -2,7 +2,7 @@
 
 export const SeoDev = () => {
   return (
-    <div className="bg-[#ffffff] border-solid border-gris border flex flex-col gap-0 items-start justify-start shrink-0 h-[456px] relative">
+    <div className="bg-[#ffffff] border-solid border-gris border flex flex-col gap-0 items-start justify-start shrink-0 h-[456px] relative w-full truncate">
       <div className="flex flex-row gap-0 items-start justify-start shrink-0 relative">
         <div className="bg-[#ffffff] border-solid border-gris border p-[5px] flex flex-row gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
           <svg

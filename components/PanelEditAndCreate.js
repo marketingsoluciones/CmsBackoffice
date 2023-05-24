@@ -35,7 +35,8 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const fetchCreate = useCallback(
     async (values) => {
       try {
-
+        values.video = values?.imgMiniatura?.videoFile
+        values.imgMiniatura = values?.imgMiniatura?.imageFile
         const data = await fetchApi({
           query: options?.createEntry?.query,
           variables: { ...values, development: development, authorUid: user?.uid, userUid: user?.uid, authorUsername: user?.displayName },
@@ -75,7 +76,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       try {
         values.video = values?.imgMiniatura?.videoFile
         values.imgMiniatura = values?.imgMiniatura?.imageFile
-        console.log(13444, values)
         delete values.createdAt;
         delete values.updatedAt;
         const data = await fetchApi({
@@ -147,19 +147,21 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       {!loadingValues && !errorValues ? (
         <>
           {/* Header del componente */}
-          <Flex justifyContent={"space-between"} className="mb-5 px-5 mt-2">
+          <Flex w={"100%"} className="px-1 m-1">
             {/* Titulo del componente */}
-            <Box>
-              <div className="flex flex-col md:flex-row md:items-center ">
-                <div className="flex">
-                  <button onClick={() => setAction({ type: "VIEW", payload: {} })}>
-                    <ArrowLeft />
-                  </button>
-                  <div className="text-slate-600 mx-2  text-3xl"  >
-                    {valuesEdit?.businessName ||
-                      valuesEdit?.title ||
-                      "Crear Registro"}
-                  </div >
+            <Box w={"100%"}>
+              <Flex className="md:items-center" >
+                <div className="flex items-start">
+                  <Center >
+                    <ArrowLeft className="w-6 h-6 *md:w-8 *md:h-8 mr-2 text-gray-600 cursor-pointer" onClick={() => setAction({ type: "VIEW", payload: {} })} />
+                  </Center>
+                  <Flex>
+                    <Text color={"gray.600"} mx={"2"} fontSize={{ base: "md", md: "lg" }} mr={"6"} >
+                      {valuesEdit?.businessName ||
+                        valuesEdit?.title ||
+                        "Crear Registro"}
+                    </Text  >
+                  </Flex>
                 </div>
                 <div>
                   <button
@@ -181,7 +183,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                     Guardar
                   </button>
                 </div>
-              </div>
+              </Flex>
             </Box>
           </Flex>
           {/* Cuerpo del formulario */}
@@ -209,29 +211,3 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   );
 };
 
-const ButtonDeleteEntry = ({ values, options }) => {
-  const [data, isLoading, isError, setQuery] = useFetch(true);
-
-  const handleRemove = () => {
-    setQuery({
-      ...options.deleteEntry,
-      variables: { id: values?._id },
-      type: "json",
-    });
-  };
-
-  return (
-    <Button
-      bg={"white"}
-      rounded={"xl"}
-      size={"sm"}
-      w={"100%"}
-      color={"red.500"}
-      leftIcon={<DeleteIcon />}
-      isLoading={isLoading}
-      onClick={handleRemove}
-    >
-      Eliminar entrada
-    </Button>
-  );
-};

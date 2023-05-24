@@ -1,14 +1,7 @@
-import {
-  Box,
-  Button,
-  Divider,
-  FormLabel,
-  Input,
-  InputGroup,
-  InputRightElement,
-} from "@chakra-ui/react";
+import { Box, Button, Divider, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { useField } from "formik";
 import { useState } from "react";
+import { FormLabelMod } from "./FormLabelMod";
 
 export const PasswordInput = ({ label, ...props }) => {
   const [field, meta, helpers] = useField(props);
@@ -18,15 +11,19 @@ export const PasswordInput = ({ label, ...props }) => {
   return (
     <Box >
       <Divider />
-      <FormLabel paddingTop={"1rem"} fontWeight={"900"} textAlign={"left"} fontSize={"sm"}>{label}</FormLabel>
-      <InputGroup>
-        <Input fontSize={"sm"} {...field} {...props} type={show ? 'text' : 'password'} />
-        <InputRightElement width="4.5rem" pr={"0.5rem"}>
-          <Button bg={"gray.300"} h="1.75rem" size="sm" fontSize={"sm"} onClick={handleClick}>
-            {show ? "Ocultar" : "Mostrar"}
-          </Button>
-        </InputRightElement>
-      </InputGroup>
+      <FormLabelMod>
+        {label}
+        <Box my={{ base: "0rem", md: "0.3rem" }} >
+        <InputGroup>
+          <Input fontSize={"sm"} {...field} {...props} type={show ? 'text' : 'password'} />
+          <InputRightElement width="4.5rem" pr={"0.5rem"}>
+            <Button bg={"gray.300"} h="1.75rem" size="sm" fontSize={"sm"} onClick={handleClick}>
+              {show ? "Ocultar" : "Mostrar"}
+            </Button>
+          </InputRightElement>
+        </InputGroup>
+        </Box>
+      </FormLabelMod>
     </Box>
   );
 };
