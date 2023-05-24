@@ -5,9 +5,21 @@ import { Login } from "../components/login";
 import { useEffect } from "react";
 import { fetchApi, queries } from "../utils/Fetching";
 import { visibleColumns } from "../utils/schemas";
+import { useRouter } from "next/router";
 
 function HomePage() {
   const { user, verificandoCookie, config } = AuthContextProvider();
+  const r = useRouter()
+
+  useEffect(() => {
+    /////// REDIRECIONES ///////
+    if (r?.query?.d === "busines") {
+      r.push("/business?d=create")
+    } else if (r?.query?.d === "vewBusines") {
+      r.push("/business")
+    }
+  }, [r]);
+
   useEffect(() => {
     if (user?.visibleColumns?.length == 0) {
       fetchApi({

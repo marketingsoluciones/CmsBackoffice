@@ -6,14 +6,23 @@ import { PagesWithAuth } from "../HOC/PageWithAuth";
 import { PanelViewTable } from "../components/PanelViewTable";
 import { FormDinamicalNEW } from "../components/Resumen"
 import { AuthContextProvider } from '../context/AuthContext'
+import { useRouter } from "next/router";
 
 
 const Slug = ({ slug, props }) => {
   const { state, dispatch } = AuthContextProvider()
+  const r = useRouter()
 
   useEffect(() => {
-    dispatch({ type: "VIEW", payload: {} });
-  }, [slug]);
+
+    if(r?.query?.d === "create"){
+      dispatch({ type: "CREATE", payload: {} });
+    }else{
+      dispatch({ type: "VIEW", payload: {} });
+    }
+  }, [slug,r]);
+
+  
 
   return (
     <Flex as={"section"} flexDir={"column"} gap={"1rem"} h={"100%"}>

@@ -1,6 +1,6 @@
 import { Box, Button, Divider, Flex, FormLabel, Text } from "@chakra-ui/react";
 import { SwitchField } from "./Inputs/SwitchField";
-import { IconCalendary, IconEdit, IconStatus, IconVisibility, IconVisits } from "../Icons";
+import { IconCalendary, IconEdit, IconStatus, IconVisibility, IconVisits } from "../Icons/";
 
 export const OptionsForm = ({ alertDev, setAlertDev, schema, user }) => {
     return (
