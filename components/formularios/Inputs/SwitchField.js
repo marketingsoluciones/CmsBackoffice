@@ -8,7 +8,7 @@ export const SwitchField = memo(({ label, ...props }) => {
 
 
   return (
-    <Box bg={"violet"}>
+    <Box >
       {/* <Divider /> */}
       <FormLabelMod>
         {label}{" "}

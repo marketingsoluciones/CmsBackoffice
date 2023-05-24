@@ -4,19 +4,25 @@ import { Formik, Form } from "formik";
 import { InputFieldGlobal } from "../formularios/Inputs/InputFieldGlobal"
 import { fetchApi, queries } from "../../utils/Fetching";
 import { AuthContextProvider } from "../../context/AuthContext";
-import {useToast} from "@chakra-ui/react";
+import { Box, Center, Checkbox, Divider, Flex, Text, useToast } from "@chakra-ui/react";
 import * as Yup from "yup";
+import { SocialMedia } from "../Seudonimo/SocialMedia";
+import { FormLabelMod } from "../formularios/Inputs/FormLabelMod";
 
-export const EdicionDeSeudonimo = ({ modal, setModal, user }) => {
+export const EdicionDeSeudonimo = ({ modal, setModal, user, nickName, setNickName }) => {
 
   const { domain, development, setUser } = AuthContextProvider()
   const toast = useToast();
   const initialValue = {
-    nickName: "",
-    facebook: "",
-    twitter: "",
-    instagram: "",
-    whatsapp: "",
+    nickName: !modal.create ? nickName?.nickName : null,
+    facebook: null,
+    facebookStatus: false,
+    twitter: null,
+    twitterStatus: false,
+    instagram: null,
+    instagramStatus: false,
+    whatsapp: null,
+    whatsappStatus: false
   }
   const validationSchema = Yup.object({
     nickName: Yup.string().required("requerido"),
@@ -24,26 +30,26 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user }) => {
   });
 
   const onsubmit = async (values) => {
-    console.log(values)
+    console.log(200001, values)
     try {
-      const result = await fetchApi({
-        query: queries.createNickName,
-        variables: { ...values, development: development, uid: user?.uid },
-        development: domain,
-        type: "formData"
-      });
-      if (result === "ok") {
-        toast({
-          status: "success",
-          title: "Operacion exitosa",
-          isClosable: true,
-        });
-        setUser((old) => {
-          console.log(old)
-          return old
-        });
-        setModal(!modal)
-      }
+      // const result = await fetchApi({
+      //   query: queries.createNickName,
+      //   variables: { ...values, development: development, uid: user?.uid },
+      //   development: domain,
+      //   type: "formData"
+      // });
+      // if (result === "ok") {
+      //   toast({
+      //     status: "success",
+      //     title: "Operacion exitosa",
+      //     isClosable: true,
+      //   });
+      //   setUser((old) => {
+      //     console.log(old)
+      //     return old
+      //   });
+      //   setModal(!modal)
+      // }
     } catch (error) {
       console.log(error)
     }
@@ -51,205 +57,92 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user }) => {
 
   return (
     <>
-      <div className="z-50 fixed top-0 left-0 w-screen h-screen overflow-hidden" />
-      <div className="backdrop-blur backdrop-filter bg-gray-919EAB opacity-10 z-50 fixed top-0 left-0 w-screen h-screen overflow-hidden " />
+      <Formik
+        onSubmit={onsubmit}
+        initialValues={initialValue}
+        validationSchema={validationSchema}
+      >
+        <Form >
+          <div className="backdrop-blur backdrop-filter bg-gray-919EAB opacity-40 z-10 fixed top-0 left-0 w-screen h-screen overflow-hidden " />
+          <div className="bg-white inset-6 m-auto z-50 rounded-2xl pt-2.5 flex flex-col gap-2.5 items-center justify-center w-[50$] h-[80%] md:w-[570px] md:h-[600px] fixed ">
+            <Flex>
+              <Text fontSize={"xl"} >
+                {modal.create ? "Crea el Seudónimo" : "Edita el Seudónimo:"}
+              </Text>
+            </Flex>
+            <Flex className="bg-white p-2 w-[90%] h-[90%] flex-col gap-4 md:items-start items-center md:justify-start ">
 
-      <div
-        className=" inset-0 m-auto z-50 bg-white rounded-2xl pt-2.5 md:px-[5px] pb-2.5  flex flex-col gap-2.5 items-center justify-center  md:w-[577px] w-screen h-[680px] md:h-[550px]  fixed "
-        style={{
-          boxShadow:
-            "0px 12px 24px -4px rgba(145, 158, 171, 0.16), 0px 16px 16px 0px rgba(0, 0, 0, 0.25)",
-        }}>
-        <div
-          style={{ font: "600 20px/24px 'Public Sans', sans-serif" }}
-          className="flex flex-col md:flex-row  gap-2 items-center  shrink-0 relative mt-3">
-          <span>
-            Editando seudónimo:
-          </span>
-          <span
-            style={{ font: "var(--body-1, 400 16px/24px 'Public Sans', sans-serif)" }}
-          >
-            Admin [Admin]
-          </span>
-        </div>
-        <Formik
-          onSubmit={onsubmit}
-          initialValues={initialValue}
-          validationSchema={validationSchema}
-        >
-          <Form>
-            <div className="p-2 flex flex-col gap-4 md:items-start items-center md:justify-start shrink-0 relative">
-              <div className="flex md:flex-row flex-col  items-center gap-2.5 shrink-0 *relative">
-                <AddPerfilImg />
-                <div className="flex flex-col gap-2 shrink-0  relative">
-                  <div
-                    className="text-color-gray-1 text-left relative"
-                    style={{
-                      font: "var(--subtitle-2, 600 14px/22px 'Public Sans', sans-serif)",
-                    }}>
-                    Ingresa tu seudonimo
-                  </div>
-                  <div className="flex flex-row gap-4 items-start justify-start shrink-0 md:w-[260px] h-14 relative">
-                    {/*  <input placeholder="Pedro Gonzales" className=" pl-2 focus:outline-none rounded-lg border-solid border-_14-others-button-input border flex-1 h-14 relative" /> */}
-                    <InputFieldGlobal
-                      name="nickName"
-                      className="focus:outline-none w-full border border-solid rounded-lg py-1 px-3 truncate "
-                      placeholder="Pedro Gonzales"
+              <Flex w={"100%"} >
+                <Box ml={"4"} w={{ base: "80px", md: "120px" }} h={{ base: "80px", md: "120px" }}>
+                  <AddPerfilImg />
+                </Box>
+                <Flex ml={{ base: "0.3rem", md: "1rem" }} alignItems={"center"} className={"w-[calc(100%-105px)] md:w-[calc(100%-165px)]"} h={"100%"}>
+                  <InputFieldGlobal
+                    name="nickName"
+                    className="focus:outline-none border border-solid rounded-lg py-1 px-3 w-[100%] truncate text-md md:text-xl"
+                    placeholder="Seudónimo"
+                  />
+                </Flex>
+              </Flex>
 
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col gap-2.5 items-start justify-start shrink-0 relative">
-                <div className="pt-0 pr-[5px] pb-0 pl-[5px] flex flex-row gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
-                  <BlackFacebookIcon />
-                  <div className="flex flex-row gap-[5px] items-center justify-center shrink-0 relative">
-                    <div className="pt-px pr-0 pb-px pl-0 flex flex-row gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
-                      <div className="flex flex-row gap-[9px] items-center justify-end shrink-0 relative">
-                        <div
-                          className="text-gris text-right relative"
-                          style={{
-                            font: "var(--body-2, 400 14px/22px 'Public Sans', sans-serif)",
-                          }}>
-                          Publico
-                        </div>
-                      </div>
-                      <EyeIcon />
-                    </div>
-                  </div>
-                  <InputFieldGlobal
-                    name="facebook"
-                    className="focus:outline-none w-full border border-solid rounded-md h-8 pl-2 pr-1 w-[250px] truncate "
-                    placeholder="www.facebook.com/pgonza"
-                  />
-                </div>
-                <div className="pt-0 pr-[5px] pb-0 pl-[5px] flex flex-row gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
-                  <BlackInstagramIcon />
-                  <div className="flex flex-row gap-[5px] items-center justify-center shrink-0 relative">
-                    <div className="pt-px pr-0 pb-px pl-0 flex flex-row gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
-                      <div className="flex flex-row gap-[9px] items-center justify-end shrink-0 relative">
-                        <div
-                          className="text-gris text-right relative"
-                          style={{
-                            font: "var(--body-2, 400 14px/22px 'Public Sans', sans-serif)",
-                          }}>
-                          Publico
-                        </div>
-                      </div>
-                      <EyeIcon />
-                    </div>
-                  </div>
-                  <InputFieldGlobal
-                    name="instagram"
-                    className="focus:outline-none w-full border border-solid rounded-md h-8 pl-2 pr-1 w-[250px] truncate "
-                    placeholder="www.instagram.com/pgonza"
-                  />
-                </div>
-                <div className="pt-0 pr-[5px] pb-0 pl-[5px] flex flex-row gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
-                  <BlackTwitterIcon />
-                  <div className="flex flex-row gap-[5px] items-center justify-center shrink-0 relative">
-                    <div className="pt-px pr-0 pb-px pl-0 flex flex-row gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
-                      <div className="flex flex-row gap-[9px] items-center justify-end shrink-0 relative">
-                        <div
-                          className="text-gris text-right relative"
-                          style={{
-                            font: "var(--body-2, 400 14px/22px 'Public Sans', sans-serif)",
-                          }}>
-                          Publico
-                        </div>
-                      </div>
-                      <EyeIcon />
-                    </div>
-                  </div>
-                  <InputFieldGlobal
-                    name="twitter"
-                    className="focus:outline-none w-full border border-solid rounded-md h-8 pl-2 pr-1 w-[250px] truncate "
-                    placeholder="www.twitter.com/pgonza"
-                  />
-                </div>
-                <div className="pt-0 pr-[5px] pb-0 pl-[5px] flex flex-row gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
-                  <BlackWhatsappIcon />
-                  <div className="flex flex-row gap-[5px] items-center justify-center shrink-0 relative">
-                    <div className="pt-px pr-0 pb-px pl-0 flex flex-row gap-2.5 items-center justify-start shrink-0 relative overflow-hidden">
-                      <div className="flex flex-row gap-[9px] items-center justify-end shrink-0 relative">
-                        <div
-                          className="text-gris text-right relative"
-                          style={{
-                            font: "var(--body-2, 400 14px/22px 'Public Sans', sans-serif)",
-                          }}>
-                          Publico
-                        </div>
-                      </div>
-                      <EyeIcon />
-                    </div>
-                  </div>
-                  <InputFieldGlobal
-                    name="whatsapp"
-                    className="focus:outline-none w-full border border-solid rounded-md h-8 pl-2 pr-1 w-[250px] truncate "
-                    placeholder="www.whatsapp.com/pgonza"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-2.5 items-start justify-start shrink-0 relative">
-                <div className="flex flex-row gap-[9px] items-center justify-end shrink-0 md:w-[525px] relative">
-                  <div
-                    className="flex-1"
-                    style={{ font: "700 14px/22px 'Public Sans', sans-serif" }}>
-                    Comentarios
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2.5 items-start justify-start shrink-0 relative">
-                  <div className="flex flex-row gap-2.5 items-center justify-center shrink-0 relative">
-                    <input type="checkbox" className="cursor-pointer" />
-                    <div
-                      style={{
-                        font: "var(--body-2, 400 14px/22px 'Public Sans', sans-serif)",
-                      }}>
-                      Permitir comentarios
-                    </div>
-                  </div>
-                  <div className="flex flex-row gap-2.5 items-center justify-center shrink-0 relative">
-                    <input type="checkbox" className="cursor-pointer" />
-                    <div
-                      style={{
-                        font: "var(--body-2, 400 14px/22px 'Public Sans', sans-serif)",
-                      }}>
+              <SocialMedia mediaIcon={<BlackFacebookIcon />} name={"facebook"} placeholder={"https://www.facebook.com/...?"} />
+              <SocialMedia mediaIcon={<BlackInstagramIcon />} name={"twitter"} placeholder={"https://instagram.com/...?"} />
+              <SocialMedia mediaIcon={<BlackTwitterIcon />} name={"instagram"} placeholder={"https://twitter.com/...?"} />
+              <SocialMedia mediaIcon={<BlackWhatsappIcon />} name={"whatsapp"} placeholder={"wa.link/...?"} />
+              <Box >
+                <Divider />
+                <FormLabelMod fontSize={"lg"} >
+                  Comentarios
+                  <Flex flexDir={"column"}>
+                    <Checkbox
+                      //key={"01"}
+                      size={"md"} variant={""}
+                      //isChecked={false}
+                      mt={"0.5rem"}
+                      alignItems={"start"}
+                    >
+                      {/* <label className="flex mt-[-1px] leading-[95%]"> */}
+                      Permitir Comentarios
+                      {/* </label> */}
+                    </Checkbox>
+                    <Checkbox
+                      //key={"01"}
+                      size={"md"} variant={""}
+                      //isChecked={false}
+                      mt={"0.5rem"}
+                      alignItems={"start"}
+                    >
+                      {/* <label className="flex mt-[-1px] leading-[95%]"> */}
                       permitir trackbacks y pingbacks en esta pagina
-                    </div>
-                  </div>
+                      {/* </label> */}
+                    </Checkbox>
+                  </Flex>
+                </FormLabelMod>
+              </Box>
+
+              <div className="p-6 flex flex-row gap-3 items-center justify-end self-stretch shrink-0 h-14 relative">
+                <div
+                  className="bg-green-700 rounded-lg pt-1.5 pr-4 pb-1.5 pl-4 flex flex-row gap-0 items-center justify-center shrink-0 relative">
+                  <button
+                    type="submit"
+                    className="text-white text-center relative flex items-center justify-center cursor-pointer"
+                    style={{
+                      font: "var(--_01-button-02-medium, 700 14px/24px 'Public Sans', sans-serif)",
+                    }}>
+                    Guardar
+                  </button>
+                </div>
+                <div
+                  onClick={() => setModal(!modal)} className="cursor-pointer rounded-lg border-solid border pt-1.5 pr-4 pb-1.5 pl-4 shrink-0 ">
+                  Cancelar
                 </div>
               </div>
 
-            </div>
-            <div className="p-6 flex flex-row gap-3 items-center justify-end self-stretch shrink-0 h-14 relative">
-              <div
-                className="bg-green-700 rounded-lg pt-1.5 pr-4 pb-1.5 pl-4 flex flex-row gap-0 items-center justify-center shrink-0 relative"
-                style={{
-                  boxShadow:
-                    "var(--_01-shadows-color-01-primary-box-shadow, 0px 8px 16px 0px rgba(0, 171, 85, 0.24))",
-                }}>
-                <button
-                  type="submit"
-                  /*  onClick={() => setModal(!modal)} */
-                  className="text-white text-center relative flex items-center justify-center cursor-pointer"
-                  style={{
-                    font: "var(--_01-button-02-medium, 700 14px/24px 'Public Sans', sans-serif)",
-                  }}>
-                  Guardar
-                </button>
-              </div>
-              <div
-                style={{ font: "var(--_01-button-02-medium, 700 14px/24px 'Public Sans', sans-serif)" }}
-                onClick={() => setModal(!modal)} className="cursor-pointer rounded-lg border-solid border pt-1.5 pr-4 pb-1.5 pl-4 shrink-0 ">
-                Cancelar
-              </div>
-            </div>
+            </Flex>
 
-          </Form>
-        </Formik>
-
-      </div>
+          </div>
+        </Form>
+      </Formik >
     </>
 
   );
