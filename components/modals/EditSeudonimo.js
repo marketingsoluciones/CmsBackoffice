@@ -1,5 +1,5 @@
 import { BlackFacebookIcon, BlackInstagramIcon, BlackTwitterIcon, BlackWhatsappIcon, EyeIcon } from "../Icons/index";
-import { AddPerfilImg } from "../formularios/Inputs/AddPerfilImg";
+import { PerfilImg } from "../formularios/Inputs/PerfilImg";
 import { Formik, Form } from "formik";
 import { InputFieldGlobal } from "../formularios/Inputs/InputFieldGlobal"
 import { fetchApi, queries } from "../../utils/Fetching";
@@ -8,28 +8,58 @@ import { Box, Center, Checkbox, Divider, Flex, Text, useToast } from "@chakra-ui
 import * as Yup from "yup";
 import { SocialMedia } from "../Seudonimo/SocialMedia";
 import { FormLabelMod } from "../formularios/Inputs/FormLabelMod";
+import { useState } from "react";
+import { InputCheckBox } from "../Seudonimo/InputCheckBox";
+import { comment } from "postcss";
 
 export const EdicionDeSeudonimo = ({ modal, setModal, user, nickName, setNickName }) => {
+  const [lock, setLock] = useState({
+    facebook: false,
+    twitter: false,
+    instagram: false,
+    whatsapp: false
+  })
+
 
   const { domain, development, setUser } = AuthContextProvider()
   const toast = useToast();
+
   const initialValue = {
     nickName: !modal.create ? nickName?.nickName : null,
     facebook: null,
-    facebookStatus: false,
+    facebookStatus: lock.facebook,
     twitter: null,
-    twitterStatus: false,
+    twitterStatus: lock.twitter,
     instagram: null,
-    instagramStatus: false,
+    instagramStatus: lock.instagram,
     whatsapp: null,
-    whatsappStatus: false
+    whatsappStatus: lock.whatsapp,
+    comment: true,
+    trackbacks: false,
+    file: null
   }
+
+  const validFileExtensions = { image: ['jpg', 'gif', 'png', 'jpeg', 'svg', 'webp', 'jfif'] };
+  function isValidFileType(fileName, fileType) {
+    console.log(fileName)
+    return fileName && validFileExtensions[fileType].indexOf(fileName.split('.').pop()) > -1;
+  }
+  const MAX_FILE_SIZE = 1024000;
   const validationSchema = Yup.object({
     nickName: Yup.string().required("requerido"),
-    /* image: Yup.string().nullable(), */
+    file: Yup.mixed()
+      .required("Required")
+      .test("is-valid-type", "Not a valid image type",
+        value => isValidFileType(value && value.name.toLowerCase(), "image"))
+      .test("is-valid-size", "Max allowed size is 100KB",
+        value => value && value.size <= MAX_FILE_SIZE)
   });
 
   const onsubmit = async (values) => {
+    values.facebookStatus = !lock.facebook
+    values.twitterStatus = !lock.twitter
+    values.instagramStatus = !lock.instagram
+    values.whatsappStatus = !lock.whatsapp
     console.log(200001, values)
     try {
       // const result = await fetchApi({
@@ -74,7 +104,7 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user, nickName, setNickNam
 
               <Flex w={"100%"} >
                 <Box ml={"4"} w={{ base: "80px", md: "120px" }} h={{ base: "80px", md: "120px" }}>
-                  <AddPerfilImg />
+                  <PerfilImg name={"file"} />
                 </Box>
                 <Flex ml={{ base: "0.3rem", md: "1rem" }} alignItems={"center"} className={"w-[calc(100%-105px)] md:w-[calc(100%-165px)]"} h={"100%"}>
                   <InputFieldGlobal
@@ -85,37 +115,17 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user, nickName, setNickNam
                 </Flex>
               </Flex>
 
-              <SocialMedia mediaIcon={<BlackFacebookIcon />} name={"facebook"} placeholder={"https://www.facebook.com/...?"} />
-              <SocialMedia mediaIcon={<BlackInstagramIcon />} name={"twitter"} placeholder={"https://instagram.com/...?"} />
-              <SocialMedia mediaIcon={<BlackTwitterIcon />} name={"instagram"} placeholder={"https://twitter.com/...?"} />
-              <SocialMedia mediaIcon={<BlackWhatsappIcon />} name={"whatsapp"} placeholder={"wa.link/...?"} />
+              <SocialMedia mediaIcon={<BlackFacebookIcon />} name={"facebook"} lock={lock} setLock={setLock} placeholder={"https://www.facebook.com/...?"} />
+              <SocialMedia mediaIcon={<BlackInstagramIcon />} name={"twitter"} lock={lock} setLock={setLock} placeholder={"https://instagram.com/...?"} />
+              <SocialMedia mediaIcon={<BlackTwitterIcon />} name={"instagram"} lock={lock} setLock={setLock} placeholder={"https://twitter.com/...?"} />
+              <SocialMedia mediaIcon={<BlackWhatsappIcon />} name={"whatsapp"} lock={lock} setLock={setLock} placeholder={"wa.link/...?"} />
               <Box >
                 <Divider />
                 <FormLabelMod fontSize={"lg"} >
                   Comentarios
                   <Flex flexDir={"column"}>
-                    <Checkbox
-                      //key={"01"}
-                      size={"md"} variant={""}
-                      //isChecked={false}
-                      mt={"0.5rem"}
-                      alignItems={"start"}
-                    >
-                      {/* <label className="flex mt-[-1px] leading-[95%]"> */}
-                      Permitir Comentarios
-                      {/* </label> */}
-                    </Checkbox>
-                    <Checkbox
-                      //key={"01"}
-                      size={"md"} variant={""}
-                      //isChecked={false}
-                      mt={"0.5rem"}
-                      alignItems={"start"}
-                    >
-                      {/* <label className="flex mt-[-1px] leading-[95%]"> */}
-                      permitir trackbacks y pingbacks en esta pagina
-                      {/* </label> */}
-                    </Checkbox>
+                    <InputCheckBox name={"comment"} label={"Permitir comentarios"} />
+                    <InputCheckBox name={"trackbacks"} label={"Permitir trackbacks y pingbacks en esta pagina"} />
                   </Flex>
                 </FormLabelMod>
               </Box>

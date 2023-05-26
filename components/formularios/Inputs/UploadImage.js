@@ -8,6 +8,7 @@ import { GreenEditIcon } from "../../Icons/index";
 import { FormLabelMod } from "./FormLabelMod";
 
 export const UploadImage = ({ label, typeFile = "all", ...props }) => {
+  console.log(100001, props)
   const [field, meta, helpers] = useField(props);
   const [image, setImage] = useState(null)
   const [video, setVideo] = useState(null)
