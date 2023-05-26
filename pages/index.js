@@ -13,11 +13,13 @@ function HomePage() {
 
   useEffect(() => {
     /////// REDIRECIONES ///////
-    if (r?.query?.d === "busines") {
-      r.push("/business?d=create")
-    } else if (r?.query?.d === "vewBusines") {
-      r.push("/business")
-    }
+    setTimeout(() => {
+      if (r?.query?.d === "busines") {
+        r.push("/business?d=create")
+      } else if (r?.query?.d === "viewBusines") {
+        r.push("/business")
+      }
+    }, 300);
   }, [r]);
 
   useEffect(() => {
