@@ -9,7 +9,7 @@ export const SeudonimoList = ({ listDown, setListDown, setFoundList, nickNames, 
                         <div
                             key={idx}
                             onClick={() => [setListDown(!listDown), setFoundList(item?.nickName)]}
-                            className={` flex  items-center gap-3 cursor-pointer hover:bg-gray-300  rounded-xl p-2  ${foundList=== item?.nickName?"bg-gray-300":null} `}>
+                            className={` flex  items-center gap-3 cursor-pointer hover:bg-gray-300  rounded-xl p-2  ${foundList === item?.nickName ? "bg-gray-300" : null} `}>
                             <div >
                                 {item?.icon ? item.imgAvatar : <Avatar h={"35px"} w={"35px"} />}
                             </div>

@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { FormLabelMod } from "./FormLabelMod";
 
 export const PerfilImg = ({ ...props }) => {
-    console.log(100001, props)
     const [field, meta, helpers] = useField(props);
     const [image, setImage] = useState(null)
 

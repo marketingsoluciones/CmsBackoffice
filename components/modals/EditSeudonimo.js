@@ -13,6 +13,7 @@ import { InputCheckBox } from "../Seudonimo/InputCheckBox";
 import { comment } from "postcss";
 
 export const EdicionDeSeudonimo = ({ modal, setModal, user, nickName, setNickName }) => {
+  console.log(10001, user)
   const [lock, setLock] = useState({
     facebook: false,
     twitter: false,
@@ -27,13 +28,13 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user, nickName, setNickNam
   const initialValue = {
     nickName: !modal.create ? nickName?.nickName : null,
     facebook: null,
-    facebookStatus: lock.facebook,
+    facebookStatus: false,
     twitter: null,
-    twitterStatus: lock.twitter,
+    twitterStatus: false,
     instagram: null,
-    instagramStatus: lock.instagram,
+    instagramStatus: false,
     whatsapp: null,
-    whatsappStatus: lock.whatsapp,
+    whatsappStatus: false,
     comment: true,
     trackbacks: false,
     file: null
@@ -41,7 +42,6 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user, nickName, setNickNam
 
   const validFileExtensions = { image: ['jpg', 'gif', 'png', 'jpeg', 'svg', 'webp', 'jfif'] };
   function isValidFileType(fileName, fileType) {
-    console.log(fileName)
     return fileName && validFileExtensions[fileType].indexOf(fileName.split('.').pop()) > -1;
   }
   const MAX_FILE_SIZE = 1024000;
@@ -56,10 +56,6 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user, nickName, setNickNam
   });
 
   const onsubmit = async (values) => {
-    values.facebookStatus = !lock.facebook
-    values.twitterStatus = !lock.twitter
-    values.instagramStatus = !lock.instagram
-    values.whatsappStatus = !lock.whatsapp
     console.log(200001, values)
     try {
       // const result = await fetchApi({

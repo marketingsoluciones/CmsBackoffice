@@ -1,33 +1,29 @@
-import { Box, Center, Checkbox, Flex, Text } from "@chakra-ui/react"
+import { Center, Flex, Text } from "@chakra-ui/react"
 import { EyeIcon, Icon144Lock, Icon145Unlocked, } from "../Icons"
 import { InputFieldGlobal } from "../formularios/Inputs/InputFieldGlobal"
 import { useField } from "formik";
-import { useEffect, useState } from "react";
 
-export const SocialMedia = ({ mediaIcon, name, placeholder, lock, setLock }) => {
+export const SocialMedia = ({ mediaIcon, name, placeholder }) => {
 
+  const [field, meta, helpers] = useField(`${name}Status`);
   return (
     <Flex w={"100%"} justifyContent={"space-between"} >
       <Flex minW={{ base: "37%", md: "150px" }}>
         {/* <input type="checkbox" {...field} checked={!lock} /> */}
         <Center minW={"full"} className="cursor-pointer" onClick={() => {
           //setFieldValue(field.name, !lock)
-          setLock((old) => {
-            old[name] = !lock[name]
-            console.log(old)
-            return ({ ...old })
-          })
+          helpers.setValue(!field.value)
         }} >
           <Flex gap={{ base: "1", md: "2" }} justifyContent={"space-between"} minW={{ base: "40%", md: "85%" }} >
             <Center>
               {mediaIcon}
             </Center>
             <Text className="text-gris text-right relative capitalize" textAlign={"left"} fontSize={{ base: "sm", md: "lg" }} >
-              {!lock[name] ? "publico" : "oculto"}
+              {field.value ? "publico" : "oculto"}
             </Text>
             <Center>
               <EyeIcon className="w-5 h-5" />
-              {!lock[name] ?
+              {field.value ?
                 <Icon145Unlocked className="absolute z-10 w-3 h-3 translate-x-[10px] translate-y-[-8px] text-gray-700" />
                 : <Icon144Lock className="absolute z-10 w-3 h-3 translate-x-[10px] translate-y-[-8px] text-gray-700" />}
             </Center>

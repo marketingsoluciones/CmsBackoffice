@@ -20,7 +20,7 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found, user,
             acc.push({
                 value: item.nickName,
                 label:
-                    <Flex alignItems={"end"}>
+                    <Flex alignItems={"center"}>
                         <Avatar h={"24px"} w={"24px"} />
                         <Text ml={"0.2rem"} className="capitalize">{item.nickName}</Text>
                     </Flex>
@@ -40,30 +40,33 @@ export const Seudonimo = ({ modal, setModal, listDown, setListDown, found, user,
         <Box >
             <Divider />
             <FormLabelMod >
-                Elija o cree su seudónimo
+                <Flex my={"0.5rem"} justifyContent={"space-between"} >
+                    <Text>
+                        Elija o cree su seudónimo
+                    </Text>
+                    <div className="flex flex-row gap-[5px] items-center *justify-start shrink-0 relative ">
+                        <IconEdit className={`w-6 h-6 ${nickName ? "text-gray-700 cursor-pointer" : "text-gray-300"}`} onClick={() => { nickName && setModal({ show: true, create: false }) }} />
+                        <IconPlusSquare className="w-6 h-6 text-gray-700 cursor-pointer" onClick={() => { setModal({ show: true, create: true }) }} />
+                    </div>
+                </Flex>
                 <Box my={{ base: "0rem", md: "0.3rem" }} >
-                    <Flex my={"0.5rem"} justifyContent={"space-between"} >
-                        <Select
-                            onChange={(e) => { setValue(e?.value) }}
-                            className="w-[100%] mr-2"
-                            placeholder={
-                                <Flex alignItems={"end"}>
-                                    <Avatar h={"24px"} w={"24px"} />
-                                    <Text ml={"0.2rem"} className="capitalize">{user?.displayName}</Text>
-                                </Flex>
-                            }
-                            //defaultValue={options[0]}
-                            isDisabled={isDisabled}
-                            isLoading={isLoading}
-                            isClearable={isClearable}
-                            isSearchable={isSearchable}
-                            options={options}
-                            classNames={"cursor-pointer"} />
-                        <div className="flex flex-row gap-[5px] items-center *justify-start shrink-0 relative ">
-                            <IconEdit className={`w-6 h-6 ${nickName ? "text-gray-700 cursor-pointer" : "text-gray-300"}`} onClick={() => { nickName && setModal({ show: true, create: false }) }} />
-                            <IconPlusSquare className="w-6 h-6 text-gray-700 cursor-pointer" onClick={() => { setModal({ show: true, create: true }) }} />
-                        </div>
-                    </Flex>
+                    <Select
+                        onChange={(e) => { setValue(e?.value) }}
+                        className="w-[100%] mr-2"
+                        placeholder={
+                            <Flex alignItems={"Center"}>
+                                <Avatar h={"24px"} w={"24px"} />
+                                <Text ml={"0.2rem"} className="capitalize">{user?.displayName}</Text>
+                            </Flex>
+                        }
+                        //defaultValue={options[0]}
+                        isDisabled={isDisabled}
+                        isLoading={isLoading}
+                        isClearable={isClearable}
+                        isSearchable={isSearchable}
+                        options={options}
+                        classNames={"cursor-pointer"} />
+
 
                     {/* <div style={{ top: `${refD?.current?.offsetTop}` }} className={`${listDown ? "block" : "hidden"} absolute z-30`}>
                         <SeudonimoList listDown={listDown} setListDown={setListDown} setFoundList={setFoundList} nickNames={nickNames} foundList={foundList} />
