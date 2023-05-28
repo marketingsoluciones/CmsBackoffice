@@ -317,7 +317,13 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                   <Tr key={idx} fontSize={"sm"} {...row.getRowProps()} _hover={{ bg: "gray.100" }} className={`${row.isSelected && "bg-gray-100"}`}>
                     {row.cells.map((cell, i) => {
                       return (
-                        <Td key={i} className="" {...cell.getCellProps()} w={cell.column.id === "selection" && "16"}>
+                        <Td
+                          key={i} className="" {...cell.getCellProps()}
+                          w={cell.column.id === "selection" && "16"}
+                          onClick={() => {
+                            ["title", "businessName", "_id"].includes(cell.column.id) &&
+                              setAction({ type: "EDIT", payload: { _id: row.original._id } })
+                          }}>
                           {
                             cell.column.id === "imgMiniatura" ?
                               <Center>
@@ -332,7 +338,8 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                               :
                               cell.column.id === "status" ?
                                 <Center>
-                                  <Switch size={"sm"} value={cell?.value} />
+                                  <div className="z-10 w-8 h-6 transform translate-x-4"></div>
+                                  <Switch size={"sm"} isChecked={cell?.value} isReadOnly={true} isFocusable={true} className=" transform translate-x-[-13px]" />
                                 </Center>
                                 :
                                 cell.column.id === "title" || cell.column.id === "businessName" ?
@@ -363,7 +370,6 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                       </Center>
                     </Td>
                   </Tr>
-
                 );
               })}
             </Tbody>
@@ -452,10 +458,8 @@ const ComponentCursorPointer = ({ cell, setAction, row }) => {
   return (
     <Text
       ref={tdRef}
-      noOfLines={1}
-      onClick={() => setAction(/*asPath !== "/questions" ? { type: "VIEWW", payload: { _id: row.original._id } } :  */{ type: "EDIT", payload: { _id: row.original._id } })}>
+      noOfLines={1}>
       {cell.render("Cell")}
     </Text>
   )
-
 }
