@@ -801,6 +801,7 @@ export const FetchGraphQL = {
           authorUsername
           updaterUsername
           status
+          tags
           createdAt
           updatedAt
         }

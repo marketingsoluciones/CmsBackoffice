@@ -1,9 +1,10 @@
-import { CheckIcon, CloseIcon, DeleteIcon } from "@chakra-ui/icons";
+import { CheckIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Box, Text, FormLabel, Input, Button, Flex, List, ListIcon, ListItem, IconButton, Divider, } from "@chakra-ui/react";
 import { FieldArray, useField } from "formik";
 import { memo } from "react";
 import { useState } from "react";
 import { FormLabelMod } from "./FormLabelMod";
+import { CloseIcon } from "../../Icons";
 
 export const FieldArrayField = memo(({ label, schema, ...props }) => {
   const [field, meta, helpers] = useField(props);
@@ -30,7 +31,7 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
                     size={"sm"}
                     variant={"filled"}
                     fontSize={"sm"}
-                    w={"9rem"}
+                    w={"85%"}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
                   />
@@ -49,7 +50,6 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
                 <List spacing={3} py={"0.5rem"} columnGap={"1rem"} px={"6px"} display={"grid"} gridTemplateColumns={"repeat(2, 1fr)"}>
                   {field.value &&
                     field?.value?.map((item, idx) => {
-
                       if (typeof item === "string") {
                         return (
                           item && (
@@ -59,24 +59,19 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
                               display={"flex"}
                               alignItems={"center"}
                               justifyContent={"space-between"}
-                              className="truncate cursor-default mt-3"
-                              key={idx}
-                            >
-                              <ListIcon as={CheckIcon} color="green.500" />
-                              <span className="truncate">
+                              className="truncate cursor-default mt-3 border rounded-md"
+                              key={idx}>
+                              <Text ml={"2"} w={"90%"} className="truncate">
                                 {item}
-                              </span>
-                              <IconButton _focus={"none"} h={"22px"} w={"20px"} size={"sm"} onClick={() => {
+                              </Text>
+                              <CloseIcon className="w-4 h-4 mr-1" onClick={() => {
                                 const indice = arrayHelpers.form.values[props.name].findIndex(ele => item === ele)
                                 arrayHelpers.remove(indice)
-                              }}>
-                                <CloseIcon h={"10px"} w={"10px"} />
-                              </IconButton>
+                              }} />
                             </ListItem>
                           )
                         )
                       }
-
                       if (item instanceof Object) {
                         return (
                           <>
@@ -100,8 +95,6 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
                           </>
                         )
                       }
-
-
                     })}
                 </List>
                 {meta.touched && meta.error && (
