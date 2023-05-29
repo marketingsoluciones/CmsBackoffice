@@ -55,7 +55,7 @@ export const BodyStaticAPP = [
           {
             Header: "Nombre de empresa",
             accessor: "businessName",
-            type: "stringL",
+            type: "textareaSizable",
             required: true,
           },
           {
@@ -233,13 +233,13 @@ export const BodyStaticAPP = [
           {
             Header: "Titulo",
             accessor: "title",
-            type: "string",
+            type: "textareaSizable",
             required: true,
           },
           {
             Header: "Slug",
             accessor: "slug",
-            type: "string",
+            type: "textareaSizable",
             required: true,
           },
           {
@@ -302,18 +302,18 @@ export const BodyStaticAPP = [
           {
             Header: "Titulo",
             accessor: "title",
-            type: "string",
+            type: "textareaSizable",
             required: true,
           },
           {
             Header: "Encabezado H1",
             accessor: "heading",
-            type: "string",
+            type: "textareaSizable",
           },
           {
             Header: "Slug",
             accessor: "slug",
-            type: "string",
+            type: "textareaSizable",
             required: true,
           },
           {
@@ -391,7 +391,7 @@ export const BodyStaticAPP = [
           {
             Header: "Titulo",
             accessor: "title",
-            type: "string",
+            type: "textareaSizable",
             required: true,
           },
           {
@@ -436,13 +436,13 @@ export const BodyStaticAPP = [
           {
             Header: "Titulo",
             accessor: "title",
-            type: "string",
+            type: "textareaSizable",
             required: true,
           },
           {
             Header: "Slug",
             accessor: "slug",
-            type: "string",
+            type: "textareaSizable",
             required: true,
           },
           {
@@ -475,7 +475,7 @@ export const BodyStaticAPP = [
           {
             Header: "Titulo",
             accessor: "title",
-            type: "string",
+            type: "textareaSizable",
             required: true,
           },
           {
@@ -531,13 +531,13 @@ export const BodyStaticAPP = [
           {
             Header: "Titulo",
             accessor: "title",
-            type: "stringL",
+            type: "textareaSizable",
             required: true,
           },
           {
             Header: "Subtitulo",
             accessor: "subTitle",
-            type: "stringL",
+            type: "textareaSizable",
           },
           {
             Header: "Slug",
@@ -559,7 +559,7 @@ export const BodyStaticAPP = [
           {
             Header: "SEO Descripción",
             accessor: "seoDescription",
-            type: "string",
+            type: "textareaSizable",
             required: true,
           },
 
@@ -633,18 +633,18 @@ export const BodyStaticAPP = [
           {
             Header: "Titulo",
             accessor: "title",
-            type: "string",
+            type: "textareaSizable",
             required: true,
           },
           {
             Header: "Encabezado",
             accessor: "heading",
-            type: "string",
+            type: "textareaSizable",
           },
           {
             Header: "Slug",
             accessor: "slug",
-            type: "string",
+            type: "textareaSizable",
             required: true,
           },
           {
@@ -701,18 +701,18 @@ export const BodyStaticAPP = [
           {
             Header: "Titulo",
             accessor: "title",
-            type: "string",
+            type: "textareaSizable",
             required: true,
           },
           {
             Header: "Encabezado",
             accessor: "heading",
-            type: "string",
+            type: "textareaSizable",
           },
           {
             Header: "Slug",
             accessor: "slug",
-            type: "string",
+            type: "textareaSizable",
             required: true,
           },
           {
@@ -769,17 +769,17 @@ export const BodyStaticAPP = [
           {
             Header: "Titulo",
             accessor: "title",
-            type: "string",
+            type: "textareaSizable",
           },
           {
             Header: "Subtitulo",
             accessor: "subTitle",
-            type: "string",
+            type: "textareaSizable",
           },
           {
             Header: "Slug",
             accessor: "slug",
-            type: "string",
+            type: "textareaSizable",
           },
           {
             Header: "estatus",
