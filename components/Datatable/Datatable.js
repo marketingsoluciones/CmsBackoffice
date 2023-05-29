@@ -30,6 +30,7 @@ import {
   Switch,
   Image,
   Center,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { useTable, useSortBy, usePagination, useRowSelect, useFilters, useGlobalFilter, } from "react-table";
 import { LoadingComponent } from "../../components/LoadingComponent";
@@ -379,14 +380,16 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
             justifyContent={"space-between"}
             //alignItems={"center"}
             //paddingBlock={"0.5rem"}
-            className="flex justify-center items-center my-1.5 px-4 "
+            px={{ base: "1", md: "4" }}
+            className="flex justify-center items-start my-1.5"
           >
-            <Flex alignItems={"center"} gap={"0.5rem"}>
+
+            <Flex direction={{ base: "column", md: "row" }} w={"30%"} alignItems={{ base: "", md: "center" }} justifyContent={"left"} gap={"0.5rem"} >
               <Select
-                size={"sm"}
-                rounded={"lg"}
+                size={`${screen.width < 640 ? "xs" : "sm"}`}
+                rounded={{ base: "md", md: "lg" }}
                 w={"fit-content"}
-                fontSize={"sm"}
+                fontSize={{ base: "xs", md: "sm" }}
                 value={pageSize}
                 onChange={(e) => {
                   setPageSize(Number(e.target.value));
@@ -400,44 +403,59 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                   </option>
                 ))}
               </Select>
-              <Text color={"gray.500"} fontSize={"sm"} fontStyle={"italic"}>
-                Entradas por pagina
-              </Text>
-            </Flex>
-            <Flex>
-              <Text color={"gray.500"} fontSize={"sm"} fontStyle={"italic"}>
-                Total de Entradas {total}
-              </Text>
-            </Flex>
-            <Flex alignItems={"center"} gap={"0.5rem"}>
-              <Text fontSize={"sm"}>
-                Pagina {(skip + limit) / limit} de {totalPage}
-              </Text>
-              <IconButton
-                size={"sm"}
-                onClick={() => setSkip(0)}
-                isDisabled={!((skip + limit) / limit > 1)}
-                icon={<ArrowLeftIcon h={3} w={3} />}
-              />
-              <IconButton
-                size={"sm"}
-                onClick={() => setSkip(old => old - limit)}
-                isDisabled={!((skip + limit) / limit > 1)}
-                icon={<ChevronLeftIcon h={6} w={6} />}
-              />
+              {screen.width < 640 ?
+                <></>
+                : <Text color={"gray.500"} fontSize={{ base: "xs", md: "sm" }} fontStyle={"italic"}>
+                  Entradas por página
+                </Text>
+              }
 
-              <IconButton
-                size={"sm"}
-                onClick={() => setSkip(old => old + limit)}
-                isDisabled={!((skip + limit) / limit < totalPage)}
-                icon={<ChevronRightIcon h={6} w={6} />}
-              />
-              <IconButton
-                size={"sm"}
-                onClick={() => setSkip((totalPage - 1) * limit)}
-                isDisabled={!((skip + limit) / limit < totalPage)}
-                icon={<ArrowRightIcon h={3} w={3} />}
-              />
+            </Flex>
+
+            <Flex direction={{ base: "column", md: "row" }} w={"30%"} columns={1} justifyContent={"center"}>
+              <Text textAlign={"center"} color={"gray.500"} fontSize={{ base: "xs", md: "sm" }} fontStyle={"italic"}>
+                Total de Entradas
+              </Text>
+              <Text ml={{ base: "0", md: "0.5rem" }} textAlign={"center"} color={"gray.500"} fontSize={"sm"} fontStyle={"italic"}>
+                {total ? total : 0}
+              </Text>
+            </Flex >
+
+            <Flex direction={{ base: "column-reverse", md: "row" }} w={"35%"} alignItems={{ base: "", md: "center" }} justifyContent={"right"} gap={{ base: "0", md: "0.5rem" }} isTruncated>
+              <Text fontSize={{ base: "xs", md: "sm" }} textAlign={"right"} mr={"1"}>
+                {totalPage ? `Página ${(skip + limit) / limit} de ${totalPage}` : <></>}
+              </Text>
+              <Flex gap={"1"} justifyContent={"space-between"}>
+                <IconButton
+                  size="xs"
+                  fontSize={"8px"}
+                  onClick={() => setSkip(0)}
+                  isDisabled={!((skip + limit) / limit > 1)}
+                  icon={<ArrowLeftIcon />}
+                />
+                <IconButton
+                  size="xs"
+                  fontSize={"18px"}
+                  onClick={() => setSkip(old => old - limit)}
+                  isDisabled={!((skip + limit) / limit > 1)}
+                  icon={<ChevronLeftIcon />}
+                />
+
+                <IconButton
+                  size="xs"
+                  fontSize={"18px"}
+                  onClick={() => setSkip(old => old + limit)}
+                  isDisabled={!((skip + limit) / limit < totalPage)}
+                  icon={<ChevronRightIcon />}
+                />
+                <IconButton
+                  size="xs"
+                  fontSize={"8px"}
+                  onClick={() => setSkip((totalPage - 1) * limit)}
+                  isDisabled={!((skip + limit) / limit < totalPage)}
+                  icon={<ArrowRightIcon />}
+                />
+              </Flex>
             </Flex>
           </Flex>
         </>
