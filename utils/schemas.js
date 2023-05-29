@@ -354,7 +354,7 @@ export const BodyStaticAPP = [
           {
             Header: "Descripcion",
             accessor: "description",
-            type: "textarea",
+            type: "textareaSizable",
             required: true,
           },
           {

@@ -18,7 +18,7 @@ export const InputField = memo(({ label, ...props }) => {
             </Text>
           )}
         </Box>
-        <Input my={{ base: "0rem", md: "0.3rem" }} variant={"filled"} fontSize={"sm"} {...field} {...props} />
+        <Input my={{ base: "0rem", md: "0.3rem" }} variant={"filled"} fontSize={"sm"} {...field} {...props} h={"36px"} />
       </FormLabelMod>
     </Box>
   );

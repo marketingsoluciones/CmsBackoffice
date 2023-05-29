@@ -32,6 +32,7 @@ import { EdicionDeSeudonimo } from "../modals/EditSeudonimo";
 import { SeudonimoList } from "../Seudonimo/SeudonimoList";
 import { InfoForm } from "./InfoForm";
 import { DeleteModal } from "../modals/Alert";
+import { TextareaFieldSizable } from "./Inputs/TextareaFieldSizable";
 
 export const FormDinamical = forwardRef(
   ({ schema: state, initialValues, columns, onSubmit, Information, values, options, estado, setAction }, ref) => {
@@ -236,6 +237,16 @@ export const FormDinamical = forwardRef(
                               return (
                                 <GridItem colSpan={[1, , , 3]} key={idx}>
                                   <TextareaField
+                                    name={item.accessor}
+                                    label={item.Header}
+                                  />
+                                </GridItem>
+                              );
+                              break;
+                            case "textareaSizable":
+                              return (
+                                <GridItem colSpan={[1, , , 3]} key={idx}>
+                                  <TextareaFieldSizable
                                     name={item.accessor}
                                     label={item.Header}
                                   />
