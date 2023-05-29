@@ -287,7 +287,7 @@ const FieldArrayWithProps = ({
 
   return (
     <div className="w-full">
-      <h3 className="text-primary font-medium capitalize bg-red-500">{label}</h3>
+      <h3 className="text-primary font-medium capitalize *bg-red-500">{label}</h3>
       <FieldArray name={name}>
         {({ remove, push }) => (
           <SimpleGrid columns={"3"} paddingBlock={{ base: "0.2rem", md: "1rem" }} gap={{ base: "0.3rem", md: "1rem" }} >
