@@ -297,14 +297,18 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                             }}>
                             {
                               cell.column.id === "imgMiniatura" ?
-                                <Center w={{ base: "100px", md: "120px", "2xl": "150px" }}>
-                                  <Image
-                                    src={`${cell?.value ? `${process.env.NEXT_PUBLIC_BASE_URL}${cell?.value}` : "/placeholder/image.png"}`}
-                                    objectFit={"contain"}
-                                    w={{ base: "80px", md: "50px", "2xl": "76px" }}
-                                    h={{ base: "34px", md: "30px", "2xl": "60px" }}
-                                    rounded={"lg"}
-                                  />
+                                <Center >
+                                  <Box w={{ base: "100px", md: "120px", "2xl": "150px" }} >
+                                    <Center>
+                                      <Image
+                                        src={`${cell?.value ? `${process.env.NEXT_PUBLIC_BASE_URL}${cell?.value}` : "/placeholder/image.png"}`}
+                                        objectFit={"contain"}
+                                        w={{ base: "80px", md: "50px", "2xl": "76px" }}
+                                        h={{ base: "34px", md: "30px", "2xl": "60px" }}
+                                        rounded={"lg"}
+                                      />
+                                    </Center>
+                                  </Box>
                                 </Center>
                                 :
                                 cell.column.id === "status" ?
