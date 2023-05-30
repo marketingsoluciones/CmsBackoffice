@@ -105,14 +105,17 @@ export const queries = {
             role
             status
             nickNames{
-              imgAvatar{
-                i320
-              }
+              _id
               nickName
-              facebook
-              twitter
-              instagram
-              whatsapp
+              socialMedia{
+                title
+                link
+                isVisible
+              }
+              comment
+              trackbacks
+              imgAvatar
+              createdAt
             }
             createdAt
             updatedAt
