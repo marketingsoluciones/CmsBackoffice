@@ -114,7 +114,10 @@ export const queries = {
               }
               comment
               trackbacks
-              imgAvatar
+              imgAvatar{
+                i320
+                i640
+              }
               createdAt
             }
             createdAt
@@ -130,13 +133,55 @@ export const queries = {
         }
       }`,
   createNickName: `
-  mutation  ($uid : ID!,$imgAvatar:Upload , $nickName: String!, $facebook : String, $instagram : String, $whatsapp : String, $twitter:String ) {
-    createNickName (args:{uid:$uid, nickName: $nickName, facebook : $facebook, instagram : $instagram, whatsapp : $whatsapp, twitter: $twitter,imgAvatar:$imgAvatar })
-      }`,
+  mutation  (
+    $uid : ID!,
+    $nickName: String!, 
+    $imgAvatar:Upload, 
+    $socialMedia:[inputSocialMedia]
+  ) {
+    createNickName (args:{uid:$uid, nickName: $nickName, imgAvatar:$imgAvatar, socialMedia:$socialMedia }){
+      _id
+      nickName
+      socialMedia{
+        title
+        link
+        isVisible
+      }
+      comment
+      trackbacks
+      imgAvatar{
+        i320
+        i640
+      }
+      createdAt
+      updatedAt
+    }
+  }`,
   updateNickName: `
-  mutation  ($uid : ID!,$imgAvatar:Upload , $nickName: String!, $facebook : String, $instagram : String, $whatsapp : String, $twitter:String ) {
-    updateNickName (args:{uid:$uid, nickName: $nickName, facebook : $facebook, instagram : $instagram, whatsapp : $whatsapp, twitter: $twitter,imgAvatar:$imgAvatar })
-      }`,
+  mutation  (
+    $uid : ID!,
+    $nickName: String!, 
+    $imgAvatar:Upload, 
+    $socialMedia:[inputSocialMedia]
+  ) {
+    updateNickName (args:{uid:$uid, nickName: $nickName, imgAvatar:$imgAvatar, socialMedia:$socialMedia }){
+        _id
+        nickName
+        socialMedia{
+          title
+          link
+          isVisible
+        }
+        comment
+        trackbacks
+        imgAvatar{
+          i320
+          i640
+        }
+        createdAt
+        updatedAt
+      }
+    }`,
   updateVisibleColumns: `
     mutation  ($uid : ID!, $args:[inputVisibleColumn]) {
       updateVisibleColumns (uid:$uid, args:$args){
