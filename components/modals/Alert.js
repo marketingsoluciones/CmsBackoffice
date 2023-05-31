@@ -56,7 +56,7 @@ export const ModalMasivoAlert = ({ setModalMasivo, modalMasivo, onClickList, han
     )
 }
 
-export const DeleteModall = ({ setModal, modal, handleRemove, setAction }) => {
+export const DeleteModall = ({ setModal, modal, handleRemove }) => {
     return (
         <>
             <div className="z-50 fixed top-0 left-0 w-screen h-screen overflow-hidden" />
@@ -65,13 +65,17 @@ export const DeleteModall = ({ setModal, modal, handleRemove, setAction }) => {
                 <span className="text-xl ">Estas seguro de que deseas eliminar este registro ?</span>
                 <div className="flex justify-center items-center gap-3">
                     <button className="bg-botonBack h-10 w-20 rounded-lg text-white text-sm" onClick={() => setModal(!modal)}>Descartar</button>
-                    <Button 
-                        _hover={{bg:"red.400"}}   
-                        _focus={"none"}                     
+                    <Button
+                        _hover={{ bg: "red.400" }}
+                        _focus={"none"}
                         rounded={"xl"}
-                        color={"white"} 
+                        color={"white"}
                         bg={"red.500"}
-                        onClick={() => [handleRemove(), setModal(!modal)]} className='text-sm flex items-center gap-2 bg-red-600 h-10 w-20 rounded-lg justify-center text-white'>
+                        onClick={() => {
+                            handleRemove()
+                            setModal(!modal)
+                        }}
+                        className='text-sm flex items-center gap-2 bg-red-600 h-10 w-20 rounded-lg justify-center text-white'>
                         <DeleteIcon />
                         <span>Eliminar</span>
                     </Button>
