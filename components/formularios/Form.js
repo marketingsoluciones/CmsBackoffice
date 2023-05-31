@@ -28,23 +28,18 @@ import { SeoDev } from "./Inputs/SeoDev";
 import { AlertDesarrollo } from "../modals/AlertDesarrollo";
 import { OptionsForm } from "./OptionsForm";
 import { Seudonimo } from "../Seudonimo/Seudonimo";
-import { EdicionDeSeudonimo } from "../modals/EditSeudonimo";
-import { SeudonimoList } from "../Seudonimo/SeudonimoList";
+import { EditSeudonimo } from "../modals/EditSeudonimo";
 import { InfoForm } from "./InfoForm";
-import { DeleteModal } from "../modals/Alert";
 import { TextareaFieldSizable } from "./Inputs/TextareaFieldSizable";
 
 export const FormDinamical = forwardRef(
   ({ schema: state, initialValues, columns, onSubmit, Information, values, options, estado, setAction }, ref) => {
-    const { user, development } = AuthContextProvider()
+    const { user } = AuthContextProvider()
     const [schema, setSchema] = useState(null);
     const [modal, setModal] = useState({ show: false, create: false })
     const [listDown, setListDown] = useState(false)
     const [foundList, setFoundList] = useState("")
     const [alertDev, setAlertDev] = useState(false)
-    const dataUser = user?.authDevelopments
-    const faund = dataUser.find(entorno => entorno.title === development)
-    const nickNames = faund.nickNames
     const [nickName, setNickName] = useState()
 
 
@@ -129,7 +124,7 @@ export const FormDinamical = forwardRef(
     return (
       <>
         {modal.show ? (
-          <EdicionDeSeudonimo modal={modal} setModal={setModal} user={user} nickName={nickName} setNickName={setNickName} />
+          <EditSeudonimo modal={modal} setModal={setModal} user={user} nickName={nickName} setNickName={setNickName} />
         ) : null}
         {alertDev ? (
           <AlertDesarrollo alertDev={alertDev} setAlertDev={setAlertDev} />
@@ -348,18 +343,10 @@ export const FormDinamical = forwardRef(
                               return (
                                 // <GridItem bg={"blue"} colSpan={[1, , , 1]} key={idx}>
                                 <Seudonimo
-                                  modal={modal}
+                                  key={idx}
                                   setModal={setModal}
-                                  listDown={listDown}
-                                  setListDown={setListDown}
-                                  found={foundList}
-                                  user={user}
-                                  nickNames={nickNames}
-                                  setFoundList={setFoundList}
-                                  foundList={foundList}
                                   nickName={nickName}
                                   setNickName={setNickName}
-                                  key={idx}
                                 />
                                 //</GridItem>
                               );

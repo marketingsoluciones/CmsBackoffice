@@ -8,38 +8,42 @@ import { Box, Center, Checkbox, Divider, Flex, Text, useToast } from "@chakra-ui
 import * as Yup from "yup";
 import { SocialMedia } from "../Seudonimo/SocialMedia";
 import { FormLabelMod } from "../formularios/Inputs/FormLabelMod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InputCheckBox } from "../Seudonimo/InputCheckBox";
 import { comment } from "postcss";
 
-export const EdicionDeSeudonimo = ({ modal, setModal, user, nickName, setNickName }) => {
-  console.log(10001, user)
-  const [lock, setLock] = useState({
-    facebook: false,
-    twitter: false,
-    instagram: false,
-    whatsapp: false
-  })
-
+export const EditSeudonimo = ({ modal, setModal, user, nickName, setNickName }) => {
+  const socialMedias = [
+    { title: "facebook", icon: <BlackFacebookIcon />, placeholder: "https://www.facebook.com/...?" },
+    { title: "twitter", icon: <BlackInstagramIcon />, placeholder: "https://instagram.com/...?" },
+    { title: "instagram", icon: <BlackTwitterIcon />, placeholder: "https://twitter.com/...?" },
+    { title: "whatsapp", icon: <BlackWhatsappIcon />, placeholder: "wa.link/...?" }
+  ]
+  const [lock, setLock] = useState(socialMedias.map(elem => { return { [`${elem.title}`]: false } }))
 
   const { domain, development, setUser } = AuthContextProvider()
   const toast = useToast();
-
+  const asd = () => {
+    const resultSocialMedias = undefined
+    for (let i = 0; i < socialMedias.length; i++) {
+      const sm = !modal.create && nickName?.socialMedia?.find(elem => elem.title === socialMedias[i].title)?.link
+      const smStatus = !modal.create && nickName?.socialMedia?.find(elem => elem.title === socialMedias[i].title)?.isVisible
+      resultSocialMedias = {
+        ...resultSocialMedias,
+        [`${socialMedias[i].title}`]: sm ? sm : "",
+        [`${socialMedias[i].title}Status`]: sm ? smStatus : true,
+      }
+    }
+    return resultSocialMedias
+  }
   const initialValue = {
-    nickName: !modal.create ? nickName?.nickName : null,
-    facebook: null,
-    facebookStatus: false,
-    twitter: null,
-    twitterStatus: false,
-    instagram: null,
-    instagramStatus: false,
-    whatsapp: null,
-    whatsappStatus: false,
+    nickName: !modal.create ? nickName?.nickName : "",
     comment: true,
     trackbacks: false,
-    file: null
+    imgAvatar: !modal.create ? nickName?.imgAvatar : undefined,
+    ...asd()
   }
-
+  console.log(55441, initialValue)
   const validFileExtensions = { image: ['jpg', 'gif', 'png', 'jpeg', 'svg', 'webp', 'jfif'] };
   function isValidFileType(fileName, fileType) {
     return fileName && validFileExtensions[fileType].indexOf(fileName.split('.').pop()) > -1;
@@ -47,35 +51,82 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user, nickName, setNickNam
   const MAX_FILE_SIZE = 1024000;
   const validationSchema = Yup.object({
     nickName: Yup.string().required("requerido"),
-    file: Yup.mixed()
+    imgAvatar: Yup.mixed()
       .required("Required")
       .test("is-valid-type", "Not a valid image type",
-        value => isValidFileType(value && value.name.toLowerCase(), "image"))
+        (value) => {
+          console.log(55221, value, !!value?.name)
+          if (!!value?.name) {
+            return isValidFileType(value && value?.name?.toLowerCase(), "image")
+          }
+          return true
+        }
+      )
       .test("is-valid-size", "Max allowed size is 100KB",
-        value => value && value.size <= MAX_FILE_SIZE)
+        (value) => {
+          if (!!value?.name) {
+            return value && value.size <= MAX_FILE_SIZE
+          }
+          return true
+        }
+      )
   });
 
   const onsubmit = async (values) => {
-    console.log(200001, values)
     try {
-      // const result = await fetchApi({
-      //   query: queries.createNickName,
-      //   variables: { ...values, development: development, uid: user?.uid },
-      //   development: domain,
-      //   type: "formData"
-      // });
-      // if (result === "ok") {
-      //   toast({
-      //     status: "success",
-      //     title: "Operacion exitosa",
-      //     isClosable: true,
-      //   });
-      //   setUser((old) => {
-      //     console.log(old)
-      //     return old
-      //   });
-      //   setModal(!modal)
-      // }
+      values.socialMedia = socialMedias.reduce((acc, elem) => {
+        if (values[elem.title] !== "") {
+          acc.push({
+            title: elem.title,
+            link: values[elem.title],
+            isVisible: values[`${elem.title}Status`]
+          })
+        }
+        return acc
+      }, [])
+      let result
+      if (modal.create) {
+        result = await fetchApi({
+          query: queries.createNickName,
+          variables: { ...values, development: development, uid: user?.uid },
+          development: domain,
+          type: "formData"
+        });
+      }
+      if (!modal.create) {
+        result = await fetchApi({
+          query: queries.updateNickName,
+          variables: { ...values, development: development, uid: user?.uid },
+          development: domain,
+          type: "formData"
+        });
+      }
+      setUser((old) => {
+        const f = (arr, filter) => {
+          const key = Object.keys(filter)[0]
+          const value = Object.values(filter)[0]
+          return arr.findIndex(item => item[key] == value)
+        }
+        if (modal.create) {
+          old.authDevelopments[f(old.authDevelopments, { title: development })].nickNames?.push(result)
+        } else {
+          old.authDevelopments[f(old.authDevelopments, { title: development })]
+            .nickNames[f(old.authDevelopments[f(old.authDevelopments, { title: development })].nickNames, { nickName: nickName?.nickName })] = result
+        }
+        return { ...old }
+      });
+      setNickName(result)
+      setTimeout(() => {
+        setModal(!modal)
+      }, 500);
+      if (result) {
+        toast({
+          status: "success",
+          title: "Operacion exitosa",
+          isClosable: true,
+        });
+      }
+
     } catch (error) {
       console.log(error)
     }
@@ -100,7 +151,7 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user, nickName, setNickNam
 
               <Flex w={"100%"} >
                 <Box ml={"4"} w={{ base: "80px", md: "120px" }} h={{ base: "80px", md: "120px" }}>
-                  <PerfilImg name={"file"} />
+                  <PerfilImg name={"imgAvatar"} />
                 </Box>
                 <Flex ml={{ base: "0.3rem", md: "1rem" }} alignItems={"center"} className={"w-[calc(100%-105px)] md:w-[calc(100%-165px)]"} h={"100%"}>
                   <InputFieldGlobal
@@ -110,11 +161,14 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user, nickName, setNickNam
                   />
                 </Flex>
               </Flex>
+              {nickName?.socialMedia?.map((elem, idx) => {
+                <Box key={idx}>
 
-              <SocialMedia mediaIcon={<BlackFacebookIcon />} name={"facebook"} lock={lock} setLock={setLock} placeholder={"https://www.facebook.com/...?"} />
-              <SocialMedia mediaIcon={<BlackInstagramIcon />} name={"twitter"} lock={lock} setLock={setLock} placeholder={"https://instagram.com/...?"} />
-              <SocialMedia mediaIcon={<BlackTwitterIcon />} name={"instagram"} lock={lock} setLock={setLock} placeholder={"https://twitter.com/...?"} />
-              <SocialMedia mediaIcon={<BlackWhatsappIcon />} name={"whatsapp"} lock={lock} setLock={setLock} placeholder={"wa.link/...?"} />
+                </Box>
+              })}
+              {socialMedias.map((elem, idx) => {
+                return <SocialMedia key={idx} mediaIcon={elem.icon} name={elem.title} lock={lock} setLock={setLock} placeholder={elem.placeholder} />
+              })}
               <Box >
                 <Divider />
                 <FormLabelMod fontSize={"lg"} >
@@ -143,13 +197,10 @@ export const EdicionDeSeudonimo = ({ modal, setModal, user, nickName, setNickNam
                   Cancelar
                 </div>
               </div>
-
             </Flex>
-
           </div>
         </Form>
       </Formik >
     </>
-
   );
 };
