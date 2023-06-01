@@ -46,28 +46,28 @@ export const OptionsForm = ({ alertDev, setAlertDev, schema, user }) => {
                     <IconStatus />
                     <Text className="ml-2 text-sm  relative" >Estatus: <span className="font-bold">Redactando</span></Text>
                 </Flex>
-                <IconEdit className={"w-6 h-6 text-gray-600"} onClick={() => setAlertDev(!alertDev)} />
+                <IconEdit className={"w-6 h-6 text-gray-600 cursor-pointer"} onClick={() => setAlertDev(!alertDev)} />
             </Flex>
             <Flex my={"0.2rem"} justifyContent={"space-between"} >
                 <Flex >
                     <IconVisibility />
                     <Text className="ml-2 text-sm  relative" > Visibilidad: <span className="font-bold">Pública</span></Text>
                 </Flex>
-                <IconEdit className={"w-6 h-6 text-gray-600"} onClick={() => setAlertDev(!alertDev)} />
+                <IconEdit className={"w-6 h-6 text-gray-600 cursor-pointer"} onClick={() => setAlertDev(!alertDev)} />
             </Flex>
             <Flex my={"0.2rem"} justifyContent={"space-between"} >
                 <Flex >
                     <IconVisits />
                     <Text className="ml-2 text-sm  relative" >Visitas: <span className="font-bold">Premiun</span></Text>
                 </Flex>
-                <IconEdit className={"w-6 h-6 text-gray-600"} onClick={() => setAlertDev(!alertDev)} />
+                <IconEdit className={"w-6 h-6 text-gray-600 cursor-pointer"} onClick={() => setAlertDev(!alertDev)} />
             </Flex>
             <Flex my={"0.2rem"} justifyContent={"space-between"} >
                 <Flex >
                     <IconCalendary />
-                    <Text className="ml-2 text-sm  relative" >Publicar: <span className="font-bold">inmediatamente</span></Text>
+                    <Text className="ml-2 text-sm  relative" >Publicar: <span className="font-bold">inmediato</span></Text>
                 </Flex>
-                <IconEdit className={"w-6 h-6 text-gray-600"} onClick={() => setAlertDev(!alertDev)} />
+                <IconEdit className={"w-6 h-6 text-gray-600 cursor-pointer"} onClick={() => setAlertDev(!alertDev)} />
             </Flex>
             <div className="flex flex-row gap-4 items-center justify-center shrink-0 w-[100%] relative" >
                 {schema && schema?.map((item, idx) => {

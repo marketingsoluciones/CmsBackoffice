@@ -82,7 +82,7 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
       <FormLabelMod>
         <Flex gap={"0.3rem"} alignItems={"center"} justify={"space-between"}  >
           {label} {" "}
-          <EditIcon w={"6"} h={"6"} />
+          <EditIcon w={"6"} h={"6"} className="cursor-pointer" />
           {meta.touched && meta.error && (
             <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
               {meta.error}
