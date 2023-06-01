@@ -10,6 +10,7 @@ import { AuthContextProvider } from "../context/AuthContext";
 import ClickAwayListener from "react-click-away-listener";
 import { useEffect, useRef, useState } from "react";
 import { set } from "react-hook-form";
+import router from "next/router";
 
 
 
@@ -17,6 +18,7 @@ export const Navigation = ({ set, state, }) => {
   const { _signOut } = useAuthentication()
   const { user } = AuthContextProvider()
   const [show, setShow] = useState(false)
+  
 
 
   const Options = [
@@ -165,7 +167,7 @@ export const Hit = ({ hit, }) => {
   const { dispatch } = AuthContextProvider()
   return (
     <>
-      <div className="gap-3 flex py-3 px-5  transition-all cursor-pointer items-center" onClick={() => { dispatch({ type: "VIEWW", payload: { _id: hit.objectID } }) }}>
+      <div className="gap-3 flex py-3 px-5  transition-all cursor-pointer items-center" /* onClick={() => {[router.push("/"+hit?.type) ,dispatch({ type: "EDIT", payload: { _id: hit.objectID } })] }} */>
         <img
           alt={hit?.title}
           src={
