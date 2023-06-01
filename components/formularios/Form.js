@@ -84,7 +84,7 @@ export const FormDinamical = forwardRef(
     const ValidationOptions = {
       ckeditor: Yup.string().nullable(),
       string: Yup.string().nullable(),
-      /* image: Yup.string().nullable(), */
+      textareaSizable: Yup.string().nullable(),
       stringL: Yup.string().nullable(),
       email: Yup.string().email().nullable(),
       url: Yup.string().matches(
@@ -98,6 +98,7 @@ export const FormDinamical = forwardRef(
         _id: Yup.string()
       })).nullable(),
       //imageMultiple: Yup.array().of(Yup.string()).nullable(),
+      /* image: Yup.string().nullable(), */
       textarea: Yup.string().nullable(),
     };
 
