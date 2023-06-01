@@ -138,8 +138,9 @@ export const queries = {
     $nickName: String!, 
     $imgAvatar:Upload, 
     $socialMedia:[inputSocialMedia]
+    $development:String!
   ) {
-    createNickName (args:{uid:$uid, nickName: $nickName, imgAvatar:$imgAvatar, socialMedia:$socialMedia }){
+    createNickName (args:{uid:$uid, nickName: $nickName, imgAvatar:$imgAvatar, socialMedia:$socialMedia, development:$development }){
       _id
       nickName
       socialMedia{
@@ -163,8 +164,9 @@ export const queries = {
     $nickName: String!, 
     $imgAvatar:Upload, 
     $socialMedia:[inputSocialMedia]
+    $development:String!
   ) {
-    updateNickName (args:{uid:$uid, nickName: $nickName, imgAvatar:$imgAvatar, socialMedia:$socialMedia }){
+    updateNickName (args:{uid:$uid, nickName: $nickName, imgAvatar:$imgAvatar, socialMedia:$socialMedia, development:$development }){
         _id
         nickName
         socialMedia{
@@ -182,6 +184,10 @@ export const queries = {
         updatedAt
       }
     }`,
+  deleteNickName: `
+  mutation  ($uid:ID!, $nickName:String!, $development:String!) {
+    deleteNickName (uid:$uid, nickName:$nickName, development:$development)
+  }`,
   updateVisibleColumns: `
     mutation  ($uid : ID!, $args:[inputVisibleColumn]) {
       updateVisibleColumns (uid:$uid, args:$args){

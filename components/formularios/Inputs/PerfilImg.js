@@ -9,6 +9,7 @@ import { FormLabelMod } from "./FormLabelMod";
 
 export const PerfilImg = ({ ...props }) => {
     const [field, meta, helpers] = useField(props);
+    console.log(1441, field)
     const [image, setImage] = useState(null)
 
     const handleChange = async (e) => {
@@ -33,9 +34,9 @@ export const PerfilImg = ({ ...props }) => {
     };
     return (
         <FormLabel className="w-[100%] h-[100%]">
-            <Flex className="cursor-pointer rounded-full border-dashed border w-[100%] h-[100%] bg-gray-400 truncate flex items-center justify-center">
+            <Flex bg={field?.value?.i640 ? "white" : "gray.400"} className="cursor-pointer rounded-full border-2 w-[100%] h-[100%] truncate flex items-center justify-center">
                 <Center>
-                    <div className="bg-red-500 text-white">
+                    <div className="text-white">
                         {
                             !field?.value?.i640 && !image ?
                                 (<>
@@ -48,9 +49,9 @@ export const PerfilImg = ({ ...props }) => {
                                 </>)
                                 :
                                 (
-                                    <div className="border w-[216px] h-[122px]">
-                                        {field?.value?.i640 && <Image width={"214"} height={"120"} layout="intrinsic" src={`${process.env.NEXT_PUBLIC_BASE_URL}${field.value.i640}`} objectFit="contain" objectPosition={"center"} />}
-                                        {image && <Image width={"214"} height={"120"} layout="intrinsic" src={image} objectFit="contain" objectPosition={"center"} />}
+                                    <div className="border w-[120px] h-[120px]">
+                                        {field?.value?.i640 && <Image width={"120"} height={"120"} layout="intrinsic" src={`${process.env.NEXT_PUBLIC_BASE_URL}${field.value.i640}`} objectFit="contain" objectPosition={"center"} />}
+                                        {image && <Image width={"120"} height={"120"} layout="intrinsic" src={image} objectFit="contain" objectPosition={"center"} />}
                                     </div>
                                 )
                         }

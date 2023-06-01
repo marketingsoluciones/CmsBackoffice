@@ -243,6 +243,12 @@ export const BodyStaticAPP = [
             required: true,
           },
           {
+            Header: "Descripcion",
+            accessor: "description",
+            type: "textareaSizable",
+            required: true,
+          },
+          {
             Header: "Imagen Banner",
             accessor: "imgBanner",
             type: "image",

@@ -14,15 +14,15 @@ const Slug = ({ slug, props }) => {
   const r = useRouter()
 
   useEffect(() => {
-
-    if(r?.query?.d === "create"){
+    if (r?.query?.d === "create") {
       dispatch({ type: "CREATE", payload: {} });
-    }else{
-      dispatch({ type: "VIEW", payload: {} });
     }
-  }, [slug,r]);
+  }, [slug, r]);
 
-  
+  useEffect(() => {
+    console.log(9005, "state", state)
+  }, [state])
+
 
   return (
     <Flex as={"section"} flexDir={"column"} gap={"1rem"} h={"100%"}>
