@@ -4,13 +4,13 @@ import { Formik, Form } from "formik";
 import { InputFieldGlobal } from "../formularios/Inputs/InputFieldGlobal"
 import { fetchApi, queries } from "../../utils/Fetching";
 import { AuthContextProvider } from "../../context/AuthContext";
-import { Box, Center, Checkbox, Divider, Flex, Text, useToast } from "@chakra-ui/react";
+import { Box, Button, Center, Divider, Flex, Text, useToast } from "@chakra-ui/react";
 import * as Yup from "yup";
 import { SocialMedia } from "../Seudonimo/SocialMedia";
 import { FormLabelMod } from "../formularios/Inputs/FormLabelMod";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { InputCheckBox } from "../Seudonimo/InputCheckBox";
-import { comment } from "postcss";
+import { ButtonDeleteEntry } from "../formularios/ButtonDeleteEntry";
 
 export const EditSeudonimo = ({ modal, setModal, user, nickName, setNickName }) => {
   const socialMedias = [
@@ -20,6 +20,7 @@ export const EditSeudonimo = ({ modal, setModal, user, nickName, setNickName }) 
     { title: "whatsapp", icon: <BlackWhatsappIcon />, placeholder: "wa.link/...?" }
   ]
   const [lock, setLock] = useState(socialMedias.map(elem => { return { [`${elem.title}`]: false } }))
+  const [isLoading, setIsLoading] = useState(false)
 
   const { domain, development, setUser } = AuthContextProvider()
   const toast = useToast();
@@ -43,7 +44,6 @@ export const EditSeudonimo = ({ modal, setModal, user, nickName, setNickName }) 
     imgAvatar: !modal.create ? nickName?.imgAvatar : undefined,
     ...asd()
   }
-  console.log(55441, initialValue)
   const validFileExtensions = { image: ['jpg', 'gif', 'png', 'jpeg', 'svg', 'webp', 'jfif'] };
   function isValidFileType(fileName, fileType) {
     return fileName && validFileExtensions[fileType].indexOf(fileName.split('.').pop()) > -1;
@@ -55,7 +55,6 @@ export const EditSeudonimo = ({ modal, setModal, user, nickName, setNickName }) 
       .required("Required")
       .test("is-valid-type", "Not a valid image type",
         (value) => {
-          console.log(55221, value, !!value?.name)
           if (!!value?.name) {
             return isValidFileType(value && value?.name?.toLowerCase(), "image")
           }
@@ -74,6 +73,7 @@ export const EditSeudonimo = ({ modal, setModal, user, nickName, setNickName }) 
 
   const onsubmit = async (values) => {
     try {
+      setIsLoading(true)
       values.socialMedia = socialMedias.reduce((acc, elem) => {
         if (values[elem.title] !== "") {
           acc.push({
@@ -105,7 +105,7 @@ export const EditSeudonimo = ({ modal, setModal, user, nickName, setNickName }) 
         const f = (arr, filter) => {
           const key = Object.keys(filter)[0]
           const value = Object.values(filter)[0]
-          return arr.findIndex(item => item[key] == value)
+          return arr.findIndex(item => item ? item[key] == value : false)
         }
         if (modal.create) {
           old.authDevelopments[f(old.authDevelopments, { title: development })].nickNames?.push(result)
@@ -117,7 +117,8 @@ export const EditSeudonimo = ({ modal, setModal, user, nickName, setNickName }) 
       });
       setNickName(result)
       setTimeout(() => {
-        setModal(!modal)
+        if (modal.create) setModal({ setValue: true, create: true })
+        if (!modal.create) setModal({ setValue: true, update: true })
       }, 500);
       if (result) {
         toast({
@@ -126,7 +127,32 @@ export const EditSeudonimo = ({ modal, setModal, user, nickName, setNickName }) 
           isClosable: true,
         });
       }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
+  const handleRemove = async (nickName) => {
+    try {
+      await fetchApi({
+        query: queries.deleteNickName,
+        variables: { nickName, development: development, uid: user?.uid },
+        development: domain,
+      });
+      setUser((old) => {
+        const newOld = { ...old }
+        const f = (arr, filter) => {
+          const key = Object.keys(filter)[0]
+          const value = Object.values(filter)[0]
+          return arr.findIndex(item => item ? item[key] == value : false)
+        }
+        delete newOld.authDevelopments[f([...newOld.authDevelopments], { title: development })]
+          .nickNames[f([...newOld.authDevelopments][f([...newOld.authDevelopments], { title: development })].nickNames, { nickName: nickName })]
+        return { ...newOld }
+      });
+      setTimeout(() => {
+        setModal({ setValue: true, delete: true })
+      }, 500);
     } catch (error) {
       console.log(error)
     }
@@ -179,24 +205,34 @@ export const EditSeudonimo = ({ modal, setModal, user, nickName, setNickName }) 
                   </Flex>
                 </FormLabelMod>
               </Box>
-
-              <div className="p-6 flex flex-row gap-3 items-center justify-end self-stretch shrink-0 h-14 relative">
-                <div
-                  className="bg-green-700 rounded-lg pt-1.5 pr-4 pb-1.5 pl-4 flex flex-row gap-0 items-center justify-center shrink-0 relative">
-                  <button
+              <Flex w={"100%"} justifyContent={"space-between"}>
+                <Center w={"40%"}>
+                  {!modal.create &&
+                    <ButtonDeleteEntry
+                      title={"Eliminar entrada"}
+                      handleRemove={() => handleRemove(nickName?.nickName)}
+                      isLoading={false}
+                    />
+                  }
+                </Center>
+                <div className="w-[50%] p-6 flex flex-row gap-3 items-center justify-end self-stretch shrink-0 h-14 relative">
+                  <Button
                     type="submit"
-                    className="text-white text-center relative flex items-center justify-center cursor-pointer"
-                    style={{
-                      font: "var(--_01-button-02-medium, 700 14px/24px 'Public Sans', sans-serif)",
-                    }}>
+                    bg={"#15803d"}
+                    _hover={false}
+                    fontFamily={""}
+                    textColor={"white"}
+                    rounded={"lg"}
+                    isLoading={isLoading}
+                  >
                     Guardar
-                  </button>
+                  </Button>
+                  <div
+                    onClick={() => setModal(!modal)} className="cursor-pointer rounded-lg border-solid border pt-1.5 pr-4 pb-1.5 pl-4 shrink-0 ">
+                    Cancelar
+                  </div>
                 </div>
-                <div
-                  onClick={() => setModal(!modal)} className="cursor-pointer rounded-lg border-solid border pt-1.5 pr-4 pb-1.5 pl-4 shrink-0 ">
-                  Cancelar
-                </div>
-              </div>
+              </Flex >
             </Flex>
           </div>
         </Form>

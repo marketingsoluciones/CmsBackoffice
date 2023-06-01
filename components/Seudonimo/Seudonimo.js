@@ -1,19 +1,21 @@
 import { Avatar, Box, Divider, Flex, Text, Center, Tooltip } from "@chakra-ui/react";
 import { IconEdit, IconInstagram, IconLogoFacebook, IconPlusSquare, IconTwitterLogo, IconWhatsapp } from "../Icons";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import React from 'react'
-import Select from 'react-select'
+import Select, { InputActionMeta } from 'react-select'
 import { FormLabelMod } from "../formularios/Inputs/FormLabelMod";
 import { AuthContextProvider } from "../../context/AuthContext";
 import Image from "next/image";
 
-export const Seudonimo = ({ setModal, nickName, setNickName }) => {
+export const Seudonimo = ({ setModal, modal, nickName, setNickName }) => {
+    const refSelet = useRef(null)
     const { user, development } = AuthContextProvider()
     const [isClearable, setIsClearable] = useState(true);
     const [isSearchable, setIsSearchable] = useState(false);
     const [isDisabled, setIsDisabled] = useState(false);
     const [isLoading, setIsLoading] = useState(false)
     const [value, setValue] = useState()
+    const [idxOptions, setIdxOptions] = useState()
 
     const socialMediaIcons = {
         facebook: <IconLogoFacebook className="w-5 h-5 text-gray-700" />,
@@ -43,19 +45,18 @@ export const Seudonimo = ({ setModal, nickName, setNickName }) => {
     }, [user, nickName])
 
     useEffect(() => {
-        console.log("cambio")
-    }, [nickName])
+        //aqui para setear modal de acuerdo a los cambios que quiero para el select
+        if (modal?.setValue) {
+            if (modal?.create) { refSelet.current.setValue(options[options.length - 1]) }
+            if (modal?.update) refSelet.current.setValue(options[idxOptions])
+            if (modal?.delete) refSelet.current.setValue()
+        }
+    }, [modal])
 
     useEffect(() => {
         setNickName(user?.authDevelopments.find(entorno => entorno.title === development).nickNames.filter(elem => elem.nickName === value)[0])
     }, [value, user])
 
-    useEffect(() => {
-        console.log(40002, nickName, !!nickName?.facebook)
-    }, [nickName])
-    useEffect(() => {
-        console.log(40001, user?.authDevelopments.find(entorno => entorno.title === development).nickNames)
-    }, [user?.authDevelopments.find(entorno => entorno.title === development).nickNames])
     return (
         <Box >
             <Divider />
@@ -71,7 +72,11 @@ export const Seudonimo = ({ setModal, nickName, setNickName }) => {
                 </Flex>
                 <Box my={{ base: "0rem", md: "0.3rem" }} >
                     <Select
-                        onChange={(e) => { setValue(e?.value) }}
+                        ref={refSelet}
+                        onChange={(e) => {
+                            setIdxOptions(options.findIndex(elem => elem.value === e?.value))
+                            setValue(e?.value)
+                        }}
                         isOptionSelected={value}
                         className="w-[100%] mr-2"
                         placeholder={

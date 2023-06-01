@@ -1,14 +1,6 @@
-import {
-  Button,
-  Flex,
-  Heading,
-  useToast,
-} from "@chakra-ui/react";
-import React, { useRef } from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Flex } from "@chakra-ui/react";
+import React from "react";
 import { AuthContextProvider } from "../context/AuthContext";
-import { useRouter } from "next/router";
-import { FormDinamical } from "./formularios/Form";
 import Link from "next/link";
 
 export const Login = () => {

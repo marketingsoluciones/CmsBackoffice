@@ -33,7 +33,7 @@ import { InfoForm } from "./InfoForm";
 import { TextareaFieldSizable } from "./Inputs/TextareaFieldSizable";
 
 export const FormDinamical = forwardRef(
-  ({ schema: state, initialValues, columns, onSubmit, Information, values, options, estado, setAction }, ref) => {
+  ({ schema: state, initialValues, columns, onSubmit, Information, values, options, estado }, ref) => {
     const { user } = AuthContextProvider()
     const [schema, setSchema] = useState(null);
     const [modal, setModal] = useState({ show: false, create: false })
@@ -344,6 +344,7 @@ export const FormDinamical = forwardRef(
                                 // <GridItem bg={"blue"} colSpan={[1, , , 1]} key={idx}>
                                 <Seudonimo
                                   key={idx}
+                                  modal={modal}
                                   setModal={setModal}
                                   nickName={nickName}
                                   setNickName={setNickName}
@@ -389,7 +390,6 @@ export const FormDinamical = forwardRef(
                         values={values}
                         options={options}
                         estado={estado}
-                        setAction={setAction}
                       />
                     </GridItem>
                   </Grid>

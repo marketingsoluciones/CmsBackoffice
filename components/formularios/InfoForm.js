@@ -1,12 +1,10 @@
-import { Badge, Box, Button, Divider, Text } from "@chakra-ui/react";
+import { Badge, Box, Divider, Text } from "@chakra-ui/react";
 import { useFetch } from "../../hooks/useFetch";
-import { DeleteIcon } from "@chakra-ui/icons";
-import { DeleteModall } from "../modals/Alert";
-import { useState } from "react";
 import { FormLabelMod } from "./Inputs/FormLabelMod";
 import { AuthContextProvider } from "../../context/AuthContext";
+import { ButtonDeleteEntry } from "./ButtonDeleteEntry";
 
-export const InfoForm = ({ Information, values, options, estado, setAction }) => {
+export const InfoForm = ({ Information, values, options, estado }) => {
   const [data, isLoading, isError, setQuery] = useFetch(true);
   const { dispatch } = AuthContextProvider()
 
@@ -54,35 +52,10 @@ export const InfoForm = ({ Information, values, options, estado, setAction }) =>
         <ButtonDeleteEntry
           title={"Eliminar entrada"}
           handleRemove={handleRemove}
+          isLoading={isLoading}
         />
       )}
     </>
   )
 }
-
-const ButtonDeleteEntry = ({ title, handleRemove }) => {
-  const [modal, setModal] = useState(false)
-  const [data, isLoading, isError, setQuery] = useFetch(true);
-  return (
-    <>
-      {
-        modal ? (
-          <DeleteModall setModal={setModal} modal={modal} handleRemove={handleRemove} />
-        ) : null
-      }
-      <Button
-        bg={"white"}
-        rounded={"xl"}
-        size={"sm"}
-        w={"100%"}
-        color={"red.500"}
-        leftIcon={<DeleteIcon />}
-        isLoading={isLoading}
-        onClick={() => setModal(!modal)}
-      >
-        {title}
-      </Button>
-    </>
-  );
-};
 

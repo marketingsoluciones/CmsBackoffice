@@ -67,7 +67,7 @@ export const DeleteModall = ({ setModal, modal, handleRemove }) => {
                     <button className="bg-botonBack h-10 w-20 rounded-lg text-white text-sm" onClick={() => setModal(!modal)}>Descartar</button>
                     <Button
                         _hover={{ bg: "red.400" }}
-                        _focus={"none"}
+                        //_focus={"none"}
                         rounded={"xl"}
                         color={"white"}
                         bg={"red.500"}
