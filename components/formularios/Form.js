@@ -1,4 +1,4 @@
-import { Avatar, Button, Grid, GridItem, SimpleGrid } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import { InputField } from "../../components/formularios/Inputs/InputField";
 import { InputNumberField } from "../../components/formularios/Inputs/InputNumberField";

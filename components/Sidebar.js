@@ -1,17 +1,4 @@
-import {
-  Avatar,
-  Text,
-  Flex,
-  Heading,
-  Box,
-  Divider,
-  Menu,
-  MenuItem,
-  MenuGroup,
-  MenuButton,
-  MenuList,
-  Button,
-} from "@chakra-ui/react";
+import { Text, Flex, Box, Menu, MenuItem, MenuGroup, MenuButton, MenuList } from "@chakra-ui/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BodyStaticAPP } from "../utils/schemas";

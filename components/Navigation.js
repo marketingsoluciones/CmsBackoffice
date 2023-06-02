@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from "react";
 import { set } from "react-hook-form";
 import router from "next/router";
 import packageJson from "../package.json";
+import Image from "next/image";
 
 
 
@@ -20,7 +21,7 @@ export const Navigation = ({ set, state, }) => {
   const { user } = AuthContextProvider()
   const [show, setShow] = useState(false)
 
-
+  console.log(1234, user?.photoURL)
 
   const Options = [
 
@@ -60,7 +61,12 @@ export const Navigation = ({ set, state, }) => {
                   }
                 </Center>
                 <Flex alignItems={"center"} gap={"0.5rem"}>
-                  <Avatar size={"sm"} />
+                  {user?.photoURL ?
+                    <Flex w={"32px"} h={"32px"} border={"1px"} borderColor={"gray.400"} rounded={"full"} isTruncated>
+                      <Image width={"32px"} height={"32px"} layout="intrinsic" src={"https://api.bodasdehoy.com/uploads/3aae14/gettyimages-1331335241-1024x1024-i640.webp"} objectFit="contain" objectPosition={"center"} />
+                    </Flex>
+                    : <Avatar h={"32px"} w={"32px"} />
+                  }
                 </Flex>
               </Flex>
             </MenuButton>

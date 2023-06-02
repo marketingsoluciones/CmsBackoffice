@@ -81,7 +81,12 @@ export const Seudonimo = ({ setModal, modal, nickName, setNickName }) => {
                         className="w-[100%] mr-2"
                         placeholder={
                             <Flex alignItems={"Center"}>
-                                <Avatar h={"24px"} w={"24px"} />
+                                {user?.photoURL ?
+                                    <Flex w={"24px"} h={"24px"} border={"1px"} borderColor={"gray.400"} rounded={"full"} isTruncated>
+                                        <Image width={"24px"} height={"24px"} layout="intrinsic" src={"https://api.bodasdehoy.com/uploads/3aae14/gettyimages-1331335241-1024x1024-i640.webp"} objectFit="contain" objectPosition={"center"} />
+                                    </Flex>
+                                    : <Avatar h={"24px"} w={"24px"} />
+                                }
                                 <Text ml={"0.2rem"} className="capitalize">{user?.displayName}</Text>
                             </Flex>
                         }
