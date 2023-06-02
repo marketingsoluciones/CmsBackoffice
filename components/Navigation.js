@@ -11,6 +11,7 @@ import ClickAwayListener from "react-click-away-listener";
 import { useEffect, useRef, useState } from "react";
 import { set } from "react-hook-form";
 import router from "next/router";
+import packageJson from "../package.json";
 
 
 
@@ -23,7 +24,7 @@ export const Navigation = ({ set, state, }) => {
 
   const Options = [
 
-    { title: "Ayuda", route: "/" },
+    { title: `Version: ${packageJson?.version}` },
     {
       title: "Cerrar Sesión", function: async () => {
         _signOut()
