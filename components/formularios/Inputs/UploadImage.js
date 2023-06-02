@@ -118,7 +118,7 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
               )
               :
               (
-                <div className="border w-[216px] h-[122px]">
+                <div className="border w-[190px] h-[120px]">
                   {field?.value?.i640 && <Image width={"214"} height={"120"} layout="intrinsic" src={`${process.env.NEXT_PUBLIC_BASE_URL}${field.value.i640}`} objectFit="contain" objectPosition={"center"} />}
                   {image && !video && <Image width={"214"} height={"120"} layout="intrinsic" src={image} objectFit="contain" objectPosition={"center"} />}
                   {video && <video id="video" style={{ maxHeight: "120px" }} width={"214px"} height={"120px"} src={video} controls />}
