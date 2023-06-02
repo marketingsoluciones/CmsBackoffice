@@ -96,10 +96,6 @@ export const BodyStaticAPP = [
             /*  required: true,*/
           },
           {
-            Header: "SEO",
-            type: "desarrollo"
-          },
-          {
             Header: "Contenido",
             accessor: "content",
             type: "ckeditor",
@@ -166,6 +162,10 @@ export const BodyStaticAPP = [
             Header: "Instagram",
             accessor: "instagram",
             type: "url",
+          },
+          {
+            Header: "SEO",
+            type: "desarrollo"
           },
           {
             Header: "País",//
