@@ -147,7 +147,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       {!loadingValues && !errorValues ? (
         <>
           {/* Header del componente */}
-          <Flex w={"100%"} className="px-1 m-1">
+          <Flex w={"99%"} className="px-1 m-1">
             {/* Titulo del componente */}
             <Box w={"100%"}>
               <Flex className="md:items-center" >
