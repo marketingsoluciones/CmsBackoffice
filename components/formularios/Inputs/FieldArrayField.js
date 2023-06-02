@@ -4,7 +4,7 @@ import { FieldArray, useField } from "formik";
 import { memo } from "react";
 import { useState } from "react";
 import { FormLabelMod } from "./FormLabelMod";
-import { CloseIcon } from "../../Icons";
+import { CloseIcon } from "../../Icons/";
 
 export const FieldArrayField = memo(({ label, schema, ...props }) => {
   const [field, meta, helpers] = useField(props);
@@ -41,7 +41,7 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
                     _hover={false}
                     fontFamily={""}
                     textColor={"white"}
-                    onClick={() => arrayHelpers.push(schemas[schema])}
+                    onClick={() => [arrayHelpers.push(schemas[schema]) , setValue('') ]}
                   >
                     Añadir
                   </Button>
@@ -61,10 +61,10 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
                               justifyContent={"space-between"}
                               className="truncate cursor-default mt-3 border rounded-md"
                               key={idx}>
-                              <Text ml={"2"} w={"90%"} className="truncate">
+                              <Text ml={"2"} w={"90%"} py={"1"} className="truncate">
                                 {item}
                               </Text>
-                              <CloseIcon className="w-4 h-4 mr-1" onClick={() => {
+                              <CloseIcon className="w-4 h-4 mr-1 cursor-pointer" onClick={() => {
                                 const indice = arrayHelpers.form.values[props.name].findIndex(ele => item === ele)
                                 arrayHelpers.remove(indice)
                               }} />
