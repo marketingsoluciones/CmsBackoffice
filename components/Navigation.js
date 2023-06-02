@@ -18,7 +18,7 @@ export const Navigation = ({ set, state, }) => {
   const { _signOut } = useAuthentication()
   const { user } = AuthContextProvider()
   const [show, setShow] = useState(false)
-  
+
 
 
   const Options = [
@@ -39,24 +39,28 @@ export const Navigation = ({ set, state, }) => {
         <IconButton onClick={() => set(!state)}>
           <HamburgerIcon w={"1.5rem"} h={"1.5rem"} color={"gray.500"} />
         </IconButton>
-        <Center w={{ base: `${show ? "100%" : "60%"}`, md: "60%" }}>
+        <Center w={{ base: `${show ? "100%" : "50%"}`, md: "50%" }}>
           <SearchNavigation show={show} setShow={setShow} />
         </Center>
-        <Center gap={"2"}>
+        <Center gap={"2"} >
           <Menu >
-            {screen.width > 764 ?
-              <Text w={{ base: "5rem", sm: "10rem", md: "12rem" }} className="text-right truncate" textTransform={"capitalize"}>
-                {user?.displayName}
-              </Text>
-              : !show ?
-                <Text w={{ base: "5rem", sm: "10rem", md: "12rem" }} className="text-right truncate" textTransform={"capitalize"}>
-                  {user?.displayName}
-                </Text>
-                : <></>
-            }
             <MenuButton mr={"0.5rem"}>
-              <Flex alignItems={"center"} gap={"0.5rem"}>
-                <Avatar size={"sm"} />
+              <Flex gap={"2"} >
+                <Center >
+                  {screen.width > 764 ?
+                    <Text className="text-right truncate" textTransform={"capitalize"}>
+                      {user?.displayName}
+                    </Text>
+                    : !show ?
+                      <Text className="text-right truncate" textTransform={"capitalize"}>
+                        {user?.displayName}
+                      </Text>
+                      : <></>
+                  }
+                </Center>
+                <Flex alignItems={"center"} gap={"0.5rem"}>
+                  <Avatar size={"sm"} />
+                </Flex>
               </Flex>
             </MenuButton>
             <MenuList p={"0"} fontSize={"sm"} ml={"8"}>
