@@ -33,8 +33,8 @@ const GoogleMapsField = ({ label, ...props }) => {
 
   useEffect(() => {
     field?.value && setCenter({
-      lat: field.value.coordinates[0],
-      lng: field.value.coordinates[1]
+      lat: field.value.coordinates[1],
+      lng: field.value.coordinates[0]
     })
   }, [field.value])
 
