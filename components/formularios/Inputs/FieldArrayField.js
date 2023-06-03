@@ -41,7 +41,7 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
                     _hover={false}
                     fontFamily={""}
                     textColor={"white"}
-                    onClick={() => [arrayHelpers.push(schemas[schema]) , setValue('') ]}
+                    onClick={() => [arrayHelpers.push(schemas[schema]), setValue('')]}
                   >
                     Añadir
                   </Button>
@@ -74,25 +74,23 @@ export const FieldArrayField = memo(({ label, schema, ...props }) => {
                       }
                       if (item instanceof Object) {
                         return (
-                          <>
-                            {item.title && (
-                              <ListItem
-                                textTransform={"capitalize"}
-                                fontSize={"sm"}
-                                display={"flex"}
-                                alignItems={"center"}
-                                justifyContent={"space-between"}
-                                key={idx}
-                              >
-                                <ListIcon as={CheckIcon} color="green.500" />
-                                {item.title}
-                                <IconButton size={"sm"} onClick={() => {
-                                  const indice = arrayHelpers.form.values[props.name].findIndex(ele => item === ele)
-                                  arrayHelpers.remove(indice)
-                                }}><CloseIcon /></IconButton>
-                              </ListItem>
-                            )}
-                          </>
+                          item.title && (
+                            <ListItem
+                              textTransform={"capitalize"}
+                              fontSize={"sm"}
+                              display={"flex"}
+                              alignItems={"center"}
+                              justifyContent={"space-between"}
+                              key={idx}
+                            >
+                              <ListIcon as={CheckIcon} color="green.500" />
+                              {item.title}
+                              <IconButton size={"sm"} onClick={() => {
+                                const indice = arrayHelpers.form.values[props.name].findIndex(ele => item === ele)
+                                arrayHelpers.remove(indice)
+                              }}><CloseIcon /></IconButton>
+                            </ListItem>
+                          )
                         )
                       }
                     })}

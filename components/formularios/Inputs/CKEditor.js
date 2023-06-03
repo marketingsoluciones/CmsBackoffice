@@ -3,23 +3,35 @@ const CKEditor = dynamic(
   () => import("@ckeditor/ckeditor5-react").then((mod) => mod.CKEditor),
   { ssr: false }
 );
-
 import Editor from '@ckeditor/ckeditor5-build-classic'
-
-
 import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 import { useField } from "formik";
 import { UploadAdapter } from "../../../utils/UploadAdapter";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FormLabelMod } from "./FormLabelMod";
 
 export const CKEditorComponent = ({ label, ...props }) => {
   const [valir, setValir] = useState(false)
+  const [data, setData] = useState({ fieldMod: null, metaMod: null, helpersMod: null })
   setTimeout(() => {
     setValir(true)
-  }, 500);
+  }, 100);
+  const [isMounted, setIsMounted] = useState(false)
+  useEffect(() => {
+    if (!isMounted) {
+      setIsMounted(true)
+    }
+    return () => {
+      setIsMounted(false)
+    }
+  }, [])
+  const [field, meta, helpers] = useField({ ...props })
+  useEffect(() => {
+    if (isMounted) {
+      setData({ fieldMod: field, metaMod: meta, helpersMod: helpers })
+    }
+  }, [isMounted])
 
-  const [field, meta, helpers] = useField({ ...props });
 
   const CustomUploadAdapterPlugin = useCallback((editor) => {
     editor.plugins.get("FileRepository").createUploadAdapter = loader => {
@@ -29,7 +41,6 @@ export const CKEditorComponent = ({ label, ...props }) => {
   })
 
   const editorConfiguration = {
-
     extraPlugins: [CustomUploadAdapterPlugin],
     toolbar: [
       'heading',
@@ -66,7 +77,6 @@ export const CKEditorComponent = ({ label, ...props }) => {
         'mergeTableCells'
       ]
     },
-
   }
   return (
     <>
@@ -76,9 +86,9 @@ export const CKEditorComponent = ({ label, ...props }) => {
           <FormLabelMod >
             {label}
             <Flex gap={"0.3rem"} alignItems={"center"}>
-              {meta.touched && meta.error && (
+              {data?.metaMod?.touched && data?.metaMod?.error && (
                 <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
-                  {meta.error}
+                  {data?.metaMod?.error}
                 </Text>
               )}
             </Flex>
@@ -87,8 +97,8 @@ export const CKEditorComponent = ({ label, ...props }) => {
             <CKEditor
               editor={Editor}
               config={editorConfiguration}
-              onChange={(event, editor) => helpers.setValue(editor.getData())}
-              data={field.value}
+              onChange={(event, editor) => data?.helpersMod?.setValue(editor.getData())}
+              data={data?.fieldMod?.value}
             // para fijar alto fijo del ckeditor
             // onReady={(editor) => {
             //   editor.editing.view.change((writer) => {

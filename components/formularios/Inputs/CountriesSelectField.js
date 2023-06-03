@@ -1,14 +1,28 @@
 import { Box, Text, Select, Image, Divider, Flex } from "@chakra-ui/react"
 import { useField } from "formik";
-import { memo } from "react";
+import { memo, useRef } from "react";
 import { useCallback, useEffect, useState } from "react";
 import { api } from '../../../utils/api'
 import { FormLabelMod } from "./FormLabelMod";
 
 export const CounstriesSelectField = memo(({ label, ...props }) => {
-
     const [field, meta, helpers] = useField(props);
     const [data, setData] = useState([])
+    const [isMounted, setIsMounted] = useState(false)
+    useEffect(() => {
+        if (!isMounted) {
+            setIsMounted(true)
+        }
+        return () => {
+            setIsMounted(false)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (isMounted) {
+            fetching()
+        }
+    }, [isMounted])
 
     const fetching = useCallback(async () => {
         try {
@@ -19,10 +33,6 @@ export const CounstriesSelectField = memo(({ label, ...props }) => {
             console.log(error);
         }
     })
-
-    useEffect(() => {
-        fetching()
-    }, []);
 
 
     return (

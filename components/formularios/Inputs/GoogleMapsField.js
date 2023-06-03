@@ -2,10 +2,7 @@ import { Box, Divider, Flex, Input, List, ListItem, Text } from "@chakra-ui/reac
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useField } from "formik";
 import { useCallback, useState, useRef, FC, useEffect } from "react";
-import usePlacesAutoComplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
+import usePlacesAutoComplete, { getGeocode, getLatLng } from "use-places-autocomplete";
 import { FormLabelMod } from "./FormLabelMod";
 
 const mapContainerStyle = {
@@ -73,7 +70,6 @@ const GoogleMapsField = ({ label, ...props }) => {
                 </Text>
               )}
             </Flex>
-
             <Box my={{ base: "0rem", md: "0.3rem" }} >
               <Search panTo={panTo} center={center} />
               <Box paddingTop={"0.5rem"} >
@@ -94,7 +90,6 @@ const GoogleMapsField = ({ label, ...props }) => {
             </Box >
           </FormLabelMod >
         </Box >
-
       )}
     </>
   );
@@ -143,7 +138,7 @@ const Search = ({ panTo, center }) => {
   return (
     <Box pos={"relative"} >
       <Input
-        value={value}
+        value={value ? value : ""}
         onChange={(e) => setValue(e.target.value)}
         disabled={!ready}
         w={"100%"}

@@ -144,191 +144,235 @@ export const FormDinamical = forwardRef(
 
                     {/* columna izquierda */}
                     <GridItem bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={4} >
-                      {schema &&
-                        schema?.map((item, idx) => {
-                          const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
-                          switch (valir && item.type) {
-                            case "string":
-                              return (
-                                <GridItem colSpan={[1, , , 3]} key={idx}>
-                                  <InputField
-                                    name={item.accessor}
-                                    label={item.Header}
-                                  />
-                                </GridItem>
-                              );
-                              break;
-                            case "stringM":
-                              return (
-                                <GridItem colSpan={[1, , , 2]} key={idx}>
-                                  <InputField
-                                    name={item.accessor}
-                                    label={item.Header}
-                                  />
-                                </GridItem>
-                              );
-                            case "stringL":
-                              return (
-                                <GridItem colSpan={[1, , , 3]} key={idx}>
-                                  <InputField
-                                    name={item.accessor}
-                                    label={item.Header}
-                                  />
-                                </GridItem>
-                              );
-                              break;
-                            /*  case "switch":
-                               return (
-                                 <SwitchField
-                                   key={idx}
-                                   name={item.accessor}
-                                   label={item.Header}
-                                 />
-                               );
-                               break; */
-                            case "slug":
-                              return (
-                                <div key={idx} className="hidden">
-                                  <GridItem colSpan={[1, , , 2]} key={idx}>
+                      <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(6, 1fr)"]} gap={"1rem"}
+                        /*bg={{ base: "red", sm: "orange", md: "green", lg: "blue", xl: "violet", '2xl': "yellow" }}*/>
+                        {schema &&
+                          schema?.map((item, idx) => {
+                            const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
+                            switch (valir && item.type) {
+                              case "br-2":
+                                return (
+                                  <GridItem colSpan={[1, , , , 2]} key={idx}>
+                                    <br />
+                                  </GridItem>
+                                );
+                                break;
+                              case "string":
+                                return (
+                                  <GridItem colSpan={[1, , , , 2]} key={idx}>
                                     <InputField
                                       name={item.accessor}
                                       label={item.Header}
-                                      disabled={true}
                                     />
                                   </GridItem>
-                                </div>
-
-                              );
-                              break;
-                            case "number":
-                              return (
-                                <InputNumberField
-                                  key={idx}
-                                  name={item.accessor}
-                                  label={item.Header}
-                                />
-                              );
-                              break;
-                            case "email":
-                              return (
-                                <GridItem colSpan={[1, , , 3]} key={idx}>
-                                  <InputField
-                                    name={item.accessor}
-                                    label={item.Header}
-                                    type={"email"}
-                                  />
-                                </GridItem>
-                              );
-                              break;
-                            case "password":
-                              return (
-                                <PasswordInput
-                                  key={idx}
-                                  name={item.accessor}
-                                  label={item.Header}
-                                />
-                              );
-                              break;
-                            case "textarea":
-                              return (
-                                <GridItem colSpan={[1, , , 3]} key={idx}>
-                                  <TextareaField
-                                    name={item.accessor}
-                                    label={item.Header}
-                                  />
-                                </GridItem>
-                              );
-                              break;
-                            case "textareaSizable":
-                              return (
-                                <GridItem colSpan={[1, , , 3]} key={idx}>
-                                  <TextareaFieldSizable
-                                    name={item.accessor}
-                                    label={item.Header}
-                                  />
-                                </GridItem>
-                              );
-                              break;
-                            case "ckeditor":
-                              return (
-                                <GridItem
-                                  key={idx}
-                                  colSpan={[1, , , 3]}
-                                  fontSize={"sm"}
-                                >
-                                  <CKEditorComponent
-                                    name={item.accessor}
-                                    label={item.Header}
-                                  />
-                                </GridItem>
-                              );
-                              break;
-                            case "url":
-                              return (
-                                <GridItem colSpan={[1, , , 3]} key={idx}>
-                                  <URLInputField
-                                    name={item.accessor}
-                                    label={item.Header}
-                                  />
-                                </GridItem>
-                              );
-                              break;
-                            case "relationship":
-                              return (
-                                <GridItem colSpan={[1, , , 3]} key={idx}>
-                                  <Relationship
-                                    name={item.accessor}
-                                    label={item.Header}
-                                    tabList={item.tabList}
-                                  />
-                                </GridItem>
-                              );
-                              break;
-                            case "questions":
-                              return (
-                                <GridItem colSpan={[1, , , 3]} key={idx}>
-                                  <QuestionInputsForBusiness
-                                    name={item.accessor}
-                                    label={item.Header}
-                                    values={values}
-                                    setValues={setValues}
-                                  />
-                                </GridItem>
-                              );
-                              break;
-                            case "maps":
-                              return (
-                                <GridItem colSpan={[1, , , 3]} key={idx}>
-                                  <GoogleMapsField
-                                    name={item.accessor}
-                                    label={item.Header}
-                                  />
-                                </GridItem>
-                              );
-                              break;
-                            case "country":
-                              return (
-                                <GridItem colSpan={[1, , , 1]} key={idx}>
-                                  <CounstriesSelectField
-                                    name={item.accessor}
-                                    label={item.Header}
-                                  />
-                                </GridItem>
-                              );
-                              break;
-
-                            case "desarrollo":
-                              return (
-                                <div key={idx} onClick={() => setAlertDev(!alertDev)}>
-                                  <GridItem colSpan={[1, , , 1]} >
-                                    <SeoDev />
+                                );
+                                break;
+                              case "stringM":
+                                return (
+                                  <GridItem colSpan={[1, , , , 3]} key={idx}>
+                                    <InputField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                    />
                                   </GridItem>
-                                </div>
-                              );
-                            default:
-                              break;
-                          }
-                        })}
+                                );
+                              case "stringL":
+                                return (
+                                  <GridItem colSpan={[1, , , , 6]} key={idx}>
+                                    <InputField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              /*  case "switch":
+                                 return (
+                                   <SwitchField
+                                     key={idx}
+                                     name={item.accessor}
+                                     label={item.Header}
+                                   />
+                                 );
+                                 break; */
+                              case "slug":
+                                return (
+                                  <div key={idx} className="hidden">
+                                    <GridItem colSpan={[1, , , , 2]} key={idx}>
+                                      <InputField
+                                        name={item.accessor}
+                                        label={item.Header}
+                                        disabled={true}
+                                      />
+                                    </GridItem>
+                                  </div>
+
+                                );
+                                break;
+                              case "number":
+                                return (
+                                  <GridItem colSpan={[1, , , , 5]} key={idx}>
+                                    <InputNumberField
+                                      key={idx}
+                                      name={item.accessor}
+                                      label={item.Header}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "number-2":
+                                return (
+                                  <GridItem colSpan={[1, , , , 2]} key={idx}>
+                                    <InputNumberField
+                                      key={idx}
+                                      name={item.accessor}
+                                      label={item.Header}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "email-4":
+                                return (
+                                  <GridItem colSpan={[1, , , , 4]} key={idx}>
+                                    <InputField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                      type={"email"}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "emailLg":
+                                return (
+                                  <GridItem colSpan={[1, , , , 6]} key={idx}>
+                                    <InputField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                      type={"email"}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "password":
+                                return (
+                                  <PasswordInput
+                                    key={idx}
+                                    name={item.accessor}
+                                    label={item.Header}
+                                  />
+                                );
+                                break;
+                              case "textarea":
+                                return (
+                                  <GridItem colSpan={[1, , , , 6]} key={idx}>
+                                    <TextareaField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "textareaSizable":
+                                return (
+                                  <GridItem colSpan={[1, , , , 6]} key={idx}>
+                                    <TextareaFieldSizable
+                                      name={item.accessor}
+                                      label={item.Header}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "ckeditor":
+                                return (
+                                  <GridItem
+                                    key={idx}
+                                    colSpan={[1, , , , 6]}
+                                    fontSize={"sm"}
+                                  >
+                                    <CKEditorComponent
+                                      name={item.accessor}
+                                      label={item.Header}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "url":
+                                return (
+                                  <GridItem colSpan={[1, , , , 3]} key={idx}>
+                                    <URLInputField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "urlLg":
+                                return (
+                                  <GridItem colSpan={[1, , , , 6]} key={idx}>
+                                    <URLInputField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "relationship":
+                                return (
+                                  <GridItem colSpan={[1, , , , 6]} key={idx}>
+                                    <Relationship
+                                      name={item.accessor}
+                                      label={item.Header}
+                                      tabList={item.tabList}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "questions":
+                                return (
+                                  <GridItem colSpan={[1, , , , 6]} key={idx}>
+                                    <QuestionInputsForBusiness
+                                      name={item.accessor}
+                                      label={item.Header}
+                                      values={values}
+                                      setValues={setValues}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "maps":
+                                return (
+                                  <GridItem colSpan={[1, , , , 6]} key={idx}>
+                                    <GoogleMapsField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "country":
+                                return (
+                                  <GridItem colSpan={[1, , , , 2]} key={idx}>
+                                    <CounstriesSelectField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+
+                              case "desarrollo":
+                                return (
+                                  <div key={idx} onClick={() => setAlertDev(!alertDev)}>
+                                    <GridItem colSpan={[1, , , , 6]} >
+                                      {/* <SeoDev /> */}
+                                    </GridItem>
+                                  </div>
+                                );
+                              default:
+                                break;
+                            }
+                          })}
+                      </Grid>
                     </GridItem>
 
                     {/* {sm: "red", md: "green", lg: "blue", xl: "violet", '2xl': "yellow" } */}
@@ -342,7 +386,7 @@ export const FormDinamical = forwardRef(
                           switch (valir && item.type) {
                             case "Seudonimo":
                               return (
-                                // <GridItem bg={"blue"} colSpan={[1, , , 1]} key={idx}>
+                                // <GridItem bg={"blue"} colSpan={[1, , , , 1]} key={idx}>
                                 <Seudonimo
                                   key={idx}
                                   modal={modal}

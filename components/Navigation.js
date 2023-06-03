@@ -14,25 +14,18 @@ import router from "next/router";
 import packageJson from "../package.json";
 import Image from "next/image";
 
-
-
 export const Navigation = ({ set, state, }) => {
   const { _signOut } = useAuthentication()
   const { user } = AuthContextProvider()
   const [show, setShow] = useState(false)
 
-  console.log(1234, user?.photoURL)
-
   const Options = [
-
     { title: `Version: ${packageJson?.version}` },
     {
       title: "Cerrar Sesión", function: async () => {
         _signOut()
-
       }
     },
-
   ]
 
   return (
@@ -98,8 +91,6 @@ export const Navigation = ({ set, state, }) => {
 };
 
 const MySearchBox = ({ currentRefinement, refine, show, setShow }) => {
-
-
   return (
     <>
       <ClickAwayListener onClickAway={() => refine("")}>

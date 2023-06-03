@@ -73,7 +73,7 @@ export const BodyStaticAPP = [
           {
             Header: "Pagina web",
             accessor: "webPage",
-            type: "url",
+            type: "urlLg",
           },
           {
             Header: "Imagen Miniatura",
@@ -120,7 +120,7 @@ export const BodyStaticAPP = [
           {
             Header: "Email de contacto",
             accessor: "contactEmail",
-            type: "email",
+            type: "email-4",
             required: true,
           },
           {
@@ -168,6 +168,9 @@ export const BodyStaticAPP = [
             type: "desarrollo"
           },
           {
+            type: "br-2",
+          },
+          {
             Header: "País",//
             accessor: "country",
             type: "country",
@@ -182,7 +185,7 @@ export const BodyStaticAPP = [
           {
             Header: "Codigo Postal",
             accessor: "zip",
-            type: "number",
+            type: "number-2",
           },
           {
             Header: "Direccion",//
@@ -210,7 +213,6 @@ export const BodyStaticAPP = [
             accessor: "coordinates",
             type: "maps",
             required: true,
-
           },
 
         ],
@@ -269,7 +271,6 @@ export const BodyStaticAPP = [
             typeFile: "image",
             typeFile: "svg",
             required: true,
-
           },
           {
             Header: "Sub Categorias",
@@ -338,7 +339,6 @@ export const BodyStaticAPP = [
             type: "image",
             typeFile: "image",
             required: true,
-
           },
           {
             Header: "Imagen Banner",
@@ -355,7 +355,6 @@ export const BodyStaticAPP = [
             typeFile: "image",
             typeFile: "svg",
             required: true,
-
           },
           {
             Header: "Descripcion",
@@ -797,7 +796,6 @@ export const BodyStaticAPP = [
             accessor: "content",
             type: "ckeditor",
           },
-
         ],
       },
     ]
