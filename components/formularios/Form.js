@@ -21,10 +21,8 @@ import Relationship from "../../components/formularios/Inputs/Relationship";
 import { FieldArrayField } from "../../components/formularios/Inputs/FieldArrayField";
 import { MultipleImages } from "../../components/formularios/Inputs/MultipleImages";
 import QuestionInputsForBusiness from "../../components/formularios/Inputs/QuestionInputsForBusiness";
-import { SwitchField } from "../../components/formularios/Inputs/SwitchField";
 import GoogleMapsField from "../../components/formularios/Inputs/GoogleMapsField";
 import { AuthContextProvider } from "../../context/AuthContext";
-import { SeoDev } from "./Inputs/SeoDev";
 import { AlertDesarrollo } from "../modals/AlertDesarrollo";
 import { OptionsForm } from "./OptionsForm";
 import { Seudonimo } from "../Seudonimo/Seudonimo";
@@ -37,8 +35,6 @@ export const FormDinamical = forwardRef(
     const { user } = AuthContextProvider()
     const [schema, setSchema] = useState(null);
     const [modal, setModal] = useState({ show: false, create: false })
-    const [listDown, setListDown] = useState(false)
-    const [foundList, setFoundList] = useState("")
     const [alertDev, setAlertDev] = useState(false)
     const [nickName, setNickName] = useState()
 
@@ -143,9 +139,8 @@ export const FormDinamical = forwardRef(
                   <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(5, 1fr)"]} gap={"1rem"} >
 
                     {/* columna izquierda */}
-                    <GridItem bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={4} >
-                      <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(6, 1fr)"]} gap={"1rem"}
-                        /*bg={{ base: "red", sm: "orange", md: "green", lg: "blue", xl: "violet", '2xl': "yellow" }}*/>
+                    <GridItem bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={[1, , , , , 4]} >
+                      <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(6, 1fr)"]} gap={"1rem"}>
                         {schema &&
                           schema?.map((item, idx) => {
                             const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
@@ -378,7 +373,7 @@ export const FormDinamical = forwardRef(
                     {/* {sm: "red", md: "green", lg: "blue", xl: "violet", '2xl': "yellow" } */}
 
                     {/* columna derecha */}
-                    <GridItem bg={colorBaground} p={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={{ base: 4, lg: 1 }} >
+                    <GridItem bg={colorBaground} p={"1rem"} shadow={"sm"} rounded={"xl"} /*colSpan={{ base: 4, lg: 1 }}*/ >
                       <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
                       {schema &&
                         schema?.map((item, idx) => {
@@ -386,7 +381,7 @@ export const FormDinamical = forwardRef(
                           switch (valir && item.type) {
                             case "Seudonimo":
                               return (
-                                // <GridItem bg={"blue"} colSpan={[1, , , , 1]} key={idx}>
+                                // <GridItem bg={"blue"} colSpan={[1, , , ,  1]} key={idx}>
                                 <Seudonimo
                                   key={idx}
                                   modal={modal}

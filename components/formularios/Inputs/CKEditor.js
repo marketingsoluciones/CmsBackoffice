@@ -42,25 +42,28 @@ export const CKEditorComponent = ({ label, ...props }) => {
 
   const editorConfiguration = {
     extraPlugins: [CustomUploadAdapterPlugin],
-    toolbar: [
-      'heading',
-      '|',
-      'bold',
-      'italic',
-      'link',
-      'bulletedList',
-      'numberedList',
-      '|',
-      'outdent',
-      'indent',
-      '|',
-      'imageUpload',
-      'blockQuote',
-      'insertTable',
-      'mediaEmbed',
-      'undo',
-      'redo'
-    ],
+    toolbar: {
+      items: [
+        'heading',
+        '|',
+        'bold',
+        'italic',
+        'link',
+        'bulletedList',
+        'numberedList',
+        '|',
+        'outdent',
+        'indent',
+        '|',
+        'imageUpload',
+        'blockQuote',
+        'insertTable',
+        'mediaEmbed',
+        'undo',
+        'redo'
+      ],
+      shouldNotGroupWhenFull: true
+    },
     language: 'es',
     image: {
       toolbar: [
