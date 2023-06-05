@@ -1,6 +1,4 @@
 import { Text, Flex, Box, Menu, MenuItem, MenuGroup, MenuButton, MenuList } from "@chakra-ui/react";
-import Link from "next/link";
-import { useEffect, useState } from "react";
 import { BodyStaticAPP } from "../utils/schemas";
 import { AuthContextProvider } from "../context/AuthContext";
 import { useRouter } from "next/router";
@@ -9,8 +7,9 @@ import { ArrowDownIcon, ArrowLeft, IconFolderOpenOutline } from "./../components
 import { hasRole } from "../utils/auth";
 
 export const Sidebar = ({ state, setState }) => {
-  const { user, development, setDevelopment } = AuthContextProvider()
+  const { user, development, setDevelopment, dispatch } = AuthContextProvider()
   const { asPath } = useRouter()
+  const router = useRouter()
   return (
     <Flex
       pos={"relative"}
@@ -90,31 +89,33 @@ export const Sidebar = ({ state, setState }) => {
                             {item.children.map((item, idx) => {
                               if (hasRole(development, user, item.roles)) {
                                 return (
-                                  <Link key={idx} href={item.route}  >
-                                    <MenuItem
-                                      _hover={{ bg: "#F3F3F3" }}
-                                      key={idx}
-                                      color={"#637381"}
-                                      padding={`${state ? "2" : ""}`}
-                                      marginLeft={"2"}
-                                      w={"95%"}
-                                      fontSize={"sm"}
-                                      className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
-                                      style={"/" + item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' } && item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }}
-                                      onClick={() => screen.width < 640 ? setState(!state) : null}
-                                    >
-                                      <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
-                                        <div className={`flex justify-estar items-center  ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
-                                          <div className={` pr-2 `}>
-                                            {item.icon}
-                                          </div>
-                                          <div className={`${state ? "block " : "hidden"}`}>
-                                            {item.title}
-                                          </div>
+                                  <MenuItem
+                                    _hover={{ bg: "#F3F3F3" }}
+                                    key={idx}
+                                    color={"#637381"}
+                                    padding={`${state ? "2" : ""}`}
+                                    marginLeft={"2"}
+                                    w={"95%"}
+                                    fontSize={"sm"}
+                                    className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
+                                    style={"/" + item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' } && item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }}
+                                    onClick={async () => {
+                                      screen.width < 640 ? setState(!state) : null
+                                      dispatch({ type: "VIEW", payload: {} });
+                                      await router.push(item.route)
+                                    }}
+                                  >
+                                    <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
+                                      <div className={`flex justify-estar items-center  ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
+                                        <div className={` pr-2 `}>
+                                          {item.icon}
                                         </div>
-                                      </Tooltip>
-                                    </MenuItem>
-                                  </Link>
+                                        <div className={`${state ? "block " : "hidden"}`}>
+                                          {item.title}
+                                        </div>
+                                      </div>
+                                    </Tooltip>
+                                  </MenuItem>
                                 )
                               }
                             })}
