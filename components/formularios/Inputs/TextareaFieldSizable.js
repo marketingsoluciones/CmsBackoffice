@@ -22,7 +22,7 @@ export const TextareaFieldSizable = ({ label, ...props }) => {
     helpers.setValue(e.target.value)
   }
   useEffect(() => {
-    console.log("cambio")
+    //console.log("cambio")
     const rowT = refInput?.current ? (refInput?.current.scrollHeight / 16) - 1 : 1
     if (rowT < 5) {
       setRows(rowT)

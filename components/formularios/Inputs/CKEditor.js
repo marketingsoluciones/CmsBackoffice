@@ -9,10 +9,12 @@ import { useField } from "formik";
 import { UploadAdapter } from "../../../utils/UploadAdapter";
 import { useCallback, useEffect, useState } from "react";
 import { FormLabelMod } from "./FormLabelMod";
+import { AuthContextProvider } from "../../../context/AuthContext";
 
-export const CKEditorComponent = ({ label, ...props }) => {
+export const CKEditorComponent = ({ label, changedForm, setChangedForm, ...props }) => {
   const [valir, setValir] = useState(false)
   const [data, setData] = useState({ fieldMod: null, metaMod: null, helpersMod: null })
+  const { changedForm, setChangedForm } = AuthContextProvider()
   setTimeout(() => {
     setValir(true)
   }, 100);
@@ -100,7 +102,10 @@ export const CKEditorComponent = ({ label, ...props }) => {
             <CKEditor
               editor={Editor}
               config={editorConfiguration}
-              onChange={(event, editor) => data?.helpersMod?.setValue(editor.getData())}
+              onChange={(event, editor) => {
+                !changedForm && setChangedForm(true)
+                data?.helpersMod?.setValue(editor.getData())
+              }}
               data={data?.fieldMod?.value}
             // para fijar alto fijo del ckeditor
             // onReady={(editor) => {

@@ -31,8 +31,8 @@ import { InfoForm } from "./InfoForm";
 import { TextareaFieldSizable } from "./Inputs/TextareaFieldSizable";
 
 export const FormDinamical = forwardRef(
-  ({ schema: state, initialValues, columns, onSubmit, Information, values, options, estado }, ref) => {
-    const { user } = AuthContextProvider()
+  ({ schema: state, initialValues, onSubmit, Information, options, estado }, ref) => {
+    const { user, changedForm, setChangedForm } = AuthContextProvider()
     const [schema, setSchema] = useState(null);
     const [modal, setModal] = useState({ show: false, create: false })
     const [alertDev, setAlertDev] = useState(false)
@@ -132,10 +132,11 @@ export const FormDinamical = forwardRef(
             initialValues={{ ...initialValuesCreated, ...reduceInitialValues }}
             validationSchema={validationSchema}
             innerRef={ref}
+
           >
             {({ values, setValues }) => {
               return (
-                <Form >
+                <Form onChange={() => { !changedForm && setChangedForm(true) }}>
                   <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(5, 1fr)"]} gap={"1rem"} >
 
                     {/* columna izquierda */}
