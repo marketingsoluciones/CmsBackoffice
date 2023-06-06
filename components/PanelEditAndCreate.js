@@ -79,7 +79,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
         delete values.updatedAt;
         const data = await fetchApi({
           query: options?.updateEntry?.query,
-          variables: { id: _id, args: { ...values, updaterUsername: user?.displayName } },
+          variables: { id: _id, args: { ...values} },
           type: "formData"
         });
         if (data) {
