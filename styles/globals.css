@@ -5,19 +5,96 @@
 @tailwind variants;
 
 .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
 
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
- 
 
-  .ck-blurred {
-    height: 400px !important;
-  }
-  .ck-focused{
-    height: 400px !important;
-  }
+
+.ck-blurred {
+  height: 400px !important;
+}
+
+.ck-focused {
+  height: 400px !important;
+}
+
+
+/* 
+  Popup 
+  Arrows and dropshadows are applied to .popup. Text align is "centered." You'll probably want to set it to "left."
+  */
+.popup {
+  width: max-content;
+  margin: 0 auto;
+  position: absolute;
+  text-align: center;
+  z-index: 999;
+  transform: translateY(3px);
+  /* background: cadetblue; */
+}
+
+.popup:after {
+  content: "";
+  height: 100%;
+  width: 100%;
+  border-radius: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* box-shadow: 0 1px 14px rgba(0, 0, 0, .2); */
+}
+
+.popup:before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+  /* transform: scale(200%); */
+  /* box-shadow: 0 1px 14px rgba(0, 0, 0, .2); */
+  background: rgb(253, 127, 127);
+  position: absolute;
+  z-index: 998;
+}
+
+/*
+  Different arrow positioning
+  */
+.popup.arrow-top:before {
+  left: calc(50% - 5px);
+  top: -5px;
+}
+
+.popup.arrow-right:before {
+  top: calc(50% - 5px);
+  right: -5px;
+}
+
+.popup.arrow-bottom:before {
+  left: calc(50% - 5px);
+  bottom: -5px;
+}
+
+.popup.arrow-left:before {
+  top: calc(50% - 5px);
+  left: -5px;
+}
+
+/* 
+  Popup wrapper
+  This is where we add the white background and padding of the content within the popup
+  */
+.popup-wrapper {
+  width: 100%;
+  /* padding: 8px; */
+  /* border-radius: 8px; */
+  background: rgb(253, 127, 127);
+  position: relative;
+  z-index: 998;
+}
