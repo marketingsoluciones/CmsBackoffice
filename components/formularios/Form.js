@@ -93,9 +93,26 @@ export const FormDinamical = forwardRef(
       questions: Yup.array().of(Yup.object().shape({
         _id: Yup.string()
       })).nullable(),
-      //imageMultiple: Yup.array().of(Yup.string()).nullable(),
-      /* image: Yup.string().nullable(), */
       textarea: Yup.string().nullable(),
+      image: Yup.mixed()
+      .required("requerida")
+      .test("is-valid-type", "Not a valid image type",
+        (value) => {
+          if (!!value?.name) {
+            return isValidFileType(value && value?.name?.toLowerCase(), "image")
+          }
+          return true
+        }
+      )
+      .test("is-valid-size", "Max allowed size is 100KB",
+        (value) => {
+          if (!!value?.name) {
+            return value && value.size <= MAX_FILE_SIZE
+          }
+          return true
+        }
+      )
+      //imageMultiple: Yup.array().of(Yup.string()).nullable(),
     };
 
     const dynamicalValidationSchema = schema?.reduce((acc, field) => {
