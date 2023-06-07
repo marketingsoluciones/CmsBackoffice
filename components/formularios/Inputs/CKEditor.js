@@ -10,6 +10,7 @@ import { UploadAdapter } from "../../../utils/UploadAdapter";
 import { useCallback, useEffect, useState } from "react";
 import { FormLabelMod } from "./FormLabelMod";
 import { AuthContextProvider } from "../../../context/AuthContext";
+import { Popup } from "../../Popup";
 
 export const CKEditorComponent = ({ label, changedForm, setChangedForm, ...props }) => {
   const [valir, setValir] = useState(false)
@@ -90,13 +91,6 @@ export const CKEditorComponent = ({ label, changedForm, setChangedForm, ...props
           <Divider />
           <FormLabelMod >
             {label}
-            <Flex gap={"0.3rem"} alignItems={"center"}>
-              {data?.metaMod?.touched && data?.metaMod?.error && (
-                <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
-                  {data?.metaMod?.error}
-                </Text>
-              )}
-            </Flex>
           </FormLabelMod>
           {valir &&
             <CKEditor
@@ -118,7 +112,9 @@ export const CKEditorComponent = ({ label, changedForm, setChangedForm, ...props
             //   });
             // }}
             />
+            
           }
+            {meta.touched && meta.error && <Popup title={`${label} ${meta.error} `} arrow={"top"} />}
         </>
       )}
     </>

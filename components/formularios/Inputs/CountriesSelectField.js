@@ -4,6 +4,7 @@ import { memo, useRef } from "react";
 import { useCallback, useEffect, useState } from "react";
 import { api } from '../../../utils/api'
 import { FormLabelMod } from "./FormLabelMod";
+import { Popup } from "../../Popup";
 
 export const CounstriesSelectField = memo(({ label, ...props }) => {
     const [field, meta, helpers] = useField(props);
@@ -40,21 +41,24 @@ export const CounstriesSelectField = memo(({ label, ...props }) => {
             <Divider />
             <FormLabelMod>
                 {label}{""}
-                <Flex gap={"0.3rem"} alignItems={"center"} >
+                {/* <Flex gap={"0.3rem"} alignItems={"center"} >
                     {meta.touched && meta.error && (
                         <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
                             {meta.error}
                         </Text>
                     )}
-                </Flex>
-                <Box>
-                    <Select variant={"filled"} fontSize={"sm"} {...field} {...props} >
+                </Flex> */}
+                <Box className="pb-1">
+                    <Select variant={"filled"} fontSize={"sm"} {...field} {...props} marginTop={"1"} >
                         <option disabled={field.value === "" ? false : true}>Seleccionar</option>
                         {data?.sort((a, b) => a.name.localeCompare(b.name))?.map((item, idx) => (
                             <option key={idx} value={item.name}>{item.name}</option>
                         ))}
                     </Select>
                 </Box>
+
+                {meta.touched && meta.error && <Popup title={`${label} ${meta.error} `} arrow={"top"} />}
+
             </FormLabelMod>
         </Box>
     )

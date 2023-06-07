@@ -95,29 +95,30 @@ export const FormDinamical = forwardRef(
       })).nullable(),
       textarea: Yup.string().nullable(),
       image: Yup.mixed()
-      .required("requerida")
-      .test("is-valid-type", "Not a valid image type",
-        (value) => {
-          if (!!value?.name) {
-            return isValidFileType(value && value?.name?.toLowerCase(), "image")
+        .required("requerida")
+        .test("is-valid-type", "Not a valid image type",
+          (value) => {
+            if (!!value?.name) {
+              return isValidFileType(value && value?.name?.toLowerCase(), "image")
+            }
+            return true
           }
-          return true
-        }
-      )
-      .test("is-valid-size", "Max allowed size is 100KB",
-        (value) => {
-          if (!!value?.name) {
-            return value && value.size <= MAX_FILE_SIZE
+        )
+        .test("is-valid-size", "Max allowed size is 100KB",
+          (value) => {
+            if (!!value?.name) {
+              return value && value.size <= MAX_FILE_SIZE
+            }
+            return true
           }
-          return true
-        }
-      )
+        )
       //imageMultiple: Yup.array().of(Yup.string()).nullable(),
     };
 
     const dynamicalValidationSchema = schema?.reduce((acc, field) => {
       if (ValidationOptions[field.type]) {
         if (field.required) {
+          console.log(ValidationOptions[field.type].type)
           acc[field.accessor] =
             ValidationOptions[field.type]?.required(`requerido`);
         } else {
@@ -170,6 +171,16 @@ export const FormDinamical = forwardRef(
                                   </GridItem>
                                 );
                                 break;
+                              case "textareaSizable":
+                                return (
+                                  <GridItem colSpan={[1, , , , 2]} key={idx}>
+                                    <InputField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
                               case "string":
                                 return (
                                   <GridItem colSpan={[1, , , , 2]} key={idx}>
@@ -199,15 +210,6 @@ export const FormDinamical = forwardRef(
                                   </GridItem>
                                 );
                                 break;
-                              /*  case "switch":
-                                 return (
-                                   <SwitchField
-                                     key={idx}
-                                     name={item.accessor}
-                                     label={item.Header}
-                                   />
-                                 );
-                                 break; */
                               case "slug":
                                 return (
                                   <div key={idx} className="hidden">

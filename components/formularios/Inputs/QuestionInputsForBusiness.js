@@ -8,6 +8,7 @@ import { useFormikContext } from 'formik'
 import { memo } from "react";
 import { AuthContextProvider } from "../../../context/AuthContext";
 import { TextareaFieldSizable } from "./TextareaFieldSizable";
+import { Popup } from "../../Popup";
 
 const queryResults = `query ($id: [inputObjectID]){
   getQuestionsAndCharacteristics(_id: $id){
@@ -71,12 +72,9 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
               <FormLabel py={{ base: "0.2rem", md: "1rem" }} fontWeight={"900"} textAlign={"left"}>
                 <Flex gap={"0.3rem"} alignItems={"center"}>
                   {label}
-                  {meta.touched && meta.error && (
-                    <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
-                      {meta.error}
-                    </Text>
-                  )}
                 </Flex>
+                {meta.touched && meta.error && <Popup title={`${label} ${meta.error} `} arrow={"top"} />}
+
               </FormLabel>
 
               <Grid templateColumns={"repeat(3, 1fr)"} gap={{ base: "0.2rem", md: "1rem" }} alignItems={"start"}>

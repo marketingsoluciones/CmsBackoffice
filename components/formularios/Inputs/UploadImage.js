@@ -6,6 +6,7 @@ import { EditIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import { GreenEditIcon } from "../../Icons/index";
 import { FormLabelMod } from "./FormLabelMod";
+import { Popup } from "../../Popup";
 
 export const UploadImage = ({ label, typeFile = "all", ...props }) => {
   const [field, meta, helpers] = useField(props);
@@ -83,11 +84,7 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
         <Flex gap={"0.3rem"} alignItems={"center"} justify={"space-between"}  >
           {label} {" "}
           <EditIcon w={"6"} h={"6"} className="cursor-pointer" />
-          {meta.touched && meta.error && (
-            <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
-              {meta.error}
-            </Text>
-          )}
+        
         </Flex>
         <Flex
           alignItems={"center"}
@@ -137,6 +134,8 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
           onChange={handleChange}
           bg={"red"}
         />
+        {meta.touched && meta.error && <Popup title={`${label} ${meta.error} `} arrow={"top"} />}
+
 
         {video || field?.value?.videoUrl ?
           <Flex w={"100%"} flexDir={"column"} pt={"0.5rem"} px={"1.5rem"}>
