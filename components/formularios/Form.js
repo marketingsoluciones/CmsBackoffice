@@ -171,16 +171,6 @@ export const FormDinamical = forwardRef(
                                   </GridItem>
                                 );
                                 break;
-                              case "textareaSizable":
-                                return (
-                                  <GridItem colSpan={[1, , , , 2]} key={idx}>
-                                    <InputField
-                                      name={item.accessor}
-                                      label={item.Header}
-                                    />
-                                  </GridItem>
-                                );
-                                break;
                               case "string":
                                 return (
                                   <GridItem colSpan={[1, , , , 2]} key={idx}>
