@@ -16,7 +16,7 @@ export const InputField = memo(({ label, ...props }) => {
           
         </Box>
         <Input my={{ base: "0rem", md: "0.3rem" }} variant={"filled"} fontSize={"sm"} {...field} {...props} h={"36px"} />
-        {meta.touched && meta.error && <Popup title={`${meta.error}`} arrow={"top"} />}
+        {meta.touched && meta.error && <Popup title={`${label} ${meta.error} `} arrow={"top"} />}
       </FormLabelMod>
     </Box>
   );
