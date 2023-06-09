@@ -36,6 +36,9 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       try {
         values.video = values?.imgMiniatura?.videoFile
         values.imgMiniatura = values?.imgMiniatura?.imageFile
+        values.imgBanner = values?.imgBanner?.imageFile
+        values.imgLogo = values?.imgLogo?.imageFile
+        values.icon = values?.icon?.imageFile
         const data = await fetchApi({
           query: options?.createEntry?.query,
           variables: { ...values, development: development, authorUid: user?.uid, userUid: user?.uid, authorUsername: user?.displayName },
@@ -75,11 +78,14 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       try {
         values.video = values?.imgMiniatura?.videoFile
         values.imgMiniatura = values?.imgMiniatura?.imageFile
+        values.imgBanner = values?.imgBanner?.imageFile
+        values.imgLogo = values?.imgLogo?.imageFile
+        values.icon = values?.icon?.imageFile
         delete values.createdAt;
         delete values.updatedAt;
         const data = await fetchApi({
           query: options?.updateEntry?.query,
-          variables: { id: _id, args: { ...values} },
+          variables: { id: _id, args: { ...values } },
           type: "formData"
         });
         if (data) {
@@ -107,6 +113,8 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   );
 
   const handleSubmit = (values) => {
+    console.log(2008, showModal)
+    setChangedForm(false)
     state.type === "create" && fetchCreate(values);
     state.type === "edit" && fetchUpdate(values);
   };

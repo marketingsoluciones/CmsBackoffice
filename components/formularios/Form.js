@@ -118,7 +118,6 @@ export const FormDinamical = forwardRef(
     const dynamicalValidationSchema = schema?.reduce((acc, field) => {
       if (ValidationOptions[field.type]) {
         if (field.required) {
-          console.log(ValidationOptions[field.type].type)
           acc[field.accessor] =
             ValidationOptions[field.type]?.required(`requerido`);
         } else {
@@ -127,7 +126,6 @@ export const FormDinamical = forwardRef(
       }
       return acc;
     }, {});
-
     const validationSchema = Yup.object().shape(dynamicalValidationSchema);
 
     useEffect(() => {
