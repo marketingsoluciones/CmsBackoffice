@@ -1,5 +1,5 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Avatar, Box, Flex, MenuButton, MenuItem, Menu, MenuList, Text, IconButton, Input, Center } from "@chakra-ui/react";
+import { Avatar, Box, Flex, MenuButton, MenuItem, Menu, MenuList, Text, IconButton, Input, Center, Image } from "@chakra-ui/react";
 import Link from 'next/link';
 import { useAuthentication } from "../utils/Authentication";
 import { BombillaIcon, AddUserIcon, AyudaIcon, ArrowDownIcon, SearchIcon, CloseIcon } from "../components/Icons/index";
@@ -12,7 +12,6 @@ import { useEffect, useRef, useState } from "react";
 import { set } from "react-hook-form";
 import router from "next/router";
 import packageJson from "../package.json";
-import Image from "next/image";
 
 export const Navigation = ({ set, state, }) => {
   const { _signOut } = useAuthentication()
@@ -55,8 +54,8 @@ export const Navigation = ({ set, state, }) => {
                 </Center>
                 <Flex alignItems={"center"} gap={"0.5rem"}>
                   {user?.photoURL ?
-                    <Flex w={"32px"} h={"32px"} border={"1px"} borderColor={"gray.400"} rounded={"full"} isTruncated>
-                      <Image width={"32px"} height={"32px"} layout="intrinsic" src={"https://api.bodasdehoy.com/uploads/3aae14/gettyimages-1331335241-1024x1024-i640.webp"} objectFit="contain" objectPosition={"center"} />
+                    <Flex w={"32px"} h={"32px"} borderColor={"gray.400"} rounded={"full"} isTruncated>
+                      <Image width={"32px"} height={"32px"} layout="intrinsic" src={user?.photoURL} objectFit="contain" objectPosition={"center"} />
                     </Flex>
                     : <Avatar h={"32px"} w={"32px"} />
                   }
