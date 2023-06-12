@@ -1,14 +1,14 @@
-import { Badge, Box, Button, Divider, Flex, Grid, GridItem, Heading, Text, useToast, Center, Square } from "@chakra-ui/react";
-import { useEffect, useCallback, useRef, useState } from "react";
+import { Box, Flex, Text, useToast, Center } from "@chakra-ui/react";
+import { useEffect, useCallback, useRef, useState, } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { FormDinamical } from "../components/formularios/Form";
 import { FindOption } from "../components/Datatable/Columns";
 import { LoadingComponent } from "../components/LoadingComponent";
-import { DeleteIcon } from "@chakra-ui/icons";
 import { formatTime } from "../utils/formatTime";
 import { fetchApi } from "../utils/Fetching";
 import { AuthContextProvider } from "../context/AuthContext";
 import { ArrowLeft } from "./Icons/index"
+import { Modal } from "./modals/Alert";
 
 export const PanelEditAndCreate = ({ slug, setAction, state }) => {
 
@@ -16,9 +16,9 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const refButton = useRef();
   const toast = useToast();
   const options = FindOption(slug);
-  const { user, development } = AuthContextProvider();
-
-
+  const { user, development, changedForm, setChangedForm } = AuthContextProvider();
+  const [showModal, setShowModal] = useState(false)
+  const [handle, setHandle] = useState()
 
   useEffect(() => {
     if (state.type === "edit") {
@@ -28,7 +28,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
         type: "json",
       });
     }
-
   }, [state]);
 
   /* Fetch para crear */
@@ -37,6 +36,9 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       try {
         values.video = values?.imgMiniatura?.videoFile
         values.imgMiniatura = values?.imgMiniatura?.imageFile
+        values.imgBanner = values?.imgBanner?.imageFile
+        values.imgLogo = values?.imgLogo?.imageFile
+        values.icon = values?.icon?.imageFile
         const data = await fetchApi({
           query: options?.createEntry?.query,
           variables: { ...values, development: development, authorUid: user?.uid, userUid: user?.uid, authorUsername: user?.displayName },
@@ -76,11 +78,14 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       try {
         values.video = values?.imgMiniatura?.videoFile
         values.imgMiniatura = values?.imgMiniatura?.imageFile
+        values.imgBanner = values?.imgBanner?.imageFile
+        values.imgLogo = values?.imgLogo?.imageFile
+        values.icon = values?.icon?.imageFile
         delete values.createdAt;
         delete values.updatedAt;
         const data = await fetchApi({
           query: options?.updateEntry?.query,
-          variables: { id: _id, args: { ...values, updaterUsername: user?.displayName } },
+          variables: { id: _id, args: { ...values } },
           type: "formData"
         });
         if (data) {
@@ -108,6 +113,8 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   );
 
   const handleSubmit = (values) => {
+    console.log(2008, showModal)
+    setChangedForm(false)
     state.type === "create" && fetchCreate(values);
     state.type === "edit" && fetchUpdate(values);
   };
@@ -143,17 +150,33 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   ];
 
   return (
-    <Flex flexDir={"column"} overflow={"auto"} maxH={"100%"} mb={"4rem"} >
+    <Flex flexDir={"column"} overflow={"auto"} maxH={"95%"} >
+      {showModal && <Modal setShowModal={setShowModal} showModal={showModal} title={"Al salir perdera los cambios"} handle={handle} />}
       {!loadingValues && !errorValues ? (
         <>
           {/* Header del componente */}
-          <Flex w={"100%"} className="px-1 m-1">
+          <Flex w={"99%"} className="px-1">
             {/* Titulo del componente */}
             <Box w={"100%"}>
               <Flex className="md:items-center" >
                 <div className="flex items-start">
                   <Center >
-                    <ArrowLeft className="w-6 h-6 *md:w-8 *md:h-8 mr-2 text-gray-600 cursor-pointer" onClick={() => setAction({ type: "VIEW", payload: {} })} />
+                    <ArrowLeft
+                      className="w-6 h-6 *md:w-8 *md:h-8 mr-2 text-gray-600 cursor-pointer"
+
+                      onClick={() => {
+                        if (changedForm) {
+                          setHandle(() => () => {
+                            setAction({ type: "VIEW", payload: {} })
+                            setChangedForm(false)
+                          }
+                          )
+                          setShowModal(true)
+                        } else {
+                          setAction({ type: "VIEW", payload: {} })
+                        }
+                      }}
+                    />
                   </Center>
                   <Flex>
                     <Text color={"gray.600"} mx={"2"} fontSize={{ base: "md", md: "lg" }} mr={"6"} >

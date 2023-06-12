@@ -19,11 +19,6 @@ const Slug = ({ slug, props }) => {
     }
   }, [slug, r]);
 
-  useEffect(() => {
-    console.log(9005, "state", state)
-  }, [state])
-
-
   return (
     <Flex as={"section"} flexDir={"column"} gap={"1rem"} h={"100%"}>
       {state.type === "view" && (

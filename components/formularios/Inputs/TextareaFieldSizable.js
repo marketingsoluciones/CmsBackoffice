@@ -2,6 +2,7 @@ import { Box, Divider, Textarea, Flex, Text } from "@chakra-ui/react"
 import { useField } from "formik";
 import { FormLabelMod } from "./FormLabelMod";
 import { useEffect, useRef, useState, } from "react";
+import { Popup } from "../../Popup";
 
 
 export const TextareaFieldSizable = ({ label, ...props }) => {
@@ -22,7 +23,7 @@ export const TextareaFieldSizable = ({ label, ...props }) => {
     helpers.setValue(e.target.value)
   }
   useEffect(() => {
-    console.log("cambio")
+    //console.log("cambio")
     const rowT = refInput?.current ? (refInput?.current.scrollHeight / 16) - 1 : 1
     if (rowT < 5) {
       setRows(rowT)
@@ -38,13 +39,6 @@ export const TextareaFieldSizable = ({ label, ...props }) => {
       <Divider />
       <FormLabelMod>
         {label}{" "}
-        <Flex gap={"0.3rem"} paddingBottom={"0.5rem"} alignItems={"center"}>
-          {meta.touched && meta.error && (
-            <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
-              {meta.error}
-            </Text>
-          )}
-        </Flex>
         <Box gap={"0.3rem"} alignItems={"center"}>
           <Textarea
             resize={"none"}
@@ -58,6 +52,7 @@ export const TextareaFieldSizable = ({ label, ...props }) => {
             {...props}
           />
         </Box>
+        {meta.touched && meta.error && <Popup title={`${label} ${meta.error} `} arrow={"top"} />}
       </FormLabelMod>
     </Box>
   )

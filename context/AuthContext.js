@@ -52,13 +52,15 @@ const AuthProvider = ({ children }) => {
   const [development, setDevelopment] = useState();
   const [domain, setDomain] = useState();
   const [config, setConfig] = useState();
+  const [changedForm, setChangedForm] = useState(false)
+
   //let auth = undefined
   useEffect(() => {
     const domainDevelop = window.location.hostname.split(".")[1]
     console.log(55000, domainDevelop)
     const resp = developments.filter(elem => elem.name === domainDevelop)[0]
     console.log(55061, resp?.cookie)
-    if (!resp?.cookie) resp = developments[1]
+    if (!resp?.cookie) resp = developments[0]
     console.log(55062, resp?.cookie)
     setDevelopment(resp.name)
     setDomain(resp.name)
@@ -140,7 +142,7 @@ const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ user, setUser, verificationDone, setVerificationDone, state, dispatch, development, setDevelopment, domain, config, verificandoCookie, setVerificandoCookie, }}>
+    <AuthContext.Provider value={{ user, setUser, verificationDone, setVerificationDone, state, dispatch, development, setDevelopment, domain, config, verificandoCookie, setVerificandoCookie, changedForm, setChangedForm }}>
       {children}
     </AuthContext.Provider>
   );

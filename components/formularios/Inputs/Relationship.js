@@ -4,6 +4,7 @@ import { useFetch } from "../../../hooks/useFetch";
 import { useEffect, memo } from "react";
 import { AuthContextProvider } from "../../../context/AuthContext"
 import { FormLabelMod } from "./FormLabelMod";
+import { Popup } from "../../Popup";
 
 const Relationship = memo(({ label, tabList = {}, ...props }) => {
   const { development } = AuthContextProvider()
@@ -28,13 +29,15 @@ const Relationship = memo(({ label, tabList = {}, ...props }) => {
               <Divider />
               <FormLabelMod>
                 {label}{" "}
-                <Flex gap={"0.3rem"} alignItems={"center"}>
+                {/* <Flex gap={"0.3rem"} alignItems={"center"}>
                   {meta.touched && meta.error && (
                     <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
                       {meta.error}
                     </Text>
                   )}
-                </Flex>
+                </Flex> */}
+                {meta.touched && meta.error && <Popup title={`${label} ${meta.error} `} arrow={"top"} />}
+
                 <Box my={{ base: "0rem", md: "0.3rem" }} >
                   <Grid templateColumns={"repeat(3, 1fr)"} gap={"1rem"}>
                     {!isError &&

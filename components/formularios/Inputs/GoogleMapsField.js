@@ -2,11 +2,9 @@ import { Box, Divider, Flex, Input, List, ListItem, Text } from "@chakra-ui/reac
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useField } from "formik";
 import { useCallback, useState, useRef, FC, useEffect } from "react";
-import usePlacesAutoComplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
+import usePlacesAutoComplete, { getGeocode, getLatLng } from "use-places-autocomplete";
 import { FormLabelMod } from "./FormLabelMod";
+import { Popup } from "../../Popup";
 
 const mapContainerStyle = {
   width: "100%",
@@ -33,8 +31,8 @@ const GoogleMapsField = ({ label, ...props }) => {
 
   useEffect(() => {
     field?.value && setCenter({
-      lat: field.value.coordinates[0],
-      lng: field.value.coordinates[1]
+      lat: field.value.coordinates[1],
+      lng: field.value.coordinates[0]
     })
   }, [field.value])
 
@@ -67,12 +65,13 @@ const GoogleMapsField = ({ label, ...props }) => {
           <FormLabelMod>
             <Flex gap={"0.3rem"} alignItems={"center"}>
               {label}
-              {meta.touched && meta.error && (
+             {/*  {meta.touched && meta.error && (
                 <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
                   {meta.error}
                 </Text>
-              )}
+              )} */}
             </Flex>
+            {meta.touched && meta.error && <Popup title={`${label} ${meta.error} `} arrow={"top"} />}
 
             <Box my={{ base: "0rem", md: "0.3rem" }} >
               <Search panTo={panTo} center={center} />
@@ -94,7 +93,6 @@ const GoogleMapsField = ({ label, ...props }) => {
             </Box >
           </FormLabelMod >
         </Box >
-
       )}
     </>
   );
@@ -143,7 +141,7 @@ const Search = ({ panTo, center }) => {
   return (
     <Box pos={"relative"} >
       <Input
-        value={value}
+        value={value ? value : ""}
         onChange={(e) => setValue(e.target.value)}
         disabled={!ready}
         w={"100%"}

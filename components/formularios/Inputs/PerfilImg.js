@@ -6,6 +6,7 @@ import Image from "next/image";
 import { ImageIcon } from "../../icons"
 import { useEffect, useState } from "react";
 import { FormLabelMod } from "./FormLabelMod";
+import { Popup } from "../../Popup";
 
 export const PerfilImg = ({ ...props }) => {
     const [field, meta, helpers] = useField(props);
@@ -65,11 +66,7 @@ export const PerfilImg = ({ ...props }) => {
                     </div>
                 </Center>
             </Flex>
-            {meta.touched && meta.error && (
-                <span className="text-xs text-red-600">
-                    {meta.error}
-                </span>
-            )}
+            {meta.touched && meta.error && <Popup title={`la imagen es ${meta.error}`} arrow={"top"} />}
         </FormLabel>
 
     )

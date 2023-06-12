@@ -6,6 +6,7 @@ import { EditIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import { GreenEditIcon } from "../../Icons/index";
 import { FormLabelMod } from "./FormLabelMod";
+import { Popup } from "../../Popup";
 
 export const UploadImage = ({ label, typeFile = "all", ...props }) => {
   const [field, meta, helpers] = useField(props);
@@ -82,12 +83,8 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
       <FormLabelMod>
         <Flex gap={"0.3rem"} alignItems={"center"} justify={"space-between"}  >
           {label} {" "}
-          <EditIcon w={"6"} h={"6"} />
-          {meta.touched && meta.error && (
-            <Text color={"red"} fontSize={"sm"} fontWeight={"500"}>
-              {meta.error}
-            </Text>
-          )}
+          <EditIcon w={"6"} h={"6"} className="cursor-pointer" />
+        
         </Flex>
         <Flex
           alignItems={"center"}
@@ -118,7 +115,7 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
               )
               :
               (
-                <div className="border w-[216px] h-[122px]">
+                <div className="border w-[190px] h-[120px]">
                   {field?.value?.i640 && <Image width={"214"} height={"120"} layout="intrinsic" src={`${process.env.NEXT_PUBLIC_BASE_URL}${field.value.i640}`} objectFit="contain" objectPosition={"center"} />}
                   {image && !video && <Image width={"214"} height={"120"} layout="intrinsic" src={image} objectFit="contain" objectPosition={"center"} />}
                   {video && <video id="video" style={{ maxHeight: "120px" }} width={"214px"} height={"120px"} src={video} controls />}
@@ -137,6 +134,8 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
           onChange={handleChange}
           bg={"red"}
         />
+        {meta.touched && meta.error && <Popup title={`${label} ${meta.error} `} arrow={"top"} />}
+
 
         {video || field?.value?.videoUrl ?
           <Flex w={"100%"} flexDir={"column"} pt={"0.5rem"} px={"1.5rem"}>

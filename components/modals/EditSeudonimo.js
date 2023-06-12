@@ -50,9 +50,9 @@ export const EditSeudonimo = ({ modal, setModal, user, nickName, setNickName }) 
   }
   const MAX_FILE_SIZE = 1024000;
   const validationSchema = Yup.object({
-    nickName: Yup.string().required("requerido"),
+    nickName: Yup.string().required("el seudónimo es requerido"),
     imgAvatar: Yup.mixed()
-      .required("Required")
+      .required("requerida")
       .test("is-valid-type", "Not a valid image type",
         (value) => {
           if (!!value?.name) {

@@ -1,5 +1,5 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Avatar, Box, Flex, MenuButton, MenuItem, Menu, MenuList, Text, IconButton, Input, Center } from "@chakra-ui/react";
+import { Avatar, Box, Flex, MenuButton, MenuItem, Menu, MenuList, Text, IconButton, Input, Center, Image } from "@chakra-ui/react";
 import Link from 'next/link';
 import { useAuthentication } from "../utils/Authentication";
 import { BombillaIcon, AddUserIcon, AyudaIcon, ArrowDownIcon, SearchIcon, CloseIcon } from "../components/Icons/index";
@@ -10,25 +10,21 @@ import { AuthContextProvider } from "../context/AuthContext";
 import ClickAwayListener from "react-click-away-listener";
 import { useEffect, useRef, useState } from "react";
 import { set } from "react-hook-form";
-
-
+import router from "next/router";
+import packageJson from "../package.json";
 
 export const Navigation = ({ set, state, }) => {
   const { _signOut } = useAuthentication()
   const { user } = AuthContextProvider()
   const [show, setShow] = useState(false)
 
-
   const Options = [
-
-    { title: "Ayuda", route: "/" },
+    { title: `Version: ${packageJson?.version}` },
     {
       title: "Cerrar Sesión", function: async () => {
         _signOut()
-
       }
     },
-
   ]
 
   return (
@@ -37,24 +33,33 @@ export const Navigation = ({ set, state, }) => {
         <IconButton onClick={() => set(!state)}>
           <HamburgerIcon w={"1.5rem"} h={"1.5rem"} color={"gray.500"} />
         </IconButton>
-        <Center w={{ base: `${show ? "100%" : "60%"}`, md: "60%" }}>
+        <Center w={{ base: `${show ? "100%" : "50%"}`, md: "50%" }}>
           <SearchNavigation show={show} setShow={setShow} />
         </Center>
-        <Center gap={"2"}>
+        <Center gap={"2"} >
           <Menu >
-            {screen.width > 764 ?
-              <Text w={{ base: "5rem", sm: "10rem", md: "12rem" }} className="text-right truncate" textTransform={"capitalize"}>
-                {user?.displayName}
-              </Text>
-              : !show ?
-                <Text w={{ base: "5rem", sm: "10rem", md: "12rem" }} className="text-right truncate" textTransform={"capitalize"}>
-                  {user?.displayName}
-                </Text>
-                : <></>
-            }
             <MenuButton mr={"0.5rem"}>
-              <Flex alignItems={"center"} gap={"0.5rem"}>
-                <Avatar size={"sm"} />
+              <Flex gap={"2"} >
+                <Center >
+                  {screen.width > 764 ?
+                    <Text className="text-right truncate" textTransform={"capitalize"}>
+                      {user?.displayName}
+                    </Text>
+                    : !show ?
+                      <Text className="text-right truncate" textTransform={"capitalize"}>
+                        {user?.displayName}
+                      </Text>
+                      : <></>
+                  }
+                </Center>
+                <Flex alignItems={"center"} gap={"0.5rem"}>
+                  {user?.photoURL ?
+                    <Flex w={"32px"} h={"32px"} borderColor={"gray.400"} rounded={"full"} isTruncated>
+                      <Image width={"32px"} height={"32px"} layout="intrinsic" src={user?.photoURL} objectFit="contain" objectPosition={"center"} />
+                    </Flex>
+                    : <Avatar h={"32px"} w={"32px"} />
+                  }
+                </Flex>
               </Flex>
             </MenuButton>
             <MenuList p={"0"} fontSize={"sm"} ml={"8"}>
@@ -85,8 +90,6 @@ export const Navigation = ({ set, state, }) => {
 };
 
 const MySearchBox = ({ currentRefinement, refine, show, setShow }) => {
-
-
   return (
     <>
       <ClickAwayListener onClickAway={() => refine("")}>
@@ -165,7 +168,7 @@ export const Hit = ({ hit, }) => {
   const { dispatch } = AuthContextProvider()
   return (
     <>
-      <div className="gap-3 flex py-3 px-5  transition-all cursor-pointer items-center" onClick={() => { dispatch({ type: "VIEWW", payload: { _id: hit.objectID } }) }}>
+      <div className="gap-3 flex py-3 px-5  transition-all cursor-pointer items-center" /* onClick={() => {[router.push("/"+hit?.type) ,dispatch({ type: "EDIT", payload: { _id: hit.objectID } })] }} */>
         <img
           alt={hit?.title}
           src={
