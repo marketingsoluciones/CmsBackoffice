@@ -12,6 +12,7 @@ import { useEffect, useRef, useState } from "react";
 import { set } from "react-hook-form";
 import router from "next/router";
 import packageJson from "../package.json";
+import { hasRole } from "../utils/auth";
 
 export const Navigation = ({ set, state, }) => {
   const { _signOut } = useAuthentication()
@@ -183,14 +184,48 @@ export const SearchNavigation = ({ show, setShow, showValir, setShowValir }) => 
 };
 
 export const Hit = ({ hit }) => {
-  const { dispatch } = AuthContextProvider()
+  const colors = {
+    business: {
+      color: "bg-rose-500",
+      title: "Empresa",
+      slug: "/business/",
+    },
+    categorybusiness: {
+      color: "bg-gray-500",
+      title: "Categoria de empresas",
+      slug: "/categoryBusiness/",
+    },
+    subcategorybusiness: {
+      color: "bg-green-500",
+      title: "Subcategoria de empresas",
+      slug: "/subcategoriesBusiness/",
+    },
+    post: {
+      color: "bg-blue-500",
+      title: "Post",
+      slug: "/posts/",
+    },
+    categorypost: {
+      color: "bg-orange-500",
+      title: "Categoria de post",
+      slug: "/categoriesPosts/",
+    },
+    subcategorypost: {
+      color: "bg-yellow-500",
+      title: "Subcategoria de post",
+      slug: "/subcategoriesPost/",
+    },
+  };
+  const { dispatch, development, user } = AuthContextProvider()
+  const show = hasRole(development, user, ["admin", "edit"]) || hit.uid === user.uid ? true : false
   return (
     <>
-      <div className="gap-3 flex py-3 px-5  transition-all cursor-pointer items-center"
+      {show && <div className={`gap-3 flex py-3 px-5  transition-all cursor-pointer items-center`}
         onClick={async () => {
-          await router.push("/" + hit?.type).then(async () => {
-            await dispatch({ type: "EDIT", payload: { _id: hit.objectID } })
-          })
+          await router.push(colors[hit?.type]?.slug)
+            .then(async () => {
+              await dispatch({ type: "EDIT", payload: { _id: hit.objectID } })
+            })
         }
         } >
         <img
@@ -205,12 +240,13 @@ export const Hit = ({ hit }) => {
             {hit?.title}
           </h3>
           <span
-            className={` text-sm   rounded  text-gray-500`}
+            className={`${colors[hit?.type]?.color
+              } text-xs text-white px-2 rounded`}
           >
-            {hit?.type}
+            {colors[hit?.type]?.title}
           </span>
         </div>
-      </div>
+      </div>}
     </>
   );
 };
