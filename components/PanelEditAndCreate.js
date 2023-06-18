@@ -20,6 +20,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const [showModal, setShowModal] = useState(false)
   const [handle, setHandle] = useState()
 
+
   useEffect(() => {
     if (state.type === "edit") {
       setQueryValues({
@@ -113,7 +114,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   );
 
   const handleSubmit = (values) => {
-    console.log(2008, showModal)
     setChangedForm(false)
     state.type === "create" && fetchCreate(values);
     state.type === "edit" && fetchUpdate(values);

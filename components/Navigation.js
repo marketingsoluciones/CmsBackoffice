@@ -12,11 +12,21 @@ import { useEffect, useRef, useState } from "react";
 import { set } from "react-hook-form";
 import router from "next/router";
 import packageJson from "../package.json";
+import { hasRole } from "../utils/auth";
 
 export const Navigation = ({ set, state, }) => {
   const { _signOut } = useAuthentication()
   const { user } = AuthContextProvider()
   const [show, setShow] = useState(false)
+  const [showValir, setShowValir] = useState(false)
+
+  useEffect(() => {
+    if (show) {
+      setTimeout(() => {
+        setShowValir(true)
+      }, 900);
+    }
+  }, [show])
 
   const Options = [
     { title: `Version: ${packageJson?.version}` },
@@ -34,7 +44,7 @@ export const Navigation = ({ set, state, }) => {
           <HamburgerIcon w={"1.5rem"} h={"1.5rem"} color={"gray.500"} />
         </IconButton>
         <Center w={{ base: `${show ? "100%" : "50%"}`, md: "50%" }}>
-          <SearchNavigation show={show} setShow={setShow} />
+          <SearchNavigation show={show} setShow={setShow} showValir={showValir} setShowValir={setShowValir} />
         </Center>
         <Center gap={"2"} >
           <Menu >
@@ -89,10 +99,14 @@ export const Navigation = ({ set, state, }) => {
   );
 };
 
-const MySearchBox = ({ currentRefinement, refine, show, setShow }) => {
+const MySearchBox = ({ currentRefinement, refine, show, setShow, setShowValir }) => {
   return (
     <>
-      <ClickAwayListener onClickAway={() => refine("")}>
+      <ClickAwayListener onClickAway={() => {
+        refine("")
+        setShow(false)
+        setShowValir(false)
+      }}>
         <div className={`bg-white transition-all  flex jistify-center items-center  w-full border-gray-200 border-2 rounded-md py-1 text-gray-600`}>
           <div className="ml-2">
             <SearchIcon />
@@ -105,13 +119,14 @@ const MySearchBox = ({ currentRefinement, refine, show, setShow }) => {
             value={currentRefinement}
             onChange={(e) => {
               if (!show && e.target.value.length > 0) setShow(true)
-              if (e.target.value.length == 0) setShow(false)
+              if (e.target.value.length == 0) [setShow(false), setShowValir(false)]
               refine(e.currentTarget.value)
             }}
           />
           {show && <button className={`justify-end pr-2 `} onClick={() => {
-            setShow(false)
             refine("")
+            setShow(false)
+            setShowValir(false)
           }}><CloseIcon /></button>}
         </div>
       </ClickAwayListener>
@@ -119,7 +134,7 @@ const MySearchBox = ({ currentRefinement, refine, show, setShow }) => {
   );
 };
 
-export const SearchNavigation = ({ show, setShow }) => {
+export const SearchNavigation = ({ show, setShow, showValir, setShowValir }) => {
   const conditionalQuery = {
     search(requests) {
       if (
@@ -155,20 +170,64 @@ export const SearchNavigation = ({ show, setShow }) => {
           searchAsYouType={false}
           show={show}
           setShow={setShow}
+          setShowValir={setShowValir}
         />
-        <div className={`absolute z-50 top-80px inset-x-0 left-0 w-[150%] md:w-[90%] mx-auto  bg-white shadow max-h-60 overflow-auto  rounded-b-3xl `}>
-          <Hits hitComponent={Hit} />
+        <div className={`absolute z-50 top-80px inset-x-0 left-0 w-[150%] md:w-[90%] mx-auto  bg-white shadow ${show ? "h-60" : "h-0"} overflow-auto  rounded-b-3xl `}>
+          {showValir && <span className="absolute top-2 left-2 z-0 text-sm text-gray-600">No hay coincidencias</span>}
+          <div className="relative bg-white">
+            <Hits hitComponent={Hit} />
+          </div>
         </div>
       </InstantSearch>
     </div>
   );
 };
 
-export const Hit = ({ hit, }) => {
-  const { dispatch } = AuthContextProvider()
+export const Hit = ({ hit }) => {
+  const colors = {
+    business: {
+      color: "bg-rose-500",
+      title: "Empresa",
+      slug: "/business/",
+    },
+    categorybusiness: {
+      color: "bg-gray-500",
+      title: "Categoria de empresas",
+      slug: "/categoryBusiness/",
+    },
+    subcategorybusiness: {
+      color: "bg-green-500",
+      title: "Subcategoria de empresas",
+      slug: "/subcategoriesBusiness/",
+    },
+    post: {
+      color: "bg-blue-500",
+      title: "Post",
+      slug: "/posts/",
+    },
+    categorypost: {
+      color: "bg-orange-500",
+      title: "Categoria de post",
+      slug: "/categoriesPosts/",
+    },
+    subcategorypost: {
+      color: "bg-yellow-500",
+      title: "Subcategoria de post",
+      slug: "/subcategoriesPost/",
+    },
+  };
+  const { dispatch, development, user } = AuthContextProvider()
+  const show = hasRole(development, user, ["admin", "edit"]) || hit.uid === user.uid ? true : false
   return (
     <>
-      <div className="gap-3 flex py-3 px-5  transition-all cursor-pointer items-center" /* onClick={() => {[router.push("/"+hit?.type) ,dispatch({ type: "EDIT", payload: { _id: hit.objectID } })] }} */>
+      {show && <div className={`gap-3 flex py-3 px-5  transition-all cursor-pointer items-center`}
+        onClick={async () => {
+          await router.push(colors[hit?.type]?.slug)
+            .then(async () => {
+              await dispatch({ type: "EDIT", payload: { _id: hit.objectID } })
+            })
+        }
+        } >
         <img
           alt={hit?.title}
           src={
@@ -181,12 +240,13 @@ export const Hit = ({ hit, }) => {
             {hit?.title}
           </h3>
           <span
-            className={` text-sm   rounded  text-gray-500`}
+            className={`${colors[hit?.type]?.color
+              } text-xs text-white px-2 rounded`}
           >
-            {hit?.type}
+            {colors[hit?.type]?.title}
           </span>
         </div>
-      </div>
+      </div>}
     </>
   );
 };

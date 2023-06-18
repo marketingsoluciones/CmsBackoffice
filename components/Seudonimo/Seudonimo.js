@@ -1,4 +1,4 @@
-import { Avatar, Box, Divider, Flex, Text, Center, Tooltip } from "@chakra-ui/react";
+import { Avatar, Box, Divider, Flex, Text, Center, Tooltip, Image as ImageChakra } from "@chakra-ui/react";
 import { IconEdit, IconInstagram, IconLogoFacebook, IconPlusSquare, IconTwitterLogo, IconWhatsapp } from "../Icons";
 import { useEffect, useMemo, useRef, useState } from "react";
 import React from 'react'
@@ -6,6 +6,7 @@ import Select, { InputActionMeta } from 'react-select'
 import { FormLabelMod } from "../formularios/Inputs/FormLabelMod";
 import { AuthContextProvider } from "../../context/AuthContext";
 import Image from "next/image";
+
 
 export const Seudonimo = ({ setModal, modal, nickName, setNickName }) => {
     const refSelet = useRef(null)
@@ -82,8 +83,8 @@ export const Seudonimo = ({ setModal, modal, nickName, setNickName }) => {
                         placeholder={
                             <Flex alignItems={"Center"}>
                                 {user?.photoURL ?
-                                    <Flex w={"24px"} h={"24px"} border={"1px"} borderColor={"gray.400"} rounded={"full"} isTruncated>
-                                        <Image width={"24px"} height={"24px"} layout="intrinsic" src={"https://api.bodasdehoy.com/uploads/3aae14/gettyimages-1331335241-1024x1024-i640.webp"} objectFit="contain" objectPosition={"center"} />
+                                    <Flex w={"24px"} h={"24px"} borderColor={"gray.400"} rounded={"full"} isTruncated>
+                                        <ImageChakra width={"24px"} height={"24px"} layout="intrinsic" src={user?.photoURL} objectFit="contain" objectPosition={"center"} />
                                     </Flex>
                                     : <Avatar h={"24px"} w={"24px"} />
                                 }
