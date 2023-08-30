@@ -1,7 +1,14 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', './layouts/*.{js,ts,jsx,tsx}'],
   theme: {
+    fontFamily: {
+      "body": ['Montserrat', ...defaultTheme.fontFamily.sans],
+      "display": ['Poppins', ...defaultTheme.fontFamily.sans],
+      "title": ['Italiana', ...defaultTheme.fontFamily.sans],
+    },
     extend: {
       fontSize: {
         sm: '0.8rem',
@@ -24,7 +31,8 @@ module.exports = {
         'bg': '#F0F0F0',
         'verde': '#30CB30',
         'hover-verde': '#2EBD2E',
-        'botonBack': '#C2C2C2'
+        'botonBack': '#C2C2C2',
+        'rosa':'#FF5887 '
       },
       spacing: {
         '80px': '50px',

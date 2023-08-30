@@ -28,7 +28,7 @@
     "components/EditorJS/index.tsx",
     "components/ReclamarEmpresa/ModalReclamarEmprcomponents/ButtonReclamarEmpresa.tsxEmpresa.jsx",
     "components/ButtonReclamarEmpresa.js"
-  ],
+, "components/Itinerario/MicroComponente/SelectIcon.js", "components/Itinerario/BoddyIter.js"  ],
   "exclude": [
     "node_modules"
   ]
