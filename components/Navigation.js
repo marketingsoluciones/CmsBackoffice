@@ -29,12 +29,13 @@ export const Navigation = ({ set, state, }) => {
   }, [show])
 
   const Options = [
-    { title: `Version: ${packageJson?.version}` },
+    {title:"Bodasdehoy.com", route:"https://www.bodasdehoy.com/" },
     {
       title: "Cerrar Sesión", function: async () => {
         _signOut()
       }
     },
+    { title: `Version: ${packageJson?.version}` },
   ]
 
   return (
