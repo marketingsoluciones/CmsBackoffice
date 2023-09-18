@@ -1,6 +1,6 @@
 import { FetchGraphQL } from "../utils/Fetching";
 import { formatTime } from "../utils/formatTime";
-import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon } from "../components/Icons/index";
+import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon } from "../components/Icons/index";
 
 // componentes que definen la estructura del menu, fetchs,columnas visibles en la tabla y los inputs que componen el formulario
 
@@ -26,7 +26,7 @@ export const BodyStaticAPP = [
     roles: ["all"],
     children: [
       {
-        icon: <InicioIcon className="" />,
+        icon: <CorazonIcon className="" />,
         title: "Inicio",
         roles: ["all"],
         route: "/",

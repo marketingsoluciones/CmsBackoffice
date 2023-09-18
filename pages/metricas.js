@@ -8,6 +8,7 @@ const metricas = () => {
             <Flex as={"section"} flexDir={"column"} overflow={"auto"} h={"100%"} >
                 {/* <MetricasSuscripcion /> */}
                 <Itinerario/>
+              
             </Flex >
         </>
     )
