@@ -1,11 +1,55 @@
 import { AuthContextProvider } from "../context/AuthContext"
 import { SimpleGrid, Stat, StatLabel, StatNumber } from "@chakra-ui/react"
-/* import { Mainet } from "./IndexPageComponents/PruebaIA" */
+import { InfoPage } from "./IndexPageComponents/InfoPage.js"
+import { ModulosEspeciales } from "./IndexPageComponents/ModulosEspeciales.js"
+import { CategoriasIcon, FotografoMenu, LugaresBodas, WeddingPlanner } from "./Icons/index"
 
 
 export const IndexPage = () => {
     const { development, user, domain } = AuthContextProvider()
-    console.log(development)
+
+    const DataArry = [
+        {
+            img: "/photoIndex/directorio.png",
+            title: "Publica tus servicios",
+            texto: "Crea tu ficha y promociona tus servicios",
+            button: "Ver más",
+            route: "/"
+        },
+        {
+            img: "/photoIndex/calendario.png",
+            title: "Comunicación directa",
+            texto: "vincula tu cronograma con tus eventos y mantén comunicación con los novios",
+            button: "Ver más",
+            route: "/"
+        },
+        {
+            img: "/photoIndex/app.png",
+            title: "Gestiona tus eventos",
+            texto: "de forma simultánea y con la diversidad que necesites",
+            button: "Ver más",
+            route: "/"
+        },
+    ]
+
+    const DataModulos = [
+        {
+            icon: <LugaresBodas />,
+            texto: "Lugares para bodas"
+        },
+        {
+            icon: <CategoriasIcon />,
+            texto: "Catering para bodas"
+        },
+        {
+            icon: <WeddingPlanner />,
+            texto: "Wedding Planner"
+        },
+        {
+            icon: <FotografoMenu />,
+            texto: "Fotógrafos"
+        },
+    ]
 
     return (
         <>
@@ -13,8 +57,15 @@ export const IndexPage = () => {
                 if (development == "bodasdehoy") {
                     return (
                         <>
-                            <div className=" w-full px-5 py-2">
-                                {/* <Mainet /> */}
+                            <p className=" hidden md:block text-slate-600 mt-1 px-5 text-3xl text-rosa">
+                                Panel De Gestión Para Empresas
+                            </p>
+                            <p className=" md:hidden  text-slate-600 mt-1 px-5 text-3xl text-rosa">
+                                Panel De Gestión 
+                            </p>
+                            <div className=" w-full px-5 py-2 space-y-2 ">
+                                <InfoPage DataArry={DataArry} />
+                                <ModulosEspeciales DataModulos={DataModulos} />
                             </div>
                         </>
                     )
@@ -51,8 +102,6 @@ export const IndexPage = () => {
                     )
                 }
             })()}
-
-
         </>
     )
 }
