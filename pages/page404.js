@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { Eventos } from "../components/Eventos"
+import { Calendario } from "../components/Calendario"
 
 
 const Page404 = () => {
@@ -10,7 +11,7 @@ const Page404 = () => {
 
             </div> */}
 
-            <Eventos />
+            <Calendario/>
         </>
     )
 }
