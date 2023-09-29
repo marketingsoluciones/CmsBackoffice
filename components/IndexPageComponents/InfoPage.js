@@ -14,7 +14,6 @@ export const InfoPage = ({ DataArry }) => {
                         {
                             DataArry.map((item, idx) => {
                                 return (
-                                    <>
                                         <div key={idx} className="flex flex-col items-center space-y-2">
                                             <div className="h-44">
                                                 <img src={item.img} alt={item.title} />
@@ -27,7 +26,6 @@ export const InfoPage = ({ DataArry }) => {
                                                 {item.button}
                                             </button>
                                         </div>
-                                    </>
                                 )
 
                             })

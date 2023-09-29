@@ -86,8 +86,6 @@ export const DeleteModall = ({ setModal, modal, handleRemove }) => {
     )
 }
 
-
-
 export const Modal = ({ setShowModal, showModal, handle, title }) => {
     return (
         <>

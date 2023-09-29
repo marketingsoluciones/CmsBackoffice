@@ -1,6 +1,10 @@
 import Image from "next/image"
 import { Eventos } from "../components/Eventos"
 import { Calendario } from "../components/Calendario"
+import { CateringBodas } from "../components/CateringBodas"
+import { PublicacionesInfo } from "../components/Publicacones"
+import { Marcas } from "../components/Marcas"
+import { Contactos } from "../components/Contactos"
 
 
 const Page404 = () => {
@@ -11,7 +15,11 @@ const Page404 = () => {
 
             </div> */}
 
-            <Calendario/>
+            {/* <Calendario/> */}
+            {/* <CateringBodas/> */}
+            {/* <PublicacionesInfo/> */}
+            {/* <Marcas/> */}
+            <Contactos/>
         </>
     )
 }

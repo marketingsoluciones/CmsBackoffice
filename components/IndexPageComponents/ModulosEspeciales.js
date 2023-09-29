@@ -17,14 +17,12 @@ export const ModulosEspeciales = ({ DataModulos }) => {
                         {
                             DataModulos.map((item, idx) => {
                                 return (
-                                    <>
                                         <div key={idx} className="flex  items-center justify-center  ">
                                             <div className="bg-white p-4 rounded-full mr-4 text-rosa">
                                                 {item.icon}
                                             </div>
                                             {item.texto}
                                         </div>
-                                    </>
                                 )
 
                             })
@@ -43,14 +41,12 @@ export const ModulosEspeciales = ({ DataModulos }) => {
                             DataModulos.map((item, idx) => {
                                 return (
                                     <SwiperSlide  key={idx}>
-                                        <>
                                             <div className="flex  items-center justify-center  ">
                                                 <div className="bg-white p-4 rounded-full mr-4 text-rosa">
                                                     {item.icon}
                                                 </div>
                                                 {item.texto}
                                             </div>
-                                        </>
                                     </SwiperSlide>
                                 )
 
