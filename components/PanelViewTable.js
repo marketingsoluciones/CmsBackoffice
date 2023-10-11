@@ -132,6 +132,7 @@ export const PanelViewTable = ({ slug, dispatch }) => {
           overflow={"auto"}
           mb={"4rem"}
           w={"100%"}
+          m={"0.5rem"}
         >
           <Datatable
             skip={skip}
@@ -164,3 +165,123 @@ export const PanelViewTable = ({ slug, dispatch }) => {
     </>
   );
 };
+
+export const OnlyViewTable = ({ slug, dispatch , setbuscador }) => {
+  const [skip, setSkip] = useState(0)
+  const [limit, setLimit] = useState(10)
+  const [sortCriteria, setSortCriteria] = useState()
+  const [sort, setSort] = useState()
+  const [data, setData] = useState()
+  const [isMounted, setIsMounted] = useState(false)
+
+  const [data_, isLoading, isError, setQuery] = useFetch();
+
+  useEffect(() => {
+    if (!isMounted) {
+      setIsMounted(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (data_?.results?.length) {
+      const results = data_?.results.map(item => {
+        return { ...item, imgMiniatura: item?.imgMiniatura?.i320 }
+      })
+      setData({ total: data_.total, results })
+    }
+  }, [data_])
+
+  const [dataRemove, isLoadingRemove, isErrorRemove, setQueryRemove] = useFetch(true);
+  const { development, user, domain } = AuthContextProvider()
+  const [selected, setSelected] = useState(columnsDataTable({ slug, user }));
+  const [global, setGlobal] = useState()
+  const [seteador, setSeteador] = useState(() => () => { })
+  const router = useRouter()
+
+  const columns = useMemo(() => {
+    const avalibleShowColumns = user?.visibleColumns?.map(elem => elem.accessor) //selected?.visibleColumns?.map(elem => elem.accessor)
+    return selected?.schema?.reduce((acc, item) => {
+      if (avalibleShowColumns?.includes(item?.accessor) && !item?.roles)
+        acc.push(item)
+      if (item?.roles && hasRole(development, user, item?.roles))
+        acc.push(item)
+      return acc
+    }, [])
+  }, [selected]);
+
+  useEffect(() => {
+    if (isMounted) {
+
+      if (hasRole(development, user, selected.roles)) {
+        const variables = { development: development, domain: "diariocivitas", skip, limit, sort: { [sortCriteria]: sort } }
+        if (!user?.role.includes("admin", "editor")) {
+          variables = { ...variables, authorUid: user?.uid, userUid: user?.uid }
+        }
+        setQuery({
+          ...selected.getData,
+          variables,
+          type: "json"
+        });
+      } else {
+        setTimeout(() => {
+          router.push("/")
+        }, 100);
+      }
+    }
+  }, [selected, isLoadingRemove, skip, limit, sortCriteria, sort]);
+
+  useEffect(() => {
+    dispatch({ type: "VIEW", payload: {} });
+    setSelected(columnsDataTable({ slug, user }));
+  }, [slug, development]);
+
+  const handleRemoveItem = (idSelected) => {
+    setQueryRemove({
+      ...selected.deleteEntry,
+      variables: { id: idSelected },
+      type: "json",
+    });
+  };
+
+  return (
+    <>
+      <Flex w={"100%"} overflow={"hidden"}>
+        <Box
+          bg={"white"}
+          rounded={"xl"}
+          overflow={"auto"}
+          mb={"4rem"}
+          w={"100%"}
+          m={"0.5rem"}
+        >
+          <Datatable
+            skip={skip}
+            setSkip={setSkip}
+            limit={limit}
+            setLimit={setLimit}
+            sortCriteria={sortCriteria}
+            setSortCriteria={setSortCriteria}
+            sort={sort}
+            setSort={setSort}
+            setSeteador={setbuscador}
+            columns={columns}
+            data={data?.results?.filter((item) => item && item) ?? []}
+            total={data?.total}
+            isLoading={isLoading}
+            handleRemoveItem={handleRemoveItem}
+            initialState={{
+              hiddenColumns: selected?.hiddenColumns ?? {},
+              sortBy: [
+                {
+                  id: "createdAt",
+                  desc: true,
+                },
+              ],
+            }}
+            setAction={dispatch}
+          />
+        </Box>
+      </Flex>
+    </>
+  )
+}

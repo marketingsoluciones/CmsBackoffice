@@ -1,10 +1,12 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {  Autoplay } from 'swiper/modules';
+import { useRouter } from 'next/router';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay'
 
 export const InfoPage = ({ DataArry }) => {
+    const router = useRouter()
     return (
         <>
             <div className="bg-white  py-10  space-y-5 rounded-xl">
@@ -22,7 +24,7 @@ export const InfoPage = ({ DataArry }) => {
                                             <div className="h-14">
                                                 <p className="text-center">{item.texto}</p>
                                             </div>
-                                            <button className="bg-rosa rounded-lg text-white py-1 px-7 shadow-lg ">
+                                            <button onClick={()=>router.push(item.route)} className="bg-rosa rounded-lg text-white py-1 px-7 shadow-lg " >
                                                 {item.button}
                                             </button>
                                         </div>

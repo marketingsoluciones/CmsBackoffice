@@ -11,14 +11,13 @@ export const Itinerario = () => {
     console.log(createPdf)
 
     return (<>
-        <div className="space-y-4">
+        <div className="space-y-4 h-[87%]">
             <HeaderIter IterArryst={IterArryst} setIterArryst={setIterArryst} setCreatePdf={setCreatePdf} createPdf={createPdf} />
             <BoddyIter IterArryst={IterArryst} setIterArryst={setIterArryst} createPdf={createPdf} />
         </div>
         {
             createPdf ? (
-                <Modal openIcon={createPdf} setOpenIcon={setCreatePdf} classe={ "h-full w-[85%]"} >
-
+                <Modal openIcon={createPdf} setOpenIcon={setCreatePdf} classe={ "h-[50%] w-[85%]"} >
                     <MyDocument IterArryst={IterArryst} />
                 </Modal>
             ) : null

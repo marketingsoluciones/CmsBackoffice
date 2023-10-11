@@ -23,7 +23,7 @@ export const Marcas = () => {
         }
     ]
     return (
-        <>
+        <div className="p-[0.5rem] h-full">
             <p className=" text-slate-600 text-3xl text-rosa">
                 Marcas
             </p>
@@ -82,7 +82,7 @@ export const Marcas = () => {
 
 
             </div>
-        </>
+        </div>
     )
 
 

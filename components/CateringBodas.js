@@ -13,27 +13,27 @@ export const CateringBodas = () => {
         {
             icon: <PlatillOpenCatering />,
             title: "Carta de productos",
-            component: <CartaProducto/>
+            component: <CartaProducto />
         },
         {
             icon: <MenuCatering />,
             title: "Plantillas de menú",
-            component: <PlantillaMenu/>
+            component: <PlantillaMenu />
         },
         {
             icon: <PlatilloCloseCatering />,
             title: "Menú",
-            component: <MenuEmpresa/>
+            component: <MenuEmpresa />
         },
         {
             icon: <InvitadosCatering />,
             title: "Lista de Invitados",
-            component: <InvitadosC/>
+            component: <InvitadosC />
         },
         {
             icon: <ItinerarioCatering />,
             title: "Itinerarios",
-            component: <ItinerarioC/>
+            component: <ItinerarioC />
         },
     ]
     const handleClickOption = (idx) => {
@@ -41,16 +41,16 @@ export const CateringBodas = () => {
     };
 
     return (
-        <>
-            <div className="grid grid-cols-6 h-full">
-                
-                <SubmenuComponent dataComponents={dataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
-                
+        <div className="flex h-full w-full">
+            <div className="grid grid-cols-6 h-full w-full ">
+
+            { optionSelect > -1 && <SubmenuComponent dataComponents={dataComponents} optionSelect={optionSelect} onClick={handleClickOption} />}
+
                 <div className="col-span-6 md:col-span-5">
-                    {dataComponents[optionSelect].component}
+                    {dataComponents[optionSelect]?.component}
                 </div>
 
             </div>
-        </>
+        </div >
     )
 }

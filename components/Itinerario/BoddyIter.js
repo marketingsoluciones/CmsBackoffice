@@ -131,13 +131,12 @@ export const BoddyIter = ({ IterArryst, setIterArryst, createPdf }) => {
         timeH: "",
         timeM: ""
     }
+
     const validationSchema = yup.object().shape({
         description: yup.string().required(),
         timeH: yup.number().required(),
         timeM: yup.number().required(),
     });
-
-
 
     return (
         <>
@@ -186,11 +185,7 @@ export const BoddyIter = ({ IterArryst, setIterArryst, createPdf }) => {
                         <div className="flex justify-center items-center w-full  space-x-10 ">
                             <div className="mb-4 w-16  " >
                                 <SelectIcon openIcon={openIcon} setOpenIcon={setOpenIcon} resultadoIcon={resultadoIcon} />
-                                <InputFieldGlobal
-                                    name="idIcon"
-                                    className="hidden*"
-                                    placeholder={selectIcon}
-                                />
+                               
                             </div>
                             <div className="w-44 flex items-center  mb-4 space-x-1">
                                 <InputFieldGlobal

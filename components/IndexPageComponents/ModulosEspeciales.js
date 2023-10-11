@@ -1,10 +1,13 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
+import { useRouter } from "next/router"
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay'
 
 export const ModulosEspeciales = ({ DataModulos }) => {
+    const router = useRouter()
 
     return (
         <>
@@ -17,7 +20,7 @@ export const ModulosEspeciales = ({ DataModulos }) => {
                         {
                             DataModulos.map((item, idx) => {
                                 return (
-                                        <div key={idx} className="flex  items-center justify-center  ">
+                                        <div key={idx} className="flex  items-center justify-center cursor-pointer " onClick={()=> router.push(item.route)}>
                                             <div className="bg-white p-4 rounded-full mr-4 text-rosa">
                                                 {item.icon}
                                             </div>

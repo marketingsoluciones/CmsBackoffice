@@ -16,9 +16,9 @@ export const Lista = [
 
 export const SwiperEventCreados = () => {
     return (
-        <>
+        <div className=" ">
 
-            <div className="flex md:gap-2 justify-center md:w-[88%]">
+            <div className="flex md:gap-2 justify-center">
                 {Lista.map((item, idx) => (
                     <button
                         /*  onClick={(e) => setIsActiveStateSwiper(idx)} */
@@ -30,14 +30,16 @@ export const SwiperEventCreados = () => {
                 ))}
             </div>
 
-            <div className="flex md:flex-row flex-col items-center  justify-center md:space-x-10">
-                <div className="md:w-[10%]">
+            <div className=" flex items-center justify-center w-full space-x-10  ">
+                
+                <div className="">
                     <p className="hidden md:block text-xl font-semibold text-gray-600">Eventos<br /> Creados</p>
                     <p className=" md:hidden text-xl font-semibold text-gray-600">Eventos Creados</p>
                 </div>
-                <div className="md:w-[55%] w-full " >
+
+                <div className="w-[50%] " >
                     <Swiper
-                        spaceBetween={0}
+                        spaceBetween={10}
                         breakpoints={{
                             0: {
                                 slidesPerView: 1,
@@ -46,21 +48,14 @@ export const SwiperEventCreados = () => {
                             768: {
                                 slidesPerView: 2,
                                 spaceBetween: 0,
-
                             },
                         }}
                         autoplay
                         pagination={{ clickable: true }}
                         modules={[Navigation, Autoplay, Pagination]}
                     >
-                        <SwiperSlide>
+                        <SwiperSlide >
                             <CardCreateEvent />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <CardCreateEvent />
-                        </SwiperSlide>
-                        <SwiperSlide>
-                            <CardComponent />
                         </SwiperSlide>
                         <SwiperSlide>
                             <CardComponent />
@@ -71,7 +66,6 @@ export const SwiperEventCreados = () => {
                     </Swiper>
                 </div>
             </div>
-
-        </>
+        </div>
     )
 }

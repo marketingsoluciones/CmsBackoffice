@@ -2,7 +2,7 @@ import { Formik, Form } from "formik"
 import { InputFieldGlobal } from "../../formularios/Inputs/InputFieldGlobal"
 import { SelectField } from "../../formularios/Inputs/SelectField"
 
-export const AgregarProducto = () => {
+export const AgregarProducto = ({ actionButton, setActionButton }) => {
     const initialValues = {
 
     }
@@ -21,7 +21,7 @@ export const AgregarProducto = () => {
                 <Formik initialValues={initialValues} onSubmit={handelSubmit}>
                     <Form>
                         <p className="hidden md:block text-xl text-rosa mb-5 text-center md:text-start ">
-                            Añadir producto <span className="md:block hidden">a la carta</span>
+                            Añadir producto a la carta
                         </p>
                         <p className=" md:hidden text-xl text-rosa mb-5 text-center ">
                             Añadir producto
@@ -60,10 +60,10 @@ export const AgregarProducto = () => {
                         </div>
 
                         <div className="flex justify-center space-x-5">
-                            <button className="px-4 py-2 bg-gray-300 rounded-lg text-white">
+                            <button className="px-4 py-2 bg-gray-300 rounded-lg text-white" onClick={() => setActionButton(!actionButton)} type="button">
                                 cancelar
                             </button>
-                            <button className="px-4 py-2 bg-rosa rounded-lg text-white">
+                            <button className="px-4 py-2 bg-rosa rounded-lg text-white" type="button">
                                 guardar
                             </button>
                         </div>

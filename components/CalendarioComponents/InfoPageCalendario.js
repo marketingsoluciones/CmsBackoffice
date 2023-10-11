@@ -35,7 +35,7 @@ export const InfoPageCalendario = () => {
 
                                         {item.icon}
                                     </div>
-                                    <div>
+                                    <div className="text-base">
                                         {item.text}
                                     </div>
 

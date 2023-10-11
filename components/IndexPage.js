@@ -14,14 +14,14 @@ export const IndexPage = () => {
             title: "Publica tus servicios",
             texto: "Crea tu ficha y promociona tus servicios",
             button: "Ver más",
-            route: "/"
+            route: "business"
         },
         {
             img: "/photoIndex/calendario.png",
             title: "Comunicación directa",
             texto: "vincula tu cronograma con tus eventos y mantén comunicación con los novios",
             button: "Ver más",
-            route: "/"
+            route: "calendario"
         },
         {
             img: "/photoIndex/app.png",
@@ -35,19 +35,23 @@ export const IndexPage = () => {
     const DataModulos = [
         {
             icon: <LugaresBodas />,
-            texto: "Lugares para bodas"
+            texto: "Lugares para bodas",
+            route: "lugaresBodas"
         },
         {
             icon: <CategoriasIcon />,
-            texto: "Catering para bodas"
+            texto: "Catering para bodas",
+            route: "cateringBodas"
         },
         {
             icon: <WeddingPlanner />,
-            texto: "Wedding Planner"
+            texto: "Wedding Planner",
+            route:"weddingPlanner"
         },
         {
             icon: <FotografoMenu />,
-            texto: "Fotógrafos"
+            texto: "Fotógrafos",
+            route: "fotografo"
         },
     ]
 

@@ -1,13 +1,36 @@
 import { useState } from "react"
 import { Modal } from "../modals/Modal"
 import { AddEmpresaComponent } from "./AddEmpresaComponent"
+import { VistaSinDatos } from "../VistaSinDatos"
+import { EmpresasContactoTable } from "./EmpresasTable"
 
 export const EmpresasComponent = () => {
     const [modalEmpresa, setModalEmpresa] = useState(false)
+    const [state, setState] = useState(true)
+
 
     return (
         <>
-            <p className=" text-slate-600 mt-1 px-5 text-3xl text-rosa">
+            <div className="px-5 py-2 h-full">
+                {(() => {
+                    if (!state) {
+                        return (
+                            <VistaSinDatos
+                                title={"Empresas"}
+                                button={"+ Empresas"}
+                                text={"Aún no hay empresas agendadas"}
+                                accion={"Crear nueva empresa"}
+                            />
+                        )
+                    } else {
+                        return (
+                            <EmpresasContactoTable/>
+                        )
+                    }
+                })()}
+
+            </div >
+           {/*  <p className=" text-slate-600 mt-1 px-5 text-3xl text-rosa">
                 Empresas
             </p>
 
@@ -22,14 +45,14 @@ export const EmpresasComponent = () => {
                     <div className="text-md flex space-x-2">
                         <button type="button" onClick={() => setModalEmpresa(!modalEmpresa)} className="text-rosa">Crear nueva empresa</button>
                         <p>o</p>
-                        <button type="button"  className="text-rosa">importar data</button>
+                        <button type="button" className="text-rosa">importar data</button>
                     </div>
                 </div>
-            </div>
+            </div> */}
             {
                 modalEmpresa ? (
                     <Modal openIcon={modalEmpresa} setOpenIcon={setModalEmpresa} classe={"w-[25%] h-[95%]"} >
-                        <AddEmpresaComponent modalEmpresa={modalEmpresa} setModalEmpresa={setModalEmpresa}  />
+                        <AddEmpresaComponent modalEmpresa={modalEmpresa} setModalEmpresa={setModalEmpresa} />
                     </Modal>
                 ) : null
             }
