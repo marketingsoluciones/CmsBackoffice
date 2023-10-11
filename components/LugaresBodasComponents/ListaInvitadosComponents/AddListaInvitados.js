@@ -1,4 +1,3 @@
-import { HeaderPlantillaMenu } from "../../CateringBodasComponents/PlantillaMenu/headerPlantillaMenu"
 import { HeaderListaInvitado } from "./HeaderListaInvitado"
 import { BlockCabecera } from "./BlockCabecera"
 import { BlockListaInvitados } from "../../BlockListaInvitados/BlockListaInvitados"

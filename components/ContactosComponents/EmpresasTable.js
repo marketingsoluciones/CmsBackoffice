@@ -5,7 +5,7 @@ import GlobalFilter from "../Datatable/GlobalFilter"
 import { OnlyViewTable } from "../PanelViewTable"
 
 
-export const EmpresasContactoTable = () => {
+export const EmpresasContactoTable = ({modalEmpresa, setModalEmpresa}) => {
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
     const { state, dispatch } = AuthContextProvider()
@@ -22,7 +22,7 @@ export const EmpresasContactoTable = () => {
                 </div>
 
                 <div className="relative">
-                    <button className="bg-rosa rounded-lg px-4 py-1 text-white">
+                    <button onClick={()=> setModalEmpresa(!modalEmpresa)} className="bg-rosa rounded-lg px-4 py-1 text-white">
                         + Persona
                     </button>
 

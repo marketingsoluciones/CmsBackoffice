@@ -25,7 +25,7 @@ export const ContactosComponent = () => {
                         )
                     } else {
                         return (
-                            <PersonasContactoTable/>
+                            <PersonasContactoTable modalPersona={modalPersona} setModalPersona={setModalPersona} />
                         )
                     }
                 })()}
