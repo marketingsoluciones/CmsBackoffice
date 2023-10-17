@@ -23,7 +23,6 @@ export const PlantillaSalon = () => {
                 if (state) {
                     return (
                         <InfoPlantillaSalonPage />
-
                     )
                 } else {
                     if (!state2) {

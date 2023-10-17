@@ -1,4 +1,4 @@
-import { CorazonBodasICon } from "../../Icons/index"
+import { CorazonBodasICon, DiamanteIcon } from "../../Icons/index"
 
 export const InfoPlantillaSalonPage = () => {
     const dataArry = [
@@ -22,31 +22,40 @@ export const InfoPlantillaSalonPage = () => {
                 Plantillas del Salón
             </p>
             <div className="bg-white rounded-xl flex flex-col h-[91%] " >
-                <div className="grid grid-cols-2 px-5  py-8 content-center ">
+                <div className="grid md:grid-cols-2 px-5  py-6 content-center ">
                     <div className=" col-span-1 space-y-2  flex flex-col justify-center ">
                         <p className="text-xl">
                             <span className="text-rosa">Crear Plantilla </span>
                             para organizar tu salón
                         </p>
                         <p className="text-base">
-                            Organiza cada milímetro, diseña la distribución de tu celebración con la libertad creativa que te facilita tu EventosOrganizador.
+                            Diseña la distribución de tu celebración con la libertad creativa que te facilita tu EventosOrganizador.
                         </p>
+
+                    </div>
+                    <div className=" cols-span-1 flex flex-col items-center  justify-center">
+                        <img src="/PlantillaSalon.png" alt="alta" className="w-[80%] md:w-[70%]" />
+                        <div className="text-yellow-500 flex items-center justify-center space-x-1 my-2  text-base cursor-default">
+                            <div>
+                                <DiamanteIcon />
+                            </div>
+                            <p>
+                                Activar la versióm <span className="font-semibold">PREMIUM</span>
+                            </p>
+                        </div>
                         <div>
 
-                            <button className="text-base text-white bg-rosa px-3 py-1 rounded-lg">
-                                Crear plantilla
+                            <button className="text-base text-white bg-rosa px-7 py-1 rounded-lg">
+                                Empezar
                             </button>
                         </div>
                     </div>
-                    <div className=" cols-span-1 flex  justify-center">
-                        <img src="/planomesa.png" alt="alta" className="w-[80%] md:w-[70%]" />
-                    </div>
                 </div>
-                <div className="bg-gray-200 grid grid-cols-3 ">
+                <div className="bg-gray-200 grid md:grid-cols-3 ">
                     {
                         dataArry.map((item, idx) => {
                             return (
-                                <div key={idx} className="flex px-4 py-10 ">
+                                <div key={idx} className="flex px-4 py-4 md:py-10 ">
                                     <div className="text-rosa">
                                         {item.icon}
                                     </div>
