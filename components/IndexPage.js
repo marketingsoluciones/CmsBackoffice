@@ -14,7 +14,7 @@ export const IndexPage = () => {
             title: "Publica tus servicios",
             texto: "Crea tu ficha y promociona tus servicios",
             button: "Ver más",
-            route: "business"
+            route: "InfoPage/Marcas"
         },
         {
             img: "/photoIndex/calendario.png",
@@ -28,7 +28,7 @@ export const IndexPage = () => {
             title: "Gestiona tus eventos",
             texto: "de forma simultánea y con la diversidad que necesites",
             button: "Ver más",
-            route: "/"
+            route: "eventos"
         },
     ]
 

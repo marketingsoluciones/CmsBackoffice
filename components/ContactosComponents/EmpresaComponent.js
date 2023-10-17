@@ -13,7 +13,11 @@ export const EmpresasComponent = () => {
         <>
             <div className="px-5 py-2 h-full">
                 {(() => {
-                    if (!state) {
+                    if (state) {
+                        return (
+                            <EmpresasContactoTable modalEmpresa={modalEmpresa} setModalEmpresa={setModalEmpresa} />
+                        )
+                    } else {
                         return (
                             <VistaSinDatos
                                 title={"Empresas"}
@@ -22,15 +26,11 @@ export const EmpresasComponent = () => {
                                 accion={"Crear nueva empresa"}
                             />
                         )
-                    } else {
-                        return (
-                            <EmpresasContactoTable modalEmpresa={modalEmpresa} setModalEmpresa={setModalEmpresa}/>
-                        )
                     }
                 })()}
 
             </div >
-           
+
             {
                 modalEmpresa ? (
                     <Modal openIcon={modalEmpresa} setOpenIcon={setModalEmpresa} classe={"w-[25%] h-[95%]"} >

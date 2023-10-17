@@ -14,15 +14,15 @@ export const EmpresasContactoTable = ({modalEmpresa, setModalEmpresa}) => {
             <div className="space-y-4 w-full  ">
                 <div>
 
-                    <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+                    <p className=" text-slate-600 mt-1 text-3xl text-rosa ">
                         Empresas
                     </p>
 
-                    <p className=" text-sm bg-white p-2 rounded-lg">Organiza los contactos de tus clientes o proveedores en un sólo lugar. </p>
+                    <p className=" text-sm bg-white p-2 rounded-lg text-gray-500b">Organiza los contactos de tus clientes o proveedores en un sólo lugar. </p>
                 </div>
 
                 <div className="relative">
-                    <button onClick={()=> setModalEmpresa(!modalEmpresa)} className="bg-rosa rounded-lg px-4 py-1 text-white">
+                    <button onClick={()=> setModalEmpresa(!modalEmpresa)} className="bg-rosa rounded-lg px-4 py-1 text-white text-base">
                         + Persona
                     </button>
 

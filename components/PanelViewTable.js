@@ -18,6 +18,7 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   const [sort, setSort] = useState()
   const [data, setData] = useState()
   const [isMounted, setIsMounted] = useState(false)
+ 
 
   const [data_, isLoading, isError, setQuery] = useFetch();
 
@@ -88,7 +89,7 @@ export const PanelViewTable = ({ slug, dispatch }) => {
       type: "json",
     });
   };
-
+console.log(selected)
   return (
     <>
 
@@ -97,29 +98,38 @@ export const PanelViewTable = ({ slug, dispatch }) => {
           <Box>
             <Heading textTransform={"capitalize"} className="mt-2 text-3xl">
               <div className="text-slate-600 mt-2 text-3xl">
-                <Text className="">{`${selected?.father}/${selected?.title}`}</Text>
+                <Text className=" text-rosa ">{/* ${selected?.father}/ */}{`${selected?.title}`}</Text>
               </div>
             </Heading>
           </Box>
         </div>
 
-        <div className="flex justify-between w-100% relative">
+        <div className="my-2">
+          <p className="text-sm bg-white p-2 rounded-lg text-gray-500">{selected?.subTitle}</p>
+        </div>
+
+        <div className="flex justify-between items-center w-100% relative">
           <button
             color={"white"}
             fontWeight={"400"}
             _hover={"green.500"}
             onClick={() => dispatch({ type: "CREATE", payload: {} })}
-            className="p-2 mt-2 bg-verde rounded-lg text-white hover:bg-hover-verde"
+            className="p-2 *mt-2 bg-rosa rounded-lg text-white *hover:bg-hover-verde text-base"
+            type="button"
           >
             Añadir registro
           </button>
-
-          <div className=" absolute h-8  rounded-md px-2 flex items-center  border-gray-400 border-2  bottom-0 right-0 w-1/3 ">
-            <SearchIcon />
-            <GlobalFilter
-              globalFilter={global}
-              setGlobalFilter={seteador}
-            />
+          <div className=" w-[44%]">
+            <button onClick={()=>router.push(`${selected?.resumenRout}`)} type="button" className="border border-rosa px-3 rounded-lg text-rosa text-base">
+              ver resumen
+            </button>
+            <div className=" absolute h-8  rounded-md px-2 flex items-center  border-gray-400 border-2  bottom-0.5 right-0 w-1/3 ">
+              <SearchIcon />
+              <GlobalFilter
+                globalFilter={global}
+                setGlobalFilter={seteador}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -132,7 +142,8 @@ export const PanelViewTable = ({ slug, dispatch }) => {
           overflow={"auto"}
           mb={"4rem"}
           w={"100%"}
-          m={"0.5rem"}
+          my={"0.5rem"}
+          mx={"1.5rem"}
         >
           <Datatable
             skip={skip}
@@ -166,7 +177,7 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   );
 };
 
-export const OnlyViewTable = ({ slug, dispatch , setbuscador }) => {
+export const OnlyViewTable = ({ slug, dispatch, setbuscador }) => {
   const [skip, setSkip] = useState(0)
   const [limit, setLimit] = useState(10)
   const [sortCriteria, setSortCriteria] = useState()

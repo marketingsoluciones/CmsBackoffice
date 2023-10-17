@@ -1,9 +1,12 @@
 import { Eventos } from "../components/Eventos"
 
 const eventosPage = () => {
-    return(
+    return (
         <>
-         <Eventos/>
+            <p className=" text-slate-600 mt-1 px-5 text-3xl text-rosa">
+                Eventos
+            </p>
+            <Eventos />
         </>
     )
 }

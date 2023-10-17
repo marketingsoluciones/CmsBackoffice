@@ -35,10 +35,10 @@ export const CardVeiw = () => {
         <>
             <div className="space-y-4 w-full ">
 
-                <p className=" text-sm bg-white p-2 rounded-lg">Controla los eventos creados o asignados por otros organizadores</p>
+                <p className=" text-sm bg-white p-2 rounded-lg text-gray-500">Controla los eventos creados o asignados por otros organizadores</p>
 
                 <div className="relative">
-                    <button className="bg-rosa rounded-lg px-4 py-1 text-white">
+                    <button className="bg-rosa rounded-lg px-4 py-1 text-white text-base">
                         Crear evento
                     </button>
 
@@ -57,7 +57,7 @@ export const CardVeiw = () => {
 
 
                     <div className="flex   justify-end mt-2">
-                      
+
                         <div className="flex space-x-3">
                             <OptionsButtons
                                 optionsArry={optionsArry}

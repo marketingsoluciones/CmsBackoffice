@@ -22,9 +22,9 @@ export const InfoPage = ({ DataArry }) => {
                                             </div>
                                             <p className="font-semibold">{item.title}</p>
                                             <div className="h-14">
-                                                <p className="text-center">{item.texto}</p>
+                                                <p className="text-center text-base">{item.texto}</p>
                                             </div>
-                                            <button onClick={()=>router.push(item.route)} className="bg-rosa rounded-lg text-white py-1 px-7 shadow-lg " >
+                                            <button onClick={()=>router.push(item.route)} className="bg-rosa rounded-lg text-white py-1 px-7 shadow-lg text-base " >
                                                 {item.button}
                                             </button>
                                         </div>

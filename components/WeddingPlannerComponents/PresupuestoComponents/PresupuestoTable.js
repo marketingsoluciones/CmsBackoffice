@@ -5,7 +5,7 @@ import GlobalFilter from "../../Datatable/GlobalFilter"
 import { OnlyViewTable } from "../../PanelViewTable"
 
 
-export const PresupuestoTable = () => {
+export const PresupuestoTable = ({setOptionSelect}) => {
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
     const { state, dispatch } = AuthContextProvider()
@@ -22,7 +22,7 @@ export const PresupuestoTable = () => {
             </div>
 
             <div className="relative">
-                <button className="bg-rosa rounded-lg px-4 py-1 text-white">
+                <button onClick={()=>setOptionSelect(1)} className="bg-rosa rounded-lg px-4 py-1 text-white">
                     Crear 
                 </button>
 

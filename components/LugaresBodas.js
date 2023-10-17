@@ -5,10 +5,15 @@ import { PlantillaSalon } from "./LugaresBodasComponents/PlantillasSalon"
 import { ListaInvitados } from "./LugaresBodasComponents/ListaInvitados"
 import { PlanoEvento } from "./LugaresBodasComponents/PlanoEvento"
 import { ItinerarioLugaresBodas } from "./LugaresBodasComponents/ItinerarioLugaresBodas"
+import { InfoLugaresBodas } from "./LugaresBodasComponents/InfoLugaresBodas"
 
 export const LugaresBodas = () => {
     const [optionSelect, setOptionSelect] = useState(0)
     const dataComponents = [
+        {   
+            component:<InfoLugaresBodas/>
+
+        },
         {
             icon: <MesasICon />,
             title: "Plantillas del salón",

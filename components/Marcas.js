@@ -1,5 +1,7 @@
 import { CorazonBodasICon } from "../components/Icons/index"
+import { useRouter } from "next/router"
 export const Marcas = () => {
+    const router = useRouter()
     const dataArry = [
         {
             icon: <CorazonBodasICon />,
@@ -44,7 +46,7 @@ export const Marcas = () => {
                         </p>
                     </div>
                     <div>
-                        <button className="bg-rosa px-2 py-1 rounded-lg text-white text-sm shadow-md ">
+                        <button onClick={()=> router.push("/business")} className="bg-rosa px-2 py-1 rounded-lg text-white text-sm shadow-md ">
                             Añadir marca
                         </button>
                     </div>

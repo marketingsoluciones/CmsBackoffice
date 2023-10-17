@@ -14,18 +14,19 @@ export const ContactosComponent = () => {
 
             <div className="px-5 py-2 h-full">
                 {(() => {
-                    if (!state) {
+                    if (state) {
+                        return (
+                            <PersonasContactoTable modalPersona={modalPersona} setModalPersona={setModalPersona} />
+                            
+                        )
+                    } else {
                         return (
                             <VistaSinDatos
                                 title={"Contactos"}
                                 button={"+ Persona"}
                                 text={"Aún no hay Persona agendadas"}
-                                accion={"Crear nueva persona"}
+                                accion={"Crear nueva persona o importar data"}
                             />
-                        )
-                    } else {
-                        return (
-                            <PersonasContactoTable modalPersona={modalPersona} setModalPersona={setModalPersona} />
                         )
                     }
                 })()}

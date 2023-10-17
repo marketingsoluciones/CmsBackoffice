@@ -14,7 +14,7 @@ export const PublicacionesInfo = () => {
                 </p>
 
                 <div className=" space-y-3 md:space-y-0 pt-3 pb-2  " >
-                    <button className="py-2 px-7 bg-rosa rounded-lg text-white w-full">
+                    <button className="py-2 px-7 bg-rosa rounded-lg text-white w-full text-base">
                         Crear artículo
                     </button>
                 </div>

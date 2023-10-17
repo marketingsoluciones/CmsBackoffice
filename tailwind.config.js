@@ -34,6 +34,7 @@ module.exports = {
         'botonBack': '#C2C2C2',
         'rosa':'#FF5887 ',
         'acento': '#F4C02F',
+        'amarillo': '#FFC200'
       },
       spacing: {
         '80px': '50px',

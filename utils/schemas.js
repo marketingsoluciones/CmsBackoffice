@@ -40,6 +40,8 @@ export const BodyStaticAPP = [
       {
         icon: <MaletaIcon className="h-6 w-6" />,
         title: "Marcas",
+        subTitle: "Gestiona, crea y publica tus marcas para promocionar tus servicios a la comunidad de novios de Bodas de Hoy. ",
+        resumenRout: "InfoPage/Marcas",
         roles: ["admin", "empresa"],
         route: "business",
         getData: FetchGraphQL.business.getBusinessAll,
@@ -514,7 +516,7 @@ export const BodyStaticAPP = [
     roles: ["empresa"],
     children: [
       {
-        icon: <LugaresBodas/>,
+        icon: <LugaresBodas />,
         title: "Lugares para bodas",
         roles: ["admin", "empresa"],
         route: "lugaresBodas",
@@ -568,7 +570,7 @@ export const BodyStaticAPP = [
     roles: ["empresa"],
     children: [
       {
-        icon: <ChatIcon/>,
+        icon: <ChatIcon />,
         title: "Chat",
         roles: ["admin", "empresa"],
         route: "page404",
@@ -613,6 +615,8 @@ export const BodyStaticAPP = [
         icon: <PostIcon />,
         title: "Publicaciones",
         roles: ["all"],
+        subTitle: "Escribe y publica tus articulos en el magazine de Bodas de Hoy ",
+        resumenRout: "InfoPage/publicaciones",
         route: "posts",
         getData: FetchGraphQL.posts.getAllPost,
         getByID: FetchGraphQL.posts.getOnePost,
