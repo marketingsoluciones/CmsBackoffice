@@ -32,7 +32,9 @@ module.exports = {
         'verde': '#30CB30',
         'hover-verde': '#2EBD2E',
         'botonBack': '#C2C2C2',
-        'rosa':'#FF5887 '
+        'rosa':'#FF5887 ',
+        'acento': '#F4C02F',
+        'amarillo': '#FFC200'
       },
       spacing: {
         '80px': '50px',

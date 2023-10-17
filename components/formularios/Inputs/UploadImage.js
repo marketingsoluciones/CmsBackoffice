@@ -1,7 +1,7 @@
 import { Box, Button, Divider, Flex, FormLabel, Input, Text } from "@chakra-ui/react";
 import { useField } from "formik";
 import Image from "next/image";
-import { ImageIcon } from "../../icons"
+import { ImageIcon } from "../../Icons"
 import { EditIcon } from "@chakra-ui/icons";
 import { useEffect, useState } from "react";
 import { GreenEditIcon } from "../../Icons/index";

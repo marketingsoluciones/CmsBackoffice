@@ -8,7 +8,7 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -28,7 +28,7 @@
     "components/EditorJS/index.tsx",
     "components/ReclamarEmpresa/ModalReclamarEmprcomponents/ButtonReclamarEmpresa.tsxEmpresa.jsx",
     "components/ButtonReclamarEmpresa.js"
-, "components/Itinerario/MicroComponente/SelectIcon.js", "components/Itinerario/BoddyIter.js"  ],
+, "components/Itinerario/MicroComponente/SelectIcon.js", "components/Itinerario/BoddyIter.js", "components/IndexPageComponents/ModulosEspeciales.js", "components/IndexPageComponents/InfoPage.js"  ],
   "exclude": [
     "node_modules"
   ]

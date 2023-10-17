@@ -1,5 +1,3 @@
-import Image from "next/image"
-
 
 const Page404 = () => {
     return (
@@ -8,7 +6,7 @@ const Page404 = () => {
                 <img src={"/placeholder/illustration_404.png"} ></img>
 
             </div>
-
+            
         </>
     )
 }

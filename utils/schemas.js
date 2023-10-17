@@ -1,6 +1,6 @@
 import { FetchGraphQL } from "../utils/Fetching";
 import { formatTime } from "../utils/formatTime";
-import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon } from "../components/Icons/index";
+import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon } from "../components/Icons/index";
 
 // componentes que definen la estructura del menu, fetchs,columnas visibles en la tabla y los inputs que componen el formulario
 
@@ -26,7 +26,7 @@ export const BodyStaticAPP = [
     roles: ["all"],
     children: [
       {
-        icon: <InicioIcon className="" />,
+        icon: <CorazonIcon className="" />,
         title: "Inicio",
         roles: ["all"],
         route: "/",
@@ -34,12 +34,14 @@ export const BodyStaticAPP = [
     ]
   },
   {
-    title: "Empresas",
+    title: "Mis Empresas",
     roles: ["empresa"],
     children: [
       {
-        icon: <MarcasEmIcon className="h-6 w-6" />,
+        icon: <MaletaIcon className="h-6 w-6" />,
         title: "Marcas",
+        subTitle: "Gestiona, crea y publica tus marcas para promocionar tus servicios a la comunidad de novios de Bodas de Hoy. ",
+        resumenRout: "InfoPage/Marcas",
         roles: ["admin", "empresa"],
         route: "business",
         getData: FetchGraphQL.business.getBusinessAll,
@@ -423,10 +425,10 @@ export const BodyStaticAPP = [
         ],
       },
       {
-        icon: <CampañasIcon />,
-        title: "Campañas",
+        icon: <CampañasIcon className="" />,
+        title: "Eventos",
         roles: ["empresa"],
-        route: "page404",
+        route: "eventos",
         getData: FetchGraphQL.questions.getAllQuestions,
         getByID: FetchGraphQL.questions.getOneQuestion,
         createEntry: FetchGraphQL.questions.createQuestions,
@@ -460,6 +462,18 @@ export const BodyStaticAPP = [
             Cell: (props) => formatTime(props.value, "es"),
           },
         ],
+      },
+      {
+        icon: <Calendario className="h-6 w-6" />,
+        title: "Calendario",
+        roles: ["admin", "empresa"],
+        route: "calendario",
+        getData: "",
+        getByID: "",
+        createEntry: "",
+        updateEntry: "",
+        deleteEntry: "",
+        schema: [],
       },
       {
         icon: <PreguntasFrecuentes />,
@@ -498,6 +512,90 @@ export const BodyStaticAPP = [
     ],
   },
   {
+    title: "Módulos",
+    roles: ["empresa"],
+    children: [
+      {
+        icon: <LugaresBodas />,
+        title: "Lugares para bodas",
+        roles: ["admin", "empresa"],
+        route: "lugaresBodas",
+        getData: "",
+        getByID: "",
+        createEntry: "",
+        updateEntry: "",
+        deleteEntry: "",
+        schema: [],
+      },
+      {
+        icon: <Catering />,
+        title: "Catering de bodas",
+        roles: ["empresa"],
+        route: "cateringBodas",
+        getData: "",
+        getByID: "",
+        createEntry: "",
+        deleteEntry: "",
+        updateEntry: "",
+        schema: [],
+      },
+      {
+        icon: <WeddingPlanner className="h-6 w-6" />,
+        title: "Wedding Planner",
+        roles: ["empresa"],
+        route: "weddingPlanner",
+        getData: "",
+        getByID: "",
+        createEntry: "",
+        deleteEntry: "",
+        updateEntry: "",
+        schema: [],
+      },
+      {
+        icon: <FotografoMenu className="h-6 w-6" />,
+        title: "Fotografos",
+        roles: ["empresa"],
+        route: "page404",
+        getData: "",
+        getByID: "",
+        createEntry: "",
+        deleteEntry: "",
+        updateEntry: "",
+        schema: [],
+      },
+    ],
+  },
+  {
+    title: "Chat en línea",
+    roles: ["empresa"],
+    children: [
+      {
+        icon: <ChatIcon />,
+        title: "Chat",
+        roles: ["admin", "empresa"],
+        route: "page404",
+        getData: "",
+        getByID: "",
+        createEntry: "",
+        updateEntry: "",
+        deleteEntry: "",
+        schema: [],
+      },
+      {
+        icon: <Contactos />,
+        title: "Contactos",
+        roles: ["empresa"],
+        route: "contactos",
+        getData: "",
+        getByID: "",
+        createEntry: "",
+        deleteEntry: "",
+        updateEntry: "",
+        schema: [],
+      },
+    ],
+  },
+  {
     title: "Redes Sociales",
     roles: ["dev"],
     children: [
@@ -515,8 +613,10 @@ export const BodyStaticAPP = [
     children: [
       {
         icon: <PostIcon />,
-        title: "Posts",
+        title: "Publicaciones",
         roles: ["all"],
+        subTitle: "Escribe y publica tus articulos en el magazine de Bodas de Hoy ",
+        resumenRout: "InfoPage/publicaciones",
         route: "posts",
         getData: FetchGraphQL.posts.getAllPost,
         getByID: FetchGraphQL.posts.getOnePost,
@@ -750,6 +850,24 @@ export const BodyStaticAPP = [
         ],
       },
     ],
+  },
+  {
+    title: "Marketplace",
+    roles: ["empresa"],
+    children: [
+      {
+        icon: <MarcasEmIcon className="" />,
+        title: "tienda",
+        roles: ["all"],
+        route: "page404",
+        getData: "",
+        getByID: "",
+        createEntry: "",
+        updateEntry: "",
+        deleteEntry: "",
+        schema: [],
+      },
+    ]
   },
   {
     title: "Páginas",

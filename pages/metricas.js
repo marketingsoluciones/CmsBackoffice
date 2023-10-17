@@ -6,8 +6,7 @@ const metricas = () => {
     return (
         <>
             <Flex as={"section"} flexDir={"column"} overflow={"auto"} h={"100%"} >
-                {/* <MetricasSuscripcion /> */}
-                <Itinerario/>
+                <MetricasSuscripcion />
             </Flex >
         </>
     )

@@ -8,16 +8,15 @@ import { IconList } from "./MicroComponente/IconList"
 import { Formik, Form } from "formik"
 import { InputFieldGlobal } from "../formularios/Inputs/InputFieldGlobal"
 import { useToast } from "@chakra-ui/react"
+import { MyDocument } from "../CreatePDF"
 import * as yup from "yup"
 
-export const BoddyIter = () => {
+export const BoddyIter = ({ IterArryst, setIterArryst, createPdf }) => {
     const [itinerary, setItinerary] = useState(false)
     const [openIcon, setOpenIcon] = useState(false)
     const [selectIcon, setSelectIcon] = useState(null)
-    const [IterArryst, setIterArryst] = useState([])
     const toast = useToast()
 
-    console.log(IterArryst)
 
     const IconArry = [
         {
@@ -111,34 +110,33 @@ export const BoddyIter = () => {
             IterArry.push(values)
             const myArryIterJSON = JSON.stringify(IterArry)
             localStorage.setItem("dataIter", myArryIterJSON)
-           /*  toast("success", "evento creado con exito"); */
+            /*  toast("success", "evento creado con exito"); */
 
         } catch (error) {
-           /*  toast("error", "Ha ocurrido un error al crear el Menu"); */
+            /*  toast("error", "Ha ocurrido un error al crear el Menu"); */
             console.log(error)
         }
     }
 
-    if(handleSubmit!=null){
+    if (handleSubmit != null) {
 
         useEffect(() => {
             setIterArryst(JSON.parse(localStorage.getItem("dataIter")))
-        }, [ ])
+        }, [])
     }
-        
+
     const initialValues = {
         description: "",
         idIcon: selectIcon,
         timeH: "",
         timeM: ""
     }
+
     const validationSchema = yup.object().shape({
         description: yup.string().required(),
         timeH: yup.number().required(),
         timeM: yup.number().required(),
     });
-
-
 
     return (
         <>
@@ -187,11 +185,7 @@ export const BoddyIter = () => {
                         <div className="flex justify-center items-center w-full  space-x-10 ">
                             <div className="mb-4 w-16  " >
                                 <SelectIcon openIcon={openIcon} setOpenIcon={setOpenIcon} resultadoIcon={resultadoIcon} />
-                                <InputFieldGlobal
-                                    name="idIcon"
-                                    className="hidden*"
-                                    placeholder={selectIcon}
-                                />
+                               
                             </div>
                             <div className="w-44 flex items-center  mb-4 space-x-1">
                                 <InputFieldGlobal
@@ -234,11 +228,12 @@ export const BoddyIter = () => {
             </div>
             {
                 openIcon ? (
-                    <Modal openIcon={openIcon} setOpenIcon={setOpenIcon} >
+                    <Modal openIcon={openIcon} setOpenIcon={setOpenIcon} classe={""} >
                         <IconList IterArry={IconArry} openIcon={openIcon} setOpenIcon={setOpenIcon} setSelectIcon={setSelectIcon} />
                     </Modal>
                 ) : null
             }
+            
         </>
     )
 }

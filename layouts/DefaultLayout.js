@@ -40,7 +40,7 @@ export const DefaultLayout = ({ children }) => {
 
         <Flex flexDir={"column"} w={show ? "calc(100%)" : "100%"} onClick={() => screen.width < 640 ? show ? setShow(!show) : null : null} >
           <Navigation set={setShow} state={show} />
-          <Box as={"main"} p={"0.5rem"} /* bg={"gray.100"} */ h={"full"} w={"100%"} className="bg-bg">
+          <Box as={"main"} /* p={"0.5rem"} */ /* bg={"gray.100"} */ h={"full"} w={"100%"} className="bg-bg">
             {children}
           </Box>
         </Flex>
