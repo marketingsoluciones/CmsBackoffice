@@ -129,7 +129,7 @@ export const Sidebar = ({ state, setState }) => {
                                         setHandle(() => () => {
                                           screen.width < 640 ? setState(!state) : null
                                           dispatch({ type: "VIEW", payload: {} });
-                                          router.push(item.route)
+                                          router.push("/"+item.route)
                                           setChangedForm(false)
                                         }
                                         )
@@ -137,7 +137,7 @@ export const Sidebar = ({ state, setState }) => {
                                       } else {
                                         screen.width < 640 ? setState(!state) : null
                                         dispatch({ type: "VIEW", payload: {} });
-                                        router.push(item.route)
+                                        router.push("/"+item.route)
                                       }
                                     }}
                                   >

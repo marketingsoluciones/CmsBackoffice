@@ -4,7 +4,7 @@ import { SearchIcon } from "../../Icons/index"
 import { OnlyViewTable } from "../../PanelViewTable"
 import { AuthContextProvider } from "../../../context/AuthContext"
 
-export const ListaInvitadosTable = ({actionButton, setActionButton}) => {
+export const ListaInvitadosTable = ({ setActionButton}) => {
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
     const { state, dispatch } = AuthContextProvider()
@@ -21,7 +21,7 @@ export const ListaInvitadosTable = ({actionButton, setActionButton}) => {
                 </div>
 
                 <div className="relative">
-                    <button className="bg-rosa rounded-lg px-4 py-1 text-white"onClick={()=>setActionButton(!actionButton)}>
+                    <button className="bg-rosa rounded-lg px-4 py-1 text-white"onClick={()=>setActionButton(1)}>
                         Crear lista
                     </button>
 

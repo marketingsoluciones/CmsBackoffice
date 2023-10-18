@@ -29,7 +29,7 @@ export const BodyStaticAPP = [
         icon: <CorazonIcon className="" />,
         title: "Inicio",
         roles: ["all"],
-        route: "/",
+        route: "",
       },
     ]
   },

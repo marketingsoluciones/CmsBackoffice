@@ -8,12 +8,9 @@ import { ItinerarioLugaresBodas } from "./LugaresBodasComponents/ItinerarioLugar
 import { InfoLugaresBodas } from "./LugaresBodasComponents/InfoLugaresBodas"
 
 export const LugaresBodas = () => {
-    const [optionSelect, setOptionSelect] = useState(0)
+    const [optionSelect, setOptionSelect] = useState(4)
     const dataComponents = [
-        {   
-            component:<InfoLugaresBodas/>
-
-        },
+        
         {
             icon: <MesasICon />,
             title: "Plantillas del salón",
@@ -33,6 +30,9 @@ export const LugaresBodas = () => {
             icon: <ItinerarioCatering />,
             title: "Intinerarios",
             component: <ItinerarioLugaresBodas/>
+        },
+        {   
+            component:<InfoLugaresBodas setOptionSelect={setOptionSelect}/>
         },
     ]
     const handleClickOption = (idx) => {

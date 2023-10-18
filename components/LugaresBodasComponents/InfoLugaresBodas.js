@@ -1,35 +1,35 @@
 import { Icon } from "@chakra-ui/icons"
 import { CoronaIcon } from "../Icons/index"
 
-export const InfoLugaresBodas = () => {
+export const InfoLugaresBodas = ({setOptionSelect}) => {
     const dataArry = [
         {
             img: "PlanSalon.png",
             title: "Plantilla del salón",
             text: "Crea plantillas de los planos de tus salones para reutilizar  en tus eventos y añadir a la versión app novios.",
             button: "Ver más",
-            rout: "",
+            rout: "0",
         },
         {
             img: "planEvento.png",
             title: "Plano del evento",
             text: "Asigna el plano a un evento, diseña la distribución del salón, ubicación de mobiliario, proveedores e invitados.",
             button: "Ver más",
-            rout: "",
+            rout: "1",
         },
         {
             img: "listaInvitados.png",
             title: "Lista de invitados",
             text: "Lleva el control de la lista de invitados de tus eventos, la mesa asignada, alérgenos y confirmación de asistencia.",
             button: "Ver más",
-            rout: "",
+            rout: "2",
         },
         {
             img: "itinerario.png",
             title: "Intinerarios",
             text: "Visualiza el intinerario de cada evento asignado para conocer las horas de actividad de cada proveedor.",
             button: "Ver más",
-            rout: "",
+            rout: "3",
         },
     ]
     const dataArry2 = [
@@ -90,7 +90,7 @@ export const InfoLugaresBodas = () => {
                                                 {item.text}
                                             </p>
                                             <div>
-                                                <button className="bg-rosa text-base text-white px-7 py-1 rounded-lg">
+                                                <button type="button" onClick={()=> setOptionSelect(item.rout)} className="bg-rosa text-base text-white px-7 py-1 rounded-lg">
                                                     {item.button}
                                                 </button>
                                             </div>
@@ -101,7 +101,7 @@ export const InfoLugaresBodas = () => {
                         }
                     </div>
                 </div>
-                <div className="flex flex-col items-center justify-center space-y-3  px-10 py-14">
+                <div className="flex flex-col items-center justify-center space-y-3  px-10 py-10">
                     <div className="flex items-center space-x-2">
                         <div className="text-amarillo">
                             <CoronaIcon  />
@@ -111,7 +111,7 @@ export const InfoLugaresBodas = () => {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-2  justify-items-center space-y-3">
+                    <div className="grid grid-cols-2  justify-items-center space-y-3 pb-10">
                         {dataArry2.map((item, idx) => {
                             return (
                                 <div key={idx} className="flex items-center  w-[70%]">

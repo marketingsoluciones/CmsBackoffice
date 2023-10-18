@@ -30,8 +30,8 @@ export const InfoListaInvitadosPage = ({ actionButton, setActionButton }) => {
                         <span className="text-rosa font-semibold">Lleva el control </span> de tu lista de invitados en un sólo lugar
                     </p>
                     <div>
-                        <button className="bg-rosa text-white text-base py-1 px-4 rounded-lg shadow-md">
-                            Crear lista
+                        <button onClick={() => setActionButton(!actionButton)} className="bg-rosa text-white text-base py-1 px-4 rounded-lg shadow-md">
+                            Gestionar listas
                         </button>
                     </div>
                 </div>
