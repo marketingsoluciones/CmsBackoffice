@@ -1,76 +1,64 @@
 import { Icon } from "@chakra-ui/icons"
 import { CoronaIcon } from "../Icons/index"
 
-export const InfoLugaresBodas = ({ setOptionSelect }) => {
+export const InfoCateringBodas = ({ setOptionSelect }) => {
     const dataArry = [
         {
             img: "PlanSalon.png",
-            title: "Plantilla del salón",
-            text: "Crea plantillas de los planos de tus salones para reutilizar  en tus eventos y añadir a la versión app novios.",
+            title: "Carta de productos",
+            text: "Genera tu propia carta de productos agregando platos y bebidas para utilizar luego en la creación de tus menús para eventos.",
             button: "Ver más",
             rout: "0",
         },
         {
             img: "planEvento.png",
-            title: "Plano del evento",
-            text: "Asigna el plano a un evento, diseña la distribución del salón, ubicación de mobiliario, proveedores e invitados.",
+            title: "Plantilla de menú",
+            text: "Crea plantillas de menú para reutilizar en tus eventos y añadir a la versión app novios.",
             button: "Ver más",
             rout: "1",
+        },
+        {
+            img: "listaInvitados.png",
+            title: "Menú",
+            text: "Asigna el menú a un evento, para llevar el control de platos y presentarselo a novios e invitados.",
+            button: "Ver más",
+            rout: "2",
         },
         {
             img: "listaInvitados.png",
             title: "Lista de invitados",
             text: "Lleva el control de la lista de invitados de tus eventos, la mesa asignada, alérgenos y confirmación de asistencia.",
             button: "Ver más",
-            rout: "2",
+            rout: "3",
         },
         {
             img: "itinerario.png",
             title: "Intinerarios",
             text: "Visualiza el intinerario de cada evento asignado para conocer las horas de actividad de cada proveedor.",
             button: "Ver más",
-            rout: "3",
+            rout: "4",
         },
     ]
-    const dataArry2 = [
-        {
-            img: "url.png",
-            text: "Óbten tu dominio propio"
-        },
-        {
-            img: "calendario.png",
-            text: "Programa visitas a tu negocio"
-        },
-        {
-            img: "persona.png",
-            text: "Registra clientes para obtener LEAD MAGNET"
-        },
-        {
-            img: "email.png",
-            text: "Mantén el contacto con newsletter"
-        },
-    ]
+
     return (
         <div className="h-full px-5 py-2 ">
             <p className=" text-slate-600 mt-1 text-3xl text-rosa">
-                lugares para bodas
+                Catering de bodas
             </p>
             <div className="bg-white rounded-xl flex flex-col h-[34%] overflow-auto">
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-14">
                     <p className="text-xl text-gray-600">
-                        <span className="text-rosa">El lugar de celebración </span> es una de las piedras angulares de todo evento
+                        <span className="text-rosa">Crea el menú de cada evento </span> para presentar a tus clientes
                     </p>
 
                     <p className="text-base text-gray-600 px-10">
                         Con el
-                        <span className="text-rosa"> Módulo Lugares para Bodas </span>
-                        organiza de forma óptima e intuitiva los detalles para presentarlos a tus clientes, controla desde la distribución de los salones hasta la lista de invitados de cada evento.
+                        <span className="text-rosa"> Módulo Catering para Bodas </span>
+                        organiza los detalles del menú según el tipo de evento y lleva el control de alérgenos por invitado y su selección de platos.
                     </p>
                 </div>
                 <div className="bg-gray-200 flex relative">
-                    <div className="z-10 flex items-center  ">
-                        <img src="/lugarBoda.png" alt="alta" className="absolute" />
-                    </div>
+
                     <div className="flex flex-col items-center space-y-5 py-14 z-20 ">
                         {
                             dataArry.map((item, idx) => {
@@ -99,26 +87,37 @@ export const InfoLugaresBodas = ({ setOptionSelect }) => {
                     </div>
                 </div>
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-10">
-                    <div className="flex items-center space-x-2">
-                        <div className="text-amarillo">
-                            <CoronaIcon />
-                        </div>
-                        <p className="text-xl text-gray-600 font-semibold">
-                            ¿Te gustaría tener una landing page de tu empresa?
-                        </p>
-                    </div>
 
-                    <div className="grid grid-cols-2  justify-items-center space-y-3 pb-10">
-                        {dataArry2.map((item, idx) => {
-                            return (
-                                <div key={idx} className="flex items-center  w-[70%]">
-                                    <img src={item.img} />
-                                    <p className="text-base">
-                                        {item.text}
-                                    </p>
-                                </div>
-                            )
-                        })}
+
+                    <div className="grid grid-cols-2  justify-items-center content-center  pb-3">
+                        <div className="flex items-center space-x-2">
+                            <div className="text-amarillo">
+                                <CoronaIcon />
+                            </div>
+                            <div>
+
+                                <p className="text-xl text-gray-600 font-semibold">
+                                    Vende tickets
+                                </p>
+                                <p className="text-base text-gray-500">
+                                    Para cenas o eventos prepagados
+                                </p>
+                            </div>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                            <div className="text-amarillo">
+                                <CoronaIcon />
+                            </div>
+                            <div>
+
+                                <p className="text-xl text-gray-600 font-semibold">
+                                    QR para el menú
+                                </p>
+                                <p className="text-base text-gray-500">
+                                    Comparte los menú con QR
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div>
                         <p>

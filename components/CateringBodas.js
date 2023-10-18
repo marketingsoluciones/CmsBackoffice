@@ -6,9 +6,10 @@ import { MenuEmpresa } from "./CateringBodasComponents/MenuEmpresa"
 import { PlantillaMenu } from "./CateringBodasComponents/PlantillaMenu"
 import { InvitadosC } from "./CateringBodasComponents/InvitadosC"
 import { ItinerarioC } from "./CateringBodasComponents/ItinerarioC"
+import { InfoCateringBodas } from "./CateringBodasComponents/InfoCateringBodas"
 
 export const CateringBodas = () => {
-    const [optionSelect, setOptionSelect] = useState(0)
+    const [optionSelect, setOptionSelect] = useState(5)
     const dataComponents = [
         {
             icon: <PlatillOpenCatering />,
@@ -35,6 +36,9 @@ export const CateringBodas = () => {
             title: "Itinerarios",
             component: <ItinerarioC />
         },
+        {
+            component: <InfoCateringBodas setOptionSelect={setOptionSelect}/>
+        }
     ]
     const handleClickOption = (idx) => {
         setOptionSelect(idx);
