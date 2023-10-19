@@ -21,8 +21,8 @@ export const InfoCartaProducto = ({actionButton, setActionButton}) => {
                         </div>
                     </div>
                 </div>
-                <div className="bg-gray-200 grid grid-cols-2 px-8 py-4">
-                    <div>
+                <div className="bg-gray-200 grid grid-cols-2 px-8 py-4 justify-items-center content-center">
+                    <div className="flex items-center">
                         <p className="text-base text-end">
                             <span className="text-rosa">Añade cada uno de tus platos</span> indicando su nombre, categoria dentro del menú y si incluye alguno de los 14 alérgenos según el Real Decreto 126/2015
                         </p>

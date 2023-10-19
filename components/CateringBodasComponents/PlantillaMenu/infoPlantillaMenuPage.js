@@ -48,7 +48,7 @@ export const InfoPlantillaMenuPage = ({actionButton, setActionButton}) => {
                         <img src="PlantillaM.png" alt="Plantilla menu" />
                     </div>
                 </div>
-                <div className="bg-gray-300 flex flex-row px-14 py-4 space-x-5">
+                <div className="bg-gray-200 flex flex-row px-14 py-4 space-x-5">
                     {dataArry.map((item, idx) => {
                         return (
                             <div key={idx} className="flex space-x-1">
