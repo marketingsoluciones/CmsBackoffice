@@ -41,8 +41,8 @@ export const InfoPlanoEventoPage = ({ actionButton, setActionButton }) => {
                             Inicia prueba gratis de 30 días
                         </button>
                         <div className=" flex items-center justify-center space-x-1 my-2 text-base cursor-default">
-                        <div className="text-amarillo">
-                                <CorazoncirculoIcon/>
+                            <div className="text-amarillo">
+                                <CorazoncirculoIcon />
                             </div>
                             <div className="text-amarillo">
                                 <DiamanteIcon />

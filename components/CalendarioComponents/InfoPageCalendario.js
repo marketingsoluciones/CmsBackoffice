@@ -52,7 +52,7 @@ export const InfoPageCalendario = () => {
                             <DiamanteIcon />
                         </div>
                         <p>
-                            Activar la versióm <span className="font-semibold">PREMIUM</span>
+                            Activar la versión <span className="font-semibold">PREMIUM</span>
                         </p>
                     </button>
                     <button className="py-2 px-7 bg-rosa rounded-lg text-white w-full text-base">

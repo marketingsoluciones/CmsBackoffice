@@ -40,7 +40,7 @@ export const InfoPlantillaSalonPage = () => {
                                 <DiamanteIcon />
                             </div>
                             <p>
-                                Activar la versióm <span className="font-semibold">PREMIUM</span>
+                                Activar la versión <span className="font-semibold">PREMIUM</span>
                             </p>
                         </div>
                         <div>
