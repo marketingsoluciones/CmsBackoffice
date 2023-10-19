@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { VistaSinDatos } from "../VistaSinDatos"
 import { MenuTable } from "./MenuComponents/MenuTable"
+import { InfoMenuPage } from "./MenuComponents/InfoMenuPage"
 
 export const MenuEmpresa = () => {
     const [state, setState] = useState(true)
@@ -23,11 +24,9 @@ export const MenuEmpresa = () => {
     return (
         <div className="px-5 py-2 h-full">
             {(() => {
-                if (!state) {
+                if (state) {
                     return (
-                        <>
-
-                        </>
+                        <InfoMenuPage/>
                     )
                 } else {
                     if (state2) {
