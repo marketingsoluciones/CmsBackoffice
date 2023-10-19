@@ -23,7 +23,7 @@ export const CartaProductosTable = ({actionButton,setActionButton }) => {
             </div>
 
             <div className="relative">
-                <button className="bg-rosa rounded-lg px-4 py-1 text-white " onClick={()=>setActionButton(!actionButton)}>
+                <button className="bg-rosa rounded-lg px-4 py-1 text-white " onClick={()=>setActionButton(1)}>
                     Añadir producto
                 </button>
 

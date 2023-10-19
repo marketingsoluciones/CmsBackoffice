@@ -60,7 +60,7 @@ export const AgregarProducto = ({ actionButton, setActionButton }) => {
                         </div>
 
                         <div className="flex justify-center space-x-5">
-                            <button className="px-4 py-2 bg-gray-300 rounded-lg text-white" onClick={() => setActionButton(!actionButton)} type="button">
+                            <button className="px-4 py-2 bg-gray-300 rounded-lg text-white" onClick={() => setActionButton(0)} type="button">
                                 cancelar
                             </button>
                             <button className="px-4 py-2 bg-rosa rounded-lg text-white" type="button">
