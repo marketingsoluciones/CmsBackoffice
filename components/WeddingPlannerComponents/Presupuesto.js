@@ -2,6 +2,7 @@ import { useState } from "react"
 import { VistaSinDatos } from "../VistaSinDatos"
 import { PresupuestoTable } from "./PresupuestoComponents/PresupuestoTable"
 import { AddPresupuesto } from "./PresupuestoComponents/AddPresupuesto"
+import { InfoPresupuestoPage } from "./PresupuestoComponents/InfoPresupuestoPage"
 
 export const Presupuesto = () => {
     const [state, setState] = useState(true)
@@ -23,7 +24,7 @@ export const Presupuesto = () => {
             {(() => {
                 if (state) {
                     return (
-                        ""
+                        <InfoPresupuestoPage actionButton={state} setActionButton={setState}/>
                     )
 
                 } else {
