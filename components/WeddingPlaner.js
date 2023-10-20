@@ -1,27 +1,36 @@
 import { useState } from "react"
 import { SubmenuComponent } from "./CateringBodasComponents/SubmenuComponent";
-import { InvitadosCatering, ItinerarioCatering, PresupuestoIcon } from "./Icons/index";
+import { CorreoIcon, InvitadosCatering, ItinerarioCatering, PresupuestoIcon } from "./Icons/index";
 import { InvitadosWeddingPlanner } from "./WeddingPlannerComponents/InvitadosWeddinPlanner";
 import { Presupuesto } from "./WeddingPlannerComponents/Presupuesto";
 import { ItinerarioWeddingPlanner } from "./WeddingPlannerComponents/ItinerarioWeddinPlanner";
+import { InfoWeddinPlannrePage } from "./WeddingPlannerComponents/InfoWeddinPlannerPage";
 
 export const WeddingPlanner = () => {
-    const [optionSelect, setOptionSelect] = useState(0)
+    const [optionSelect, setOptionSelect] = useState(4)
     const dataComponents = [
         {
             icon: <InvitadosCatering />,
             title: "Lista de invitados",
-            component: <InvitadosWeddingPlanner/>
+            component: <InvitadosWeddingPlanner />
         },
         {
-            icon: <PresupuestoIcon/>,
+            icon: <PresupuestoIcon />,
             title: "Presupuesto",
-            component: <Presupuesto/>
+            component: <Presupuesto />
+        },
+        {
+            icon: <CorreoIcon />,
+            title: "Invitaciones",
+            component: ""
         },
         {
             icon: <ItinerarioCatering />,
             title: "Intinerarios",
-            component: <ItinerarioWeddingPlanner/>
+            component: <ItinerarioWeddingPlanner />
+        },
+        {
+            component: <InfoWeddinPlannrePage setOptionSelect={setOptionSelect} />
         },
     ]
     const handleClickOption = (idx) => {

@@ -21,13 +21,13 @@ export const Presupuesto = () => {
     return (
         <div className="px-5 py-2 h-full">
             {(() => {
-                if (!state) {
+                if (state) {
                     return (
                         ""
                     )
 
                 } else {
-                    if (!state2) {
+                    if (state2) {
                         return (
                             <div>
                                 {dataComponents[optionSelect].component}

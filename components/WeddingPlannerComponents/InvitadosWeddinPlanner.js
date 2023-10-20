@@ -7,35 +7,39 @@ import { InfoListaInvitadosPage } from "../LugaresBodasComponents/ListaInvitados
 export const InvitadosWeddingPlanner = () => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
-    const [state3, setState3] = useState(true)
+    const [optionSelect, setOptionSelect] = useState(0)
+    const dataComponents = [
+        {
+            component: <InvitadosWeddingTable setOptionSelect={setOptionSelect} />
+        },
+        {
+            component: <AddListaInvitados setOptionSelect={setOptionSelect} />
+        },
+
+    ]
     return (
         <>
             <div className="px-5 py-2 h-full">
                 {(() => {
-                    if (!state) {
+                    if (state) {
                         return (
-                            <VistaSinDatos
-                                title={"Lista de invitados"}
-                                button={"Agregar invitados"}
-                                text={"Aún no tienes Invitados"}
-                                accion={"Agrega invitados"}
-                            />
+                            <InfoListaInvitadosPage actionButton={state} setActionButton={setState} />
                         )
                     } else {
-                        if (!state2) {
+                        if (state2) {
                             return (
-                                <InvitadosWeddingTable/>
+                                <div>
+                                    {dataComponents[optionSelect].component}
+                                </div>
                             )
-                        } else if (state3) {
+                        } else {
                             return (
-                                <InfoListaInvitadosPage/>
-                            )
-                        }
-
-                        else {
-                            return (
-
-                                <AddListaInvitados />
+                                <VistaSinDatos
+                                    title={"Lista de invitados"}
+                                    button={"Agregar invitados"}
+                                    text={"Aún no tienes Invitados"}
+                                    accion={"Agrega invitados"}
+                                />
                             )
                         }
                     }

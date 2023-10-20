@@ -1,64 +1,61 @@
 import { Icon } from "@chakra-ui/icons"
 import { CoronaIcon } from "../Icons/index"
 
-export const InfoCateringBodas = ({ setOptionSelect }) => {
+export const InfoWeddinPlannrePage = ({ setOptionSelect }) => {
     const dataArry = [
-        {
-            img: "PlanSalon.png",
-            title: "Carta de productos",
-            text: "Genera tu propia carta de productos agregando platos y bebidas para utilizar luego en la creación de tus menús para eventos.",
-            button: "Ver más",
-            rout: "0",
-        },
-        {
-            img: "planEvento.png",
-            title: "Plantilla de menú",
-            text: "Crea plantillas de menú para reutilizar en tus eventos y añadir a la versión app novios.",
-            button: "Ver más",
-            rout: "1",
-        },
-        {
-            img: "listaInvitados.png",
-            title: "Menú",
-            text: "Asigna el menú a un evento, para llevar el control de platos y presentarselo a novios e invitados.",
-            button: "Ver más",
-            rout: "2",
-        },
+
         {
             img: "listaInvitados.png",
             title: "Lista de invitados",
             text: "Lleva el control de la lista de invitados de tus eventos, la mesa asignada, alérgenos y confirmación de asistencia.",
             button: "Ver más",
-            rout: "3",
+            rout: "0",
         },
+        {
+            img: "presupuesto.png",
+            title: "Presupuestos",
+            text: "Gestiona el presupuesto de cada evento, indicando gastos por pagar y llevando un control de los pagos realizados. ",
+            button: "Ver más",
+            rout: "1",
+        },
+        {
+            img: "invitaciones.png",
+            title: "Invitaciones",
+            text: "Envia a la los invitados de cada evento la invitacion digital via email, SMS o Whatsapp para confirmar su asistencia",
+            button: "Ver más",
+            rout: "2",
+        },
+
         {
             img: "itinerario.png",
             title: "Intinerarios",
             text: "Visualiza el intinerario de cada evento asignado para conocer las horas de actividad de cada proveedor.",
             button: "Ver más",
-            rout: "4",
+            rout: "3",
         },
     ]
-
+    
     return (
         <div className="h-full px-5 py-2 ">
             <p className=" text-slate-600 mt-1 text-3xl text-rosa">
-                Catering de bodas
+                wedding Planner
             </p>
-            <div className="bg-white rounded-xl flex flex-col h-[34%] overflow-auto">
+            <div className="bg-white rounded-xl flex flex-col h-[36%] overflow-auto">
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-14">
                     <p className="text-xl text-gray-600">
-                        <span className="text-rosa">Crea el menú de cada evento </span> para presentar a tus clientes
+                        <span className="text-rosa">Organizar un evento </span> es una tarea minusiosa
                     </p>
 
                     <p className="text-base text-gray-600 px-10">
                         Con el
-                        <span className="text-rosa"> Módulo Catering para Bodas </span>
-                        organiza los detalles del menú según el tipo de evento y lleva el control de alérgenos por invitado y su selección de platos.
+                        <span className="text-rosa"> Módulo Wedding Planner </span>
+                        óbten funcionalidades para automatizar tareas como gestionar la lista de invitados, presupuestos, envio de invitaciones y crear intinerarios para compartir con tus clientes.
                     </p>
                 </div>
                 <div className="bg-gray-200 flex relative">
-
+                    <div className="z-10 flex items-center  ">
+                        <img src="/CorazonDoble.png" alt="weddin planner" className="absolute" />
+                    </div>
                     <div className="flex flex-col items-center space-y-5 py-14 z-20 ">
                         {
                             dataArry.map((item, idx) => {
@@ -88,35 +85,36 @@ export const InfoCateringBodas = ({ setOptionSelect }) => {
                 </div>
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-10">
                     <div className="grid grid-cols-2  justify-items-center content-center  pb-3">
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center justify-center space-x-2 w-[80%]">
                             <div className="text-amarillo">
                                 <CoronaIcon />
                             </div>
-                            <div>
-
+                            <div className="">
                                 <p className="text-xl text-gray-600 font-semibold">
-                                    Vende tickets
+                                    Moodboard colaborativo
                                 </p>
-                                <p className="text-base text-gray-500">
-                                    Para cenas o eventos prepagados
+                                <p className="text-base text-gray-500 ">
+                                    Crea el moodboard del evento, para expresar tus ideas de decoración y compartir con tus clientes
                                 </p>
                             </div>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center justify-center space-x-2 w-[80%]">
                             <div className="text-amarillo">
                                 <CoronaIcon />
                             </div>
                             <div>
 
                                 <p className="text-xl text-gray-600 font-semibold">
-                                    QR para el menú
-                                </p>
-                                <p className="text-base text-gray-500">
-                                    Comparte los menú con QR
+                                    Checklist de tareas
+                                </p> 
+                                <p className="text-base text-gray-500 ">
+                                    Personaliza cualquier flujo de trabajo según tus necesidades para aumentar la eficiencia y productividad de tu equipo.
                                 </p>
                             </div>
                         </div>
                     </div>
+
+
                     <div>
                         <p>
                             Óbtenla activando la <span className="text-amarillo font-semibold"> VERSIÓN GOLD </span>
