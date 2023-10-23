@@ -38,7 +38,7 @@ export const WeddingPlanner = () => {
     };
 
     return (
-        <>
+        
             <div className="grid grid-cols-6 h-full">
 
                 <SubmenuComponent dataComponents={dataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
@@ -49,6 +49,6 @@ export const WeddingPlanner = () => {
 
             </div>
 
-        </>
+        
     )
 }

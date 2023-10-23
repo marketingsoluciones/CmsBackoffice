@@ -1,59 +1,44 @@
 import { CoronaIcon } from "../Icons/index"
 
-export const InfoWeddinPlannrePage = ({ setOptionSelect }) => {
+export const FotografoInfoPage = () => {
     const dataArry = [
 
         {
-            img: "listaInvitados.png",
-            title: "Lista de invitados",
-            text: "Lleva el control de la lista de invitados de tus eventos, la mesa asignada, alérgenos y confirmación de asistencia.",
+            img: "Modulo1Foto.png",
+            title: "Colecciones",
+            text: "Crea colecciones de cada uno de tus eventos, añadido a tus usuarios al agregar un enlace de descarga a las fotos o videos para ellos.",
             button: "Ver más",
             rout: "0",
         },
         {
-            img: "presupuesto.png",
-            title: "Presupuestos",
-            text: "Gestiona el presupuesto de cada evento, indicando gastos por pagar y llevando un control de los pagos realizados. ",
+            img: "Modulo2Foto.png",
+            title: "Proyectos",
+            text: "Lleva el control de tus servicios profesionales automatizando facturas, contratos y datos de cada evento. ",
             button: "Ver más",
             rout: "1",
         },
-        {
-            img: "invitaciones.png",
-            title: "Invitaciones",
-            text: "Envia a la los invitados de cada evento la invitacion digital via email, SMS o Whatsapp para confirmar su asistencia",
-            button: "Ver más",
-            rout: "2",
-        },
-
-        {
-            img: "itinerario.png",
-            title: "Intinerarios",
-            text: "Visualiza el intinerario de cada evento asignado para conocer las horas de actividad de cada proveedor.",
-            button: "Ver más",
-            rout: "3",
-        },
     ]
-    
+
     return (
         <div className="h-full px-5 py-2 ">
             <p className=" text-slate-600 mt-1 text-3xl text-rosa">
-                wedding Planner
+                Fotógrafos
             </p>
-            <div className="bg-white rounded-xl flex flex-col h-[36%] overflow-auto">
+            <div className="bg-white rounded-xl flex flex-col h-[48%] overflow-auto">
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-14">
                     <p className="text-xl text-gray-600">
-                        <span className="text-rosa">Organizar un evento </span> es una tarea minusiosa
+                        <span className="text-rosa">Amplia tu exposición </span> y atrae más clientes
                     </p>
 
                     <p className="text-base text-gray-600 px-10">
                         Con el
-                        <span className="text-rosa"> Módulo Wedding Planner </span>
-                        óbten funcionalidades para automatizar tareas como gestionar la lista de invitados, presupuestos, envio de invitaciones y crear intinerarios para compartir con tus clientes.
+                        <span className="text-rosa"> Módulo Fotográfos  </span>
+                        automatiza tus proyectos, contratos y facturas además de brindarle a tus clientes una forma óptima e intuitiva para descargar las fotografias de su evento.
                     </p>
                 </div>
                 <div className="bg-gray-200 flex relative">
                     <div className="z-10 flex items-center  ">
-                        <img src="/CorazonDoble.png" alt="weddin planner" className="absolute" />
+                        <img src="/CamaraBG.png" alt="weddin planner" className="absolute" />
                     </div>
                     <div className="flex flex-col items-center space-y-5 py-14 z-20 ">
                         {
@@ -90,10 +75,10 @@ export const InfoWeddinPlannrePage = ({ setOptionSelect }) => {
                             </div>
                             <div className="">
                                 <p className="text-xl text-gray-600 font-semibold">
-                                    Moodboard colaborativo
+                                    Sistema de Proofing
                                 </p>
                                 <p className="text-base text-gray-500 ">
-                                    Crea el moodboard del evento, para expresar tus ideas de decoración y compartir con tus clientes
+                                    Brindale a tus clientes la opción de ver y autorizar fotos y video antes de entregar el trabajo.
                                 </p>
                             </div>
                         </div>
@@ -104,10 +89,10 @@ export const InfoWeddinPlannrePage = ({ setOptionSelect }) => {
                             <div>
 
                                 <p className="text-xl text-gray-600 font-semibold">
-                                    Checklist de tareas
-                                </p> 
+                                    Reservas en linea
+                                </p>
                                 <p className="text-base text-gray-500 ">
-                                    Personaliza cualquier flujo de trabajo según tus necesidades para aumentar la eficiencia y productividad de tu equipo.
+                                    Sistema moderno de reservas en línea y software de programación de sesiones de fotos.
                                 </p>
                             </div>
                         </div>
@@ -125,5 +110,6 @@ export const InfoWeddinPlannrePage = ({ setOptionSelect }) => {
                 </div>
             </div>
         </div>
+
     )
 }

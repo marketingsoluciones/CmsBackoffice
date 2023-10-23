@@ -555,7 +555,7 @@ export const BodyStaticAPP = [
         icon: <FotografoMenu className="h-6 w-6" />,
         title: "Fotografos",
         roles: ["empresa"],
-        route: "page404",
+        route: "fotografo",
         getData: "",
         getByID: "",
         createEntry: "",

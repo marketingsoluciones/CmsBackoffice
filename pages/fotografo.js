@@ -1,7 +1,9 @@
-const Fotografo =( ) =>{
-    return(
-        ""
+import { FotografoComponent } from "../components/Fotografo"
+
+const FotografoPage = () => {
+    return (
+        <FotografoComponent />
     )
 }
 
-export default Fotografo
+export default FotografoPage

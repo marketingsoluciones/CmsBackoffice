@@ -1,31 +1,26 @@
 import { useState } from "react"
 import { VistaSinDatos } from "../VistaSinDatos"
-import { ItinerarioWeddingTable } from "../WeddingPlannerComponents/ItinerarioComponents/ItinerarioWeddingTable"
-import { Itinerario } from "../Itinerario/Itinerario"
-import { ItinerarioInfoPage } from "../WeddingPlannerComponents/ItinerarioComponents/ItinerarioInfoPage"
+import { ProyectoInfoPage } from "./ProyectosComponents/ProyectoInfoPage"
 
-export const ItinerarioLugaresBodas = () => {
+export const Proyectos = () => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
     const dataComponents = [
         {
-            component: <ItinerarioWeddingTable actionButton={state2} setActionButton={setState2} />
+            component: ""
         },
         {
-            component: <Itinerario />
+            component: ""
         },
 
     ]
-
-
-
     return (
         <div className="px-5 py-2 h-full">
             {(() => {
                 if (state) {
                     return (
-                        <ItinerarioInfoPage />
+                        <ProyectoInfoPage/>
                     )
                 } else {
                     if (state2) {
@@ -44,7 +39,6 @@ export const ItinerarioLugaresBodas = () => {
                             />
                         )
                     }
-
                 }
             })()}
 
