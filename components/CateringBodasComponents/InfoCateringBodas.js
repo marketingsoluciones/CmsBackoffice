@@ -4,21 +4,21 @@ import { CoronaIcon } from "../Icons/index"
 export const InfoCateringBodas = ({ setOptionSelect }) => {
     const dataArry = [
         {
-            img: "PlanSalon.png",
+            img: "CartaProductoP.png",
             title: "Carta de productos",
             text: "Genera tu propia carta de productos agregando platos y bebidas para utilizar luego en la creación de tus menús para eventos.",
             button: "Ver más",
             rout: "0",
         },
         {
-            img: "planEvento.png",
+            img: "PlantillaMenuP.png",
             title: "Plantilla de menú",
             text: "Crea plantillas de menú para reutilizar en tus eventos y añadir a la versión app novios.",
             button: "Ver más",
             rout: "1",
         },
         {
-            img: "listaInvitados.png",
+            img: "MenuP.png",
             title: "Menú",
             text: "Asigna el menú a un evento, para llevar el control de platos y presentarselo a novios e invitados.",
             button: "Ver más",
