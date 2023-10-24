@@ -7,7 +7,7 @@ import { OnlyViewTable, PanelViewTable } from "../PanelViewTable";
 import { AuthContextProvider } from "../../context/AuthContext";
 import GlobalFilter from "../Datatable/GlobalFilter";
 
-export const CardVeiw = () => {
+export const CardVeiw = ({setOpenModal, openModal}) => {
     const [optionSelect, setOptionSelect] = useState(1)
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
@@ -38,7 +38,7 @@ export const CardVeiw = () => {
                 <p className=" text-sm bg-white p-2 rounded-lg text-gray-500">Controla los eventos creados o asignados por otros organizadores</p>
 
                 <div className="relative">
-                    <button className="bg-rosa rounded-lg px-4 py-1 text-white text-base">
+                    <button onClick={()=>setOpenModal(!openModal)} className="bg-rosa rounded-lg px-4 py-1 text-white text-base">
                         Crear evento
                     </button>
 

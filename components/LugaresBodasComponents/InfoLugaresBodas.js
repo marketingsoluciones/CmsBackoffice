@@ -111,7 +111,7 @@ export const InfoLugaresBodas = ({ setOptionSelect }) => {
                     <div className="grid grid-cols-2  justify-items-center space-y-3 pb-10">
                         {dataArry2.map((item, idx) => {
                             return (
-                                <div key={idx} className="flex items-center  w-[70%]">
+                                <div key={idx} className="flex items-center w-[70%] space-x-2">
                                     <img src={item.img} />
                                     <p className="text-base">
                                         {item.text}

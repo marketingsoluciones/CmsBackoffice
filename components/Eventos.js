@@ -3,14 +3,14 @@ import { InfoPageEvent } from "./EventosComponents/InfoPageEvent"
 import { CardVeiw } from "./EventosComponents/CardVeiw"
 import { VistaSinDatos } from "./VistaSinDatos"
 
-export const Eventos = () => {
+export const Eventos = ({ openModal, setOpenModal }) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
 
     const dataComponents = [
         {
-            component: <CardVeiw />
+            component: <CardVeiw openModal={openModal} setOpenModal={setOpenModal} />
         },
         {
             component: ""
