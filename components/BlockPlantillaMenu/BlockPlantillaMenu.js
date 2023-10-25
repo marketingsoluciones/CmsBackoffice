@@ -3,7 +3,7 @@ import { PlusIcon, PlusCirculoIcon } from "../Icons/index"
 import DatatableGroup from "./DataTableGroups"
 
 
-export const BlockPlantillaMenu = () => {
+export const BlockPlantillaMenu = ({ addProducto, setAddProducto, addCategoria, setAddCategoria }) => {
   /* const { event } = EventContextProvider(); */
   const [isMounted, setIsMounted] = useState(false);
   /* const shouldRenderChild = useDelayUnmount(isMounted, 500); */
@@ -20,6 +20,7 @@ export const BlockPlantillaMenu = () => {
     <div className="bg-white min-h-full w-full shadow-lg rounded-xl h-full px-6 pt-6 pb-28 mb-32 md:mb-0 md:p-12 relative">
       <div className="flex gap-4 items-center pb-10">
         <button
+          onClick={() => setAddProducto(!addProducto)}
           /* onClick={(e) => handleClick(e, "invitado")} */
           className="focus:outline-none bg-rosa px-2 py-1 flex gap-2 text-white  text-sm rounded-lg items-center "
         >
@@ -27,6 +28,7 @@ export const BlockPlantillaMenu = () => {
           Producto
         </button>
         <button
+          onClick={() => setAddCategoria(!addCategoria)}
           /* onClick={(e) => handleClick(e, "grupo")} */
           className="focus:outline-none bg-rosa px-2 py-1 flex gap-2 items-center  text-white  text-sm rounded-lg    "
         >

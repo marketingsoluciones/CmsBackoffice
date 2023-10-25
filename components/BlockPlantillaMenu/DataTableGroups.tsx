@@ -74,7 +74,6 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
     },
   ]
 
-  console.log("data de la tabla",datas)
 
 
   /* useEffect(() => {
