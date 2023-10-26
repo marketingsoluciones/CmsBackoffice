@@ -21,7 +21,7 @@ export const PlantillaMenu = () => {
     return (
         <div className="px-5 py-2 h-full">
             {(() => {
-                if (!state) {
+                if (state) {
                     return (
                         <InfoPlantillaMenuPage actionButton={state} setActionButton={setState}/>
                     )
