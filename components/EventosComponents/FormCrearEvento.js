@@ -46,10 +46,10 @@ export const FormCrearEvento = ({ state, set }) => {
                 query: queries.eventCreate,
                 variables: values,
             });
-            /* if (crearEvento) {
+            if (crearEvento) {
                 setEventsGroup({ type: "ADD_EVENT", payload: crearEvento });
 
-            } */
+            }
            /*  toast("success", "Evento creado con exito"); */
         } catch (error) {
             /* toast("error", "Ha ocurrido un error al crear el evento"); */

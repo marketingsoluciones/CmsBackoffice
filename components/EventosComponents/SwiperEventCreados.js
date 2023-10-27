@@ -7,6 +7,11 @@ import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import 'swiper/css/autoplay'
 import 'swiper/css/pagination';
+import { EventsGroupContextProvider } from "../../context/EventsGroupContext";
+import { EventContextProvider } from "../../context/EventContext";
+import { useState } from "react";
+import { useEffect } from "react";
+
 
 export const Lista = [
     { nombre: "Pendientes", value: "pendiente", color: "tertiary" },
@@ -15,6 +20,18 @@ export const Lista = [
 ];
 
 export const SwiperEventCreados = () => {
+  const { eventsGroup } = EventsGroupContextProvider();
+  const { idxGroupEvent, setIdxGroupEvent } = EventContextProvider()
+  const [isActiveStateSwiper, setIsActiveStateSwiper] = useState(idxGroupEvent?.isActiveStateSwiper)
+  const [tabsGroup, setTabsGroup] = useState([]);
+  
+  useEffect(()=>{
+      console.log("hol",eventsGroup)
+
+  },[eventsGroup])
+
+
+
     return (
         <div className=" ">
 

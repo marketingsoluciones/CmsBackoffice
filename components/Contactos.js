@@ -3,9 +3,10 @@ import { SubmenuComponent } from "./CateringBodasComponents/SubmenuComponent";
 import { BusinessIcon, InvitadosContactos } from "./Icons/index";
 import { ContactosComponent } from "./ContactosComponents/PersonasComponent";
 import { EmpresasComponent } from "./ContactosComponents/EmpresaComponent";
+import { InfoContactosPage } from "./ContactosComponents/InfoContactosPage";
 
 export const Contactos = () => {
-    const [optionSelect, setOptionSelect] = useState(0)
+    const [optionSelect, setOptionSelect] = useState(2)
     const dataComponents = [
         {
             icon: <InvitadosContactos/>,
@@ -17,6 +18,9 @@ export const Contactos = () => {
             title: "Empresas",
             component: <EmpresasComponent/>
         },
+        {
+            component: <InfoContactosPage/>
+        }
     ]
 
     const handleClickOption = (idx) => {
