@@ -1,6 +1,7 @@
 import { Form, Formik, Field } from "formik"
 import { InputFieldGlobal } from "../../components/formularios/Inputs/InputFieldGlobal"
 import { SelectField } from "../formularios/Inputs/SelectField"
+import { ArrowDownIcon } from "../Icons/index"
 
 export const AddEmpresaComponent = ({ setModalEmpresa, modalEmpresa }) => {
 
@@ -31,7 +32,7 @@ export const AddEmpresaComponent = ({ setModalEmpresa, modalEmpresa }) => {
                                     <label className="text-gray-500 ">Nombre </label>
                                     <InputFieldGlobal
                                         name="nombreMenu"
-                                        className="focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%]  truncate "
+                                        className="text-base focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%]  truncate "
                                         placeholder=""
                                     />
                                 </div>
@@ -39,17 +40,18 @@ export const AddEmpresaComponent = ({ setModalEmpresa, modalEmpresa }) => {
                                     <label className="text-gray-500 ">Organización</label>
                                     <InputFieldGlobal
                                         name="organizacion"
-                                        className="focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%]  truncate "
+                                        className=" text-base focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%]  truncate "
                                         placeholder=""
                                     />
                                 </div>
                                 <div className="flex flex-col space-y-1">
                                     <label className="text-gray-500">Etiqueta</label>
                                     <SelectField
-                                        className="font-display capitalize cursor-pointer text-sm* text-gray-500 border border-gray-300 focus:border-primary transition w-full py-2 px-1 rounded-lg focus:outline-none  "
+                                        className="text-base font-display capitalize cursor-pointer text-sm* text-gray-500 border border-gray-300 focus:border-primary transition w-full py-2 px-1 rounded-lg focus:outline-none  "
                                         options={["Cóctel de bievenida ", "Carta de vinos ", "Carta de cerveza ", "Lista de aperitivos ", "Listado de entradas ", "Listado de postres"]}
                                         name="asistencia"
-                                        label=""
+                                        icon={<ArrowDownIcon />}
+                                        iconClassName="top-2 right-2 text-gray-600  "
 
                                     />
                                 </div>
@@ -57,7 +59,7 @@ export const AddEmpresaComponent = ({ setModalEmpresa, modalEmpresa }) => {
                                     <label className="text-gray-500 ">Correo eléctronico</label>
                                     <InputFieldGlobal
                                         name="email"
-                                        className="focus:outline-none border border-gray-300 rounded-lg py-1 px-3 w-[100%]  truncate "
+                                        className="text-base focus:outline-none border border-gray-300 rounded-lg py-1 px-3 w-[100%]  truncate "
                                         placeholder=""
                                     />
                                 </div>
@@ -65,12 +67,12 @@ export const AddEmpresaComponent = ({ setModalEmpresa, modalEmpresa }) => {
                                     <label className="text-gray-500 ">Telefono</label>
                                     <InputFieldGlobal
                                         name="telefono"
-                                        className="focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%]  truncate "
+                                        className="text-base focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%]  truncate "
                                         placeholder=""
                                     />
                                 </div>
 
-                                <div className="space-x-6 flex justify-center ">
+                                <div className="space-x-6 flex justify-center text-base pt-10 ">
                                     <button onClick={() => setModalEmpresa(!modalEmpresa)} type="button" className="px-3 py-1 bg-gray-400 rounded-lg  text-white">
                                         Cancelar
                                     </button>
