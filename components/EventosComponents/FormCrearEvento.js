@@ -3,30 +3,16 @@ import * as yup from "yup";
 import { InputFieldGlobal } from "../../components/formularios/Inputs/InputFieldGlobal"
 import { SelectField } from "../../components/formularios/Inputs/SelectField"
 import { PlusCirculoIcon } from "../Icons/index";
+import { fetchApiEventos, queries } from "../../utils/Fetching";
+import { AuthContextProvider } from "../../context/AuthContext";
+import { EventsGroupContextProvider } from "../../context/EventsGroupContext";
+import { useState } from "react";
 export const FormCrearEvento = ({ state, set }) => {
-    const initialValues/* : MyValues = EditEvent ? */ =
-      /*   {
-            ...event,
-            fecha: new Date(parseInt(event.fecha)).toJSON().slice(0, -14)
-        }
-        : */ {
-        nombre: "",
-        tipo: "",
-        fecha: new Date().toJSON(),
-        pais: "",
-        poblacion: "",
-        usuario_id: /* user?.uid, */"",
-        usuario_nombre: /* user?.displayName, */"",
-    }
+    const { user } = AuthContextProvider()
+  const { setEventsGroup, eventsGroup } = EventsGroupContextProvider();
 
-    const handleSubmit = () => {
+    const [valir, setValir] = useState(false)
 
-    }
-
-    const validationSchema = yup.object().shape({
-        nombre: yup.string().required("Nombre de evento requerido"),
-        tipo: yup.string().required("No has seleccionado un tipo de evento"),
-    });
 
     const ListaTipo = [
         "cumpleaños",
@@ -38,6 +24,52 @@ export const FormCrearEvento = ({ state, set }) => {
         "desdepida de soltero",
         "otro",
     ];
+
+    const initialValues/* : MyValues = EditEvent ? */ =
+      /*   {
+            ...event,
+            fecha: new Date(parseInt(event.fecha)).toJSON().slice(0, -14)
+        }
+        : */ {
+        nombre: "",
+        tipo: "",
+        fecha: new Date().toJSON(),
+        pais: "",
+        poblacion: "",
+        usuario_id: user.uid,
+        usuario_nombre: user.displayName,
+    }
+
+    const createEvent = async (values) => {
+        try {
+            const crearEvento = await fetchApiEventos({
+                query: queries.eventCreate,
+                variables: values,
+            });
+            /* if (crearEvento) {
+                setEventsGroup({ type: "ADD_EVENT", payload: crearEvento });
+
+            } */
+           /*  toast("success", "Evento creado con exito"); */
+        } catch (error) {
+            /* toast("error", "Ha ocurrido un error al crear el evento"); */
+            console.log(error);
+        } finally {
+            set(!state);
+            setValir(true)
+        }
+    }
+
+    const handleSubmit = (values) => {
+        createEvent(values)
+    }
+
+    const validationSchema = yup.object().shape({
+        nombre: yup.string().required("Nombre de evento requerido"),
+        tipo: yup.string().required("No has seleccionado un tipo de evento"),
+    });
+
+
 
     return (
         <Formik
@@ -81,7 +113,6 @@ export const FormCrearEvento = ({ state, set }) => {
                         <InputFieldGlobal
                             name="fecha"
                             className=" text-base focus:outline-none border-b border-gray-300  py-1 px-3 py-1 w-full truncate "
-                            placeholder="Ej: cumpleaños de Lucía"
                             type="date"
                         />
                     </div>
@@ -100,7 +131,7 @@ export const FormCrearEvento = ({ state, set }) => {
                     <button className="px-4 py-2 bg-gray-400 rounded-lg text-white" onClick={() => set(!state)} type="button">
                         cancelar
                     </button>
-                    <button className="px-4 py-2 bg-rosa rounded-lg text-white" type="button">
+                    <button className="px-4 py-2 bg-rosa rounded-lg text-white" type="submit"  >
                         guardar
                     </button>
                 </div>

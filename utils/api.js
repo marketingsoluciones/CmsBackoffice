@@ -2,6 +2,8 @@ import axios from "axios"
 import Cookies from 'js-cookie';
 
 const instance = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL })
+const instanceAPP = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL_APP })
+
 
 export const api = {
     GraphQL: async (data, development, config) => {
@@ -16,6 +18,16 @@ export const api = {
             }
         })
     },
+
+    ApiApp: async (params, token) => {
+        const token_final = token || Cookies.get("idToken")
+        return await instanceAPP.post("/graphql", params, {
+            headers: {
+                Authorization: `Bearer ${token_final}`,
+            }
+        });
+    },
+
     getAllCountries: async () => {
         return await axios.get('https://restcountries.com/v3.1/all')
     }
