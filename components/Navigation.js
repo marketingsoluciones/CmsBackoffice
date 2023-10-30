@@ -2,7 +2,7 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { Avatar, Box, Flex, MenuButton, MenuItem, Menu, MenuList, Text, IconButton, Input, Center, Image } from "@chakra-ui/react";
 import Link from 'next/link';
 import { useAuthentication } from "../utils/Authentication";
-import { BombillaIcon, AddUserIcon, AyudaIcon, ArrowDownIcon, SearchIcon, CloseIcon } from "../components/Icons/index";
+import { SearchIcon, CloseIcon, TarjetaIcon, UserMenuIcon, RegaloIcon, CorazonBodasICon, SalirIcon, CorazonPaddinIcon } from "../components/Icons/index";
 import algoliasearch from "algoliasearch";
 import { InstantSearch, connectSearchBox, Hits, SearchBox } from "react-instantsearch-dom";
 import { createURL } from "../utils/UrlImage"
@@ -29,13 +29,51 @@ export const Navigation = ({ set, state, }) => {
   }, [show])
 
   const Options = [
-    { title: `Version: ${packageJson?.version}` },
     {
-      title: "Cerrar Sesión", function: async () => {
-        _signOut()
-      }
+      title: " Mi Cuenta",
+      children: [
+        {
+          icon: <UserMenuIcon />,
+          title: "Preferencias personales",
+          rout: "/"
+        },
+        {
+          icon: <RegaloIcon />,
+          title: "Programa de recomendación",
+          rout: "/"
+        }
+      ]
+    },
+    {
+      title: " Resumen de la empresa",
+      children: [
+        {
+          icon: <TarjetaIcon />,
+          title: "Facturación",
+          rout: "/"
+        },
+
+      ]
+    },
+    {
+
+      title: "",
+      children: [
+        {
+          icon: <CorazonPaddinIcon />,
+          title: "volver a bodas de hoy",
+          rout: "https://www.bodasdehoy.com/"
+        },
+        {
+          icon: <SalirIcon />,
+          title: "Cerrar Sesión", function: async () => {
+            _signOut()
+          }
+        },
+      ]
     },
   ]
+
 
   return (
     <Flex bg={"white"} shadow={"sm"} w={"100%"} padding={"0.5rem"}>
@@ -73,27 +111,46 @@ export const Navigation = ({ set, state, }) => {
               </Flex>
             </MenuButton>
             <MenuList p={"0"} fontSize={"sm"} ml={"8"}>
-              {Options.map((item, idx) => (
-                item.route ? (
-                  <Link key={idx} href={item.route}>
-                    <MenuItem color={"gray.500"}>{item.title}</MenuItem>
-                  </Link>
-                ) : (
-                  <MenuItem key={idx} onClick={item?.function} color={"gray.500"}>{item.title}</MenuItem>
-                )
+              {Options?.map((item, idx) => (
+             
+                <div key={idx} className="border-b space-y-1  px-5 py-2">
+                  <div className="flex items-center font-semibold ">
+                    {item?.icon}
+                    {item?.title}
+                  </div>
+                  {
+                    item.children?.map((item, idx) => (
+                      item.rout ? (
+                        <Link key={idx} href={item?.rout} >
+                          <div className="flex items-center space-x-1 cursor-pointer hover:bg-gray-100 ">
+                            <div >
+                              {item.icon}
+                            </div>
+                            <div>
+                              {item.title}
+                            </div>
+                          </div>
+                        </Link>
+                      ) : (
+                        <div key={idx} onClick={item?.function} className="flex items-center space-x-1 cursor-pointer hover:bg-gray-100 ">
+                          <div >
+                            {item.icon}
+                          </div>
+                          <div>
+                            {item.title}
+                          </div>
+                        </div>
+                      )
+
+                    ))}
+                </div >
               ))}
+              <div className="flex justify-center text-gray-400 py-0.5">
+                Version: {packageJson?.version}
+              </div>
             </MenuList>
           </Menu>
         </Center>
-        {/*  <div className="">
-            <AyudaIcon className="" />
-          </div>
-          <div className="">
-            <AddUserIcon />
-          </div>
-          <div className="">
-            <BombillaIcon />
-          </div> */}
       </Flex>
     </Flex>
   );
