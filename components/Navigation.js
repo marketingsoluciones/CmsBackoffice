@@ -19,7 +19,7 @@ export const Navigation = ({ set, state, }) => {
   const { user } = AuthContextProvider()
   const [show, setShow] = useState(false)
   const [showValir, setShowValir] = useState(false)
-  console.log(process.env)
+
   useEffect(() => {
     if (show) {
       setTimeout(() => {
@@ -62,7 +62,7 @@ export const Navigation = ({ set, state, }) => {
         {
           icon: <CorazonPaddinIcon />,
           title: "volver a bodas de hoy",
-          rout: window.origin.includes("://test") ? process.env.NEXT_PUBLIC_CMS?.replace("//", "//test.") : process.env.NEXT_PUBLIC_DIRECTORY
+          rout: window.origin.includes("://test") ? process.env.NEXT_PUBLIC_DIRECTORY?.replace("//", "//test.") : process.env.NEXT_PUBLIC_DIRECTORY
         },
         {
           icon: <SalirIcon />,
