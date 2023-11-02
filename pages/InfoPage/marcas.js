@@ -1,5 +1,5 @@
 import { Marcas } from "../../components/Marcas"
- const MarcasPage = () => {
+const MarcasPage = () => {
     return (
         <>
             <Marcas />
