@@ -33,7 +33,7 @@ const FormLogin = () => {
             }, 100);
           }} /> */}
           <div className="flex flex-col items-center gap-4 w-full px-10 md:px-0 sm:w-3/4 md:w-2/3  ">
-            <Link href={`https://${development}.com/login?d=cms` ?? "/"} passHref >
+            <Link href={`https://${window.origin.includes("://test") ? "test." : ""}${development}.com/login?d=cms` ?? "/"} passHref >
               <div className="flex items-center justify-center h-[calc(100vh-300px)] w-[calc(100vw-10px)] cursor-pointer">
                 <div className="md:pb-6 md:w-1/2 mx-auto ">
                   <h2 className="w-full text-2xl font-bold font-display text-center pb-3">Te invito a iniciar sesion en: </h2>
