@@ -21,15 +21,15 @@ export const useAuthentication = () => {
   const { setUser, domain, config } = AuthContextProvider()
 
   const _signOut = useCallback(async () => {
-    const domainCookie = `.${domain}.com`
+    const domainCookie = `${domain}.com`
     console.log(854001, config?.cookie, domainCookie)
     await fetchApi({ query: queries.signOut, variables: { sessionCookie: Cookies.get(config?.cookie) }, development: domain })
     Cookies.remove(config?.cookie, { domain: domainCookie });
     Cookies.remove("idToken", { domain: domainCookie });
     setUser(null);
     await signOut(getAuth());
-    await router.push("/");
-    //toast("success", "Gracias por visitarnos, te esperamos luego 😀");
+    await router.push(config?.domain);
+    toast("success", "Gracias por visitarnos, te esperamos luego 😀");
   }, [router, setUser, toast])
   return { _signOut };
 };

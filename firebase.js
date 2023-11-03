@@ -55,23 +55,5 @@ export const developments = [
     cookie: "sessionCivitas",
     domain: "https://diariocivitas.com"
   },
-  {
-    name: "eventosplanificador",
-    fileConfig: firebaseConfigPlanificador,
-    cookie: "sessionPlanificador",
-    domain: "https://eventosplanificador.com",
-  },
-  {
-    name: "eventosorganizador",
-    fileConfig: firebaseConfigOrganizador,
-    cookie: "sessionOrganizador",
-    domain: "https://eventosorganizador.com",
-  },
-  {
-    name: "vivetuboda",
-    fileConfig: firebaseConfigVivetuboda,
-    cookie: "sessionVivetuboda",
-    domain: "https://vivetuboda.com",
-  },
 ]
 
