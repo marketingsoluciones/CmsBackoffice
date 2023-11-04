@@ -28,6 +28,7 @@ export const useAuthentication = () => {
     Cookies.remove("idToken", { domain: domainCookie });
     setUser(null);
     await signOut(getAuth());
+    const path = window.origin.includes("://test") ? config?.domain.replace("//", "//test.") : config?.domain
     await router.push(config?.domain);
     toast("success", "Gracias por visitarnos, te esperamos luego 😀");
   }, [router, setUser, toast])
