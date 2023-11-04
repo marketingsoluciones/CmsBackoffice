@@ -29,7 +29,7 @@ export const useAuthentication = () => {
     setUser(null);
     await signOut(getAuth());
     const path = window.origin.includes("://test") ? config?.domain.replace("//", "//test.") : config?.domain
-    await router.push(config?.domain);
+    await router.push(path);
     toast("success", "Gracias por visitarnos, te esperamos luego 😀");
   }, [router, setUser, toast])
   return { _signOut };
