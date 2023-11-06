@@ -1,15 +1,14 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Avatar, Box, Flex, MenuButton, MenuItem, Menu, MenuList, Text, IconButton, Input, Center, Image } from "@chakra-ui/react";
+import { Avatar, Flex, MenuButton, Menu, MenuList, Text, IconButton, Center, Image } from "@chakra-ui/react";
 import Link from 'next/link';
 import { useAuthentication } from "../utils/Authentication";
-import { SearchIcon, CloseIcon, TarjetaIcon, UserMenuIcon, RegaloIcon, CorazonBodasICon, SalirIcon, CorazonPaddinIcon } from "../components/Icons/index";
+import { SearchIcon, CloseIcon, TarjetaIcon, UserMenuIcon, RegaloIcon, SalirIcon, CorazonPaddinIcon } from "../components/Icons/index";
 import algoliasearch from "algoliasearch";
-import { InstantSearch, connectSearchBox, Hits, SearchBox } from "react-instantsearch-dom";
+import { InstantSearch, connectSearchBox, Hits } from "react-instantsearch-dom";
 import { createURL } from "../utils/UrlImage"
 import { AuthContextProvider } from "../context/AuthContext";
 import ClickAwayListener from "react-click-away-listener";
-import { useEffect, useRef, useState } from "react";
-import { set } from "react-hook-form";
+import { useEffect, useState } from "react";
 import router from "next/router";
 import packageJson from "../package.json";
 import { hasRole } from "../utils/auth";
@@ -50,7 +49,7 @@ export const Navigation = ({ set, state, }) => {
         {
           icon: <TarjetaIcon />,
           title: "Facturación",
-          rout: "/"
+          rout: "/facturacion"
         },
 
       ]
@@ -112,7 +111,7 @@ export const Navigation = ({ set, state, }) => {
             </MenuButton>
             <MenuList p={"0"} fontSize={"sm"} ml={"8"}>
               {Options?.map((item, idx) => (
-             
+
                 <div key={idx} className="border-b space-y-1  px-5 py-2">
                   <div className="flex items-center font-semibold ">
                     {item?.icon}

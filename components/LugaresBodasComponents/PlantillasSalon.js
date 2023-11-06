@@ -14,7 +14,6 @@ export const PlantillaSalon = () => {
         {
             component: ""
         },
-
     ]
 
     return (
