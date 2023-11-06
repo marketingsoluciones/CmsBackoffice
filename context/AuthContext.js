@@ -53,15 +53,46 @@ const AuthProvider = ({ children }) => {
   const [domain, setDomain] = useState();
   const [config, setConfig] = useState();
   const [changedForm, setChangedForm] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+
+  useEffect(() => {
+    if (!isMounted) {
+      setIsMounted(true)
+    }
+    return () => {
+      setIsMounted(false)
+    }
+  }, [])
+
+
 
   //let auth = undefined
+  let resp
   useEffect(() => {
-    const domainDevelop = window.location.hostname.split(".")[1]
+    // if (isMounted) {
+
+    const path = window.location.hostname
+    //const path = "https://www.bodasdehoy.com"
+    console.log("hostname:", path)
+    const c = path?.split(".")
+    const idx = c?.findIndex(el => el === "com")
+    console.log(55060, idx)
+    /*--------------------------------------------------------------------*/
+    const devDomain = ["bodasdehoy", "diariocivitas"]
+    const domainDevelop = !!idx && idx !== -1 ? c[idx - 1] : devDomain[0] /*<<<<<<<<<*/
+    /*--------------------------------------------------------------------*/
+    resp = developments.filter(elem => elem.name === domainDevelop)[0]
+
+
+    //const domainDevelop = window.location.hostname.split(".")[1]
     console.log(55000, domainDevelop)
     const resp = developments.filter(elem => elem.name === domainDevelop)[0]
     console.log(55061, resp?.cookie)
     if (!resp?.cookie) resp = developments[0]
     console.log(55062, resp?.cookie)
+
+
     setDevelopment(resp.name)
     setDomain(resp.name)
     console.log(55001, resp)
@@ -74,6 +105,8 @@ const AuthProvider = ({ children }) => {
     //auth = getAuth()
     setConfig(resp)
     console.log(40001, getAuth())
+    // }
+
   }, [])
 
 

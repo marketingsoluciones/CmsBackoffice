@@ -41,7 +41,7 @@ export const BodyStaticAPP = [
         icon: <MaletaIcon className="h-6 w-6" />,
         title: "Marcas",
         subTitle: "Gestiona, crea y publica tus marcas para promocionar tus servicios a la comunidad de novios de Bodas de Hoy. ",
-        resumenRout: "InfoPage/Marcas",
+        resumenRout: "InfoPage/marcas",
         roles: ["admin", "empresa"],
         route: "business",
         getData: FetchGraphQL.business.getBusinessAll,

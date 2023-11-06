@@ -62,7 +62,7 @@ export const Sidebar = ({ state, setState }) => {
                   <Menu autoSelect={false} foc >
                     <MenuButton flex={"2"} w={"8rem"}>
                       <div className="flex justify-between w-full">
-                        <Text noOfLines={1} textAlign={"start"} ml={"2px"} className={"font-semibold text-gray-500"} >{development.toUpperCase()}</Text>
+                        <Text noOfLines={1} textAlign={"start"} ml={"2px"} className={"font-semibold text-gray-500"} >{development?.toUpperCase()}</Text>
                         <ArrowDownIcon h={2} w={3} />
                       </div>
                     </MenuButton>
@@ -129,7 +129,7 @@ export const Sidebar = ({ state, setState }) => {
                                         setHandle(() => () => {
                                           screen.width < 640 ? setState(!state) : null
                                           dispatch({ type: "VIEW", payload: {} });
-                                          router.push("/"+item.route)
+                                          router.push("/" + item.route)
                                           setChangedForm(false)
                                         }
                                         )
@@ -137,7 +137,7 @@ export const Sidebar = ({ state, setState }) => {
                                       } else {
                                         screen.width < 640 ? setState(!state) : null
                                         dispatch({ type: "VIEW", payload: {} });
-                                        router.push("/"+item.route)
+                                        router.push("/" + item.route)
                                       }
                                     }}
                                   >

@@ -61,7 +61,7 @@ export const Navigation = ({ set, state, }) => {
         {
           icon: <CorazonPaddinIcon />,
           title: "volver a bodas de hoy",
-          rout: "https://www.bodasdehoy.com/"
+          rout: window.origin.includes("://test") ? process.env.NEXT_PUBLIC_DIRECTORY?.replace("//", "//test.") : process.env.NEXT_PUBLIC_DIRECTORY
         },
         {
           icon: <SalirIcon />,
