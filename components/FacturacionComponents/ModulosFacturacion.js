@@ -451,7 +451,7 @@ export const ModulosFacturacion = () => {
             component: <DetalladoCompra actionButtton={setOptionSelect} />
         },
         {
-            component: <DatosFacturacion />
+            component: <DatosFacturacion actionButtton={setOptionSelect} />
         }
     ]
     return (

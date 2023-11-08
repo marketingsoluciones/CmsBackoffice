@@ -2,7 +2,9 @@ import { Formik, Form } from "formik"
 import { InputFieldGlobal } from "../formularios/Inputs/InputFieldGlobal"
 import { SelectField } from "../formularios/Inputs/SelectField"
 import { ArrowDownIcon } from "../Icons/index"
-export const DatosFacturacion = () => {
+
+export const DatosFacturacion = ({ actionButtton }) => {
+   
     const initialValues = {
         nombre: "",
         apellido: "",
@@ -15,24 +17,23 @@ export const DatosFacturacion = () => {
         postal: "",
         impuesto: "",
         MetodoPago: "",
-        calle:"",
+        calle: "",
     }
 
     const handleSubmit = (values) => {
         console.log(values)
     }
 
-    
     const pr = [
         "",
         "hola",
         "si"
     ]
+
     return (
         <Formik
             initialValues={initialValues}
             onSubmit={handleSubmit}
-
         >
             {
                 ({ values }) => (
@@ -176,24 +177,24 @@ export const DatosFacturacion = () => {
                         </div>
 
                         <div className="bg-gray-200 rounded-lg px-5 py-3 mt-3 flex items-center justify-between">
-                            <button type="button" className="border border-rosa rounded-lg py-1 px-3 text-rosa text-base bg-white">
+                            <button onClick={()=>actionButtton(0)} type="button" className="border border-rosa rounded-lg py-1 px-3 text-rosa text-base bg-white">
                                 volver
                             </button>
                             <div className="flex items-center space-x-3">
-                                <p>
+                              {/*   <p>
                                     Próxima factura estimada después de que finalice la prueba (1 módulo)  $49
-                                </p>
+                                </p> */}
                                 {(() => {
                                     if (values.MetodoPago == "TDC") {
                                         return (
                                             <button type="submit" className="bg-rosa rounded-lg px-7 py-2.5 text-white text-base" >
-                                                Revisar compra
+                                                {/* Revisar compra */} Guardar Datos
                                             </button>
                                         )
                                     } else {
                                         return (
-                                            <button type="submit" className="bg-amarillo rounded-lg px-10 py-2 text-white text-base " >
-                                                <img src="/Facturacion/paypaLogoColor.png" />
+                                            <button type="submit" className="bg-amarillo rounded-lg px-7 py-2.5 text-white text-base " >
+                                                {/* <img src="/Facturacion/paypaLogoColor.png" /> */} Guardar Datos
                                             </button>
                                         )
                                     }

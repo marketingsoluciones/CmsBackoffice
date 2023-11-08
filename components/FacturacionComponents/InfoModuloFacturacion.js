@@ -237,11 +237,11 @@ export const InfoModuloFacturacion = ({ dataArry, actionButtton }) => {
                 <button onClick={() => actionButtton(0)} className="border border-rosa rounded-lg py-1 px-3 text-rosa text-base">
                     volver
                 </button>
-                <div>
+              {/*   <div>
                     <button className="bg-rosa rounded-lg px-7 py-1 text-white text-base" onClick={() => actionButtton(2)}>
                         Revisar compra
                     </button>
-                </div>
+                </div> */}
             </div>
         </>
     )

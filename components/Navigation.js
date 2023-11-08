@@ -39,7 +39,7 @@ export const Navigation = ({ set, state, }) => {
         {
           icon: <RegaloIcon />,
           title: "Programa de recomendación",
-          rout: "/"
+          rout: "/programaRecomendaciones"
         }
       ]
     },
