@@ -39,12 +39,12 @@ export const ModuloRecomendaciones = () => {
             rout: null,
             style: "flex items-center bg-white rounded-md p-1",
         },
-        {
+        /* {
             icono: <FacebookIcon />,
             texto: null,
             rout: null,
             style: "flex items-center bg-white rounded-md p-1",
-        },
+        }, */
         {
             icono: <FacebookIcon />,
             texto: null,

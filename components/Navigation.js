@@ -34,7 +34,7 @@ export const Navigation = ({ set, state, }) => {
         {
           icon: <UserMenuIcon />,
           title: "Preferencias personales",
-          rout: "/"
+          rout: "/preferenciasPersonales"
         },
         {
           icon: <RegaloIcon />,
@@ -121,7 +121,7 @@ export const Navigation = ({ set, state, }) => {
                     item.children?.map((item, idx) => (
                       item.rout ? (
                         <Link key={idx} href={item?.rout} >
-                          <div className="flex items-center space-x-1 cursor-pointer hover:bg-gray-100 ">
+                          <div className="flex items-center space-x-1 cursor-pointer hover:bg-gray-100 rounded-md px-1 py-0.5 ">
                             <div >
                               {item.icon}
                             </div>
@@ -131,7 +131,7 @@ export const Navigation = ({ set, state, }) => {
                           </div>
                         </Link>
                       ) : (
-                        <div key={idx} onClick={item?.function} className="flex items-center space-x-1 cursor-pointer hover:bg-gray-100 ">
+                        <div key={idx} onClick={item?.function} className="flex items-center space-x-1 cursor-pointer hover:bg-gray-100  rounded-md  px-1 py-0.5">
                           <div >
                             {item.icon}
                           </div>
