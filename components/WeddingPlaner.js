@@ -5,6 +5,7 @@ import { InvitadosWeddingPlanner } from "./WeddingPlannerComponents/InvitadosWed
 import { Presupuesto } from "./WeddingPlannerComponents/Presupuesto";
 import { ItinerarioWeddingPlanner } from "./WeddingPlannerComponents/ItinerarioWeddinPlanner";
 import { InfoWeddinPlannrePage } from "./WeddingPlannerComponents/InfoWeddinPlannerPage";
+import { InvitacionesWeddinPlanner } from "./WeddingPlannerComponents/InvitacionesWeddinPlanner";
 
 export const WeddingPlanner = () => {
     const [optionSelect, setOptionSelect] = useState(4)
@@ -22,7 +23,7 @@ export const WeddingPlanner = () => {
         {
             icon: <CorreoIcon />,
             title: "Invitaciones",
-            component: ""
+            component: <InvitacionesWeddinPlanner/>
         },
         {
             icon: <ItinerarioCatering />,

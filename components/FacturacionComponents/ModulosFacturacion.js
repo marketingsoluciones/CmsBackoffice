@@ -6,7 +6,13 @@ import { DetalladoCompra } from "./DetalladoCompra"
 import { DatosFacturacion } from "./DatosFacturacion"
 
 export const ModulosFacturacion = () => {
-    const [optionSelect, setOptionSelect] = useState(0)
+    const urlProps = window.location.search
+    const params = new URLSearchParams(urlProps);
+    const state = params.get('state');
+    const producto = params.get('producto')
+    const plan = params.get('plan');
+    const [optionSelect, setOptionSelect] = useState(state !== null ? state : 0)
+
     const dataArry = [
         {
             id: "12",
@@ -107,8 +113,8 @@ export const ModulosFacturacion = () => {
                     texto: "Agenda tus citas, eventos, programa tus reuniones  en tu calendario sincronizado."
                 },
             ],
-            pagoBasico:"https://buy.stripe.com/test_9AQ9Bkb1e6S617G6oo",
-            pagoPremium:"https://buy.stripe.com/test_3cs5l4d9m90e4jS28c",
+            pagoBasico: "https://buy.stripe.com/test_9AQ9Bkb1e6S617G6oo",
+            pagoPremium: "https://buy.stripe.com/test_3cs5l4d9m90e4jS28c",
             estatus: "basico",
             tituloEstatus: "Gratis durante el período de prueba",
             precio: "$ 49 al mes ",
@@ -234,8 +240,8 @@ export const ModulosFacturacion = () => {
                     texto: "Agenda tus citas, eventos, programa tus reuniones  en tu calendario sincronizado."
                 },
             ],
-            pagoBasico:"https://buy.stripe.com/test_aEU8xg8T60tIg2AbIJ",
-            pagoPremium:"https://buy.stripe.com/test_7sI28S6KYfoC2bK7sx",
+            pagoBasico: "https://buy.stripe.com/test_aEU8xg8T60tIg2AbIJ",
+            pagoPremium: "https://buy.stripe.com/test_7sI28S6KYfoC2bK7sx",
             estatus: "basico",
             tituloEstatus: "Gratis durante el período de prueba",
             precio: "$ 49 al mes ",
@@ -361,8 +367,8 @@ export const ModulosFacturacion = () => {
                     texto: "Agenda tus citas, eventos, programa tus reuniones  en tu calendario sincronizado. "
                 },
             ],
-            pagoBasico:"https://buy.stripe.com/test_fZeeVE4CQ1xM03C3ck",
-            pagoPremium:"https://buy.stripe.com/test_dR66p86KYfoCaIg5kq",
+            pagoBasico: "https://buy.stripe.com/test_fZeeVE4CQ1xM03C3ck",
+            pagoPremium: "https://buy.stripe.com/test_dR66p86KYfoCaIg5kq",
             estatus: "basico",
             tituloEstatus: "Gratis durante el período de prueba",
             precio: "$ 49 al mes ",
@@ -428,8 +434,8 @@ export const ModulosFacturacion = () => {
                     texto: "Agenda tus citas, eventos, programa tus reuniones  en tu calendario sincronizado."
                 },
             ],
-            pagoBasico:"https://buy.stripe.com/test_7sI8xg2uI5O27w43cl",
-            pagoPremium:"https://buy.stripe.com/test_aEUcNwgly0tIaIg14b",
+            pagoBasico: "https://buy.stripe.com/test_7sI8xg2uI5O27w43cl",
+            pagoPremium: "https://buy.stripe.com/test_aEUcNwgly0tIaIg14b",
             estatus: "basico",
             tituloEstatus: "Gratis durante el período de prueba",
             precio: "$ 49 al mes ",
@@ -445,7 +451,7 @@ export const ModulosFacturacion = () => {
             component: <InfoModulos dataArry={dataArry} setOptionSelect={setOptionSelect} />
         },
         {
-            component: <InfoModuloFacturacion dataArry={dataArry} actionButtton={setOptionSelect} />
+            component: <InfoModuloFacturacion dataArry={dataArry} actionButtton={setOptionSelect} producto={producto} plan={plan}  />
         },
         {
             component: <DetalladoCompra actionButtton={setOptionSelect} />

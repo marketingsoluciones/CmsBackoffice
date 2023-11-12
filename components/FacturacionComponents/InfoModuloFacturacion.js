@@ -3,9 +3,10 @@ import { ExclamacionIcon, VideoIcon } from "../Icons/index"
 import ClickAwayListener from "react-click-away-listener";
 import Link from "next/link";
 
-export const InfoModuloFacturacion = ({ dataArry, actionButtton }) => {
+export const InfoModuloFacturacion = ({ dataArry, actionButtton, producto , plan }) => {
     const [viewInfo, setViewInfo] = useState()
     const [optionSelect, setOptionSelect] = useState(null)
+    
 
     const info = [
         {
