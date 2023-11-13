@@ -22,7 +22,7 @@ export const PlanoEvento = () => {
             {(() => {
                 if (state) {
                     return (
-                        <InfoPlanoEventoPage actionButton={state2} setActionButton={setState2} />
+                        <InfoPlanoEventoPage actionButton={state} setActionButton={setState} />
 
                     )
                 } else {

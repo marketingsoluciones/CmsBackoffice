@@ -17,7 +17,7 @@ export const VerMenu = ({ }) => {
 
     return (
         <>
-            <div className="px-2 space-y-4">
+            <div className="px-2 space-y-4 h-[100vh]">
                 <HeaderPlantillaMenu openModal={openModal} setOpenModal={setOpenModal} openModalP={openModalP} setOpenModalP={setOpenModalP} />
                 <BlockPlantillaMenu addProducto={isMounted} setAddProducto={setIsMounted} addCategoria={isMounted2} setAddCategoria={setIsMounted2} />
             </div>

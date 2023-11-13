@@ -6,9 +6,13 @@ import { Presupuesto } from "./WeddingPlannerComponents/Presupuesto";
 import { ItinerarioWeddingPlanner } from "./WeddingPlannerComponents/ItinerarioWeddinPlanner";
 import { InfoWeddinPlannrePage } from "./WeddingPlannerComponents/InfoWeddinPlannerPage";
 import { InvitacionesWeddinPlanner } from "./WeddingPlannerComponents/InvitacionesWeddinPlanner";
+import { Modal } from "./modals/Modal";
+import { ContactarGold } from "./formularios/ContactarGold";
 
 export const WeddingPlanner = () => {
     const [optionSelect, setOptionSelect] = useState(4)
+    const [modalContacto, setModalContacto] = useState(false)
+
     const dataComponents = [
         {
             icon: <InvitadosCatering />,
@@ -23,7 +27,7 @@ export const WeddingPlanner = () => {
         {
             icon: <CorreoIcon />,
             title: "Invitaciones",
-            component: <InvitacionesWeddinPlanner/>
+            component: <InvitacionesWeddinPlanner />
         },
         {
             icon: <ItinerarioCatering />,
@@ -31,7 +35,7 @@ export const WeddingPlanner = () => {
             component: <ItinerarioWeddingPlanner />
         },
         {
-            component: <InfoWeddinPlannrePage setOptionSelect={setOptionSelect} />
+            component: <InfoWeddinPlannrePage setOptionSelect={setOptionSelect} modalContacto={modalContacto} setModalContacto={setModalContacto} />
         },
     ]
     const handleClickOption = (idx) => {
@@ -39,7 +43,7 @@ export const WeddingPlanner = () => {
     };
 
     return (
-        
+        <>
             <div className="grid grid-cols-6 h-full">
 
                 <SubmenuComponent dataComponents={dataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
@@ -49,7 +53,15 @@ export const WeddingPlanner = () => {
                 </div>
 
             </div>
+            {
+                modalContacto ? (
+                    <Modal classe={"w-[28%] h-[86%]"}>
+                        <ContactarGold openModal={modalContacto} setOpenModal={setModalContacto} />
+                    </Modal>
+                ) :
+                    null
+            }
+        </>
 
-        
     )
 }

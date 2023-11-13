@@ -1,6 +1,8 @@
 import { DescargaIcon, DiamanteIcon, FotoBgIcon } from "../../Icons/index"
+import { useRouter } from "next/router"
 
 export const ColeccionesInfoPage = () => {
+    const router = useRouter()
     const dataArry = [
         {
             icon: <DescargaIcon />,
@@ -29,12 +31,19 @@ export const ColeccionesInfoPage = () => {
                                 <DiamanteIcon />
                             </div>
                             <p>
-                                Activar la versión <span className="font-semibold">PREMIUM</span>
+                                Activar la versión <span className="font-semibold cursor-pointer" onClick={() => router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "weddingPlanner",
+                                        plan: "premium"
+                                    }
+                                })}>PREMIUM</span>
                             </p>
                         </div>
-                        <button className="bg-rosa rounded-lg px-4 py-0.5 text-white text-base">
+                        {/* <button className="bg-rosa rounded-lg px-4 py-0.5 text-white text-base">
                             Crear Colección
-                        </button>
+                        </button> */}
                     </div>
                     <div>
                         <img src="coleccionesFoto.png" alt="colecciones fotografo" />

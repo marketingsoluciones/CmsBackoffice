@@ -16,11 +16,11 @@ export const InfoInvitaciones = () => {
                     </div>
                     <div className="space-y-2 flex flex-col items-center justify-center pr-20">
                         <p className="text-base">Eleva el confort en la comunicación con tu lista de invitados. Ahora tus invitaciones te brindan el canal perfecto <span className="text-rosa"> para que tus invitados confirmen su asistencia o comenten a través de ellas. </span></p>
-                        <div className="w-full">
+                       {/*  <div className="w-full">
                             <button onClick={() => ""} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
                                 Inicia prueba gratis de 30 días
                             </button>
-                        </div>
+                        </div> */}
                         <div className=" flex items-center space-x-1 my-2 text-base cursor-default w-full">
                             <div className="text-amarillo">
                                 <CorazoncirculoIcon />

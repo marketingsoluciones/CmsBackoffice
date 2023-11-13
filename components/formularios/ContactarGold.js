@@ -24,7 +24,7 @@ export const ContactarGold = ({ setOpenModal, openModal }) => {
                         X
                     </button>
                 </div>
-                <div className="flex flex-col justify-center* items-center h-[90%] space-y-5">
+                <div className="flex flex-col justify-center items-center h-[90%] space-y-5">
                     <img src="CoronaGold.png" alt="CoronaGold" />
                     <h1 className="text-amarillo text-xl text-center">¿Te gustaría adquirir la VERSIÓN GOLD?</h1>
                     <Formik initialValues={initialValues} onSubmit={handelsumbit}>

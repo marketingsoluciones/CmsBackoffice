@@ -12,11 +12,11 @@ export const AgregarProducto = ({ actionButton, setActionButton }) => {
     }
 
     return (
-        <>
+        <div className="h-[100vh]">
             <p className=" text-slate-600 mt-1 px-5 text-xl md:text-3xl text-rosa">
                 Agregar Producto
             </p>
-            <div className="bg-white h-[86%] md:h-[90%] mx-5 my-2 rounded-lg flex flex-col items-center justify-center   ">
+            <div className="bg-white h-[calc(100%-135px)] mx-5 my-2 rounded-lg flex flex-col items-center justify-center   ">
 
                 <Formik initialValues={initialValues} onSubmit={handelSubmit}>
                     <Form>
@@ -60,10 +60,10 @@ export const AgregarProducto = ({ actionButton, setActionButton }) => {
                         </div>
 
                         <div className="flex justify-center space-x-5">
-                            <button className="px-4 py-2 bg-gray-300 rounded-lg text-white" onClick={() => setActionButton(0)} type="button">
+                            <button className="px-4 py-2 bg-gray-300 rounded-lg text-white text-base" onClick={() => setActionButton(0)} type="button">
                                 cancelar
                             </button>
-                            <button className="px-4 py-2 bg-rosa rounded-lg text-white" type="button">
+                            <button className="px-4 py-2 bg-rosa rounded-lg text-white text-base" type="button">
                                 guardar
                             </button>
                         </div>
@@ -73,6 +73,6 @@ export const AgregarProducto = ({ actionButton, setActionButton }) => {
 
             </div>
 
-        </>
+        </div>
     )
 }

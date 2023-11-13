@@ -1,7 +1,8 @@
 import { CorazoncirculoIcon, DiamanteIcon, GanaTiempoIcon, MenusIcon } from "../../Icons/index"
+import { useRouter } from "next/router"
 
 export const InfoMenuPage = () => {
-
+    const router = useRouter()
     const dataArry = [
         {
             icon: <GanaTiempoIcon />,
@@ -41,9 +42,9 @@ export const InfoMenuPage = () => {
                         </p>
                     </div>
                     <div className="col-span-1 flex flex-col justify-center items-center">
-                        <button onClick={() => setActionButton(!actionButton)} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
+                       {/*  <button onClick={() => setActionButton(!actionButton)} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
                             Inicia prueba gratis de 30 días
-                        </button>
+                        </button> */}
                         <div className=" flex items-center justify-center space-x-1 my-2 text-base cursor-default">
                             <div className="text-amarillo">
                                 <CorazoncirculoIcon />
@@ -52,7 +53,21 @@ export const InfoMenuPage = () => {
                                 <DiamanteIcon />
                             </div>
                             <p className="text-rosa">
-                                Activa la versión  <span className="font-semibold"> BÁSICA O PREMIUM </span>
+                                Activa la versión  <span className="font-semibold cursor-pointer" onClick={() => router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "catering",
+                                        plan: "basic"
+                                    }
+                                })}> BÁSICA</span> O <span className="font-semibold text-amarillo cursor-pointer" onClick={() => router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "catering",
+                                        plan: "premium"
+                                    }
+                                })}>PREMIUM </span>
                             </p>
                         </div>
                     </div>

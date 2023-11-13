@@ -1,6 +1,8 @@
 import { CorazonBodasICon, DiamanteIcon } from "../../Icons/index"
+import { useRouter } from "next/router"
 
 export const InfoPlantillaSalonPage = () => {
+    const router = useRouter()
     const dataArry = [
         {
             icon: <CorazonBodasICon />,
@@ -40,15 +42,21 @@ export const InfoPlantillaSalonPage = () => {
                                 <DiamanteIcon />
                             </div>
                             <p>
-                                Activar la versión <span className="font-semibold">PREMIUM</span>
+                                Activar la versión <span className="font-semibold cursor-pointer" onClick={() => router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "weddingPlanner",
+                                        plan: "premium"
+                                    }
+                                })} >PREMIUM</span>
                             </p>
                         </div>
-                        <div>
-
+                        {/* <div>
                             <button className="text-base text-white bg-rosa px-7 py-1 rounded-lg">
                                 Empezar
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className="bg-gray-200 grid md:grid-cols-3 ">

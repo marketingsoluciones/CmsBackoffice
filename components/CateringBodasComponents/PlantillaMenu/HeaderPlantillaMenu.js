@@ -12,7 +12,7 @@ export const HeaderPlantillaMenu = ({setOpenModal, openModal , setOpenModalP ,op
            </div>
            <div className="flex justify-between justify-center ">
                 <div>
-                    select
+                   {/*  select */}
                 </div>
                 <div className="space-x-3">
                     <button onClick={() =>setOpenModal(!openModal)} className="bg-rosa px-3 py-1 text-white rounded-lg text-md">

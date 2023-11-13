@@ -6,7 +6,7 @@ import { OnlyViewTable } from "../../PanelViewTable"
 
 
 
-export const InvitadosCateringTable = ({ actionButton, setActionButton }) => {
+export const InvitadosCateringTable = ({ setOptionSelect }) => {
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
     const { state, dispatch } = AuthContextProvider()
@@ -23,7 +23,7 @@ export const InvitadosCateringTable = ({ actionButton, setActionButton }) => {
             </div>
 
             <div className="relative">
-                <button className="bg-rosa rounded-lg px-4 py-1 text-white " onClick={() => setActionButton(!actionButton)}>
+                <button className="bg-rosa rounded-lg px-4 py-1 text-white " onClick={() => setOptionSelect(1)}>
                     Crear lista
                 </button>
 

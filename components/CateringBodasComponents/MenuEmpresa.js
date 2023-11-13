@@ -11,11 +11,11 @@ export const MenuEmpresa = () => {
     const dataComponents = [
         {
 
-            component: <MenuTable setActionButton={setOptionSelect}/>
+            component: <MenuTable setOptionSelect={setOptionSelect}/>
 
         },
         {
-            component: <VerMenu />
+            component: <VerMenu setOptionSelect={setOptionSelect} />
         },
 
     ]
@@ -25,7 +25,7 @@ export const MenuEmpresa = () => {
     return (
         <div className="px-5 py-2 h-full">
             {(() => {
-                if (!state) {
+                if (state) {
                     return (
                         <InfoMenuPage/>
                     )

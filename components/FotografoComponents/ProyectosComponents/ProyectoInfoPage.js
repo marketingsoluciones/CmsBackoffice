@@ -1,21 +1,23 @@
 import { CarpetasIcon, DiamanteIcon, FacturaIcon, MensajeIcon, TodoIcon } from "../../Icons/index"
+import { useRouter } from "next/router"
 
 export const ProyectoInfoPage = () => {
+    const router = useRouter()
     const dataArry = [
         {
-            icon: <CarpetasIcon/>,
+            icon: <CarpetasIcon />,
             text: "Describe tus proyectos"
         },
         {
-            icon: <MensajeIcon/>,
+            icon: <MensajeIcon />,
             text: "Gestiona tus contratos"
         },
         {
-            icon: <TodoIcon/>,
+            icon: <TodoIcon />,
             text: "Envia cuestionarios a tus usuarios"
         },
         {
-            icon: <FacturaIcon/>,
+            icon: <FacturaIcon />,
             text: "Lleva el control de tus facturas"
         },
     ]
@@ -37,12 +39,19 @@ export const ProyectoInfoPage = () => {
                             <DiamanteIcon />
                         </div>
                         <p>
-                            Activar la versión <span className="font-semibold">PREMIUM</span>
+                            Activar la versión <span className="font-semibold cursor-pointer" onClick={() => router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "weddingPlanner",
+                                        plan: "premium"
+                                    }
+                                })}>PREMIUM</span>
                         </p>
                     </div>
-                    <button className="bg-rosa rounded-lg px-4 py-0.5 text-white text-base">
+                    {/* <button className="bg-rosa rounded-lg px-4 py-0.5 text-white text-base">
                         Crear Proyectos
-                    </button>
+                    </button> */}
                 </div>
                 <div className="bg-gray-100 px-10 py-5">
                     <p className="text-base">
@@ -50,22 +59,22 @@ export const ProyectoInfoPage = () => {
                     </p>
                 </div>
                 <div className="grid grid-cols-5 space-y-3 px-10 py-8">
-                        {
-                            dataArry.map((item, idx) => {
-                                return (
-                                    <div key={idx} className="col-span-2 flex items-center space-x-2 ">
-                                        <div>
-                                            {item.icon}
-                                        </div>
-                                        <p className="text-base w-[50%]">
-                                            {item.text}
-                                        </p>
+                    {
+                        dataArry.map((item, idx) => {
+                            return (
+                                <div key={idx} className="col-span-2 flex items-center space-x-2 ">
+                                    <div>
+                                        {item.icon}
                                     </div>
-                                )
-                            })
-                        }
+                                    <p className="text-base w-[50%]">
+                                        {item.text}
+                                    </p>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
-                <img src="proyectoImg.png" alt="proyect Img" className="absolute top-24 right-0 h-[65%]"/>
+                <img src="proyectoImg.png" alt="proyect Img" className="absolute top-24 right-0 h-[65%]" />
             </div>
         </>
     )

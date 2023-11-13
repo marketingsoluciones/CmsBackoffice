@@ -25,7 +25,7 @@ export const ItinerarioWeddingPlanner = () => {
             {(() => {
                 if (state) {
                     return (
-                        <ItinerarioInfoPage />
+                        <ItinerarioInfoPage  setOptionSelect={setOptionSelect}/>
                     )
                 } else {
                     if (state2) {

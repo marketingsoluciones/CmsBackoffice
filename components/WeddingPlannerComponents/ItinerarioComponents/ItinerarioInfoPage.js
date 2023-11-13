@@ -3,7 +3,7 @@ import { CorazonBodasICon, CorazoncirculoIcon, DiamanteIcon } from "../../Icons/
 import { useRouter } from "next/router"
 
 
-export const ItinerarioInfoPage = () => {
+export const ItinerarioInfoPage = ({setOptionSelect}) => {
     const router = useRouter()
 
     const dataArry = [
@@ -60,9 +60,9 @@ export const ItinerarioInfoPage = () => {
                         </p>
                     </div>
                     <div className="flex flex-col justify-center items-center">
-                        <button onClick={() => setActionButton(!actionButton)} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
+                        {/* <button onClick={() => setOptionSelect(0)} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
                             Inicia prueba gratis de 30 días
-                        </button>
+                        </button> */}
                         <div className=" flex items-center justify-center space-x-1 my-2 text-base cursor-default">
                             <div className="text-amarillo">
                                 <CorazoncirculoIcon />

@@ -23,7 +23,7 @@ export const InvitadosWeddingPlanner = () => {
                 {(() => {
                     if (state) {
                         return (
-                            <InfoListaInvitadosPage actionButton={state} setActionButton={setState} />
+                            <InfoListaInvitadosPage state={state} setState={setState} />
                         )
                     } else {
                         if (state2) {

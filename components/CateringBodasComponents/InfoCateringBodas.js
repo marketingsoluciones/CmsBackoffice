@@ -1,7 +1,7 @@
 import { Icon } from "@chakra-ui/icons"
 import { CoronaIcon } from "../Icons/index"
 
-export const InfoCateringBodas = ({ setOptionSelect }) => {
+export const InfoCateringBodas = ({ setOptionSelect, modalContacto, setModalContacto }) => {
     const dataArry = [
         {
             img: "CartaProductoP.png",
@@ -122,7 +122,7 @@ export const InfoCateringBodas = ({ setOptionSelect }) => {
                             Óbtenla activando la <span className="text-amarillo font-semibold"> VERSIÓN GOLD </span>
                         </p>
                     </div>
-                    <button className="bg-amarillo px-4 py-1 rounded-lg text-white text-base">
+                    <button onClick={()=>setModalContacto(!modalContacto)} className="bg-amarillo px-4 py-1 rounded-lg text-white text-base">
                         Contactar
                     </button>
                 </div>

@@ -26,7 +26,7 @@ export const ListaInvitados = () => {
                 {(() => {
                     if (state) {
                         return (
-                            <InfoListaInvitadosPage setActionButton={setState} actionButton={state} />
+                            <InfoListaInvitadosPage setState={setState} state={state} />
                         )
                     } else {
                         if (state2) {
