@@ -1,6 +1,8 @@
 import { CalendarioCheck, CalendarioArrow, CalendarioDispositivos, DiamanteIcon } from "../Icons/index"
+import { useRouter } from "next/router"
 
 export const InfoPageCalendario = () => {
+    const router = useRouter()
 
     const dataArry = [
         {
@@ -52,12 +54,19 @@ export const InfoPageCalendario = () => {
                             <DiamanteIcon />
                         </div>
                         <p>
-                            Activar la versión <span className="font-semibold">PREMIUM</span>
+                            Activar la versión <span onClick={() => router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "weddingPlanner",
+                                        plan: "premium"
+                                    }
+                                })} className="font-semibold cursor-pointer">PREMIUM</span>
                         </p>
                     </button>
-                    <button className="py-2 px-7 bg-rosa rounded-lg text-white w-full text-base">
+                    {/* <button className="py-2 px-7 bg-rosa rounded-lg text-white w-full text-base">
                         Crear Calendario
-                    </button>
+                    </button> */}
                 </div>
 
             </div>

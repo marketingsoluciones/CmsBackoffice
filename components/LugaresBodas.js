@@ -6,33 +6,36 @@ import { ListaInvitados } from "./LugaresBodasComponents/ListaInvitados"
 import { PlanoEvento } from "./LugaresBodasComponents/PlanoEvento"
 import { ItinerarioLugaresBodas } from "./LugaresBodasComponents/ItinerarioLugaresBodas"
 import { InfoLugaresBodas } from "./LugaresBodasComponents/InfoLugaresBodas"
+import { Modal } from "./modals/Modal"
+import { ContactarGold } from "./formularios/ContactarGold"
 
 export const LugaresBodas = () => {
     const [optionSelect, setOptionSelect] = useState(4)
+    const [modalContacto, setModalContacto] = useState(false)
     const dataComponents = [
-        
+
         {
             icon: <MesasICon />,
             title: "Plantillas del salón",
-            component: <PlantillaSalon/>
+            component: <PlantillaSalon />
         },
         {
             icon: <PlanoEventoIcon />,
             title: "Plano del evento",
-            component: <PlanoEvento/>
+            component: <PlanoEvento />
         },
         {
             icon: <InvitadosCatering />,
             title: "Lista de invitados",
-            component: <ListaInvitados/>
+            component: <ListaInvitados />
         },
         {
             icon: <ItinerarioCatering />,
             title: "Intinerarios",
-            component: <ItinerarioLugaresBodas/>
+            component: <ItinerarioLugaresBodas />
         },
-        {   
-            component:<InfoLugaresBodas setOptionSelect={setOptionSelect}/>
+        {
+            component: <InfoLugaresBodas setOptionSelect={setOptionSelect} modalContacto={modalContacto} setModalContacto={setModalContacto} />
         },
     ]
     const handleClickOption = (idx) => {
@@ -43,14 +46,19 @@ export const LugaresBodas = () => {
         <>
 
             <div className="grid grid-cols-6 h-full">
-
                 <SubmenuComponent dataComponents={dataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
-
                 <div className="col-span-6 md:col-span-5">
                     {dataComponents[optionSelect].component}
                 </div>
-
             </div>
+            {
+                modalContacto ? (
+                    <Modal classe={"w-[28%] h-[86%]"}>
+                        <ContactarGold openModal={modalContacto} setOpenModal={setModalContacto}  />
+                    </Modal>
+                ) :
+                    null
+            }
 
         </>
     )
