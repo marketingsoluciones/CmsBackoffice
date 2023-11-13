@@ -8,29 +8,20 @@ export const Eventos = ({ openModal, setOpenModal }) => {
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
 
-    const dataComponents = [
-        {
-            component: <CardVeiw openModal={openModal} setOpenModal={setOpenModal} />
-        },
-        {
-            component: ""
-        },
 
-    ]
 
     return (
-        <div className=" px-5 py-2 space-y-2 h-[90%] ">
+        <div className=" px-5 py-2 space-y-2 h-[full] ">
             {(() => {
                 if (state) {
                     return (
-                        <InfoPageEvent actionButton={state} setActionButton={setState} />
+                        <InfoPageEvent actionButton={state} setActionButton={setState} openModal={openModal} setOpenModal={setOpenModal} />
                     )
                 } else {
                     if (state2) {
                         return (
-                            <div>
-                                {dataComponents[optionSelect].component}
-                            </div>
+                
+                            <CardVeiw openModal={openModal} setOpenModal={setOpenModal} />
                         )
                     } else {
                         return (

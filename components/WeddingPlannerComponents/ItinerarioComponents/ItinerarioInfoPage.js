@@ -1,6 +1,11 @@
+
 import { CorazonBodasICon, CorazoncirculoIcon, DiamanteIcon } from "../../Icons/index"
+import { useRouter } from "next/router"
+
 
 export const ItinerarioInfoPage = () => {
+    const router = useRouter()
+
     const dataArry = [
         {
             icon: <CorazonBodasICon />,
@@ -46,7 +51,7 @@ export const ItinerarioInfoPage = () => {
                             </div>
                         )
                     })}
-                </div> 
+                </div>
                 <div className="grid grid-cols-2 py-8 px-8">
                     <div className="flex flex-col items-center justify-center space-y-5" >
                         <img src="itinerarioImg2.png" alt="itinerario img 2" />
@@ -66,7 +71,21 @@ export const ItinerarioInfoPage = () => {
                                 <DiamanteIcon />
                             </div>
                             <p className="text-rosa">
-                                Activa la versión  <span className="font-semibold"> BÁSICA O PREMIUM </span>
+                                Activa la versión  <span className="font-semibold cursor-pointer" onClick={() => router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "weddingPlanner",
+                                        plan: "basic"
+                                    }
+                                })}> BÁSICA</span> O <span className="font-semibold text-amarillo cursor-pointer " onClick={() => router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "weddingPlanner",
+                                        plan: "premium"
+                                    }
+                                })}> PREMIUM </span>
                             </p>
                         </div>
                     </div>

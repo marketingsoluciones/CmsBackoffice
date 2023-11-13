@@ -50,7 +50,7 @@ export const CateringBodas = () => {
 
             { optionSelect > -1 && <SubmenuComponent dataComponents={dataComponents} optionSelect={optionSelect} onClick={handleClickOption} />}
 
-                <div className="col-span-6 md:col-span-5">
+                <div className="col-span-6 md:col-span-5 ">
                     {dataComponents[optionSelect]?.component}
                 </div>
 

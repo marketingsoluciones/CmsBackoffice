@@ -1,4 +1,4 @@
-export const InfoPageEvent = ({actionButton, setActionButton}) => {
+export const InfoPageEvent = ({actionButton, setActionButton, openModal, setOpenModal}) => {
     return (
         <>
             <div className="bg-white  space-y-5 rounded-xl h-full flex flex-col items-center justify-center h-full py-16">
@@ -13,7 +13,7 @@ export const InfoPageEvent = ({actionButton, setActionButton}) => {
                     <button type="button" onClick={()=>setActionButton(!actionButton)} className=" py-2 px-7 border border-gray-400 rounded-lg w-full text-base">
                         Ver mis eventos
                     </button>
-                    <button className="py-2 px-7 bg-rosa rounded-lg text-white w-full text-base">
+                    <button onClick={()=>setOpenModal(!openModal)} className="py-2 px-7 bg-rosa rounded-lg text-white w-full text-base">
                         Crear evento
                     </button>
                 </div>

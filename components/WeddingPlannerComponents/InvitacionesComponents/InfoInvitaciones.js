@@ -3,13 +3,12 @@ import { useRouter } from "next/router"
 
 export const InfoInvitaciones = () => {
     const router = useRouter()
-    console.log(router)
     return (
         <>
             <p className=" text-slate-600 mt-1 text-3xl text-rosa">
                 Invitaciones
             </p>
-            <div className="bg-white rounded-t-lg flex flex-col items-center py-10 space-y-5 ">
+            <div className="bg-white rounded-t-lg flex flex-col items-center py-10 space-y-5">
                 <h1 className="text-xl"><span className="text-rosa"> Las Invitaciones </span> son tu red de conexión con tus invitados.</h1>
                 <div className="grid grid-cols-2 justify-items-center content-center">
                     <div>
@@ -30,14 +29,21 @@ export const InfoInvitaciones = () => {
                                 <DiamanteIcon />
                             </div>
                             <p className="text-rosa">
-                                Activa la versión  <span className="font-semibold cursor-pointer" onClick={()=>router.push({
-                                    pathname:"/facturacion",
-                                    query:{
-                                        state:1,
-                                        producto:"weddingPlanner",
+                                Activa la versión  <span className="font-semibold cursor-pointer" onClick={() => router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "weddingPlanner",
                                         plan: "basic"
                                     }
-                                })} > BÁSICA O </span> <span className="text-amarillo">PREMIUM </span>
+                                })} > BÁSICA O </span> <span className="text-amarillo cursor-pointer" onClick={() => router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "weddingPlanner",
+                                        plan: "premium"
+                                    }
+                                })} >PREMIUM </span>
                             </p>
                         </div>
                     </div>

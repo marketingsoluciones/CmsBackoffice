@@ -17,7 +17,7 @@ export const BlockListaInvitados = () => {
 
 
   return (
-    <div className="bg-white  w-full shadow-lg rounded-xl h-100% px-6 pt-6 pb-28 mb-32 md:mb-0 md:p-12 relative">
+    <div className="bg-white  w-full shadow-lg rounded-xl  px-6 pt-6 pb-28 mb-32 md:mb-0 md:p-12 relative overflow-auto">
       <div className="flex gap-4 items-center pb-10">
         <button
           /* onClick={(e) => handleClick(e, "invitado")} */

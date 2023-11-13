@@ -41,11 +41,11 @@ export const InfoCateringBodas = ({ setOptionSelect }) => {
     ]
 
     return (
-        <div className="h-full px-5 py-2 ">
+        <div className="h-[100vh] px-5 py-2 ">
             <p className=" text-slate-600 mt-1 text-3xl text-rosa">
                 Catering de bodas
             </p>
-            <div className="bg-white rounded-xl flex flex-col h-[34%] overflow-auto">
+            <div className="bg-white rounded-xl h-[calc(100%-110px)] overflow-auto">
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-14">
                     <p className="text-xl text-gray-600">
                         <span className="text-rosa">Crea el menú de cada evento </span> para presentar a tus clientes
