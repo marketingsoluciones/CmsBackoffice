@@ -3,10 +3,10 @@ import { ExclamacionIcon, VideoIcon } from "../Icons/index"
 import ClickAwayListener from "react-click-away-listener";
 import Link from "next/link";
 
-export const InfoModuloFacturacion = ({ dataArry, actionButtton, producto , plan }) => {
+export const InfoModuloFacturacion = ({ dataArry, actionButtton, producto, plan }) => {
     const [viewInfo, setViewInfo] = useState()
     const [optionSelect, setOptionSelect] = useState(null)
-    
+
 
     const info = [
         {
@@ -30,12 +30,12 @@ export const InfoModuloFacturacion = ({ dataArry, actionButtton, producto , plan
     ]
 
     return (
-        <>
+        <div className="h-[100vh]">
             <div className="bg-white rounded-lg px-10 py-5 mb-3">
                 <p className="text-xl text-gray-600">Mejora tu organización con los módulos especiales </p>
                 <p className="text-base text-gray-700"> Si se suscribe en la mitad del ciclo de facturación, se le cobrará un monto parcial.</p>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-4 h-[calc(100%-175px)] overflow-auto">
 
                 <div className="flex justify-center bg-white rounded-lg px-5 py-5 space-x-4 ">
                     <div>
@@ -72,12 +72,12 @@ export const InfoModuloFacturacion = ({ dataArry, actionButtton, producto , plan
                         <p className="text-base">
                             Incluido con tu registro
                         </p>
-                        <div className="flex items-center justify-center space-x-2 text-base">
+                        {/* <div className="flex items-center justify-center space-x-2 text-base">
                             <VideoIcon />
                             <p>
                                 Ver video (00:30)
                             </p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
@@ -222,29 +222,29 @@ export const InfoModuloFacturacion = ({ dataArry, actionButtton, producto , plan
                                         }
                                     })()}
 
-                                    <div className="flex items-center justify-center space-x-2 text-base">
+                                    {/* <div className="flex items-center justify-center space-x-2 text-base">
                                         {item.iconoVideo}
                                         <p>
                                             {item.video}
                                         </p>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         )
                     })
                 }
-            </div>
-            <div className="bg-white rounded-lg px-5 py-3 mt-3 flex justify-between">
-                <button onClick={() => actionButtton(0)} className="border border-rosa rounded-lg py-1 px-3 text-rosa text-base">
-                    volver
-                </button>
-              {/*   <div>
+                <div className="bg-white rounded-lg px-5 py-3 mt-3 flex justify-between">
+                    <button onClick={() => actionButtton(0)} className="border border-rosa rounded-lg py-1 px-3 text-rosa text-base">
+                        volver
+                    </button>
+                    {/*   <div>
                     <button className="bg-rosa rounded-lg px-7 py-1 text-white text-base" onClick={() => actionButtton(2)}>
-                        Revisar compra
+                    Revisar compra
                     </button>
                 </div> */}
+                </div>
             </div>
-        </>
+        </div>
     )
 }
 
@@ -264,7 +264,7 @@ const InfoModulos = ({ data, viewInfo, setViewInfo }) => {
 const ModalInfoModulo = ({ data, setViewInfo, viewInfo }) => {
     return (
         <ClickAwayListener onClickAway={() => viewInfo && setViewInfo(false)}>
-            <div className="bg-white border  border-rosa rounded-lg p-2 shadow-lg text-base absolute z-10">
+            <div className="bg-white border  border-rosa rounded-lg p-2 shadow-lg text-base absolute z-50">
                 {data.texto}
             </div>
         </ClickAwayListener>
