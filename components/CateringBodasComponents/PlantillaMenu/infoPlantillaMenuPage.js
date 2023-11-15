@@ -46,11 +46,11 @@ export const InfoPlantillaMenuPage = ({actionButton, setActionButton}) => {
                                 })}>PREMIUM</span>
                             </p>
                         </div>
-                        <div>
+                       {/*  <div>
                             <button onClick={()=>setActionButton(!actionButton)} className="bg-rosa rounded-lg px-5 py-0.5 text-base text-white ">
                                 Empezar
                             </button>
-                        </div>
+                        </div> */}
 
                     </div>
                     <div>

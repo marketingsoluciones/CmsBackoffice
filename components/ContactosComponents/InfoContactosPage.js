@@ -24,9 +24,9 @@ export const InfoContactosPage = () => {
                         </p>
                     </div>
                     <div className="col-span-1 flex flex-col justify-center items-center">
-                        <button  className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
+                       {/*  <button  className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
                             Inicia prueba gratis de 30 días
-                        </button>
+                        </button> */}
                         <div className=" flex items-center justify-center space-x-1 my-2 text-base cursor-default">
                             <div className="text-amarillo">
                                 <CorazoncirculoIcon />

@@ -50,7 +50,7 @@ export const ContactarGold = ({ setOpenModal, openModal }) => {
                                     <button onClick={() => setOpenModal(!openModal)} type="button" className="px-3 py-1 border border-amarillo rounded-lg  text-amarillo text-base">
                                         Cancelar
                                     </button>
-                                    <button type="button" className="px-3 py-1 bg-amarillo rounded-lg  text-white text-base">
+                                    <button type="button" onClick={() => setOpenModal(!openModal)} className="px-3 py-1 bg-amarillo rounded-lg  text-white text-base">
                                         enviar
                                     </button>
                                 </div>

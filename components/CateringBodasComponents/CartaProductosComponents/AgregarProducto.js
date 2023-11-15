@@ -63,7 +63,7 @@ export const AgregarProducto = ({ actionButton, setActionButton }) => {
                             <button className="px-4 py-2 bg-gray-300 rounded-lg text-white text-base" onClick={() => setActionButton(0)} type="button">
                                 cancelar
                             </button>
-                            <button className="px-4 py-2 bg-rosa rounded-lg text-white text-base" type="button">
+                            <button className="px-4 py-2 bg-rosa rounded-lg text-white text-base" onClick={() => setActionButton(0)} type="button">
                                 guardar
                             </button>
                         </div>

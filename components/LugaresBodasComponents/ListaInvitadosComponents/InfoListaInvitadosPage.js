@@ -1,6 +1,8 @@
 import { CorazonBodasICon } from "../../Icons/index"
+import { useRouter } from "next/router"
 
 export const InfoListaInvitadosPage = ({ setState, state }) => {
+    const router = useRouter()
     const dataArry = [
         {
             incon: <CorazonBodasICon />,
@@ -30,7 +32,7 @@ export const InfoListaInvitadosPage = ({ setState, state }) => {
                         <span className="text-rosa font-semibold">Lleva el control </span> de tu lista de invitados en un sólo lugar
                     </p>
                     <div>
-                        <button onClick={() => setState(!state)} className="bg-rosa text-white text-base py-1 px-4 rounded-lg shadow-md">
+                        <button onClick={() => false? setState(!state): router.push("/facturacion")} className="bg-rosa text-white text-base py-1 px-4 rounded-lg shadow-md">
                             Gestionar listas
                         </button>
                     </div>
