@@ -9,9 +9,8 @@ const eventosPage = () => {
         <>
             {(
                 <ModalLeft state={isMounted} set={setIsMounted}>
-                    {/* showEditEvent ?
-                        <FormCrearEvento state={isMounted} set={setIsMounted} EditEvent={showEditEvent} />
-                        : */ <FormCrearEvento state={isMounted} set={setIsMounted} />
+                    {
+                        <FormCrearEvento state={isMounted} set={setIsMounted} />
                     }
                 </ModalLeft>
             )}

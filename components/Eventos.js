@@ -6,7 +6,6 @@ import { VistaSinDatos } from "./VistaSinDatos"
 export const Eventos = ({ openModal, setOpenModal }) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
-    const [optionSelect, setOptionSelect] = useState(0)
 
 
 

@@ -17,7 +17,7 @@ export const CardVeiw = ({ setOpenModal, openModal }) => {
         {
             icon: <CardVeiwIcon />,
             component: <ViewCard />,
-            state: false
+            state: true
         },
         {
             icon: <TableVeiwIcon />,
