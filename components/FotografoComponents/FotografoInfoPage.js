@@ -21,7 +21,7 @@ export const FotografoInfoPage = ({modalContacto, setModalContacto, setOptionSel
 
     return (
         <div className="h-[100vh] px-5 py-2 ">
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+            <p className=" mt-1 text-3xl text-rosa">
                 Fotógrafos
             </p>
             <div className="bg-white rounded-xl flex flex-col h-[calc(100%-110px)] overflow-auto">
