@@ -859,7 +859,7 @@ export const BodyStaticAPP = [
         icon: <MarcasEmIcon className="" />,
         title: "tienda",
         roles: ["all"],
-        route: "page404",
+        route: "marketplace",
         getData: "",
         getByID: "",
         createEntry: "",
