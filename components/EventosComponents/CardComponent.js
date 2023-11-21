@@ -2,7 +2,7 @@ import { memo } from "react";
 import { EventContextProvider } from "../../context/EventContext";
 import { EventsGroupContextProvider } from "../../context/EventsGroupContext";
 import useHover from "../../hooks/useHover"
-import { BorrarIcon, IconFolderOpen } from "../icons/index";
+import { BorrarIcon, IconFolderOpen } from "../Icons/index";
 import { useRouter } from "next/router";
 import { fetchApiEventos, queries } from "../../utils/Fetching";
 /* import { useToast } from '../../hooks/useToast' */

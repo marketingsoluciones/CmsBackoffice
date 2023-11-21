@@ -3,7 +3,7 @@ import { columnsDataTable } from "../components/Datatable/Columns";
 import { Datatable } from "../components/Datatable/Datatable";
 import { useFetch } from "../hooks/useFetch";
 import { useEffect, useMemo, useState } from "react";
-import { FiltrarIcon, SearchIcon, PermisosIcon, ArrowDownIcon, OptionIcon } from "../components/icons/index"
+import {  SearchIcon } from "../components/Icons/index"
 import GlobalFilter from "./Datatable/GlobalFilter";
 import { AuthContextProvider } from "../context/AuthContext";
 import { useRouter } from "next/router";

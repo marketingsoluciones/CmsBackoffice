@@ -1,5 +1,5 @@
 import { Dispatch, FC, memo, SetStateAction } from 'react'
-import { CrearEventoIcon } from '../icons/index';
+import { CrearEventoIcon } from '../Icons/index';
 import useHover from '../../hooks/useHover';
 
 
