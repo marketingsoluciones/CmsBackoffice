@@ -52,7 +52,7 @@ export const capitalize = (str) => {
 
 
 // Objeto de icono perfil
-/* export const ImageProfile = {
+export const ImageProfile = {
   hombre: {
     image: "/profile_men.png",
     alt: "Hombre",
@@ -61,4 +61,4 @@ export const capitalize = (str) => {
     image: "profile_woman.png",
     alt: "Mujer",
   },
-}; */
+};

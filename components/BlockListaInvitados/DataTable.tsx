@@ -242,7 +242,7 @@ const DataTableFinal: FC<propsDataTableFinal> = (props) => {
               return (
                 // Apply the row props
                 <tr
-                  {...row.getRowProps()}
+                 /*  {...row.getRowProps()} */
                   key={i}
                   className="w-full bg-white border-b font-display text-sm grid grid-cols-12"
                 >
@@ -253,7 +253,7 @@ const DataTableFinal: FC<propsDataTableFinal> = (props) => {
                         <td
                           key={i}
                           {...cell.getCellProps()}
-                          className={`px-6 py-2 flex items-center col-span-${ColSpan(cell.column.id, row.cells.map(item => item.column), 8)}`}
+                          className={`px-6 py-2 flex items-center col-span-${ColSpan(cell.column.id, row.cells.map(item => item.column), 11)}`}
                         >
                           {
                             // Render the cell contents

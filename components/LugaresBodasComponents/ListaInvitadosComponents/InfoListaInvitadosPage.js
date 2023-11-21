@@ -23,7 +23,7 @@ export const InfoListaInvitadosPage = ({ setState, state }) => {
     ]
     return (
         <div className="h-full ">
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+            <p className=" mt-1 text-3xl text-rosa">
                 Lista de invitados
             </p>
             <div className="bg-white rounded-xl  h-[91%]   " >
@@ -32,7 +32,7 @@ export const InfoListaInvitadosPage = ({ setState, state }) => {
                         <span className="text-rosa font-semibold">Lleva el control </span> de tu lista de invitados en un sólo lugar
                     </p>
                     <div>
-                        <button onClick={() => false? setState(!state): router.push("/facturacion")} className="bg-rosa text-white text-base py-1 px-4 rounded-lg shadow-md">
+                        <button onClick={() => true? setState(!state): router.push("/facturacion")} className="bg-rosa text-white text-base py-1 px-4 rounded-lg shadow-md">
                             Gestionar listas
                         </button>
                     </div>

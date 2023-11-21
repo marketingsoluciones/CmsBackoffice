@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState, FC, Dispatch, SetStateAction, cloneElement } from "react";
-//import ClickAwayListener from "react-click-away-listener";
+import ClickAwayListener from "react-click-away-listener";
 import { useRouter } from "next/router";
-/* import { EventContextProvider } from "../../context"; */
-//import { api } from "../../api";
+import { EventContextProvider } from "../../context/EventContext";
+import { api } from "../../utils/api";
 import DataTableFinal from "./DataTable";
-//import { BorrarInvitado } from "../../hooks/EditarInvitado";
-//import { CanceladoIcon, ConfirmadosIcon, DotsOpcionesIcon, PendienteIcon, } from "../icons";
+import { BorrarInvitado } from "../../hooks/EditarInvitado";
+import { CanceladoIcon, ConfirmadosIcon, PendienteIcon, } from "../Icons/index";
 import { DataTableGroupContextProvider, DataTableGroupProvider, } from "../../context/DataTableGroupContext";
-//import { fetchApiEventos, queries } from "../../utils/Fetching";
+import { fetchApiEventos, queries } from "../../utils/Fetching";
 import { useToast } from "@chakra-ui/react";
 
 interface propsDatatableGroup {
@@ -43,105 +43,71 @@ interface guests {
   pais: string
 }
 
-
 const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIsMounted, menu = [] }) => {
-  /* const { event, setEvent, invitadoCero, setInvitadoCero } = EventContextProvider(); */
-  /* const [datas, setDatas] = useState<{ titulo: string; data: guests[] }[]>([]); */
-  const datas = [
-    {
-      titulo: "Novios",
-      data: []
-    },
-    {
-      titulo: "amigos de la novia ",
-      data: []
-    },
-    {
-      titulo: "familia de la novia",
-      data: []
-    },
-    {
-      titulo: "familia del novio ",
-      data: []
-    },
-    {
-      titulo: "amigos del trabajo novio",
-      data: []
-    },
-    {
-      titulo: "amigos del trabajo novia",
-      data: []
-    },
-    {
-      titulo: "amigos en común",
-      data: []
-    },
-  ]
-
-  console.log("data de la tabla", datas)
-
-
-  /* useEffect(() => {
-    setInvitadoCero(event?.invitados_array?.filter(elem => elem.rol === event?.grupos_array[0])[0]?.nombre)
-  }, [event?.invitados_array, event?.grupos_array]) */
-
-  /*   useEffect(() => {
+  const { event, setEvent, invitadoCero, setInvitadoCero } = EventContextProvider();
+  const [datas, setDatas] = useState<{ titulo: string; data: guests[] }[]>([]);
   
-      const Datas = event?.grupos_array.reduce((acc, group) => {
-        acc[group] = { titulo: group, data: [] };
-        event.invitados_array.forEach(guest => {
-          if (event.grupos_array.includes(guest.rol)) {
-            if (guest.rol === group) {
-              acc[group] = {
-                titulo: group,
-                data: acc[group]?.data
-                  ? [...acc[group]?.data, guest]
-                  : [guest],
-              };
-            }
-          } else {
-            acc["no asignado"] = {
-              titulo: "no asignado",
-              data: acc["no asignado"]?.data
-                ? [...acc["no asignado"]?.data, guest]
+  useEffect(() => {
+    setInvitadoCero(event?.invitados_array?.filter(elem => elem.rol === event?.grupos_array[0])[0]?.nombre)
+  }, [event?.invitados_array, event?.grupos_array])
+
+  useEffect(() => {
+
+    const Datas = event?.grupos_array.reduce((acc, group) => {
+      acc[group] = { titulo: group, data: [] };
+      event.invitados_array.forEach(guest => {
+        if (event.grupos_array.includes(guest.rol)) {
+          if (guest.rol === group) {
+            acc[group] = {
+              titulo: group,
+              data: acc[group]?.data
+                ? [...acc[group]?.data, guest]
                 : [guest],
             };
           }
-        })
-        return acc
-      }, {})
-  
-      const Data = event?.invitados_array.reduce((acc, invitado) => {
-        event.grupos_array.forEach((group) => {
-          acc[group] = { titulo: group, data: [] };
-          if (event.grupos_array.includes(invitado.rol)) {
-            if (invitado.rol === group) {
-              acc[group] = {
-                titulo: group,
-                data: acc[group]?.data
-                  ? [...acc[group]?.data, invitado]
-                  : [invitado],
-              };
-            }
-          }
-        });
-  
-        if (!event.grupos_array.includes(invitado.rol)) {
+        } else {
           acc["no asignado"] = {
             titulo: "no asignado",
             data: acc["no asignado"]?.data
-              ? [...acc["no asignado"]?.data, invitado]
-              : [invitado],
+              ? [...acc["no asignado"]?.data, guest]
+              : [guest],
           };
         }
-        return acc;
-      }, {});
-  
-      Datas && setDatas(Object.values(Datas));
-    }, [event]); */
+      })
+      return acc
+    }, {})
+
+    const Data = event?.invitados_array.reduce((acc, invitado) => {
+      event.grupos_array.forEach((group) => {
+        acc[group] = { titulo: group, data: [] };
+        if (event.grupos_array.includes(invitado.rol)) {
+          if (invitado.rol === group) {
+            acc[group] = {
+              titulo: group,
+              data: acc[group]?.data
+                ? [...acc[group]?.data, invitado]
+                : [invitado],
+            };
+          }
+        }
+      });
+
+      if (!event.grupos_array.includes(invitado.rol)) {
+        acc["no asignado"] = {
+          titulo: "no asignado",
+          data: acc["no asignado"]?.data
+            ? [...acc["no asignado"]?.data, invitado]
+            : [invitado],
+        };
+      }
+      return acc;
+    }, {});
+
+    Datas && setDatas(Object.values(Datas));
+  }, [event]);
 
   // Funcion para Editar Invitado dropdown
-  /* const updateMyData = ({
+  const updateMyData = ({
     rowID,
     columnID,
     reemplazar,
@@ -168,6 +134,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
                   variable: reemplazar,
                   value: value
                 },
+                token: ""
               });
               return {
                 ...arr[rowIndex],
@@ -185,7 +152,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
     } catch (error) {
       console.log(error);
     }
-  }; */
+  };
 
   //Definir Columnas
   const CrearColumna = (title) => {
@@ -201,7 +168,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
         accessor: "nombre", // accessor es la "key" en la data(invitados)
         id: "nombre",
         Cell: (props) => {
-          /* const value = props?.cell?.value;
+          const value = props?.cell?.value;
           const { sexo, _id: id } = props?.row?.original;
           const image = {
             hombre: {
@@ -222,7 +189,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
           return (
             <div
               className="flex justify-start items-center truncate py-2 pr-3 cursor-pointer"
-              onClick={handleClick}
+              /* onClick={handleClick} */
             >
               <img
                 className="block w-10 h-10 mr-2"
@@ -233,13 +200,13 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
                 {value}
               </p>
             </div>
-          ); */
+          );
         },
       },
       {
         Header: "Asistencia",
         accessor: "asistencia",
-        Cell: ({ value: initialValue, row, column: { id } }) => {/* 
+        Cell: ({ value: initialValue, row, column: { id } }) => {
           const [value, setValue] = useState(initialValue ?? "No asignado");
           const [show, setShow] = useState(false);
           const [loading, setLoading] = useState(false);
@@ -307,14 +274,13 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
                 </ul>
               </div>
             </ClickAwayListener>
-          ); */
+          );
         },
       },
-
       {
         Header: "Menu",
         accessor: "nombre_menu",
-        Cell: ({ value: initialValue, row, column: { id } }) => {/* 
+        Cell: ({ value: initialValue, row, column: { id } }) => {
           const [value, setValue] = useState(row?.original?.nombre_menu ? row?.original?.nombre_menu : "sin menú");
           const [show, setShow] = useState(false);
           const [loading, setLoading] = useState(false);
@@ -370,13 +336,13 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
                 </ul>
               </div>
             </ClickAwayListener>
-          ); */
+          );
         },
       },
       {
         Header: "Mesa",
         accessor: "nombre_mesa",
-        Cell: ({ value: initialValue, row, column: { id } }) => {/* 
+        Cell: ({ value: initialValue, row, column: { id } }) => {
           const [value, setValue] = useState(initialValue);
           const [show, setShow] = useState(false);
           const [loading, setLoading] = useState(false);
@@ -398,9 +364,9 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
           return (
             <ClickAwayListener onClickAway={() => setShow(false)}>
               <div className="relative w-full flex justify-center items-center">
-                {value.toLowerCase() == "no asignado" false ? (
+                {/* value.toLowerCase() == "no asignado" */ false ? (
                   <button
-                    onClick={() => router.push("/mesas")}
+                    /* onClick={() => router.push("/mesas")} */
                     className="bg-tertiary font-display text-sm font-medium px-2rounded hover:text-gray-500 px-3 rounded-lg focus:outline-none"
                   >
                     Añadir mesa
@@ -408,7 +374,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
                 ) : (
                   <button
                     className="focus:outline-none font-display text-sm capitalize"
-                    onClick={() => setShow(!show)}
+                   /*  onClick={() => setShow(!show)} */
                   >
                     {value}
                   </button>
@@ -425,7 +391,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
                         className="cursor-pointer flex gap-2 items-center py-4 px-6 font-display text-sm text-gray-500 hover:bg-base hover:text-gray-700 transition w-full capitalize"
                         onClick={() => {
                           setValue(mesa.nombre_mesa);
-                          setShow(!show);
+                         /*  setShow(!show); */
                         }}
                       >
                         {mesa?.nombre_mesa}
@@ -434,14 +400,14 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
                   })}
                   <li
                     className="bg-tertiary cursor-pointer flex gap-2 items-center py-4 px-6 font-display text-sm text-gray-500 hover:bg-base hover:text-gray-700 transition w-full capitalize"
-                    onClick={() => router.push("/mesas")}
+                   /*  onClick={() => router.push("/mesas")} */
                   >
                     Añadir mesa
                   </li>
                 </ul>
               </div>
             </ClickAwayListener>
-          ); */
+          );
         },
       },
     ];
@@ -474,17 +440,17 @@ const CheckBoxAll: FC<any> = ({ check, ...rest }) => {
     dataTableGroup: { arrIDs, checkedAll },
     dispatch,
   } = DataTableGroupContextProvider();
-  //const { event, setEvent } = EventContextProvider();
-  //const toast = useToast();
+  const { event, setEvent } = EventContextProvider();
+  const toast = useToast();
   const refCheckbox: any = useRef();
 
   const getToggleAllRowsSelectedProps = () => {
-    /* const totalGuests: number = event?.invitados_array?.length;
+    const totalGuests: number = event?.invitados_array?.length;
     const guestsSelected: number = arrIDs?.length;
     return {
       checked: totalGuests > 0 && totalGuests === guestsSelected,
       indeterminate: guestsSelected > 0 && totalGuests !== guestsSelected,
-    }; */
+    };
   };
 
   const handleChange = () => {
@@ -492,13 +458,14 @@ const CheckBoxAll: FC<any> = ({ check, ...rest }) => {
   };
 
   const eliminarTodo = async () => {
-    /*  try {
+     try {
        const { invitados_array }: any = await fetchApiEventos({
          query: queries.removeGuests,
          variables: {
            eventID: event._id,
            guests: arrIDs,
          },
+         token:""
        });
        setEvent((old) => ({
          ...old,
@@ -509,17 +476,17 @@ const CheckBoxAll: FC<any> = ({ check, ...rest }) => {
      } catch (error) {
        console.log(error);
        //toast("error", "Ha ocurrido un error");
-     } */
+     }
   };
 
   const OptionList = [{ texto: "Eliminar", icono: "", funcion: eliminarTodo }];
 
-  /*   useEffect(() => {
+    useEffect(() => {
       const { indeterminate } = getToggleAllRowsSelectedProps();
       if (refCheckbox?.current?.indeterminate) {
         refCheckbox.current.indeterminate = indeterminate;
       }
-    }, [refCheckbox, arrIDs, getToggleAllRowsSelectedProps]); */
+    }, [refCheckbox, arrIDs, getToggleAllRowsSelectedProps]);
 
   return (
     <div className="h-8 w-full grid grid-cols-12 items-center">
@@ -528,7 +495,7 @@ const CheckBoxAll: FC<any> = ({ check, ...rest }) => {
           type="checkbox"
           className="rounded-full text-primary focus:ring-primary border-gray-400 cursor-pointer "
           ref={refCheckbox}
-          //{...getToggleAllRowsSelectedProps()}
+          {...getToggleAllRowsSelectedProps()}
           onChange={handleChange}
           {...rest}
         />

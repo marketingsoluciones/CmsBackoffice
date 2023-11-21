@@ -8,6 +8,42 @@ export interface PropsIcon {
   fill?: string;
 }
 
+export const IconFolderOpen: FC<PropsIcon> = (props) => {
+  return (
+    <svg
+      viewBox="0 0 576 512"
+      fill="currentColor"
+      height="1em"
+      width="1em"
+      {...props}
+    >
+      <path d="M572.6 270.3l-96 192c-5.4 10.9-16.5 17.7-29.5 17.7H64c-35.35 0-64-28.66-64-64V96c0-35.34 28.65-64 64-64h117.5c16.97 0 33.25 6.742 45.26 18.75L275.9 96H416c35.35 0 64 28.66 64 64v32h-48v-32c0-8.824-7.178-16-16-16H256l-63.2-59.31c-3-3.03-7-4.69-11.3-4.69H64c-8.82 0-16 7.18-16 16v288l71.16-142.3A31.976 31.976 0 01147.8 224H544c23.7 0 39.2 25 28.6 46.3z" />
+    </svg>
+  );
+}
+
+export const IconLocationFood: FC<PropsIcon> = (props) => {
+  return (
+    <svg
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      height="1em"
+      width="1em"
+      {...props}
+    >
+      <path d="M18 11v7a2 2 0 01-4 0v-5h-2V3a3 3 0 013-3h3v11zM4 10a2 2 0 01-2-2V1a1 1 0 012 0v4h1V1a1 1 0 012 0v4h1V1a1 1 0 012 0v7a2 2 0 01-2 2v8a2 2 0 01-4 0v-8z" />
+    </svg>
+  );
+}
+
+export const BorrarIcon: FC<PropsIcon> = (props) => {
+  return (
+    <svg width={16} height={21} viewBox="0 0 16 21" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <path d="M1.14286 18.2857C1.14286 19.5429 2.17143 20.5714 3.42857 20.5714H12.5714C13.8286 20.5714 14.8571 19.5429 14.8571 18.2857V4.57143H1.14286V18.2857ZM16 1.14286H12L10.8571 0H5.14286L4 1.14286H0V3.42857H16V1.14286Z" fill="currentColor" />
+    </svg>
+  )
+}
+
 export const FacebookIcon: FC<PropsIcon> = (props) => {
   return (
     <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">

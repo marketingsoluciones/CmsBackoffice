@@ -16,7 +16,7 @@ export const CardVeiw = ({ setOpenModal, openModal }) => {
     const optionsArry = [
         {
             icon: <CardVeiwIcon />,
-            component: <ViewCard />,
+            component: <ViewCard setOpenModal={setOpenModal} openModal={openModal} />,
             state: false
         },
         {
@@ -65,7 +65,7 @@ export const CardVeiw = ({ setOpenModal, openModal }) => {
 
                     {/* cuarpo de los componentes Swiper and table */}
 
-                    <div className=" ">
+                    <div className={`${optionSelect==0? "w-[75%]*":"w-full"}`}>
                         {optionsArry[optionSelect]?.component}
                     </div>
 
@@ -75,12 +75,12 @@ export const CardVeiw = ({ setOpenModal, openModal }) => {
     )
 }
 
-export const ViewCard = () => {
+export const ViewCard = ({ setOpenModal, openModal }) => {
     return (
-        <>
-            <SwiperEventCreados />
-            <SwiperEventAsignados />
-        </>
+        <div className="w-[75%]* ">
+            <SwiperEventCreados setOpenModal={setOpenModal} openModal={openModal} />
+            {/* <SwiperEventAsignados /> */}
+        </div>
     )
 }
 

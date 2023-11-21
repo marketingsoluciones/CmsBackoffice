@@ -1,40 +1,44 @@
 import { useState } from "react";
 import { PlusIcon, PlusCirculoIcon } from "../Icons/index"
 import DatatableGroup from "./DataTableGroups"
+import {EventContextProvider} from "../../context/EventContext"
+import ModalBottom from "../modals/ModalBottom"
+import { useDelayUnmount } from "../WeddingPlannerComponents/PresupuestoComponents/Funciones";
+import FormEditarInvitado from "../formularios/FormEditarInvitado"
 
 
-export const BlockListaInvitados = () => {
-  /* const { event } = EventContextProvider(); */
+export const BlockListaInvitados = ({set,state}) => {
+  const { event } = EventContextProvider();
   const [isMounted, setIsMounted] = useState(false);
-  /* const shouldRenderChild = useDelayUnmount(isMounted, 500); */
+  const shouldRenderChild = useDelayUnmount(isMounted, 500);
   const [invitadoSelected, setSelected] = useState(null);
   /* const toast = useToast() */
 
-  /* const handleClick = (e, click) => {
+  const handleClick = (e, click) => {
     e.preventDefault();
     set({ state: !state, click: click });
-  }; */
+  };
 
 
   return (
     <div className="bg-white  w-full shadow-lg rounded-xl  px-6 pt-6 pb-28 mb-32 md:mb-0 md:p-12 relative overflow-auto">
       <div className="flex gap-4 items-center pb-10">
         <button
-          /* onClick={(e) => handleClick(e, "invitado")} */
+          onClick={(e) => handleClick(e, "invitado")}
           className="focus:outline-none bg-rosa px-2 py-1 flex gap-2 text-white  text-sm rounded-lg items-center "
         >
           <PlusCirculoIcon />
           Invitado
         </button>
         <button
-          /* onClick={(e) => handleClick(e, "grupo")} */
+          onClick={(e) => handleClick(e, "grupo")}
           className="focus:outline-none bg-white px-2 py-1 flex gap-2 items-center  text-rosa border border-rosa  text-sm rounded-lg    "
         >
           <PlusCirculoIcon />
           Grupo
         </button>
         <button
-          /* onClick={(e) => handleClick(e, "grupo")} */
+          onClick={(e) => handleClick(e, "menu")}
           className="focus:outline-none bg-white px-2 py-1 flex gap-2 items-center  text-rosa border border-rosa  text-sm rounded-lg    "
         >
           <PlusCirculoIcon />
@@ -42,8 +46,8 @@ export const BlockListaInvitados = () => {
         </button>
 
       </div>
-      {/* {shouldRenderChild && (
-        <ModalBottom state={isMounted} set={setIsMounted}>
+     
+        {shouldRenderChild && (<ModalBottom state={isMounted} set={setIsMounted}>
           <div className="flex justify-center w-full gap-6">
             <div className="w-full md:w-5/6">
               <div className="border-l-2 border-gray-100 pl-3 my-6 w-full ">
@@ -74,11 +78,11 @@ export const BlockListaInvitados = () => {
               )}
             </div>
           </div>
-        </ModalBottom>
-      )} */}
+        </ModalBottom>)}
+     
       <div className="relative overflow-x-auto md:overflow-x-visible ">
         <DatatableGroup
-          GruposArray={""}
+          GruposArray={event?.grupos_array}
           setSelected={setSelected}
           isMounted={isMounted}
           setIsMounted={setIsMounted}

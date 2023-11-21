@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import ClickAwayListener from 'react-click-away-listener'
 
-export const ModalLeft = ({ children, state, set, ...rest }) => {
-  const [initial, setInitial] = useState("-translate-x-full")
+const ModalBottom = ({ children, state, set, ...rest }) => {
+  const [initial, setInitial] = useState("translate-y-full")
 
   useEffect(() => {
     let timeout = setTimeout(() => {
-      setInitial("translate-x-0")
+      setInitial("translate-y-0")
     }, 100);
     return () => {
       clearTimeout(timeout)
@@ -16,13 +16,12 @@ export const ModalLeft = ({ children, state, set, ...rest }) => {
 
   return (
     <>
-      <div className={`z-40 fixed top-0 left-0 w-full h-screen backdrop-filter backdrop-blur* backlayout* ${state ? "" : "hidden"} `} />
       <ClickAwayListener onClickAway={() => state && set(false)} >
         <div
-          className={`w-full sm:w-3/4 lg:w-1/3 z-50 absolute bg-white p-10 top-0 left-0 h-full md:rounded-r-2xl shadow-lg flex flex-col items-center justify-center transform transition duration-300  ${state ? initial : "-translate-x-full"} `} {...rest} >
+          className={`w-full overflow-auto no-scrollbar max-w-screen-lg h-max max-h-[90%] p-5 z-50 fixed bg-white md:px-12 py-6 bottom-0 mx-auto inset-x-0 rounded-t-3xl shadow-lg transform transition duration-300 ${state ? initial : "translate-y-full"} `} {...rest} >
           <span
             onClick={() => set(!state)}
-            className="font-display text-gray-500 hover:text-gray-300 transition cursor-pointer text-2xl absolute top-5 right-5">X</span>
+            className="hidden md:block font-display text-gray-500 hover:text-gray-300 transition cursor-pointer text-2xl absolute top-5 right-5">X</span>
           {children}
         </div>
       </ClickAwayListener>
@@ -46,3 +45,4 @@ export const ModalLeft = ({ children, state, set, ...rest }) => {
   )
 }
 
+export default ModalBottom

@@ -94,7 +94,7 @@ export const FormCrearEvento = ({ state, set }) => {
                         <label className=" text-rosa">Nombre del evento</label>
                         <InputFieldGlobal
                             name="nombre"
-                            className="focus:outline-none border-b border-gray-300  py-1 px-3 py-1 w-full truncate text-base "
+                            className="focus:outline-none border-b border-gray-300  py-1 px-3  w-full truncate text-base "
                             placeholder="Ej: cumpleaños de Lucía"
                         />
                     </div>
@@ -112,11 +112,11 @@ export const FormCrearEvento = ({ state, set }) => {
                         <label className=" text-rosa">Fecha del evento</label>
                         <InputFieldGlobal
                             name="fecha"
-                            className=" text-base focus:outline-none border-b border-gray-300  py-1 px-3 py-1 w-full truncate "
+                            className=" text-base focus:outline-none border-b border-gray-300  py-1 px-3  w-full truncate "
                             type="date"
                         />
                     </div>
-                    <div className="flex flex-col space-y-1 mb-5 md:mb-0 ">
+                   {/*  <div className="flex flex-col space-y-1 mb-5 md:mb-0 ">
                         <label className=" text-rosa">País</label>
                         <SelectField
                             name="pais"
@@ -125,14 +125,14 @@ export const FormCrearEvento = ({ state, set }) => {
                             icon={<PlusCirculoIcon />}
                             iconClassName="top-3 right-5 text-gray-600 "
                         />
-                    </div>
+                    </div> */}
                 </div>
                 <div className="flex justify-center space-x-5">
                     <button className="px-4 py-2 bg-gray-400 rounded-lg text-white" onClick={() => set(!state)} type="button">
-                        cancelar
+                        Cancelar
                     </button>
                     <button className="px-4 py-2 bg-rosa rounded-lg text-white" type="submit"  >
-                        guardar
+                        Guardar
                     </button>
                 </div>
             </Form>

@@ -400,6 +400,101 @@ export const queries = {
            }
           }
         }`,
+  eventDelete: `mutation ($eventoID : String!) {
+          borrarEvento(evento_id:$eventoID){
+            modificado
+          }
+        }`,
+  eventUpdate: `mutation ($idEvento: String!, $variable:String, $value : String){
+          editEvento(
+            evento_id: $idEvento, 
+            variable_reemplazar: $variable, 
+            valor_reemplazar: $value
+            ){
+            _id
+          }
+        }`,
+  createGuests: `mutation ($eventID: String, $guestsArray : [invitAinput]) {
+          creaInvitado(evento_id: $eventID, invitados_array: $guestsArray){
+           invitados_array{
+             _id
+             nombre
+             grupo_edad
+             correo
+             telefono
+             nombre_mesa
+             nombre_menu
+             puesto
+             asistencia
+             rol
+             correo
+             sexo
+             invitacion
+           }
+         }
+         }`,
+  editGuests: `mutation ($eventID:String, $guestID:String, $variable: String, $value:String) {
+          editInvitado(
+            evento_id:$eventID, 
+            invitado_id:$guestID, 
+            variable_reemplazar:$variable,
+            valor_reemplazar:$value){
+              _id
+              nombre
+              grupo_edad
+              correo
+              telefono
+              nombre_mesa
+              puesto
+              asistencia
+              nombre_menu
+              rol
+              correo
+              sexo
+              movil
+              poblacion
+              pais
+              direccion
+            }
+          }`,
+  removeGuests: `mutation ($eventID:String, $guests: [String]){
+          borraInvitados(evento_id:$eventID,
+          invitados_ids_array:$guests){
+            invitados_array{
+              _id
+              nombre
+              sexo
+              grupo_edad
+              correo
+              telefono
+              nombre_mesa
+              puesto
+              asistencia
+              rol
+            }
+          }
+        }`,
+  createGroup: `mutation ($eventID: String, $name: String) {
+          creaGrupo(evento_id:$eventID, nombre_grupo: $name){
+            grupos_array
+          }
+        }`,
+  createMenu: `mutation ($eventID: String, $name: String) {
+          creaMenu(evento_id:$eventID, nombre_menu: $name){
+            menus_array{
+              nombre_menu
+              tipo
+            }
+          }
+        }`,
+  deleteMenu: `mutation ($eventID: String, $name: String) {
+          borraMenu(evento_id:$eventID, nombre_menu: $name){
+            menus_array{
+              nombre_menu
+              tipo
+            }
+          }
+        }`,
 }
 
 export const FetchGraphQL = {

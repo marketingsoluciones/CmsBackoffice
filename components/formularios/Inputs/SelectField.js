@@ -2,7 +2,7 @@ import { useField } from "formik"
 import { number } from "yup"
 
 
-export const SelectField = ({ label, children, options, colSpan, className, icon, iconClassName, ...props }) => {
+export const SelectField = ({ label,  options, colSpan, className, icon, iconClassName, ...props }) => {
     const [field, meta] = useField({ name: props.name })
     return (
         <>
