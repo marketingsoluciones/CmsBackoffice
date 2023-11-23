@@ -94,8 +94,11 @@ const AuthProvider = ({ children }) => {
 
 
     setDevelopment(resp.name)
-    setDomain(resp.name)
-    console.log(55001, resp)
+    if (idx === -1 || window.origin.includes("://test")) {
+      setDomain(`${process.env.NEXT_PUBLIC_DOMINIO}`)
+    } else {
+      setDomain(`.${resp.name}.com`)
+    }
     try {
       const firebaseClient = initializeApp(resp.fileConfig);
       firebaseClient
@@ -167,7 +170,9 @@ const AuthProvider = ({ children }) => {
     getAuth().onIdTokenChanged(async user => {
       const sessionCookie = Cookies.get(config?.cookie);
       if (user && sessionCookie) {
-        Cookies.set("idToken", await user.getIdToken(), { domain: `.${domain}.com` })
+        console.log(6000, domain)
+        const dateExpire = new Date(new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000))
+        Cookies.set("idToken", await user.getIdToken(), { domain: domain, expires: dateExpire })
       }
     })
   }, [config])
