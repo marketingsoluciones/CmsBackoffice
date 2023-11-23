@@ -2,30 +2,32 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { CochinoIcon } from "../../Icons/index";
 import { getCurrency } from "./Funciones";
+import { EventContextProvider } from "../../../context/EventContext";
+import { api } from "../../../utils/api";
 
 export const MontoPresupuesto = ({ estimado }) => {
     const [modificar, setModificar] = useState(false);
-    const [value, setValue] = useState(estimado.toFixed(2));
+    const [value, setValue] = useState(estimado?.toFixed(2));
     const [mask, setMask] = useState();
-    /* const { event, setEvent, currencyState } = EventContextProvider() */
+    const { event, setEvent, currencyState } = EventContextProvider()
 
     useEffect(() => {
         setMask(getCurrency(!!value ? value : 0, "EUR"));
     }, [value, /* currencyState */]);
 
     const handleChange = (e) => {
-        /* e.preventDefault();
+        e.preventDefault();
         const r = e.target.value?.split(".")
-        setValue(parseFloat(!!r[1] ? `${r[0]}.${r[1]?.slice(0, 2)}` : e.target.value)); */
+        setValue(parseFloat(!!r[1] ? `${r[0]}.${r[1]?.slice(0, 2)}` : e.target.value));
     };
 
     const keyDown = (e) => {
-       /*  let tecla = e.key.toLowerCase();
-        (tecla == "enter" || tecla == " ") && handleBlur(); */
+        let tecla = e.key.toLowerCase();
+        (tecla == "enter" || tecla == " ") && handleBlur();
     };
 
     const handleBlur = async () => {
-        /* const params = {
+        const params = {
             query: `mutation {
         editPresupuesto(evento_id:"${event._id}", coste_estimado:${!!value ? value : 0}  ){
           coste_final
@@ -69,7 +71,7 @@ export const MontoPresupuesto = ({ estimado }) => {
         } finally {
             setModificar(false)
             setEvent(old => ({ ...old, presupuesto_objeto: datos }))
-        } */
+        }
 
     }
 

@@ -5,7 +5,6 @@ import { InputFieldGlobal } from "./Inputs/InputFieldGlobal";
 import { SelectField } from "./Inputs/SelectField";
 import * as yup from "yup";
 import { fetchApiEventos, queries } from "../../utils/Fetching";
-/* import { useToast } from "../../hooks/useToast"; */
 import { ImageProfile } from "../WeddingPlannerComponents/PresupuestoComponents/Funciones";
 import useHover from "../../hooks/useHover";
 /* import { IoMdContacts } from "react-icons/io" */
@@ -15,6 +14,7 @@ import { ForApiPeople } from "./ForApiGoogle";
 import { EventContextProvider } from "../../context/EventContext";
 import { WarningIcon } from "../Icons/index";
 import { InputField } from "./Inputs/InputField"
+import { useToast } from "../../hooks/useToast";
 
 
 const FormInvitado = ({ state, set }) => {
@@ -22,7 +22,7 @@ const FormInvitado = ({ state, set }) => {
   const [contact, setContact] = useState(null)
   const [showMedioSelectImport, setShowMedioSelectImport] = useState(false)
   const [showForApiGoogle, setShowForApiGoogle] = useState({ state: false, payload: {} })
-  /*   const toast = useToast() */
+    const toast = useToast()
   const [contactsForApiGoogle] = useImportGuest()
 
   useEffect(() => {
@@ -79,9 +79,9 @@ const FormInvitado = ({ state, set }) => {
       });
 
       setEvent((old) => ({ ...old, invitados_array: result?.invitados_array }));
-      /* toast("success", "Invitado creado con exito") */
+      toast("success", "Invitado creado con exito")
     } catch (error) {
-      /*  toast("error", `Ha ocurrido un error ${error}`) */
+       toast("error", `Ha ocurrido un error ${error}`)
       console.log(error);
     } finally {
       actions.setSubmitting(false);

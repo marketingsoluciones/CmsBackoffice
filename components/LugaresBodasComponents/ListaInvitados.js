@@ -3,15 +3,25 @@ import { VistaSinDatos } from "../VistaSinDatos"
 import { ListaInvitadosTable } from "./ListaInvitadosComponents/ListaInvitadosTable"
 import { AddListaInvitados } from "./ListaInvitadosComponents/AddListaInvitados"
 import { InfoListaInvitadosPage } from "./ListaInvitadosComponents/InfoListaInvitadosPage"
+import { EventContextProvider } from "../../context/EventContext"
+import { useEffect } from "react"
 
 export const ListaInvitados = () => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
+    const { event } = EventContextProvider()
+
+    useEffect(() => {
+        if (event.invitados_array.length != 0){
+            setState(false)
+        }
+    }, [event])
+   
 
     const dataComponents = [
         {
-            component: <ListaInvitadosTable  setActionButton={setOptionSelect} />
+            component: <ListaInvitadosTable setActionButton={setOptionSelect} />
         },
         {
             component: <AddListaInvitados />

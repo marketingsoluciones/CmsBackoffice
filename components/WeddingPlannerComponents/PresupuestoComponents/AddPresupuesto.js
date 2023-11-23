@@ -5,76 +5,59 @@ import { MontoPresupuesto } from "./MontoPresupuesto";
 import { CostoFinalPresupuesto } from "./CostoFinalPresupuesto"
 import Grafico from "./Grafico";
 import { BlockPagos } from "./BlockPagos";
+import { EventContextProvider } from "../../../context/EventContext";
+import { AuthContextProvider } from "../../../context/AuthContext";
+import { useEffect } from "react";
+import BlockCategoria from "./BlockCategoria";
 
 export const AddPresupuesto = ({ setOptionSelect }) => {
-    const categorias = [
-        {
-            coste_estimado: 10,
-            coste_final: 5,
-            gastos_array: [
-                {
-                    coste_estimado: 0,
-                    coste_final: 0,
-                    nombre: "alquiler del salón",
-                    pagado: 0,
-                    pagos_array: [],
-                    _id: "652820865de8dd8d15311c38"
 
-                },
-            ],
-            nombre: "salón de fiesta",
-            pagado: 0,
-            _id: "652820865de8dd8d15311c37"
-        },
-        {
-            coste_estimado: 20,
-            coste_final: 10,
-            gastos_array: [
-                {
-                    coste_estimado: 0,
-                    coste_final: 0,
-                    nombre: "alquiler",
-                    pagado: 0,
-                    pagos_array: [],
-                    _id: "652820865de8dd8d15311c39"
-
-                },
-            ],
-            nombre: "banquete",
-            pagado: 0,
-            _id: "652820865de8dd8d15311c38"
-        },
-    ]
-
-    const [active, setActive] = useState(true);
     const [showCategoria, setShowCategoria] = useState({
         isVisible: false,
         id: "",
     });
+    const { event } = EventContextProvider();
+    const [active, setActive] = useState(true);
+    const [categorias, setCategorias] = useState([]);
+    const { user, verificationDone } = AuthContextProvider()
+
+    useEffect(() => {
+        setCategorias(event?.presupuesto_objeto?.categorias_array)
+    }, [event])
+
+    useEffect(() => {
+        const condicion = event?.presupuesto_objeto?.categorias_array?.findIndex(item => item._id == showCategoria.id)
+        condicion == -1 && setShowCategoria({ isVisible: false, id: "" })
+    }, [event?.presupuesto_objeto?.categorias_array, showCategoria?.id])
+
 
     return (
-        <section >
+        <section className="h-[100vh]" >
             <button type="button" onClick={() => setOptionSelect(0)}>
                 volver
             </button>
             <OpcionesPresupuesto setActive={setActive} active={active} />
             {active ? (
-                <div className="grid md:grid-cols-3 w-full gap-6 pt-2 pl-3 pr-3 md:pr-0 pb-4">
+                <div className="grid md:grid-cols-3 w-full h-[calc(100%-150px)] gap-6 pt-2 pl-3 pr-3 md:pr-0 pb-4 overflow-auto">
                     <BlockListaCategorias
+                        set={(act) => setShowCategoria(act)}
                         categorias_array={categorias}
                     />
                     <div className="md:col-span-2 w-full flex flex-col relative">
                         {
                             showCategoria.isVisible ? (
-                                <>
-                                </>
+                               
+                                <BlockCategoria
+                                    set={(act) => setShowCategoria(act)}
+                                    cate={showCategoria?.id}
+                                />
                             ) : (
                                 <>
                                     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                                         <div className=" bg-white shadow-md rounded-xl grid place-items-center p-4">
                                             <MontoPresupuesto
                                                 estimado={
-                                                    0
+                                                    event?.presupuesto_objeto?.coste_estimado
                                                 }
                                             />
                                         </div>
@@ -93,7 +76,7 @@ export const AddPresupuesto = ({ setOptionSelect }) => {
                     </div>
                 </div>
             ) :
-                <BlockPagos categorias={categorias}/>
+                <BlockPagos categorias={categorias} />
             }
 
         </section >

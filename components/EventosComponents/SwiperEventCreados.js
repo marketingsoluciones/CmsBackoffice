@@ -97,6 +97,7 @@ export const SwiperEventCreados = ({ setOpenModal, openModal }) => {
                                         <Swiper
                                             initialSlide={idxNew < 0 ? idxGroupEvent?.idx - 2 : idxNew - 2}
                                             pagination={{ clickable: true }}
+                                            modules={[Navigation, Autoplay, Pagination]}
                                             breakpoints={{
                                                 0: {
                                                     slidesPerView: 1,
@@ -113,7 +114,7 @@ export const SwiperEventCreados = ({ setOpenModal, openModal }) => {
                                                 group?.data?.map((evento, idx) => (
                                                     <SwiperSlide
                                                         key={idx}
-                                                        className="flex items-center justify-center px-8"
+                                                        className="flex items-center justify-center pl-8"
                                                         onClick={() => { setIdxGroupEvent({ idx, isActiveStateSwiper, event_id: evento._id }) }}
                                                     >
                                                         <CardComponent data={group?.data} grupoStatus={group?.status} idx={idx} />
@@ -129,10 +130,9 @@ export const SwiperEventCreados = ({ setOpenModal, openModal }) => {
                                                     </div>
                                                 </SwiperSlide> :
                                                 <SwiperSlide
-                                                    className={`flex items-center justify-center`}
+                                                    className={`flex items-center justify-center pl-8`}
                                                 >
                                                     <CardCreateEvent setOpenModal={setOpenModal} openModal={openModal} />
-                                                    {/* <CardEmpty state={state} set={setNewEvent} /> */}
                                                 </SwiperSlide>
                                             }
                                         </Swiper>

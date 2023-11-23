@@ -7,10 +7,11 @@ import { fetchApiEventos, queries } from "../../utils/Fetching";
 import { AuthContextProvider } from "../../context/AuthContext";
 import { EventsGroupContextProvider } from "../../context/EventsGroupContext";
 import { useState } from "react";
+import { useToast } from "../../hooks/useToast"
 export const FormCrearEvento = ({ state, set }) => {
     const { user } = AuthContextProvider()
-  const { setEventsGroup, eventsGroup } = EventsGroupContextProvider();
-
+    const { setEventsGroup, eventsGroup } = EventsGroupContextProvider();
+    const toast = useToast()
     const [valir, setValir] = useState(false)
 
 
@@ -50,9 +51,9 @@ export const FormCrearEvento = ({ state, set }) => {
                 setEventsGroup({ type: "ADD_EVENT", payload: crearEvento });
 
             }
-           /*  toast("success", "Evento creado con exito"); */
+            toast("success", "Evento creado con exito");
         } catch (error) {
-            /* toast("error", "Ha ocurrido un error al crear el evento"); */
+            toast("error", "Ha ocurrido un error al crear el evento");
             console.log(error);
         } finally {
             set(!state);
@@ -116,7 +117,7 @@ export const FormCrearEvento = ({ state, set }) => {
                             type="date"
                         />
                     </div>
-                   {/*  <div className="flex flex-col space-y-1 mb-5 md:mb-0 ">
+                    {/*  <div className="flex flex-col space-y-1 mb-5 md:mb-0 ">
                         <label className=" text-rosa">País</label>
                         <SelectField
                             name="pais"

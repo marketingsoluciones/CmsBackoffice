@@ -3,7 +3,7 @@ import { EventContextProvider } from "../../context/EventContext";
 import { InputFieldGlobal } from "./Inputs/InputFieldGlobal";
 /* import * as yup from "yup"; */
 import { fetchApiEventos, queries } from "../../utils/Fetching";
-/* import { useToast } from "../../hooks/useToast"; */
+import { useToast } from "../../hooks/useToast";
 
 /* const validationSchema = yup.object().shape({
   nombre: yup.string().required(),
@@ -15,8 +15,7 @@ const initialValues = {
 
 const FormCrearGrupo = ({ set, state }) => {
   const { event, setEvent } = EventContextProvider();
-  /*  const toast = useToast();
-  */
+   const toast = useToast();
   const handleSubmit = async (values, actions) => {
     try {
       const { grupos_array } = await fetchApiEventos({
@@ -30,10 +29,10 @@ const FormCrearGrupo = ({ set, state }) => {
         ...old,
         grupos_array,
       }));
-      /* toast("success", "Grupo creado con exito"); */
+      toast("success", "Grupo creado con exito");
     } catch (error) {
       console.log(error);
-      /* toast("error", "Ha ocurrido un error al crear el grupo"); */
+      toast("error", "Ha ocurrido un error al crear el grupo");
     } finally {
       set(!state);
       actions.setSubmitting(false);

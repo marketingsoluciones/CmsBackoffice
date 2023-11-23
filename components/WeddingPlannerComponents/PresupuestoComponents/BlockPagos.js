@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useTable } from "react-table";
-/* import { EventContextProvider } from "../../context"; */
-/* import FormEditarPago from "../Forms/FormEditarPago"; */
-/* import { EditarIcon } from "../icons"; */
-/* import { capitalize } from '../../utils/Capitalize'; */
-import { getCurrency, capitalize } from "./Funciones";
+import { EventContextProvider } from "../../../context/EventContext";
+import FormEditarPago from "../../formularios/FormEditarPago";
+import { EditarIcon } from "../../Icons/index";
+import { capitalize } from '../../../utils/Capitalize';
+import { getCurrency } from "./Funciones";
 
 
 export const BlockPagos = ({categorias}) => {
@@ -30,9 +30,9 @@ export const BlockPagos = ({categorias}) => {
 
 
 
-const TablaDatosPagos = ({categorias}) => {
-    /* const { event, currencyState } = EventContextProvider() */
-    /* const categorias = event?.presupuesto_objeto?.categorias_array; */
+const TablaDatosPagos = () => {
+    const { event, currencyState } = EventContextProvider()
+    const categorias = event?.presupuesto_objeto?.categorias_array;
     const [PagosOrFormAdd, setShowPagos] = useState(true)
     const [PagoID, setPagoID] = useState("")
 
@@ -210,17 +210,17 @@ const DataTable = ({ columns, data }) => {
         <div className="w-full  ">
             <table {...getTableProps()} className="table w-full rounded-lg relative overflow-x-auto    ">
                 <thead className="w-full  ">
-                    {headerGroups.map((headerGroup, id) => (
+                    {headerGroups.map((headerGroup, id, idx) => (
                         <tr
                           /*   {...headerGroup.getHeaderGroupProps()} */
                             className="w-full grid grid-cols-4 md:grid-cols-8 py-2 bg-gray-100 uppercase"
-                            key={id}
+                            key={idx}
                         >
                             {headerGroup.headers.map((column, idx, id) => (
                                 <th
                                     /* {...column.getHeaderProps()} */
                                     className={`font-display  font-light text-gray-500 text-sm col-span-${colSpanMovil[idx]} md:col-span-${colSpan[idx]} `}
-                                    key={id}
+                                    key={idx}
                                 >
                                     {column.render("Header")}
                                 </th>
@@ -229,13 +229,13 @@ const DataTable = ({ columns, data }) => {
                     ))}
                 </thead>
                 <tbody {...getTableBodyProps()} className="text-gray-500 text-sm  overflow-x-auto   ">
-                    {rows.length >= 1 ? rows.map((row, id) => {
+                    {rows.length >= 1 ? rows.map((row, id, idx) => {
                         prepareRow(row);
                         return (
                             <tr
                                 {...row.getRowProps()}
-                                className="w-full transition border-b border-base hover:bg-base cursor-pointer w-full grid grid-cols-5* md:grid-cols-8 "
-                                key={id}
+                                className=" transition border-b border-base hover:bg-base cursor-pointer w-full grid grid-cols-5* md:grid-cols-8 "
+                                key={idx}
                             >
                                 {row.cells.map((cell, idx) => {
                                     return (
@@ -250,7 +250,7 @@ const DataTable = ({ columns, data }) => {
                                 })}
                             </tr>
                         );
-                    }) : <tr className="w-full transition border-b border-base hover:bg-base cursor-pointer w-full grid place-items-center">
+                    }) : <tr className=" transition border-b border-base hover:bg-base cursor-pointer w-full grid place-items-center">
                         <td className="py-5 font-display text-lg text-gray-500 uppercase ">No hay pagos asociados</td></tr>}
                 </tbody>
             </table>

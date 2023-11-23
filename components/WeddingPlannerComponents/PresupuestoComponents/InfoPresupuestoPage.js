@@ -3,7 +3,7 @@ export const InfoPresupuestoPage = ({actionButton, setActionButton}) => {
     const router = useRouter()
     return (
         <>
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+            <p className=" mt-1 text-3xl text-rosa">
                 Presupuestos
             </p>
             <div className="bg-white rounded-lg">
@@ -16,7 +16,7 @@ export const InfoPresupuestoPage = ({actionButton, setActionButton}) => {
                             Maximiza tu presupuesto y optimiza tus recursos con la ayuda del EventosOrganizador.
                         </p>
                         <div className="text-base">
-                            <button onClick={()=> false? setActionButton(!actionButton): router.push("/facturacion") } className="bg-rosa rounded-lg text-white px-3 py-0.5">
+                            <button onClick={()=> true? setActionButton(!actionButton): router.push("/facturacion") } className="bg-rosa rounded-lg text-white px-3 py-0.5">
                                 Gestionar presupuestos
                             </button>
                         </div>

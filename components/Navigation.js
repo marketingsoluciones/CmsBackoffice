@@ -159,7 +159,7 @@ const MySearchBox = ({ currentRefinement, refine, show, setShow, setShowValir })
   return (
     <>
       <ClickAwayListener onClickAway={() => {
-        refine("")
+        /* refine("") */
         setShow(false)
         setShowValir(false)
       }}>

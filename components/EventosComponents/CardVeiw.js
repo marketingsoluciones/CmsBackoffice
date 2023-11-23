@@ -8,7 +8,7 @@ import { AuthContextProvider } from "../../context/AuthContext";
 import GlobalFilter from "../Datatable/GlobalFilter";
 
 export const CardVeiw = ({ setOpenModal, openModal }) => {
-    const [optionSelect, setOptionSelect] = useState(1)
+    const [optionSelect, setOptionSelect] = useState(0)
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
 
@@ -77,7 +77,7 @@ export const CardVeiw = ({ setOpenModal, openModal }) => {
 
 export const ViewCard = ({ setOpenModal, openModal }) => {
     return (
-        <div className="w-[75%]* ">
+        <div className=" ">
             <SwiperEventCreados setOpenModal={setOpenModal} openModal={openModal} />
             {/* <SwiperEventAsignados /> */}
         </div>
