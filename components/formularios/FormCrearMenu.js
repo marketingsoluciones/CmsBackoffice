@@ -4,7 +4,7 @@ import { EventContextProvider } from "../../context/EventContext";
 import { InputFieldGlobal } from "./Inputs/InputFieldGlobal";
 /* import * as yup from "yup"; */
 import { fetchApiEventos, queries } from "../../utils/Fetching";
-/* import { useToast } from "../../hooks/useToast"; */
+import { useToast } from "../../hooks/useToast";
 import { BorrarIcon, IconLocationFood } from "../Icons/index"
 
 /* const validationSchema = yup.object().shape({
@@ -18,7 +18,7 @@ const initialValues = {
 
 const FormCrearMenu = ({ set, state }) => {
   const { event, setEvent } = EventContextProvider();
-  /* const toast = useToast(); */
+  const toast = useToast();
 
   const handleSubmit = async (values, actions) => {
     try {
@@ -34,10 +34,10 @@ const FormCrearMenu = ({ set, state }) => {
         ...old,
         menus_array,
       }));
-      /* toast("success", "Menú creado con exito"); */
+      toast("success", "Menú creado con exito");
     } catch (error) {
       console.log(error);
-      /*  toast("error", "Ha ocurrido un error al crear el grupo"); */
+       toast("error", "Ha ocurrido un error al crear el grupo");
     } finally {
       actions.resetForm()
     }

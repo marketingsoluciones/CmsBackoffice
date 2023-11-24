@@ -2,8 +2,11 @@ import { Formik, Form } from "formik"
 import { InputFieldGlobal } from "../formularios/Inputs/InputFieldGlobal"
 import { SelectField } from "../formularios/Inputs/SelectField"
 import { ArrowDownIcon } from "../Icons/index"
+import * as Yup from "yup";
+import { useToast } from "../../hooks/useToast"
 
 export const DatosFacturacion = ({ actionButtton }) => {
+    const toast = useToast()
 
     const initialValues = {
         nombre: "",
@@ -19,9 +22,18 @@ export const DatosFacturacion = ({ actionButtton }) => {
         MetodoPago: "",
         calle: "",
     }
+    const validation = Yup.object(
+        {
+          nombre: Yup.string().required("Campo requerido"),
+          apellido: Yup.string().required("Campo requerido"),
+          email: Yup.string().required("Campo requerido"),
+          nombreCompañia: Yup.string().required("Campo requerido"),
+        }
+      )
 
-    const handleSubmit = (values) => {
-        console.log(values)
+    const handleSubmit = (values, { resetForm }) => {
+        resetForm({ value: '' })
+        toast("success", "Tus datos han sido guardados")
     }
 
     const pr = [
@@ -35,6 +47,7 @@ export const DatosFacturacion = ({ actionButtton }) => {
             <Formik
                 initialValues={initialValues}
                 onSubmit={handleSubmit}
+                validationSchema={validation}
             >
                 {
                     ({ values }) => (
