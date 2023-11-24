@@ -1,15 +1,14 @@
 import { Form, Formik, Field } from "formik"
 import { InputFieldGlobal } from "./Inputs/InputFieldGlobal"
 import { TextareaFieldSimple } from "./Inputs/TextareaFieldSimple"
+import { AuthContextProvider } from "../../context/AuthContext"
 
 export const ContactarGold = ({ setOpenModal, openModal }) => {
 
-
-
+    const { user } = AuthContextProvider()
+    console.log(user)
     const initialValues = {
-        emails: "",
-        asunto: "",
-        mensaje: ""
+        emails: user?.email,
     }
 
     const handelsumbit = () => {
@@ -30,14 +29,14 @@ export const ContactarGold = ({ setOpenModal, openModal }) => {
                     <Formik initialValues={initialValues} onSubmit={handelsumbit}>
                         <Form>
                             <div className="space-y-7">
-                                <div className="flex flex-col space-y-1 my-5 md:mb-0 ">
+                               {/*  <div className="flex flex-col space-y-1 my-5 md:mb-0 ">
                                     <label className="text-gray-500 text-base">Selecciona la versión que deseas</label>
                                     <div className="space-x-2 flex itmes-center" >
 
                                         <Field type="checkbox" name="checked" value={"landingPage"} className="" />
                                         <label className="text-base text-gray-700">Landing page</label>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="flex flex-col space-y-1 my-5 md:mb-0 ">
                                     <label className="text-gray-500 text-base">Correo eléctronico</label>
                                     <InputFieldGlobal

@@ -13,7 +13,7 @@ export const ListaInvitados = () => {
     const { event } = EventContextProvider()
 
     useEffect(() => {
-        if (event.invitados_array.length != 0){
+        if (event?.invitados_array?.length != 0){
             setState(false)
         }
     }, [event])
