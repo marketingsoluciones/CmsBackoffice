@@ -2,7 +2,7 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { Avatar, Flex, MenuButton, Menu, MenuList, Text, IconButton, Center, Image } from "@chakra-ui/react";
 import Link from 'next/link';
 import { useAuthentication } from "../utils/Authentication";
-import { SearchIcon, CloseIcon, TarjetaIcon, UserMenuIcon, RegaloIcon, SalirIcon, CorazonPaddinIcon } from "../components/Icons/index";
+import { SearchIcon, CloseIcon, TarjetaIcon, UserMenuIcon, RegaloIcon, SalirIcon, CorazonPaddinIcon, RedireccionIcon } from "../components/Icons/index";
 import algoliasearch from "algoliasearch";
 import { InstantSearch, connectSearchBox, Hits } from "react-instantsearch-dom";
 import { createURL } from "../utils/UrlImage"
@@ -55,13 +55,17 @@ export const Navigation = ({ set, state, }) => {
       ]
     },
     {
-
       title: "",
       children: [
         {
           icon: <CorazonPaddinIcon />,
-          title: "volver a bodas de hoy",
+          title: "Volver a Bodasdehoy.com",
           rout: window.origin.includes("://test") ? process.env.NEXT_PUBLIC_DIRECTORY?.replace("//", "//test.") : process.env.NEXT_PUBLIC_DIRECTORY
+        },
+        {
+          icon: <RedireccionIcon/>,
+          title: "Ir a AppBodasdehoy.com",
+          rout: window.origin.includes("://test") ? process.env.NEXT_PUBLIC_EVENTSAPP?.replace("//", "//test.") : process.env.NEXT_PUBLIC_EVENTSAPP
         },
         {
           icon: <SalirIcon />,
@@ -75,7 +79,7 @@ export const Navigation = ({ set, state, }) => {
 
 
   return (
-    <Flex bg={"white"} shadow={"sm"} w={"100%"} padding={"0.5rem"}>
+    <Flex bg={"white"} shadow={"sm"} w={"100%"} padding={"0.5rem"} className="z-50" >
       <Flex alignItems={"center"} justifyContent={"space-between"} w={"100%"} gap={{ base: "1", md: "4" }} >
         <IconButton onClick={() => set(!state)}>
           <HamburgerIcon w={"1.5rem"} h={"1.5rem"} color={"gray.500"} />
