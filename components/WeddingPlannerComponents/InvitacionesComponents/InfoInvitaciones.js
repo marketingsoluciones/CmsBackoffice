@@ -5,7 +5,7 @@ export const InfoInvitaciones = () => {
     const router = useRouter()
     return (
         <>
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+            <p className="  mt-1 text-3xl text-rosa">
                 Invitaciones
             </p>
             <div className="bg-white rounded-t-lg flex flex-col items-center py-10 space-y-5">
@@ -16,11 +16,18 @@ export const InfoInvitaciones = () => {
                     </div>
                     <div className="space-y-2 flex flex-col items-center justify-center pr-20">
                         <p className="text-base">Eleva el confort en la comunicación con tu lista de invitados. Ahora tus invitaciones te brindan el canal perfecto <span className="text-rosa"> para que tus invitados confirmen su asistencia o comenten a través de ellas. </span></p>
-                       {/*  <div className="w-full">
-                            <button onClick={() => ""} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
-                                Inicia prueba gratis de 30 días
+                        <div className="w-full">
+                            <button onClick={() => router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "56",
+                                        plan: "basic"
+                                    }
+                                })} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
+                                {/* Inicia prueba gratis de 30 días */} Empezar
                             </button>
-                        </div> */}
+                        </div>
                         <div className=" flex items-center space-x-1 my-2 text-base cursor-default w-full">
                             <div className="text-amarillo">
                                 <CorazoncirculoIcon />
@@ -33,14 +40,14 @@ export const InfoInvitaciones = () => {
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "weddingPlanner",
+                                        producto: "56",
                                         plan: "basic"
                                     }
                                 })} > BÁSICA O </span> <span className="text-amarillo cursor-pointer" onClick={() => router.push({
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "weddingPlanner",
+                                        producto: "56",
                                         plan: "premium"
                                     }
                                 })} >PREMIUM </span>

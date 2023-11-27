@@ -26,7 +26,7 @@ export const ItinerarioInfoPage = ({setOptionSelect}) => {
 
     return (
         <>
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+            <p className="mt-1 text-3xl text-rosa">
                 Intinerarios
             </p>
             <div className="bg-white rounded-lg">
@@ -60,9 +60,16 @@ export const ItinerarioInfoPage = ({setOptionSelect}) => {
                         </p>
                     </div>
                     <div className="flex flex-col justify-center items-center">
-                        {/* <button onClick={() => setOptionSelect(0)} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
-                            Inicia prueba gratis de 30 días
-                        </button> */}
+                        <button onClick={() => /* setOptionSelect(0) */ router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "12",
+                                        plan: "basic"
+                                    }
+                                }) } className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
+                            {/* Inicia prueba gratis de 30 días */} Empezar
+                        </button>
                         <div className=" flex items-center justify-center space-x-1 my-2 text-base cursor-default">
                             <div className="text-amarillo">
                                 <CorazoncirculoIcon />
@@ -75,14 +82,14 @@ export const ItinerarioInfoPage = ({setOptionSelect}) => {
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "weddingPlanner",
+                                        producto: "12",
                                         plan: "basic"
                                     }
                                 })}> BÁSICA</span> O <span className="font-semibold text-amarillo cursor-pointer " onClick={() => router.push({
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "weddingPlanner",
+                                        producto: "12",
                                         plan: "premium"
                                     }
                                 })}> PREMIUM </span>

@@ -6,7 +6,7 @@ export const InfoCartaProducto = ({actionButton, setActionButton}) => {
     const router = useRouter()
     return (
         <>
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+            <p className=" mt-1 text-3xl text-rosa">
                 Carta de productos
             </p>
             <div className="flex flex-col items-center bg-white rounded-lg pt-8">
@@ -20,7 +20,14 @@ export const InfoCartaProducto = ({actionButton, setActionButton}) => {
                             <span className="text-rosa">Genera tu propia carta de productos</span> añadiendo platos y bebidas de tu restaurante para crear el menú de cada uno de sus eventos.
                         </p>
                         <div>
-                            <button onClick={()=>{false? setActionButton(!actionButton): router.push("/facturacion")}} className="bg-rosa rounded-lg px-4 py-1 text-white text-base">
+                            <button onClick={()=>{false? setActionButton(!actionButton): router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "34",
+                                        plan: "basic"
+                                    }
+                                })}} className="bg-rosa rounded-lg px-4 py-1 text-white text-base">
                                 Crear carta de productos
                             </button>
                         </div>

@@ -7,6 +7,9 @@ export const InfoModuloFacturacion = ({ dataArry, actionButtton, producto, plan 
     const [viewInfo, setViewInfo] = useState()
     const [optionSelect, setOptionSelect] = useState(null)
 
+    const findProducto = dataArry.find(({ id }) => id === producto)
+
+   
 
     const info = [
         {
@@ -81,7 +84,318 @@ export const InfoModuloFacturacion = ({ dataArry, actionButtton, producto, plan 
                     </div>
                 </div>
 
-                {
+                {(() => {
+                    if (findProducto != undefined) {
+                        return (
+                            <div  className="flex justify-center bg-white rounded-lg px-5 py-5 space-x-4">
+                                {(() => {
+                                    if (optionSelect !== findProducto.idPremium) {
+                                        return (
+                                            <div>
+                                                <img src={findProducto.icon} alt={findProducto.title} />
+                                            </div>
+                                        )
+                                    }
+                                    if (optionSelect == findProducto.idPremium) {
+                                        return (
+                                            <div>
+                                                <img src={findProducto.iconPremium} alt={findProducto.title} />
+                                            </div>
+                                        )
+                                    }
+                                })()}
+
+                                <div className="border-r-2 w-[70%] space-y-2 ">
+                                    <div className="flex space-x-3 w-[50%] justify-between">
+                                        <p className="text-xl">{findProducto.title}</p>
+                                        <div className="text-base flex items-center ">
+                                            <button onClick={() => setOptionSelect(findProducto.idBasco)} className={` border rounded-l-md p-1 ${optionSelect !== findProducto.idPremium ? "border-rosa text-rosa bg-gray-100  transition delay-80" : ""}`}>
+                                                basico
+                                            </button>
+                                            <button onClick={() => setOptionSelect(findProducto.idPremium)} className={` border rounded-r-md p-1 ${optionSelect == findProducto.idPremium ? "text-white bg-rosa" : ""}`}>
+                                                premium
+                                            </button>
+                                        </div>
+                                    </div>
+                                    {(() => {
+                                        if (optionSelect !== findProducto.idPremium) {
+                                            return (
+                                                <p className="text-base">{findProducto.text}</p>
+                                            )
+                                        }
+                                        if (optionSelect == findProducto.idPremium) {
+                                            return (
+                                                <p className="text-base w-[80%]">{findProducto.textPremium}</p>
+                                            )
+                                        }
+                                    })()}
+
+                                    {(() => {
+                                        if (optionSelect !== findProducto.idPremium) {
+                                            return (
+                                                <div className="grid grid-cols-3">
+                                                    {
+                                                        findProducto?.infoBasico?.map((item, idx) => {
+                                                            return (
+                                                                <div key={idx} className="relative"  >
+                                                                    <InfoModulos data={item} viewInfo={viewInfo} setViewInfo={setViewInfo} />
+                                                                    {
+                                                                        viewInfo == item.id ? (
+
+                                                                            <ModalInfoModulo data={item} setViewInfo={setViewInfo} viewInfo={viewInfo} />
+                                                                        ) : null
+                                                                    }
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
+                                            )
+                                        }
+                                        if (optionSelect == findProducto.idPremium) {
+                                            return (
+                                                <div className="grid grid-cols-3">
+                                                    {
+                                                        findProducto?.infoPremium?.map((item, idx) => {
+
+                                                            return (
+                                                                <div key={idx} className="relative" >
+                                                                    <InfoModulos data={item} viewInfo={viewInfo} setViewInfo={setViewInfo} />
+                                                                    {
+                                                                        viewInfo == item.id ? (
+
+                                                                            <ModalInfoModulo data={item} setViewInfo={setViewInfo} viewInfo={viewInfo} />
+                                                                        ) : null
+                                                                    }
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
+                                            )
+                                        }
+                                    })()}
+
+                                </div>
+                                <div className="flex flex-col justify-center space-y-2 items-end pl-16">
+                                    {(() => {
+                                        if (optionSelect !== findProducto.idPremium) {
+                                            return (
+                                                <>
+                                                    <p className="text-end w-40 text-base">
+                                                        {findProducto.tituloEstatus}
+                                                    </p>
+                                                    <p className="text-base font-semibold">
+                                                        {findProducto.precio}
+                                                    </p>
+                                                </>
+                                            )
+                                        }
+                                        if (optionSelect == findProducto.idPremium) {
+                                            return (
+                                                <p className="">
+                                                    {findProducto.precioPremium}
+                                                </p>
+                                            )
+                                        }
+                                    })()}
+
+                                    {(() => {
+                                        if (optionSelect !== findProducto.idPremium) {
+                                            return (
+                                                <Link href={`${findProducto.pagoBasico}`} _blank>
+                                                    <button className="text-base w-48 bg-rosa text-white rounded-lg  py-0.5">
+                                                        {
+                                                            findProducto.buttonAdd
+                                                        }
+                                                    </button>
+                                                </Link>
+                                            )
+                                        }
+                                        if (optionSelect == findProducto.idPremium) {
+                                            return (
+                                                <Link href={`${findProducto.pagoPremium}`} _blank>
+                                                    <button className="text-base w-48 bg-rosa text-white rounded-lg  py-0.5">
+                                                        {
+                                                            findProducto.buttonAdd
+                                                        }
+                                                    </button>
+                                                </Link>
+                                            )
+                                        }
+                                    })()}
+
+                                    {/* <div className="flex items-center justify-center space-x-2 text-base">
+                                            {item.iconoVideo}
+                                            <p>
+                                                {item.video}
+                                            </p>
+                                        </div> */}
+                                </div>
+                            </div>
+
+
+                        )
+                    } else {
+                        return (
+
+                            dataArry.map((item, idx) => {
+                                return (
+                                    <div key={idx} className="flex justify-center bg-white rounded-lg px-5 py-5 space-x-4">
+                                        {(() => {
+                                            if (optionSelect !== item.idPremium) {
+                                                return (
+                                                    <div>
+                                                        <img src={item.icon} alt={item.title} />
+                                                    </div>
+                                                )
+                                            }
+                                            if (optionSelect == item.idPremium) {
+                                                return (
+                                                    <div>
+                                                        <img src={item.iconPremium} alt={item.title} />
+                                                    </div>
+                                                )
+                                            }
+                                        })()}
+
+                                        <div className="border-r-2 w-[70%] space-y-2 ">
+                                            <div className="flex space-x-3 w-[50%] justify-between">
+                                                <p className="text-xl">{item.title}</p>
+                                                <div className="text-base flex items-center ">
+                                                    <button onClick={() => setOptionSelect(item.idBasco)} className={` border rounded-l-md p-1 ${optionSelect !== item.idPremium ? "border-rosa text-rosa bg-gray-100  transition delay-80" : ""}`}>
+                                                        basico
+                                                    </button>
+                                                    <button onClick={() => setOptionSelect(item.idPremium)} className={` border rounded-r-md p-1 ${optionSelect == item.idPremium ? "text-white bg-rosa" : ""}`}>
+                                                        premium
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            {(() => {
+                                                if (optionSelect !== item.idPremium) {
+                                                    return (
+                                                        <p className="text-base">{item.text}</p>
+                                                    )
+                                                }
+                                                if (optionSelect == item.idPremium) {
+                                                    return (
+                                                        <p className="text-base w-[80%]">{item.textPremium}</p>
+                                                    )
+                                                }
+                                            })()}
+
+                                            {(() => {
+                                                if (optionSelect !== item.idPremium) {
+                                                    return (
+                                                        <div className="grid grid-cols-3">
+                                                            {
+                                                                item?.infoBasico?.map((item, idx) => {
+                                                                    return (
+                                                                        <div key={idx} className="relative"  >
+                                                                            <InfoModulos data={item} viewInfo={viewInfo} setViewInfo={setViewInfo} />
+                                                                            {
+                                                                                viewInfo == item.id ? (
+
+                                                                                    <ModalInfoModulo data={item} setViewInfo={setViewInfo} viewInfo={viewInfo} />
+                                                                                ) : null
+                                                                            }
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                    )
+                                                }
+                                                if (optionSelect == item.idPremium) {
+                                                    return (
+                                                        <div className="grid grid-cols-3">
+                                                            {
+                                                                item?.infoPremium?.map((item, idx) => {
+
+                                                                    return (
+                                                                        <div key={idx} className="relative" >
+                                                                            <InfoModulos data={item} viewInfo={viewInfo} setViewInfo={setViewInfo} />
+                                                                            {
+                                                                                viewInfo == item.id ? (
+
+                                                                                    <ModalInfoModulo data={item} setViewInfo={setViewInfo} viewInfo={viewInfo} />
+                                                                                ) : null
+                                                                            }
+                                                                        </div>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                    )
+                                                }
+                                            })()}
+
+                                        </div>
+                                        <div className="flex flex-col justify-center space-y-2 items-end pl-16">
+                                            {(() => {
+                                                if (optionSelect !== item.idPremium) {
+                                                    return (
+                                                        <>
+                                                            <p className="text-end w-40 text-base">
+                                                                {item.tituloEstatus}
+                                                            </p>
+                                                            <p className="text-base font-semibold">
+                                                                {item.precio}
+                                                            </p>
+                                                        </>
+                                                    )
+                                                }
+                                                if (optionSelect == item.idPremium) {
+                                                    return (
+                                                        <p className="">
+                                                            {item.precioPremium}
+                                                        </p>
+                                                    )
+                                                }
+                                            })()}
+
+                                            {(() => {
+                                                if (optionSelect !== item.idPremium) {
+                                                    return (
+                                                        <Link href={`${item.pagoBasico}`} _blank>
+                                                            <button className="text-base w-48 bg-rosa text-white rounded-lg  py-0.5">
+                                                                {
+                                                                    item.buttonAdd
+                                                                }
+                                                            </button>
+                                                        </Link>
+                                                    )
+                                                }
+                                                if (optionSelect == item.idPremium) {
+                                                    return (
+                                                        <Link href={`${item.pagoPremium}`} _blank>
+                                                            <button className="text-base w-48 bg-rosa text-white rounded-lg  py-0.5">
+                                                                {
+                                                                    item.buttonAdd
+                                                                }
+                                                            </button>
+                                                        </Link>
+                                                    )
+                                                }
+                                            })()}
+
+                                            {/* <div className="flex items-center justify-center space-x-2 text-base">
+                                            {item.iconoVideo}
+                                            <p>
+                                                {item.video}
+                                            </p>
+                                        </div> */}
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        )
+
+                    }
+                })()}
+
+
+                {/* {
                     dataArry.map((item, idx) => {
                         return (
                             <div key={idx} className="flex justify-center bg-white rounded-lg px-5 py-5 space-x-4">
@@ -222,17 +536,17 @@ export const InfoModuloFacturacion = ({ dataArry, actionButtton, producto, plan 
                                         }
                                     })()}
 
-                                    {/* <div className="flex items-center justify-center space-x-2 text-base">
+                                     <div className="flex items-center justify-center space-x-2 text-base">
                                         {item.iconoVideo}
                                         <p>
                                             {item.video}
                                         </p>
-                                    </div> */}
+                                    </div> 
                                 </div>
                             </div>
                         )
                     })
-                }
+                } */}
                 <div className="bg-white rounded-lg px-5 py-3 mt-3 flex justify-between">
                     <button onClick={() => actionButtton(0)} className="border border-rosa rounded-lg py-1 px-3 text-rosa text-base">
                         volver

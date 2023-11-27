@@ -23,7 +23,7 @@ export const ProyectoInfoPage = () => {
     ]
     return (
         <>
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+            <p className=" mt-1 text-3xl text-rosa">
                 Proyectos
             </p>
             <div className="bg-white rounded-lg relative">
@@ -43,15 +43,22 @@ export const ProyectoInfoPage = () => {
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "weddingPlanner",
+                                        producto: "78",
                                         plan: "premium"
                                     }
                                 })}>PREMIUM</span>
                         </p>
                     </div>
-                    {/* <button className="bg-rosa rounded-lg px-4 py-0.5 text-white text-base">
+                    <button onClick={() => router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "78",
+                                        plan: "premium"
+                                    }
+                                })} className="bg-rosa rounded-lg px-4 py-0.5 text-white text-base">
                         Crear Proyectos
-                    </button> */}
+                    </button>
                 </div>
                 <div className="bg-gray-100 px-10 py-5">
                     <p className="text-base">

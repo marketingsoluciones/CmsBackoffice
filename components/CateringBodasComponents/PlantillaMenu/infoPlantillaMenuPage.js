@@ -19,7 +19,7 @@ export const InfoPlantillaMenuPage = ({actionButton, setActionButton}) => {
     ]
     return (
         <>
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+            <p className="  mt-1 text-3xl text-rosa">
                 Plantillas de Menú
             </p>
             <div className="bg-white rounded-lg">
@@ -40,17 +40,24 @@ export const InfoPlantillaMenuPage = ({actionButton, setActionButton}) => {
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "weddingPlanner",
+                                        producto: "34",
                                         plan: "premium"
                                     }
                                 })}>PREMIUM</span>
                             </p>
                         </div>
-                       {/*  <div>
-                            <button onClick={()=>setActionButton(!actionButton)} className="bg-rosa rounded-lg px-5 py-0.5 text-base text-white ">
+                        <div>
+                            <button onClick={()=>/* setActionButton(!actionButton) */ router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "34",
+                                        plan: "premium"
+                                    }
+                                }) } className="bg-rosa rounded-lg px-5 py-0.5 text-base text-white ">
                                 Empezar
                             </button>
-                        </div> */}
+                        </div>
 
                     </div>
                     <div>

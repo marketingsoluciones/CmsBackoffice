@@ -20,7 +20,7 @@ export const InfoPlantillaSalonPage = () => {
 
     return (
         <div className="h-full">
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+            <p className="  mt-1 text-3xl text-rosa">
                 Plantillas del Salón
             </p>
             <div className="bg-white rounded-xl flex flex-col h-[91%] " >
@@ -46,17 +46,26 @@ export const InfoPlantillaSalonPage = () => {
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "weddingPlanner",
+                                        producto: "12",
                                         plan: "premium"
+
                                     }
                                 })} >PREMIUM</span>
                             </p>
                         </div>
-                        {/* <div>
-                            <button className="text-base text-white bg-rosa px-7 py-1 rounded-lg">
+                        <div>
+                            <button  className="text-base text-white bg-rosa px-7 py-1 rounded-lg" onClick={() => router.push({
+                                    pathname: "/facturacion",
+                                    query: {
+                                        state: 1,
+                                        producto: "12",
+                                        plan: "premium"
+
+                                    }
+                                })} >
                                 Empezar
                             </button>
-                        </div> */}
+                        </div>
                     </div>
                 </div>
                 <div className="bg-gray-200 grid md:grid-cols-3 ">
