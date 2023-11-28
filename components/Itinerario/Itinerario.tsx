@@ -8,7 +8,6 @@ import { PDFViewer } from "@react-pdf/renderer"
 export const Itinerario = () => {
     const [IterArryst, setIterArryst] = useState([])
     const [createPdf, setCreatePdf] = useState(false)
-    console.log(createPdf)
 
     return (<>
         <div className="space-y-4 h-[87%]">

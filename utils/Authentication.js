@@ -22,7 +22,6 @@ export const useAuthentication = () => {
 
   const _signOut = useCallback(async () => {
     const domainCookie = `${domain}.com`
-    console.log(854001, config?.cookie, domainCookie)
     await fetchApi({ query: queries.signOut, variables: { sessionCookie: Cookies.get(config?.cookie) }, development: domain })
     Cookies.remove(config?.cookie, { domain: domainCookie });
     Cookies.remove("idToken", { domain: domainCookie });

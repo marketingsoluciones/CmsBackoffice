@@ -30,14 +30,14 @@ export const PanelViewTable = ({ slug, dispatch }) => {
 
   useEffect(() => {
     if (data_?.results?.length) {
-      console.log("dentro")
+     
       /* setValidationData(true) */
       const results = data_?.results.map(item => {
         return { ...item, imgMiniatura: item?.imgMiniatura?.i320 }
       })
       setData({ total: data_.total, results })
     } else {
-      console.log("fuera")
+      
       /* router.push(`${selected?.resumenRout}`) */
     }
   }, [data_])

@@ -9,7 +9,7 @@ export const Eventos = ({ openModal, setOpenModal }) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const { event } = EventContextProvider()
-    console.log(event)
+    
 
     useEffect(() => {
         if(event!=null)

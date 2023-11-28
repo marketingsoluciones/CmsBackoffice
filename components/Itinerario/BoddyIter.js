@@ -104,7 +104,6 @@ export const BoddyIter = ({ IterArryst, setIterArryst, createPdf }) => {
     const resultadoIcon = IconArry.find((Icon) => Icon.id == selectIcon);
 
     const handleSubmit = (values) => {
-        console.log(values)
         try {
             const IterArry = JSON.parse(localStorage.getItem("dataIter")) || []
             IterArry.push(values)

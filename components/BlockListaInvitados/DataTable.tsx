@@ -200,7 +200,7 @@ const DataTableFinal: FC<propsDataTableFinal> = (props) => {
                 >
                   {
                     headerGroup.headers.map((column, i) => {
-                      console.log(column)
+                      
                       return (
                         <th
                           

@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
 });
 
 export const MyDocument = ({ IterArryst }) => {
-    console.log(IterArryst)
 
     return (
 

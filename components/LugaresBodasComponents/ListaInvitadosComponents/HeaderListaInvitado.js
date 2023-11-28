@@ -1,4 +1,6 @@
+import { EventContextProvider } from "../../../context/EventContext"
 export const HeaderListaInvitado = () => {
+    const {event} = EventContextProvider()
     return(
         <div className="flex justify-between bg-white px-4 py-4 rounded-lg shadow-lg mb-5">
                 <div>
@@ -6,7 +8,7 @@ export const HeaderListaInvitado = () => {
                 </div>
 
                 <div>
-                    <p>Evento</p>
+                    <p>{event.nombre}</p>
                 </div>
            </div>
     )

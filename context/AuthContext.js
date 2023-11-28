@@ -74,10 +74,8 @@ const AuthProvider = ({ children }) => {
 
     const path = window.location.hostname
     //const path = "https://www.bodasdehoy.com"
-    console.log("hostname:", path)
     const c = path?.split(".")
     const idx = c?.findIndex(el => el === "com")
-    console.log(55060, idx)
     /*--------------------------------------------------------------------*/
     const devDomain = ["bodasdehoy", "diariocivitas"]
     const domainDevelop = !!idx && idx !== -1 ? c[idx - 1] : devDomain[0] /*<<<<<<<<<*/
@@ -86,11 +84,8 @@ const AuthProvider = ({ children }) => {
 
 
     //const domainDevelop = window.location.hostname.split(".")[1]
-    console.log(55000, domainDevelop)
     const resp = developments.filter(elem => elem.name === domainDevelop)[0]
-    console.log(55061, resp?.cookie)
     if (!resp?.cookie) resp = developments[0]
-    console.log(55062, resp?.cookie)
 
 
     setDevelopment(resp.name)
@@ -107,7 +102,6 @@ const AuthProvider = ({ children }) => {
     }
     //auth = getAuth()
     setConfig(resp)
-    console.log(40001, getAuth())
     // }
 
   }, [])
@@ -117,7 +111,6 @@ const AuthProvider = ({ children }) => {
     try {
       getAuth().onAuthStateChanged(async (user) => {
         const sessionCookie = Cookies.get(config?.cookie);
-        console.log(70001, sessionCookie)
         console.info("Verificando cookie", sessionCookie);
         if (sessionCookie) {
           console.info("Tengo cookie de sesion", user);
@@ -128,7 +121,6 @@ const AuthProvider = ({ children }) => {
               variables: { uid: user?.uid },
               development: config?.name
             }).then((moreInfo) => {
-              console.log(8877, moreInfo)
               moreInfo && console.info("Tengo datos de la base de datos");
               setUser({ ...user, ...moreInfo });
               console.info("Guardo datos en contexto react");
@@ -143,7 +135,6 @@ const AuthProvider = ({ children }) => {
               variables: { sessionCookie },
               development: config?.name
             }).then((asdf) => {
-              console.log(333, asdf)
               const customToken = asdf?.customToken
               console.info("Llamo con mi sessionCookie para traerme customToken");
               console.info("Custom token", customToken)
@@ -170,7 +161,6 @@ const AuthProvider = ({ children }) => {
     getAuth().onIdTokenChanged(async user => {
       const sessionCookie = Cookies.get(config?.cookie);
       if (user && sessionCookie) {
-        console.log(6000, domain)
         const dateExpire = new Date(new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000))
         Cookies.set("idToken", await user.getIdToken(), { domain: domain, expires: dateExpire })
       }

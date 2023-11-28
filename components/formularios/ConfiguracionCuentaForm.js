@@ -5,7 +5,6 @@ import { ArrowDownIcon } from "../Icons/index"
 import { AuthContextProvider } from "../../context/AuthContext"
 export const ConfiguracionCuentasForm = () => {
     const { user } = AuthContextProvider()
-    console.log(user)
 
     const initialValues = {
         nombre: user?.displayName,

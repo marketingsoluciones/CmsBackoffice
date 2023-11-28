@@ -227,7 +227,7 @@ const ResetForm = ({ setFieldValue, resetForm, contact }) => {
     }
 
     for (let clave in contacto) {
-     /*  console.log(clave, contacto[clave]) */
+     /*  (clave, contacto[clave]) */
       setFieldValue(clave, contacto[clave])
     }
   }, [contact])
