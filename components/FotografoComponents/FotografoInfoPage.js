@@ -38,7 +38,7 @@ export const FotografoInfoPage = ({modalContacto, setModalContacto, setOptionSel
                 </div>
                 <div className="bg-gray-200 flex relative">
                     <div className="z-10 flex items-center  ">
-                        <img src="/CamaraBG.png" alt="weddin planner" className="absolute" />
+                        <img src="/CamaraBG.png " alt="weddin planner" className="absolute" />
                     </div>
                     <div className="flex flex-col items-center space-y-5 py-14 z-20 ">
                         {
