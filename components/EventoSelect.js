@@ -8,7 +8,7 @@ export const EventoSelect = () => {
 
     const handleChange = (e) => {
         try {
-            setEvent(eventsGroup.find((el) => el.nombre === e))
+            setEvent(eventsGroup?.find((el) => el.nombre === e))
         } catch (error) {
             console.log(error)
         }
@@ -17,7 +17,7 @@ export const EventoSelect = () => {
         <>
             <div className="relative h-10 w-72 min-w-[200px] cursor-pointer">
                 <select
-                    value={event.nombre}
+                    value={event?.nombre}
                     onChange={(e) => { handleChange(e.target.value) }}
                     className="  cursor-pointer peer h-full w-[55%] rounded-[7px] border border-gray-500 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all* placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-red-500 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                 >

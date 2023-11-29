@@ -7,7 +7,7 @@ export const SubmenuComponent = ({dataComponents,optionSelect,onClick }) => {
     return (
         <>
             <div className=" hidden md:block bg-gray-200 px-4 py-10 space-y-5 col-span-1">
-               { eventsGroup.length != 0 ? <EventoSelect/>: null}
+               { eventsGroup?.length != 0 ? <EventoSelect/>: null}
                 {
                     dataComponents.map((item, idx) => {
                         return (

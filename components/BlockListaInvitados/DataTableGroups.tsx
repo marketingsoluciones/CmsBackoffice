@@ -5,10 +5,11 @@ import { EventContextProvider } from "../../context/EventContext";
 import { api } from "../../utils/api";
 import DataTableFinal from "./DataTable";
 import { BorrarInvitado } from "../../hooks/EditarInvitado";
-import { CanceladoIcon, ConfirmadosIcon, PendienteIcon, } from "../Icons/index";
+import { CanceladoIcon, ConfirmadosIcon, DotsOpcionesIcon, PendienteIcon, } from "../Icons/index";
 import { DataTableGroupContextProvider, DataTableGroupProvider, } from "../../context/DataTableGroupContext";
 import { fetchApiEventos, queries } from "../../utils/Fetching";
-import { useToast } from "@chakra-ui/react";
+import { useToast } from "../../hooks/useToast";
+import { guests } from "../../utils/Interfaces";
 
 interface propsDatatableGroup {
   GruposArray: string[];
@@ -18,41 +19,58 @@ interface propsDatatableGroup {
   menu?: any[]
   setGetMenu?: any
 }
-
-interface guests {
-  _id: string
-  invitacion: boolean
-  fecha_invitacion: string
-  estatus: string
-  nombre: string
-  rol: string
-  sexo: string
-  grupo_edad: string
-  correo: string
-  telefono: string
-  nombre_mesa: string
-  puesto: string | number
-  orden_puesto: string
-  asistencia: string
-  alergenos: string[]
-  nombre_menu: string
-  grupo_relacion: string
-  movil: string
-  direccion: string
-  poblacion: string
-  pais: string
+interface guestsExt extends guests {
+  tableNameRecepcion: string
+  tableNameCeremonia: string
 }
 
+
 const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIsMounted, menu = [] }) => {
-  const { event, setEvent, invitadoCero, setInvitadoCero } = EventContextProvider();
-  const [datas, setDatas] = useState<{ titulo: string; data: guests[] }[]>([]);
-  
+  const toast = useToast()
+  const { event, setEvent, invitadoCero, setInvitadoCero, allFilterGuests, planSpaceActive, setPlanSpaceActive, filterGuests  } = EventContextProvider();
+  const [datas, setData] = useState<{  titulo: string; data: guestsExt[] }[]>([]);
+  console.log(datas)
+
   useEffect(() => {
     setInvitadoCero(event?.invitados_array?.filter(elem => elem.rol === event?.grupos_array[0])[0]?.nombre)
   }, [event?.invitados_array, event?.grupos_array])
 
   useEffect(() => {
+    console.log("allFilterGuests", allFilterGuests)
+    let asd = {}
+    for (let i = 0; i < event?.grupos_array?.length; i++) {
+      asd = { ...asd, [event?.grupos_array[i]]: { titulo: event?.grupos_array[i], data: [] } }
+    }
+    const tablesRecepcion = event?.planSpace.find(elem => elem?.title === "recepcion")?.tables
+    const tablesCeremonia = event?.planSpace.find(elem => elem?.title === "ceremonia")?.tables
+    const Data = event.invitados_array.reduce((acc, item: guestsExt) => {
+      const guestRecepcion = allFilterGuests[0].sentados.find(elem => elem._id === item._id)
+      const guestCeremonia = allFilterGuests[1].sentados.find(elem => elem._id === item._id)
+      const tableRecepcion = tablesRecepcion.find(elem => elem._id === guestRecepcion?.tableID)
+      const tableCeremonia = tablesCeremonia.find(elem => elem._id === guestCeremonia?.tableID)
+      item.chairs = [
+        { planSpaceName: "recepcion", chair: guestRecepcion?.chair, table: tableRecepcion },
+        { planSpaceName: "ceremmonia", chair: guestCeremonia?.chair, table: tableCeremonia },
+      ]
+      item.tableNameRecepcion = tableRecepcion?.title ? tableRecepcion.title : "no asignado"
+      item.tableNameCeremonia = tableCeremonia?.title ? tableCeremonia.title : "no asignado"
 
+      if (event?.grupos_array?.includes(item?.rol)) {
+        acc[item.rol] = { titulo: item.rol, data: acc[item.rol]?.data ? [...acc[item.rol]?.data, item] : [item] }
+      } else {
+        acc["no asignado"] = { titulo: "no asignado", data: acc["no asignado"]?.data ? [...acc["no asignado"]?.data, item] : [item] }
+      }
+      return acc;
+    }, asd);
+    Data && setData(Object.values(Data));
+  }, [allFilterGuests]);
+
+  const handleMoveGuest = (invitadoID, table) => {
+   
+  }
+
+
+  /* useEffect(() => {
     const Datas = event?.grupos_array.reduce((acc, group) => {
       acc[group] = { titulo: group, data: [] };
       event.invitados_array.forEach(guest => {
@@ -104,7 +122,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
     }, {});
 
     Datas && setDatas(Object.values(Datas));
-  }, [event]);
+  }, [event]); */
 
   // Funcion para Editar Invitado dropdown
   const updateMyData = ({
@@ -340,7 +358,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
         },
       },
       {
-        Header: "Mesa",
+        Header: "Mesa recepcion",
         accessor: "nombre_mesa",
         Cell: ({ value: initialValue, row, column: { id } }) => {
           const [value, setValue] = useState(initialValue);
@@ -364,7 +382,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
           return (
             <ClickAwayListener onClickAway={() => setShow(false)}>
               <div className="relative w-full flex justify-center items-center">
-                {/* value.toLowerCase() == "no asignado" */ false ? (
+                {/*value.toLowerCase() == "no asignado"*/ false ? (
                   <button
                     /* onClick={() => router.push("/mesas")} */
                     className="bg-tertiary font-display text-sm font-medium px-2rounded hover:text-gray-500 px-3 rounded-lg focus:outline-none"
@@ -374,7 +392,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
                 ) : (
                   <button
                     className="focus:outline-none font-display text-sm capitalize"
-                   /*  onClick={() => setShow(!show)} */
+                    onClick={() => setShow(!show)}
                   >
                     {value}
                   </button>
@@ -391,7 +409,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
                         className="cursor-pointer flex gap-2 items-center py-4 px-6 font-display text-sm text-gray-500 hover:bg-base hover:text-gray-700 transition w-full capitalize"
                         onClick={() => {
                           setValue(mesa.nombre_mesa);
-                         /*  setShow(!show); */
+                          setShow(!show);
                         }}
                       >
                         {mesa?.nombre_mesa}
@@ -400,10 +418,198 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
                   })}
                   <li
                     className="bg-tertiary cursor-pointer flex gap-2 items-center py-4 px-6 font-display text-sm text-gray-500 hover:bg-base hover:text-gray-700 transition w-full capitalize"
-                   /*  onClick={() => router.push("/mesas")} */
+                    /* onClick={() => router.push("/mesas")} */
                   >
                     Añadir mesa
                   </li>
+                </ul>
+              </div>
+            </ClickAwayListener>
+          );
+        },
+      },
+      {
+        Header: "Mesa Ceremonia",
+        accessor: "tableNameCeremonia",
+        Cell: ({ value: initialValue, row, column: { id } }) => {
+          const [value, setValue] = useState(initialValue);
+          const [show, setShow] = useState(false);
+          const router = useRouter();
+
+          return (
+            <ClickAwayListener onClickAway={() => setShow(false)}>
+              <div className="relative w-full flex justify-center items-center">
+                {/*value?.toLowerCase() == "no asignado"*/ false ? (
+                  <button
+                    /* onClick={() => router.push("/mesas")} */
+                    className="bg-tertiary font-display text-sm font-medium px-2rounded hover:text-gray-500 px-3 rounded-lg focus:outline-none"
+                  >
+                    Añadir mesa
+                  </button>
+                ) : (
+                  <button
+                    className="focus:outline-none font-display text-sm capitalize"
+                    onClick={() => setShow(!show)}
+                  >
+                    {value}
+                  </button>
+                )}
+
+                <ul
+                  className={`${show ? "block opacity-100" : "hidden opacity-0"
+                    } absolute bg-white transition shadow-lg rounded-lg overflow-hidden duration-500 -top-2 z-40 w-max`}
+                >
+                  {event?.planSpace.find(elem => elem?.title === "ceremonia")?.tables?.map((elem, index) => {
+                    return (
+                      <li
+                        key={index}
+                        className="cursor-pointer flex gap-2 items-center py-4 px-6 font-display text-sm text-gray-500 hover:bg-base hover:text-gray-700 transition w-full capitalize"
+                        onClick={() => {
+                          setValue(elem.title);
+                          setShow(!show);
+                          const table = event?.planSpace.find(elem => elem?.title === "ceremonia")?.tables.find(el => el.title === elem.title)
+                          handleMoveGuest(row.original._id, table)
+                        }}
+                      >
+                        {elem?.title}
+                      </li>
+                    );
+                  })}
+                  <li
+                    className="bg-gray-300 cursor-pointer flex gap-2 items-center py-4 px-6 font-display text-sm text-gray-500 hover:bg-base hover:text-gray-700 transition w-full capitalize"
+                    /* onClick={() => router.push("/mesas")} */
+                  >
+                    Añadir mesa
+                  </li>
+                </ul>
+              </div>
+            </ClickAwayListener>
+          );
+        },
+      },
+      {
+        Header: () => {
+          const [show, setShow] = useState(false);
+          const Lista = ["borrar grupo"];
+          const { event, setEvent } = EventContextProvider();
+
+          const DeleteGroup = async () => {
+            try {
+              const params = {
+                query: `mutation {
+                  borraGrupo(evento_id:"${event._id}",nombre_grupo:"${title}"){
+                    _id
+                  }
+                }`,
+                variables: {},
+              };
+
+              await api.ApiApp(params);
+            } catch (error) {
+              console.log(error);
+            } finally {
+              setEvent((old) => ({
+                ...old,
+                grupos_array: old.grupos_array.filter((e) => e !== title),
+              }));
+            }
+          };
+
+          return (
+            <ClickAwayListener onClickAway={() => show && setShow(false)}>
+              <div className="w-full flex justify-end items-center relative">
+                <span
+                  onClick={() => setShow(!show)}
+                  className={`cursor-pointer relative w-max rounded-lg text-sm text-gray-700 ${title === "no asignado" ? "hidden" : ""}`}
+                >
+                  <DotsOpcionesIcon className="text-gray-500 w-4 h-4" />
+                </span>
+                <ul
+                  className={`${show ? "block" : "hidden"
+                    } top-0 right-0 absolute w-max border border-base bg-white capitalize rounded-md overflow-hidden shadow-lg z-10 translate-x-[-12px]`}
+                >
+                  {Lista.map((item, idx) => (
+                    <li
+                      key={idx}
+                      onClick={() => DeleteGroup()}
+                      className="font-display cursor-pointer border-base border block px-4 py-2 text-sm text-gray-500 hover:text-gray-500 hover:bg-base"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </ClickAwayListener>
+          );
+        },
+        id: "delete",
+        accessor: "delete",
+        Cell: (row) => {
+          const [show, setShow] = useState(false);
+
+          // Remover Fila invitado
+          const HandleRemove = async (rowID) => {
+            // Modificar base de datos
+            try {
+              await BorrarInvitado(event._id, rowID);
+            } catch (error) {
+              console.log(error);
+            } finally {
+              //Modifico el estado y memo
+              setEvent((old) => {
+                const { invitados_array: arr } = old;
+
+                const resultado = arr.filter(
+                  (invitado) => invitado._id !== rowID
+                );
+                return {
+                  ...old,
+                  invitados_array: resultado,
+                };
+              });
+              setShow(!show);
+            }
+          };
+
+          const HandleEdit = (id) => {
+            setSelected(id);
+            setIsMounted(!isMounted);
+          };
+
+          const Lista = [
+            {
+              title: "Borrar",
+              function: () => HandleRemove(row.row.original._id),
+            },
+            {
+              title: "Editar",
+              function: () => HandleEdit(row.row.original._id),
+            },
+          ];
+
+
+          return (
+            <ClickAwayListener onClickAway={() => show && setShow(false)}>
+              <div className="w-full flex justify-end items-center relative">
+                <span
+                  onClick={() => setShow(!show)}
+                  className="cursor-pointer relative w-max rounded-lg text-sm text-gray-700"
+                >
+                  <DotsOpcionesIcon className="text-gray-500 w-4 h-4" />
+                </span>
+                <ul
+                  className={`${show ? "block" : "hidden"
+                    } top-0 right-0 absolute w-max border border-base bg-white capitalize rounded-md overflow-hidden shadow-lg z-10 translate-x-[-12px]`}
+                >
+                  {Lista.map((item, idx) => (
+                    <li
+                      key={idx}
+                      onClick={item.function}
+                      className="font-display cursor-pointer border-base border block px-4 py-2 text-sm text-gray-500 hover:text-gray-500 hover:bg-base"
+                    >
+                      {item.title}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </ClickAwayListener>
@@ -423,7 +629,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
             <DataTableFinal
               key={idx}
               data={item.data}
-              columns={CrearColumna(item.titulo)}
+              columns={CrearColumna(!item.titulo.match("(nombre)") ? item.titulo : item.titulo.replace("(nombre)", invitadoCero ? invitadoCero : event?.grupos_array[0]))}
             />
           )
         })}
@@ -472,10 +678,10 @@ const CheckBoxAll: FC<any> = ({ check, ...rest }) => {
          invitados_array,
        }));
        dispatch({ type: "RESET_STATE" });
-       // toast("success", "Invitado eliminado con exito"); 
+       toast("success", "Invitado eliminado con exito"); 
      } catch (error) {
        console.log(error);
-       //toast("error", "Ha ocurrido un error");
+       toast("error", "Ha ocurrido un error");
      }
   };
 

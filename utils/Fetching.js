@@ -203,203 +203,392 @@ export const queries = {
       }
         }`,
   eventCreate: `mutation (
-          $nombre: String,
-          $tipo: String!,
-          $fecha: String,
-          $pais: String,
-          $poblacion: String,
-          $usuario_id: String!
-          $usuario_nombre: String!
-        ){
-          crearEvento(
-            nombre: $nombre,
-            tipo: $tipo,
-            fecha: $fecha,
-            pais: $pais,
-            poblacion: $poblacion,
-            usuario_id: $usuario_id,
-            usuario_nombre: $usuario_nombre
-          ){
+    $nombre: String,
+    $tipo: String!,
+    $fecha: String,
+    $pais: String,
+    $poblacion: String,
+    $usuario_id: String!
+    $usuario_nombre: String!
+  ){
+    crearEvento(
+      nombre: $nombre,
+      tipo: $tipo,
+      fecha: $fecha,
+      pais: $pais,
+      poblacion: $poblacion,
+      usuario_id: $usuario_id,
+      usuario_nombre: $usuario_nombre
+    ){
+      _id
+      grupos_array
+      estatus
+      nombre
+      fecha_actualizacion
+      fecha_creacion
+      tipo
+      usuario_id
+      usuario_nombre
+      fecha
+      poblacion
+      pais
+      notificaciones_array{
+        _id
+        fecha_creacion
+        fecha_lectura
+        mensaje
+      }
+      planSpaceSelect
+      planSpace{
+      _id
+      title
+      size{
+        width
+        height
+      }
+      spaceChairs
+      template
+      sections{
+        _id
+        title
+        position{
+          x
+          y
+        }
+        size{
+          width
+          height
+        }
+        color
+        elements{
+          _id
+          title
+          rotation
+          position{
+            x
+            y
+          }
+          size{
+            width
+            height
+          }
+        }
+        tables{
+          _id
+          title
+          rotation
+          position{
+            x
+            y
+          }
+          size{
+            width
+            height
+          }
+          tipo
+          numberChair
+          guests{
             _id
-            grupos_array
-            estatus
-            nombre
-            fecha_actualizacion
-            fecha_creacion
+            chair
+            order
+          }
+        }
+      }
+      elements{
+        _id
+        title
+        rotation
+        position{
+          x
+          y
+        }
+        size{
+          width
+          height
+        }
+        tipo
+      }
+      tables{
+        _id
+        title
+        rotation
+        position{
+          x
+          y
+        }
+        size{
+          width
+          height
+        }
+        tipo
+        numberChair
+        guests{
+          _id
+          chair
+          order
+        }
+      }
+    }
+      mesas_array{
+            _id
+            nombre_mesa
             tipo
-            usuario_id
-            usuario_nombre
-            fecha
-            poblacion
-            pais
-            notificaciones_array{
+            cantidad_sillas
+            posicion {
+              x
+              y
+            }
+      }
+      invitados_array{
+        _id
+        nombre
+        grupo_edad
+        correo
+        telefono
+        nombre_mesa
+        puesto
+        asistencia
+        nombre_menu
+        rol
+        correo
+        sexo
+        movil
+        poblacion
+        pais
+        direccion
+      }
+      menus_array{
+        nombre_menu
+        tipo
+      }
+      presupuesto_objeto{
+        coste_final
+        pagado
+        coste_estimado
+        categorias_array{
+          _id
+          nombre
+          coste_estimado
+          coste_final
+          pagado
+          gastos_array {
+            _id
+            coste_estimado
+            coste_final
+            pagado
+            nombre
+            pagos_array {
               _id
+              estado
               fecha_creacion
-              fecha_lectura
-              mensaje
-            }
-            mesas_array{
-                  _id
-                  nombre_mesa
-                  tipo
-                  cantidad_sillas
-                  posicion {
-                    x
-                    y
-                  }
-            }
-            invitados_array{
-              _id
-              nombre
-              grupo_edad
-              correo
-              telefono
-              nombre_mesa
-              puesto
-              asistencia
-              nombre_menu
-              rol
-              correo
-              sexo
-              movil
-              poblacion
-              pais
-              direccion
-            }
-            menus_array{
-              nombre_menu
-              tipo
-            }
-            presupuesto_objeto{
-              coste_final
-              pagado
-              coste_estimado
-              categorias_array{
-                _id
-                nombre
-                coste_estimado
-                coste_final
-                pagado
-                gastos_array {
-                  _id
-                  coste_estimado
-                  coste_final
-                  pagado
-                  nombre
-                  pagos_array {
-                    _id
-                    estado
-                    fecha_creacion
-                    fecha_pago
-                    fecha_vencimiento
-                    medio_pago
-                    importe
-                  }
-                }
-                
-              }
+              fecha_pago
+              fecha_vencimiento
+              medio_pago
+              importe
             }
           }
-        }`,
+          
+        }
+      }
+    }
+  }`,
   getEventsByID: `query SolicitarEventos($userID : String) {
-          queryenEvento(variable: "usuario_id", valor: $userID){
-            _id
-            grupos_array
-            estatus
-            color
-            temporada
-            estilo
-            tematica
-            tarta
-            nombre
-            fecha_actualizacion
-            fecha_creacion
-            tipo
-            usuario_id
-            usuario_nombre
-            fecha
-            listaRegalos
-            poblacion
-            pais
-            imgInvitacion{
-              _id
-              i1024
-              i800
-              i640
-              i320
-              createdAt
-            }
-            notificaciones_array{
-              _id
-              fecha_creacion
-              fecha_lectura
-              mensaje
-            }
-            mesas_array{
-                 _id
-                 nombre_mesa
-                 tipo
-                 cantidad_sillas
-                 posicion {
-                   x
-                   y
-                 }
-            }
-            invitados_array{
-              _id
-              nombre
-              grupo_edad
-              correo
-              telefono
-              nombre_mesa
-              puesto
-              asistencia
-              nombre_menu
-              rol
-              correo
-              sexo
-              movil
-              poblacion
-              pais
-              direccion
-              invitacion
-            }
-            menus_array{
-              nombre_menu
-              tipo
-            }
-            presupuesto_objeto{
-             coste_final
-             pagado
-             coste_estimado
-             categorias_array{
-               _id
-               nombre
-               coste_estimado
-               coste_final
-               pagado
-               gastos_array {
-                 _id
-                 coste_estimado
-                 coste_final
-                 pagado
-                 nombre
-                 pagos_array {
-                   _id
-                   estado
-                   fecha_creacion
-                   fecha_pago
-                   fecha_vencimiento
-                   medio_pago
-                   importe
-                   pagado_por
-                 }
-               }
-               
-             }
-           }
+    queryenEvento(variable: "usuario_id", valor: $userID){
+      _id
+      grupos_array
+      estatus
+      color
+      temporada
+      estilo
+      tematica
+      tarta
+      nombre
+      fecha_actualizacion
+      fecha_creacion
+      tipo
+      usuario_id
+      usuario_nombre
+      fecha
+      listaRegalos
+      poblacion
+      pais
+      imgInvitacion{
+        _id
+        i1024
+        i800
+        i640
+        i320
+        createdAt
+      }
+      notificaciones_array{
+        _id
+        fecha_creacion
+        fecha_lectura
+        mensaje
+      }
+      planSpaceSelect
+      planSpace{
+      _id
+      title
+      size{
+        width
+        height
+      }
+      spaceChairs
+      template
+      sections{
+        _id
+        title
+        position{
+          x
+          y
+        }
+        size{
+          width
+          height
+        }
+        color
+        elements{
+          _id
+          title
+          rotation
+          position{
+            x
+            y
           }
-        }`,
+          size{
+            width
+            height
+          }
+        }
+        tables{
+          _id
+          title
+          rotation
+          position{
+            x
+            y
+          }
+          size{
+            width
+            height
+          }
+          tipo
+          numberChair
+          guests{
+            _id
+            chair
+            order
+          }
+        }
+      }
+      elements{
+        _id
+        title
+        rotation
+        position{
+          x
+          y
+        }
+        size{
+          width
+          height
+        }
+        tipo
+      }
+      tables{
+        _id
+        title
+        rotation
+        position{
+          x
+          y
+        }
+        size{
+          width
+          height
+        }
+        tipo
+        numberChair
+        guests{
+          _id
+          chair
+          order
+        }
+      }
+    }
+      mesas_array{
+           _id
+           nombre_mesa
+           tipo
+           cantidad_sillas
+           posicion {
+             x
+             y
+           }
+      }
+      invitados_array{
+        _id
+        nombre
+        grupo_edad
+        correo
+        telefono
+        chairs{
+          planSpaceID
+          sectionID
+          tableID
+          position
+          order
+        }
+        nombre_mesa
+        puesto
+        asistencia
+        nombre_menu
+        rol
+        correo
+        sexo
+        movil
+        poblacion
+        pais
+        direccion
+        invitacion
+      }
+      menus_array{
+        nombre_menu
+        tipo
+      }
+      presupuesto_objeto{
+       coste_final
+       pagado
+       coste_estimado
+       categorias_array{
+         _id
+         nombre
+         coste_estimado
+         coste_final
+         pagado
+         gastos_array {
+           _id
+           coste_estimado
+           coste_final
+           pagado
+           nombre
+           pagos_array {
+             _id
+             estado
+             fecha_creacion
+             fecha_pago
+             fecha_vencimiento
+             medio_pago
+             importe
+             pagado_por
+           }
+         }
+         
+       }
+     }
+    }
+  }`,
   eventDelete: `mutation ($eventoID : String!) {
           borrarEvento(evento_id:$eventoID){
             modificado

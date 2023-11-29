@@ -15,12 +15,121 @@ export interface Event {
     cant_invitados: number
     invitados_array: guests[]
     menus_array: menu[]
-    mesas_array: table[]
+    planSpaceSelect: string
+    planSpace: planSpace[]
+    mesas_array: tableOld[]
     grupos_array: string[]
     notificaciones_array: notification[]
     imgInvitacion: image
     presupuesto_objeto: estimate
     listaRegalos: string
+}
+
+export interface tableOld {
+    _id: string
+    nombre_mesa: string
+    tipo: string
+    posicion: {
+        x: number
+        y: number
+    }
+    cantidad_sillas: number
+}
+interface chair {
+    planSpaceID: string,
+    sectionID: string,
+    tableID: string,
+    position: number,
+    order: string
+}
+
+export interface position {
+    x: number
+    y: number
+}
+
+export interface size {
+    width: number
+    height: number
+}
+
+interface propsBase {
+    _id?: string
+    title: string
+    rotation: number
+    position: position
+    size: size
+}
+export interface element extends propsBase {
+    tipo: string
+}
+
+interface section extends propsBase {
+    color: string
+    elements: element[]
+    tables: table[]
+}
+export interface guest {
+    _id: string,
+    chair: number,
+    order: Date
+}
+
+export interface table extends element {
+    numberChair: number
+    guests: guest[]
+}
+
+export interface planSpace {
+    _id: string
+    title: string
+    size: size
+    spaceChairs: number,
+    template: boolean,
+    sections: section[]
+    elements: element[]
+    tables: table[]
+}
+
+export interface EditDefaultState {
+    item?: table
+    itemTipo?: string
+    setShowFormEditar?: any
+}
+
+
+export interface guests {
+    _id: string
+    invitacion: boolean
+    fecha_invitacion: string
+    estatus: string
+    nombre: string
+    rol: string
+    sexo: string
+    grupo_edad: string
+    correo: string
+    telefono: string
+    chairs: any
+    nombre_mesa: string
+    puesto: string | number
+    orden_puesto: string
+    asistencia: string
+    alergenos: string[]
+    nombre_menu: string
+    grupo_relacion: string
+    chats_array: chat[]
+    movil: string
+    direccion: string
+    poblacion: string
+    pais: string
+}
+
+export interface filterGuest extends guests {
+    planSpaceID: string,
+    sectionID: string,
+    tableID: string,
+    guestID: string,
+    chair: number
 }
 
 interface menu {

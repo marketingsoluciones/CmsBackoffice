@@ -5,6 +5,7 @@ import {EventContextProvider} from "../../context/EventContext"
 import ModalBottom from "../modals/ModalBottom"
 import { useDelayUnmount } from "../WeddingPlannerComponents/PresupuestoComponents/Funciones";
 import FormEditarInvitado from "../formularios/FormEditarInvitado"
+import { useToast } from "../../hooks/useToast";
 
 
 export const BlockListaInvitados = ({set,state}) => {
@@ -12,7 +13,7 @@ export const BlockListaInvitados = ({set,state}) => {
   const [isMounted, setIsMounted] = useState(false);
   const shouldRenderChild = useDelayUnmount(isMounted, 500);
   const [invitadoSelected, setSelected] = useState(null);
-  /* const toast = useToast() */
+  const toast = useToast()
 
   const handleClick = (e, click) => {
     e.preventDefault();

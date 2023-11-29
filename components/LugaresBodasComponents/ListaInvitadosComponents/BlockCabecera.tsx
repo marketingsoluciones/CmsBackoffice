@@ -1,34 +1,34 @@
 import { CanceladoIcon, ConfirmadosIcon, MesaIcon, PendienteIcon } from "../../Icons/index";
-/* import { EventContextProvider } from "../../context"; */
+import { EventContextProvider } from "../../../context/EventContext";
 import { useRouter } from "next/router";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 
 export const BlockCabecera = () => {
-  /* const { event } = EventContextProvider(); */
+  const { event } = EventContextProvider();
   const router = useRouter();
 
-  /* const totalSegun = (prop, param) => {
+  const totalSegun = (prop, param) => {
     return event?.invitados_array?.filter((item) => item[prop] == param);
-  }; */
+  };
 
-  /* const ObjInvitado = {
+  const ObjInvitado = {
     total: event?.invitados_array?.length,
-  }; */
+  };
 
   const TotalList = [
     {
-      title: /* ${totalSegun("asistencia", "pendiente")?.length}  */ "0 de 0" /* ${ObjInvitado?.total} */,
+      title: `${totalSegun("asistencia", "pendiente")?.length}   de  ${ObjInvitado?.total}`,
       subtitle: "por confirmar",
       icon: <PendienteIcon />,
     },
     {
-      title: /* `${totalSegun("asistencia", "confirmado")?.length} */ "0 de 0" /* ${ObjInvitado?.total}` */,
+      title: `${totalSegun("asistencia", "confirmado")?.length}  de  ${ObjInvitado?.total}`,
       subtitle: "confirmados",
       icon: <ConfirmadosIcon />,
     },
     {
-      title: /* `${totalSegun("asistencia", "cancelado")?.length} de ${ObjInvitado?.total}` */"0 de 0",
+      title: `${totalSegun("asistencia", "cancelado")?.length} de ${ObjInvitado?.total}`,
       subtitle: "cancelados",
       icon: <CanceladoIcon />,
     },
@@ -40,34 +40,26 @@ export const BlockCabecera = () => {
         <div className="flex gap-10 items-center justify-center h-full w-full md:col-span-2 py-4">
           <div className="flex gap-1 items-center justify-end ">
             <p className="font-display font-semibold text-4xl text-rosa">
-              {/* {ObjInvitado?.total} */}0
+              {ObjInvitado?.total}
             </p>
             <p className="font-display text-rosa">invitados</p>
           </div>
           <div className="flex flex-col gap-1 items-start justify-center h-full col-span-1">
             <p className="font-display font-semibold text-sm text-gray-500 flex gap-1">
-              {/*  {totalSegun("grupo_edad", "adulto")?.length} */} 0 {" "}
+               {totalSegun("grupo_edad", "adulto")?.length}  {" "}
               <span className="font-xs font-light">adultos</span>
             </p>
             <p className="font-display font-semibold text-sm text-gray-500 flex gap-1">
-              {/* {totalSegun("grupo_edad", "niño")?.length} */} 0 {" "}
+              {totalSegun("grupo_edad", "niño")?.length}  {" "}
               <span className="font-xs font-light">niños y bebes</span>
             </p>
           </div>
         </div>
-
-
-
-        <div
-          className="bg-white rounded-xl col-span-3 shadow-lg  flex items-center w-full justify-center h-24 md:h-max relative mt-3"
-          >
-
+        <div className="bg-white rounded-xl col-span-3 shadow-lg  flex items-center w-full justify-center h-24 md:h-max relative mt-3">
             {TotalList.map((item, idx) => (
               <div key={idx} >
                 <div className="flex  gap-2 items-center justify-center m-3 ">
-
                   {item?.icon}
-
                   <div>
                     <p className="font-display text-lg font-semibold text-gray-700 leading-5">
                       {item?.title}

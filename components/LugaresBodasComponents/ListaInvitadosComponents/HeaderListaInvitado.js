@@ -8,7 +8,7 @@ export const HeaderListaInvitado = () => {
                 </div>
 
                 <div>
-                    <p>{event.nombre}</p>
+                    <p>{event?.nombre}</p>
                 </div>
            </div>
     )

@@ -2,32 +2,10 @@ import { ForwardRefComponent } from "framer-motion";
 import { useEffect, forwardRef, useRef, useState, FC, ReactNode } from "react";
 import { useRowSelect, useTable } from "react-table";
 /* import { EventContextProvider } from "../../context"; */
-/* import { guests } from "../../utils/Interfaces"; */
+import { guests } from "../../utils/Interfaces";
 import { DataTableGroupContextProvider } from "../../context/DataTableGroupContext";
 
-interface guests {
-  _id: string
-  invitacion: boolean
-  fecha_invitacion: string
-  estatus: string
-  nombre: string
-  rol: string
-  sexo: string
-  grupo_edad: string
-  correo: string
-  telefono: string
-  nombre_mesa: string
-  puesto: string | number
-  orden_puesto: string
-  asistencia: string
-  alergenos: string[]
-  nombre_menu: string
-  grupo_relacion: string
-  movil: string
-  direccion: string
-  poblacion: string
-  pais: string
-}
+
 
 // Para checkbox
 export const IndeterminateCheckbox: ForwardRefComponent<HTMLInputElement, any> =
@@ -148,10 +126,11 @@ const DataTableFinal: FC<propsDataTableFinal> = (props) => {
 
     const values = {
       selection: 5,
-      nombre: 20,
-      asistencia: 10,
-      nombre_menu: 20,
-      nombre_mesa: 5,
+      nombre: 30,
+      asistencia: 20,
+      nombre_menu: 15,
+      nombre_mesa: 20,
+      tableNameCeremonia:20,
       delete: 5
     }
 
@@ -230,7 +209,7 @@ const DataTableFinal: FC<propsDataTableFinal> = (props) => {
               <td className="pl-6 py-4 col-span-1 table-cell	">
               </td>
               <td className="py-4 w-max pl-5 text-gray-300">
-                No hay Menú
+                No hay invitados
               </td>
             </tr>
           )}
