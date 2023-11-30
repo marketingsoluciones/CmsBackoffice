@@ -12,12 +12,15 @@ import { useEffect, useState } from "react";
 import router from "next/router";
 import packageJson from "../package.json";
 import { hasRole } from "../utils/auth";
+import Cookies from "js-cookie";
 
 export const Navigation = ({ set, state, }) => {
   const { _signOut } = useAuthentication()
   const { user } = AuthContextProvider()
   const [show, setShow] = useState(false)
   const [showValir, setShowValir] = useState(false)
+  const cookieContent = JSON.parse(Cookies.get("guestbodas") ?? "{}")
+
 
   useEffect(() => {
     if (show) {
@@ -65,7 +68,7 @@ export const Navigation = ({ set, state, }) => {
         {
           icon: <RedireccionIcon/>,
           title: "Ir a AppBodasdehoy.com",
-          rout: window.origin.includes("://test") ? process.env.NEXT_PUBLIC_EVENTSAPP?.replace("//", "//test.") : process.env.NEXT_PUBLIC_EVENTSAPP
+          rout:  window.origin.includes("://test.") ? process.env.NEXT_PUBLIC_EVENTSAPP?.replace("//", "//test") ?? "" : process.env.NEXT_PUBLIC_EVENTSAPP ?? " "
         },
         {
           icon: <SalirIcon />,
