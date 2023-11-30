@@ -66,9 +66,9 @@ export const Navigation = ({ set, state, }) => {
           rout: window.origin.includes("://test") ? process.env.NEXT_PUBLIC_DIRECTORY?.replace("//", "//test.") : process.env.NEXT_PUBLIC_DIRECTORY
         },
         {
-          icon: <RedireccionIcon/>,
+          icon: <RedireccionIcon />,
           title: "Ir a AppBodasdehoy.com",
-          rout:  window.origin.includes("://test.") ? process.env.NEXT_PUBLIC_EVENTSAPP?.replace("//", "//test") ?? "" : process.env.NEXT_PUBLIC_EVENTSAPP ?? " "
+          rout: cookieContent?.eventCreated || user?.uid ? window.origin.includes("://test.") ? process.env.NEXT_PUBLIC_EVENTSAPP?.replace("//", "//test") ?? "" : process.env.NEXT_PUBLIC_EVENTSAPP ?? "" : "/"
         },
         {
           icon: <SalirIcon />,
