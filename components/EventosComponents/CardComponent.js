@@ -19,7 +19,7 @@ export const defaultImagenes = {
   otro: "/cards/pexels-pixabay-50675.jpg"
 };
 
-const CardComponent = ({ data, grupoStatus, idx }) => {
+const CardComponent = ({ data, grupoStatus, idx, viewResumen, setViewResumen }) => {
   const [hoverRef, isHovered] = useHover();
   const [refArchivar, isArchivar] = useHover();
   const [refBorrar, isBorrar] = useHover();
@@ -34,7 +34,8 @@ const CardComponent = ({ data, grupoStatus, idx }) => {
     } catch (error) {
       console.log(error);
     } finally {
-      router.push("/resumen-evento");
+      /* router.push("/resumen-evento"); */
+      setViewResumen(!viewResumen)
     }
   };
 
@@ -139,7 +140,7 @@ const CardComponent = ({ data, grupoStatus, idx }) => {
 
       {idx == idxGroupEvent?.idx && idxGroupEvent?.isActiveStateSwiper == Lista.findIndex(elem => elem.value == grupoStatus) ? <div className="w-[304px] h-40 bg-gray-300 absolute rounded-xl" /> : <></>}
       {
-        data && <div /* onClick={handleClick} */ className={`w-72 h-36 rounded-xl cardEvento z-[8] cursor-pointer shadow-lg relative overflow-hidden my-4 `}>
+        data && <div onClick={handleClick} className={`w-72 h-36 rounded-xl cardEvento z-[8] cursor-pointer shadow-lg relative overflow-hidden my-4 `}>
         <img
           src={defaultImagenes[data[idx]?.tipo]}
           className="object-cover w-full h-full absolute top-0 left-0 object-top "

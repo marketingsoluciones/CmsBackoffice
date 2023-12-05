@@ -6,7 +6,7 @@ import { ModalLeft } from "../components/modals/ModalLeft"
 const eventosPage = () => {
     const [isMounted, setIsMounted] = useState(false);
     return (
-        <>
+        <div className="w-full">
             {(
                 <ModalLeft state={isMounted} set={setIsMounted}>
                     {
@@ -18,7 +18,7 @@ const eventosPage = () => {
                 Eventos
             </p>
             <Eventos openModal={isMounted} setOpenModal={setIsMounted} />
-        </>
+        </div>
     )
 }
 

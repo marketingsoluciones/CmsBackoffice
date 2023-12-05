@@ -446,6 +446,7 @@ export const ModulosFacturacion = () => {
             video: "Ver video (00:30)"
         },
     ]
+    
     const dataComponents = [
         {
             component: <InfoModulos dataArry={dataArry} setOptionSelect={setOptionSelect} />
@@ -460,6 +461,7 @@ export const ModulosFacturacion = () => {
             component: <DatosFacturacion actionButtton={setOptionSelect} />
         }
     ]
+
     return (
         <div>
             {dataComponents[optionSelect].component}

@@ -7,7 +7,7 @@ import { OnlyViewTable, PanelViewTable } from "../PanelViewTable";
 import { AuthContextProvider } from "../../context/AuthContext";
 import GlobalFilter from "../Datatable/GlobalFilter";
 
-export const CardVeiw = ({ setOpenModal, openModal }) => {
+export const CardVeiw = ({ setOpenModal, openModal, viewResumen, setViewResumen }) => {
     const [optionSelect, setOptionSelect] = useState(0)
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
@@ -16,7 +16,7 @@ export const CardVeiw = ({ setOpenModal, openModal }) => {
     const optionsArry = [
         {
             icon: <CardVeiwIcon />,
-            component: <ViewCard setOpenModal={setOpenModal} openModal={openModal} />,
+            component: <ViewCard setOpenModal={setOpenModal} openModal={openModal} viewResumen={viewResumen} setViewResumen={setViewResumen}  />,
             state: false
         },
         {
@@ -75,10 +75,10 @@ export const CardVeiw = ({ setOpenModal, openModal }) => {
     )
 }
 
-export const ViewCard = ({ setOpenModal, openModal }) => {
+export const ViewCard = ({ setOpenModal, openModal, viewResumen, setViewResumen }) => {
     return (
-        <div className=" ">
-            <SwiperEventCreados setOpenModal={setOpenModal} openModal={openModal} />
+        <div>
+            <SwiperEventCreados setOpenModal={setOpenModal} openModal={openModal}  viewResumen={viewResumen} setViewResumen={setViewResumen} />
             {/* <SwiperEventAsignados /> */}
         </div>
     )

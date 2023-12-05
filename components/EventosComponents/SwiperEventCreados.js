@@ -19,7 +19,7 @@ export const Lista = [
     { nombre: "Realizados", value: "realizado", color: "gray-300" },
 ];
 
-export const SwiperEventCreados = ({ setOpenModal, openModal }) => {
+export const SwiperEventCreados = ({ setOpenModal, openModal, viewResumen, setViewResumen }) => {
     const { eventsGroup } = EventsGroupContextProvider();
     const { idxGroupEvent, setIdxGroupEvent } = EventContextProvider()
     const [isActiveStateSwiper, setIsActiveStateSwiper] = useState(idxGroupEvent?.isActiveStateSwiper)
@@ -117,7 +117,7 @@ export const SwiperEventCreados = ({ setOpenModal, openModal }) => {
                                                         className="flex items-center justify-center pl-8"
                                                         onClick={() => { setIdxGroupEvent({ idx, isActiveStateSwiper, event_id: evento._id }) }}
                                                     >
-                                                        <CardComponent data={group?.data} grupoStatus={group?.status} idx={idx} />
+                                                        <CardComponent data={group?.data} grupoStatus={group?.status} idx={idx} viewResumen={viewResumen} setViewResumen={setViewResumen} />
                                                     </SwiperSlide>
                                                 ))
                                             }
