@@ -1,10 +1,10 @@
 import { useState } from "react"
 import GlobalFilter from "../../Datatable/GlobalFilter"
-import { SearchIcon } from "../../Icons/index"
+import { ArrowLeft, SearchIcon } from "../../Icons/index"
 import { OnlyViewTable } from "../../PanelViewTable"
 import { AuthContextProvider } from "../../../context/AuthContext"
 
-export const ListaInvitadosTable = ({ setActionButton}) => {
+export const ListaInvitadosTable = ({ setActionButton, setComponentState }) => {
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
     const { state, dispatch } = AuthContextProvider()
@@ -12,7 +12,9 @@ export const ListaInvitadosTable = ({ setActionButton}) => {
         <>
             <div className="space-y-4 w-full  ">
                 <div>
-
+                    <div onClick={() => setComponentState(4)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                        <ArrowLeft />
+                    </div>
                     <p className=" mt-1 text-3xl text-rosa">
                         Lista de invitados
                     </p>
@@ -21,7 +23,7 @@ export const ListaInvitadosTable = ({ setActionButton}) => {
                 </div>
 
                 <div className="relative">
-                    <button className="bg-rosa rounded-lg px-4 py-1 text-white"onClick={()=>setActionButton(1)}>
+                    <button className="bg-rosa rounded-lg px-4 py-1 text-white" onClick={() => setActionButton(1)}>
                         Crear lista
                     </button>
 

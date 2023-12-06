@@ -4,18 +4,18 @@ import { AgregarProducto } from "./CartaProductosComponents/AgregarProducto"
 import { CartaProductosTable } from "./CartaProductosComponents/CartaProductosTable"
 import { InfoCartaProducto } from "./CartaProductosComponents/InfoCartaProducto"
 
-export const CartaProducto = () => {
+export const CartaProducto = ({setComponentState}) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
     const dataComponents = [
         {
 
-            component: <CartaProductosTable actionButton={state2} setActionButton={setOptionSelect} />
+            component: <CartaProductosTable actionButton={state2} setActionButton={setOptionSelect} setComponentState={setComponentState} />
 
         },
         {
-            component: <AgregarProducto actionButton={state2} setActionButton={setOptionSelect} />
+            component: <AgregarProducto actionButton={state2} setActionButton={setOptionSelect} setChildrenComponentState={setOptionSelect} />
         },
 
     ]
@@ -29,7 +29,7 @@ export const CartaProducto = () => {
             {(() => {
                 if (state) {
                     return (
-                       <InfoCartaProducto actionButton={state} setActionButton={setState}/>
+                       <InfoCartaProducto actionButton={state} setActionButton={setState} setComponentState={setComponentState}/>
                     )
                 } else {
                     if (state2) {

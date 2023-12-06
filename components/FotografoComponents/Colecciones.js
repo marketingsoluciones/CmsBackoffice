@@ -2,7 +2,7 @@ import { useState } from "react"
 import { VistaSinDatos } from "../VistaSinDatos"
 import { ColeccionesInfoPage } from "./ColeccionsComponents/ColeccionsInfoPage"
 
-export const Colecciones = () => {
+export const Colecciones = ({setComponentState}) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
@@ -20,7 +20,7 @@ export const Colecciones = () => {
             {(() => {
                 if (state) {
                     return (
-                        <ColeccionesInfoPage/>
+                        <ColeccionesInfoPage setComponentState={setComponentState} />
                     )
                 } else {
                     if (state2) {

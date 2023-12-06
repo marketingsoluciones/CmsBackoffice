@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { AuthContextProvider } from "../../../context/AuthContext"
-import { SearchIcon } from "../../Icons/index"
+import { ArrowLeft, SearchIcon } from "../../Icons/index"
 import GlobalFilter from "../../Datatable/GlobalFilter"
 import { OnlyViewTable } from "../../PanelViewTable"
 
 
-export const PlanoEventoTable = () => {
+export const PlanoEventoTable = ({ setComponentState }) => {
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
     const { state, dispatch } = AuthContextProvider()
@@ -13,8 +13,10 @@ export const PlanoEventoTable = () => {
     return (
         <div className="space-y-4 w-full  ">
             <div>
-
-                <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+                <div onClick={() => setComponentState(4)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                    <ArrowLeft />
+                </div>
+                <p className="mt-1 text-3xl text-rosa">
                     Plano del Evento
                 </p>
 

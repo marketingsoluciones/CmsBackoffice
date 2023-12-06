@@ -4,18 +4,18 @@ import { InvitadosCateringTable } from "./InvitadosComponents/InvitadosCateringT
 import { InfoListaInvitadosPage } from "../LugaresBodasComponents/ListaInvitadosComponents/InfoListaInvitadosPage.js"
 import { AddListaInvitados } from "../LugaresBodasComponents/ListaInvitadosComponents/AddListaInvitados.js"
 
-export const InvitadosC = () => {
+export const InvitadosC = ({setComponentState}) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
     const dataComponents = [
         {
 
-            component: <InvitadosCateringTable setOptionSelect={setOptionSelect} />
+            component: <InvitadosCateringTable setOptionSelect={setOptionSelect} setComponentState={setComponentState} />
 
         },
         {
-            component: <AddListaInvitados setOptionSelect={setOptionSelect} />
+            component: <AddListaInvitados setOptionSelect={setOptionSelect} setChildrenComponentState={setOptionSelect} />
         },
 
     ]
@@ -28,7 +28,7 @@ export const InvitadosC = () => {
             {(() => {
                 if (state) {
                     return (
-                        <InfoListaInvitadosPage state={state} setState={setState} />
+                        <InfoListaInvitadosPage state={state} setState={setState} setComponentState={setComponentState} idxComponent={5} />
                     )
                 } else {
                     if (state2) {

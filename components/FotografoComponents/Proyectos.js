@@ -2,7 +2,7 @@ import { useState } from "react"
 import { VistaSinDatos } from "../VistaSinDatos"
 import { ProyectoInfoPage } from "./ProyectosComponents/ProyectoInfoPage"
 
-export const Proyectos = () => {
+export const Proyectos = ({setComponentState}) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
@@ -20,7 +20,7 @@ export const Proyectos = () => {
             {(() => {
                 if (state) {
                     return (
-                        <ProyectoInfoPage/>
+                        <ProyectoInfoPage setComponentState={setComponentState}/>
                     )
                 } else {
                     if (state2) {

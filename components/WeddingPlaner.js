@@ -17,25 +17,25 @@ export const WeddingPlanner = () => {
         {
             icon: <InvitadosCatering />,
             title: "Lista de invitados",
-            component: <InvitadosWeddingPlanner />
+            component: <InvitadosWeddingPlanner  setComponentState={setOptionSelect}/>
         },
         {
             icon: <PresupuestoIcon />,
             title: "Presupuesto",
-            component: <Presupuesto />
+            component: <Presupuesto  setComponentState={setOptionSelect} />
         },
         {
             icon: <CorreoIcon />,
             title: "Invitaciones",
-            component: <InvitacionesWeddinPlanner />
+            component: <InvitacionesWeddinPlanner  setComponentState={setOptionSelect} />
         },
         {
             icon: <ItinerarioCatering />,
             title: "Intinerarios",
-            component: <ItinerarioWeddingPlanner />
+            component: <ItinerarioWeddingPlanner   setComponentState={setOptionSelect}/>
         },
         {
-            component: <InfoWeddinPlannrePage setOptionSelect={setOptionSelect} modalContacto={modalContacto} setModalContacto={setModalContacto} />
+            component: <InfoWeddinPlannrePage setOptionSelect={setOptionSelect} modalContacto={modalContacto} setModalContacto={setModalContacto}  />
         },
     ]
     const handleClickOption = (idx) => {

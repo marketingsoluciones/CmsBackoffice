@@ -1,7 +1,7 @@
-import { CorazonIcon, DiamanteIcon } from "../../Icons/index"
+import { ArrowLeft, CorazonIcon, DiamanteIcon } from "../../Icons/index"
 import { useRouter } from "next/router"
 
-export const InfoPlantillaMenuPage = ({actionButton, setActionButton}) => {
+export const InfoPlantillaMenuPage = ({ actionButton, setActionButton, setComponentState }) => {
     const router = useRouter()
     const dataArry = [
         {
@@ -19,6 +19,9 @@ export const InfoPlantillaMenuPage = ({actionButton, setActionButton}) => {
     ]
     return (
         <>
+            <div onClick={() => setComponentState(5)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                <ArrowLeft />
+            </div>
             <p className="  mt-1 text-3xl text-rosa">
                 Plantillas de Menú
             </p>
@@ -47,14 +50,14 @@ export const InfoPlantillaMenuPage = ({actionButton, setActionButton}) => {
                             </p>
                         </div>
                         <div>
-                            <button onClick={()=>/* setActionButton(!actionButton) */ router.push({
-                                    pathname: "/facturacion",
-                                    query: {
-                                        state: 1,
-                                        producto: "34",
-                                        plan: "premium"
-                                    }
-                                }) } className="bg-rosa rounded-lg px-5 py-0.5 text-base text-white ">
+                            <button onClick={() =>/* setActionButton(!actionButton) */ router.push({
+                                pathname: "/facturacion",
+                                query: {
+                                    state: 1,
+                                    producto: "34",
+                                    plan: "premium"
+                                }
+                            })} className="bg-rosa rounded-lg px-5 py-0.5 text-base text-white ">
                                 Empezar
                             </button>
                         </div>

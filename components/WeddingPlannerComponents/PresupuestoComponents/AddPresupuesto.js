@@ -9,6 +9,7 @@ import { EventContextProvider } from "../../../context/EventContext";
 import { AuthContextProvider } from "../../../context/AuthContext";
 import { useEffect } from "react";
 import BlockCategoria from "./BlockCategoria";
+import { ArrowLeft } from "../../Icons/index";
 
 export const AddPresupuesto = ({ setOptionSelect }) => {
 
@@ -33,8 +34,8 @@ export const AddPresupuesto = ({ setOptionSelect }) => {
 
     return (
         <section className="h-[100vh]" >
-            <button type="button" onClick={() => setOptionSelect(0)}>
-                volver
+            <button type="button" onClick={() => setOptionSelect(0)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                <ArrowLeft />
             </button>
             <OpcionesPresupuesto setActive={setActive} active={active} />
             {active ? (
@@ -46,7 +47,7 @@ export const AddPresupuesto = ({ setOptionSelect }) => {
                     <div className="md:col-span-2 w-full flex flex-col relative">
                         {
                             showCategoria.isVisible ? (
-                               
+
                                 <BlockCategoria
                                     set={(act) => setShowCategoria(act)}
                                     cate={showCategoria?.id}

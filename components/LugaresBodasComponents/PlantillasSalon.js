@@ -3,13 +3,13 @@ import { VistaSinDatos } from "../VistaSinDatos"
 import { PlantillaSalonTable } from "./PlantillaComponents/PlantillaSalonTable"
 import { InfoPlantillaSalonPage } from "./PlantillaComponents/InfoPlantillaSalonPage"
 
-export const PlantillaSalon = () => {
+export const PlantillaSalon = ({componentState, setComponentState}) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
     const dataComponents = [
         {
-            component: <PlantillaSalonTable />
+            component: <PlantillaSalonTable componentState={componentState} setComponentState={setComponentState} />
         },
         {
             component: ""
@@ -21,10 +21,10 @@ export const PlantillaSalon = () => {
             {(() => {
                 if (state) {
                     return (
-                        <InfoPlantillaSalonPage />
+                        <InfoPlantillaSalonPage  componentState={componentState} setComponentState={setComponentState} />
                     )
                 } else {
-                    if (!state2) {
+                    if (state2) {
 
                         return (
                             <div>

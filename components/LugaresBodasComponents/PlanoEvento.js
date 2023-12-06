@@ -3,13 +3,13 @@ import { VistaSinDatos } from "../VistaSinDatos"
 import { PlanoEventoTable } from "./PlanoEventoComponents/PlanoEventoTable"
 import { InfoPlanoEventoPage } from "./PlanoEventoComponents/InfoPlanoEventoPage"
 
-export const PlanoEvento = () => {
+export const PlanoEvento = ({componentState, setComponentState}) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
     const dataComponents = [
         {
-            component: <PlanoEventoTable />
+            component: <PlanoEventoTable setComponentState={setComponentState} />
         },
         {
             component: ""
@@ -22,7 +22,7 @@ export const PlanoEvento = () => {
             {(() => {
                 if (state) {
                     return (
-                        <InfoPlanoEventoPage actionButton={state} setActionButton={setState} />
+                        <InfoPlanoEventoPage actionButton={state} setActionButton={setState} setComponentState={setComponentState}  />
 
                     )
                 } else {

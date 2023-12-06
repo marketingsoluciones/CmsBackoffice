@@ -1,7 +1,7 @@
-import { DescargaIcon, DiamanteIcon, FotoBgIcon } from "../../Icons/index"
+import { ArrowLeft, DescargaIcon, DiamanteIcon, FotoBgIcon } from "../../Icons/index"
 import { useRouter } from "next/router"
 
-export const ColeccionesInfoPage = () => {
+export const ColeccionesInfoPage = ({ setComponentState }) => {
     const router = useRouter()
     const dataArry = [
         {
@@ -17,6 +17,9 @@ export const ColeccionesInfoPage = () => {
     ]
     return (
         <>
+            <div onClick={() => setComponentState(2)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                <ArrowLeft />
+            </div>
             <p className="  mt-1 text-3xl text-rosa">
                 Colecciones
             </p>
@@ -42,13 +45,13 @@ export const ColeccionesInfoPage = () => {
                             </p>
                         </div>
                         <button onClick={() => router.push({
-                                    pathname: "/facturacion",
-                                    query: {
-                                        state: 1,
-                                        producto: "78",
-                                        plan: "premium"
-                                    }
-                                })} className="bg-rosa rounded-lg px-4 py-0.5 text-white text-base">
+                            pathname: "/facturacion",
+                            query: {
+                                state: 1,
+                                producto: "78",
+                                plan: "premium"
+                            }
+                        })} className="bg-rosa rounded-lg px-4 py-0.5 text-white text-base">
                             Crear Colección
                         </button>
                     </div>

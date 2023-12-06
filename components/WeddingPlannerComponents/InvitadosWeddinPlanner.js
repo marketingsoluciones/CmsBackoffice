@@ -4,16 +4,16 @@ import { InvitadosWeddingTable } from "./InvitadosComponents/InvitadosWeddingTab
 import { AddListaInvitados } from "../LugaresBodasComponents/ListaInvitadosComponents/AddListaInvitados"
 import { InfoListaInvitadosPage } from "../LugaresBodasComponents/ListaInvitadosComponents/InfoListaInvitadosPage"
 
-export const InvitadosWeddingPlanner = () => {
+export const InvitadosWeddingPlanner = ({setComponentState}) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
     const dataComponents = [
         {
-            component: <InvitadosWeddingTable setOptionSelect={setOptionSelect} />
+            component: <InvitadosWeddingTable setOptionSelect={setOptionSelect} setComponentState={setComponentState} />
         },
         {
-            component: <AddListaInvitados setOptionSelect={setOptionSelect} />
+            component: <AddListaInvitados setOptionSelect={setOptionSelect} setChildrenComponentState={setOptionSelect} />
         },
 
     ]
@@ -23,7 +23,7 @@ export const InvitadosWeddingPlanner = () => {
                 {(() => {
                     if (state) {
                         return (
-                            <InfoListaInvitadosPage state={state} setState={setState} />
+                            <InfoListaInvitadosPage state={state} setState={setState} setComponentState={setComponentState} idxComponent={4} />
                         )
                     } else {
                         if (state2) {

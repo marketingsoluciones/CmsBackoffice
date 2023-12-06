@@ -1,11 +1,15 @@
 import { useRouter } from "next/router"
+import { ArrowLeft } from "../../Icons/index"
 
 
-export const InfoCartaProducto = ({actionButton, setActionButton}) => {
+export const InfoCartaProducto = ({ actionButton, setActionButton, setComponentState }) => {
 
     const router = useRouter()
     return (
         <>
+            <div onClick={() => setComponentState(5)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                <ArrowLeft />
+            </div>
             <p className=" mt-1 text-3xl text-rosa">
                 Carta de productos
             </p>
@@ -20,14 +24,16 @@ export const InfoCartaProducto = ({actionButton, setActionButton}) => {
                             <span className="text-rosa">Genera tu propia carta de productos</span> añadiendo platos y bebidas de tu restaurante para crear el menú de cada uno de sus eventos.
                         </p>
                         <div>
-                            <button onClick={()=>{false? setActionButton(!actionButton): router.push({
+                            <button onClick={() => {
+                                false ? setActionButton(!actionButton) : router.push({
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
                                         producto: "34",
                                         plan: "basic"
                                     }
-                                })}} className="bg-rosa rounded-lg px-4 py-1 text-white text-base">
+                                })
+                            }} className="bg-rosa rounded-lg px-4 py-1 text-white text-base">
                                 Crear carta de productos
                             </button>
                         </div>

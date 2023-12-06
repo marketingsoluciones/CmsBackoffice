@@ -1,10 +1,10 @@
 import { useState } from "react"
 import GlobalFilter from "../../Datatable/GlobalFilter"
-import { SearchIcon } from "../../Icons/index"
+import { ArrowLeft, SearchIcon } from "../../Icons/index"
 import { OnlyViewTable } from "../../PanelViewTable"
 import { AuthContextProvider } from "../../../context/AuthContext"
 
-export const InvitadosWeddingTable = ({setOptionSelect}) => {
+export const InvitadosWeddingTable = ({ setOptionSelect, setComponentState }) => {
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
     const { state, dispatch } = AuthContextProvider()
@@ -12,8 +12,10 @@ export const InvitadosWeddingTable = ({setOptionSelect}) => {
         <>
             <div className="space-y-4 w-full  ">
                 <div>
-
-                    <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+                    <div onClick={() => setComponentState(4)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                        <ArrowLeft />
+                    </div>
+                    <p className="  mt-1 text-3xl text-rosa">
                         Lista de invitados
                     </p>
 
@@ -21,7 +23,7 @@ export const InvitadosWeddingTable = ({setOptionSelect}) => {
                 </div>
 
                 <div className="relative">
-                    <button onClick={()=>setOptionSelect(1)} className="bg-rosa rounded-lg px-4 py-1 text-white">
+                    <button onClick={() => setOptionSelect(1)} className="bg-rosa rounded-lg px-4 py-1 text-white">
                         Crear lista
                     </button>
 

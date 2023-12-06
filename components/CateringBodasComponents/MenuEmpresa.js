@@ -4,18 +4,18 @@ import { MenuTable } from "./MenuComponents/MenuTable"
 import { InfoMenuPage } from "./MenuComponents/InfoMenuPage"
 import { VerMenu } from "./PlantillaMenu/VerMenu"
 
-export const MenuEmpresa = () => {
+export const MenuEmpresa = ({setComponentState}) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
     const dataComponents = [
         {
 
-            component: <MenuTable setOptionSelect={setOptionSelect}/>
+            component: <MenuTable setOptionSelect={setOptionSelect} setComponentState={setComponentState}/>
 
         },
         {
-            component: <VerMenu setOptionSelect={setOptionSelect} />
+            component: <VerMenu setOptionSelect={setOptionSelect} setChildrenComponentState={setOptionSelect} />
         },
 
     ]
@@ -27,7 +27,7 @@ export const MenuEmpresa = () => {
             {(() => {
                 if (state) {
                     return (
-                        <InfoMenuPage/>
+                        <InfoMenuPage setComponentState={setComponentState}/>
                     )
                 } else {
                     if (state2) {

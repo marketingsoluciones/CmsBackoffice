@@ -1,7 +1,7 @@
-import { CarpetasIcon, DiamanteIcon, FacturaIcon, MensajeIcon, TodoIcon } from "../../Icons/index"
+import { CarpetasIcon, DiamanteIcon, FacturaIcon, MensajeIcon, TodoIcon,ArrowLeft } from "../../Icons/index"
 import { useRouter } from "next/router"
 
-export const ProyectoInfoPage = () => {
+export const ProyectoInfoPage = ({ setComponentState }) => {
     const router = useRouter()
     const dataArry = [
         {
@@ -23,6 +23,9 @@ export const ProyectoInfoPage = () => {
     ]
     return (
         <>
+            <div onClick={() => setComponentState(2)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                <ArrowLeft />
+            </div>
             <p className=" mt-1 text-3xl text-rosa">
                 Proyectos
             </p>
@@ -40,23 +43,23 @@ export const ProyectoInfoPage = () => {
                         </div>
                         <p>
                             Activar la versión <span className="font-semibold cursor-pointer" onClick={() => router.push({
-                                    pathname: "/facturacion",
-                                    query: {
-                                        state: 1,
-                                        producto: "78",
-                                        plan: "premium"
-                                    }
-                                })}>PREMIUM</span>
+                                pathname: "/facturacion",
+                                query: {
+                                    state: 1,
+                                    producto: "78",
+                                    plan: "premium"
+                                }
+                            })}>PREMIUM</span>
                         </p>
                     </div>
                     <button onClick={() => router.push({
-                                    pathname: "/facturacion",
-                                    query: {
-                                        state: 1,
-                                        producto: "78",
-                                        plan: "premium"
-                                    }
-                                })} className="bg-rosa rounded-lg px-4 py-0.5 text-white text-base">
+                        pathname: "/facturacion",
+                        query: {
+                            state: 1,
+                            producto: "78",
+                            plan: "premium"
+                        }
+                    })} className="bg-rosa rounded-lg px-4 py-0.5 text-white text-base">
                         Crear Proyectos
                     </button>
                 </div>

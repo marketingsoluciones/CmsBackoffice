@@ -1,8 +1,9 @@
 import { Formik, Form } from "formik"
 import { InputFieldGlobal } from "../../formularios/Inputs/InputFieldGlobal"
 import { SelectField } from "../../formularios/Inputs/SelectField"
+import { ArrowLeft } from "../../Icons/index"
 
-export const AgregarProducto = ({ actionButton, setActionButton }) => {
+export const AgregarProducto = ({ actionButton, setActionButton, setChildrenComponentState }) => {
     const initialValues = {
 
     }
@@ -13,7 +14,10 @@ export const AgregarProducto = ({ actionButton, setActionButton }) => {
 
     return (
         <div className="h-[100vh]">
-            <p className=" text-slate-600 mt-1 px-5 text-xl md:text-3xl text-rosa">
+            <div onClick={() => setChildrenComponentState(0)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                <ArrowLeft />
+            </div>
+            <p className=" mt-1 px-5 text-xl md:text-3xl text-rosa">
                 Agregar Producto
             </p>
             <div className="bg-white h-[calc(100%-135px)] mx-5 my-2 rounded-lg flex flex-col items-center justify-center   ">
@@ -32,7 +36,7 @@ export const AgregarProducto = ({ actionButton, setActionButton }) => {
                                 <label className="text-gray-500  text-sm">Indica el nombre de tu plato o bebida</label>
                                 <InputFieldGlobal
                                     name="nombre"
-                                    className="focus:outline-none border border-gray-300 rounded-lg py-1 px-3 py-3 w-[100%] truncate "
+                                    className="focus:outline-none border border-gray-300 rounded-lg px-3 py-3 w-[100%] truncate "
                                     placeholder=""
                                 />
                             </div>
@@ -54,7 +58,7 @@ export const AgregarProducto = ({ actionButton, setActionButton }) => {
                             <label className="text-gray-500 text-sm">Indica si este plato tiene algun alérgeno</label>
                             <InputFieldGlobal
                                 name="nombre"
-                                className="focus:outline-none border border-gray-300 rounded-lg py-1 px-3 py-3 w-[100%] truncate "
+                                className="focus:outline-none border border-gray-300 rounded-lg px-3 py-3 w-[100%] truncate "
                                 placeholder=""
                             />
                         </div>

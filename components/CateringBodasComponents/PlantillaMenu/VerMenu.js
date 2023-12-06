@@ -7,8 +7,9 @@ import { BlockPlantillaMenu } from "../../BlockPlantillaMenu/BlockPlantillaMenu"
 import { ModalLeft } from "../../modals/ModalLeft"
 import { FormAddProducto } from "./FormAddProducto"
 import { FormAddCategoria } from "./FormAddCatergoria"
+import { ArrowLeft } from "../../Icons/index"
 
-export const VerMenu = ({ }) => {
+export const VerMenu = ({ setChildrenComponentState }) => {
     const [openModal, setOpenModal] = useState(false)
     const [openModalP, setOpenModalP] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
@@ -17,7 +18,10 @@ export const VerMenu = ({ }) => {
 
     return (
         <>
-            <div className="px-2 space-y-4 h-[100vh]">
+            <div className="space-y-4 h-[100vh]">
+                <div onClick={() => setChildrenComponentState(0)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                    <ArrowLeft />
+                </div>
                 <HeaderPlantillaMenu openModal={openModal} setOpenModal={setOpenModal} openModalP={openModalP} setOpenModalP={setOpenModalP} />
                 <BlockPlantillaMenu addProducto={isMounted} setAddProducto={setIsMounted} addCategoria={isMounted2} setAddCategoria={setIsMounted2} />
             </div>

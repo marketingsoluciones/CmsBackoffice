@@ -4,13 +4,13 @@ import { ItinerarioWeddingTable } from "./ItinerarioComponents/ItinerarioWedding
 import { Itinerario } from "../Itinerario/Itinerario"
 import { ItinerarioInfoPage } from "./ItinerarioComponents/ItinerarioInfoPage"
 
-export const ItinerarioWeddingPlanner = () => {
+export const ItinerarioWeddingPlanner = ({setComponentState}) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
     const dataComponents = [
         {
-            component: <ItinerarioWeddingTable actionButton={state2} setActionButton={setState2} />
+            component: <ItinerarioWeddingTable actionButton={state2} setActionButton={setState2}  setComponentState={setComponentState}/>
         },
         {
             component: <Itinerario />
@@ -25,7 +25,7 @@ export const ItinerarioWeddingPlanner = () => {
             {(() => {
                 if (state) {
                     return (
-                        <ItinerarioInfoPage  setOptionSelect={setOptionSelect}/>
+                        <ItinerarioInfoPage  setOptionSelect={setOptionSelect} setComponentState={setComponentState} idxComponent={4}/>
                     )
                 } else {
                     if (state2) {

@@ -1,10 +1,13 @@
-import { CorazoncirculoIcon, DiamanteIcon } from "../../Icons/index"
+import { ArrowLeft, CorazoncirculoIcon, DiamanteIcon } from "../../Icons/index"
 import { useRouter } from "next/router"
 
-export const InfoInvitaciones = () => {
+export const InfoInvitaciones = ({ setComponentState }) => {
     const router = useRouter()
     return (
         <>
+            <div onClick={() => setComponentState(4)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                <ArrowLeft />
+            </div>
             <p className="  mt-1 text-3xl text-rosa">
                 Invitaciones
             </p>
@@ -18,13 +21,13 @@ export const InfoInvitaciones = () => {
                         <p className="text-base">Eleva el confort en la comunicación con tu lista de invitados. Ahora tus invitaciones te brindan el canal perfecto <span className="text-rosa"> para que tus invitados confirmen su asistencia o comenten a través de ellas. </span></p>
                         <div className="w-full">
                             <button onClick={() => router.push({
-                                    pathname: "/facturacion",
-                                    query: {
-                                        state: 1,
-                                        producto: "56",
-                                        plan: "basic"
-                                    }
-                                })} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
+                                pathname: "/facturacion",
+                                query: {
+                                    state: 1,
+                                    producto: "56",
+                                    plan: "basic"
+                                }
+                            })} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
                                 {/* Inicia prueba gratis de 30 días */} Empezar
                             </button>
                         </div>
