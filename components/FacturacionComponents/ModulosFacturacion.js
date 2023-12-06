@@ -1,17 +1,30 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ExclamacionIcon, VideoIcon } from "../Icons/index"
 import { InfoModuloFacturacion } from "./InfoModuloFacturacion"
 import { InfoModulos } from "./InfoModulos"
 import { DetalladoCompra } from "./DetalladoCompra"
 import { DatosFacturacion } from "./DatosFacturacion"
+import { fetchApi, queries } from "../../utils/Fetching"
+import { AuthContextProvider } from "../../context/AuthContext"
 
 export const ModulosFacturacion = () => {
+    const { config } = AuthContextProvider();
     const urlProps = window.location.search
     const params = new URLSearchParams(urlProps);
     const state = params.get('state');
     const producto = params.get('producto')
     const plan = params.get('plan');
     const [optionSelect, setOptionSelect] = useState(state !== null ? state : 0)
+
+    useEffect(async () => {
+        const data = JSON.parse(await fetchApi({
+            query: queries.getAllProducts,
+            variables: {},
+            development: config?.name
+        }));
+        console.log(1002, data)
+    }, [optionSelect])
+
 
     const dataArry = [
         {
@@ -446,13 +459,13 @@ export const ModulosFacturacion = () => {
             video: "Ver video (00:30)"
         },
     ]
-    
+
     const dataComponents = [
         {
             component: <InfoModulos dataArry={dataArry} setOptionSelect={setOptionSelect} />
         },
         {
-            component: <InfoModuloFacturacion dataArry={dataArry} actionButtton={setOptionSelect} producto={producto} plan={plan}  />
+            component: <InfoModuloFacturacion dataArry={dataArry} actionButtton={setOptionSelect} producto={producto} plan={plan} />
         },
         {
             component: <DetalladoCompra actionButtton={setOptionSelect} />

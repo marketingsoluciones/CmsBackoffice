@@ -93,6 +93,10 @@ export const queries = {
   signOut: `mutation ($sessionCookie :String){
     signOut(sessionCookie:$sessionCookie)
   }`,
+  getAllProducts: `query {
+    getAllProducts
+  }`,
+
   getUser: `query ($uid: ID) {
         getUser(uid:$uid){
           phoneNumber

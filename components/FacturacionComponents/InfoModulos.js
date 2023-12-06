@@ -13,7 +13,7 @@ export const InfoModulos = ({ dataArry, setOptionSelect }) => {
                             <p className="text-base">Gestión general de los perfiles de tu marca y/o eventos.</p>
                         </div>
                         <div className="flex flex-col items-end space-y-1">
-                            <button onClick={()=>setOptionSelect(1)} className="text-base bg-rosa text-white py-1 px-2 rounded-lg">
+                            <button onClick={() => setOptionSelect(1)} className="text-base bg-rosa text-white py-1 px-2 rounded-lg">
                                 Administrar complementos
                             </button>
                             <p className="font-semibold text-gray-600">
@@ -54,7 +54,7 @@ export const InfoModulos = ({ dataArry, setOptionSelect }) => {
                             plan
                         </p>
                         <div className="flex items-center justify-center">
-                            <button onClick={()=>setOptionSelect(3)} className="text-base text-white bg-rosa rounded-lg py-1 px-4">
+                            <button onClick={() => setOptionSelect(3)} className="text-base text-white bg-rosa rounded-lg py-1 px-4">
                                 Agregar detalles
                             </button>
                         </div>
@@ -83,7 +83,7 @@ const InfoModulo = ({ dataArry, setOptionSelect }) => {
                                     {item.text}
                                 </p>
                             </div>
-                            <button onClick={()=>setOptionSelect(1)} className="text-base font-semibold border rounded-lg py-1 px-2 border-gray-400">
+                            <button onClick={() => setOptionSelect(1)} className="text-base font-semibold border rounded-lg py-1 px-2 border-gray-400">
                                 {item.button}
                             </button>
                         </div>

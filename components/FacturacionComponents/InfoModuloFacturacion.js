@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
-import { ExclamacionIcon, VideoIcon } from "../Icons/index"
+import { ArrowLeft, ExclamacionIcon, VideoIcon } from "../Icons/index"
 import ClickAwayListener from "react-click-away-listener";
 import Link from "next/link";
+import { LiaCartArrowDownSolid } from "react-icons/lia"
 
 export const InfoModuloFacturacion = ({ dataArry, actionButtton, producto, plan }) => {
     const [viewInfo, setViewInfo] = useState()
@@ -9,7 +10,7 @@ export const InfoModuloFacturacion = ({ dataArry, actionButtton, producto, plan 
 
     const findProducto = dataArry.find(({ id }) => id === producto)
 
-   
+
 
     const info = [
         {
@@ -33,10 +34,20 @@ export const InfoModuloFacturacion = ({ dataArry, actionButtton, producto, plan 
     ]
 
     return (
-        <div className="h-[100vh]">
-            <div className="bg-white rounded-lg px-10 py-5 mb-3">
-                <p className="text-xl text-gray-600">Mejora tu organización con los módulos especiales </p>
-                <p className="text-base text-gray-700"> Si se suscribe en la mitad del ciclo de facturación, se le cobrará un monto parcial.</p>
+        <div className="h-[100vh] relative">
+            <div onClick={() => actionButtton(0)} className="w-5 h-5 absolute z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                <ArrowLeft />
+            </div>
+            <div className="bg-white rounded-lg px-10 py-5 mb-3 flex justify-between">
+                <div className="">
+                    <p className="text-xl text-gray-600">Mejora tu organización con los módulos especiales </p>
+                    <p className="text-base text-gray-700"> Si se suscribe en la mitad del ciclo de facturación, se le cobrará un monto parcial.</p>
+                </div>
+                <div className="relative flex">
+                    <span className="bg-rosa w-5 h-5 absolute z-10 rounded-full border-2 border-rosa flex items-center justify-center text-white translate-x-4 translate-y-1">6</span>
+                    <LiaCartArrowDownSolid className="w-12 h-12 text-rosa" />
+                    <button className="bg-rosa text-white rounded-lg capitalize px-4 m-2">pagar</button>
+                </div>
             </div>
             <div className="space-y-4 h-[calc(100%-175px)] overflow-auto">
 
@@ -87,7 +98,7 @@ export const InfoModuloFacturacion = ({ dataArry, actionButtton, producto, plan 
                 {(() => {
                     if (findProducto != undefined) {
                         return (
-                            <div  className="flex justify-center bg-white rounded-lg px-5 py-5 space-x-4">
+                            <div className="flex justify-center bg-white rounded-lg px-5 py-5 space-x-4">
                                 {(() => {
                                     if (optionSelect !== findProducto.idPremium) {
                                         return (
@@ -547,16 +558,16 @@ export const InfoModuloFacturacion = ({ dataArry, actionButtton, producto, plan 
                         )
                     })
                 } */}
-                <div className="bg-white rounded-lg px-5 py-3 mt-3 flex justify-between">
-                    <button onClick={() => actionButtton(0)} className="border border-rosa rounded-lg py-1 px-3 text-rosa text-base">
+                {/* <div className="bg-white rounded-lg px-5 py-3 mt-3 flex justify-between">
+                    <button onClick={() => actionButtton(0)} className="bg-red-500 border border-rosa rounded-lg py-1 px-3 text-rosa text-base">
                         volver
                     </button>
-                    {/*   <div>
+                      <div>
                     <button className="bg-rosa rounded-lg px-7 py-1 text-white text-base" onClick={() => actionButtton(2)}>
                     Revisar compra
                     </button>
-                </div> */}
                 </div>
+                </div> */}
             </div>
         </div>
     )
