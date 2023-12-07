@@ -12,12 +12,11 @@ export const visibleColumns = [
   { accessor: "_id", show: false },
   { accessor: "businessName", show: true },
   { accessor: "createdAt", show: true },
-  { accessor: "imgMiniatura", show: false },
-  { accessor: "slug", show: false },
+  { accessor: "imgMiniatura", show: true },
+  { accessor: "slug", show: true },
   { accessor: "status", show: false },
   { accessor: "title", show: true },
   { accessor: "updatedAt", show: false },
-  { accessor: "userUid", show: false },
 ]
 
 export const BodyStaticAPP = [

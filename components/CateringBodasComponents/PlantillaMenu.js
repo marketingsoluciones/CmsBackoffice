@@ -16,7 +16,7 @@ export const PlantillaMenu = ({setComponentState}) => {
 
         }, */
         {
-            component: <VerMenu setChildrenComponentState={setComponentState} />
+            component: <VerMenu setChildrenComponentState={setOptionSelect} />
         },
 
     ]

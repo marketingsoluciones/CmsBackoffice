@@ -17,10 +17,10 @@ export const AgregarProducto = ({ actionButton, setActionButton, setChildrenComp
             <div onClick={() => setChildrenComponentState(0)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
-            <p className=" mt-1 px-5 text-xl md:text-3xl text-rosa">
+            <p className=" mt-1 px-5* text-xl md:text-3xl text-rosa">
                 Agregar Producto
             </p>
-            <div className="bg-white h-[calc(100%-135px)] mx-5 my-2 rounded-lg flex flex-col items-center justify-center   ">
+            <div className="bg-white h-[calc(100%-135px)] mx-5* my-2 rounded-lg flex flex-col items-center justify-center   ">
 
                 <Formik initialValues={initialValues} onSubmit={handelSubmit}>
                     <Form>

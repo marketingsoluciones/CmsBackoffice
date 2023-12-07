@@ -3,10 +3,10 @@ import { VistaSinDatos } from "../VistaSinDatos.js"
 import { InvitadosCateringTable } from "./InvitadosComponents/InvitadosCateringTable.js"
 import { InfoListaInvitadosPage } from "../LugaresBodasComponents/ListaInvitadosComponents/InfoListaInvitadosPage.js"
 import { AddListaInvitados } from "../LugaresBodasComponents/ListaInvitadosComponents/AddListaInvitados.js"
-/* import { EventsGroupContextProvider } from "../../context/EventsGroupContext.js" */
 
 
-export const InvitadosC = ({ setComponentState }) => {
+
+export const InvitadosC = ({ setComponentState, eventsGroup }) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
@@ -29,7 +29,7 @@ export const InvitadosC = ({ setComponentState }) => {
     return (
         <div className="px-5 py-2 h-full">
             {(() => {
-                if (!state) {
+                if (eventsGroup.length == 0) {
                     return (
                         <InfoListaInvitadosPage state={state} setState={setState} setComponentState={setComponentState} idxComponent={5} />
                     )
