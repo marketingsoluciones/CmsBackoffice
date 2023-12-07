@@ -6,16 +6,23 @@ import { DetalladoCompra } from "./DetalladoCompra"
 import { DatosFacturacion } from "./DatosFacturacion"
 import { fetchApi, queries } from "../../utils/Fetching"
 import { AuthContextProvider } from "../../context/AuthContext"
+import { useRouter } from "next/router"
 
 export const ModulosFacturacion = () => {
     const { config } = AuthContextProvider();
-    const urlProps = window.location.search
-    const params = new URLSearchParams(urlProps);
-    const state = params.get('state');
-    const producto = params.get('producto')
-    const plan = params.get('plan');
-    const [optionSelect, setOptionSelect] = useState(state !== null ? state : 0)
+    const [optionSelect, setOptionSelect] = useState(null)
     const [data, setData] = useState({})
+    const router = useRouter()
+
+    useEffect(() => {
+        if (router?.query?.stage) {
+            setOptionSelect(router?.query?.stage)
+        } else {
+            setOptionSelect(0)
+        }
+
+    }, [])
+
 
     useEffect(async () => {
         const data = JSON.parse(await fetchApi({
@@ -472,7 +479,7 @@ export const ModulosFacturacion = () => {
             component: <InfoModulos data={data} setOptionSelect={setOptionSelect} />
         },
         {
-            component: <InfoModuloFacturacion data={data} actionButtton={setOptionSelect} producto={producto} plan={plan} />
+            component: <InfoModuloFacturacion data={data} actionButtton={setOptionSelect} />
         },
         {
             component: <DetalladoCompra actionButtton={setOptionSelect} />
@@ -484,7 +491,7 @@ export const ModulosFacturacion = () => {
 
     return (
         <div>
-            {dataComponents[optionSelect].component}
+            {optionSelect > -1 && dataComponents[optionSelect]?.component}
         </div>
     )
 }

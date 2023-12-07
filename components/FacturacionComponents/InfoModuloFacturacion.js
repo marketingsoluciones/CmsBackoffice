@@ -8,14 +8,13 @@ import { fetchApi, queries } from "../../utils/Fetching";
 import { AuthContextProvider } from "../../context/AuthContext";
 import { useRouter } from "next/router";
 
-export const InfoModuloFacturacion = ({ dataArry, data, actionButtton, producto, plan }) => {
+export const InfoModuloFacturacion = ({ data, actionButtton }) => {
     const { user } = AuthContextProvider()
     const [viewInfo, setViewInfo] = useState()
     const [products, setProducts] = useState([])
     const [optionSelect, setOptionSelect] = useState(null)
     const router = useRouter()
     console.log(user)
-    const findProducto = dataArry?.find(({ id }) => id === producto)
 
     const info = [
         {
