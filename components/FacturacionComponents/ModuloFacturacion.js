@@ -2,6 +2,8 @@ import Link from "next/link"
 import { useState } from "react"
 import ClickAwayListener from "react-click-away-listener"
 import { ExclamacionIcon } from "../Icons"
+import { InfoItemsFacturation } from "../../utils/schemas"
+
 
 export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
   const [optionSelect, setOptionSelect] = useState("basic")
@@ -31,7 +33,12 @@ export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
         </div>
         <p className="text-base">{item?.description}</p>
         <div className="w-full relative">
-          <InfoModulos item={item} viewInfo={viewInfo} setViewInfo={setViewInfo} />
+          <div className="w-full grid grid-cols-3">
+            {item?.metadata?.includes?.split(", ").map((el, idx) => {
+              return <InfoModulos key={idx} item={el} viewInfo={viewInfo} setViewInfo={setViewInfo} />
+            })}
+          </div>
+
           {/* <ModalInfoModulo data={item} setViewInfo={setViewInfo} viewInfo={viewInfo} /> Módulo Lugares para Bodas */}
         </div>
       </div>
@@ -72,20 +79,22 @@ export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
 //Gestiona la descarga de fotográfias de tus eventos además automatiza tus presupuestos y contratos.
 
 const InfoModulos = ({ item, viewInfo, setViewInfo }) => {
+  const [showInfo, setShowInfo] = useState(false)
   return (
-    <div className="w-full grid grid-cols-3">
-      {item?.metadata?.includes?.split(", ").map((el, idx) => {
-        return (
-          < div key={idx} className="text-base flex items-center space-x-2 mb-0.5 cursor-default" >
-            <p className={`  cursor-pointer ${viewInfo == item.id ? "text-rosa" : ""}`} onClick={() => setViewInfo(item?.id)}>
-              <ExclamacionIcon />
-            </p>
-            <p>
-              {el}
-            </p>
-          </div>
-        )
-      })}
+    < div className="text-base flex items-center space-x-2 mb-0.5 cursor-default" >
+      <ClickAwayListener onClickAway={() => setShowInfo(false)}>
+        <div className="relative">
+          {showInfo && <div className="bg-white w-[220px] top-5 left-5 border  border-rosa rounded-lg p-2 shadow-lg text-base absolute z-50">
+            {InfoItemsFacturation.find(elem => elem?.title === item)?.texto}
+          </div>}
+          <p className={`cursor-pointer ${showInfo ? "text-rosa" : ""}`} onClick={() => setShowInfo(true)}>
+            <ExclamacionIcon />
+          </p>
+        </div>
+      </ClickAwayListener>
+      <p>
+        {item}
+      </p>
     </div>
   )
 }
