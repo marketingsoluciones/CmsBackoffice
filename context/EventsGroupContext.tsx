@@ -63,10 +63,9 @@ const EventsGroupProvider = ({ children }) => {
       fetchApiEventos({
         query: queries?.getEventsByID,
         variables: { userID: user?.uid },
-        token:""
+        token: ""
       })
         .then((events: Event[]) => {
-          if (events.length == 0) router.push("/")
           setEventsGroup({ type: "INITIAL_STATE", payload: events })
 
         })
