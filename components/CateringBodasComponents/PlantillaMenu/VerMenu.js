@@ -19,7 +19,7 @@ export const VerMenu = ({ setChildrenComponentState }) => {
     return (
         <>
             <div className="space-y-4 h-[100vh]">
-                <div onClick={() => setChildrenComponentState(0)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                <div onClick={() => setChildrenComponentState(5)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                     <ArrowLeft />
                 </div>
                 <HeaderPlantillaMenu openModal={openModal} setOpenModal={setOpenModal} openModalP={openModalP} setOpenModalP={setOpenModalP} />

@@ -19,7 +19,7 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
                     }
                 </ModalLeft>
             )}
-            <div className=" hidden md:block bg-gray-200 px-4 py-10 space-y-5 col-span-1">
+            <div className=" hidden md:block bg-gray-200 px-4 py-5 space-y-5 col-span-1">
                 {eventsGroup?.length != 0 ? <EventoSelect /> : <ButtonEventForm isMounted={isMounted} setIsMounted={setIsMounted} />}
                 {
                     dataComponents.map((item, idx) => {

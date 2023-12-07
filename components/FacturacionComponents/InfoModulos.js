@@ -1,7 +1,7 @@
 export const InfoModulos = ({ data, setOptionSelect }) => {
     return (
         <div className="h-[100vh]">
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+            <p className="mt-1 text-3xl text-rosa">
                 Planes
             </p>
             <div className="grid grid-cols-3 space-x-5 h-[calc(100%-125px)] overflow-auto">

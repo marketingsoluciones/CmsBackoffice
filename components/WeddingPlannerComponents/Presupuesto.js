@@ -3,16 +3,17 @@ import { VistaSinDatos } from "../VistaSinDatos"
 import { PresupuestoTable } from "./PresupuestoComponents/PresupuestoTable"
 import { AddPresupuesto } from "./PresupuestoComponents/AddPresupuesto"
 import { InfoPresupuestoPage } from "./PresupuestoComponents/InfoPresupuestoPage"
+import { EventsGroupContextProvider } from "../../context/EventsGroupContext"
 
 export const Presupuesto = ({setComponentState}) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
-
+    const {eventsGroup}= EventsGroupContextProvider()
     const dataComponents = [
-        {
+        /* {
             component: <PresupuestoTable setOptionSelect={setOptionSelect} setComponentState={setComponentState} />
-        },
+        }, */
         {
             component: <AddPresupuesto setOptionSelect={setOptionSelect} />
         },
@@ -22,7 +23,7 @@ export const Presupuesto = ({setComponentState}) => {
     return (
         <div className="px-5 py-2 h-full">
             {(() => {
-                if (state) {
+                if (eventsGroup.length == 0) {
                     return (
                         <InfoPresupuestoPage actionButton={state} setActionButton={setState} setComponentState={setComponentState}/>
                     )

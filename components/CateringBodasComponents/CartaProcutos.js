@@ -3,11 +3,15 @@ import { VistaSinDatos } from "../VistaSinDatos"
 import { AgregarProducto } from "./CartaProductosComponents/AgregarProducto"
 import { CartaProductosTable } from "./CartaProductosComponents/CartaProductosTable"
 import { InfoCartaProducto } from "./CartaProductosComponents/InfoCartaProducto"
+import { EventsGroupContextProvider } from "../../context/EventsGroupContext"
 
 export const CartaProducto = ({setComponentState}) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
+    const { eventsGroup } = EventsGroupContextProvider()
+
+
     const dataComponents = [
         {
 
@@ -27,7 +31,7 @@ export const CartaProducto = ({setComponentState}) => {
     return (
         <div className="px-5 py-2 h-full">
             {(() => {
-                if (state) {
+                if (eventsGroup.length == 0) {
                     return (
                        <InfoCartaProducto actionButton={state} setActionButton={setState} setComponentState={setComponentState}/>
                     )
