@@ -124,6 +124,7 @@ export const BasicFormLogin = ({
   useEffect(() => {
     values.pagado = ischecked
   }, [ischecked])
+
   return (
     <>
       <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-6 py-6 w-full " >
@@ -136,7 +137,7 @@ export const BasicFormLogin = ({
           <label className="text-base ">Importe</label>
           <InputFieldGlobal
             name="importe"
-            placeholder="4.80 €"
+            placeholder="Monto del Pago"
             onChange={handleChange}
             value={values.importe}
             type="number"
@@ -145,13 +146,15 @@ export const BasicFormLogin = ({
             className="text-base focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%]  truncate"
             autoComplete="off" />
         </div>
+
         <div className="relative flex items-center gap-2">
           <input type="checkbox" className="hidden" name="pagado" checked={ischecked} onChange={() => setCheck(!ischecked)} />
-          <div onClick={() => setCheck(!ischecked)} className={`w-6 h-6 rounded-md border border-gray-200 transition ${ischecked && "bg-primary border-none"} cursor-pointer`}>
+          <div onClick={() => setCheck(!ischecked)} className={`w-6 h-6 rounded-md border border-gray-200 transition ${ischecked && "bg-rosa border-none"} cursor-pointer`}>
             {ischecked && <CheckIcon className="text-white " />}
           </div>
           <p className="font-display text-md font-medium text-gray-500">¿Pagado?</p>
         </div>
+
         <div>
           <label className="text-base">Fecha de pago</label>
           <InputFieldGlobal
@@ -178,7 +181,7 @@ export const BasicFormLogin = ({
           <InputFieldGlobal
             name="pagado_por"
             label="Pagado por"
-            placeholder="Carlos diaz"
+            placeholder="Nombre"
             onChange={handleChange}
             value={values.pagado_por}
             className="text-base focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%]  truncate"
@@ -189,7 +192,7 @@ export const BasicFormLogin = ({
           <label className="text-base">Modo de pago</label>
           <InputFieldGlobal
             name="medio_pago"
-            placeholder="Efectivo"
+            placeholder="Metodo"
             onChange={handleChange}
             value={values.medio_pago}
             className="text-base focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%]  truncate"
