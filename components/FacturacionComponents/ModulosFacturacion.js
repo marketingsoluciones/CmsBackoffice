@@ -15,6 +15,7 @@ export const ModulosFacturacion = () => {
     const producto = params.get('producto')
     const plan = params.get('plan');
     const [optionSelect, setOptionSelect] = useState(state !== null ? state : 0)
+    const [data, setData] = useState({})
 
     useEffect(async () => {
         const data = JSON.parse(await fetchApi({
@@ -23,8 +24,14 @@ export const ModulosFacturacion = () => {
             development: config?.name
         }));
         console.log(1002, data)
+        const asd = data.reduce((acc, item) => {
+            if (!acc.modulos.includes(item.metadata.grupo)) {
+                acc.modulos.push(item.metadata.grupo)
+            }
+            return acc
+        }, { modulos: [] })
+        setData({ data, ...asd })
     }, [optionSelect])
-
 
     const dataArry = [
         {
@@ -40,7 +47,7 @@ export const ModulosFacturacion = () => {
                 {
                     id: "13",
                     icon: <ExclamacionIcon />,
-                    title: "Visor de eventos ",
+                    title: "Visor de eventos",
                     texto: "Visualiza tus eventos o crea nuevos para empezar a organizar. "
                 },
                 {
@@ -462,10 +469,10 @@ export const ModulosFacturacion = () => {
 
     const dataComponents = [
         {
-            component: <InfoModulos dataArry={dataArry} setOptionSelect={setOptionSelect} />
+            component: <InfoModulos data={data} setOptionSelect={setOptionSelect} />
         },
         {
-            component: <InfoModuloFacturacion dataArry={dataArry} actionButtton={setOptionSelect} producto={producto} plan={plan} />
+            component: <InfoModuloFacturacion data={data} actionButtton={setOptionSelect} producto={producto} plan={plan} />
         },
         {
             component: <DetalladoCompra actionButtton={setOptionSelect} />

@@ -1,4 +1,4 @@
-export const InfoModulos = ({ dataArry, setOptionSelect }) => {
+export const InfoModulos = ({ data, setOptionSelect }) => {
     return (
         <div className="h-[100vh]">
             <p className=" text-slate-600 mt-1 text-3xl text-rosa">
@@ -32,7 +32,7 @@ export const InfoModulos = ({ dataArry, setOptionSelect }) => {
                         <p className="text-base">
                             PRUEBA NUESTROS COMPLEMENTOS
                         </p>
-                        <InfoModulo dataArry={dataArry} setOptionSelect={setOptionSelect} />
+                        <InfoModulo data={data} setOptionSelect={setOptionSelect} />
                     </div>
                 </div>
                 <div className="col-span-1 space-y-4">
@@ -65,26 +65,29 @@ export const InfoModulos = ({ dataArry, setOptionSelect }) => {
     )
 }
 
-const InfoModulo = ({ dataArry, setOptionSelect }) => {
+const InfoModulo = ({ data, setOptionSelect }) => {
+    const dataArry = data?.modulos?.map(elem => {
+        return data?.data.find(el => (el.metadata.grupo === elem && el.metadata.tipo === "basic"))
+    })
     return (
         <div className="space-y-3">
             {
-                dataArry.map((item, idx) => {
+                dataArry?.map((item, idx) => {
                     return (
                         <div key={idx} className="flex items-center justify-between px-4">
                             <div>
-                                <img src={item.icon} />
+                                <img src={item?.images[0]} />
                             </div>
                             <div className="w-[75%] space-y-1 ">
                                 <p className="font-semibold">
-                                    {item.title}
+                                    {`Módulo ${item?.metadata?.grupo}`}
                                 </p>
                                 <p className="text-base w-[85%]">
-                                    {item.text}
+                                    {item?.description}
                                 </p>
                             </div>
                             <button onClick={() => setOptionSelect(1)} className="text-base font-semibold border rounded-lg py-1 px-2 border-gray-400">
-                                {item.button}
+                                Ver oferta
                             </button>
                         </div>
                     )

@@ -96,7 +96,9 @@ export const queries = {
   getAllProducts: `query {
     getAllProducts
   }`,
-
+  createCheckoutSession: `mutation ($pricesIDs:[String], $email:String, $cancel_url:String){
+    createCheckoutSession(pricesIDs:$pricesIDs, email:$email, cancel_url:$cancel_url)
+  }`,
   getUser: `query ($uid: ID) {
         getUser(uid:$uid){
           phoneNumber
