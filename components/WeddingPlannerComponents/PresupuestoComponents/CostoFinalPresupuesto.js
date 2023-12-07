@@ -1,7 +1,9 @@
 import { DineroIcon } from "../../Icons/index"
 import { getCurrency } from "./Funciones"
+import { EventContextProvider } from "../../../context/EventContext"
 
 export const CostoFinalPresupuesto = () => {
+    const {event} = EventContextProvider()
     return (
         <>
             <DineroIcon className="w-12 h-12 text-rosa" />
@@ -9,7 +11,7 @@ export const CostoFinalPresupuesto = () => {
                 Coste Final <br />
                 <span className="font-semibold text-lg text-center">
                     {getCurrency(
-                        0, /* currencyState */ "EUR"
+                       event?.presupuesto_objeto?.coste_final, "EUR"
                     )}
                 </span>
             </p>
@@ -18,7 +20,7 @@ export const CostoFinalPresupuesto = () => {
                     <p className="text-xs font-display text-white">
 
                         <span> Pagado </span>{getCurrency(
-                            0, /* currencyState */"EUR"
+                           event?.presupuesto_objeto?.pagado, /* currencyState */"EUR"
                         )}
                     </p>
                 </div>
@@ -27,7 +29,7 @@ export const CostoFinalPresupuesto = () => {
                     <p className="text-xs font-display text-primary">
                         <span>  Por pagar </span>
                         {getCurrency(
-                            0, /* currencyState */ "EUR"
+                           event?.presupuesto_objeto?.coste_final - event?.presupuesto_objeto?.pagado, /* currencyState */ "EUR"
                         )}
                     </p>
                 </div>
