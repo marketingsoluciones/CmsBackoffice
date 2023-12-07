@@ -37,8 +37,8 @@ export const FormCrearEvento = ({ state, set }) => {
         fecha: new Date().toJSON(),
         pais: "",
         poblacion: "",
-        usuario_id: user.uid,
-        usuario_nombre: user.displayName,
+        usuario_id: user?.uid,
+        usuario_nombre: user?.displayName,
     }
 
     const createEvent = async (values) => {

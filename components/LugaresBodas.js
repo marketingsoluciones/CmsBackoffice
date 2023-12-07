@@ -13,26 +13,25 @@ export const LugaresBodas = () => {
     const [optionSelect, setOptionSelect] = useState(4)
     const [modalContacto, setModalContacto] = useState(false)
     const dataComponents = [
-
         {
             icon: <MesasICon />,
             title: "Plantillas del salón",
-            component: <PlantillaSalon  componentState={optionSelect} setComponentState={setOptionSelect}  />
+            component: <PlantillaSalon componentState={optionSelect} setComponentState={setOptionSelect} />
         },
         {
             icon: <PlanoEventoIcon />,
             title: "Plano del evento",
-            component: <PlanoEvento componentState={optionSelect} setComponentState={setOptionSelect}  />
+            component: <PlanoEvento componentState={optionSelect} setComponentState={setOptionSelect} />
         },
         {
             icon: <InvitadosCatering />,
             title: "Lista de invitados",
-            component: <ListaInvitados  setComponentState={setOptionSelect}/>
+            component: <ListaInvitados setComponentState={setOptionSelect} />
         },
         {
             icon: <ItinerarioCatering />,
             title: "Intinerarios",
-            component: <ItinerarioLugaresBodas setComponentState={setOptionSelect}/>
+            component: <ItinerarioLugaresBodas setComponentState={setOptionSelect} />
         },
         {
             component: <InfoLugaresBodas setOptionSelect={setOptionSelect} modalContacto={modalContacto} setModalContacto={setModalContacto} />
@@ -44,7 +43,6 @@ export const LugaresBodas = () => {
 
     return (
         <>
-
             <div className="grid grid-cols-6 h-full">
                 <SubmenuComponent dataComponents={dataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
                 <div className="col-span-6 md:col-span-5">
@@ -54,12 +52,11 @@ export const LugaresBodas = () => {
             {
                 modalContacto ? (
                     <Modal classe={"w-[28%] h-[86%]"}>
-                        <ContactarGold openModal={modalContacto} setOpenModal={setModalContacto}  />
+                        <ContactarGold openModal={modalContacto} setOpenModal={setModalContacto} />
                     </Modal>
                 ) :
                     null
             }
-
         </>
     )
 }
