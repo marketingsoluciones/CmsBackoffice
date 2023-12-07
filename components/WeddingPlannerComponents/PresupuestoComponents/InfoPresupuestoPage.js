@@ -1,8 +1,12 @@
 import { useRouter } from "next/router"
-export const InfoPresupuestoPage = ({actionButton, setActionButton}) => {
+import { ArrowLeft } from "../../Icons/index"
+export const InfoPresupuestoPage = ({ actionButton, setActionButton, setComponentState }) => {
     const router = useRouter()
     return (
         <>
+            <div onClick={() => setComponentState(4)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                <ArrowLeft />
+            </div>
             <p className=" mt-1 text-3xl text-rosa">
                 Presupuestos
             </p>
@@ -16,7 +20,7 @@ export const InfoPresupuestoPage = ({actionButton, setActionButton}) => {
                             Maximiza tu presupuesto y optimiza tus recursos con la ayuda del EventosOrganizador.
                         </p>
                         <div className="text-base">
-                            <button onClick={()=> true? setActionButton(!actionButton): router.push("/facturacion") } className="bg-rosa rounded-lg text-white px-3 py-0.5">
+                            <button onClick={() => true ? setActionButton(!actionButton) : router.push("/facturacion")} className="bg-rosa rounded-lg text-white px-3 py-0.5">
                                 Gestionar presupuestos
                             </button>
                         </div>

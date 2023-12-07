@@ -15,12 +15,12 @@ export const FotografoComponent = () => {
         {
             icon: <FotoIcon />,
             title: "Colecciones",
-            component: <Colecciones />
+            component: <Colecciones setComponentState={setOptionSelect} />
         },
         {
             icon: <FotografoMenu />,
             title: "Proyectos",
-            component: <Proyectos />
+            component: <Proyectos setComponentState={setOptionSelect} />
         },
         {
             component: <FotografoInfoPage  setOptionSelect={setOptionSelect}  modalContacto={modalContacto} setModalContacto={setModalContacto} />

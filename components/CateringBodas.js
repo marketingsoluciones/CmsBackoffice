@@ -18,27 +18,27 @@ export const CateringBodas = () => {
         {
             icon: <PlatillOpenCatering />,
             title: "Carta de productos",
-            component: <CartaProducto />
+            component: <CartaProducto setComponentState={setOptionSelect} />
         },
         {
             icon: <MenuCatering />,
             title: "Plantillas de menú",
-            component: <PlantillaMenu />
+            component: <PlantillaMenu setComponentState={setOptionSelect} />
         },
         {
             icon: <PlatilloCloseCatering />,
             title: "Menú",
-            component: <MenuEmpresa />
+            component: <MenuEmpresa setComponentState={setOptionSelect} />
         },
         {
             icon: <InvitadosCatering />,
             title: "Lista de Invitados",
-            component: <InvitadosC />
+            component: <InvitadosC setComponentState={setOptionSelect} />
         },
         {
             icon: <ItinerarioCatering />,
             title: "Itinerarios",
-            component: <ItinerarioC />
+            component: <ItinerarioC setComponentState={setOptionSelect} />
         },
         {
             component: <InfoCateringBodas setOptionSelect={setOptionSelect} modalContacto={modalContacto} setModalContacto={setModalContacto} />

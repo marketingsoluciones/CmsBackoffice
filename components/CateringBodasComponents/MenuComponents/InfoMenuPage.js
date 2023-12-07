@@ -1,7 +1,7 @@
-import { CorazoncirculoIcon, DiamanteIcon, GanaTiempoIcon, MenusIcon } from "../../Icons/index"
+import { ArrowLeft, CorazoncirculoIcon, DiamanteIcon, GanaTiempoIcon, MenusIcon } from "../../Icons/index"
 import { useRouter } from "next/router"
 
-export const InfoMenuPage = () => {
+export const InfoMenuPage = ({ setComponentState }) => {
     const router = useRouter()
     const dataArry = [
         {
@@ -17,6 +17,9 @@ export const InfoMenuPage = () => {
     ]
     return (
         <>
+            <div onClick={() => setComponentState(5)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                <ArrowLeft />
+            </div>
             <p className="  mt-1 text-3xl text-rosa">
                 Menú
             </p>
@@ -43,14 +46,14 @@ export const InfoMenuPage = () => {
                     </div>
                     <div className="col-span-1 flex flex-col justify-center items-center">
                         <button onClick={() => /* setActionButton(!actionButton) */ router.push({
-                                    pathname: "/facturacion",
-                                    query: {
-                                        state: 1,
-                                        producto: "34",
-                                        plan: "premium"
-                                    }
-                                })} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
-                            {/* Inicia prueba gratis de 30 días */} Empezar 
+                            pathname: "/facturacion",
+                            query: {
+                                state: 1,
+                                producto: "34",
+                                plan: "premium"
+                            }
+                        })} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
+                            {/* Inicia prueba gratis de 30 días */} Empezar
                         </button>
                         <div className=" flex items-center justify-center space-x-1 my-2 text-base cursor-default">
                             <div className="text-amarillo">

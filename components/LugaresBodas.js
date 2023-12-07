@@ -17,22 +17,22 @@ export const LugaresBodas = () => {
         {
             icon: <MesasICon />,
             title: "Plantillas del salón",
-            component: <PlantillaSalon />
+            component: <PlantillaSalon  componentState={optionSelect} setComponentState={setOptionSelect}  />
         },
         {
             icon: <PlanoEventoIcon />,
             title: "Plano del evento",
-            component: <PlanoEvento />
+            component: <PlanoEvento componentState={optionSelect} setComponentState={setOptionSelect}  />
         },
         {
             icon: <InvitadosCatering />,
             title: "Lista de invitados",
-            component: <ListaInvitados />
+            component: <ListaInvitados  setComponentState={setOptionSelect}/>
         },
         {
             icon: <ItinerarioCatering />,
             title: "Intinerarios",
-            component: <ItinerarioLugaresBodas />
+            component: <ItinerarioLugaresBodas setComponentState={setOptionSelect}/>
         },
         {
             component: <InfoLugaresBodas setOptionSelect={setOptionSelect} modalContacto={modalContacto} setModalContacto={setModalContacto} />

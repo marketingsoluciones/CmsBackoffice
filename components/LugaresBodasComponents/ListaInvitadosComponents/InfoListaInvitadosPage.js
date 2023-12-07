@@ -1,10 +1,10 @@
-import { CorazonBodasICon } from "../../Icons/index"
+import { ArrowLeft, CorazonBodasICon } from "../../Icons/index"
 import { useRouter } from "next/router"
 import { EventContextProvider } from "../../../context/EventContext"
 import { useToast } from "../../../hooks/useToast"
 
-export const InfoListaInvitadosPage = ({ setState, state }) => {
-    const {event} = EventContextProvider()
+export const InfoListaInvitadosPage = ({ setState, state, setComponentState,idxComponent }) => {
+    const { event } = EventContextProvider()
     const toast = useToast()
     const router = useRouter()
     const dataArry = [
@@ -27,6 +27,9 @@ export const InfoListaInvitadosPage = ({ setState, state }) => {
     ]
     return (
         <div className="h-full ">
+            <div onClick={() => setComponentState(idxComponent)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                <ArrowLeft />
+            </div>
             <p className=" mt-1 text-3xl text-rosa">
                 Lista de invitados
             </p>
@@ -36,7 +39,7 @@ export const InfoListaInvitadosPage = ({ setState, state }) => {
                         <span className="text-rosa font-semibold">Lleva el control </span> de tu lista de invitados en un sólo lugar
                     </p>
                     <div>
-                        <button onClick={() => event != null ? setState(!state): toast("error", "Crea un evento para gestionar tu lista de invitados")} className="bg-rosa text-white text-base py-1 px-4 rounded-lg shadow-md">
+                        <button onClick={() => event != null ? setState(!state) : toast("error", "Crea un evento para gestionar tu lista de invitados")} className="bg-rosa text-white text-base py-1 px-4 rounded-lg shadow-md">
                             Gestionar listas
                         </button>
                     </div>

@@ -6,7 +6,7 @@ import { InfoListaInvitadosPage } from "./ListaInvitadosComponents/InfoListaInvi
 import { EventContextProvider } from "../../context/EventContext"
 import { useEffect } from "react"
 
-export const ListaInvitados = () => {
+export const ListaInvitados = ({setComponentState}) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
@@ -21,10 +21,10 @@ export const ListaInvitados = () => {
 
     const dataComponents = [
         {
-            component: <ListaInvitadosTable setActionButton={setOptionSelect} />
+            component: <ListaInvitadosTable setActionButton={setOptionSelect} setComponentState={setComponentState} />
         },
         {
-            component: <AddListaInvitados />
+            component: <AddListaInvitados setChildrenComponentState={setOptionSelect} />
         },
 
     ]
@@ -36,7 +36,7 @@ export const ListaInvitados = () => {
                 {(() => {
                     if (state) {
                         return (
-                            <InfoListaInvitadosPage setState={setState} state={state} />
+                            <InfoListaInvitadosPage setState={setState} state={state} setComponentState={setComponentState} idxComponent={4}/>
                         )
                     } else {
                         if (state2) {

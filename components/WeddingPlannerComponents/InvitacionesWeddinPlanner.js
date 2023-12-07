@@ -1,9 +1,9 @@
 import { InfoInvitaciones } from "./InvitacionesComponents/InfoInvitaciones"
 
-export const InvitacionesWeddinPlanner = () => {
+export const InvitacionesWeddinPlanner = ({setComponentState}) => {
     return (
         <div className="px-5 py-2">
-            <InfoInvitaciones/>
+            <InfoInvitaciones setComponentState={setComponentState}/>
         </div>
     )
 }
