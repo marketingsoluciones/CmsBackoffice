@@ -930,3 +930,79 @@ export const BodyStaticAPP = [
     ]
   }
 ];
+
+
+export const InfoItemsFacturation = [
+  {
+    title: "Visor de eventos",
+    texto: "Visualiza tus eventos o crea nuevos para empezar a organizar."
+  },
+  {
+    title: "Carta de productos",
+    texto: "Añade tus platos y bebidas para crear tu carta de productos y utilizarlos en tus menús."
+  },
+  {
+    title: "Plantilla del menú",
+    texto: "Crea tus propias plantillas de menú y genera tu propia base adaptable para todos tus eventos."
+  },
+  {
+    title: "Menú del evento",
+    texto: "Asigna a cada uno de tus eventos un menú y organizalo según las necesidades de tus clientes. "
+  },
+  {
+    title: "Confirmación",
+    texto: "Envia a la lista de invitados un mensaje de reconfirmación de asistencia, alérgenos y plato seleccionado. "
+  },
+  {
+    title: "Lista de invitados",
+    texto: "Lleva el control de la lista de invitados de tus eventos, la mesa asignada y confirmación de asistencia."
+  },
+  {
+    title: "Visor de itinerario",
+    texto: "Visualiza el intinerario de cada evento para conocer las horas y tareas de cada responsable.  "
+  },
+  {
+    title: "Chat en línea",
+    texto: "Ten contacto en tiempo real con invitados, organizadores y profesionales de cada evento."
+  },
+  {
+    title: "Contactos",
+    texto: "Crea tu lista de contactos de personas/empresas y centralizalas en un sólo lugar. "
+  },
+  {
+    title: "Calendario",
+    texto: "Agenda tus citas, eventos, programa tus reuniones  en tu calendario sincronizado."
+  },
+  {
+    title: "Enviar invitaciones",
+    texto: "Envia las invitaciones del evento por email. SMS o whatsapp en forma simultanea y confirma la asistencia al evento."
+  },
+  {
+    title: "Presupuesto",
+    texto: "Gestiona el presupuesto según evento y lleva el control del costo y pagos realizados."
+  },
+  {
+    title: "Crea itinerarios",
+    texto: "Crea el itinerario, ordenando tareas y asignado responsables según el evento."
+  },
+  {
+    title: "Planos del evento",
+    texto: "Asigna a cada uno de tus eventos un plano y diseña la distribución del salón, mobiliario, proveedores e invitados."
+  },
+  {
+    title: "Colecciones",
+    texto: "Publica las colecciones de fotos y videos de tus eventos con link de descarga."
+  },
+  {
+    title: "Proyectos",
+    texto: "Organiza tus proyectos según evento y ordena en un sólo lugar contrato, cuestionarios y facturas."
+  },
+  {
+    title: "Diseño de invitaciones",
+    texto: "Obtén un diseño de invitacion personalizado de nuestro marketplace."
+  },
+  {
+    title: "Plantilla del salón",
+    texto: "Crea plantillas de los planos de tus salones para reutilizar en tus eventos y añadir a la versión novios."
+  }
+]
