@@ -7,6 +7,7 @@ import { ModuloFacturacion } from "./ModuloFacturacion";
 import { fetchApi, queries } from "../../utils/Fetching";
 import { AuthContextProvider } from "../../context/AuthContext";
 import { useRouter } from "next/router";
+import { ArrowBackComponent } from "../ToolsComponents";
 
 export const InfoModuloFacturacion = ({ data, actionButtton }) => {
     const { user } = AuthContextProvider()
@@ -14,8 +15,11 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
     const [products, setProducts] = useState([])
     const [optionSelect, setOptionSelect] = useState(null)
     const router = useRouter()
-    console.log(user)
-
+    const { originPath, stateOriginPath, product } = router?.query
+    const idProduct = product
+    const findProducto = data?.data?.find(product => (product.id === idProduct))
+    console.log("data 1", data)
+    console.log(findProducto)
     const info = [
         {
             id: "34356",
@@ -36,6 +40,7 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
             texto: "Conecta con tu comunidad con artículos que demuestren tu experiencia y te ayuden a ganar su confianza."
         },
     ]
+
     const handleCheckout = () => {
         fetchApi({
             query: queries.createCheckoutSession,
@@ -49,12 +54,22 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
         })
     }
 
+    const actionBut = () => {
+        if (originPath) {
+            router.push({
+                pathname: `/${originPath}`,
+                query: { stateOriginPath: stateOriginPath }
+            })
+        }
+        else { actionButtton(0) }
+    }
+
     return (
         <div className="h-[100vh] relative">
-            <div onClick={() => actionButtton(0)} className="w-5 h-5 absolute z-10 top-2 left-3 text-gray-700 cursor-pointer">
-                <ArrowLeft />
-            </div>
             <div className="bg-white rounded-lg px-10 py-5 mb-3 flex justify-between">
+                <div className="absolute z-10 top-2 left-3">
+                    <ArrowBackComponent action={actionBut} />
+                </div>
                 <div className="">
                     <p className="text-xl text-gray-600">Mejora tu organización con los módulos especiales </p>
                     <p className="text-base text-gray-700"> Si se suscribe en la mitad del ciclo de facturación, se le cobrará un monto parcial.</p>
@@ -116,7 +131,7 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
                 </div>
                 {data?.modulos?.map((elem, idx) => {
                     return (
-                        <ModuloFacturacion key={idx} data={data} elem={elem} products={products} setProducts={setProducts} />
+                        <ModuloFacturacion key={idx} data={data} elem={elem} products={products} setProducts={setProducts} idProduct={product} />
                     )
                 })
                 }

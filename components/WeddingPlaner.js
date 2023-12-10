@@ -42,11 +42,14 @@ export const WeddingPlanner = () => {
         setOptionSelect(idx);
     };
 
+    const newArryDataComponents = dataComponents.slice()
+    newArryDataComponents.splice(4,1)
+
     return (
         <>
-            <div className="grid grid-cols-6 h-full">
+            <div className="md:grid md:grid-cols-6 h-full w-[100%]">
 
-                <SubmenuComponent dataComponents={dataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
+                <SubmenuComponent dataComponents={newArryDataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
 
                 <div className="col-span-6 md:col-span-5">
                     {dataComponents[optionSelect].component}

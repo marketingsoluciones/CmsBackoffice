@@ -1,16 +1,16 @@
 import Link from "next/link"
 import { useState } from "react"
 import ClickAwayListener from "react-click-away-listener"
-import { ExclamacionIcon } from "../Icons"
+import { ExclamacionIcon } from "../Icons/index"
 import { InfoItemsFacturation } from "../../utils/schemas"
 
 
-export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
+export const ModuloFacturacion = ({ data, elem, products, setProducts, idProduct }) => {
   const [optionSelect, setOptionSelect] = useState("basic")
   const [viewInfo, setViewInfo] = useState()
-  const findProducto = {}
 
-  const item = data?.data.find(el => (el.metadata.grupo === elem && el.metadata.tipo === optionSelect))
+
+  const item = data?.data?.find(el => (el.metadata.grupo === elem && el.metadata.tipo === optionSelect))
 
   return (
     < div className="h-[200px] flex justify-center bg-white rounded-lg px-5 py-5 space-x-4">

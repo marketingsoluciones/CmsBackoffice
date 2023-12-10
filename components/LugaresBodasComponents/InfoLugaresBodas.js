@@ -51,8 +51,8 @@ export const InfoLugaresBodas = ({ setOptionSelect, setModalContacto, modalConta
         },
     ]
     return (
-        <div className="h-[100vh] px-5 py-2 ">
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+        <div className="h-[100vh] px-5 py-2  ">
+            <p className=" mt-1 text-3xl text-rosa">
                 lugares para bodas
             </p>
             <div className="bg-white rounded-xl flex flex-col h-[calc(100%-110px)] overflow-auto">
