@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import ClickAwayListener from "react-click-away-listener";
 import { ToastProvider } from "../context/ToastContext";
 const AuthProvider = dynamic(() => import('../context/AuthContext').then(mod => mod.AuthProvider))
+const SocketProvider = dynamic(() => import('../context/SocketContext').then(mod => mod.SocketProvider))
 const Sidebar = dynamic(() => import('../components/Sidebar').then(mod => mod.Sidebar))
 const Navigation = dynamic(() => import('../components/Navigation').then(mod => mod.Navigation))
 const EventsGroupProvider = dynamic(() => import('../context/EventsGroupContext').then(mod => mod.EventsGroupProvider))
@@ -24,37 +25,39 @@ export const DefaultLayout = ({ children }) => {
 
   return (
     <AuthProvider>
-      <EventsGroupProvider>
-        <EventProvider>
-          <ToastProvider>
-            {valir && <Flex h={"100vh"} w={"100%"} overflow={"hidden"} position={"relative"} >
+      <SocketProvider>
+        <EventsGroupProvider>
+          <EventProvider>
+            <ToastProvider>
+              {valir && <Flex h={"100vh"} w={"100%"} overflow={"hidden"} position={"relative"} >
 
-              {(() => {
-                if (screen.width < 640) {
-                  return (<>
-                    <div className="absolute z-[100]">
-                      <Sidebar state={show} setState={setShow} />
-                    </div>
-                  </>)
-                } else {
-                  return (<>
-                    <div className=" ">
-                      <Sidebar state={show} />
-                    </div>
-                  </>)
-                }
-              })()}
+                {(() => {
+                  if (screen.width < 640) {
+                    return (<>
+                      <div className="absolute z-[100]">
+                        <Sidebar state={show} setState={setShow} />
+                      </div>
+                    </>)
+                  } else {
+                    return (<>
+                      <div className=" ">
+                        <Sidebar state={show} />
+                      </div>
+                    </>)
+                  }
+                })()}
 
-              <Flex flexDir={"column"} w={show ? "calc(100%)" : "100%"} onClick={() => screen.width < 640 ? show ? setShow(!show) : null : null} >
-                <Navigation set={setShow} state={show} />
-                <Box as={"main"} /* p={"0.5rem"} */ /* bg={"gray.100"} */ h={"full"} w={"100%"} className="bg-bg">
-                  {children}
-                </Box>
-              </Flex>
-            </Flex>}
-          </ToastProvider>
-        </EventProvider>
-      </EventsGroupProvider>
+                <Flex flexDir={"column"} w={show ? "calc(100%)" : "100%"} onClick={() => screen.width < 640 ? show ? setShow(!show) : null : null} >
+                  <Navigation set={setShow} state={show} />
+                  <Box as={"main"} /* p={"0.5rem"} */ /* bg={"gray.100"} */ h={"full"} w={"100%"} className="bg-bg">
+                    {children}
+                  </Box>
+                </Flex>
+              </Flex>}
+            </ToastProvider>
+          </EventProvider>
+        </EventsGroupProvider>
+      </SocketProvider>
     </AuthProvider>
   );
 };
