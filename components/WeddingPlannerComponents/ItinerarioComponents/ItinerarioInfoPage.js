@@ -67,8 +67,10 @@ export const ItinerarioInfoPage = ({ setOptionSelect, setComponentState, idxComp
                             pathname: "/facturacion",
                             query: {
                                 state: 1,
-                                producto: "12",
-                                plan: "basic"
+                                product: "prod_OxRT3aFwljilTl",
+                                plan: "basic",
+                                originPath:"lugaresBodas",
+                                stateOriginPath:"3"
                             }
                         })} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
                             {/* Inicia prueba gratis de 30 días */} Empezar

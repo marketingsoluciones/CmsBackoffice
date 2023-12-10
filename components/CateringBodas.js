@@ -50,12 +50,15 @@ export const CateringBodas = () => {
         setOptionSelect(idx);
     };
 
+    const newArryDataComponents = dataComponents.slice()
+    newArryDataComponents.splice(5,1)
+
     return (
         <>
             <div className="flex h-full w-full">
-                <div className="grid grid-cols-6 h-full w-full ">
+                <div className="md:grid md:grid-cols-6 h-full w-[100%] ">
 
-                    {optionSelect > -1 && <SubmenuComponent dataComponents={dataComponents} optionSelect={optionSelect} onClick={handleClickOption} />}
+                    {optionSelect > -1 && <SubmenuComponent dataComponents={newArryDataComponents} optionSelect={optionSelect} onClick={handleClickOption} />}
 
                     <div className="col-span-6 md:col-span-5 ">
                         {dataComponents[optionSelect]?.component}
