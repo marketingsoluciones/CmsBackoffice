@@ -51,7 +51,7 @@ export const LugaresBodas = () => {
     };
 
     const newArryDataComponents = dataComponents.slice()
-    newArryDataComponents.splice(4,1)
+    newArryDataComponents.splice(4, 1)
 
     return (
         <>

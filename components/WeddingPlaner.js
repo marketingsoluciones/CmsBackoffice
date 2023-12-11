@@ -8,6 +8,7 @@ import { InfoWeddinPlannrePage } from "./WeddingPlannerComponents/InfoWeddinPlan
 import { InvitacionesWeddinPlanner } from "./WeddingPlannerComponents/InvitacionesWeddinPlanner";
 import { Modal } from "./modals/Modal";
 import { ContactarGold } from "./formularios/ContactarGold";
+import { ListaInvitados } from "./LugaresBodasComponents/ListaInvitados";
 
 export const WeddingPlanner = () => {
     const [optionSelect, setOptionSelect] = useState(4)
@@ -17,25 +18,25 @@ export const WeddingPlanner = () => {
         {
             icon: <InvitadosCatering />,
             title: "Lista de invitados",
-            component: <InvitadosWeddingPlanner  setComponentState={setOptionSelect}/>
+            component: <ListaInvitados setComponentState={setOptionSelect} />
         },
         {
             icon: <PresupuestoIcon />,
             title: "Presupuesto",
-            component: <Presupuesto  setComponentState={setOptionSelect} />
+            component: <Presupuesto setComponentState={setOptionSelect} />
         },
         {
             icon: <CorreoIcon />,
             title: "Invitaciones",
-            component: <InvitacionesWeddinPlanner  setComponentState={setOptionSelect} />
+            component: <InvitacionesWeddinPlanner setComponentState={setOptionSelect} />
         },
         {
             icon: <ItinerarioCatering />,
             title: "Intinerarios",
-            component: <ItinerarioWeddingPlanner   setComponentState={setOptionSelect}/>
+            component: <ItinerarioWeddingPlanner setComponentState={setOptionSelect} />
         },
         {
-            component: <InfoWeddinPlannrePage setOptionSelect={setOptionSelect} modalContacto={modalContacto} setModalContacto={setModalContacto}  />
+            component: <InfoWeddinPlannrePage setOptionSelect={setOptionSelect} modalContacto={modalContacto} setModalContacto={setModalContacto} />
         },
     ]
     const handleClickOption = (idx) => {
@@ -43,7 +44,7 @@ export const WeddingPlanner = () => {
     };
 
     const newArryDataComponents = dataComponents.slice()
-    newArryDataComponents.splice(4,1)
+    newArryDataComponents.splice(4, 1)
 
     return (
         <>

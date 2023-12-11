@@ -10,12 +10,13 @@ import { InfoCateringBodas } from "./CateringBodasComponents/InfoCateringBodas"
 import { Modal } from "./modals/Modal"
 import { ContactarGold } from "./formularios/ContactarGold"
 import { EventsGroupContextProvider } from "../context/EventsGroupContext"
+import { ListaInvitados } from "./LugaresBodasComponents/ListaInvitados"
 
 
 export const CateringBodas = () => {
     const [optionSelect, setOptionSelect] = useState(5)
     const [modalContacto, setModalContacto] = useState(false)
-    const {eventsGroup}=EventsGroupContextProvider()
+    const { eventsGroup } = EventsGroupContextProvider()
     const dataComponents = [
         {
             icon: <PlatillOpenCatering />,
@@ -35,7 +36,7 @@ export const CateringBodas = () => {
         {
             icon: <InvitadosCatering />,
             title: "Lista de Invitados",
-            component: <InvitadosC setComponentState={setOptionSelect} eventsGroup={eventsGroup} />
+            component: <ListaInvitados setComponentState={setOptionSelect} eventsGroup={eventsGroup} />
         },
         {
             icon: <ItinerarioCatering />,
@@ -51,7 +52,7 @@ export const CateringBodas = () => {
     };
 
     const newArryDataComponents = dataComponents.slice()
-    newArryDataComponents.splice(5,1)
+    newArryDataComponents.splice(5, 1)
 
     return (
         <>
