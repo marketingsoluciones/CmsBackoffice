@@ -51,11 +51,11 @@ export const InfoLugaresBodas = ({ setOptionSelect, setModalContacto, modalConta
         },
     ]
     return (
-        <div className="h-[100vh] px-5 py-2  ">
+        <div className="h-[100vh]  px-5 py-2  ">
             <p className=" mt-1 text-3xl text-rosa">
                 lugares para bodas
             </p>
-            <div className="bg-white rounded-xl flex flex-col h-[calc(100%-110px)] overflow-auto">
+            <div className="bg-white rounded-xl flex flex-col md:h-[calc(100%-110px)] h-[calc(100%-200px)] overflow-auto">
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-14">
                     <p className="text-xl text-gray-600">
                         <span className="text-rosa">El lugar de celebración </span> es una de las piedras angulares de todo evento
@@ -75,11 +75,11 @@ export const InfoLugaresBodas = ({ setOptionSelect, setModalContacto, modalConta
                         {
                             dataArry.map((item, idx) => {
                                 return (
-                                    <div key={idx} className="flex w-full justify-center items-center space-x-5 ">
+                                    <div key={idx} className="flex md:flex-row flex-col w-full justify-center items-center space-x-5 ">
                                         <div className="w-72 flex items-center justify-center">
                                             <img src={item.img} alt="s" />
                                         </div>
-                                        <div className="flex flex-col space-y-2 justify-center w-[40%]">
+                                        <div className="flex flex-col space-y-2 justify-center md:w-[40%]">
                                             <p className="text-rosa text-xl">
                                                 {item.title}
                                             </p>
@@ -108,12 +108,12 @@ export const InfoLugaresBodas = ({ setOptionSelect, setModalContacto, modalConta
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-2  justify-items-center space-y-3 pb-10">
+                    <div className="grid md:grid-cols-2 grid-cols-1  md:justify-items-center space-y-3 pb-10">
                         {dataArry2.map((item, idx) => {
                             return (
-                                <div key={idx} className="flex items-center w-[70%] space-x-2">
+                                <div key={idx} className="flex items-center md:w-[70%] space-x-2">
                                     <img src={item.img} />
-                                    <p className="text-base">
+                                    <p className="text-base ">
                                         {item.text}
                                     </p>
                                 </div>

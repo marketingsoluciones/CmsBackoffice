@@ -1,9 +1,9 @@
 import { ArrowLeft, CorazonBodasICon, DiamanteIcon } from "../../Icons/index"
 import { useRouter } from "next/router"
 
-export const InfoPlantillaSalonPage = ({componentState, setComponentState}) => {
+export const InfoPlantillaSalonPage = ({ componentState, setComponentState }) => {
     const router = useRouter()
-    const dataArry = [
+        const dataArry = [
         {
             icon: <CorazonBodasICon />,
             text: "Genera cuantos planos desees hasta que encuentres la distribución ideal para tu salón."
@@ -19,14 +19,14 @@ export const InfoPlantillaSalonPage = ({componentState, setComponentState}) => {
     ]
 
     return (
-        <div className="h-full">
-             <div onClick={() => setComponentState(4)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+        <div className="h-[100vh]">
+            <div onClick={() => setComponentState(4)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
             <p className="  mt-1 text-3xl text-rosa">
                 Plantillas del Salón
             </p>
-            <div className="bg-white rounded-xl flex flex-col h-[91%] " >
+            <div className="bg-white rounded-xl md:flex md:flex-col md:h-[91%] h-[calc(100%-100px)] overflow-auto " >
                 <div className="grid md:grid-cols-2 px-5  py-6 content-center ">
                     <div className=" col-span-1 space-y-2  flex flex-col justify-center ">
                         <p className="text-xl">
@@ -50,7 +50,9 @@ export const InfoPlantillaSalonPage = ({componentState, setComponentState}) => {
                                     query: {
                                         state: 1,
                                         producto: "12",
-                                        plan: "premium"
+                                        plan: "premium",
+                                        originPath:"lugaresBodas",
+                                        stateOriginPath:"0"
 
                                     }
                                 })} >PREMIUM</span>
@@ -62,7 +64,9 @@ export const InfoPlantillaSalonPage = ({componentState, setComponentState}) => {
                                     query: {
                                         state: 1,
                                         producto: "12",
-                                        plan: "premium"
+                                        plan: "premium",
+                                        originPath:"lugaresBodas",
+                                        stateOriginPath:"0"
 
                                     }
                                 })} >
@@ -94,5 +98,5 @@ export const InfoPlantillaSalonPage = ({componentState, setComponentState}) => {
                 </div>
             </div>
         </div>
-    )
+        )
 }
