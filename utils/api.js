@@ -1,5 +1,6 @@
 import axios from "axios"
 import Cookies from 'js-cookie';
+import { io } from "socket.io-client";
 
 const instance = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL })
 const instanceAPP = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL_APP })
@@ -30,5 +31,16 @@ export const api = {
 
     getAllCountries: async () => {
         return await axios.get('https://restcountries.com/v3.1/all')
-    }
+    },
+
+    socketIO: ({ token, development, father }) => {
+        const socket = io(process.env.NEXT_PUBLIC_BASE_URL ?? "", {
+            auth: {
+                token: `Bearer ${token}`,
+                development,
+                father
+            }
+        })
+        return socket
+    },
 }

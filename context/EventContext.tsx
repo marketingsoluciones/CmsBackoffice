@@ -2,6 +2,7 @@ import { createContext, useState, useContext, useEffect, Dispatch, SetStateActio
 import { Event, filterGuest, EditDefaultState, planSpace } from "../utils/Interfaces";
 import { EventsGroupContextProvider } from "./EventsGroupContext";
 import { getAllFilterGuest } from "../components/WeddingPlannerComponents/PresupuestoComponents/Funciones";
+import { SocketContextProvider } from "./SocketContext";
 
 interface idxGroupEvent {
   idx: number
@@ -50,7 +51,7 @@ const EventContext = createContext<Context>({
   setIdxGroupEvent: () => { },
   planSpaceActive: null,
   setPlanSpaceActive: () => { },
-  filterGuests: { sentados: [], noSentados: [],update: 0 },
+  filterGuests: { sentados: [], noSentados: [], update: 0 },
   setFilterGuests: () => { },
   allFilterGuests: [{ sentados: [], noSentados: [], update: 0 }],
   setAllFilterGuests: () => { },
@@ -61,6 +62,7 @@ const EventContext = createContext<Context>({
 });
 
 const EventProvider = ({ children }) => {
+  const { socket, fatherID } = SocketContextProvider()
   const [event, setEvent] = useState<Event | null>(null);
   const [invitadoCero, setInvitadoCero] = useState<string | null>(null);
   const [valir, setValir] = useState<boolean | null>(false);
@@ -68,7 +70,7 @@ const EventProvider = ({ children }) => {
   const { eventsGroup } = EventsGroupContextProvider()
   const [currencyState, setCurrencyState] = useState("")
   const [planSpaceActive, setPlanSpaceActive] = useState<planSpace | null>(null);
-  const [filterGuests, setFilterGuests] = useState<filterGuests>({ sentados: [], noSentados: [], update:0 })
+  const [filterGuests, setFilterGuests] = useState<filterGuests>({ sentados: [], noSentados: [], update: 0 })
   const [allFilterGuests, setAllFilterGuests] = useState<filterGuests[]>([{ sentados: [], noSentados: [], update: 0 }])
   const [editDefault, setEditDefault] = useState<EditDefaultTableAndElement>()
 
@@ -106,6 +108,11 @@ const EventProvider = ({ children }) => {
     //console.log("seteado event _________________________")
     console.log("seteado event", event)
     setAllFilterGuests({ ...getAllFilterGuest(event), update: new Date().getTime() })
+    socket?.emit(`cms:message`, {
+      receiver: fatherID,
+      context: "event",
+      eventID: event?._id,
+    });
     //console.log("---------------------------------------")
   }, [event])
 
@@ -122,7 +129,7 @@ const EventProvider = ({ children }) => {
   }, [eventsGroup])
 
   return (
-    <EventContext.Provider value={{event, setEvent, invitadoCero, setInvitadoCero, idxGroupEvent, setIdxGroupEvent, planSpaceActive, setPlanSpaceActive, filterGuests, setFilterGuests, editDefault, setEditDefault, currencyState, setCurrencyState, allFilterGuests, setAllFilterGuests, }}>
+    <EventContext.Provider value={{ event, setEvent, invitadoCero, setInvitadoCero, idxGroupEvent, setIdxGroupEvent, planSpaceActive, setPlanSpaceActive, filterGuests, setFilterGuests, editDefault, setEditDefault, currencyState, setCurrencyState, allFilterGuests, setAllFilterGuests, }}>
       {children}
     </EventContext.Provider>
   );
