@@ -33,11 +33,12 @@ export const api = {
         return await axios.get('https://restcountries.com/v3.1/all')
     },
 
-    socketIO: ({ token, development }) => {
+    socketIO: ({ token, development, father }) => {
         const socket = io(process.env.NEXT_PUBLIC_BASE_URL ?? "", {
             auth: {
                 token: `Bearer ${token}`,
                 development,
+                father
             }
         })
         return socket
