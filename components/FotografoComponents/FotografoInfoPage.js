@@ -36,7 +36,7 @@ export const FotografoInfoPage = ({modalContacto, setModalContacto, setOptionSel
                         automatiza tus proyectos, contratos y facturas además de brindarle a tus clientes una forma óptima e intuitiva para descargar las fotografias de su evento.
                     </p>
                 </div>
-                <div className="bg-gray-200 flex relative">
+                <div className="bg-gray-200 flex  relative">
                     <div className="z-10 flex items-center  ">
                         <img src="/CamaraBG.png " alt="weddin planner" className="absolute" />
                     </div>
@@ -44,11 +44,11 @@ export const FotografoInfoPage = ({modalContacto, setModalContacto, setOptionSel
                         {
                             dataArry.map((item, idx) => {
                                 return (
-                                    <div key={idx} className="flex w-full justify-center items-center space-x-5 ">
+                                    <div key={idx} className="flex flex-col md:flex-row w-full justify-center items-center space-x-5 ">
                                         <div className="w-72 flex items-center justify-center">
                                             <img src={item.img} alt="s" />
                                         </div>
-                                        <div className="flex flex-col space-y-2 justify-center w-[40%]">
+                                        <div className="flex flex-col space-y-2 justify-center md:w-[40%]">
                                             <p className="text-rosa text-xl">
                                                 {item.title}
                                             </p>
@@ -68,8 +68,8 @@ export const FotografoInfoPage = ({modalContacto, setModalContacto, setOptionSel
                     </div>
                 </div>
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-10">
-                    <div className="grid grid-cols-2  justify-items-center content-center  pb-3">
-                        <div className="flex items-center justify-center space-x-2 w-[80%]">
+                    <div className="md:grid md:grid-cols-2  justify-items-center content-center  pb-3">
+                        <div className="flex items-center justify-center space-x-2 md:w-[80%]">
                             <div className="text-amarillo">
                                 <CoronaIcon />
                             </div>
@@ -82,7 +82,7 @@ export const FotografoInfoPage = ({modalContacto, setModalContacto, setOptionSel
                                 </p>
                             </div>
                         </div>
-                        <div className="flex items-center justify-center space-x-2 w-[80%]">
+                        <div className="flex items-center justify-center space-x-2 md:w-[80%]">
                             <div className="text-amarillo">
                                 <CoronaIcon />
                             </div>

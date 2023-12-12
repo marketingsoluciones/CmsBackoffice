@@ -3,7 +3,7 @@ import { useRouter } from "next/router"
 import { EventContextProvider } from "../../../context/EventContext"
 import { useToast } from "../../../hooks/useToast"
 
-export const InfoListaInvitadosPage = ({ setState, state, setComponentState,idxComponent }) => {
+export const InfoListaInvitadosPage = ({ setState, state, setComponentState, idxComponent }) => {
     const { event } = EventContextProvider()
     const toast = useToast()
     const router = useRouter()
@@ -26,14 +26,14 @@ export const InfoListaInvitadosPage = ({ setState, state, setComponentState,idxC
         },
     ]
     return (
-        <div className="h-full ">
+        <div className="md:h-full h-[98vh] ">
             <div onClick={() => setComponentState(idxComponent)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
             <p className=" mt-1 text-3xl text-rosa">
                 Lista de invitados
             </p>
-            <div className="bg-white rounded-xl  h-[91%]   " >
+            <div className="bg-white rounded-xl  md:h-[91%] h-[calc(100%-200px)] overflow-auto pb-16 md:pb-0  " >
                 <div className="px-5 bg-gray-200 py-10 content-center rounded-t-lg flex flex-col items-center justify-center space-y-3 ">
                     <p>
                         <span className="text-rosa font-semibold">Lleva el control </span> de tu lista de invitados en un sólo lugar
@@ -44,7 +44,7 @@ export const InfoListaInvitadosPage = ({ setState, state, setComponentState,idxC
                         </button>
                     </div>
                 </div>
-                <div className="grid grid-cols-3 mt-10">
+                <div className="md:grid md:grid-cols-3 mt-10">
                     <div className="flex flex-col items-center col-span-2 ">
                         <p className="text-rosa text-xl">
                             ¿Qué me aporta la lista de invitados?

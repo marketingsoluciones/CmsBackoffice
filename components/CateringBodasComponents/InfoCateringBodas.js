@@ -42,7 +42,7 @@ export const InfoCateringBodas = ({ setOptionSelect, modalContacto, setModalCont
 
     return (
         <div className="h-[100vh] px-5 py-2 ">
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+            <p className="  mt-1 text-3xl text-rosa">
                 Catering de bodas
             </p>
             <div className="bg-white rounded-xl h-[calc(100%-110px)] overflow-auto">
@@ -63,7 +63,7 @@ export const InfoCateringBodas = ({ setOptionSelect, modalContacto, setModalCont
                         {
                             dataArry.map((item, idx) => {
                                 return (
-                                    <div key={idx} className="flex w-full justify-center items-center space-x-5 ">
+                                    <div key={idx} className="md:flex flex-cols md:flex-row w-full justify-center items-center space-x-5 ">
                                         <div className="w-72 flex items-center justify-center">
                                             <img src={item.img} alt="s" />
                                         </div>

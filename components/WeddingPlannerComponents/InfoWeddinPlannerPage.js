@@ -39,7 +39,7 @@ export const InfoWeddinPlannrePage = ({ setOptionSelect, modalContacto, setModal
             <p className="  mt-1 text-3xl text-rosa">
                 wedding Planner
             </p>
-            <div className="bg-white rounded-xl h-[calc(100%-110px)] overflow-auto">
+            <div className="bg-white rounded-xl md:h-[calc(100%-110px)] h-[calc(100%-200px)] overflow-auto">
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-14">
                     <p className="text-xl text-gray-600">
                         <span className="text-rosa">Organizar un evento </span> es una tarea minusiosa
@@ -59,11 +59,11 @@ export const InfoWeddinPlannrePage = ({ setOptionSelect, modalContacto, setModal
                         {
                             dataArry.map((item, idx) => {
                                 return (
-                                    <div key={idx} className="flex w-full justify-center items-center space-x-5 ">
+                                    <div key={idx} className="flex flex-col md:flex-row w-full justify-center items-center space-x-5 ">
                                         <div className="w-72 flex items-center justify-center">
                                             <img src={item.img} alt="s" />
                                         </div>
-                                        <div className="flex flex-col space-y-2 justify-center w-[40%]">
+                                        <div className="flex flex-col space-y-2 justify-center md:w-[40%]">
                                             <p className="text-rosa text-xl">
                                                 {item.title}
                                             </p>
@@ -83,7 +83,7 @@ export const InfoWeddinPlannrePage = ({ setOptionSelect, modalContacto, setModal
                     </div>
                 </div>
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-10">
-                    <div className="grid grid-cols-2  justify-items-center content-center  pb-3">
+                    <div className="md:grid md:grid-cols-2  justify-items-center content-center  pb-3">
                         <div className="flex items-center justify-center space-x-2 w-[80%]">
                             <div className="text-amarillo">
                                 <CoronaIcon />

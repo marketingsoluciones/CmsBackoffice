@@ -30,10 +30,10 @@ export const InfoPlanoEventoPage = ({ actionButton, setActionButton, setComponen
                     </div>
                 </div>
 
-                <div className="bg-gray-200 h-full grid grid-cols-3 justify-items-center content-center px-8 py-8 ">
+                <div className="bg-gray-200 h-full grid md:grid-cols-3 md:justify-items-center md:content-center px-8 py-8 ">
 
-                    <div className="col-span-2 flex justify-center items-center text-end">
-                        <p className="w-[70%] text-base">
+                    <div className="col-span-2 flex justify-center items-center text-center md:text-end">
+                        <p className="md:w-[70%] text-base">
                             <span className="text-rosa">
                                 Además de facilitar el cálculo óptimo del salón,
                             </span>
@@ -41,7 +41,7 @@ export const InfoPlanoEventoPage = ({ actionButton, setActionButton, setComponen
                         </p>
                     </div>
 
-                    <div className="col-span-1 flex flex-col justify-center items-center">
+                    <div className="col-span-1 flex flex-col justify-center items-center  ">
                         <button onClick={() => /* setActionButton(!actionButton) */ router.push({
                             pathname: "/facturacion",
                             query: {
@@ -52,6 +52,7 @@ export const InfoPlanoEventoPage = ({ actionButton, setActionButton, setComponen
                         })} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
                             {/*  Inicia prueba gratis de 30 días */} Empezar
                         </button>
+
                         <div className=" flex items-center justify-center space-x-1 my-2 text-base cursor-default">
                             <div className="text-amarillo">
                                 <CorazoncirculoIcon />

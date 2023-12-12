@@ -22,14 +22,16 @@ export const ProyectoInfoPage = ({ setComponentState }) => {
         },
     ]
     return (
-        <>
+        <div  className="h-[100vh]">
             <div onClick={() => setComponentState(2)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
             <p className=" mt-1 text-3xl text-rosa">
                 Proyectos
             </p>
-            <div className="bg-white rounded-lg relative">
+            <div className="bg-white rounded-lg relative md:h-[calc(100%-110px)] h-[calc(100%-220px)] overflow-auto">
+            <img src="proyectoImg.png" alt="proyect Img" className="md:absolute md:top-24 md:right-0 h-[65%]" />
+
                 <div className="px-10 py-8 space-y-3">
                     <p className="text-xl">
                         <span className="text-rosa"> Domina tu agenda y mantén el control  </span> sobre tus proyectos
@@ -72,7 +74,7 @@ export const ProyectoInfoPage = ({ setComponentState }) => {
                         Concentra el registro de las acciones de tus proyectos en una sola herramienta.
                     </p>
                 </div>
-                <div className="grid grid-cols-5 space-y-3 px-10 py-8">
+                <div className="md:grid md:grid-cols-5 space-y-3 px-10 py-8">
                     {
                         dataArry.map((item, idx) => {
                             return (
@@ -88,8 +90,8 @@ export const ProyectoInfoPage = ({ setComponentState }) => {
                         })
                     }
                 </div>
-                <img src="proyectoImg.png" alt="proyect Img" className="absolute top-24 right-0 h-[65%]" />
+                
             </div>
-        </>
+        </div>
     )
 }
