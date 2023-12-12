@@ -43,8 +43,10 @@ export const InfoPlantillaMenuPage = ({ actionButton, setActionButton, setCompon
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "34",
-                                        plan: "premium"
+                                        product: "prod_OxUsU7DJsvRwJ8",
+                                        plan: "premium",
+                                        originPath: "cateringBodas",
+                                        stateOriginPath: "1"
                                     }
                                 })}>PREMIUM</span>
                             </p>
@@ -54,8 +56,10 @@ export const InfoPlantillaMenuPage = ({ actionButton, setActionButton, setCompon
                                 pathname: "/facturacion",
                                 query: {
                                     state: 1,
-                                    producto: "34",
-                                    plan: "premium"
+                                    product: "prod_OxUsU7DJsvRwJ8",
+                                    plan: "premium",
+                                    originPath: "cateringBodas",
+                                    stateOriginPath: "1"
                                 }
                             })} className="bg-rosa rounded-lg px-5 py-0.5 text-base text-white ">
                                 Empezar

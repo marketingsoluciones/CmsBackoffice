@@ -49,8 +49,10 @@ export const InfoMenuPage = ({ setComponentState }) => {
                             pathname: "/facturacion",
                             query: {
                                 state: 1,
-                                producto: "34",
-                                plan: "premium"
+                                product: "prod_OxRe06SGEhPqhi",
+                                plan: "basic",
+                                originPath: "cateringBodas",
+                                stateOriginPath: "1"
                             }
                         })} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
                             {/* Inicia prueba gratis de 30 días */} Empezar
@@ -67,15 +69,19 @@ export const InfoMenuPage = ({ setComponentState }) => {
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "34",
-                                        plan: "basic"
+                                        product: "prod_OxRe06SGEhPqhi",
+                                        plan: "basic",
+                                        originPath: "cateringBodas",
+                                        stateOriginPath: "1"
                                     }
                                 })}> BÁSICA</span> O <span className="font-semibold text-amarillo cursor-pointer" onClick={() => router.push({
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "34",
-                                        plan: "premium"
+                                        product: "prod_OxUsU7DJsvRwJ8",
+                                        plan: "premium",
+                                        originPath: "cateringBodas",
+                                        stateOriginPath: "1"
                                     }
                                 })}>PREMIUM </span>
                             </p>

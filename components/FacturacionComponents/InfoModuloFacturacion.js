@@ -10,16 +10,16 @@ import { useRouter } from "next/router";
 import { ArrowBackComponent } from "../ToolsComponents";
 
 export const InfoModuloFacturacion = ({ data, actionButtton }) => {
+    const router = useRouter()
     const { user } = AuthContextProvider()
     const [viewInfo, setViewInfo] = useState()
     const [products, setProducts] = useState([])
     const [optionSelect, setOptionSelect] = useState(null)
-    const router = useRouter()
     const { originPath, stateOriginPath, product } = router?.query
     const idProduct = product
     const findProducto = data?.data?.find(product => (product.id === idProduct))
-    console.log("data 1", data)
-    console.log(findProducto)
+    console.log("findProducto", findProducto)
+
     const info = [
         {
             id: "34356",
@@ -129,7 +129,9 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
                         </div> */}
                     </div>
                 </div>
-                {data?.modulos?.map((elem, idx) => {
+                {findProducto != undefined && (<ModuloFacturacion data={data} elem={findProducto?.metadata.grupo} products={products} setProducts={setProducts} />)}
+
+                {findProducto == undefined && data?.modulos?.map((elem, idx) => {
                     return (
                         <ModuloFacturacion key={idx} data={data} elem={elem} products={products} setProducts={setProducts} idProduct={product} />
                     )

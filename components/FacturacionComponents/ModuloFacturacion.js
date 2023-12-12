@@ -5,10 +5,9 @@ import { ExclamacionIcon } from "../Icons/index"
 import { InfoItemsFacturation } from "../../utils/schemas"
 
 
-export const ModuloFacturacion = ({ data, elem, products, setProducts, idProduct }) => {
+export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
   const [optionSelect, setOptionSelect] = useState("basic")
   const [viewInfo, setViewInfo] = useState()
-
 
   const item = data?.data?.find(el => (el.metadata.grupo === elem && el.metadata.tipo === optionSelect))
 

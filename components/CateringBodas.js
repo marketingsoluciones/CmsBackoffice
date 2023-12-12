@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { SubmenuComponent } from "./CateringBodasComponents/SubmenuComponent"
 import { PlatillOpenCatering, MenuCatering, PlatilloCloseCatering, InvitadosCatering, ItinerarioCatering } from "./Icons/index"
 import { CartaProducto } from "./CateringBodasComponents/CartaProcutos"
@@ -10,12 +10,20 @@ import { InfoCateringBodas } from "./CateringBodasComponents/InfoCateringBodas"
 import { Modal } from "./modals/Modal"
 import { ContactarGold } from "./formularios/ContactarGold"
 import { EventsGroupContextProvider } from "../context/EventsGroupContext"
+import { useRouter } from "next/router"
 
 
 export const CateringBodas = () => {
     const [optionSelect, setOptionSelect] = useState(5)
     const [modalContacto, setModalContacto] = useState(false)
-    const {eventsGroup}=EventsGroupContextProvider()
+    const { eventsGroup } = EventsGroupContextProvider()
+    const router = useRouter()
+    const { stateOriginPath } = router?.query
+    useEffect(() => {
+        if (stateOriginPath) {
+            setOptionSelect(stateOriginPath)
+        }
+    }, [])
     const dataComponents = [
         {
             icon: <PlatillOpenCatering />,
@@ -51,7 +59,7 @@ export const CateringBodas = () => {
     };
 
     const newArryDataComponents = dataComponents.slice()
-    newArryDataComponents.splice(5,1)
+    newArryDataComponents.splice(5, 1)
 
     return (
         <>

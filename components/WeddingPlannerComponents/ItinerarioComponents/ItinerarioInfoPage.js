@@ -1,10 +1,17 @@
 
+import { useEffect, useState } from "react"
 import { ArrowLeft, CorazonBodasICon, CorazoncirculoIcon, DiamanteIcon } from "../../Icons/index"
 import { useRouter } from "next/router"
 
 
+
 export const ItinerarioInfoPage = ({ setOptionSelect, setComponentState, idxComponent }) => {
     const router = useRouter()
+    const pathname = router.pathname
+    const pathnameReplace = pathname.replace("/", "")
+    const [productID, setProductID] = useState()
+    const [stateProduct, setStateProduct] = useState()
+
 
     const dataArry = [
         {
@@ -23,6 +30,14 @@ export const ItinerarioInfoPage = ({ setOptionSelect, setComponentState, idxComp
             text: "de cada detalle antes, durante y después del evento."
         },
     ]
+
+    useEffect(() => {
+        if (pathnameReplace == "lugaresBodas") { setProductID("prod_OxRT3aFwljilTl"), setStateProduct("3") }
+        if (pathnameReplace == "cateringBodas") { setProductID("prod_OxUsU7DJsvRwJ8"), setStateProduct("4") }
+        if (pathnameReplace == "weddingPlanner") { setProductID("prod_OxUw2ZeAGaMqNe"), setStateProduct("3") }
+    }, [pathname])
+
+
 
     return (
         <>
@@ -67,10 +82,10 @@ export const ItinerarioInfoPage = ({ setOptionSelect, setComponentState, idxComp
                             pathname: "/facturacion",
                             query: {
                                 state: 1,
-                                product: "prod_OxRT3aFwljilTl",
+                                product: productID,
                                 plan: "basic",
-                                originPath:"lugaresBodas",
-                                stateOriginPath:"3"
+                                originPath: pathnameReplace,
+                                stateOriginPath: stateProduct
                             }
                         })} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
                             {/* Inicia prueba gratis de 30 días */} Empezar
@@ -87,15 +102,19 @@ export const ItinerarioInfoPage = ({ setOptionSelect, setComponentState, idxComp
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "12",
-                                        plan: "basic"
+                                        product: productID,
+                                        plan: "basic",
+                                        originPath: pathnameReplace,
+                                        stateOriginPath: stateProduct
                                     }
                                 })}> BÁSICA</span> O <span className="font-semibold text-amarillo cursor-pointer " onClick={() => router.push({
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "12",
-                                        plan: "premium"
+                                        product: productID,
+                                        plan: "basic",
+                                        originPath: pathnameReplace,
+                                        stateOriginPath: stateProduct
                                     }
                                 })}> PREMIUM </span>
                             </p>

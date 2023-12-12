@@ -38,8 +38,10 @@ export const ColeccionesInfoPage = ({ setComponentState }) => {
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "78",
-                                        plan: "premium"
+                                        product: "prod_OxV4HJxhbtL5wU",
+                                        plan: "Premium",
+                                        originPath: "fotografo",
+                                        stateOriginPath: "0"
                                     }
                                 })}>PREMIUM</span>
                             </p>
@@ -48,8 +50,10 @@ export const ColeccionesInfoPage = ({ setComponentState }) => {
                             pathname: "/facturacion",
                             query: {
                                 state: 1,
-                                producto: "78",
-                                plan: "premium"
+                                product: "prod_OxV4HJxhbtL5wU",
+                                plan: "Premium",
+                                originPath: "fotografo",
+                                stateOriginPath: "0"
                             }
                         })} className="bg-rosa rounded-lg px-4 py-0.5 text-white text-base">
                             Crear Colección

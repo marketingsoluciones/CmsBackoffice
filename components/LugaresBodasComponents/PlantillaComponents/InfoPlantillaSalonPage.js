@@ -49,7 +49,7 @@ export const InfoPlantillaSalonPage = ({ componentState, setComponentState }) =>
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "12",
+                                        product: "prod_OxUmSZo7LlM1hq",
                                         plan: "premium",
                                         originPath:"lugaresBodas",
                                         stateOriginPath:"0"
@@ -63,7 +63,7 @@ export const InfoPlantillaSalonPage = ({ componentState, setComponentState }) =>
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "12",
+                                        product: "prod_OxUmSZo7LlM1hq",
                                         plan: "premium",
                                         originPath:"lugaresBodas",
                                         stateOriginPath:"0"
