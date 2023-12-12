@@ -43,7 +43,7 @@ export const CateringBodas = () => {
         {
             icon: <InvitadosCatering />,
             title: "Lista de Invitados",
-            component: <InvitadosC setComponentState={setOptionSelect} eventsGroup={eventsGroup} />
+            component: <ListaInvitados setComponentState={setOptionSelect} eventsGroup={eventsGroup} />
         },
         {
             icon: <ItinerarioCatering />,
