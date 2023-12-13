@@ -30,13 +30,13 @@ export const ProyectoInfoPage = ({ setComponentState }) => {
                 Proyectos
             </p>
             <div className="bg-white rounded-lg relative md:h-[calc(100%-110px)] h-[calc(100%-220px)] overflow-auto">
-            <img src="proyectoImg.png" alt="proyect Img" className="md:absolute md:top-24 md:right-0 h-[65%]" />
+            <img src="proyectoImg.png" alt="proyect Img" className="md:absolute md:top-24 md:right-0 h-[65%] pl-10 md:pl-0" />
 
-                <div className="px-10 py-8 space-y-3">
+                <div className="md:px-10 px-5 py-8 space-y-3">
                     <p className="text-xl">
                         <span className="text-rosa"> Domina tu agenda y mantén el control  </span> sobre tus proyectos
                     </p>
-                    <p className="text-base w-[50%]">
+                    <p className="text-base md:w-[50%]">
                         Llevar el control de tus servicios profesionales como proveedor para eventos puede ser complicado.<span className="text-rosa font-semibold"> Cuando gestionas tus proyectos de manera profesional sacas el máximo provecho a tu tiempo y habilidades.</span>
                     </p>
                     <div className="text-yellow-500 flex items-center space-x-1 my-2  text-base cursor-default">

@@ -18,22 +18,23 @@ export const InfoPlantillaMenuPage = ({ actionButton, setActionButton, setCompon
         },
     ]
     return (
-        <>
-            <div onClick={() => setComponentState(5)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+        <div className="h-[100vh]">
+            <div onClick={() => setComponentState(5)} className="w-5 h-5 z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
             <p className="  mt-1 text-3xl text-rosa">
                 Plantillas de Menú
             </p>
-            <div className="bg-white rounded-lg">
-                <div className="grid grid-cols-2 justify-items-center content-center py-8 px-10">
-                    <div className="flex flex-col  justify-center pl-10 space-y-4 ">
-                        <p>
-                            <span className="text-rosa text-xl">Crea plantillas de menú </span> y distribuye de forma estratégica los platillos y bebidas.
+            <div className="bg-white rounded-lg  h-[calc(100%-245px)] md:h-[calc(100%-145px)] overflow-auto">
+                <div className="md:grid md:grid-cols-2 justify-items-center content-center py-8 px-10 space-y-5 md:space-y-5 ">
+                    <div className="flex flex-col  justify-center items-center md:items-start md:pl-10 space-y-4 ">
+                        <p className="md:text-left text-center">
+                            <span className="text-rosa text-xl ">Crea plantillas de menú </span> y distribuye de forma estratégica los platillos y bebidas.
                         </p>
-                        <p className="text-base">
+                        <p className="text-base md:text-left text-center">
                             Da rienda suelta a tu creatividad gastronómica y refléjalo de forma creativa en tu menú.
                         </p>
+
                         <div className="text-yellow-500 flex items-center space-x-1 my-2  text-base cursor-default">
                             <div>
                                 <DiamanteIcon />
@@ -51,7 +52,8 @@ export const InfoPlantillaMenuPage = ({ actionButton, setActionButton, setCompon
                                 })}>PREMIUM</span>
                             </p>
                         </div>
-                        <div>
+
+                        <div className="">
                             <button onClick={() =>/* setActionButton(!actionButton) */ router.push({
                                 pathname: "/facturacion",
                                 query: {
@@ -65,13 +67,12 @@ export const InfoPlantillaMenuPage = ({ actionButton, setActionButton, setCompon
                                 Empezar
                             </button>
                         </div>
-
                     </div>
                     <div>
                         <img src="PlantillaM.png" alt="Plantilla menu" />
                     </div>
                 </div>
-                <div className="bg-gray-200 flex flex-row px-14 py-4 space-x-5">
+                <div className="bg-gray-200 md:flex flex-row px-14 py-4 md:space-x-5 md:space-y-0 space-y-5">
                     {dataArry.map((item, idx) => {
                         return (
                             <div key={idx} className="flex space-x-1">
@@ -88,11 +89,11 @@ export const InfoPlantillaMenuPage = ({ actionButton, setActionButton, setCompon
                     })}
                 </div>
                 <div className="flex justify-center py-5">
-                    <p className="text-base">
+                    <p className="text-base text-center">
                         La plantilla perfecta te facilita tener en cuenta las necesidades particulares de tus invitados.
                     </p>
                 </div>
             </div>
-        </>
+        </div>
     )
 }

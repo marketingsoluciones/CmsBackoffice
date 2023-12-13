@@ -24,13 +24,13 @@ export const FotografoInfoPage = ({modalContacto, setModalContacto, setOptionSel
             <p className=" mt-1 text-3xl text-rosa">
                 Fotógrafos
             </p>
-            <div className="bg-white rounded-xl flex flex-col h-[calc(100%-110px)] overflow-auto">
+            <div className="bg-white rounded-xl flex flex-col h-[calc(100%-245px)] md:h-[calc(100%-110px)] overflow-auto">
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-14">
-                    <p className="text-xl text-gray-600">
+                    <p className="text-xl text-gray-600 text-center ">
                         <span className="text-rosa">Amplia tu exposición </span> y atrae más clientes
                     </p>
 
-                    <p className="text-base text-gray-600 px-10">
+                    <p className="text-base text-gray-600 md:px-10 text-center md:text-left">
                         Con el
                         <span className="text-rosa"> Módulo Fotográfos  </span>
                         automatiza tus proyectos, contratos y facturas además de brindarle a tus clientes una forma óptima e intuitiva para descargar las fotografias de su evento.

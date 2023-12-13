@@ -137,7 +137,7 @@ export const PanelViewTable = ({ slug, dispatch }) => {
                 Añadir registro
               </button>
               <div className=" w-[44%]">
-                <button onClick={() => router.push(`${selected?.resumenRout}`)} type="button" className="border border-rosa px-3 rounded-lg text-rosa text-base">
+                <button onClick={() => router.push(`${selected?.resumenRout}`)} type="button" className="border border-rosa px-3 rounded-lg text-rosa text-base hidden md:block">
                   ver resumen
                 </button>
                 <div className=" absolute h-8  rounded-md px-2 flex items-center  border-gray-400 border-2  bottom-0.5 right-0 w-1/3 ">

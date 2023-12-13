@@ -47,9 +47,9 @@ export const ItinerarioInfoPage = ({ setOptionSelect, setComponentState, idxComp
             <p className="mt-1 text-3xl text-rosa">
                 Intinerarios
             </p>
-            <div className="bg-white rounded-lg  h-[calc(100%-240px)] md:h-[calc(100%-100px)] overflow-auto  ">
-                <div className="flex flex-col items-center py-8 space-y-4">
-                    <p className="text-xl">
+            <div className="bg-white rounded-lg  h-[calc(100%-245px)] md:h-[calc(100%-145px)] overflow-auto  ">
+                <div className="flex flex-col items-center py-8 space-y-4 px-5">
+                    <p className="text-xl text-center">
                         <span className="text-rosa">Crea tu itinerario </span> y gestiona con éxito la ejecución de tu evento.
                     </p>
                     <img src="itinerarioImg.png" alt="itinerario imagen" />
@@ -70,14 +70,14 @@ export const ItinerarioInfoPage = ({ setOptionSelect, setComponentState, idxComp
                         )
                     })}
                 </div>
-                <div className="md:grid md:grid-cols-2 py-8 px-8">
+                <div className="md:grid md:grid-cols-2 py-8 px-8 space-y-3 md:space-y-0">
                     <div className="flex flex-col items-center justify-center space-y-5" >
                         <img src="itinerarioImg2.png" alt="itinerario img 2" />
                         <p className="text-base text-center">
                             Organiza desde itinerarios para novios hasta itinerarios de prestación de servicios.
                         </p>
                     </div>
-                    <div className="flex flex-col justify-center items-center">
+                    <div className="flex flex-col justify-center items-center space-y-3 md:space-y-0">
                         <button onClick={() => /* setOptionSelect(0) */ router.push({
                             pathname: "/facturacion",
                             query: {

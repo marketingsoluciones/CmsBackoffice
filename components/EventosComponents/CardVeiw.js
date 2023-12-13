@@ -51,7 +51,7 @@ export const CardVeiw = ({ setOpenModal, openModal, viewResumen, setViewResumen 
                     </div>
                 </div>
 
-                <div className={`bg-white space-y-5 rounded-xl  py-2 px-4 ${optionSelect == 0 ? "h-[calc(100%-220px)]" : "h-max"} overflow-auto  `}>
+                <div className={`bg-white space-y-5 rounded-xl  py-2 md:px-4 ${optionSelect == 0 ? "h-[calc(100%-220px)]" : "h-max"} overflow-auto  `}>
 
                     {/* botones en la cabecera del componente */}
 
