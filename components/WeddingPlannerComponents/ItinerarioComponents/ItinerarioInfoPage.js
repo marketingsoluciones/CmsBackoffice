@@ -47,7 +47,7 @@ export const ItinerarioInfoPage = ({ setOptionSelect, setComponentState, idxComp
             <p className="mt-1 text-3xl text-rosa">
                 Intinerarios
             </p>
-            <div className="bg-white rounded-lg  h-[calc(100%-240px)] overflow-auto  ">
+            <div className="bg-white rounded-lg  h-[calc(100%-240px)] md:h-[calc(100%-100px)] overflow-auto  ">
                 <div className="flex flex-col items-center py-8 space-y-4">
                     <p className="text-xl">
                         <span className="text-rosa">Crea tu itinerario </span> y gestiona con éxito la ejecución de tu evento.

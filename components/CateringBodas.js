@@ -11,6 +11,7 @@ import { Modal } from "./modals/Modal"
 import { ContactarGold } from "./formularios/ContactarGold"
 import { EventsGroupContextProvider } from "../context/EventsGroupContext"
 import { useRouter } from "next/router"
+import { ListaInvitados } from "./LugaresBodasComponents/ListaInvitados"
 
 
 export const CateringBodas = () => {
