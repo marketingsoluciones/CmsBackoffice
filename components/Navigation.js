@@ -100,7 +100,7 @@ export const Navigation = ({ set, state, }) => {
                       {user?.displayName}
                     </Text>
                     : !show ?
-                      <Text className="text-right truncate" textTransform={"capitalize"}>
+                      <Text className="text-right truncate hidden" textTransform={"capitalize"}>
                         {user?.displayName}
                       </Text>
                       : <></>

@@ -12,16 +12,19 @@ export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
   const item = data?.data?.find(el => (el.metadata.grupo === elem && el.metadata.tipo === optionSelect))
 
   return (
-    < div className="h-[200px] flex justify-center bg-white rounded-lg px-5 py-5 space-x-4">
+    < div className="md:h-[200px] flex md:flex-row flex-col items-center md:items-start  justify-center bg-white rounded-lg px-5 py-5 md:space-x-4 md:space-y-0 space-y-3">
 
       <div>
         <img src={item?.images[0]} alt={item?.name} />
       </div>
 
-      <div className="border-r-2 w-[70%] space-y-2 ">
-        <div className="flex space-x-3 justify-between">
+      <div className="md:border-r-2 border-b-2 md:border-b-0 md:w-[70%] space-y-2 pb-3 md:pb-0 ">
+
+        <div className="md:flex md:space-x-3 justify-between">
+
           <p className="text-xl">{item?.name}</p>
-          <div className="text-base flex items-center pr-14">
+
+          <div className="text-base flex items-center md:pr-14">
             <button onClick={() => setOptionSelect("basic")} className={` border rounded-l-md p-1 ${optionSelect !== "premium" ? "border-rosa text-rosa bg-gray-100  transition delay-80" : ""}`}>
               basico
             </button>
@@ -29,10 +32,14 @@ export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
               premium
             </button>
           </div>
+
         </div>
+
         <p className="text-base">{item?.description}</p>
+
         <div className="w-full relative">
-          <div className="w-full grid grid-cols-3">
+
+          <div className="w-full md:grid md:grid-cols-3 space-y-3 md:space-y-0">
             {item?.metadata?.includes?.split(", ").map((el, idx) => {
               return <InfoModulos key={idx} item={el} viewInfo={viewInfo} setViewInfo={setViewInfo} />
             })}
@@ -42,7 +49,7 @@ export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
         </div>
       </div>
       <div className="flex flex-col justify-between space-y-2 items-end pl-16">
-        <div className="flex flex-col justify-between items-end my-6 h-full">
+        <div className="flex flex-col justify-between items-end md:my-6  h-full">
           <p className="text-end w-40 text-base">
             {optionSelect === "basic" && "Gratis durante el período de prueba"}
           </p>

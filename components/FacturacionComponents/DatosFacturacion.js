@@ -51,13 +51,13 @@ export const DatosFacturacion = ({ actionButtton }) => {
             >
                 {
                     ({ values }) => (
-                        <Form className="bg-white rounded-lg px-20 py-10 space-y-5 h-[calc(100%-70px)] overflow-auto">
-                            <div className=" border-b flex flex-col items-center space-y-2 px-28 pb-3  ">
+                        <Form className="bg-white rounded-lg md:px-20 px-5 py-10 space-y-5 h-[calc(100%-70px)] overflow-auto">
+                            <div className=" border-b flex flex-col items-center space-y-2 md:px-28 pb-3  ">
                                 <p className="text-rosa w-full">
                                     Contacto de Facturacion
                                 </p>
                                 <div className="flex items-center justify-center space-x-3 w-[100%] " >
-                                    <label className="text-gray-700  text-base w-20 w-[30%] text-end font-semibold  ">Nombre</label>
+                                    <label className="text-gray-700  text-base w-[30%] text-end font-semibold  ">Nombre</label>
                                     <div className="flex w-[100%] space-x-2">
                                         <InputFieldGlobal
                                             name="nombre"
@@ -94,15 +94,15 @@ export const DatosFacturacion = ({ actionButtton }) => {
                                 <p className="text-base text-gray-600 pt-2"> Estaremos enviando facturas a este correo electrónico.</p>
                             </div>
 
-                            <div className=" border-b flex flex-col items-center space-y-2 px-28 pb-5 ">
+                            <div className=" border-b flex flex-col items-center space-y-2 md:px-28 pb-5 ">
                                 <p className="text-rosa w-full">
                                     Dirección de Envio
                                 </p>
                                 <div className="flex items-center space-x-3 w-[100%]  " >
-                                    <label className="text-gray-700  text-base w-20 w-[30%] text-end font-semibold ">País</label>
+                                    <label className="text-gray-700  text-base  w-[30%] text-end font-semibold ">País</label>
                                     <SelectField
                                         name="pais"
-                                        className=" capitalize cursor-pointer text-sm  border border-gray-300 w-[100%] transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
+                                        className=" capitalize cursor-pointer text-sm  border border-gray-300  transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
                                         options={pr}
                                         icon={<ArrowDownIcon />}
                                         iconClassName="top-2 right-5 text-gray-600 "
@@ -110,7 +110,7 @@ export const DatosFacturacion = ({ actionButtton }) => {
 
                                 </div>
                                 <div className="flex items-center justify-center space-x-3 w-[100%]  " >
-                                    <label className="text-gray-700  text-base w-20 w-[30%] text-end font-semibold">Dirección</label>
+                                    <label className="text-gray-700  text-base  w-[30%] text-end font-semibold">Dirección</label>
                                     <div className="flex w-[100%] space-x-2">
                                         <InputFieldGlobal
                                             name="calle"
@@ -125,7 +125,7 @@ export const DatosFacturacion = ({ actionButtton }) => {
                                     </div>
                                 </div>
                                 <div className="flex items-center space-x-3 w-[100%]  " >
-                                    <label className="text-gray-700  text-base w-20 w-[30%] text-end font-semibold">Ciudad</label>
+                                    <label className="text-gray-700  text-base  w-[30%] text-end font-semibold">Ciudad</label>
                                     <InputFieldGlobal
                                         name="ciudad"
                                         className="focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%] truncate text-base "
@@ -133,17 +133,17 @@ export const DatosFacturacion = ({ actionButtton }) => {
                                     />
                                 </div>
                                 <div className="flex items-center space-x-3 w-[100%]" >
-                                    <label className="text-gray-700  text-base w-20 w-[30%] text-end font-semibold">Estado</label>
+                                    <label className="text-gray-700  text-base  w-[30%] text-end font-semibold">Estado</label>
                                     <SelectField
                                         name="estado"
-                                        className=" capitalize cursor-pointer text-sm  border border-gray-300 w-[100%] transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
+                                        className=" capitalize cursor-pointer text-sm  border border-gray-300 transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
                                         options={pr}
                                         icon={<ArrowDownIcon />}
                                         iconClassName="top-2 right-5 text-gray-600 "
                                     />
                                 </div>
                                 <div className="flex items-center space-x-3 w-[100%]  " >
-                                    <label className="text-gray-700  text-base w-20 w-[30%] text-end font-semibold">ZIP/Postal</label>
+                                    <label className="text-gray-700  text-base  w-[30%] text-end font-semibold">ZIP/Postal</label>
                                     <InputFieldGlobal
                                         name="postal"
                                         className="focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%] truncate text-base "
@@ -151,7 +151,7 @@ export const DatosFacturacion = ({ actionButtton }) => {
                                     />
                                 </div>
                                 <div className="flex items-center space-x-3 w-[100%]  " >
-                                    <label className="text-gray-700  text-base w-20 w-[30%] text-end font-semibold">Número de impuesto sobre las ventas (opcional)</label>
+                                    <label className="text-gray-700  text-base  w-[30%] text-end font-semibold">Número de impuesto sobre las ventas (opcional)</label>
                                     <InputFieldGlobal
                                         name="impuesto"
                                         className="focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%] truncate text-base "
@@ -160,7 +160,7 @@ export const DatosFacturacion = ({ actionButtton }) => {
                                 </div>
                             </div>
 
-                            <div className="  flex flex-col items-center space-y-2 px-28 pb-5 ">
+                            <div className="  flex flex-col items-center space-y-2 md:px-28 pb-5 ">
                                 <p className="text-rosa w-full">
                                     Método de pago
                                 </p>

@@ -66,7 +66,8 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
 
     return (
         <div className="h-[100vh] relative">
-            <div className="bg-white rounded-lg px-10 py-5 mb-3 flex justify-between">
+
+            <div className="bg-white rounded-lg px-10 py-5 mb-3 md:flex justify-between">
                 <div className="absolute z-10 top-2 left-3">
                     <ArrowBackComponent action={actionBut} />
                 </div>
@@ -85,17 +86,19 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
                     </button>
                 </div>
             </div>
-            <div className="space-y-4 h-[calc(100%-175px)] overflow-auto">
-                <div className="flex justify-center bg-white rounded-lg px-5 py-5 space-x-4 ">
+
+            <div className="space-y-4 md:h-[calc(100%-175px)] h-[calc(100%-300px)] overflow-auto">
+
+                <div className="flex md:flex-row flex-col items-center md:items-start justify-center bg-white rounded-lg px-5 py-5 md:space-x-4 md:space-y-0 space-y-3">
                     <div>
                         <img src="/Facturacion/corazonCuadro.png" alt="corazonCuadro" />
                     </div>
-                    <div className="border-r-2 w-[70%] space-y-2 ">
-                        <div className="flex space-x-3 w-[50%] justify-between">
+                    <div className="md:border-r-2 border-b-2 md:border-b-0 md:w-[70%] space-y-2 pb-3 md:pb-0 ">
+                        <div className="flex space-x-3 md:w-[50%] justify-between">
                             <p className="text-xl">Panel de gestión para empresas</p>
                         </div>
-                        <p className="text-base w-[80%]">Coordina desde tu panel de gestión para empresas tus publicaciones en Bodas de Hoy y tus eventos activos en el EventosOrganizador. </p>
-                        <div className="grid grid-cols-3">
+                        <p className="text-base md:w-[80%]">Coordina desde tu panel de gestión para empresas tus publicaciones en Bodas de Hoy y tus eventos activos en el EventosOrganizador. </p>
+                        <div className="md:grid md:grid-cols-3 space-y-3 md:space-y-0">
                             {
                                 info.map((item, idx) => {
                                     return (
@@ -112,7 +115,6 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
                                 })
                             }
                         </div>
-
                     </div>
                     <div className="flex flex-col justify-center space-y-2 items-end pl-16 w-64">
                         <p>
@@ -129,6 +131,7 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
                         </div> */}
                     </div>
                 </div>
+
                 {findProducto != undefined && (<ModuloFacturacion data={data} elem={findProducto?.metadata.grupo} products={products} setProducts={setProducts} />)}
 
                 {findProducto == undefined && data?.modulos?.map((elem, idx) => {

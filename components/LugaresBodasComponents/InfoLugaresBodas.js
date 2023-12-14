@@ -67,11 +67,11 @@ export const InfoLugaresBodas = ({ setOptionSelect, setModalContacto, modalConta
                         organiza de forma óptima e intuitiva los detalles para presentarlos a tus clientes, controla desde la distribución de los salones hasta la lista de invitados de cada evento.
                     </p>
                 </div>
-                <div className="bg-gray-200 flex relative">
-                    <div className="z-10 flex items-center  ">
+                <div className="bg-gray-200 flex md:relative">
+                    <div className="md:z-10 flex items-center *md:block *hidden  ">
                         <img src="/lugarBoda.png" alt="alta" className="absolute" />
                     </div>
-                    <div className="flex flex-col items-center space-y-5 py-14 z-20 ">
+                    <div className="flex flex-col items-center space-y-5 py-14 md:z-20 ">
                         {
                             dataArry.map((item, idx) => {
                                 return (

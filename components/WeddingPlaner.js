@@ -49,10 +49,11 @@ export const WeddingPlanner = () => {
     return (
         <>
             <div className="md:grid md:grid-cols-6 h-full w-[100%]">
+                <div className="z-20">
+                    <SubmenuComponent dataComponents={newArryDataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
+                </div>
 
-                <SubmenuComponent dataComponents={newArryDataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
-
-                <div className="col-span-6 md:col-span-5">
+                <div className="col-span-6 md:col-span-5 z-10">
                     {dataComponents[optionSelect].component}
                 </div>
 

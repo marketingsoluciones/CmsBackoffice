@@ -51,11 +51,11 @@ export const InfoWeddinPlannrePage = ({ setOptionSelect, modalContacto, setModal
                         óbten funcionalidades para automatizar tareas como gestionar la lista de invitados, presupuestos, envio de invitaciones y crear intinerarios para compartir con tus clientes.
                     </p>
                 </div>
-                <div className="bg-gray-200 flex relative">
-                    <div className="z-10 flex items-center  ">
+                <div className="bg-gray-200 flex md:relative">
+                    <div className="md:z-10 flex items-center  ">
                         <img src="/CorazonDoble.png" alt="weddin planner" className="absolute" />
                     </div>
-                    <div className="flex flex-col items-center space-y-5 py-14 z-20 ">
+                    <div className="flex flex-col items-center space-y-5 py-14 md:z-20 ">
                         {
                             dataArry.map((item, idx) => {
                                 return (

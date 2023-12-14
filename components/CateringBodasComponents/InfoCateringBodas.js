@@ -57,9 +57,9 @@ export const InfoCateringBodas = ({ setOptionSelect, modalContacto, setModalCont
                         organiza los detalles del menú según el tipo de evento y lleva el control de alérgenos por invitado y su selección de platos.
                     </p>
                 </div>
-                <div className="bg-gray-200 flex relative">
+                <div className="bg-gray-200 flex md:relative">
 
-                    <div className="flex flex-col items-center space-y-5 py-14 z-20 ">
+                    <div className="flex flex-col items-center space-y-5 py-14 md:z-20 ">
                         {
                             dataArry.map((item, idx) => {
                                 return (

@@ -36,11 +36,11 @@ export const FotografoInfoPage = ({modalContacto, setModalContacto, setOptionSel
                         automatiza tus proyectos, contratos y facturas además de brindarle a tus clientes una forma óptima e intuitiva para descargar las fotografias de su evento.
                     </p>
                 </div>
-                <div className="bg-gray-200 flex  relative">
-                    <div className="z-10 flex items-center  ">
+                <div className="bg-gray-200 flex  md:relative">
+                    <div className="md:z-10 hidden md:block  ">
                         <img src="/CamaraBG.png " alt="weddin planner" className="absolute" />
                     </div>
-                    <div className="flex flex-col items-center space-y-5 py-14 z-20 ">
+                    <div className="flex flex-col items-center space-y-5 py-14 md:z-20 ">
                         {
                             dataArry.map((item, idx) => {
                                 return (

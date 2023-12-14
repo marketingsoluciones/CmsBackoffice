@@ -38,11 +38,11 @@ export const EventoSelect = () => {
 
 
             <div className={`flex items-center justify-star w-full bg-white  p-2 rounded-lg `}>
-                <div className={`w-full`}>
+                <div className={`w-full flex md:flex-col space-x-2 md:space-x-0`}>
                     <div className={`flex gap-4 `}>
                         <Text pl={"0.1rem"} className={`text-gray-500 font-semibold`}>{"Evento:"}</Text>
                     </div>
-                    <div className="flex">
+                    <div className="flex w-full">
                         <Menu autoSelect={false} foc  >
                             <MenuButton flex={"2"} w={"8rem"} >
                                 <div className="flex justify-between w-full">
