@@ -22,13 +22,13 @@ export const InfoPageCalendario = () => {
 
     return (
         <>
-            <div className="bg-white space-y-2 rounded-xl h-full flex flex-col items-center justify-center h-full pt-10 pb-5">
+            <div className="bg-white space-y-2 rounded-xl  flex flex-col items-center justify-center h-full pt-10 pb-5">
 
                 <img src="/photoCalendari.png" alt="alta" className="w-[80%] md:w-[40%]" />
 
                 <p className="md:text-3xl text-xl text-rosa font-semibold">Calendario empresarial</p>
 
-                <div className="grid md:grid-cols-3 md:px-10 px-2 space-x-5  ">
+                <div className="grid md:grid-cols-3 md:px-10 px-2 md:space-x-5  space-y-5 md:space-y-0 ">
                     {dataArry.map((item, idx) => {
                         return (
                             <>
@@ -55,18 +55,21 @@ export const InfoPageCalendario = () => {
                         </div>
                         <p>
                             Activar la versión <span onClick={() => router.push({
-                                    pathname: "/facturacion",
-                                    query: {
-                                        state: 1,
-                                        producto: "weddingPlanner",
-                                        plan: "premium"
-                                    }
-                                })} className="font-semibold cursor-pointer">PREMIUM</span>
+                                pathname: "/facturacion",
+                                query: {
+                                    state: 1,
+                                }
+                            })} className="font-semibold cursor-pointer">PREMIUM</span>
                         </p>
                     </button>
-                    {/* <button className="py-2 px-7 bg-rosa rounded-lg text-white w-full text-base">
+                    <button onClick={() => router.push({
+                        pathname: "/facturacion",
+                        query: {
+                            state: 1,
+                        }
+                    })} className="py-2 px-7 bg-rosa rounded-lg text-white w-full text-base">
                         Crear Calendario
-                    </button> */}
+                    </button>
                 </div>
 
             </div>

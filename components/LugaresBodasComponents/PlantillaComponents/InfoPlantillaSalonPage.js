@@ -19,14 +19,14 @@ export const InfoPlantillaSalonPage = ({ componentState, setComponentState }) =>
     ]
 
     return (
-        <div className="h-[100vh]">
+        <div className="h-[100vh] ">
             <div onClick={() => setComponentState(4)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
             <p className="  mt-1 text-3xl text-rosa">
                 Plantillas del Salón
             </p>
-            <div className="bg-white rounded-xl md:flex md:flex-col md:h-[91%] h-[calc(100%-100px)] overflow-auto " >
+            <div className="bg-white rounded-xl md:flex md:flex-col md:h-[calc(100%-145px)] h-[calc(100%-250px)] overflow-auto " >
                 <div className="grid md:grid-cols-2 px-5  py-6 content-center ">
                     <div className=" col-span-1 space-y-2  flex flex-col justify-center ">
                         <p className="text-xl">
@@ -92,9 +92,9 @@ export const InfoPlantillaSalonPage = ({ componentState, setComponentState }) =>
                     }
 
                 </div>
-                <div className="flex flex-col items-center justify-center h-full ">
+                <div className="flex flex-col items-center justify-center h-32 md:h-full ">
                     <p className="text-rosa">Cada espacio es importante.</p>
-                    <p className="text-base ">Con tu plantillas coordinas desde la distribución general hasta el más mínimo detalle. </p>
+                    <p className="text-base text-center ">Con tu plantillas coordinas desde la distribución general hasta el más mínimo detalle. </p>
                 </div>
             </div>
         </div>

@@ -26,14 +26,14 @@ export const InfoListaInvitadosPage = ({ setState, state, setComponentState, idx
         },
     ]
     return (
-        <div className="md:h-full h-[98vh] ">
+        <div className="md:h-full h-[98vh]  px-5 py-2">
             <div onClick={() => setComponentState(idxComponent)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
             <p className=" mt-1 text-3xl text-rosa">
                 Lista de invitados
             </p>
-            <div className="bg-white rounded-xl  md:h-[91%] h-[calc(100%-200px)] overflow-auto pb-16 md:pb-0  " >
+            <div className="bg-white rounded-xl  md:h-[calc(100%-90px)] h-[calc(100%-215px)] overflow-auto pb-16 md:pb-0  " >
                 <div className="px-5 bg-gray-200 py-10 content-center rounded-t-lg flex flex-col items-center justify-center space-y-3 ">
                     <p>
                         <span className="text-rosa font-semibold">Lleva el control </span> de tu lista de invitados en un sólo lugar
@@ -46,10 +46,10 @@ export const InfoListaInvitadosPage = ({ setState, state, setComponentState, idx
                 </div>
                 <div className="md:grid md:grid-cols-3 mt-10">
                     <div className="flex flex-col items-center col-span-2 ">
-                        <p className="text-rosa text-xl">
+                        <p className="text-rosa text-xl px-6">
                             ¿Qué me aporta la lista de invitados?
                         </p>
-                        <div className="grid grid-cols-2 content-center h-full  px-6">
+                        <div className="md:grid md:grid-cols-2 content-center h-full  px-6">
                             {
                                 dataArry.map((item, idx) => {
                                     return (
@@ -66,7 +66,7 @@ export const InfoListaInvitadosPage = ({ setState, state, setComponentState, idx
                             }
                         </div>
                     </div>
-                    <div className="col-span-1">
+                    <div className="col-span-1 px-6 md:px-0">
                         <img src="/invitados.png" alt="alta" className="w-[95%] h-[95%]" />
                     </div>
                 </div>

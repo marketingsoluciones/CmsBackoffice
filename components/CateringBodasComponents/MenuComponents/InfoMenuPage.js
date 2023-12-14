@@ -16,20 +16,20 @@ export const InfoMenuPage = ({ setComponentState }) => {
         }
     ]
     return (
-        <>
+        <div className="h-[100vh]">
             <div onClick={() => setComponentState(5)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
             <p className="  mt-1 text-3xl text-rosa">
                 Menú
             </p>
-            <div className="bg-white rounded-lg" >
-                <div className="grid grid-cols-2 py-8 px-8">
-                    <div className="space-y-3 pl-10">
-                        <p className="text-xl">
+            <div className="bg-white rounded-lg h-[calc(100%-245px)] md:h-[calc(100%-145px)] overflow-auto " >
+                <div className="md:grid md:grid-cols-2 py-8 px-8">
+                    <div className="space-y-3 md:pl-10 md:pb-0 pb-5">
+                        <p className="text-xl text-center md:text-start">
                             <span className="text-rosa"> Gestiona el menú </span>y asignalo al evento que organizas
                         </p>
-                        <p className="text-base w-[80%]">
+                        <p className="text-base md:w-[80%]">
                             Añade uno a uno los platos y bebidas para crear el menú de tu evento, compartir con clientes y organizadores.
                         </p>
                     </div>
@@ -37,9 +37,8 @@ export const InfoMenuPage = ({ setComponentState }) => {
                         <img src="Menu.png" alt="Gestiona tu menu" />
                     </div>
                 </div>
-                <div className="grid grid-cols-2 py-8 px-8 bg-gray-200">
+                <div className="md:grid md:grid-cols-2 py-8 px-8 bg-gray-200">
                     <div className="pl-10* w-[95%] flex items-center justify-center">
-
                         <p className="text-end text-base">
                             <span className="text-rosa"> Planificar el menú </span> es una tarea meticulosa que implica al proveedor, el propósito del evento, los gustos de los asistentes, temática, temporada ¡hazlo fácil!
                         </p>
@@ -88,7 +87,7 @@ export const InfoMenuPage = ({ setComponentState }) => {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-2 py-8 px-8">
+                <div className="md:grid md:grid-cols-2 py-8 px-8 md:space-y-0 space-y-5 ">
                     {
                         dataArry.map((item, idx) => {
                             return (
@@ -103,6 +102,6 @@ export const InfoMenuPage = ({ setComponentState }) => {
                     }
                 </div>
             </div>
-        </>
+        </div>
     )
 }
