@@ -50,9 +50,9 @@ export const EventoSelect = () => {
                                     <ArrowDownIcon h={2} w={3} />
                                 </div>
                             </MenuButton>
-                            <MenuList p={"0"} fontSize={"sm"} justifyItems={"start"}>
+                            <MenuList p={"0"} fontSize={"sm"} justifyItems={"start"}  >
                                 {EventArryReverse.map((item, idx) => (
-                                    <MenuItem key={idx} style={item === event?.nombre ? { backgroundColor: '#F3F4F6' } : { backgroundColor: '' }} color={"gray.500"}
+                                    <MenuItem className="text-md " key={idx} style={item === event?.nombre ? { backgroundColor: '#F3F4F6' } : { backgroundColor: '' }} color={"gray.500"}
                                     onClick={() => { handleChange(item)}}>{`${item}`}</MenuItem>
                                 ))}
                             </MenuList>
