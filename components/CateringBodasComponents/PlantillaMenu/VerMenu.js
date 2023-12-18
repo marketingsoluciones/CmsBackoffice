@@ -14,8 +14,6 @@ export const VerMenu = ({ setChildrenComponentState }) => {
     const [openModalP, setOpenModalP] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
     const [isMounted2, setIsMounted2] = useState(false)
-    console.log("addCategoria", isMounted2)
-    console.log("addProducto", isMounted)
 
 
     return (
@@ -43,7 +41,7 @@ export const VerMenu = ({ setChildrenComponentState }) => {
             }
             {
                 openModal ? (
-                    <Modal openIcon={openModal} setOpenIcon={setOpenModal} classe={"w-[25%] h-[86%]"} >
+                    <Modal openIcon={openModal} setOpenIcon={setOpenModal} classe={"md:w-[25%] h-[86%]"} >
                         <Añadirmenu openModal={openModal} setOpenModal={setOpenModal} />
                     </Modal>
                 ) : null

@@ -17,7 +17,7 @@ export const BlockPlantillaMenu = ({ addProducto, setAddProducto, addCategoria, 
 
 
   return (
-    <div className="bg-white  w-full shadow-lg rounded-xl h-[calc(100%-190px)] px-6 pt-6 pb-28 mb-32 md:mb-0 md:p-12 relative">
+    <div className="bg-white  w-full shadow-lg rounded-xl h-[calc(100%-190px)] px-6 pt-6 pb-28 mb-32 md:mb-0 md:p-12 md:relative*">
       <div className="flex gap-4 items-center pb-10">
         <button
           onClick={() => setAddProducto(!addProducto)}
@@ -71,7 +71,7 @@ export const BlockPlantillaMenu = ({ addProducto, setAddProducto, addCategoria, 
           </div>
         </ModalBottom>
       )} */}
-      <div className="relative overflow-x-auto md:overflow-x-visible overflow-auto h-[calc(100%-30px)] ">
+      <div className="md:relative overflow-x-auto md:overflow-x-visible overflow-auto h-[calc(100%-30px)] ">
         <DatatableGroup
           GruposArray={""}
           setSelected={setSelected}

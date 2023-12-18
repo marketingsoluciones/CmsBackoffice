@@ -12,7 +12,7 @@ export const Presupuesto = ({ setComponentState }) => {
     return (
         eventsGroup.length !== 0
             ? < div className="h-full" >
-                <iframe src={`${path}/presupuesto/?show=iframe&father=${fatherID}`} width={"100%"} height={"100%"} className=""></iframe>
+                <iframe src={`${path}/presupuesto/?show=iframe&father=${fatherID}`} width={"100%"}  className="h-[89vh] md:h-[100%]"></iframe>
             </div >
             : <InfoPresupuestoPage actionButton={state} setActionButton={setState} setComponentState={setComponentState} />
     )

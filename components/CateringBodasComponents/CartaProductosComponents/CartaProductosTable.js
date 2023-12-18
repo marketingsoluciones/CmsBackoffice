@@ -14,7 +14,7 @@ export const CartaProductosTable = ({ actionButton, setActionButton, setComponen
     return (
         <div className="space-y-4 w-full  ">
             <div>
-                <div onClick={() => setComponentState(5)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                <div onClick={() => setComponentState(5)} className="w-5 h-5 absolute* z-10* top-2 left-3 text-gray-700 cursor-pointer">
                     <ArrowLeft />
                 </div>
                 <p className=" mt-1 text-3xl text-rosa">
@@ -22,7 +22,7 @@ export const CartaProductosTable = ({ actionButton, setActionButton, setComponen
                 </p>
                 <p className=" text-sm bg-white p-2 rounded-lg">Crea tu carta de productos agregando cada uno de tus platos y bebidas.  </p>
             </div>
-            <div className="relative">
+            <div className=" md:relative">
                 <button className="bg-rosa rounded-lg px-4 py-1 text-white " onClick={() => setActionButton(1)}>
                     Añadir producto
                 </button>
