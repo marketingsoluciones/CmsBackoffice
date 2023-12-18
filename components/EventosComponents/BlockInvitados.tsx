@@ -87,12 +87,12 @@ const BlockInvitados: FC = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <button
-          /*  onClick={() => router.push("/invitados")} */
+        {/* <button
+           onClick={() => router.push("/invitados")}
           className="focus:outline-none rounded-lg border border-rosa px-2 mx-auto inset-x-0 font-display text-rosa text-sm py-1 hover:text-white hover:bg-rosa transition"
         >
           Añadir Invitados
-        </button>
+        </button> */}
       </div>
     </div>
   );

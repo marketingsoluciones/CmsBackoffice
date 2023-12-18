@@ -65,14 +65,14 @@ export const ModuloRecomendaciones = () => {
 
     return (
 
-        <div>
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+        <div className="">
+            <p className="  mt-1 text-3xl text-rosa">
                 Programa de recomendación
             </p>
             <div className="bg-white text-base py-2 rounded-lg px-2 text-gray-500">
                 Haz que tu red conozca Bodas de Hoy y EventosOrganizador. Recibirán una prueba ampliada de 30 días, y puedes recibir increíbles recompensas.
             </div>
-            <div className="flex justify-end space-x-2 py-2">
+            <div className="flex justify-end space-x-2 py-2  overflow-y-auto">
                 {
                     DataButtons.map((item, idx) => {
                         return (
@@ -80,7 +80,7 @@ export const ModuloRecomendaciones = () => {
                                 <div >
                                     {item?.icono}
                                 </div>
-                                <p>
+                                <p className="hidden md:block">
                                     {item?.texto}
                                 </p>
                             </button>
@@ -88,7 +88,7 @@ export const ModuloRecomendaciones = () => {
                     })
                 }
             </div>
-            <div className="bg-white rounded-lg">
+            <div className="bg-white rounded-lg ">
                 <div className="text-base pl-3 py-3">
                     <button onClick={() => setOptionSelect(0)} className={`px-3 ${optionSelect == 0 ? "border-b border-rosa text-rosa transition duration-100 " : ""}`}>
                         Recomendaciones y recompensas
@@ -97,7 +97,10 @@ export const ModuloRecomendaciones = () => {
                         Historial de actividad
                     </button>
                 </div>
-                {Components[optionSelect].component}
+                <div className="">
+
+                    {Components[optionSelect].component}
+                </div>
             </div>
             {
                 openModalFCorre ? (

@@ -27,9 +27,9 @@ const BlockListaRegalos: FC = () => {
         ))}
         </div>
 
-        <button  /* onClick={() => router.push("/lista-regalos")} */ className="bg-tertiary w-2/3 rounded-lg border border-rosa font-display text-rosa text-sm py-1 hover:bg-rosa hover:text-white transition focus:outline-none">
+        {/* <button  onClick={() => router.push("/lista-regalos")} className="bg-tertiary w-2/3 rounded-lg border border-rosa font-display text-rosa text-sm py-1 hover:bg-rosa hover:text-white transition focus:outline-none">
           Activar lista
-        </button>
+        </button> */}
       </div>
     </div>
   );

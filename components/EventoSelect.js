@@ -45,7 +45,7 @@ export const EventoSelect = () => {
                     <div className="flex w-full">
                         <Menu autoSelect={false} foc  >
                             <MenuButton flex={"2"} w={"8rem"} >
-                                <div className="flex justify-between w-full">
+                                <div className="flex justify-between w-[90%] md:w-full">
                                     <Text noOfLines={1} textAlign={"start"} ml={"2px"} className={"font-semibold text-gray-500"} >{event?.nombre}</Text>
                                     <ArrowDownIcon h={2} w={3} />
                                 </div>

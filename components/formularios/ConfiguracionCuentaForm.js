@@ -28,7 +28,7 @@ export const ConfiguracionCuentasForm = () => {
     return (
         <Formik initialValues={initialValues} onSubmit={handelsumbit}>
             <Form>
-                <div className="  flex flex-col items-center space-y-2 px-28 pb-5 ">
+                <div className="  flex flex-col items-center space-y-2 md:px-28 pb-5 px-5 ">
                     <div className="flex w-[100%] items-center justify-center space-x-5">
                         <label htmlFor="photo" className={"relative cursor-pointer hover:opacity-50"}>
                             <img src={user?.photoURL ?? "/placeholder/user.png"} alt={"perfil"} className={"border-primary border-2 rounded-full objeto-cover h-20 w-20  object-cover object-center"} />
@@ -45,7 +45,7 @@ export const ConfiguracionCuentasForm = () => {
                         </div>
                     </div>
                     <div className="flex items-center space-x-3 w-[100%]  " >
-                        <label className="text-gray-700  text-base w-20 w-[30%] text-end font-semibold ">Tu nombre</label>
+                        <label className="text-gray-700  text-base  w-[30%] text-end font-semibold ">Tu nombre</label>
                         <InputFieldGlobal
                             name="nombre"
                             className="focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%] truncate text-base "
@@ -53,7 +53,7 @@ export const ConfiguracionCuentasForm = () => {
                         />
                     </div>
                     <div className="flex items-center space-x-3 w-[100%]  " >
-                        <label className="text-gray-700  text-base w-20 w-[30%] text-end font-semibold">Correo electrónico</label>
+                        <label className="text-gray-700  text-base  w-[30%] text-end font-semibold">Correo electrónico</label>
                         <InputFieldGlobal
                             name="email"
                             className="focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%] truncate text-base "
@@ -61,41 +61,41 @@ export const ConfiguracionCuentasForm = () => {
                         />
                     </div>
                     <div className="flex items-center space-x-3 w-[100%]" >
-                        <label className="text-gray-700  text-base w-20 w-[30%] text-end font-semibold">Huso horario</label>
+                        <label className="text-gray-700  text-base  w-[30%] text-end font-semibold">Huso horario</label>
                         <SelectField
                             name="horario"
-                            className=" capitalize cursor-pointer text-sm  border border-gray-300 w-[100%] transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
+                            className=" capitalize cursor-pointer text-sm  border border-gray-300  transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
                             options={pr}
                             icon={<ArrowDownIcon />}
                             iconClassName="top-2 right-5 text-gray-600 "
                         />
                     </div>
-                    <p className="text-base text-gray-500 ml-52">La zona horaria se actualiza automáticamente para concordar con la zona horaria de tu ordenador</p>
+                    <p className="text-base text-gray-500 md:ml-52">La zona horaria se actualiza automáticamente para concordar con la zona horaria de tu ordenador</p>
                     <div className="flex items-center space-x-3 w-[100%]  " >
-                        <label className="text-gray-700  text-base w-20 w-[30%] text-end font-semibold">Formato de fecha/número</label>
+                        <label className="text-gray-700  text-base w-[30%] text-end font-semibold">Formato de fecha/número</label>
                         <SelectField
                             name="formato"
-                            className=" capitalize cursor-pointer text-sm  border border-gray-300 w-[100%] transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
+                            className=" capitalize cursor-pointer text-sm  border border-gray-300 transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
                             options={pr}
                             icon={<ArrowDownIcon />}
                             iconClassName="top-2 right-5 text-gray-600 "
                         />
                     </div>
                     <div className="flex items-center space-x-3 w-[100%]  " >
-                        <label className="text-gray-700  text-base w-20 w-[30%] text-end font-semibold">Idioma</label>
+                        <label className="text-gray-700  text-base w-[30%] text-end font-semibold">Idioma</label>
                         <SelectField
                             name="idioma"
-                            className=" capitalize cursor-pointer text-sm  border border-gray-300 w-[100%] transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
+                            className=" capitalize cursor-pointer text-sm  border border-gray-300 transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
                             options={pr}
                             icon={<ArrowDownIcon />}
                             iconClassName="top-2 right-5 text-gray-600 "
                         />
                     </div>
                     <div className="flex items-center space-x-3 w-[100%]  " >
-                        <label className="text-gray-700  text-base w-20 w-[30%] text-end font-semibold">Moneda por defecto</label>
+                        <label className="text-gray-700  text-base w-[30%] text-end font-semibold">Moneda por defecto</label>
                         <SelectField
                             name="moneda"
-                            className=" capitalize cursor-pointer text-sm  border border-gray-300 w-[100%] transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
+                            className=" capitalize cursor-pointer text-sm  border border-gray-300 transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
                             options={pr}
                             icon={<ArrowDownIcon />}
                             iconClassName="top-2 right-5 text-gray-600 "

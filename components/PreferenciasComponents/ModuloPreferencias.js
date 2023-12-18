@@ -17,7 +17,7 @@ export const ModuloPreferencias = () => {
 
     return (
         <div>
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+            <p className=" mt-1 text-3xl text-rosa">
                 Preferencias personales
             </p>
             <div className="bg-white rounded-lg">

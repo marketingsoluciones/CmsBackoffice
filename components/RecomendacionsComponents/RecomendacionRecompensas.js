@@ -60,11 +60,11 @@ export const RecomendacionRecompensas = () => {
     ]
 
     return (
-        <div className="flex flex-col space-y-3 items-center">
+        <div className="flex flex-col space-y-3 items-center h-[100vh] ">
             <h1 className="text-rosa text-xl">
                 ¿Cómo funciona?
             </h1>
-            <div className="grid grid-cols-3">
+            <div className="md:grid md:grid-cols-3 h-[100%-1000px]">
                 {dataArry.map((item, idx) => {
                     return (
                         <div key={idx} className="flex flex-col justify-center items-center space-y-2">

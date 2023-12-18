@@ -75,11 +75,11 @@ const BlockMesas: FC = () => {
           }
         </div>
 
-        {/* <Link href="/mesas"> */}
+        {/* <Link href="/mesas">
           <button className="rounded-lg border border-rosa px-2 font-display text-rosa text-sm py-1 hover:text-white hover:bg-rosa transition focus:outline-none">
             Ver mesas
           </button>
-       {/*  </Link> */}
+        </Link> */}
       </div>
     </div>
   );

@@ -38,26 +38,27 @@ const BlockPresupuesto = () => {
         <Swiper
           //spaceBetween={50}
           {...settings}
-          className="w-full"
+          className="md:w-full w-24"
         >
           {ListaBlock.map((item, idx) => (
-            <SwiperSlide key={idx} className="mx-auto inset-x-0 w-max flex flex-col justify-center items-center ">
-              <span className="py-1">
-                {item.icon}
-              </span>
-              <p className="font-display font-semibold text-lg text-gray-700 leading-6">
-                {item.amount}
-              </p>
-              <p className="font-display font-base text-xs text-gray-500">
-                {item.subtitle}
-              </p>
+            <SwiperSlide key={idx} className="mx-auto inset-x-0 w-max flex flex-col justify-center items-center  ">
+
+                <span className="py-1">
+                  {item.icon}
+                </span>
+                <p className="font-display font-semibold text-lg text-gray-700 leading-6">
+                  {item.amount}
+                </p>
+                <p className="font-display font-base text-xs text-gray-500">
+                  {item.subtitle}
+                </p>
             </SwiperSlide>
           ))}
         </Swiper>
 
-        <button /* onClick={() => router.push("/presupuesto")} */ className="focus:outline-none rounded-lg border border-rosa px-2 mx-auto inset-x-0 font-display text-rosa text-sm py-1 hover:text-white hover:bg-rosa transition">
+        {/* <button  onClick={() => router.push("/presupuesto")} className="focus:outline-none rounded-lg border border-rosa px-2 mx-auto inset-x-0 font-display text-rosa text-sm py-1 hover:text-white hover:bg-rosa transition">
           Añadir gastos
-        </button>
+        </button> */}
       </div>
     </div>
   );

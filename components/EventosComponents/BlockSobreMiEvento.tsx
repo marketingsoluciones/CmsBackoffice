@@ -207,7 +207,7 @@ const BlockSobreMiEvento: FC = () => {
         slidesPerView: 2
       },
       "480": {
-        slidesPerView: 4
+        slidesPerView: 5
       }
     }
   };
