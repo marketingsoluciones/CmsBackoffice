@@ -65,7 +65,7 @@ export const ModuloRecomendaciones = () => {
 
     return (
 
-        <div className="">
+        <div className="h-[100vh]">
             <p className="  mt-1 text-3xl text-rosa">
                 Programa de recomendación
             </p>
@@ -88,7 +88,7 @@ export const ModuloRecomendaciones = () => {
                     })
                 }
             </div>
-            <div className="bg-white rounded-lg ">
+            <div className="bg-white md:h-[calc(100%-200px)] h-[calc(100%-360px)] rounded-lg ">
                 <div className="text-base pl-3 py-3">
                     <button onClick={() => setOptionSelect(0)} className={`px-3 ${optionSelect == 0 ? "border-b border-rosa text-rosa transition duration-100 " : ""}`}>
                         Recomendaciones y recompensas

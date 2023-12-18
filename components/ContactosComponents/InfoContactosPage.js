@@ -4,20 +4,20 @@ import { useRouter } from "next/router"
 export const InfoContactosPage = () => {
     const router = useRouter()
     return (
-        <div className="h-full px-5 py-2 ">
-            <p className=" text-slate-600 mt-1 text-3xl text-rosa">
+        <div className="h-[100vh] px-5 py-2 ">
+            <p className=" mt-1 text-3xl text-rosa">
                 wedding Planner
             </p>
-            <div className="bg-white rounded-lg">
-                <div className="grid grid-cols-2 justify-content-center px-10 py-8">
-                    <div className="flex items-center justify-center px-14">
+            <div className="bg-white rounded-lg h-[calc(100%-200px)] md:h-[calc(100%-110px)] overflow-auto">
+                <div className="md:grid md:grid-cols-2 justify-content-center px-10 py-8">
+                    <div className="flex items-center justify-center md:px-14">
                         <p className="text-xl"><span className="text-rosa font-semibold"> Coordina los datos </span> de todos quienes forman parte y hacen posible tu evento.</p>
                     </div>
                     <div>
                         <img src="infoContactos.png" alt="infoContactos" />
                     </div>
                 </div>
-                <div className="grid grid-cols-2 bg-gray-100 px-10 py-8" >
+                <div className="md:grid md:grid-cols-2 bg-gray-100 px-10 py-8" >
                     <div className="pl">
                         <p className="text-base">
                             <span className="text-rosa " >Concentrar todos los detalles en un mismo lugar es clave </span> para tengas el control de las comunicaciones y las acciones programadas con cada persona en tu lista.
@@ -39,15 +39,11 @@ export const InfoContactosPage = () => {
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "contactos",
-                                        plan: "basico"
                                     }
                                 })}> BÁSICA </span>O <span className="text-amarillo font-semibold cursor-pointer" onClick={() => router.push({
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "contactos",
-                                        plan: "premium"
                                     }
                                 })}> PREMIUM </span>
                             </p>
@@ -60,7 +56,6 @@ export const InfoContactosPage = () => {
                     </p>
                 </div>
             </div>
-
         </div >
     )
 }

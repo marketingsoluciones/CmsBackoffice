@@ -25,11 +25,11 @@ export const MarketplaceC = () => {
                     </div>
 
                     <div className="flex flex-col items-center">
-                        <h1 className="text-rosa text-3xl">Aumenta tu visibilidad y haz crecer tus ganancias.</h1>
+                        <h1 className="text-rosa md:text-3xl text-xl">Aumenta tu visibilidad y haz crecer tus ganancias.</h1>
                         <h3 className="text-base text-gray-600">Vende tus servicios en nuestra tienda exclusiva para proveedores de bodas y eventos</h3>
                     </div>
 
-                    <div className="grid grid-cols-3 justify-items-center  ">
+                    <div className="md:grid md:grid-cols-3 justify-items-center space-y-2 md:space-y-0  ">
                         {dataArry.map((item, idx) => {
                             return (
                                 <div className="pl-5 text-base flex items-center space-x-2" key={idx}>
