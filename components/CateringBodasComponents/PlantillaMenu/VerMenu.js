@@ -14,6 +14,8 @@ export const VerMenu = ({ setChildrenComponentState }) => {
     const [openModalP, setOpenModalP] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
     const [isMounted2, setIsMounted2] = useState(false)
+    console.log("addCategoria", isMounted2)
+    console.log("addProducto", isMounted)
 
 
     return (
@@ -26,24 +28,18 @@ export const VerMenu = ({ setChildrenComponentState }) => {
                 <BlockPlantillaMenu addProducto={isMounted} setAddProducto={setIsMounted} addCategoria={isMounted2} setAddCategoria={setIsMounted2} />
             </div>
             {
-                (
+                isMounted2 ? (
                     <ModalLeft state={isMounted2} set={setIsMounted2}>
-                        {/* showEditEvent ?
-                        <FormCrearEvento state={isMounted} set={setIsMounted} EditEvent={showEditEvent} />
-                        : */ <FormAddCategoria state={isMounted2} set={setIsMounted2} />
-                        }
+                        <FormAddCategoria state={isMounted2} set={setIsMounted2} />
                     </ModalLeft>
-                )
+                ): null
             }
             {
-                (
+               isMounted? (
                     <ModalLeft state={isMounted} set={setIsMounted}>
-                        {/* showEditEvent ?
-                        <FormCrearEvento state={isMounted} set={setIsMounted} EditEvent={showEditEvent} />
-                        : */ <FormAddProducto state={isMounted} set={setIsMounted} />
-                        }
+                        <FormAddProducto state={isMounted} set={setIsMounted} />
                     </ModalLeft>
-                )
+                ): null
             }
             {
                 openModal ? (

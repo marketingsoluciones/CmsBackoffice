@@ -23,7 +23,7 @@ export const PlantillaMenu = ({setComponentState}) => {
     return (
         <div className="px-5 py-2 h-full">
             {(() => {
-                if (eventsGroup.length == 0) {
+                if (state) {
                     return (
                         <InfoPlantillaMenuPage actionButton={state} setActionButton={setState} setComponentState={setComponentState}/>
                     )
