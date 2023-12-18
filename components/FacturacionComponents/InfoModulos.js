@@ -1,9 +1,18 @@
 import { ArrowBackComponent } from "../ToolsComponents"
+import { useRouter } from "next/router";
+
 
 export const InfoModulos = ({ data, setOptionSelect }) => {
+    const router = useRouter()
+
+
+    const actionBut = () => {
+       { router.back()}
+    }
+
     return (
         <div className="h-[100vh]">
-            <ArrowBackComponent/>
+            <ArrowBackComponent action={actionBut}/>
             <p className="  mt-1 text-3xl text-rosa">
                 Planes
             </p>

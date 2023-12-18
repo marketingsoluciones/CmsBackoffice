@@ -21,7 +21,6 @@ export const AgregarProducto = ({ actionButton, setActionButton, setChildrenComp
                 Agregar Producto
             </p>
             <div className="bg-white h-[calc(100%-135px)] mx-5* my-2 rounded-lg flex flex-col items-center justify-center   ">
-
                 <Formik initialValues={initialValues} onSubmit={handelSubmit}>
                     <Form>
                         <p className="hidden md:block text-xl text-rosa mb-5 text-center md:text-start ">
@@ -48,21 +47,18 @@ export const AgregarProducto = ({ actionButton, setActionButton, setChildrenComp
                                     options={["Cóctel de bievenida ", "Carta de vinos ", "Carta de cerveza ", "Lista de aperitivos ", "Listado de entradas ", "Listado de postres"]}
                                     name="asistencia"
                                     label=""
-
                                 />
                             </div>
                         </div>
-
                         <div className="flex flex-col mb-5 md:mb-10 space-y-1">
                             <label className="text-gray-500">Alérgenos</label>
                             <label className="text-gray-500 text-sm">Indica si este plato tiene algun alérgeno</label>
                             <InputFieldGlobal
-                                name="nombre"
+                                name="alergenos"
                                 className="focus:outline-none border border-gray-300 rounded-lg px-3 py-3 w-[100%] truncate "
                                 placeholder=""
                             />
                         </div>
-
                         <div className="flex justify-center space-x-5">
                             <button className="px-4 py-2 bg-gray-300 rounded-lg text-white text-base" onClick={() => setActionButton(0)} type="button">
                                 cancelar
@@ -73,10 +69,7 @@ export const AgregarProducto = ({ actionButton, setActionButton, setChildrenComp
                         </div>
                     </Form>
                 </Formik>
-
-
             </div>
-
         </div>
     )
 }
