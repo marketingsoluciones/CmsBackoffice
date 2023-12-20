@@ -1,16 +1,14 @@
 import { CamaraIcon } from "../../Icons/index"
-
 import { Box, Center, Flex, FormLabel, Input, Text } from "@chakra-ui/react";
 import { useField } from "formik";
 import Image from "next/image";
-import { ImageIcon } from "../../icons"
 import { useEffect, useState } from "react";
 import { FormLabelMod } from "./FormLabelMod";
 import { Popup } from "../../Popup";
 
 export const PerfilImg = ({ ...props }) => {
     const [field, meta, helpers] = useField(props);
-    console.log(1441, field)
+   
     const [image, setImage] = useState(null)
 
     const handleChange = async (e) => {

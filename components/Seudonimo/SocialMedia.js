@@ -12,7 +12,6 @@ export const SocialMedia = ({ mediaIcon, name, placeholder }) => {
         {/* <input type="checkbox" {...field} checked={!lock} /> */}
         <Center minW={"full"} className="cursor-pointer" onClick={() => {
           //setFieldValue(field.name, !lock)
-          console.log("aqui")
           helpers.setValue(!field.value)
         }} >
           <Flex gap={{ base: "1", md: "2" }} justifyContent={"space-between"} minW={{ base: "40%", md: "85%" }} >

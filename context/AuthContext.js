@@ -53,18 +53,47 @@ const AuthProvider = ({ children }) => {
   const [domain, setDomain] = useState();
   const [config, setConfig] = useState();
   const [changedForm, setChangedForm] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+
+  useEffect(() => {
+    if (!isMounted) {
+      setIsMounted(true)
+    }
+    return () => {
+      setIsMounted(false)
+    }
+  }, [])
+
+
 
   //let auth = undefined
+  let resp
   useEffect(() => {
-    const domainDevelop = window.location.hostname.split(".")[1]
-    console.log(55000, domainDevelop)
+    // if (isMounted) {
+
+    const path = window.location.hostname
+    //const path = "https://www.bodasdehoy.com"
+    const c = path?.split(".")
+    const idx = c?.findIndex(el => el === "com")
+    /*--------------------------------------------------------------------*/
+    const devDomain = ["bodasdehoy", "diariocivitas"]
+    const domainDevelop = !!idx && idx !== -1 ? c[idx - 1] : devDomain[0] /*<<<<<<<<<*/
+    /*--------------------------------------------------------------------*/
+    resp = developments.filter(elem => elem.name === domainDevelop)[0]
+
+
+    //const domainDevelop = window.location.hostname.split(".")[1]
     const resp = developments.filter(elem => elem.name === domainDevelop)[0]
-    console.log(55061, resp?.cookie)
     if (!resp?.cookie) resp = developments[0]
-    console.log(55062, resp?.cookie)
+
+
     setDevelopment(resp.name)
-    setDomain(resp.name)
-    console.log(55001, resp)
+    if (idx === -1 || window.origin.includes("://test")) {
+      setDomain(`${process.env.NEXT_PUBLIC_DOMINIO}`)
+    } else {
+      setDomain(`.${resp.name}.com`)
+    }
     try {
       const firebaseClient = initializeApp(resp.fileConfig);
       firebaseClient
@@ -73,7 +102,8 @@ const AuthProvider = ({ children }) => {
     }
     //auth = getAuth()
     setConfig(resp)
-    console.log(40001, getAuth())
+    // }
+
   }, [])
 
 
@@ -81,7 +111,6 @@ const AuthProvider = ({ children }) => {
     try {
       getAuth().onAuthStateChanged(async (user) => {
         const sessionCookie = Cookies.get(config?.cookie);
-        console.log(70001, sessionCookie)
         console.info("Verificando cookie", sessionCookie);
         if (sessionCookie) {
           console.info("Tengo cookie de sesion", user);
@@ -92,7 +121,6 @@ const AuthProvider = ({ children }) => {
               variables: { uid: user?.uid },
               development: config?.name
             }).then((moreInfo) => {
-              console.log(8877, moreInfo)
               moreInfo && console.info("Tengo datos de la base de datos");
               setUser({ ...user, ...moreInfo });
               console.info("Guardo datos en contexto react");
@@ -107,7 +135,6 @@ const AuthProvider = ({ children }) => {
               variables: { sessionCookie },
               development: config?.name
             }).then((asdf) => {
-              console.log(333, asdf)
               const customToken = asdf?.customToken
               console.info("Llamo con mi sessionCookie para traerme customToken");
               console.info("Custom token", customToken)
@@ -134,7 +161,8 @@ const AuthProvider = ({ children }) => {
     getAuth().onIdTokenChanged(async user => {
       const sessionCookie = Cookies.get(config?.cookie);
       if (user && sessionCookie) {
-        Cookies.set("idToken", await user.getIdToken(), { domain: `.${domain}.com` })
+        const dateExpire = new Date(new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000))
+        Cookies.set("idToken", await user.getIdToken(), { domain: domain, expires: dateExpire })
       }
     })
   }, [config])

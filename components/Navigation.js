@@ -1,24 +1,26 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { Avatar, Box, Flex, MenuButton, MenuItem, Menu, MenuList, Text, IconButton, Input, Center, Image } from "@chakra-ui/react";
+import { Avatar, Flex, MenuButton, Menu, MenuList, Text, IconButton, Center, Image } from "@chakra-ui/react";
 import Link from 'next/link';
 import { useAuthentication } from "../utils/Authentication";
-import { BombillaIcon, AddUserIcon, AyudaIcon, ArrowDownIcon, SearchIcon, CloseIcon } from "../components/Icons/index";
+import { SearchIcon, CloseIcon, TarjetaIcon, UserMenuIcon, RegaloIcon, SalirIcon, CorazonPaddinIcon, RedireccionIcon } from "../components/Icons/index";
 import algoliasearch from "algoliasearch";
-import { InstantSearch, connectSearchBox, Hits, SearchBox } from "react-instantsearch-dom";
+import { InstantSearch, connectSearchBox, Hits } from "react-instantsearch-dom";
 import { createURL } from "../utils/UrlImage"
 import { AuthContextProvider } from "../context/AuthContext";
 import ClickAwayListener from "react-click-away-listener";
-import { useEffect, useRef, useState } from "react";
-import { set } from "react-hook-form";
+import { useEffect, useState } from "react";
 import router from "next/router";
 import packageJson from "../package.json";
 import { hasRole } from "../utils/auth";
+import Cookies from "js-cookie";
 
 export const Navigation = ({ set, state, }) => {
   const { _signOut } = useAuthentication()
   const { user } = AuthContextProvider()
   const [show, setShow] = useState(false)
   const [showValir, setShowValir] = useState(false)
+  const cookieContent = JSON.parse(Cookies.get("guestbodas") ?? "{}")
+
 
   useEffect(() => {
     if (show) {
@@ -29,17 +31,59 @@ export const Navigation = ({ set, state, }) => {
   }, [show])
 
   const Options = [
-    {title:"Bodasdehoy.com", route:"https://www.bodasdehoy.com/" },
     {
-      title: "Cerrar Sesión", function: async () => {
-        _signOut()
-      }
+      title: " Mi Cuenta",
+      children: [
+        {
+          icon: <UserMenuIcon />,
+          title: "Preferencias personales",
+          rout: "/preferenciasPersonales"
+        },
+        {
+          icon: <RegaloIcon />,
+          title: "Programa de recomendación",
+          rout: "/programaRecomendaciones"
+        }
+      ]
+    },
+    {
+      title: " Resumen de la empresa",
+      children: [
+        {
+          icon: <TarjetaIcon />,
+          title: "Facturación",
+          rout: "/facturacion"
+        },
+
+      ]
+    },
+    {
+      title: "",
+      children: [
+        {
+          icon: <CorazonPaddinIcon />,
+          title: "Volver a Bodasdehoy.com",
+          rout: window.origin.includes("://test") ? process.env.NEXT_PUBLIC_DIRECTORY?.replace("//", "//test.") : process.env.NEXT_PUBLIC_DIRECTORY
+        },
+        {
+          icon: <RedireccionIcon />,
+          title: "Ir a AppBodasdehoy.com",
+          rout: cookieContent?.eventCreated || user?.uid ? window.origin.includes("://testcms.") ? process.env.NEXT_PUBLIC_EVENTSAPP?.replace("//", "//test") ?? "" : process.env.NEXT_PUBLIC_EVENTSAPP ?? "" : "/"
+        },
+        {
+          icon: <SalirIcon />,
+          title: "Cerrar Sesión", function: async () => {
+            _signOut()
+          }
+        },
+      ]
     },
     { title: `Version: ${packageJson?.version}` },
   ]
 
+
   return (
-    <Flex bg={"white"} shadow={"sm"} w={"100%"} padding={"0.5rem"}>
+    <Flex bg={"white"} shadow={"sm"} w={"100%"} padding={"0.5rem"} className="z-50" >
       <Flex alignItems={"center"} justifyContent={"space-between"} w={"100%"} gap={{ base: "1", md: "4" }} >
         <IconButton onClick={() => set(!state)}>
           <HamburgerIcon w={"1.5rem"} h={"1.5rem"} color={"gray.500"} />
@@ -57,7 +101,7 @@ export const Navigation = ({ set, state, }) => {
                       {user?.displayName}
                     </Text>
                     : !show ?
-                      <Text className="text-right truncate" textTransform={"capitalize"}>
+                      <Text className="text-right truncate hidden" textTransform={"capitalize"}>
                         {user?.displayName}
                       </Text>
                       : <></>
@@ -74,27 +118,46 @@ export const Navigation = ({ set, state, }) => {
               </Flex>
             </MenuButton>
             <MenuList p={"0"} fontSize={"sm"} ml={"8"}>
-              {Options.map((item, idx) => (
-                item.route ? (
-                  <Link key={idx} href={item.route}>
-                    <MenuItem color={"gray.500"}>{item.title}</MenuItem>
-                  </Link>
-                ) : (
-                  <MenuItem key={idx} onClick={item?.function} color={"gray.500"}>{item.title}</MenuItem>
-                )
+              {Options?.map((item, idx) => (
+
+                <div key={idx} className="border-b space-y-1  px-5 py-2">
+                  <div className="flex items-center font-semibold ">
+                    {item?.icon}
+                    {item?.title}
+                  </div>
+                  {
+                    item.children?.map((item, idx) => (
+                      item.rout ? (
+                        <Link key={idx} href={item?.rout} >
+                          <div className="flex items-center space-x-1 cursor-pointer hover:bg-gray-100 rounded-md px-1 py-0.5 ">
+                            <div >
+                              {item.icon}
+                            </div>
+                            <div>
+                              {item.title}
+                            </div>
+                          </div>
+                        </Link>
+                      ) : (
+                        <div key={idx} onClick={item?.function} className="flex items-center space-x-1 cursor-pointer hover:bg-gray-100  rounded-md  px-1 py-0.5">
+                          <div >
+                            {item.icon}
+                          </div>
+                          <div>
+                            {item.title}
+                          </div>
+                        </div>
+                      )
+
+                    ))}
+                </div >
               ))}
+              <div className="flex justify-center text-gray-400 py-0.5">
+                Version: {packageJson?.version}
+              </div>
             </MenuList>
           </Menu>
         </Center>
-        {/*  <div className="">
-            <AyudaIcon className="" />
-          </div>
-          <div className="">
-            <AddUserIcon />
-          </div>
-          <div className="">
-            <BombillaIcon />
-          </div> */}
       </Flex>
     </Flex>
   );
@@ -104,7 +167,7 @@ const MySearchBox = ({ currentRefinement, refine, show, setShow, setShowValir })
   return (
     <>
       <ClickAwayListener onClickAway={() => {
-        refine("")
+        /* refine("") */
         setShow(false)
         setShowValir(false)
       }}>

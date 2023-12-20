@@ -150,7 +150,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   ];
 
   return (
-    <Flex flexDir={"column"} overflow={"auto"} maxH={"95%"} >
+    <Flex flexDir={"column"} overflow={"auto"} maxH={"95%"} p={"0.5rem"} >
       {showModal && <Modal setShowModal={setShowModal} showModal={showModal} title={"Al salir perdera los cambios"} handle={handle} />}
       {!loadingValues && !errorValues ? (
         <>
@@ -160,7 +160,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
             <Box w={"100%"}>
               <Flex className="md:items-center" >
                 <div className="flex items-start">
-                  <Center >
+                  <Center mb={"2px"} >
                     <ArrowLeft
                       className="w-6 h-6 *md:w-8 *md:h-8 mr-2 text-gray-600 cursor-pointer"
 
