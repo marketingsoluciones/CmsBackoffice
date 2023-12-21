@@ -78,6 +78,7 @@ export const Navigation = ({ set, state, }) => {
         },
       ]
     },
+    { title: `Version: ${packageJson?.version}` },
   ]
 
 
