@@ -22,7 +22,6 @@ export const useAuthentication = () => {
 
   const _signOut = useCallback(async () => {
     const domainCookie = `${domain}`
-    console.log(domainCookie)
     await fetchApi({ query: queries.signOut, variables: { sessionCookie: Cookies.get(config?.cookie) }, development: domain })
     Cookies.remove(config?.cookie, { domain: domainCookie });
     Cookies.remove("idToken", { domain: domainCookie });
@@ -30,7 +29,11 @@ export const useAuthentication = () => {
     await signOut(getAuth());
     const path = window.origin.includes("://test") ? config?.domain.replace("//", "//test.") : config?.domain
     await router.push(path);
-    toast("success", "Gracias por visitarnos, te esperamos luego 😀");
+    toast({
+      status: "success",
+      title: "Gracias por visitarnos, te esperamos luego 😀",
+      isClosable: true,
+    });
   }, [router, setUser, toast])
   return { _signOut };
 };
