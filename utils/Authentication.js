@@ -21,7 +21,8 @@ export const useAuthentication = () => {
   const { setUser, domain, config } = AuthContextProvider()
 
   const _signOut = useCallback(async () => {
-    const domainCookie = `${domain}.com`
+    const domainCookie = `${domain}`
+    console.log(domainCookie)
     await fetchApi({ query: queries.signOut, variables: { sessionCookie: Cookies.get(config?.cookie) }, development: domain })
     Cookies.remove(config?.cookie, { domain: domainCookie });
     Cookies.remove("idToken", { domain: domainCookie });
