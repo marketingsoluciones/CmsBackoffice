@@ -153,10 +153,10 @@ export const FormDinamical = forwardRef(
             {({ values, setValues }) => {
               return (
                 <Form onChange={() => { !changedForm && setChangedForm(true) }}>
-                  <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(5, 1fr)"]} gap={"1rem"} >
+                  <Grid /* templateColumns={["repeat(1, 1fr)", , , , "repeat(5, 1fr)"]} */  className="grid grid-cols-5 gap-[1rem]" /* gap={"1rem"} */ >
 
                     {/* columna izquierda */}
-                    <GridItem bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={[1, , , , , 4]} >
+                    <div bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={[1, , , , , 4]} className="col-span-3 px-[1rem]  rounded-xl  bg-white " >
                       <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(6, 1fr)"]} gap={"1rem"}>
                         {schema &&
                           schema?.map((item, idx) => {
@@ -376,12 +376,12 @@ export const FormDinamical = forwardRef(
                             }
                           })}
                       </Grid>
-                    </GridItem>
+                    </div>
 
                     {/* {sm: "red", md: "green", lg: "blue", xl: "violet", '2xl': "yellow" } */}
 
                     {/* columna derecha */}
-                    <GridItem bg={colorBaground} p={"1rem"} shadow={"sm"} rounded={"xl"} /*colSpan={{ base: 4, lg: 1 }}*/ >
+                    <div bg={colorBaground} p={"1rem"} shadow={"sm"} rounded={"xl"} /*colSpan={{ base: 4, lg: 1 }}*/ className="col-span-2 px-[1rem] rounded-xl bg-white " >
                       <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
                       {schema &&
                         schema?.map((item, idx) => {
@@ -439,7 +439,7 @@ export const FormDinamical = forwardRef(
                         options={options}
                         estado={estado}
                       />
-                    </GridItem>
+                    </div>
                   </Grid>
                 </Form>
               );

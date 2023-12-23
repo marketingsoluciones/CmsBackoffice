@@ -6,13 +6,15 @@ import { useState } from "react"
 import { ArrowDownIcon } from "../Icons/index"
 import { SlOptionsVertical } from "react-icons/sl";
 import ClickAwayListener from "react-click-away-listener";
+import { useRouter } from "next/router"
 
 
 export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
     const { eventsGroup } = EventsGroupContextProvider()
     const [isMounted, setIsMounted] = useState(false);
     const [stateSubOptions, setStateSubOptions] = useState(false)
-
+    const router = useRouter()
+    console.log(router.pathname)
     return (
 
         <>
@@ -27,7 +29,10 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
                 if (screen.width > 640) {
                     return (
                         <div className=" hidden md:block bg-gray-200 px-4 py-5 space-y-5 col-span-1">
-                            {eventsGroup?.length != 0 ? <EventoSelect /> : <ButtonEventForm isMounted={isMounted} setIsMounted={setIsMounted} />}
+                            {
+                                router.pathname == "/business" ? null : eventsGroup?.length != 0 ? <EventoSelect /> : <ButtonEventForm isMounted={isMounted} setIsMounted={setIsMounted} />
+                            }
+                            
                             {
                                 dataComponents.map((item, idx) => {
                                     return (
@@ -82,27 +87,6 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
                                 </div>
                             </div>
                         </ClickAwayListener>
-                        /* <div className=" px-4* py-5* h-20 w-[100%] space-y-5 col-span-1* flex overflow-x-auto pb-2 ">
-                             {eventsGroup?.length != 0 ? <EventoSelect /> : <ButtonEventForm isMounted={isMounted} setIsMounted={setIsMounted} />}
-                            {
-                                dataComponents.map((item, idx) => {
-                                    return (
-                                        <div key={idx} onClick={() => onClick(idx)} className={`${optionSelect === idx ? " text-rosa " : ""} flex  items-center space-x-3 cursor-pointer mt-5 mx-3 pl-3 rounded-lg bg-white  `}>
-                                            <div className="h-full*">
-                                                {
-                                                    item.icon
-                                                }
-                                            </div>
-                                            <div className="text-sm w-36 ">
-                                                {
-                                                    item.title
-                                                }
-                                            </div>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div> */
                     )
                 }
             })()}
