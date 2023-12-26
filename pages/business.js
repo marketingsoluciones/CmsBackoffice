@@ -7,12 +7,14 @@ import { PiBrowsers, PiCertificate } from "react-icons/pi";
 
 const Business = () => {
     const [optionSelect, setOptionSelect] = useState(0)
+    
+    
 
     const dataComponents = [
         {
             icon: <PiCertificate className="h-6 w-auto" />,
             title: "Marcas",
-            component: <MarcasControl />
+            component: <MarcasControl optionSelect={optionSelect} />
         },
         {
             icon: <PiBrowsers className="h-6 w-auto" />,
