@@ -16,15 +16,10 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
     const router = useRouter()
     console.log(router.pathname)
     return (
-
         <>
-            {(
-                <ModalLeft state={isMounted} set={setIsMounted}>
-                    {
-                        <FormCrearEvento state={isMounted} set={setIsMounted} />
-                    }
-                </ModalLeft>
-            )}
+            <ModalLeft state={isMounted} set={setIsMounted}>
+                <FormCrearEvento state={isMounted} set={setIsMounted} />
+            </ModalLeft>
             {(() => {
                 if (screen.width > 640) {
                     return (
@@ -32,7 +27,7 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
                             {
                                 router.pathname == "/business" ? null : eventsGroup?.length != 0 ? <EventoSelect /> : <ButtonEventForm isMounted={isMounted} setIsMounted={setIsMounted} />
                             }
-                            
+
                             {
                                 dataComponents.map((item, idx) => {
                                     return (
