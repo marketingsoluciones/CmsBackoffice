@@ -23,7 +23,7 @@ export const ItinerarioLugaresBodas = ({setComponentState}) => {
     return (
         <div className="px-5 py-2 h-full">
             {(() => {
-                if (state) {
+                if (!state) {
                     return (
                         <ItinerarioInfoPage setComponentState={setComponentState} idxComponent={4}/>
                     )

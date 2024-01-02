@@ -5,13 +5,13 @@ export const SelectIcon =({ resultadoIcon, setOpenIcon, openIcon}) => {
                 {(() => {
                     if (resultadoIcon != null) {
                         return (
-                            <div className='cursor-pointer ' onClick={() => setOpenIcon(!openIcon)}> 
+                            <div className='cursor-pointer flex items-center justify-center w-[100px] ' onClick={() => setOpenIcon(!openIcon)}> 
                                 {resultadoIcon?.icon}
                             </div>
                         )
                     } else {
                         return (
-                            <div className='cursor-pointer flex items-center justify-center w-16' onClick={() => setOpenIcon(!openIcon)}>
+                            <div className='cursor-pointer flex items-center justify-center w-[100px]' onClick={() => setOpenIcon(!openIcon)}>
                                 click
                             </div>
                         )

@@ -11,10 +11,11 @@ export const Itinerario = ({ setChildrenComponentState }) => {
     const [createPdf, setCreatePdf] = useState(false)
 
     return (<>
-        <div onClick={() => setChildrenComponentState(0)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
-            <ArrowLeft />
+        <div onClick={() => setChildrenComponentState(0)} className="flex items-center z-10 text-gray-700 cursor-pointer py-1 space-x-2">
+            <ArrowLeft className="w-5 h-5" /> 
+            <span>Volver</span>
         </div>
-        <div className="space-y-4 h-[87%]">
+        <div className="space-y-4 h-[75vh]">
             <HeaderIter IterArryst={IterArryst} setIterArryst={setIterArryst} setCreatePdf={setCreatePdf} createPdf={createPdf} />
             <BoddyIter IterArryst={IterArryst} setIterArryst={setIterArryst} createPdf={createPdf} />
         </div>
