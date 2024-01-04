@@ -1,7 +1,13 @@
 import { useRouter } from "next/router"
 import { CompartirIcon, CorreoIcon, FacebookIcon, InAzulIcon, SmsIcon } from "../Icons/index"
+import { useState } from "react"
+import { Modal } from "../modals/Modal"
+import { CompartirPorEmail } from "../formularios/CompartirPorEmail"
+import { CompartirPorSms } from "../formularios/CompartirPorSms"
 
 export const RecomendacionesHeader = () => {
+    const [openModalFCorre, setOpenModalFCorre] = useState(false)
+    const [openModalFSms, setOpenModalFSms] = useState(false)
     const router = useRouter()
     const handleChange = (e) => {
         const stateButton = e.target.checked
@@ -84,6 +90,21 @@ export const RecomendacionesHeader = () => {
                     })
                 }
             </div>
+
+            {
+                openModalFCorre ? (
+                    <Modal openIcon={openModalFCorre} setOpenIcon={setOpenModalFCorre} classe={"w-[25%] h-[86%]"} >
+                        <CompartirPorEmail openModal={openModalFCorre} setOpenModal={setOpenModalFCorre} />
+                    </Modal>
+                ) : null
+            }
+            {
+                openModalFSms ? (
+                    <Modal openIcon={openModalFCorre} setOpenIcon={setOpenModalFCorre} classe={"w-[25%] h-[86%]"} >
+                        <CompartirPorSms openModal={openModalFSms} setOpenModal={setOpenModalFSms} />
+                    </Modal>
+                ) : null
+            }
 
         </>
     )
