@@ -1,7 +1,7 @@
-import { DataTable, User, columns, DataBase } from "../ui"
+import { DataTable, User, DataBase } from "../ui"
 
 
-export const RcDataTable = () => {
+export const RcDataTable = ({columns}) => {
 
 
     return (

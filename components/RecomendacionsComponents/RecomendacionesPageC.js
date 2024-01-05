@@ -1,28 +1,29 @@
 import { useState } from "react";
 import { OptionsTable, RcDataTable, RecomendacionesBoddy, RecomendacionesHeader } from "."
+import {columnsRCRC, columnsER, columnsM} from "../ui"
 
 export const RecomendacionesPageC = () => {
     const [optionSelect, setOptionSelect] = useState(0)
     const DataOptionsTable = [
         {
             title: "Recomendaciones y recompensas",
-            componente: <RcDataTable/>
+            componente: <RcDataTable columns={columnsRCRC}/>
         },
         {
             title: "Historial de actividad",
-            componente: <RcDataTable/>
+            componente: <RcDataTable columns={columnsM}/>
         },
         {
             title: "Estado de referidos",
-            componente: <RcDataTable/>
+            componente: <RcDataTable columns={columnsER}/>
         },
         {
             title: "Monedero",
-            componente: <RcDataTable/>
+            componente: <RcDataTable columns={columnsM}/>
         },
         {
             title: "Facturación de eventos",
-            componente: <RcDataTable/>
+            componente: <RcDataTable columns={columnsRCRC}/>
         },
     ]
     
