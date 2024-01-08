@@ -1,19 +1,52 @@
+import { useEffect, useRef, useState } from "react";
 import { InputFieldGlobal } from "../../formularios/Inputs/InputFieldGlobal"
+import { useField } from "formik";
+import { Box, Textarea } from "@chakra-ui/react";
 
-export const Tips = () => {
+export const Tips = ({...props}) => {
+
+    const refInput = useRef(null)
+    const [field, meta, helpers] = useField({ name: "tips"});
+    const [rows, setRows] = useState(1)
+
+    const handleChange = (e) => {
+        e.preventDefault()
+        e.target.rows = 1
+        const rowT = refInput?.current ? (refInput?.current.scrollHeight / 16) - 1 : 1
+        if (rowT < 5) {
+            e.target.rows = rowT
+        }
+        else {
+            e.target.rows = 4
+        }
+        helpers.setValue(e.target.value)
+    }
+    useEffect(() => {
+        const rowT = refInput?.current ? (refInput?.current.scrollHeight / 16) - 1 : 1
+        if (rowT < 5) {
+            setRows(rowT)
+        }
+        else {
+            setRows(4)
+        }
+    }, [refInput])
     return (
-        <div className="flex flex-col w-[25%]">
-            {/* <span className="text-rosa text-[13px]">
-                Tips
-            </span> */}
-            <div >
-                <InputFieldGlobal
-                    name="tips"
-                    className="focus:outline-none border border-gray-300 rounded-lg py-1 px-3  w-[100%] truncate text-base "
-                    placeholder="agrega tips para esta tarea "
+        <div className='w-[25%]'>
+            <Box gap={"0.3rem"} alignItems={"center"}>
+                <Textarea
+                    resize={"none"}
+                    rows={rows}
+                    ref={refInput}
+                    className=" overflow-y-scroll"
+                    onChange={(e) => { handleChange(e) }}
+                    fontSize={"md"}
+                    value={field.value}
+                    _focus={"outline-none"}
+                    bg={"none"}
+                    border={"1px"}
+                    {...props}
                 />
-            </div>
-
+            </Box>
         </div>
     )
 }

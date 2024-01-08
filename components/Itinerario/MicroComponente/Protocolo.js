@@ -3,6 +3,7 @@ import { SubHeader } from "./SubHeader";
 import { AddEvent, Description, Duration, GuardarButtom, IconList, Responsable, ResponsableList, SelectIcon, Time, Tips } from "../MicroComponente";
 import { Modal } from "../../modals/Modal";
 import { useState } from "react";
+import { InputTime } from "../../formularios/Inputs/InputTime";
 
 export const Protocolo = ({ event, IconArry }) => {
 
@@ -14,6 +15,7 @@ export const Protocolo = ({ event, IconArry }) => {
     const [selectIcon, setSelectIcon] = useState(null)
     const resultadoIcon = IconArry.find((Icon) => Icon.id == selectIcon);
 
+    
     const ResponsablesArry = [
         {
             icon: "/rol_Decorador.png",
@@ -42,9 +44,12 @@ export const Protocolo = ({ event, IconArry }) => {
     ]
 
     const initialValues = {
+        icon:"",
         time: "",
-        Descripcion:"",
-
+        duration:"20",
+        descripction: "",
+        responsible:"",
+        tips:""
     }
 
     return (
@@ -54,8 +59,9 @@ export const Protocolo = ({ event, IconArry }) => {
                 <Form>
                     <div className="flex items-center justify-center border-b border-dashed pb-3" >
                         <SelectIcon openIcon={openIcon} setOpenIcon={setOpenIcon} resultadoIcon={resultadoIcon} />
-                        <div className="w-[15%] relative flex flex-col items-center">
-                            <Time />
+                        <div className="w-[20%] relative flex flex-col ">
+                            {/* <Time /> */}
+                            <InputTime />
                             <Duration />
                         </div>
                         <Description />

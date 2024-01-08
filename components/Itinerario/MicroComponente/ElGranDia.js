@@ -3,6 +3,7 @@ import { SubHeader } from "./SubHeader";
 import { AddEvent, Description, Duration, GuardarButtom, IconList, Responsable, ResponsableList, SelectIcon, Time, Tips } from "../MicroComponente";
 import { Modal } from "../../modals/Modal";
 import { useState } from "react";
+import { InputTime } from "../../formularios/Inputs/InputTime";
 
 export const ElGranDia = ({ event, IconArry }) => {
     const newDate = new Date(parseInt(event?.fecha));
@@ -14,10 +15,14 @@ export const ElGranDia = ({ event, IconArry }) => {
     const resultadoIcon = IconArry.find((Icon) => Icon.id == selectIcon);
 
     const initialValues = {
+        icon:"",
         time: "",
-        Descripcion:"",
-
+        duration:"20",
+        descripction: "",
+        responsible:"",
+        tips:""
     }
+    
     const ResponsablesArry = [
         {
             icon: "/rol_novia.png",
@@ -43,10 +48,11 @@ export const ElGranDia = ({ event, IconArry }) => {
             <SubHeader time={time} title={"El Gran Dia"} />
             <Formik initialValues={initialValues} >
                 <Form>
-                    <div className="flex items-center justify-center border-b border-dashed pb-3" >
+                    <div className="flex items-center justify-center  border-b border-dashed pb-3" >
                         <SelectIcon openIcon={openIcon} setOpenIcon={setOpenIcon} resultadoIcon={resultadoIcon} />
-                        <div className="w-[15%] relative flex flex-col items-center">
-                            <Time />
+                        <div className="w-[20%] relative flex flex-col ">
+                            {/* <Time /> */}
+                            <InputTime />
                             <Duration />
                         </div>
                         <Description />

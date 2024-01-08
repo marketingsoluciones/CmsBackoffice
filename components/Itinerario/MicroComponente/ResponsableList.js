@@ -1,6 +1,7 @@
+import ClickAwayListener from "react-click-away-listener"
 export const ResponsableList = ({ openModal, setOpenModal, DataArry }) => {
     return (
-        <>
+        <ClickAwayListener onClickAway={() => openModal && setOpenModal(false)}>
             <div className="flex flex-col items-center space-y-2 w-max*" >
                 <span className="text-rosa text-[20px]">Responsable </span>
                 {
@@ -21,6 +22,6 @@ export const ResponsableList = ({ openModal, setOpenModal, DataArry }) => {
                     cerrar
                 </button>
             </div>
-        </>
+        </ClickAwayListener>
     )
 }

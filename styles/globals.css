@@ -104,3 +104,7 @@
   position: relative;
   z-index: 998;
 }
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background: none;
+}

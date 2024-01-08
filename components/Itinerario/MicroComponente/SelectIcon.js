@@ -1,3 +1,5 @@
+import { AddIcon } from "../../Icons/index"
+
 export const SelectIcon =({ resultadoIcon, setOpenIcon, openIcon}) => {
     return (
         <>
@@ -11,8 +13,8 @@ export const SelectIcon =({ resultadoIcon, setOpenIcon, openIcon}) => {
                         )
                     } else {
                         return (
-                            <div className='cursor-pointer flex items-center justify-center w-[100px]' onClick={() => setOpenIcon(!openIcon)}>
-                                click
+                            <div className='cursor-pointer flex items-center justify-center w-[100px] w-12*  text-gray-600 hover:text-gray-800' onClick={() => setOpenIcon(!openIcon)}>
+                                <AddIcon/>
                             </div>
                         )
                     }
