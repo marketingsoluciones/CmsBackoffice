@@ -131,8 +131,8 @@ export const Task = ({ itinerario, task, date }) => {
     icon: !task?.icon ? "" : task?.icon,
     time: !task?.hora ? "" : task?.hora,
     duration: !task?.duracion ? "30" : task?.duracion,
-    descripction: !task?.descripction ? "" : task?.descripction,
-    responsible: !task?.responsible ? "" : task?.responsible,
+    descripction: !task?.descripcion ? "" : task?.descripcion,
+    responsible: !task?.responsable ? "" : task?.responsable,
     tips: !task?.tips ? "" : task?.tips,
   }
 
@@ -160,48 +160,42 @@ export const Task = ({ itinerario, task, date }) => {
   }
 
   return (
-    <Formik  >
-      {({ values, setValues }) => {
-        return (
-          <Form>
-            <AutoFormik values={values} itinerario={itinerario} initialValues={initialValues} setValues={setValues} />
-            <div className="grid grid-cols-1 lg:grid-cols-12 items-center justify-center md:px-20 lg:px-20 2xl:px-56 py-1" >
-              <div className="flex lg:col-span-7 justify-end">
-                <SelectIcon name="icon" openIcon={openIcon} setOpenIcon={setOpenIcon} resultadoIcon={resultadoIcon} />
-                <div className="flex flex-col justify-center">
-                  <InputTime name="time" onBlur={() => { handleBlurData("hora", values.time) }} />
-                  <Duration name="duration" onBlur={() => { handleBlurData("duracion", values.duration.toString()) }} />
+    <>
+      {/* <span> {JSON.stringify({ _id: task._id, hora: task.hora }, null, 2)}</span> */}
+      <Formik enableReinitialize initialValues={initialValues} >
+        {({ values, }) => {
+          return (
+            <Form>
+              <div className="grid grid-cols-1 lg:grid-cols-12 items-center justify-center md:px-20 lg:px-20 2xl:px-56 py-1" >
+                <div className="flex lg:col-span-7 justify-end">
+                  <SelectIcon openIcon={openIcon} setOpenIcon={setOpenIcon} resultadoIcon={resultadoIcon} />
+                  <div className="flex flex-col justify-center">
+                    <InputTime name="time" onBlur={() => { handleBlurData("hora", values.time) }} />
+                    <Duration name="duration" onBlur={() => { handleBlurData("duracion", values.duration.toString()) }} />
+                  </div>
+                  <Description name="descripction" onBlur={() => { handleBlurData("descripcion", values.descripction) }} />
+                  <Responsable openModal={openResponsableList} setOpenModal={setOpenResponsableList} />
                 </div>
-                <Description name="descripction" onBlur={() => { handleBlurData("descripcion", values.descripction) }} />
-                <Responsable openModal={openResponsableList} setOpenModal={setOpenResponsableList} />
-              </div>
-              <div className="flex lg:col-span-5">
-                <Tips name="tips" onBlur={() => { handleBlurData("tips", values.tips) }} />
-              </div>
-              {openIcon
-                ? <Modal openIcon={openIcon} setOpenIcon={setOpenIcon} classe={"h-max md:w-[30%]"} >
-                  <IconList IterArry={IconArray} openIcon={openIcon} setOpenIcon={setOpenIcon} setSelectIcon={setSelectIcon} />
-                </Modal>
-                : null
-              }
-              {
-                openResponsableList
+                <div className="flex lg:col-span-5">
+                  <Tips name="tips" onBlur={() => { handleBlurData("tips", values.tips) }} />
+                </div>
+                {openIcon
+                  ? <Modal openIcon={openIcon} setOpenIcon={setOpenIcon} classe={"h-max md:w-[30%]"} >
+                    <IconList IterArry={IconArray} openIcon={openIcon} setOpenIcon={setOpenIcon} setSelectIcon={setSelectIcon} />
+                  </Modal>
+                  : null
+                }
+                {openResponsableList
                   ? <Modal openIcon={openResponsableList} setOpenIcon={setOpenResponsableList} classe={"h-max w-[16%]"} >
                     <ResponsableList DataArry={ResponsablesArry} openModal={openResponsableList} setOpenModal={setOpenResponsableList} />
                   </Modal>
                   : null
-              }
-            </div>
-          </Form>
-        )
-      }}
-    </Formik>
+                }
+              </div>
+            </Form>
+          )
+        }}
+      </Formik>
+    </>
   )
-}
-
-const AutoFormik = ({ itinerario, initialValues, setValues }) => {
-  useEffect(() => {
-    setValues(initialValues)
-  }, [itinerario])
-  return (null)
 }

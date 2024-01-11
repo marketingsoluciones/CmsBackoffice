@@ -14,6 +14,12 @@ export const Itinerario = ({ data }) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     const date = newDate.toLocaleDateString(navigator?.languages, options)
     const itinerario = event?.itinerarios_array?.find(elem => elem.title === data?.title)
+    const [tasks, setTasks] = useState()
+
+
+    useEffect(() => {
+        setTasks(itinerario?.tasks?.sort((a, b) => a.hora.localeCompare(b.hora)))
+    }, [itinerario, event])
 
     if (!event?.itinerarios_array?.find(elem => elem.title == data.title)) {
         try {
@@ -23,28 +29,23 @@ export const Itinerario = ({ data }) => {
                     eventID: event._id,
                     title: data?.title
                 }
-            }).then(
-                (result) => {
-                    console.log("fetch create iter", result)
-                    setEvent((old) => {
-                        old.itinerarios_array.push(result)
-                        return { ...old }
-                    })
-                }
-            )
+            }).then((result) => {
+                setEvent((old) => {
+                    old.itinerarios_array.push(result)
+                    return { ...old }
+                })
+            })
         } catch (error) {
             console.log(error)
         };
     }
-
-
 
     return (
         <>
             <SubHeader date={date} title={data?.title} />
             <div className="w-full h-full overflow-auto flex flex-col items-center">
                 <div className="w-full">
-                    {itinerario?.tasks?.map((elem, idx) => {
+                    {tasks?.map((elem, idx) => {
                         return (
                             <Task task={elem} key={idx} date={date} itinerario={itinerario} />
                         )
