@@ -1,6 +1,6 @@
-export const AddEvent = () => {
+export const AddEvent = ({addTask}) => {
     return (
-        <div className="flex space-x-2 items-center justify-center mt-3 cursor-pointer hover:text-pink-600">
+        <div onClick={()=>addTask()} className="flex space-x-2 items-center justify-center mt-3 cursor-pointer hover:text-pink-600">
             <span>
                 +
             </span>

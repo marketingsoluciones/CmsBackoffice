@@ -157,6 +157,32 @@ export const queries = {
   editTask: `mutation ($eventID:String, $itinerarioID:String, $taskID:String, $variable:String, $valor:String){
         editTask(eventID:$eventID itinerarioID:$itinerarioID  taskID:$taskID  variable:$variable  valor:$valor )
       }`,
+
+  createTask: `mutation ($eventID:String, $itinerarioID:String, $title:String){
+        createTask(eventID:$eventID itinerarioID:$itinerarioID  title:$title ){
+          _id
+          hora
+          icon
+          descripcion
+          responsable
+          duracion
+          tips
+          estatus
+          fecha_creacion
+        }
+      }`,
+
+  createItinerario: `mutation ($eventID:String, $title:String){
+        createItinerario(eventID:$eventID title:$title ){
+          _id
+          title
+          tasks{
+            _id
+            hora
+          }
+        }
+      }`,
+
   createNickName: `
   mutation  (
     $uid : ID!,

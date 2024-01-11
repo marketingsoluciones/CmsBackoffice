@@ -13,7 +13,7 @@ import { ElGranDia, MenuOptions, Preboda, Itinerario } from "./MicroComponente"
 import { EventContextProvider } from "../../context/EventContext"
 
 export const BoddyIter = ({ IterArryst, setIterArryst, createPdf }) => {
-    const [optionSelect, setOptionSelect] = useState("El gran día")
+    const [optionSelect, setOptionSelect] = useState("el gran día")
 
     const handleClickOption = (idx) => {
         setOptionSelect(idx);

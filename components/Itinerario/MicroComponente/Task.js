@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import { SubHeader } from "./SubHeader";
 import { AddEvent, Description, Duration, GuardarButtom, IconList, Responsable, ResponsableList, SelectIcon, Time, Tips } from ".";
 import { Modal } from "../../modals/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InputTime } from "../../formularios/Inputs/InputTime";
 import { EventContextProvider } from "../../../context/EventContext";
 import { fetchApiEventos, queries } from "../../../utils/Fetching";
@@ -134,6 +134,8 @@ export const Task = ({ itinerario, task, date }) => {
     tips: !task?.tips ? "" : task?.tips,
   }
 
+
+
   const handleBlurData = async (variable, valor) => {
     try {
       const result = await fetchApiEventos({
@@ -161,9 +163,10 @@ export const Task = ({ itinerario, task, date }) => {
 
   return (
     <Formik initialValues={initialValues} >
-      {({ values }) => {
+      {({ values, resetForm }) => {
         return (
           <Form>
+            <AutoFormik values={values} resetForm={resetForm} itinerario={itinerario} />
             <div className="grid grid-cols-1 lg:grid-cols-12 items-center justify-center md:px-20 lg:px-20 2xl:px-56 py-1" >
               <div className="flex lg:col-span-7 justify-end">
                 <SelectIcon openIcon={openIcon} setOpenIcon={setOpenIcon} resultadoIcon={resultadoIcon} />
@@ -198,4 +201,12 @@ export const Task = ({ itinerario, task, date }) => {
       }}
     </Formik>
   )
+}
+
+const AutoFormik = ({ values, resetForm, itinerario }) => {
+  useEffect(() => {
+    resetForm()
+    console.log(itinerario,"itinerario")
+  }, [itinerario])
+  return (null)
 }
