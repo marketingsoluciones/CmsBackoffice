@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { InputTime } from "../../formularios/Inputs/InputTime";
 import { EventContextProvider } from "../../../context/EventContext";
 import { fetchApiEventos, queries } from "../../../utils/Fetching";
+import { string } from "yup";
 
 const IconArray = [
   {
@@ -134,8 +135,6 @@ export const Task = ({ itinerario, task, date }) => {
     tips: !task?.tips ? "" : task?.tips,
   }
 
-
-
   const handleBlurData = async (variable, valor) => {
     try {
       const result = await fetchApiEventos({
@@ -159,19 +158,16 @@ export const Task = ({ itinerario, task, date }) => {
     }
   }
 
-
-
   return (
-    <Formik initialValues={initialValues} >
-      {({ values, resetForm }) => {
+    <Formik  >
+      {({ values, setValues }) => {
         return (
           <Form>
-            <AutoFormik values={values} resetForm={resetForm} itinerario={itinerario} />
+            <AutoFormik values={values} itinerario={itinerario} initialValues={initialValues} setValues={setValues} />
             <div className="grid grid-cols-1 lg:grid-cols-12 items-center justify-center md:px-20 lg:px-20 2xl:px-56 py-1" >
               <div className="flex lg:col-span-7 justify-end">
                 <SelectIcon openIcon={openIcon} setOpenIcon={setOpenIcon} resultadoIcon={resultadoIcon} />
                 <div className="flex flex-col justify-center">
-                  {/* <Time /> */}
                   <InputTime name="time" onBlur={() => { handleBlurData("hora", values.time) }} />
                   <Duration name="duration" />
                 </div>
@@ -181,19 +177,18 @@ export const Task = ({ itinerario, task, date }) => {
               <div className="flex lg:col-span-5">
                 <Tips />
               </div>
-              {
-                openIcon ? (
-                  <Modal openIcon={openIcon} setOpenIcon={setOpenIcon} classe={"h-max md:w-[30%]"} >
-                    <IconList IterArry={IconArray} openIcon={openIcon} setOpenIcon={setOpenIcon} setSelectIcon={setSelectIcon} />
-                  </Modal>
-                ) : null
+              {openIcon
+                ? <Modal openIcon={openIcon} setOpenIcon={setOpenIcon} classe={"h-max md:w-[30%]"} >
+                  <IconList IterArry={IconArray} openIcon={openIcon} setOpenIcon={setOpenIcon} setSelectIcon={setSelectIcon} />
+                </Modal>
+                : null
               }
               {
-                openResponsableList ? (
-                  <Modal openIcon={openResponsableList} setOpenIcon={setOpenResponsableList} classe={"h-max w-[16%]"} >
+                openResponsableList
+                  ? <Modal openIcon={openResponsableList} setOpenIcon={setOpenResponsableList} classe={"h-max w-[16%]"} >
                     <ResponsableList DataArry={ResponsablesArry} openModal={openResponsableList} setOpenModal={setOpenResponsableList} />
                   </Modal>
-                ) : null
+                  : null
               }
             </div>
           </Form>
@@ -203,10 +198,9 @@ export const Task = ({ itinerario, task, date }) => {
   )
 }
 
-const AutoFormik = ({ values, resetForm, itinerario }) => {
+const AutoFormik = ({ itinerario, initialValues, setValues }) => {
   useEffect(() => {
-    resetForm()
-    console.log(itinerario,"itinerario")
+    setValues(initialValues)
   }, [itinerario])
   return (null)
 }

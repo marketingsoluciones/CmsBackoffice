@@ -10,20 +10,10 @@ import { useEffect, useState } from "react";
 
 export const Itinerario = ({ data }) => {
     const { event, setEvent } = EventContextProvider()
-    const [itinerario, setItinerario] = useState()
     const newDate = new Date();
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    const options = { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric", timeZone };
+    const options = { year: "numeric", month: "long", day: "numeric" };
     const date = newDate.toLocaleDateString(navigator?.languages, options)
-    //const itinerario = event?.itinerarios_array?.find(elem => elem.title === data?.title)
-
-
-    useEffect(() => {
-        setItinerario(event?.itinerarios_array?.find(elem => elem.title === data?.title))
-    }, [data])
-    useEffect(() => {
-        console.log(itinerario)
-    }, [itinerario])
+    const itinerario = event?.itinerarios_array?.find(elem => elem.title === data?.title)
 
     if (!event?.itinerarios_array?.find(elem => elem.title == data.title)) {
         try {
@@ -47,36 +37,22 @@ export const Itinerario = ({ data }) => {
         };
     }
 
-    const addTask = async () => {
-        try {
-            const addNewTask = await fetchApiEventos({
-                query: queries.createTask,
-                variables: {
-                    eventID: event._id,
-                    itinerarioID: itinerario._id,
-                    taskID: data?.title
-                }
-            })
-            setEvent((old)=>{
-                old.itinerarios_array.push(addNewTask)
-            })
-        } catch (error) {
-            console.log(error)
-        }
-    }
+
 
     return (
         <>
             <SubHeader date={date} title={data?.title} />
-            <div className="w-full">
-                {itinerario?.tasks?.map((elem, idx) => {
-                    return (
-                        <Task task={elem} key={idx} date={date} itinerario={itinerario} />
-                    )
-                })
-                }
+            <div className="w-full h-full overflow-auto flex flex-col items-center">
+                <div className="w-full">
+                    {itinerario?.tasks?.map((elem, idx) => {
+                        return (
+                            <Task task={elem} key={idx} date={date} itinerario={itinerario} />
+                        )
+                    })
+                    }
+                </div>
+                <AddEvent date={date} itinerario={itinerario} />
             </div>
-            <AddEvent addTask={addTask} />
             <GuardarButtom />
         </>
     )
