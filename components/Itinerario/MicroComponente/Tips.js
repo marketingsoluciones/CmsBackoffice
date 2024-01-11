@@ -6,7 +6,7 @@ import { Box, Textarea } from "@chakra-ui/react";
 export const Tips = ({ ...props }) => {
 
     const refInput = useRef(null)
-    const [field, meta, helpers] = useField({ name: "tips" });
+    const [field, meta, helpers] = useField({ name: props.name });
     const [rows, setRows] = useState(1)
 
     const handleChange = (e) => {
@@ -44,7 +44,7 @@ export const Tips = ({ ...props }) => {
                     _focus={"outline-none"}
                     bg={"none"}
                     border={"1px"}
-                // {...props}
+                    {...props}
                 />
             </Box>
         </div>

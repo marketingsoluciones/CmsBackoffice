@@ -15,7 +15,7 @@ import { Popup } from "../../Popup";
 
 export const Description = ({ ...props }) => {
     const refInput = useRef(null)
-    const [field, meta, helpers] = useField({ name: "description" });
+    const [field, meta, helpers] = useField({ name: props.name });
     const [rows, setRows] = useState(1)
 
     const handleChange = (e) => {
@@ -51,10 +51,9 @@ export const Description = ({ ...props }) => {
                     fontSize={{ md: "sm", lg: "md" }}
                     value={field.value}
                     placeholder={"Título de actividad"}
-                    //                    variant={"filled"}
                     _focus={"outline-none"}
                     bg={"none"}
-                //{...props}
+                    {...props}
                 />
             </Box>
         </div>

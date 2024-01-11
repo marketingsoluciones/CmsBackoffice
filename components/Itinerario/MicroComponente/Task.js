@@ -169,13 +169,13 @@ export const Task = ({ itinerario, task, date }) => {
                 <SelectIcon openIcon={openIcon} setOpenIcon={setOpenIcon} resultadoIcon={resultadoIcon} />
                 <div className="flex flex-col justify-center">
                   <InputTime name="time" onBlur={() => { handleBlurData("hora", values.time) }} />
-                  <Duration name="duration" />
+                  <Duration name="duration"  onBlur={() => { handleBlurData("duracion", values.duration.toString()) }} />
                 </div>
-                <Description />
+                <Description name="descripction" onBlur={() => { handleBlurData("descripcion", values.descripction) }} />
                 <Responsable openModal={openResponsableList} setOpenModal={setOpenResponsableList} />
               </div>
               <div className="flex lg:col-span-5">
-                <Tips />
+                <Tips name="tips" onBlur={() => { handleBlurData("tips", values.tips) }} />
               </div>
               {openIcon
                 ? <Modal openIcon={openIcon} setOpenIcon={setOpenIcon} classe={"h-max md:w-[30%]"} >
