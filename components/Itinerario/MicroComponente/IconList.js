@@ -7,7 +7,7 @@ export const IconList = ({ IterArry, openIcon, setOpenIcon, setSelectIcon }) => 
                     {
                         IterArry.map((item, idx) => (
                             <div key={idx}>
-                                <button onClick={() => { setOpenIcon(!openIcon), setSelectIcon(item.id) }} className="hover:bg-gray-300 rounded-lg p-2">
+                                <button onClick={() => { setOpenIcon(!openIcon), setSelectIcon(item.title) }} className="hover:bg-gray-300 rounded-lg p-2">
                                     {item.icon}
                                 </button>
                             </div>

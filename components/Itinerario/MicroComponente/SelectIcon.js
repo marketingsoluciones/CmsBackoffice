@@ -1,6 +1,8 @@
+import { useField } from "formik";
 import { AddIcon } from "../../Icons/index"
 
-export const SelectIcon = ({ resultadoIcon, setOpenIcon, openIcon }) => {
+export const SelectIcon = ({ resultadoIcon, setOpenIcon, openIcon, ...props }) => {
+    const [field, meta, helpers] = useField({ name: props?.name });
     return (
         <div className="flex justify-center items-center">
             {resultadoIcon?.icon

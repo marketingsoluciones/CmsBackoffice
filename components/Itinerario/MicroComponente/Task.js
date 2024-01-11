@@ -121,11 +121,12 @@ const ResponsablesArry = [
 
 export const Task = ({ itinerario, task, date }) => {
   const [openIcon, setOpenIcon] = useState(false)
-  const resultadoIcon = IconArray.find((Icon) => Icon.id == selectIcon);
+  const resultadoIcon = IconArray.find(elem => elem.title === selectIcon);
   const [selectIcon, setSelectIcon] = useState(null)
   const [openResponsableList, setOpenResponsableList] = useState(false)
   const { event, setEvent } = EventContextProvider()
-
+  console.log(resultadoIcon)
+  console.log(selectIcon)
   const initialValues = {
     icon: !task?.icon ? "" : task?.icon,
     time: !task?.hora ? "" : task?.hora,
@@ -166,10 +167,10 @@ export const Task = ({ itinerario, task, date }) => {
             <AutoFormik values={values} itinerario={itinerario} initialValues={initialValues} setValues={setValues} />
             <div className="grid grid-cols-1 lg:grid-cols-12 items-center justify-center md:px-20 lg:px-20 2xl:px-56 py-1" >
               <div className="flex lg:col-span-7 justify-end">
-                <SelectIcon openIcon={openIcon} setOpenIcon={setOpenIcon} resultadoIcon={resultadoIcon} />
+                <SelectIcon name="icon" openIcon={openIcon} setOpenIcon={setOpenIcon} resultadoIcon={resultadoIcon} />
                 <div className="flex flex-col justify-center">
                   <InputTime name="time" onBlur={() => { handleBlurData("hora", values.time) }} />
-                  <Duration name="duration"  onBlur={() => { handleBlurData("duracion", values.duration.toString()) }} />
+                  <Duration name="duration" onBlur={() => { handleBlurData("duracion", values.duration.toString()) }} />
                 </div>
                 <Description name="descripction" onBlur={() => { handleBlurData("descripcion", values.descripction) }} />
                 <Responsable openModal={openResponsableList} setOpenModal={setOpenResponsableList} />
