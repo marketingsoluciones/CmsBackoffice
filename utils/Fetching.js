@@ -99,6 +99,15 @@ export const queries = {
   createCheckoutSession: `mutation ($pricesIDs:[String], $email:String, $cancel_url:String){
     createCheckoutSession(pricesIDs:$pricesIDs, email:$email, cancel_url:$cancel_url)
   }`,
+  getGeoInfo: `query  {
+    getGeoInfo {
+      referer
+      acceptLanguage
+      loop
+      connectingIp
+      ipcountry
+    }
+  }`,
   getUser: `query ($uid: ID) {
         getUser(uid:$uid){
           phoneNumber
@@ -144,6 +153,9 @@ export const queries = {
         status(sessionCookie: $sessionCookie){
           customToken
         }
+      }`,
+  editTask: `mutation ($eventID:String, $itinerarioID:String, $taskID:String, $variable:String, $valor:String){
+        editTask(eventID:$eventID itinerarioID:$itinerarioID  taskID:$taskID  variable:$variable  valor:$valor )
       }`,
   createNickName: `
   mutation  (
@@ -431,6 +443,21 @@ export const queries = {
         fecha_creacion
         fecha_lectura
         mensaje
+      }
+      itinerarios_array{
+        _id
+        title
+        tasks{
+          _id
+          hora
+          icon
+          descripcion
+          responsable
+          duracion
+          tips
+          estatus
+        }
+        estatus
       }
       planSpaceSelect
       planSpace{

@@ -15,7 +15,7 @@ import { Popup } from "../../Popup";
 
 export const Description = ({ ...props }) => {
     const refInput = useRef(null)
-    const [field, meta, helpers] = useField({ name: "description"});
+    const [field, meta, helpers] = useField({ name: "description" });
     const [rows, setRows] = useState(1)
 
     const handleChange = (e) => {
@@ -40,20 +40,21 @@ export const Description = ({ ...props }) => {
         }
     }, [refInput])
     return (
-        <div className='w-[25%]'>
-            <Box gap={"0.3rem"} alignItems={"center"}>
+        <div className='-ml-6 md:-ml-8 flex items-center w-full'>
+            <Box gap={"0.3rem"} alignItems={"center"} className='w-full'>
                 <Textarea
                     resize={"none"}
                     rows={rows}
                     ref={refInput}
-                    className=" overflow-y-scroll"
+                    className="overflow-y-scroll"
                     onChange={(e) => { handleChange(e) }}
-                    fontSize={"md"}
+                    fontSize={{ md: "sm", lg: "md" }}
                     value={field.value}
-                    variant={"filled"}
+                    placeholder={"Título de actividad"}
+                    //                    variant={"filled"}
                     _focus={"outline-none"}
                     bg={"none"}
-                    {...props}
+                //{...props}
                 />
             </Box>
         </div>

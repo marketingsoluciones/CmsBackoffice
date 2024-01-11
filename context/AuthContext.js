@@ -54,6 +54,7 @@ const AuthProvider = ({ children }) => {
   const [config, setConfig] = useState();
   const [changedForm, setChangedForm] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
+  const [geoInfo, setGeoInfo] = useState();
 
 
   useEffect(() => {
@@ -104,6 +105,13 @@ const AuthProvider = ({ children }) => {
     setConfig(resp)
     // }
 
+  }, [])
+
+  useEffect(() => {
+    fetchApi({
+      query: queries.getGeoInfo,
+      variables: {},
+    }).then((geoInfo) => setGeoInfo(geoInfo)).catch((err) => console.log(err))
   }, [])
 
 
@@ -170,7 +178,7 @@ const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ user, setUser, verificationDone, setVerificationDone, state, dispatch, development, setDevelopment, domain, config, verificandoCookie, setVerificandoCookie, changedForm, setChangedForm }}>
+    <AuthContext.Provider value={{ user, setUser, verificationDone, setVerificationDone, state, dispatch, development, setDevelopment, domain, config, verificandoCookie, setVerificandoCookie, changedForm, setChangedForm, geoInfo }}>
       {children}
     </AuthContext.Provider>
   );

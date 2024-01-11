@@ -34,17 +34,17 @@ export const Preboda = ({ event, IconArry }) => {
     ]
 
     const initialValues = {
-        icon:"",
+        icon: "",
         time: "",
-        duration:"20",
+        duration: "20",
         descripction: "",
-        responsible:"",
-        tips:""
+        responsible: "",
+        tips: ""
     }
 
     return (
         <>
-            <SubHeader time={time} title={"Preboda"} />
+            <SubHeader date={time} title={"Preboda"} />
             <Formik initialValues={initialValues} >
                 <Form>
                     <div className="flex items-center justify-center border-b border-dashed pb-3 relative" >
@@ -55,9 +55,9 @@ export const Preboda = ({ event, IconArry }) => {
                             <Duration />
                         </div>
 
-                            <Description />
-                            <Responsable openModal={openResponsableList} setOpenModal={setOpenResponsableList} />
-                            <Tips />
+                        <Description />
+                        <Responsable openModal={openResponsableList} setOpenModal={setOpenResponsableList} />
+                        <Tips />
                     </div>
                 </Form>
             </Formik>

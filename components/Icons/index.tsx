@@ -1268,7 +1268,7 @@ export const AddIcon: FC<PropsIcon> = (props) => {
 
 export const AddUser: FC<PropsIcon> = (props) => {
   return (
-    <svg width="40" height="40" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="40" height="40" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path d="M19.4996 37.9718C29.7015 37.9718 37.9718 29.7015 37.9718 19.4996C37.9718 9.29764 29.7015 1.02734 19.4996 1.02734C9.29764 1.02734 1.02734 9.29764 1.02734 19.4996C1.02734 29.7015 9.29764 37.9718 19.4996 37.9718Z" stroke="currentColor" strokeWidth="0.722222" strokeDasharray="2.17 2.17" />
       <path d="M11.4248 27.5738C11.4248 22.6186 15.0492 18.6016 19.4998 18.6016C23.9595 18.6016 27.5748 22.6286 27.5748 27.5738" stroke="currentColor" strokeWidth="0.722222" strokeLinecap="round" />
       <path d="M19.4998 18.6559C22.0066 18.6559 24.0387 16.6238 24.0387 14.117C24.0387 11.6103 22.0066 9.57812 19.4998 9.57812C16.9931 9.57812 14.9609 11.6103 14.9609 14.117C14.9609 16.6238 16.9931 18.6559 19.4998 18.6559Z" stroke="currentColor" strokeWidth="0.722222" />

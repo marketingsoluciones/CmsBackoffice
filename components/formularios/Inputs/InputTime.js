@@ -1,13 +1,39 @@
 
 import { useField } from "formik";
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import { Popup } from "../../Popup";
+import { formatTime } from "../../../utils/formatTime";
+
+
+const optionsFormatTime = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+    hour12: true,
+    //timeZone: "America/Los_Angeles",
+};
 
 export const InputTime = ({ ...props }) => {
-    const [field, meta, helpers] = useField({ name:"time" });
+    const [field, meta, helpers] = useField({ name: props?.name });
+    const [value, setValue] = useState("")
+    useEffect(() => {
+        // const d = new Date()
+        // const dLocalEpoch = new Date(`${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`).getTime()
+        // const dtLocalEpoch = new Date(`${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()} ${field?.value?.split(":")[0]}:${field?.value?.split(":")[1]}`).getTime()
+        // const tLocalEpoch = dtLocalEpoch - dLocalEpoch
+        // const tUtcEpoch = tLocalEpoch + new Date().getTimezoneOffset() * 60 * 1000
+        // //valor a guardar
+        // console.log(105, tUtcEpoch)
+        // const val = new Date(tUtcEpoch)
+        // setValue(`${val.getHours() < 10 ? `0${val.getHours()}` : val.getHours()}:${val.getMinutes() < 10 ? `0${val.getMinutes()}` : val.getMinutes()}`)
+    }, [field?.value])
+
     return (
         <>
-            <input  type="time" className="text-[25px] block w-[119.5%] bg-transparent py-[0.32rem] outline-none transition-all duration-200 truncate  " {...field} {...props} />
+            <input type="time" className="text-[14px] md:text-[20px] lg:text-[25px] block bg-transparent outline-none truncate" {...field} {...props} />
         </>
     )
 }

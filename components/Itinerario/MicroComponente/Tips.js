@@ -3,10 +3,10 @@ import { InputFieldGlobal } from "../../formularios/Inputs/InputFieldGlobal"
 import { useField } from "formik";
 import { Box, Textarea } from "@chakra-ui/react";
 
-export const Tips = ({...props}) => {
+export const Tips = ({ ...props }) => {
 
     const refInput = useRef(null)
-    const [field, meta, helpers] = useField({ name: "tips"});
+    const [field, meta, helpers] = useField({ name: "tips" });
     const [rows, setRows] = useState(1)
 
     const handleChange = (e) => {
@@ -31,7 +31,7 @@ export const Tips = ({...props}) => {
         }
     }, [refInput])
     return (
-        <div className='w-[25%]'>
+        <div className='w-full mx-12 lg:mx-4 my-2 lg:my-0'>
             <Box gap={"0.3rem"} alignItems={"center"}>
                 <Textarea
                     resize={"none"}
@@ -39,12 +39,12 @@ export const Tips = ({...props}) => {
                     ref={refInput}
                     className=" overflow-y-scroll"
                     onChange={(e) => { handleChange(e) }}
-                    fontSize={"md"}
+                    fontSize={{ md: "sm", lg: "md" }}
                     value={field.value}
                     _focus={"outline-none"}
                     bg={"none"}
                     border={"1px"}
-                    {...props}
+                // {...props}
                 />
             </Box>
         </div>

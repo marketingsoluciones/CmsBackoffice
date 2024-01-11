@@ -15,14 +15,14 @@ export const ElGranDia = ({ event, IconArry }) => {
     const resultadoIcon = IconArry.find((Icon) => Icon.id == selectIcon);
 
     const initialValues = {
-        icon:"",
+        icon: "",
         time: "",
-        duration:"20",
+        duration: "20",
         descripction: "",
-        responsible:"",
-        tips:""
+        responsible: "",
+        tips: ""
     }
-    
+
     const ResponsablesArry = [
         {
             icon: "/rol_novia.png",
@@ -45,7 +45,7 @@ export const ElGranDia = ({ event, IconArry }) => {
 
     return (
         <>
-            <SubHeader time={time} title={"El Gran Dia"} />
+            <SubHeader date={time} title={"El Gran Dia"} />
             <Formik initialValues={initialValues} >
                 <Form>
                     <div className="flex items-center justify-center  border-b border-dashed pb-3" >
@@ -62,8 +62,8 @@ export const ElGranDia = ({ event, IconArry }) => {
                 </Form>
             </Formik>
 
-            <AddEvent/>
-            <GuardarButtom/>
+            <AddEvent />
+            <GuardarButtom />
 
             {
                 openIcon ? (

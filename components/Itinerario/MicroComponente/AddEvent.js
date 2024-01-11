@@ -5,7 +5,7 @@ export const AddEvent = () => {
                 +
             </span>
             <span className="text-rosa hover:text-pink-600">
-                Añadir evento
+                Añadir actividad
             </span>
         </div>
     )
