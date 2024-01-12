@@ -6,35 +6,8 @@ import { InputTime } from "../../formularios/Inputs/InputTime";
 import { EventContextProvider } from "../../../context/EventContext";
 import { fetchApiEventos, queries } from "../../../utils/Fetching";
 
-const ResponsablesArry = [
-  {
-    icon: "/rol_Decorador.png",
-    title: "Decorador",
-  },
-  {
-    icon: "/rol_Fotografo.png",
-    title: "Fotográfor",
-  },
-  {
-    icon: "/rol_Catering.png",
-    title: "Catering",
-  },
-  {
-    icon: "/rol_Musica.png",
-    title: "Música",
-  },
-  {
-    icon: "/rol_Maquillista.png",
-    title: "Maquillista",
-  },
-  {
-    icon: "/rol_novio.png",
-    title: "Oficiante",
-  },
-]
 
 export const Task = ({ itinerario, task }) => {
-  const [openResponsableList, setOpenResponsableList] = useState(false)
   const { event, setEvent } = EventContextProvider()
   const initialValues = {
     icon: !task?.icon ? "" : task?.icon,
@@ -83,18 +56,11 @@ export const Task = ({ itinerario, task }) => {
                     <Duration name="duration" onBlur={() => { handleBlurData("duracion", values.duration.toString()) }} />
                   </div>
                   <Description name="description" onBlur={() => { handleBlurData("descripcion", values.description) }} />
-                  <Responsable openModal={openResponsableList} setOpenModal={setOpenResponsableList} />
+                  <Responsable />
                 </div>
                 <div className="flex lg:col-span-5">
                   <Tips name="tips" onBlur={() => { handleBlurData("tips", values.tips) }} />
                 </div>
-
-                {openResponsableList
-                  ? <Modal openIcon={openResponsableList} setOpenIcon={setOpenResponsableList} classe={"h-max w-[16%]"} >
-                    <ResponsableList DataArry={ResponsablesArry} openModal={openResponsableList} setOpenModal={setOpenResponsableList} />
-                  </Modal>
-                  : null
-                }
               </div>
             </Form>
           )
