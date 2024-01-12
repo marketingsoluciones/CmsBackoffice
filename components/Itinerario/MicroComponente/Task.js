@@ -5,6 +5,8 @@ import { useState } from "react";
 import { InputTime } from "../../formularios/Inputs/InputTime";
 import { EventContextProvider } from "../../../context/EventContext";
 import { fetchApiEventos, queries } from "../../../utils/Fetching";
+import { MdOutlineDeleteOutline } from "react-icons/md";
+
 
 
 export const Task = ({ itinerario, task }) => {
@@ -41,6 +43,27 @@ export const Task = ({ itinerario, task }) => {
     }
   }
 
+  const deleteTask = async () => {
+    try {
+      const delet = await fetchApiEventos({
+        query: queries.deleteTask,
+        variables: {
+          eventID: event._id,
+          itinerarioID: itinerario._id,
+          taskID: task._id,
+        }
+      })
+      setEvent((old) => {
+        const f1 = old.itinerarios_array.findIndex(elem => elem._id === itinerario._id)
+        const taskArray = old.itinerarios_array[f1].tasks.map(elem => elem._id === task._id ? { ...elem, _id: null} : elem)
+        return { ...old, taskArray }
+
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
 
@@ -58,8 +81,11 @@ export const Task = ({ itinerario, task }) => {
                   <Description name="description" onBlur={() => { handleBlurData("descripcion", values.description) }} />
                   <Responsable />
                 </div>
-                <div className="flex lg:col-span-5">
+                <div className="flex lg:col-span-5 items-center">
                   <Tips name="tips" onBlur={() => { handleBlurData("tips", values.tips) }} />
+                  <div className="-ml-3" >
+                    <MdOutlineDeleteOutline className="w-7 h-auto cursor-pointer text-gray-500 hover:text-gray-700" onClick={() => deleteTask()} />
+                  </div>
                 </div>
               </div>
             </Form>

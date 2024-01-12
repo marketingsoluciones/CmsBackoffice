@@ -44,7 +44,7 @@ export const Itinerario = ({ data }) => {
 
     return (
         <>
-            <SubHeader date={date} title={data?.title} />
+            <SubHeader date={date} title={data?.title} itinerario={itinerario} />
             <div className="w-full h-full overflow-auto flex flex-col items-center">
                 <div className="w-full">
                     {tasks?.map((elem, idx) => {

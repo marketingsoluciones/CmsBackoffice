@@ -172,6 +172,11 @@ export const queries = {
         }
       }`,
 
+  deleteTask: `
+  mutation  ( $eventID:String, $itinerarioID:String, $taskID:String  ) {
+    deleteTask ( eventID:$eventID  itinerarioID:$itinerarioID  taskID:$taskID)
+  }`,
+
   createItinerario: `mutation ($eventID:String, $title:String){
         createItinerario(eventID:$eventID title:$title ){
           _id
@@ -182,6 +187,11 @@ export const queries = {
           }
         }
       }`,
+
+  deleteItinerario: `
+  mutation  ( $eventID:String, $itinerarioID:String ) {
+    deleteItinerario ( eventID:$eventID  itinerarioID:$itinerarioID  )
+  }`,
 
   createNickName: `
   mutation  (
