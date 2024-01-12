@@ -23,24 +23,27 @@ export const Itinerario = ({ data }) => {
         }
     }, [data, event])
 
-    if (event && !event?.itinerarios_array?.find(elem => elem.title == data.title)) {
-        try {
-            fetchApiEventos({
-                query: queries?.createItinerario,
-                variables: {
-                    eventID: event._id,
-                    title: data?.title
-                }
-            }).then((result) => {
-                setEvent((old) => {
-                    old.itinerarios_array.push(result)
-                    return { ...old }
+    useEffect(() => {
+        if (event && !event?.itinerarios_array?.find(elem => elem.title == data.title)) {
+            try {
+                fetchApiEventos({
+                    query: queries?.createItinerario,
+                    variables: {
+                        eventID: event._id,
+                        title: data?.title
+                    }
+                }).then((result) => {
+                    setEvent((old) => {
+                        old.itinerarios_array.push(result)
+                        return { ...old }
+                    })
                 })
-            })
-        } catch (error) {
-            console.log(error)
-        };
-    }
+            } catch (error) {
+                console.log(error)
+            };
+        }
+    }, [event])
+
 
     return (
         <>

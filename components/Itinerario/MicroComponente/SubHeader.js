@@ -3,23 +3,22 @@ import { fetchApiEventos, queries } from "../../../utils/Fetching"
 
 
 export const SubHeader = ({ title, date, itinerario }) => {
-  const { event, setEvent } = EventContextProvider()
+    const { event, setEvent } = EventContextProvider()
 
     const deleteItinerario = async () => {
         try {
-            const delet = await fetchApiEventos({
+            await fetchApiEventos({
                 query: queries.deleteItinerario,
                 variables: {
                     eventID: event._id,
                     itinerarioID: itinerario._id,
                 }
             })
-            /* setEvent((old) => {
+            setEvent((old) => {
                 const f1 = old.itinerarios_array.findIndex(elem => elem._id === itinerario._id)
-                const taskArray = old.itinerarios_array[f1].tasks.map(elem => elem._id === task._id ? { ...elem, _id: null } : elem)
-                return { ...old, taskArray }
-
-            }) */
+                old.itinerarios_array.splice(f1, 1)
+                return { ...old }
+            })
         } catch (error) {
             console.log(error)
         }
@@ -34,7 +33,7 @@ export const SubHeader = ({ title, date, itinerario }) => {
                 <div className="flex w-1/2 text-xs md:text-[14px] justify-end items-center">
                     <span
                         className="text-rosa text-right cursor-pointer hover:text-pink-500"
-                        onClick={()=>deleteItinerario()}
+                        onClick={() => deleteItinerario()}
                     >
                         Restablecer todo el itinerario
                     </span>

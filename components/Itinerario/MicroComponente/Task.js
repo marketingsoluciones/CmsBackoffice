@@ -1,7 +1,7 @@
 import { Form, Formik } from "formik";
 import { Description, Duration, Responsable, ResponsableList, SelectIcon, Tips } from ".";
 import { Modal } from "../../modals/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InputTime } from "../../formularios/Inputs/InputTime";
 import { EventContextProvider } from "../../../context/EventContext";
 import { fetchApiEventos, queries } from "../../../utils/Fetching";
@@ -45,7 +45,7 @@ export const Task = ({ itinerario, task }) => {
 
   const deleteTask = async () => {
     try {
-      const delet = await fetchApiEventos({
+      await fetchApiEventos({
         query: queries.deleteTask,
         variables: {
           eventID: event._id,
@@ -55,8 +55,9 @@ export const Task = ({ itinerario, task }) => {
       })
       setEvent((old) => {
         const f1 = old.itinerarios_array.findIndex(elem => elem._id === itinerario._id)
-        const taskArray = old.itinerarios_array[f1].tasks.map(elem => elem._id === task._id ? { ...elem, _id: null} : elem)
-        return { ...old, taskArray }
+        const f2 = old.itinerarios_array[f1].tasks.findIndex(elem => elem._id === task._id)
+        old.itinerarios_array[f1].tasks.splice(f2, 1)
+        return { ...old }
 
       })
     } catch (error) {
