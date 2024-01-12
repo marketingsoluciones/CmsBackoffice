@@ -1,5 +1,5 @@
 import ClickAwayListener from "react-click-away-listener"
-export const ResponsableList = ({ openModal, setOpenModal, DataArry }) => {
+export const ResponsableList = ({ openModal, setOpenModal, DataArry, setSelectIcon }) => {
     return (
         <ClickAwayListener onClickAway={() => openModal && setOpenModal(false)}>
             <div className="flex flex-col items-center space-y-2 w-max*" >
@@ -7,12 +7,14 @@ export const ResponsableList = ({ openModal, setOpenModal, DataArry }) => {
                 {
                     DataArry.map((item, idx) => {
                         return (
-                            <div key={idx} className="grid grid-cols-3 justify-items-center* items-center *space-x-2 cursor-pointer hover:bg-slate-200 p-1 rounded-lg" >
-
+                            <div
+                                key={idx}
+                                className="grid grid-cols-3 items-center cursor-pointer hover:bg-slate-200 p-1 rounded-lg"
+                                onClick={() => { setOpenModal(!openModal), setSelectIcon(item.title) }}
+                            >
                                 <div className="col-span-1">
                                     <img src={item.icon} className="h-10 " />
                                 </div>
-
                                 <span className="col-span-2  w-28">{item.title}</span>
                             </div>
                         )

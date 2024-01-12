@@ -79,7 +79,7 @@ export const Task = ({ itinerario, task }) => {
                     <Duration name="duration" onBlur={() => { handleBlurData("duracion", values.duration.toString()) }} />
                   </div>
                   <Description name="description" onBlur={() => { handleBlurData("descripcion", values.description) }} />
-                  <Responsable />
+                  <Responsable name="responsable" handleChange={handleBlurData} />
                 </div>
                 <div className="flex lg:col-span-5 items-center">
                   <Tips name="tips" onBlur={() => { handleBlurData("tips", values.tips) }} />
