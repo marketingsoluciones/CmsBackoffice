@@ -1,17 +1,6 @@
-import {
-    Editable,
-    EditableInput,
-    EditableTextarea,
-    EditablePreview,
-    Textarea,
-    Box,
-} from '@chakra-ui/react'
-import { Divider } from '@chakra-ui/react'
-import { InputFieldGlobal } from '../../formularios/Inputs/InputFieldGlobal'
-import { TextareaFieldSizable } from "../../formularios/Inputs/TextareaFieldSizable"
+import { Textarea, Box } from '@chakra-ui/react'
 import { useField } from "formik";
-import { memo, useEffect, useRef, useState } from "react";
-import { Popup } from "../../Popup";
+import { useEffect, useRef, useState } from "react";
 
 export const Description = ({ ...props }) => {
     const refInput = useRef(null)

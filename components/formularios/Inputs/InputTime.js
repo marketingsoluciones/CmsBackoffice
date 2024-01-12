@@ -1,9 +1,6 @@
 
 import { useField } from "formik";
-import { memo, useEffect, useState } from "react";
-import { Popup } from "../../Popup";
-import { formatTime } from "../../../utils/formatTime";
-
+import { useEffect, useState } from "react";
 
 const optionsFormatTime = {
     year: "numeric",

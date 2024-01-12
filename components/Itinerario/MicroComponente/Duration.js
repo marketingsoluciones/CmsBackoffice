@@ -1,7 +1,4 @@
-import { InputFieldGlobal } from "../../formularios/Inputs/InputFieldGlobal"
 import { useField } from "formik";
-import { memo } from "react";
-import { Popup } from "../../Popup";
 
 export const Duration = ({ ...props }) => {
     const [field, meta, helpers] = useField({ name: props?.name });

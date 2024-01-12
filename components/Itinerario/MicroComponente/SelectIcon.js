@@ -1,4 +1,4 @@
-import { Anillos, Baile, Baile2, Brindis, Carro, Cena, Cocteles, Comida, Dividersvg, Fotografo, FuegosArtificiales, Iglesia, Maquillaje, Merienda, Novios, PlusIcon, Salida, SesionFotos, Sol, Torta, Vestido, Dress, Dots } from "../../Icons/index"
+import { Anillos, Baile, Baile2, Brindis, Carro, Cena, Cocteles, Comida, Dividersvg, Fotografo, FuegosArtificiales, Iglesia, Maquillaje, Merienda, Novios, Salida, SesionFotos, Sol, Torta, Vestido, Dress } from "../../Icons/index"
 
 import { useField } from "formik";
 import { AddIcon } from "../../Icons/index"
@@ -100,8 +100,6 @@ export const SelectIcon = ({ handleChange, ...props }) => {
             handleChange("icon", selectIcon)
         }
     }, [selectIcon])
-
-
 
     return (
         <div className="flex justify-center items-center">

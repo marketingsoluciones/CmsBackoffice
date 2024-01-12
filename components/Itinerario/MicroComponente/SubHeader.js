@@ -1,11 +1,6 @@
-import { Switch } from "@chakra-ui/react"
-import { SwitchField } from "../../formularios/Inputs/SwitchField"
+
 
 export const SubHeader = ({ title, date }) => {
-
-    const handleChange = (e) => {
-        const stateButton = e.target.checked
-    }
 
     return (
         <div className="w-full px-4 md:px-10 py-4 space-y-2" >

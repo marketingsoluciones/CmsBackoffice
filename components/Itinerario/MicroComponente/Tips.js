@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { InputFieldGlobal } from "../../formularios/Inputs/InputFieldGlobal"
 import { useField } from "formik";
 import { Box, Textarea } from "@chakra-ui/react";
 

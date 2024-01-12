@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { EventContextProvider } from "../../../context/EventContext"
 import { fetchApiEventos, queries } from "../../../utils/Fetching"
 

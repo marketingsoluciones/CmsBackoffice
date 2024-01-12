@@ -1,16 +1,8 @@
-import { SelectIcon } from "./MicroComponente/SelectIcon"
-import { useEffect, useState } from "react"
-import { Modal } from "../modals/Modal"
-import { IconList } from "./MicroComponente/IconList"
-import { Formik, Form } from "formik"
-import { InputFieldGlobal } from "../formularios/Inputs/InputFieldGlobal"
-import { MyDocument } from "../CreatePDF"
-import * as yup from "yup"
+import { useState } from "react"
 import { CiHeart } from "react-icons/ci";
 import { BsCake } from "react-icons/bs";
 import { LiaRingSolid } from "react-icons/lia";
-import { ElGranDia, MenuOptions, Preboda, Itinerario } from "./MicroComponente"
-import { EventContextProvider } from "../../context/EventContext"
+import { MenuOptions, Itinerario } from "./MicroComponente"
 
 export const BoddyIter = ({ IterArryst, setIterArryst, createPdf }) => {
     const [optionSelect, setOptionSelect] = useState("el gran día")
@@ -23,17 +15,14 @@ export const BoddyIter = ({ IterArryst, setIterArryst, createPdf }) => {
         {
             title: "protocolo",
             icon: <BsCake />,
-            // component: <Tasks event={event} IconArry={IconArry} />
         },
         {
             title: "preboda",
             icon: <CiHeart />,
-            // component: <Preboda event={event} IconArry={IconArry} />
         },
         {
             title: "el gran día",
             icon: <LiaRingSolid />,
-            // component: <ElGranDia event={event} IconArry={IconArry} />
         },
     ]
 

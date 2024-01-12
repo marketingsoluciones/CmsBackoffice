@@ -1,14 +1,10 @@
 import { Form, Formik } from "formik";
-import { SubHeader } from "./SubHeader";
-import { AddEvent, Description, Duration, GuardarButtom, IconList, Responsable, ResponsableList, SelectIcon, Time, Tips } from ".";
+import { Description, Duration, Responsable, ResponsableList, SelectIcon, Tips } from ".";
 import { Modal } from "../../modals/Modal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { InputTime } from "../../formularios/Inputs/InputTime";
 import { EventContextProvider } from "../../../context/EventContext";
 import { fetchApiEventos, queries } from "../../../utils/Fetching";
-import { string } from "yup";
-
-
 
 const ResponsablesArry = [
   {

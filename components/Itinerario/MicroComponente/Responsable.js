@@ -1,4 +1,3 @@
-import { LiaUserPlusSolid } from "react-icons/lia";
 import { AddUser } from "../../Icons/index"
 export const Responsable = ({ openModal, setOpenModal }) => {
     return (

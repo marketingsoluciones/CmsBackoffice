@@ -1,4 +1,3 @@
-import { Modal } from "../../modals/Modal";
 import { EventContextProvider } from "../../../context/EventContext";
 import { Task } from "./Task"
 import { fetchApiEventos, queries } from "../../../utils/Fetching";
