@@ -37,15 +37,14 @@ const ResponsablesArry = [
   },
 ]
 
-export const Task = ({ itinerario, task, date }) => {
+export const Task = ({ itinerario, task }) => {
   const [openResponsableList, setOpenResponsableList] = useState(false)
   const { event, setEvent } = EventContextProvider()
-
   const initialValues = {
     icon: !task?.icon ? "" : task?.icon,
     time: !task?.hora ? "" : task?.hora,
     duration: !task?.duracion ? "30" : task?.duracion,
-    descripction: !task?.descripcion ? "" : task?.descripcion,
+    description: !task?.descripcion ? "" : task?.descripcion,
     responsible: !task?.responsable ? "" : task?.responsable,
     tips: !task?.tips ? "" : task?.tips,
   }
@@ -80,7 +79,6 @@ export const Task = ({ itinerario, task, date }) => {
         {({ values, }) => {
           return (
             <Form>
-              {/* <AutoFormik values={values} /> */}
               <div className="grid grid-cols-1 lg:grid-cols-12 items-center justify-center md:px-20 lg:px-20 2xl:px-56 py-1" >
                 <div className="flex lg:col-span-7 justify-end">
                   <SelectIcon name="icon" handleChange={handleBlurData} />
@@ -88,7 +86,7 @@ export const Task = ({ itinerario, task, date }) => {
                     <InputTime name="time" onBlur={() => { handleBlurData("hora", values.time) }} />
                     <Duration name="duration" onBlur={() => { handleBlurData("duracion", values.duration.toString()) }} />
                   </div>
-                  <Description name="descripction" onBlur={() => { handleBlurData("descripcion", values.descripction) }} />
+                  <Description name="description" onBlur={() => { handleBlurData("descripcion", values.description) }} />
                   <Responsable openModal={openResponsableList} setOpenModal={setOpenResponsableList} />
                 </div>
                 <div className="flex lg:col-span-5">

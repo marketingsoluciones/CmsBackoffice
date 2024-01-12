@@ -51,7 +51,8 @@ export const Description = ({ ...props }) => {
                     fontSize={{ md: "sm", lg: "md" }}
                     value={field.value}
                     placeholder={"Título de actividad"}
-                    _focus={"outline-none"}
+                    //                    variant={"filled"}
+                    _focus={""}
                     bg={"none"}
                     {...props}
                 />

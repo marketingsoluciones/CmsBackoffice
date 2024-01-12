@@ -2,18 +2,32 @@ import { useEffect } from "react"
 import { EventContextProvider } from "../../../context/EventContext"
 import { fetchApiEventos, queries } from "../../../utils/Fetching"
 
-export const AddEvent = ({ data, itinerario }) => {
+export const AddEvent = ({ itinerario, tasks }) => {
     const { event, setEvent } = EventContextProvider()
-
     const addTask = async () => {
         try {
+            const item = tasks[tasks?.length - 1]
+            const hora = item?.hora
+            const duracion = item.duracion
+            const hs = Math.trunc(duracion / 60)
+            const ms = duracion - hs * 60
+            let hNew = parseInt(hora.split(":")[0]) + hs
+            let mNew = parseInt(hora.split(":")[1]) + ms
+            if (mNew > 59) {
+                hNew = hNew + 1
+                mNew = mNew - 60
+            }
+            let horaNew = `${hNew < 10 ? `0${hNew}` : hNew}:${mNew < 10 ? `0${mNew}` : mNew}`
+            if (hNew > 23) {
+                horaNew = hora
+            }
             const addNewTask = await fetchApiEventos({
                 query: queries.createTask,
                 variables: {
                     eventID: event._id,
                     itinerarioID: itinerario._id,
-                    taskID: data?.title,
-                    hora: "10:00"
+                    hora: horaNew,
+                    duracion: 30
                 }
             })
             setEvent((old) => {
@@ -25,11 +39,6 @@ export const AddEvent = ({ data, itinerario }) => {
             console.log(error)
         }
     }
-
-    useEffect(() => {
-        console.log(event?.itinerarios_array)
-    }, [event])
-
 
     return (
         <div onClick={() => addTask()} className="flex space-x-2 items-center justify-center mt-3 cursor-pointer hover:text-pink-600">

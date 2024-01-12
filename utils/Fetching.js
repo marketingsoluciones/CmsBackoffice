@@ -158,8 +158,8 @@ export const queries = {
         editTask(eventID:$eventID itinerarioID:$itinerarioID  taskID:$taskID  variable:$variable  valor:$valor )
       }`,
 
-  createTask: `mutation ($eventID:String, $itinerarioID:String, $hora:String){
-        createTask(eventID:$eventID itinerarioID:$itinerarioID  hora:$hora ){
+  createTask: `mutation ($eventID:String, $itinerarioID:String, $hora:String, $duracion:Int){
+        createTask(eventID:$eventID itinerarioID:$itinerarioID  hora:$hora, duracion:$duracion ){
           _id
           hora
           icon

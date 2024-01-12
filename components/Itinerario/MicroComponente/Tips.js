@@ -41,7 +41,7 @@ export const Tips = ({ ...props }) => {
                     onChange={(e) => { handleChange(e) }}
                     fontSize={{ md: "sm", lg: "md" }}
                     value={field.value}
-                    _focus={"outline-none"}
+                    _focus={""}
                     bg={"none"}
                     border={"1px"}
                     {...props}

@@ -89,29 +89,29 @@ const IconArray = [
     },
 ]
 
-export const SelectIcon = ({ handleChange ,...props }) => {
+export const SelectIcon = ({ handleChange, ...props }) => {
     const [field, meta, helpers] = useField({ name: props?.name });
-    const [selectIcon, setSelectIcon] = useState(field?.value)
-    const [resultadoIcon, setResultadoIcon] = useState()
+    const [selectIcon, setSelectIcon] = useState()
     const [openIcon, setOpenIcon] = useState(false)
 
     useEffect(() => {
-        setResultadoIcon(IconArray.find((elem) => elem?.title === selectIcon))
-        helpers.setValue(selectIcon)
-        handleChange("icon", selectIcon)
+        if (selectIcon) {
+            helpers.setValue(selectIcon)
+            handleChange("icon", selectIcon)
+        }
     }, [selectIcon])
 
-    
+
 
     return (
         <div className="flex justify-center items-center">
-            {resultadoIcon?.icon
+            {field?.value
                 ? <div className='w-10 md:w-12 lg:w-14 h-10 md:h-12 lg:h-14 cursor-pointer flex items-center justify-center '
                     onClick={() => {
                         setOpenIcon(!openIcon)
 
                     }} {...props}>
-                    {resultadoIcon?.icon}
+                    {IconArray.find((elem) => elem?.title === field?.value).icon}
                 </div>
                 : <div className='w-10 md:w-12 lg:w-14 h-10 md:h-12 lg:h-14 cursor-pointer flex items-center justify-center text-gray-600 hover:text-gray-800' onClick={() => setOpenIcon(!openIcon)}>
                     <AddIcon />

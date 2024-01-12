@@ -13,15 +13,18 @@ export const Itinerario = ({ data }) => {
     const newDate = new Date();
     const options = { year: "numeric", month: "long", day: "numeric" };
     const date = newDate.toLocaleDateString(navigator?.languages, options)
-    const itinerario = event?.itinerarios_array?.find(elem => elem.title === data?.title)
+    const [itinerario, setItinerario] = useState()
     const [tasks, setTasks] = useState()
 
-
     useEffect(() => {
-        setTasks(itinerario?.tasks?.sort((a, b) => a.hora.localeCompare(b.hora)))
-    }, [itinerario, event])
+        const itinerario = event?.itinerarios_array?.find(elem => elem.title === data?.title)
+        setItinerario({ ...itinerario })
+        if (itinerario?.tasks?.length > 0) {
+            setTasks([...itinerario?.tasks?.sort((a, b) => a.hora.localeCompare(b.hora))])
+        }
+    }, [data, event])
 
-    if (!event?.itinerarios_array?.find(elem => elem.title == data.title)) {
+    if (event && !event?.itinerarios_array?.find(elem => elem.title == data.title)) {
         try {
             fetchApiEventos({
                 query: queries?.createItinerario,
@@ -52,7 +55,7 @@ export const Itinerario = ({ data }) => {
                     })
                     }
                 </div>
-                <AddEvent date={date} itinerario={itinerario} />
+                <AddEvent tasks={tasks} itinerario={itinerario} />
             </div>
             <GuardarButtom />
         </>
