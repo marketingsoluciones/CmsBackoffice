@@ -184,6 +184,7 @@ export const queries = {
           tasks{
             _id
             hora
+            duracion
           }
         }
       }`,
