@@ -1,5 +1,22 @@
+import { useEffect, useState } from "react"
 import ClickAwayListener from "react-click-away-listener"
-export const ResponsableList = ({ openModal, setOpenModal, DataArry, setSelectIcon }) => {
+export const ResponsableList = ({ selectIcon, openModal, setOpenModal, DataArry, setSelectIcon, value }) => {
+    console.log(selectIcon)
+
+    const handleClick = (item) => {
+        setSelectIcon((old) => {
+            const f1 = old.findIndex(elem => elem.title === item.title)
+            if (f1 < 0) {
+                old.push(item)
+                return [...old]
+            }
+            if (f1 > -1) {
+                old.splice(f1, 1)
+                return [...old]
+            }
+        })
+    }
+
     return (
         <ClickAwayListener onClickAway={() => openModal && setOpenModal(false)}>
             <div className="flex flex-col items-center space-y-2 w-max*" >
@@ -9,13 +26,13 @@ export const ResponsableList = ({ openModal, setOpenModal, DataArry, setSelectIc
                         return (
                             <div
                                 key={idx}
-                                className="grid grid-cols-3 items-center cursor-pointer hover:bg-slate-200 p-1 rounded-lg"
-                                onClick={() => { setOpenModal(!openModal), setSelectIcon(item.title) }}
+                                className={`grid grid-cols-3 items-center cursor-pointer hover:bg-slate-200 p-1 rounded-lg  ${value.includes(item.title)?"bg-slate-300":"bg-none"}`}
+                                onClick={() => { handleClick(item) }}
                             >
                                 <div className="col-span-1">
-                                    <img src={item.icon} className="h-10 " />
+                                <img src={item.icon} className="h-10 " />
                                 </div>
-                                <span className="col-span-2  w-28">{item.title}</span>
+                                <span className="col-span-2  w-28">{item?.title}</span>
                             </div>
                         )
                     })

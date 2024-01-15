@@ -16,7 +16,7 @@ export const Task = ({ itinerario, task }) => {
     time: !task?.hora ? "" : task?.hora,
     duration: !task?.duracion ? "30" : task?.duracion,
     description: !task?.descripcion ? "" : task?.descripcion,
-    responsible: !task?.responsable ? "" : task?.responsable,
+    responsable: !task?.responsable ? "" : task?.responsable,
     tips: !task?.tips ? "" : task?.tips,
   }
 
@@ -29,7 +29,7 @@ export const Task = ({ itinerario, task }) => {
           itinerarioID: itinerario._id,
           taskID: task._id,
           variable,
-          valor
+          valor: variable == "responsable" ? JSON.stringify(valor) : valor
         }
       })
       setEvent((old) => {
@@ -64,7 +64,7 @@ export const Task = ({ itinerario, task }) => {
       console.log(error)
     }
   }
-
+  console.log(event.itinerarios_array)
   return (
     <>
 
@@ -72,17 +72,17 @@ export const Task = ({ itinerario, task }) => {
         {({ values, }) => {
           return (
             <Form>
-              <div className="grid grid-cols-1 lg:grid-cols-12 items-center justify-center md:px-20 lg:px-20 2xl:px-56 py-1" >
-                <div className="flex lg:col-span-7 justify-end">
+              <div className="grid grid-cols-1 lg:grid-cols-12 items-center justify-center md:px-20 lg:px-12 2xl:px-56 py-1" >
+                <div className="flex lg:col-span-8 justify-end">
                   <SelectIcon name="icon" handleChange={handleBlurData} />
                   <div className="flex flex-col justify-center">
                     <InputTime name="time" onBlur={() => { handleBlurData("hora", values.time) }} />
                     <Duration name="duration" onBlur={() => { handleBlurData("duracion", values.duration.toString()) }} />
                   </div>
                   <Description name="description" onBlur={() => { handleBlurData("descripcion", values.description) }} />
-                  <Responsable name="responsable" handleChange={handleBlurData} />
+                  <Responsable name="responsable" handleChange={handleBlurData} itinerario={itinerario} task={task} />
                 </div>
-                <div className="flex lg:col-span-5 items-center">
+                <div className="flex lg:col-span-4 items-center ">
                   <Tips name="tips" onBlur={() => { handleBlurData("tips", values.tips) }} />
                   <div className="-ml-3" >
                     <MdOutlineDeleteOutline className="w-7 h-auto cursor-pointer text-gray-500 hover:text-gray-700" onClick={() => deleteTask()} />
