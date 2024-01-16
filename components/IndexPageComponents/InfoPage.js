@@ -1,9 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import {  Autoplay } from 'swiper/modules';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { useRouter } from 'next/router';
+
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/autoplay'
+import 'swiper/css/autoplay';
+import 'swiper/css/pagination';
 
 export const InfoPage = ({ DataArry }) => {
     const router = useRouter()
@@ -16,18 +18,18 @@ export const InfoPage = ({ DataArry }) => {
                         {
                             DataArry.map((item, idx) => {
                                 return (
-                                        <div key={idx} className="flex flex-col items-center space-y-2">
-                                            <div className="h-44">
-                                                <img src={item.img} alt={item.title} />
-                                            </div>
-                                            <p className="font-semibold">{item.title}</p>
-                                            <div className="h-14">
-                                                <p className="text-center text-base">{item.texto}</p>
-                                            </div>
-                                            <button onClick={()=>router.push(item.route)} className="bg-rosa rounded-lg text-white py-1 px-7 shadow-lg text-base " >
-                                                {item.button}
-                                            </button>
+                                    <div key={idx} className="flex flex-col items-center space-y-2">
+                                        <div className="h-44">
+                                            <img src={item.img} alt={item.title} />
                                         </div>
+                                        <p className="font-semibold">{item.title}</p>
+                                        <div className="h-13 w-[80%]">
+                                            <p className="text-center text-[13px] text-gray-800 ">{item.texto}</p>
+                                        </div>
+                                        <button onClick={() => router.push(item.route)} className="bg-rosa rounded-lg text-white py-1 px-7 shadow-lg text-base " >
+                                            {item.button}
+                                        </button>
+                                    </div>
                                 )
 
                             })
@@ -35,36 +37,38 @@ export const InfoPage = ({ DataArry }) => {
                     </div>
                 </div>
                 <div className="md:hidden block">
-                    
-                        <Swiper
-                            spaceBetween={0}
-                            slidesPerView={1}
-                            autoplay
-                            modules={[ Autoplay]}
-                        >
-                            {
-                                DataArry.map((item, idx) => {
-                                    return (
 
-                                        <SwiperSlide key={idx}>
-                                            <div className="flex flex-col items-center space-y-2">
-                                                <div className="h-44">
-                                                    <img src={item.img} alt={item.title} />
-                                                </div>
-                                                <p className="font-semibold">{item.title}</p>
-                                                <div className="h-14">
-                                                    <p className="text-center">{item.texto}</p>
-                                                </div>
-                                                <button className="bg-rosa rounded-lg text-white py-1 px-7 shadow-lg ">
-                                                    {item.button}
-                                                </button>
+                    <Swiper
+                        spaceBetween={0}
+                        slidesPerView={1}
+                        autoplay
+                        pagination={{ clickable: true }}
+
+                        modules={[Autoplay, Navigation, Pagination]}
+                    >
+                        {
+                            DataArry.map((item, idx) => {
+                                return (
+
+                                    <SwiperSlide key={idx}>
+                                        <div className="flex flex-col items-center space-y-2">
+                                            <div className="h-44">
+                                                <img src={item.img} alt={item.title} />
                                             </div>
-                                        </SwiperSlide >
-                                    )
+                                            <p className="font-semibold">{item.title}</p>
+                                            <div className="h-14">
+                                                <p className="text-center">{item.texto}</p>
+                                            </div>
+                                            <button className="bg-rosa rounded-lg text-white py-1 px-7 shadow-lg ">
+                                                {item.button}
+                                            </button>
+                                        </div>
+                                    </SwiperSlide >
+                                )
 
-                                })
-                            }
-                        </Swiper>
+                            })
+                        }
+                    </Swiper>
                 </div>
             </div >
 
