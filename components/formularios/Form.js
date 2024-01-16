@@ -153,15 +153,15 @@ export const FormDinamical = forwardRef(
             {({ values, setValues }) => {
               return (
                 <Form onChange={() => { !changedForm && setChangedForm(true) }}>
-                  <Grid /* templateColumns={["repeat(1, 1fr)", , , , "repeat(5, 1fr)"]} */  className="grid grid-cols-5 gap-[1rem]" /* gap={"1rem"} */ >
+                  <Grid /* templateColumns={["repeat(1, 1fr)", , , , "repeat(5, 1fr)"]} */  className="md:grid md:grid-cols-5 gap-[1rem] " gap={"1rem"} >
 
                     {/* columna izquierda */}
-                    <div bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={[1, , , , , 4]} className="col-span-3 px-[1rem]  rounded-xl  bg-white " >
-                      <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(6, 1fr)"]} gap={"1rem"}>
+                    <div bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} /* colSpan={[1, , , , , 4]} */ className="col-span-3 px-[1rem]  rounded-xl  bg-white " >
+                      <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(6, 1fr)"]} gap={"1rem"} >
                         {schema &&
                           schema?.map((item, idx) => {
                             const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
-                            switch (valir && item.type) {
+                            switch (valir && item.type) { 
                               case "br-2":
                                 return (
                                   <GridItem colSpan={[1, , , , 2]} key={idx}>
@@ -332,7 +332,7 @@ export const FormDinamical = forwardRef(
                                 break;
                               case "questions":
                                 return (
-                                  <GridItem colSpan={[1, , , , 6]} key={idx}>
+                                  <GridItem colSpan={[1, , , , 5]} key={idx}>
                                     <QuestionInputsForBusiness
                                       name={item.accessor}
                                       label={item.Header}
@@ -342,7 +342,7 @@ export const FormDinamical = forwardRef(
                                   </GridItem>
                                 );
                                 break;
-                              case "maps":
+                           /*   case "maps":
                                 return (
                                   <GridItem colSpan={[1, , , , 6]} key={idx}>
                                     <GoogleMapsField
@@ -367,12 +367,11 @@ export const FormDinamical = forwardRef(
                                 return (
                                   <div key={idx} onClick={() => setAlertDev(!alertDev)}>
                                     <GridItem colSpan={[1, , , , 6]} >
-                                      {/* <SeoDev /> */}
                                     </GridItem>
                                   </div>
                                 );
                               default:
-                                break;
+                                break; */
                             }
                           })}
                       </Grid>

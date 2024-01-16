@@ -130,6 +130,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
     hour12: true,
     //timeZone: "America/Los_Angeles",
   };
+
   const Information = [
     {
       title: "Creado el",
@@ -150,19 +151,19 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   ];
 
   return (
-    <Flex flexDir={"column"} overflow={"auto"} maxH={"95%"} p={"0.5rem"} >
+    <Flex flexDir={"column"} overflow={"auto"} maxH={"95%"}  >
       {showModal && <Modal setShowModal={setShowModal} showModal={showModal} title={"Al salir perdera los cambios"} handle={handle} />}
       {!loadingValues && !errorValues ? (
         <>
           {/* Header del componente */}
-          <Flex w={"99%"} className="px-1">
+          <Flex w={"99%"} className="*px-1">
             {/* Titulo del componente */}
             <Box w={"100%"}>
               <Flex className="md:items-center" >
                 <div className="flex items-start">
                   <Center mb={"2px"} >
                     <ArrowLeft
-                      className="w-6 h-6 *md:w-8 *md:h-8 mr-2 text-gray-600 cursor-pointer"
+                      className="w-6 h-6 mr-2 text-gray-600 cursor-pointer"
 
                       onClick={() => {
                         if (changedForm) {
@@ -210,7 +211,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
             </Box>
           </Flex>
           {/* Cuerpo del formulario */}
-          <Flex h={"85%"}  >
+         {/*  <Flex h={"85%"}  > */}
             <Box w={"100%"}  >
               <FormDinamical
                 schema={options?.schema}
@@ -225,7 +226,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                 columns={["repeat(1, 1fr)", , , "repeat(5, 1fr)"]}
               />
             </Box>
-          </Flex>
+          {/* </Flex> */}
         </>
       ) : (
         <LoadingComponent />
