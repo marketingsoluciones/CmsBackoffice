@@ -4,7 +4,7 @@ import VariantNegativeSizeMNume from "../WeddingCustomWebs/TagCard";
 const Section1: FunctionComponent = () => {
   const [inputValue, setInputValue] = useState("");
   return (
-    <section className="relative bg-whitesmoke w-full h-[835px] overflow-hidden flex flex-col items-start justify-start text-left text-[32px]  font-poppins">
+    <section className="relative bg-whitesmoke w-full h-[835px]* overflow-y-auto flex flex-col items-start justify-start text-left text-[32px]  font-poppins h-[120vh] ">
       {/* header del componente */}
       <div className="self-stretch flex flex-col items-start justify-start py-2.5 px-5 gap-[20px]">
         <div className="self-stretch relative leading-[37.5px] capitalize font-semibold text-rosa">
@@ -18,6 +18,7 @@ const Section1: FunctionComponent = () => {
       </div>
       {/* boddy del componente  */}
       <div className="self-stretch flex flex-col items-center justify-start gap-[10px] text-right text-sm text-text-primary font-caption-s">
+        {/* filter  button */}
         <div className="self-stretch flex flex-row items-center justify-end py-0 px-5 gap-[5px]">
           <div className="flex-1 relative leading-[21px]">8 ítems</div>
           <input
@@ -48,9 +49,10 @@ const Section1: FunctionComponent = () => {
             </div>
           </button>
         </div>
-        <div className="self-stretch flex flex-col items-start justify-start gap-[20px]">
-          <section className="self-stretch flex flex-row items-center justify-center py-0 px-5 gap-[20px] text-left text-sm text-gris font-poppins">
-            <div className="w-[246.3px] h-[303px] flex flex-col items-start justify-end py-0 pr-[6.25px] pl-0 box-border">
+        {/* grid card */}
+       
+          <section className=" grid grid-cols-1 md:grid-cols-3 items-center justify-center gap-[20px]  overflow-y-auto pb-10 ">
+            <div className="w-[246.3px] h-[303px] flex flex-col items-start justify-start ">
               <img
                 className="relative rounded-t-xl w-60 h-[270px] object-cover"
                 alt=""
@@ -69,27 +71,27 @@ const Section1: FunctionComponent = () => {
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                         </div>
                         <b className="relative">Vendidos: 15</b>
@@ -142,27 +144,27 @@ const Section1: FunctionComponent = () => {
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                         </div>
                         <b className="relative">Vendidos: 15</b>
@@ -215,27 +217,27 @@ const Section1: FunctionComponent = () => {
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                         </div>
                         <b className="relative">Vendidos: 15</b>
@@ -288,27 +290,27 @@ const Section1: FunctionComponent = () => {
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                         </div>
                         <b className="relative">Vendidos: 15</b>
@@ -342,8 +344,6 @@ const Section1: FunctionComponent = () => {
                 </div>
               </div>
             </div>
-          </section>
-          <section className="self-stretch flex flex-row items-center justify-center py-0 px-5 gap-[20px] text-left text-sm text-gris font-poppins">
             <div className="w-[246.3px] h-[303px] flex flex-col items-center justify-start">
               <img
                 className="relative rounded-t-xl w-[246.3px] h-[270px] object-cover"
@@ -363,27 +363,27 @@ const Section1: FunctionComponent = () => {
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                         </div>
                         <b className="relative">Vendidos: 15</b>
@@ -436,27 +436,27 @@ const Section1: FunctionComponent = () => {
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                         </div>
                         <b className="relative">Vendidos: 15</b>
@@ -514,27 +514,27 @@ const Section1: FunctionComponent = () => {
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                         </div>
                         <b className="relative">Vendidos: 15</b>
@@ -587,27 +587,27 @@ const Section1: FunctionComponent = () => {
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                           <img
                             className="relative w-3 h-3 overflow-hidden shrink-0"
                             alt=""
-                            src="/favorite--24--outline.svg"
+                            src="/weddingPageFotos/favorite--24--outline.svg"
                           />
                         </div>
                         <b className="relative">Vendidos: 15</b>
@@ -637,17 +637,12 @@ const Section1: FunctionComponent = () => {
                       variantNegativeSizeMNumeBorder="1px solid #fb8b80"
                       pillColor="#c82627"
                     />
-                    {/* <div className="rounded-81xl bg-negative-background-light overflow-hidden flex flex-row items-center justify-center py-1 px-2 border-[1px] border-solid border-negative-muted">
-                      <div className="relative leading-[16px] uppercase font-semibold">
-                        13,99$
-                      </div>
-                    </div> */}
                   </div>
                 </div>
               </div>
             </div>
           </section>
-        </div>
+
       </div>
     </section>
   );
