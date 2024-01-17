@@ -132,8 +132,6 @@ export const FormDinamical = forwardRef(
       setSchema(state);
     }, [state]);
     let colorBaground = "white"
-    //colorBaground = { base: "red", sm: "orange", md: "green", lg: "blue", xl: "violet", '2xl': "yellow" }
-
     return (
       <>
         {modal.show ? (
@@ -153,15 +151,15 @@ export const FormDinamical = forwardRef(
             {({ values, setValues }) => {
               return (
                 <Form onChange={() => { !changedForm && setChangedForm(true) }}>
-                  <Grid /* templateColumns={["repeat(1, 1fr)", , , , "repeat(5, 1fr)"]} */  className="md:grid md:grid-cols-5 gap-[1rem] " gap={"1rem"} >
+                  <Grid className="md:grid md:grid-cols-5 gap-[1rem] " gap={"1rem"} >
 
                     {/* columna izquierda */}
-                    <div bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} /* colSpan={[1, , , , , 4]} */ className="col-span-3 px-[1rem]  rounded-xl  bg-white " >
+                    <div bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} className="col-span-3 px-[1rem]  rounded-xl  bg-white " >
                       <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(6, 1fr)"]} gap={"1rem"} >
                         {schema &&
                           schema?.map((item, idx) => {
                             const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
-                            switch (valir && item.type) { 
+                            switch (valir && item.type) {
                               case "br-2":
                                 return (
                                   <GridItem colSpan={[1, , , , 2]} key={idx}>
@@ -342,7 +340,7 @@ export const FormDinamical = forwardRef(
                                   </GridItem>
                                 );
                                 break;
-                           /*   case "maps":
+                              case "maps":
                                 return (
                                   <GridItem colSpan={[1, , , , 6]} key={idx}>
                                     <GoogleMapsField
@@ -371,16 +369,14 @@ export const FormDinamical = forwardRef(
                                   </div>
                                 );
                               default:
-                                break; */
+                                break;
                             }
                           })}
                       </Grid>
                     </div>
 
-                    {/* {sm: "red", md: "green", lg: "blue", xl: "violet", '2xl': "yellow" } */}
-
                     {/* columna derecha */}
-                    <div bg={colorBaground} p={"1rem"} shadow={"sm"} rounded={"xl"} /*colSpan={{ base: 4, lg: 1 }}*/ className="col-span-2 px-[1rem] rounded-xl bg-white " >
+                    <div bg={colorBaground} p={"1rem"} shadow={"sm"} rounded={"xl"} className="md:col-span-2 px-[1rem] rounded-xl bg-white w-[145%] md:w-[100%] " >
                       <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
                       {schema &&
                         schema?.map((item, idx) => {
@@ -388,7 +384,6 @@ export const FormDinamical = forwardRef(
                           switch (valir && item.type) {
                             case "Seudonimo":
                               return (
-                                // <GridItem bg={"blue"} colSpan={[1, , , ,  1]} key={idx}>
                                 <Seudonimo
                                   key={idx}
                                   modal={modal}
@@ -396,7 +391,6 @@ export const FormDinamical = forwardRef(
                                   nickName={nickName}
                                   setNickName={setNickName}
                                 />
-                                //</GridItem>
                               );
                               break
                             case "image":
