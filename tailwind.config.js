@@ -23,6 +23,7 @@ module.exports = {
       },
       colors: {
         'gray-919EAB': '#919EAB',
+        'grayInformativo': '#EDF2F7',
         'tituloPrimario': '#212B36',
         'tituloSecundario': '#637381',
         'white': '#ffffff',
@@ -32,7 +33,7 @@ module.exports = {
         'verde': '#30CB30',
         'hover-verde': '#2EBD2E',
         'botonBack': '#C2C2C2',
-        'rosa':'#FF5887 ',
+        'rosa': '#FF5887 ',
         'acento': '#F4C02F',
         'amarillo': '#FFC200',
         'azulCorporativo': '#49516F'
