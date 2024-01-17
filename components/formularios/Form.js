@@ -151,7 +151,7 @@ export const FormDinamical = forwardRef(
             {({ values, setValues }) => {
               return (
                 <Form onChange={() => { !changedForm && setChangedForm(true) }}>
-                  <Grid className="md:grid md:grid-cols-5 gap-[1rem] " gap={"1rem"} >
+                  <Grid className="grid grid-cols-1 md:grid-cols-5 gap-[1rem] " gap={"1rem"} >
 
                     {/* columna izquierda */}
                     <div bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} className="col-span-3 px-[1rem]  rounded-xl  bg-white " >
@@ -186,6 +186,7 @@ export const FormDinamical = forwardRef(
                                     />
                                   </GridItem>
                                 );
+                                break;
                               case "stringL":
                                 return (
                                   <GridItem colSpan={[1, , , , 6]} key={idx}>
@@ -376,55 +377,43 @@ export const FormDinamical = forwardRef(
                     </div>
 
                     {/* columna derecha */}
-                    <div bg={colorBaground} p={"1rem"} shadow={"sm"} rounded={"xl"} className="md:col-span-2 px-[1rem] rounded-xl bg-white w-[145%] md:w-[100%] " >
+                    <div bg={colorBaground} shadow={"sm"} rounded={"xl"} className="col-span-2 px-[1rem] rounded-xl bg-white   " >
                       <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
-                      {schema &&
-                        schema?.map((item, idx) => {
-                          const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
-                          switch (valir && item.type) {
-                            case "Seudonimo":
-                              return (
-                                <Seudonimo
-                                  key={idx}
-                                  modal={modal}
-                                  setModal={setModal}
-                                  nickName={nickName}
-                                  setNickName={setNickName}
-                                />
-                              );
-                              break
-                            case "image":
-                              return (
-                                <UploadImage
-                                  key={idx}
-                                  name={item.accessor}
-                                  label={item.Header}
-                                  typeFile={item.typeFile}
-                                />
-                              );
-                              break
-                            case "imageMultiple":
-                              return (
-                                <MultipleImages
-                                  name={item.accessor}
-                                  label={item.Header}
-                                  key={idx}
-                                />
-                              );
-                              break;
-                            case "fieldArray":
-                              return (
-                                <FieldArrayField
-                                  key={idx}
-                                  name={item.accessor}
-                                  label={item.Header}
-                                  schema={item.schema}
-                                />
-                              );
-                              break;
-                          }
-                        })
-                      }
+                        {schema &&
+                          schema?.map((item, idx) => {
+                            const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
+                            switch (valir && item.type) {
+                              case "image":
+                                return (
+                                  <UploadImage
+                                    key={idx}
+                                    name={item.accessor}
+                                    label={item.Header}
+                                    typeFile={item.typeFile}
+                                  />
+                                );
+                                break
+                              case "imageMultiple":
+                                return (
+                                  <MultipleImages
+                                    name={item.accessor}
+                                    label={item.Header}
+                                    key={idx}
+                                  />
+                                );
+                                break;
+                              case "fieldArray":
+                                return (
+                                  <FieldArrayField
+                                    key={idx}
+                                    name={item.accessor}
+                                    label={item.Header}
+                                    schema={item.schema}
+                                  />
+                                );
+                                break;
+                            }
+                          })}
                       <InfoForm
                         Information={Information}
                         state={state}
