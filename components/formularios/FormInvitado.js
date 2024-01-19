@@ -15,9 +15,11 @@ import { EventContextProvider } from "../../context/EventContext";
 import { WarningIcon } from "../Icons/index";
 import { InputField } from "./Inputs/InputField"
 import { useToast } from "../../hooks/useToast";
+import { AuthContextProvider } from "../../context";
 
 
 const FormInvitado = ({ state, set }) => {
+  const { domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider();
   const [contact, setContact] = useState(null)
   const [showMedioSelectImport, setShowMedioSelectImport] = useState(false)
@@ -75,7 +77,7 @@ const FormInvitado = ({ state, set }) => {
           eventID: event._id,
           guestsArray: values,
         },
-        token: ""
+        domain
       });
 
       setEvent((old) => ({ ...old, invitados_array: result?.invitados_array }));

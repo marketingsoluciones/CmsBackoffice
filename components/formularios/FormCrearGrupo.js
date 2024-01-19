@@ -4,6 +4,7 @@ import { InputFieldGlobal } from "./Inputs/InputFieldGlobal";
 /* import * as yup from "yup"; */
 import { fetchApiEventos, queries } from "../../utils/Fetching";
 import { useToast } from "../../hooks/useToast";
+import { AuthContextProvider } from "../../context";
 
 /* const validationSchema = yup.object().shape({
   nombre: yup.string().required(),
@@ -14,6 +15,7 @@ const initialValues = {
 };
 
 const FormCrearGrupo = ({ set, state }) => {
+  const { domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider();
    const toast = useToast();
   const handleSubmit = async (values, actions) => {
@@ -24,6 +26,7 @@ const FormCrearGrupo = ({ set, state }) => {
           eventID: event._id,
           name: values.nombre,
         },
+        domain
       });
       setEvent((old) => ({
         ...old,

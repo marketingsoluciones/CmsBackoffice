@@ -6,6 +6,7 @@ import { InputFieldGlobal } from "./Inputs/InputFieldGlobal";
 import { fetchApiEventos, queries } from "../../utils/Fetching";
 import { useToast } from "../../hooks/useToast";
 import { BorrarIcon, IconLocationFood } from "../Icons/index"
+import { AuthContextProvider } from "../../context";
 
 /* const validationSchema = yup.object().shape({
   nombre: yup.string().required(),
@@ -17,6 +18,7 @@ const initialValues = {
 
 
 const FormCrearMenu = ({ set, state }) => {
+  const {  domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider();
   const toast = useToast();
 
@@ -28,7 +30,7 @@ const FormCrearMenu = ({ set, state }) => {
           eventID: event._id,
           name: values.nombre,
         },
-        token: ""
+        domain
       });
       setEvent((old) => ({
         ...old,
@@ -51,6 +53,7 @@ const FormCrearMenu = ({ set, state }) => {
           eventID: event._id,
           name: value,
         },
+        domain
       });
       setEvent((old) => {
         const invitados_array = old.invitados_array.map(elem => elem.nombre_menu == value ? { ...elem, nombre_menu: null } : elem)

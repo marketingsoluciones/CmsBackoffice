@@ -13,7 +13,7 @@ export const fetchApi = async ({
     if (type === "json") {
       const {
         data: { data },
-      } = await api.GraphQL({ query, variables }, development);
+      } = await api.ApiBodas({ query, variables }, development);
       return Object.values(data)[0]
 
       //Form data
@@ -71,7 +71,7 @@ export const fetchApi = async ({
 
       const {
         data: { data },
-      } = await api.GraphQL(formData, development, {
+      } = await api.ApiBodas(formData, development, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -82,10 +82,10 @@ export const fetchApi = async ({
   };
 }
 
-export const fetchApiEventos = async ({ query, variables, token }) => {
+export const fetchApiEventos = async ({ query, variables, domain }) => {
   const {
     data: { data },
-  } = await api.ApiApp({ query, variables }, token);
+  } = await api.ApiApp({ query, variables }, domain);
   return Object.values(data)[0];
 };
 

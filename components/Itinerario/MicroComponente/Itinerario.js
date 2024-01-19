@@ -5,9 +5,11 @@ import { SubHeader } from "./SubHeader";
 import { AddEvent } from "./AddEvent";
 import { GuardarButtom } from "./GuardarButtom";
 import { useEffect, useState } from "react";
+import { AuthContextProvider } from "../../../context";
 
 
 export const Itinerario = ({ data }) => {
+    const { domain } = AuthContextProvider()
     const { event, setEvent } = EventContextProvider()
     const newDate = new Date();
     const options = { year: "numeric", month: "long", day: "numeric" };
@@ -31,7 +33,8 @@ export const Itinerario = ({ data }) => {
                     variables: {
                         eventID: event._id,
                         title: data?.title
-                    }
+                    },
+                    domain
                 }).then((result) => {
                     setEvent((old) => {
                         old.itinerarios_array.push(result)

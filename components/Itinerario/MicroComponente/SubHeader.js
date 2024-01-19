@@ -1,8 +1,10 @@
+import { AuthContextProvider } from "../../../context/AuthContext"
 import { EventContextProvider } from "../../../context/EventContext"
 import { fetchApiEventos, queries } from "../../../utils/Fetching"
 
 
 export const SubHeader = ({ title, date, itinerario }) => {
+    const { domain } = AuthContextProvider()
     const { event, setEvent } = EventContextProvider()
 
     const deleteItinerario = async () => {
@@ -12,7 +14,8 @@ export const SubHeader = ({ title, date, itinerario }) => {
                 variables: {
                     eventID: event._id,
                     itinerarioID: itinerario._id,
-                }
+                },
+                domain
             })
             setEvent((old) => {
                 const f1 = old.itinerarios_array.findIndex(elem => elem._id === itinerario._id)
