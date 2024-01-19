@@ -124,7 +124,7 @@ const AuthProvider = ({ children }) => {
         console.info(8000042, "Verificando cookie", user?.uid, asd?.user_id);
         if (user?.uid !== asd?.user_id) {
           console.log("entro para loguear de nuevo")
-          const resp = await fetchApiBodas({
+          const resp = await fetchApi({
             query: queries.authStatus,
             variables: { sessionCookie },
             development: config?.development
