@@ -34,7 +34,7 @@ export const ContactosComponent = () => {
             </div >
             {
                 modalPersona ? (
-                    <Modal openIcon={modalPersona} setOpenIcon={setModalPersona} classe={"w-[25%] h-[95%]"} >
+                    <Modal openIcon={modalPersona} setOpenIcon={setModalPersona} classe={"md:w-[25%]  h-[95%]"} >
                         <AddContactoComponent modalPersona={modalPersona} setModalPersona={setModalPersona} />
                     </Modal>
                 ) : null

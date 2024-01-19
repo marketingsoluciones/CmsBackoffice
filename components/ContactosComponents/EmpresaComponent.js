@@ -33,7 +33,7 @@ export const EmpresasComponent = () => {
 
             {
                 modalEmpresa ? (
-                    <Modal openIcon={modalEmpresa} setOpenIcon={setModalEmpresa} classe={"w-[25%] h-[95%]"} >
+                    <Modal openIcon={modalEmpresa} setOpenIcon={setModalEmpresa} classe={"md:w-[25%] h-[95%]"} >
                         <AddEmpresaComponent modalEmpresa={modalEmpresa} setModalEmpresa={setModalEmpresa} />
                     </Modal>
                 ) : null
