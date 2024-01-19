@@ -1,7 +1,9 @@
+import { AuthContextProvider } from "../../../context"
 import { EventContextProvider } from "../../../context/EventContext"
 import { fetchApiEventos, queries } from "../../../utils/Fetching"
 
 export const AddEvent = ({ itinerario, tasks }) => {
+    const { domain } = AuthContextProvider()
     const { event, setEvent } = EventContextProvider()
     const addTask = async () => {
         try {
@@ -27,7 +29,8 @@ export const AddEvent = ({ itinerario, tasks }) => {
                     itinerarioID: itinerario._id,
                     hora: horaNew,
                     duracion: 30
-                }
+                },
+                domain
             })
             setEvent((old) => {
                 const f1 = old.itinerarios_array.findIndex(elem => elem._id === itinerario._id)

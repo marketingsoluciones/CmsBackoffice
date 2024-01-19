@@ -5,6 +5,7 @@ import { api } from "../../utils/api";
 import { EventContextProvider } from "../../context/EventContext";
 import { CheckIcon } from "../Icons/index";
 import { InputFieldGlobal } from "./Inputs/InputFieldGlobal";
+import { AuthContextProvider } from "../../context";
 
 
 const validacion = (values) => {
@@ -30,6 +31,7 @@ const validacion = (values) => {
 }
 
 const FormAddPago = ({ GastoID, cate }) => {
+  const { domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider()
 
 
@@ -85,7 +87,7 @@ const FormAddPago = ({ GastoID, cate }) => {
           variables: {},
         }
         try {
-          const { data: resp } = await api.ApiApp(params)
+          const { data: resp } = await api.ApiApp(params,domain)
           res = resp.data.nuevoPago
         } catch (error) {
           console.log(error)

@@ -8,8 +8,10 @@ import FormCrearCategoria from "../../formularios/FormCrearCategoria";
 import FormEditarCategoria from "../../formularios/FormEditarCategoria";
 import { ModalLeft } from "../../modals/ModalLeft";
 import { api } from "../../../utils/api";
+import { AuthContextProvider } from "../../../context";
 
 export const BlockListaCategorias = ({ categorias_array, set }) => {
+  const { domain } = AuthContextProvider()
     const [isMounted, setIsMounted] = useState([false, ""]);
     const shouldRenderChild = useDelayUnmount(isMounted[0], 500);
     const [categorias, setCategorias] = useState([]);
@@ -93,7 +95,7 @@ export const BlockListaCategorias = ({ categorias_array, set }) => {
         variables: {},
       };
       try {
-        await api.ApiApp(params)
+        await api.ApiApp(params, domain)
       } catch (error) {
         console.log(error)
       } finally {

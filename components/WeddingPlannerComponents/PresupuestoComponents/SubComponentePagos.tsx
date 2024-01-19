@@ -5,6 +5,7 @@ import { api } from "../../../utils/api";
 import { useContext, useEffect, useState } from "react";
 import { EventContextProvider } from "../../../context/EventContext";
 import FormEditarPago from "../../formularios/FormEditarPago";
+import { AuthContextProvider } from "../../../context";
 
 const SubComponentePagos = ({ row, cate, gasto, wantCreate }) => {
   const [show, setShow] = useState(true);
@@ -43,6 +44,7 @@ const SubComponentePagos = ({ row, cate, gasto, wantCreate }) => {
 export default SubComponentePagos;
 
 const ListadoComponent = ({ pagos_array, cate, gasto, wantCreate, idModificar, row }) => {
+  const { domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider();
   const BorrarPago = async (pagoID) => {
     let data;
@@ -62,7 +64,7 @@ const ListadoComponent = ({ pagos_array, cate, gasto, wantCreate, idModificar, r
     };
 
     try {
-      const { data: res } = await api.ApiApp(params);
+      const { data: res } = await api.ApiApp(params, domain);
       data = res.data.borraPago;
     } catch (error) {
       console.log(error);

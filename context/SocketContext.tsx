@@ -38,8 +38,8 @@ const SocketProvider: FC<any> = ({ children }): JSX.Element => {
       setSocket(api.socketIO({
         token,
         development: config?.name,
-        father: initialContext?.fatherID
-
+        father: initialContext?.fatherID,
+        origin: window?.origin
       }))
     }
     if (!token && socket) {

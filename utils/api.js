@@ -1,30 +1,49 @@
 import axios from "axios"
+import { getAuth } from "firebase/auth";
 import Cookies from 'js-cookie';
 import { io } from "socket.io-client";
+import { parseJwt } from "./Authentication";
 
 const instance = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL })
 const instanceAPP = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL_APP })
 
-
 export const api = {
-    GraphQL: async (data, development, config) => {
+    ApiBodas: async (data, development) => {
+        const domain = `.${development}`
+        let idToken = Cookies.get("idToken")
+        if (getAuth().currentUser) {
+            //idToken = Cookies.get("idToken")
+            if (!idToken) {
+                idToken = await getAuth().currentUser?.getIdToken(true)
+                const dateExpire = new Date(parseJwt(idToken ?? "").exp * 1000)
+                Cookies.set("idToken", idToken ?? "", { domain, expires: dateExpire })
+            }
+        }
+
         if (!development) {
             development = data?.variables?.domain
         }
-        const tokenFinal = Cookies.get("idToken")
         return await instance.post("/graphql", data, {
             headers: {
-                Authorization: `Bearer ${tokenFinal}`,
+                Authorization: `Bearer ${idToken}`,
                 Development: development
             }
         })
     },
 
-    ApiApp: async (params, token) => {
-        const token_final = token || Cookies.get("idToken")
+    ApiApp: async (params, domain) => {
+        let idToken = Cookies.get("idToken")
+        if (getAuth().currentUser) {
+            //idToken = Cookies.get("idToken")
+            if (!idToken) {
+                idToken = await getAuth().currentUser?.getIdToken(true)
+                const dateExpire = new Date(parseJwt(idToken ?? "").exp * 1000)
+                Cookies.set("idToken", idToken ?? "", { domain, expires: dateExpire })
+            }
+        }
         return await instanceAPP.post("/graphql", params, {
             headers: {
-                Authorization: `Bearer ${token_final}`,
+                Authorization: `Bearer ${idToken}`,
             }
         });
     },
@@ -33,12 +52,13 @@ export const api = {
         return await axios.get('https://restcountries.com/v3.1/all')
     },
 
-    socketIO: ({ token, development, father }) => {
+    socketIO: ({ token, development, father, origin }) => {
         const socket = io(process.env.NEXT_PUBLIC_BASE_URL ?? "", {
             auth: {
                 token: `Bearer ${token}`,
                 development,
-                father
+                father,
+                origin
             }
         })
         return socket

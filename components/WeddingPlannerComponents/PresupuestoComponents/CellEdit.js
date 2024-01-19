@@ -4,8 +4,10 @@ import { api } from "../../../utils/api"
 import { EventContextProvider } from "../../../context/EventContext";
 import { getCurrency } from "./Funciones";
 import { capitalize } from '../../../utils/Capitalize';
+import { AuthContextProvider } from "../../../context";
 
 const CellEdit = (props) => {
+  const { domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider()
   const [edit, setEdit] = useState(false);
   const [mask, setMask] = useState(0);
@@ -16,13 +18,13 @@ const CellEdit = (props) => {
   }, [props.value])
 
   useEffect(() => {
-      if(props?.type == "text"){
-        setMask(value)
-      }
-      if(props?.type == "number"){
-        setMask( getCurrency(value, "EUR") );
-      }
-  }, [ value ]);
+    if (props?.type == "text") {
+      setMask(value)
+    }
+    if (props?.type == "number") {
+      setMask(getCurrency(value, "EUR"));
+    }
+  }, [value]);
 
   const keyDown = (e) => {
     let tecla = e.key.toLowerCase();
@@ -68,7 +70,7 @@ const CellEdit = (props) => {
             `,
           variables: {},
         };
-        const { data } = await api.ApiApp(params);
+        const { data } = await api.ApiApp(params, domain);
         res = data?.data?.editGasto
       } catch (error) {
         console.log(error);
@@ -106,7 +108,7 @@ const CellEdit = (props) => {
           />
         ) : (
           <p className="cursor-pointer hover:scale-105 transform transition text-center w-full truncate px-2 py-1 h-6" onClick={() => setEdit(true)}>
-            { typeof value == "string" ? capitalize(value)  : mask}
+            {typeof value == "string" ? capitalize(value) : mask}
           </p>
         )}
         <style jsx>

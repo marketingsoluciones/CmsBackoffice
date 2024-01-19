@@ -5,6 +5,7 @@ import { developments } from "../firebase";
 import { fetchApi, queries } from "../utils/Fetching";
 import { boolean } from "yup";
 import { initializeApp } from "firebase/app";
+import { parseJwt } from "../utils/Authentication";
 
 
 
@@ -138,7 +139,7 @@ const AuthProvider = ({ children }) => {
             })
           } else {
             console.info("NO tengo user de contexto de firebase");
-            await fetchApi({
+            fetchApi({
               query: queries.authStatus,
               variables: { sessionCookie },
               development: config?.name
@@ -169,8 +170,9 @@ const AuthProvider = ({ children }) => {
     getAuth().onIdTokenChanged(async user => {
       const sessionCookie = Cookies.get(config?.cookie);
       if (user && sessionCookie) {
-        const dateExpire = new Date(new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000))
-        Cookies.set("idToken", await user.getIdToken(), { domain: domain, expires: dateExpire })
+        const idToken = await user.getIdToken()
+        const dateExpire = new Date(parseJwt(idToken ?? "").exp * 1000)
+        Cookies.set("idToken", idToken, { domain: domain, expires: dateExpire })
       }
     })
   }, [config])

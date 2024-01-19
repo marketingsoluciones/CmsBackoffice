@@ -6,10 +6,12 @@ import { InputTime } from "../../formularios/Inputs/InputTime";
 import { EventContextProvider } from "../../../context/EventContext";
 import { fetchApiEventos, queries } from "../../../utils/Fetching";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import { AuthContextProvider } from "../../../context";
 
 
 
 export const Task = ({ itinerario, task }) => {
+  const { domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider()
   const initialValues = {
     icon: !task?.icon ? "" : task?.icon,
@@ -30,7 +32,8 @@ export const Task = ({ itinerario, task }) => {
           taskID: task._id,
           variable,
           valor: variable == "responsable" ? JSON.stringify(valor) : valor
-        }
+        },
+        domain
       })
       setEvent((old) => {
         const f1 = old.itinerarios_array.findIndex(elem => elem._id === itinerario._id)
@@ -51,7 +54,8 @@ export const Task = ({ itinerario, task }) => {
           eventID: event._id,
           itinerarioID: itinerario._id,
           taskID: task._id,
-        }
+        },
+        domain
       })
       setEvent((old) => {
         const f1 = old.itinerarios_array.findIndex(elem => elem._id === itinerario._id)
