@@ -48,6 +48,38 @@ const SocketProvider: FC<any> = ({ children }): JSX.Element => {
     }
   }, [user])
 
+  useEffect(() => {
+    socket?.on("connect", () => {
+      console.log(1445411144, socket)
+      console.log(1.00003, "Conectado", new Date().toLocaleString('es-VE', { timeZone: 'america/Caracas' }))
+    })
+    socket?.on("disconnect", (reason) => {
+      console.log(1.00003, "Desconectado", new Date().toLocaleString('es-VE', { timeZone: 'america/Caracas' }),
+        reason)
+    })
+    socket?.on("connect_error", (error) => {
+      console.log(1.00003, "Connect_error", new Date().toLocaleString('es-VE', { timeZone: 'america/Caracas' }),
+        error)
+    })
+    socket?.io.on("ping", () => { console.log(1.00003, "ping", new Date().toLocaleString('es-VE', { timeZone: 'america/Caracas' })) })
+    socket?.io.on("reconnect", (attempt) => {
+      console.log(1.00003, "ping", new Date().toLocaleString('es-VE', { timeZone: 'america/Caracas' }),
+        attempt)
+    })
+    socket?.io.on("reconnect_attempt", (attempt) => {
+      console.log(1.00003, "ping", new Date().toLocaleString('es-VE', { timeZone: 'america/Caracas' }),
+        attempt)
+    })
+    socket?.io.on("reconnect_error", (error) => {
+      console.log(1.00003, "ping", new Date().toLocaleString('es-VE', { timeZone: 'america/Caracas' }),
+        error)
+    })
+    socket?.io.on("reconnect_failed", () => {
+      console.log(1.00003, "ping", new Date().toLocaleString('es-VE', { timeZone: 'america/Caracas' }))
+    })
+
+  }, [socket])
+
   return (
     <SocketContext.Provider value={{ socket, fatherID }}>
       {children}
