@@ -124,14 +124,19 @@ const AuthProvider = ({ children }) => {
         console.info(8000042, "Verificando cookie", user?.uid, asd?.user_id);
         if (user?.uid !== asd?.user_id) {
           console.log("entro para loguear de nuevo")
-          const resp = await fetchApi({
+          fetchApi({
             query: queries.authStatus,
             variables: { sessionCookie },
             development: config?.name
-          });
-          const customToken = resp?.customToken
-          customToken && signInWithCustomToken(getAuth(), customToken);
-          console.info("Hago sesion con el custom token*****");
+          }).then((asdf) => {
+            const customToken = asdf?.customToken
+            console.info("Llamo con mi sessionCookie para traerme customToken");
+            console.info("Custom token", customToken)
+            customToken && signInWithCustomToken(getAuth(), customToken).then(
+              setVerificandoCookie(true)
+            )
+            console.info("Hago sesion con el custom token****");
+          })
         }
         if (sessionCookie) {
           console.info("Tengo cookie de sesion", user);
