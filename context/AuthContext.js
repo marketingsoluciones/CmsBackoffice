@@ -127,7 +127,7 @@ const AuthProvider = ({ children }) => {
           const resp = await fetchApi({
             query: queries.authStatus,
             variables: { sessionCookie },
-            development: config?.development
+            development: config?.name
           });
           const customToken = resp?.customToken
           customToken && signInWithCustomToken(getAuth(), customToken);
