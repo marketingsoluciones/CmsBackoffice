@@ -11,6 +11,8 @@ export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
 
   const item = data?.data?.find(el => (el.metadata.grupo === elem && el.metadata.tipo === optionSelect))
 
+  console.log("items",item)
+
   return (
     < div className="md:h-[200px] flex md:flex-row flex-col items-center md:items-start  justify-center bg-white rounded-lg px-5 py-5 md:space-x-4 md:space-y-0 space-y-3">
 
@@ -24,11 +26,11 @@ export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
 
           <p className="text-xl">{item?.name}</p>
 
-          <div className="text-base flex items-center md:pr-14">
-            <button onClick={() => setOptionSelect("basic")} className={` border rounded-l-md p-1 ${optionSelect !== "premium" ? "border-rosa text-rosa bg-gray-100  transition delay-80" : ""}`}>
-              basico
+          <div className="text-base flex items-center md:pr-14 ">
+            <button onClick={() => setOptionSelect("basic")} className={`capitalize border rounded-l-md p-1 ${optionSelect !== "premium" ? "border-rosa text-rosa bg-gray-100  transition delay-80" : ""}`}>
+              básico
             </button>
-            <button onClick={() => setOptionSelect("premium")} className={` border rounded-r-md p-1 ${optionSelect == "premium" ? "text-white bg-rosa" : ""}`}>
+            <button onClick={() => setOptionSelect("premium")} className={`capitalize border rounded-r-md p-1 ${optionSelect == "premium" ? "text-white bg-rosa" : ""}`}>
               premium
             </button>
           </div>
@@ -81,8 +83,7 @@ export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
     </div >
   )
 }
-//Especial para fotógrafos. Brinda a tus clientes una plataforma óptima e intuitiva para descargar las fotografías de su eventos además de organizar tus proyectos, facturas y contratos.
-//Gestiona la descarga de fotográfias de tus eventos además automatiza tus presupuestos y contratos.
+
 
 const InfoModulos = ({ item, viewInfo, setViewInfo }) => {
   const [showInfo, setShowInfo] = useState(false)
