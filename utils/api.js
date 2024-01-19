@@ -1,7 +1,7 @@
 import axios from "axios"
 import { getAuth } from "firebase/auth";
 import Cookies from 'js-cookie';
-import { io } from "socket.io-client";
+import { Manager, io } from "socket.io-client";
 import { parseJwt } from "./Authentication";
 
 const instance = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL })
@@ -53,7 +53,10 @@ export const api = {
     },
 
     socketIO: ({ token, development, father, origin }) => {
-        const socket = io(process.env.NEXT_PUBLIC_BASE_URL ?? "", {
+        const manager = new Manager(process.env.NEXT_PUBLIC_BASE_URL ?? "", {
+            closeOnBeforeunload: true
+        })
+        const socket = manager.socket("/", {
             auth: {
                 token: `Bearer ${token}`,
                 development,
