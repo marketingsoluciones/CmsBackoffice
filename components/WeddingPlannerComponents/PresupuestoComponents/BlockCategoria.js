@@ -14,8 +14,10 @@ import CellEdit from "./CellEdit";
 import CellPagado from "./CellPagado";
 import SubComponentePagos from "./SubComponentePagos";
 import { useId } from "react";
+import { AuthContextProvider } from "../../../context";
 
 const BlockCategoria = ({ cate, set }) => {
+  const { domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider()
   const [categoria, setCategoria] = useState({});
   const [data, setData] = useState([]);
@@ -89,7 +91,7 @@ const BlockCategoria = ({ cate, set }) => {
                 }`,
                 variables: {},
               }
-              const { data: res } = await api.ApiApp(params);
+              const { data: res } = await api.ApiApp(params, domain);
               data = res?.data?.borraGasto
             } catch (error) {
               console.log(error);
@@ -160,7 +162,7 @@ const BlockCategoria = ({ cate, set }) => {
         variables: {},
       };
 
-      const { data } = await api.ApiApp(params);
+      const { data } = await api.ApiApp(params, domain);
       res = data.data.nuevoGasto;
     } catch (error) {
       console.log(error);

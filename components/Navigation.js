@@ -2,7 +2,7 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 import { Avatar, Flex, MenuButton, Menu, MenuList, Text, IconButton, Center, Image } from "@chakra-ui/react";
 import Link from 'next/link';
 import { useAuthentication } from "../utils/Authentication";
-import { SearchIcon, CloseIcon, TarjetaIcon, UserMenuIcon, RegaloIcon, SalirIcon, CorazonPaddinIcon, RedireccionIcon } from "../components/Icons/index";
+import { SearchIcon, CloseIcon, TarjetaIcon, UserMenuIcon, RegaloIcon, SalirIcon, CorazonPaddinIcon, RedireccionIcon, ArrowDownIcon, ArrowDownBodasIcon } from "../components/Icons/index";
 import algoliasearch from "algoliasearch";
 import { InstantSearch, connectSearchBox, Hits } from "react-instantsearch-dom";
 import { createURL } from "../utils/UrlImage"
@@ -81,7 +81,6 @@ export const Navigation = ({ set, state, }) => {
     { title: `Version: ${packageJson?.version}` },
   ]
 
-
   return (
     <Flex bg={"white"} shadow={"sm"} w={"100%"} padding={"0.5rem"} className="z-50" >
       <Flex alignItems={"center"} justifyContent={"space-between"} w={"100%"} gap={{ base: "1", md: "4" }} >
@@ -95,7 +94,7 @@ export const Navigation = ({ set, state, }) => {
           <Menu >
             <MenuButton mr={"0.5rem"}>
               <Flex gap={"2"} >
-                <Center >
+                {/* <Center >
                   {screen.width > 764 ?
                     <Text className="text-right truncate" textTransform={"capitalize"}>
                       {user?.displayName}
@@ -106,7 +105,7 @@ export const Navigation = ({ set, state, }) => {
                       </Text>
                       : <></>
                   }
-                </Center>
+                </Center> */}
                 <Flex alignItems={"center"} gap={"0.5rem"}>
                   {user?.photoURL ?
                     <Flex w={"32px"} h={"32px"} borderColor={"gray.400"} rounded={"full"} isTruncated>
@@ -115,11 +114,21 @@ export const Navigation = ({ set, state, }) => {
                     : <Avatar h={"32px"} w={"32px"} />
                   }
                 </Flex>
+                <Flex alignItems={"center"} gap={"0.5rem"}>
+                  <ArrowDownBodasIcon className="w-5 h-5 rotate-90 transform cursor-pointer" />
+                </Flex>
               </Flex>
             </MenuButton>
             <MenuList p={"0"} fontSize={"sm"} ml={"8"}>
+              <div className="w-full border-b border-gray-100 py-2">
+                <p className="text-gray-500 uppercase tracking-wider text-center cursor-default">
+                  {user?.role && user?.role?.length > 0 && user?.role[0]}
+                </p>
+                <h3 className="text-rosa font-medium w-full text-center cursor-default ">
+                  {user?.displayName}
+                </h3>
+              </div>
               {Options?.map((item, idx) => (
-
                 <div key={idx} className="border-b space-y-1  px-5 py-2">
                   <div className="flex items-center font-semibold ">
                     {item?.icon}

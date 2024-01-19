@@ -12,6 +12,7 @@ import { SelectField } from './Inputs/SelectField';
 import { BooleanSwitch } from './FormInvitado';
 /* import * as yup from 'yup' */
 import useHover from "../../hooks/useHover";
+import { AuthContextProvider } from '../../context';
 
 /* const msgAuto = ({ path }) => `${capitalize(path)} requerido` */
 
@@ -24,6 +25,7 @@ import useHover from "../../hooks/useHover";
 }) */
 
 const FormEditarInvitado = ({ state, set, invitado, setInvitadoSelected }) => {
+  const { domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider();
   /* const toast = useToast() */
   const [hoverRef, isHovered] = useHover();
@@ -71,7 +73,7 @@ const FormEditarInvitado = ({ state, set, invitado, setInvitadoSelected }) => {
             variable,
             value
           },
-          token: ""
+          domain
         })
         setEvent((old) => {
           const newGuests = old.invitados_array.map(guest => {

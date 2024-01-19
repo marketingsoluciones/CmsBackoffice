@@ -44,7 +44,7 @@ export const InfoPlantillaMenuPage = ({ actionButton, setActionButton, setCompon
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        product: "prod_OxUsU7DJsvRwJ8",
+                                        product: "prod_PMUcMPf9xFhKM4",
                                         plan: "premium",
                                         originPath: "cateringBodas",
                                         stateOriginPath: "1"
@@ -58,7 +58,7 @@ export const InfoPlantillaMenuPage = ({ actionButton, setActionButton, setCompon
                                 pathname: "/facturacion",
                                 query: {
                                     state: 1,
-                                    product: "prod_OxUsU7DJsvRwJ8",
+                                    product: "prod_PMUcMPf9xFhKM4",
                                     plan: "premium",
                                     originPath: "cateringBodas",
                                     stateOriginPath: "1"

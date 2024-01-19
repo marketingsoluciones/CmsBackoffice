@@ -132,8 +132,6 @@ export const FormDinamical = forwardRef(
       setSchema(state);
     }, [state]);
     let colorBaground = "white"
-    //colorBaground = { base: "red", sm: "orange", md: "green", lg: "blue", xl: "violet", '2xl': "yellow" }
-
     return (
       <>
         {modal.show ? (
@@ -153,11 +151,11 @@ export const FormDinamical = forwardRef(
             {({ values, setValues }) => {
               return (
                 <Form onChange={() => { !changedForm && setChangedForm(true) }}>
-                  <Grid /* templateColumns={["repeat(1, 1fr)", , , , "repeat(5, 1fr)"]} */  className="grid grid-cols-5 gap-[1rem]" /* gap={"1rem"} */ >
+                  <Grid className="grid grid-cols-1 md:grid-cols-5 gap-[1rem] " gap={"1rem"} >
 
                     {/* columna izquierda */}
-                    <div bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} colSpan={[1, , , , , 4]} className="col-span-3 px-[1rem]  rounded-xl  bg-white " >
-                      <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(6, 1fr)"]} gap={"1rem"}>
+                    <div bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} className="col-span-3 px-[1rem]  rounded-xl  bg-white " >
+                      <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(6, 1fr)"]} gap={"1rem"} >
                         {schema &&
                           schema?.map((item, idx) => {
                             const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
@@ -188,6 +186,7 @@ export const FormDinamical = forwardRef(
                                     />
                                   </GridItem>
                                 );
+                                break;
                               case "stringL":
                                 return (
                                   <GridItem colSpan={[1, , , , 6]} key={idx}>
@@ -332,7 +331,7 @@ export const FormDinamical = forwardRef(
                                 break;
                               case "questions":
                                 return (
-                                  <GridItem colSpan={[1, , , , 6]} key={idx}>
+                                  <GridItem colSpan={[1, , , , 5]} key={idx}>
                                     <QuestionInputsForBusiness
                                       name={item.accessor}
                                       label={item.Header}
@@ -367,7 +366,6 @@ export const FormDinamical = forwardRef(
                                 return (
                                   <div key={idx} onClick={() => setAlertDev(!alertDev)}>
                                     <GridItem colSpan={[1, , , , 6]} >
-                                      {/* <SeoDev /> */}
                                     </GridItem>
                                   </div>
                                 );
@@ -378,60 +376,44 @@ export const FormDinamical = forwardRef(
                       </Grid>
                     </div>
 
-                    {/* {sm: "red", md: "green", lg: "blue", xl: "violet", '2xl': "yellow" } */}
-
                     {/* columna derecha */}
-                    <div bg={colorBaground} p={"1rem"} shadow={"sm"} rounded={"xl"} /*colSpan={{ base: 4, lg: 1 }}*/ className="col-span-2 px-[1rem] rounded-xl bg-white " >
+                    <div bg={colorBaground} shadow={"sm"} rounded={"xl"} className="col-span-2 px-[1rem] rounded-xl bg-white   " >
                       <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
-                      {schema &&
-                        schema?.map((item, idx) => {
-                          const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
-                          switch (valir && item.type) {
-                            case "Seudonimo":
-                              return (
-                                // <GridItem bg={"blue"} colSpan={[1, , , ,  1]} key={idx}>
-                                <Seudonimo
-                                  key={idx}
-                                  modal={modal}
-                                  setModal={setModal}
-                                  nickName={nickName}
-                                  setNickName={setNickName}
-                                />
-                                //</GridItem>
-                              );
-                              break
-                            case "image":
-                              return (
-                                <UploadImage
-                                  key={idx}
-                                  name={item.accessor}
-                                  label={item.Header}
-                                  typeFile={item.typeFile}
-                                />
-                              );
-                              break
-                            case "imageMultiple":
-                              return (
-                                <MultipleImages
-                                  name={item.accessor}
-                                  label={item.Header}
-                                  key={idx}
-                                />
-                              );
-                              break;
-                            case "fieldArray":
-                              return (
-                                <FieldArrayField
-                                  key={idx}
-                                  name={item.accessor}
-                                  label={item.Header}
-                                  schema={item.schema}
-                                />
-                              );
-                              break;
-                          }
-                        })
-                      }
+                        {schema &&
+                          schema?.map((item, idx) => {
+                            const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
+                            switch (valir && item.type) {
+                              case "image":
+                                return (
+                                  <UploadImage
+                                    key={idx}
+                                    name={item.accessor}
+                                    label={item.Header}
+                                    typeFile={item.typeFile}
+                                  />
+                                );
+                                break
+                              case "imageMultiple":
+                                return (
+                                  <MultipleImages
+                                    name={item.accessor}
+                                    label={item.Header}
+                                    key={idx}
+                                  />
+                                );
+                                break;
+                              case "fieldArray":
+                                return (
+                                  <FieldArrayField
+                                    key={idx}
+                                    name={item.accessor}
+                                    label={item.Header}
+                                    schema={item.schema}
+                                  />
+                                );
+                                break;
+                            }
+                          })}
                       <InfoForm
                         Information={Information}
                         state={state}

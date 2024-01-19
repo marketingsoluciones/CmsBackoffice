@@ -24,7 +24,7 @@ export const useFetch = (toast = false) => {
         if (query.type === "json") {
           const {
             data: { data },
-          } = await api.GraphQL(query);
+          } = await api.ApiBodas(query);
           setData(Object.values(data)[0]);
 
           //Form data
@@ -80,7 +80,7 @@ export const useFetch = (toast = false) => {
             }
           });
 
-          const { data } = await api.GraphQL(formData, "", {
+          const { data } = await api.ApiBodas(formData, "", {
             headers: {
               "Content-Type": "multipart/form-data",
             },

@@ -48,7 +48,7 @@ export const ProyectoInfoPage = ({ setComponentState }) => {
                                 pathname: "/facturacion",
                                 query: {
                                     state: 1,
-                                    product: "prod_OxV4HJxhbtL5wU",
+                                    product: "prod_PMUYQSBgRHL79y",
                                     plan: "Premium",
                                     originPath: "fotografo",
                                     stateOriginPath: "1"
@@ -60,7 +60,7 @@ export const ProyectoInfoPage = ({ setComponentState }) => {
                         pathname: "/facturacion",
                         query: {
                             state: 1,
-                            product: "prod_OxV4HJxhbtL5wU",
+                            product: "prod_PMUYQSBgRHL79y",
                             plan: "Premium",
                             originPath: "fotografo",
                             stateOriginPath: "1"

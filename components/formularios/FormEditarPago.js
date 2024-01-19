@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import { api } from "../../utils/api";
 
 // importaciones contextos
-import { EventContextProvider } from "../../context";
+import { AuthContextProvider, EventContextProvider } from "../../context";
 import { CheckIcon } from "../Icons/index";
 import { InputFieldGlobal } from "./Inputs/InputFieldGlobal";
 
@@ -36,6 +36,7 @@ const validacion = (values) => {
 }
 
 const FormEditarPago = ({ ListaPagos, IDPagoAModificar, IDs, set, state }) => {
+  const { domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider()
   const [pago, setPago] = useState(ListaPagos?.find(item => item._id == IDPagoAModificar))
 
@@ -102,7 +103,7 @@ const FormEditarPago = ({ ListaPagos, IDPagoAModificar, IDs, set, state }) => {
         let res
         try {
           actions.setSubmitting(true)
-          const { data } = await api.ApiApp(params)
+          const { data } = await api.ApiApp(params, domain)
           res = data?.data?.editPago
         } catch (error) {
           console.log(error)
@@ -121,7 +122,7 @@ const FormEditarPago = ({ ListaPagos, IDPagoAModificar, IDs, set, state }) => {
               //Actualizar pagado en gasto
               old.presupuesto_objeto.categorias_array[idxCategoria].gastos_array[idxGasto].pagado = res?.categorias_array[0]?.gastos_array[0].pagado
             }
-            if(values.pagado !== checkbox[pago?.estado]){
+            if (values.pagado !== checkbox[pago?.estado]) {
               //Actualizar estado en gasto
               old.presupuesto_objeto.categorias_array[idxCategoria].gastos_array[idxGasto].pagos_array[idxPago].estado = res?.categorias_array[0]?.gastos_array[0].pagos_array[0].estado
             }
@@ -151,7 +152,7 @@ export const BasicFormLogin = ({
   const [ischecked, setCheck] = useState(values.pagado)
 
   useEffect(() => {
-    values.pagado=ischecked
+    values.pagado = ischecked
   }, [ischecked])
 
 
@@ -194,8 +195,8 @@ export const BasicFormLogin = ({
           onChange={handleChange}
           value={values.fechaVencimiento}
           type="date"
-          autoComplete="off" 
-          className="px-2 md:px-4"/>
+          autoComplete="off"
+          className="px-2 md:px-4" />
         <InputFieldGlobal
           name="pagado_por"
           label="Pagado por"

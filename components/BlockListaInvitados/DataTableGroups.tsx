@@ -10,6 +10,7 @@ import { DataTableGroupContextProvider, DataTableGroupProvider, } from "../../co
 import { fetchApiEventos, queries } from "../../utils/Fetching";
 import { useToast } from "../../hooks/useToast";
 import { guests } from "../../utils/Interfaces";
+import { AuthContextProvider } from "../../context";
 
 interface propsDatatableGroup {
   GruposArray: string[];
@@ -26,9 +27,10 @@ interface guestsExt extends guests {
 
 
 const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIsMounted, menu = [] }) => {
+  const { domain } = AuthContextProvider()
   const toast = useToast()
-  const { event, setEvent, invitadoCero, setInvitadoCero, allFilterGuests, planSpaceActive, setPlanSpaceActive, filterGuests  } = EventContextProvider();
-  const [datas, setData] = useState<{  titulo: string; data: guestsExt[] }[]>([]);
+  const { event, setEvent, invitadoCero, setInvitadoCero, allFilterGuests, planSpaceActive, setPlanSpaceActive, filterGuests } = EventContextProvider();
+  const [datas, setData] = useState<{ titulo: string; data: guestsExt[] }[]>([]);
   console.log(datas)
 
   useEffect(() => {
@@ -66,7 +68,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
   }, [allFilterGuests]);
 
   const handleMoveGuest = (invitadoID, table) => {
-   
+
   }
 
 
@@ -152,7 +154,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
                   variable: reemplazar,
                   value: value
                 },
-                token: ""
+                domain
               });
               return {
                 ...arr[rowIndex],
@@ -207,7 +209,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
           return (
             <div
               className="flex justify-start items-center truncate py-2 pr-3 cursor-pointer"
-              /* onClick={handleClick} */
+            /* onClick={handleClick} */
             >
               <img
                 className="block w-10 h-10 mr-2"
@@ -418,7 +420,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
                   })}
                   <li
                     className="bg-tertiary cursor-pointer flex gap-2 items-center py-4 px-6 font-display text-sm text-gray-500 hover:bg-base hover:text-gray-700 transition w-full capitalize"
-                    /* onClick={() => router.push("/mesas")} */
+                  /* onClick={() => router.push("/mesas")} */
                   >
                     Añadir mesa
                   </li>
@@ -477,7 +479,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
                   })}
                   <li
                     className="bg-gray-300 cursor-pointer flex gap-2 items-center py-4 px-6 font-display text-sm text-gray-500 hover:bg-base hover:text-gray-700 transition w-full capitalize"
-                    /* onClick={() => router.push("/mesas")} */
+                  /* onClick={() => router.push("/mesas")} */
                   >
                     Añadir mesa
                   </li>
@@ -504,7 +506,7 @@ const DatatableGroup: FC<propsDatatableGroup> = ({ setSelected, isMounted, setIs
                 variables: {},
               };
 
-              await api.ApiApp(params);
+              await api.ApiApp(params, domain);
             } catch (error) {
               console.log(error);
             } finally {
@@ -642,6 +644,7 @@ export default DatatableGroup;
 
 
 const CheckBoxAll: FC<any> = ({ check, ...rest }) => {
+  const { domain } = AuthContextProvider()
   const {
     dataTableGroup: { arrIDs, checkedAll },
     dispatch,
@@ -664,35 +667,35 @@ const CheckBoxAll: FC<any> = ({ check, ...rest }) => {
   };
 
   const eliminarTodo = async () => {
-     try {
-       const { invitados_array }: any = await fetchApiEventos({
-         query: queries.removeGuests,
-         variables: {
-           eventID: event._id,
-           guests: arrIDs,
-         },
-         token:""
-       });
-       setEvent((old) => ({
-         ...old,
-         invitados_array,
-       }));
-       dispatch({ type: "RESET_STATE" });
-       toast("success", "Invitado eliminado con exito"); 
-     } catch (error) {
-       console.log(error);
-       toast("error", "Ha ocurrido un error");
-     }
+    try {
+      const { invitados_array }: any = await fetchApiEventos({
+        query: queries.removeGuests,
+        variables: {
+          eventID: event._id,
+          guests: arrIDs,
+        },
+        domain
+      });
+      setEvent((old) => ({
+        ...old,
+        invitados_array,
+      }));
+      dispatch({ type: "RESET_STATE" });
+      toast("success", "Invitado eliminado con exito");
+    } catch (error) {
+      console.log(error);
+      toast("error", "Ha ocurrido un error");
+    }
   };
 
   const OptionList = [{ texto: "Eliminar", icono: "", funcion: eliminarTodo }];
 
-    useEffect(() => {
-      const { indeterminate } = getToggleAllRowsSelectedProps();
-      if (refCheckbox?.current?.indeterminate) {
-        refCheckbox.current.indeterminate = indeterminate;
-      }
-    }, [refCheckbox, arrIDs, getToggleAllRowsSelectedProps]);
+  useEffect(() => {
+    const { indeterminate } = getToggleAllRowsSelectedProps();
+    if (refCheckbox?.current?.indeterminate) {
+      refCheckbox.current.indeterminate = indeterminate;
+    }
+  }, [refCheckbox, arrIDs, getToggleAllRowsSelectedProps]);
 
   return (
     <div className="h-8 w-full grid grid-cols-12 items-center">

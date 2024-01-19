@@ -4,8 +4,10 @@ import { CochinoIcon } from "../../Icons/index";
 import { getCurrency } from "./Funciones";
 import { EventContextProvider } from "../../../context/EventContext";
 import { api } from "../../../utils/api";
+import { AuthContextProvider } from "../../../context";
 
 export const MontoPresupuesto = ({ estimado }) => {
+    const { domain } = AuthContextProvider()
     const [modificar, setModificar] = useState(false);
     const [value, setValue] = useState(estimado?.toFixed(2));
     const [mask, setMask] = useState();
@@ -64,7 +66,7 @@ export const MontoPresupuesto = ({ estimado }) => {
         }
         let datos;
         try {
-            const { data } = await api.ApiApp(params)
+            const { data } = await api.ApiApp(params, domain)
             datos = data.data.editPresupuesto
         } catch (error) {
             console.log(error)

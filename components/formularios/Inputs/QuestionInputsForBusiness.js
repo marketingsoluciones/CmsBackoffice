@@ -74,10 +74,9 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
                   {label}
                 </Flex>
                 {meta.touched && meta.error && <Popup title={`${label} ${meta.error} `} arrow={"top"} />}
-
               </FormLabel>
 
-              <Grid templateColumns={"repeat(3, 1fr)"} gap={{ base: "0.2rem", md: "1rem" }} alignItems={"start"}>
+              <div templateColumns={"repeat(2, 1fr)"} gap={{ base: "0.2rem", md: "1rem" }} alignItems={"start"} className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {!isError &&
                   !isLoading &&
                   catBusiness?.results
@@ -109,7 +108,7 @@ const QuestionInputsForBusiness = memo(({ label, values, setValues, ...props }) 
                         </Checkbox>
                       );
                     })}
-              </Grid>
+              </div>
             </Box>
           );
         }}

@@ -2,7 +2,7 @@ import { AuthContextProvider } from "../context/AuthContext"
 import { SimpleGrid, Stat, StatLabel, StatNumber } from "@chakra-ui/react"
 import { InfoPage } from "./IndexPageComponents/InfoPage.js"
 import { ModulosEspeciales } from "./IndexPageComponents/ModulosEspeciales.js"
-import { CategoriasIcon, FotografoMenu, LugaresBodas, WeddingPlanner } from "./Icons/index"
+import { CategoriasIcon, Catering, FotografoMenu, LugaresBodas, WeddingPlanner } from "./Icons/index"
 
 
 export const IndexPage = () => {
@@ -12,21 +12,21 @@ export const IndexPage = () => {
         {
             img: "/photoIndex/directorio.png",
             title: "Publica tus servicios",
-            texto: "Crea tu ficha y promociona tus servicios",
+            texto: "Crea tu perfil para acceder a todos los beneficios de nuestra plataforma.",
             button: "Ver más",
             route: "InfoPage/marcas"
         },
         {
             img: "/photoIndex/calendario.png",
             title: "Comunicación directa",
-            texto: "vincula tu cronograma con tus eventos y mantén comunicación con los novios",
+            texto: "Mantén comunicación directa con los novios, proveedores, lista de invitados.",
             button: "Ver más",
             route: "calendario"
         },
         {
             img: "/photoIndex/app.png",
             title: "Gestiona tus eventos",
-            texto: "de forma simultánea y con la diversidad que necesites",
+            texto: "Crea cuantos eventos desees de forma simultanea. Aforos grandes o pequeños",
             button: "Ver más",
             route: "eventos"
         },
@@ -39,7 +39,7 @@ export const IndexPage = () => {
             route: "lugaresBodas"
         },
         {
-            icon: <CategoriasIcon />,
+            icon: <Catering />,
             texto: "Catering para bodas",
             route: "cateringBodas"
         },
@@ -61,10 +61,10 @@ export const IndexPage = () => {
                 if (development == "bodasdehoy") {
                     return (
                         <>
-                            <p className=" hidden md:block text-slate-600 mt-1 px-5 text-3xl text-rosa">
+                            <p className=" hidden md:block mt-1 px-5 text-3xl text-rosa">
                                 Panel De Gestión Para Empresas
                             </p>
-                            <p className=" md:hidden  text-slate-600 mt-1 px-5 text-3xl text-rosa">
+                            <p className=" md:hidden mt-1 px-5 text-3xl text-rosa">
                                 Panel De Gestión 
                             </p>
                             <div className=" w-full px-5 py-2 space-y-2 ">

@@ -56,14 +56,14 @@ const reducer = (state: Event[], action: action) => {
 const EventsGroupProvider = ({ children }) => {
   const router = useRouter();
   const [eventsGroup, setEventsGroup] = useReducer<Reducer<Event[], action>>(reducer, []);
-  const { user } = AuthContextProvider();
+  const { user, domain } = AuthContextProvider();
 
   useEffect(() => {
     if (user) {
       fetchApiEventos({
         query: queries?.getEventsByID,
         variables: { userID: user?.uid },
-        token: ""
+        domain
       })
         .then((events: Event[]) => {
           setEventsGroup({ type: "INITIAL_STATE", payload: events })

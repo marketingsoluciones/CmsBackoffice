@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { fetchApiEventos, queries } from "../../utils/Fetching";
 /* import { useToast } from '../../hooks/useToast' */
 import { Lista } from "./SwiperEventCreados";
+import { AuthContextProvider } from "../../context";
 
 export const defaultImagenes = {
   boda: "/cards/boda.webp",
@@ -20,6 +21,7 @@ export const defaultImagenes = {
 };
 
 const CardComponent = ({ data, grupoStatus, idx, viewResumen, setViewResumen }) => {
+  const { domain } = AuthContextProvider()
   const [hoverRef, isHovered] = useHover();
   const [refArchivar, isArchivar] = useHover();
   const [refBorrar, isBorrar] = useHover();
@@ -27,7 +29,7 @@ const CardComponent = ({ data, grupoStatus, idx, viewResumen, setViewResumen }) 
   const { event, setEvent, idxGroupEvent, setIdxGroupEvent } = EventContextProvider();
   const router = useRouter();
 
-  
+
   const handleClick = () => {
     try {
       setEvent(data[idx]);
@@ -46,7 +48,7 @@ const CardComponent = ({ data, grupoStatus, idx, viewResumen, setViewResumen }) 
       const result = fetchApiEventos({
         query: queries.eventUpdate,
         variables: { idEvento: data[idx]?._id, variable: "estatus", value },
-        token: null
+        domain
       })
       if (!result || result.errors) {
         throw new Error("Ha ocurrido un error")
@@ -64,7 +66,7 @@ const CardComponent = ({ data, grupoStatus, idx, viewResumen, setViewResumen }) 
         setTimeout(() => {
           setIdxGroupEvent({ idx: 0, isActiveStateSwiper: 0, event_id: data[idx]?._id })
         }, 50);
-       /*  router.push("/resumen-evento"); */
+        /*  router.push("/resumen-evento"); */
       }
 
       if (idxGroupEvent?.idx == idx && value == "archivado") {
@@ -88,7 +90,7 @@ const CardComponent = ({ data, grupoStatus, idx, viewResumen, setViewResumen }) 
     try {
       const result = fetchApiEventos({
         query: queries.eventDelete,
-        variables: { eventoID: data[idx]?._id }
+        variables: { eventoID: data[idx]?._id }, domain
       })
       if (!result || result.errors) {
         throw new Error("Ha ocurrido un error")
@@ -108,7 +110,7 @@ const CardComponent = ({ data, grupoStatus, idx, viewResumen, setViewResumen }) 
   }
 
   const className = "bg-secondary absolute transition rounded-r-xl px-3 py-1 font-display text-xs text-gray-700* text-white right-0 top-1/2 *-translate-y-1/2 transform translate-x-[-6%] z-50"
-  
+
   return (
     <div ref={hoverRef} className={`w-max h-full relative grid place-items-center bg-white* transition ${isHovered ? "transform scale-105 duration-700" : ""} `}>
       {isArchivar ? (
@@ -141,29 +143,29 @@ const CardComponent = ({ data, grupoStatus, idx, viewResumen, setViewResumen }) 
       {idx == idxGroupEvent?.idx && idxGroupEvent?.isActiveStateSwiper == Lista.findIndex(elem => elem.value == grupoStatus) ? <div className="w-[304px] h-40 bg-gray-300 absolute rounded-xl" /> : <></>}
       {
         data && <div onClick={handleClick} className={`w-72 h-36 rounded-xl cardEvento z-[8] cursor-pointer shadow-lg relative overflow-hidden my-4 `}>
-        <img
-          src={defaultImagenes[data[idx]?.tipo]}
-          className="object-cover w-full h-full absolute top-0 left-0 object-top "
-        />
-        <div className="relative w-full h-full z-10 p-4 pb-2 flex flex-col justify-between ">
-          <span className="text-xs font-display text-white capitalize">
-            {data[idx]?.tipo == "otro" ? "mi evento especial" : data[idx]?.tipo}
-          </span>
-          <div className="flex flex-col ">
-            <span className="capitalize text-lg font-display text-white">
-               {data[idx]?.nombre}
+          <img
+            src={defaultImagenes[data[idx]?.tipo]}
+            className="object-cover w-full h-full absolute top-0 left-0 object-top "
+          />
+          <div className="relative w-full h-full z-10 p-4 pb-2 flex flex-col justify-between ">
+            <span className="text-xs font-display text-white capitalize">
+              {data[idx]?.tipo == "otro" ? "mi evento especial" : data[idx]?.tipo}
             </span>
-            <span className="mt-[-4px] uppercase text-xs font-display text-white">
-              {`${new Date(parseInt(data[idx]?.fecha)).toLocaleDateString("es-VE", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}`}
-            </span>
-            <span className="mt-[-4px] uppercase text-xs font-display text-white">
-               {data[idx]?.estatus}
-            </span>
+            <div className="flex flex-col ">
+              <span className="capitalize text-lg font-display text-white">
+                {data[idx]?.nombre}
+              </span>
+              <span className="mt-[-4px] uppercase text-xs font-display text-white">
+                {`${new Date(parseInt(data[idx]?.fecha)).toLocaleDateString("es-VE", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}`}
+              </span>
+              <span className="mt-[-4px] uppercase text-xs font-display text-white">
+                {data[idx]?.estatus}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
       }
-      
+
       <style jsx>
         {`
           .cardEvento::before {

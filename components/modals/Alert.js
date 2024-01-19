@@ -8,7 +8,7 @@ export const ModalAlert = ({ setModal, modal, id, handleRemoveItem }) => {
             <div className="z-50 fixed top-0 left-0 w-screen h-screen overflow-hidden" />
             <div className="backdrop-blur backdrop-filter bg-gray-919EAB opacity-10 z-50 fixed top-0 left-0 w-screen h-screen overflow-hidden " />
             <div className="space-y-4 bg-white w-max h-fit shadow-lg fixed m-auto inset-0 z-50 rounded-xl px-10 py-5">
-                <h1 className="text-xl ">Estas seguro de que deseas eliminar este registro ?</h1>
+                <h1 className="text-xl ">¿Estás seguro de que deseas eliminar este registro?</h1>
                 <div className="flex justify-center items-center gap-3">
                     <button className="bg-botonBack h-10 w-20 rounded-lg text-white" onClick={() => setModal(!modal)}>Descartar</button>
                     <ActionsCell id={id} handleRemoveItem={handleRemoveItem} modal={modal} setModal={setModal} />
@@ -24,14 +24,19 @@ export const ModalMasivoAlert = ({ setModalMasivo, modalMasivo, onClickList, han
             <div className="z-50 fixed top-0 left-0 w-screen h-screen overflow-hidden" />
             <div className="backdrop-blur backdrop-filter bg-gray-919EAB opacity-10 z-50 fixed top-0 left-0 w-screen h-screen overflow-hidden " />
             <div className="space-y-4 bg-white w-max h-fit shadow-lg fixed m-auto inset-0 z-50 rounded-xl px-10 py-5">
-                <h1 className="text-xl ">Estas seguro de que deseas eliminar estos registros ?</h1>
-                <div className="flex justify-center items-center gap-3">
-                    <button className="bg-botonBack h-10 w-20 rounded-lg text-white" onClick={() => setModalMasivo(!modalMasivo)}>Descartar</button>
-                    <Button
+                <h1 className="text-xl ">¿Estás seguro de que deseas eliminar estos registros?</h1>
+                <div className="flex justify-center items-center gap-3 ">
+                    <button
+                        className="bg-botonBack h-10 w-20 rounded-lg text-white text-base font-base"
+                        onClick={() => setModalMasivo(!modalMasivo)}
+                    >
+                        Descartar
+                    </button>
+                    <button
                         transition={"all"}
-                        bg={"red.400"}
                         color={"white"}
-                        _hover={{ bg: "red.500" }}
+                        _hover={{ bg: "red.100" }}
+                        className="flex items-center gap-2 bg-rosa h-10 w-20 rounded-lg justify-center text-white"
                         onClick={() => {
                             [handleRemoveItem(onClickList), setModalMasivo(!modalMasivo)]
                         }}
@@ -49,7 +54,7 @@ export const ModalMasivoAlert = ({ setModalMasivo, modalMasivo, onClickList, han
                             <DeleteIcon />
                             Eliminar
                         </Text>
-                    </Button>
+                    </button>
                 </div>
             </div>
         </>
@@ -62,7 +67,7 @@ export const DeleteModall = ({ setModal, modal, handleRemove }) => {
             <div className="z-50 fixed top-0 left-0 w-screen h-screen overflow-hidden" />
             <div className="backdrop-blur backdrop-filter bg-gray-919EAB opacity-10 z-50 fixed top-0 left-0 w-screen h-screen overflow-hidden " />
             <div className="space-y-4 bg-white w-max h-fit shadow-lg fixed m-auto inset-0 z-50 rounded-xl px-10 py-5">
-                <span className="text-xl ">Estas seguro de que deseas eliminar este registro ?</span>
+                <span className="text-xl ">¿Estás seguro de que deseas eliminar este registro?</span>
                 <div className="flex justify-center items-center gap-3">
                     <button className="bg-botonBack h-10 w-20 rounded-lg text-white text-sm" onClick={() => setModal(!modal)}>Descartar</button>
                     <Button
@@ -75,11 +80,10 @@ export const DeleteModall = ({ setModal, modal, handleRemove }) => {
                             handleRemove()
                             setModal(!modal)
                         }}
-                        className='text-sm flex items-center gap-2 bg-red-600 h-10 w-20 rounded-lg justify-center text-white'>
+                        className='text-sm flex items-center gap-2 bg-rosa h-10 w-20 rounded-lg justify-center text-white'>
                         <DeleteIcon />
                         <span>Eliminar</span>
                     </Button>
-                    {/*  <IconButton size={"sm"} onClick={() => [setModal(!modal),handleRemoveItem(id)]} icon={<DeleteIcon />} /> */}
                 </div>
             </div>
         </>

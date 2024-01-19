@@ -9,7 +9,7 @@ import { EventsGroupContextProvider } from "../../context/EventsGroupContext";
 import { useState } from "react";
 import { useToast } from "../../hooks/useToast"
 export const FormCrearEvento = ({ state, set }) => {
-    const { user } = AuthContextProvider()
+    const { user, domain } = AuthContextProvider()
     const { setEventsGroup, eventsGroup } = EventsGroupContextProvider();
     const toast = useToast()
     const [valir, setValir] = useState(false)
@@ -46,6 +46,7 @@ export const FormCrearEvento = ({ state, set }) => {
             const crearEvento = await fetchApiEventos({
                 query: queries.eventCreate,
                 variables: values,
+                domain
             });
             if (crearEvento) {
                 setEventsGroup({ type: "ADD_EVENT", payload: crearEvento });

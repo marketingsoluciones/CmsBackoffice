@@ -13,7 +13,7 @@ export const fetchApi = async ({
     if (type === "json") {
       const {
         data: { data },
-      } = await api.GraphQL({ query, variables }, development);
+      } = await api.ApiBodas({ query, variables }, development);
       return Object.values(data)[0]
 
       //Form data
@@ -71,7 +71,7 @@ export const fetchApi = async ({
 
       const {
         data: { data },
-      } = await api.GraphQL(formData, development, {
+      } = await api.ApiBodas(formData, development, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -82,10 +82,10 @@ export const fetchApi = async ({
   };
 }
 
-export const fetchApiEventos = async ({ query, variables, token }) => {
+export const fetchApiEventos = async ({ query, variables, domain }) => {
   const {
     data: { data },
-  } = await api.ApiApp({ query, variables }, token);
+  } = await api.ApiApp({ query, variables }, domain);
   return Object.values(data)[0];
 };
 
@@ -98,6 +98,15 @@ export const queries = {
   }`,
   createCheckoutSession: `mutation ($pricesIDs:[String], $email:String, $cancel_url:String){
     createCheckoutSession(pricesIDs:$pricesIDs, email:$email, cancel_url:$cancel_url)
+  }`,
+  getGeoInfo: `query  {
+    getGeoInfo {
+      referer
+      acceptLanguage
+      loop
+      connectingIp
+      ipcountry
+    }
   }`,
   getUser: `query ($uid: ID) {
         getUser(uid:$uid){
@@ -145,6 +154,46 @@ export const queries = {
           customToken
         }
       }`,
+  editTask: `mutation ($eventID:String, $itinerarioID:String, $taskID:String, $variable:String, $valor:String){
+        editTask(eventID:$eventID itinerarioID:$itinerarioID  taskID:$taskID  variable:$variable  valor:$valor )
+      }`,
+
+  createTask: `mutation ($eventID:String, $itinerarioID:String, $hora:String, $duracion:Int){
+        createTask(eventID:$eventID itinerarioID:$itinerarioID  hora:$hora, duracion:$duracion ){
+          _id
+          hora
+          icon
+          descripcion
+          responsable
+          duracion
+          tips
+          estatus
+          fecha_creacion
+        }
+      }`,
+
+  deleteTask: `
+  mutation  ( $eventID:String, $itinerarioID:String, $taskID:String  ) {
+    deleteTask ( eventID:$eventID  itinerarioID:$itinerarioID  taskID:$taskID)
+  }`,
+
+  createItinerario: `mutation ($eventID:String, $title:String){
+        createItinerario(eventID:$eventID title:$title ){
+          _id
+          title
+          tasks{
+            _id
+            hora
+            duracion
+          }
+        }
+      }`,
+
+  deleteItinerario: `
+  mutation  ( $eventID:String, $itinerarioID:String ) {
+    deleteItinerario ( eventID:$eventID  itinerarioID:$itinerarioID  )
+  }`,
+
   createNickName: `
   mutation  (
     $uid : ID!,
@@ -431,6 +480,21 @@ export const queries = {
         fecha_creacion
         fecha_lectura
         mensaje
+      }
+      itinerarios_array{
+        _id
+        title
+        tasks{
+          _id
+          hora
+          icon
+          descripcion
+          responsable
+          duracion
+          tips
+          estatus
+        }
+        estatus
       }
       planSpaceSelect
       planSpace{

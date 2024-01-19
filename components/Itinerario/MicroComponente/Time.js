@@ -1,20 +1,11 @@
-import {
-    Editable,
-    EditableInput,
-    EditableTextarea,
-    EditablePreview,
-    Input,
-} from '@chakra-ui/react'
-import { Divider } from '@chakra-ui/react'
-
 export const Time = () => {
     return (
         <>
-            <div className='w-full flex flex-col items-center justify-center relative'>
-                <Input  type='time'/>
-            </div>
-
-
+            <input
+                type="textd"
+                className=" text-[40px] block w-full bg-transparent px-3 py-[0.32rem] outline-none transition-all duration-200 "
+                placeholder='05:30'
+            />
         </>
     )
 }

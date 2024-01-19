@@ -4,6 +4,7 @@ import { api } from "../../utils/api";
 import { InputFieldGlobal } from "./Inputs/InputFieldGlobal";
 import { EventContextProvider } from "../../context/EventContext";
 import { capitalize } from "../../utils/Capitalize";
+import { AuthContextProvider } from "../../context";
 
 const validacion = (values) => {
   let errors = {};
@@ -15,6 +16,7 @@ const validacion = (values) => {
 };
 
 const FormEditarCategoria = ({ set, state, categoria }) => {
+  const { domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider()
   return (
     <Formik
@@ -34,7 +36,7 @@ const FormEditarCategoria = ({ set, state, categoria }) => {
 
         try {
           actions.setSubmitting(true);
-          await api.ApiApp(params);
+          await api.ApiApp(params, domain);
         } catch (error) {
           console.log(error);
         } finally {

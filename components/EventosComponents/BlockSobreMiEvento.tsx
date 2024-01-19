@@ -10,6 +10,7 @@ import { EventsGroupContextProvider } from "../../context/EventsGroupContext";
 import { EventContextProvider } from "../../context/EventContext";
 import { useToast } from "../../hooks/useToast";
 import InputFieldTSX from "../formularios/Inputs/InputFieldTSX";
+import { AuthContextProvider } from "../../context";
 
 
 
@@ -29,6 +30,7 @@ const InsideBlockWithButtons: FC<propsInsideBlock> = ({
   setEditing,
   setFieldValue
 }) => {
+  const { domain } = AuthContextProvider()
   const toast = useToast()
   const { event, setEvent } = EventContextProvider()
   return (
@@ -39,7 +41,7 @@ const InsideBlockWithButtons: FC<propsInsideBlock> = ({
           {...item}
           onClick={async () => {
             try {
-              const result: any = await fetchApiEventos({ query: queries.eventUpdate, variables: { idEvento: event._id, variable: title, value: item.title }, token: null })
+              const result: any = await fetchApiEventos({ query: queries.eventUpdate, variables: { idEvento: event._id, variable: title, value: item.title }, domain })
               if (result.errors) {
                 throw new Error("Hubo un error")
               }
@@ -59,6 +61,7 @@ const InsideBlockWithButtons: FC<propsInsideBlock> = ({
 };
 
 const InsideBlockWithForm: FC<propsInsideBlock> = ({ setEditing, setFieldValue, title, values }) => {
+  const { domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider()
   console.log("values", values)
   return (
@@ -67,7 +70,7 @@ const InsideBlockWithForm: FC<propsInsideBlock> = ({ setEditing, setFieldValue, 
         try {
           const result: any = await fetchApiEventos({
             query: queries.eventUpdate,
-            variables: { idEvento: event._id, variable: title, value: values.title }, token: null
+            variables: { idEvento: event._id, variable: title, value: values.title }, domain
           })
           if (result?.errors) {
             throw new Error("Hubo un error")

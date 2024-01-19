@@ -11,6 +11,11 @@
   /* Firefox */
 }
 
+.swiper-pagination-bullet-active {
+  background: #f7628c !important;
+}
+
+
 .swiper-horizontal>.swiper-pagination-bullets,
 .swiper-pagination-bullets.swiper-pagination-horizontal {
   bottom: 0 !important;
@@ -103,4 +108,8 @@
   background: rgb(253, 127, 127);
   position: relative;
   z-index: 998;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background: none;
 }

@@ -13,7 +13,18 @@ export const authentication = {
   },
 };
 
+export const parseJwt = (token) => {
+  if (token) {
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
 
+    return JSON.parse(jsonPayload);
+  }
+  return {}
+}
 
 export const useAuthentication = () => {
   const toast = useToast();
@@ -26,9 +37,11 @@ export const useAuthentication = () => {
     Cookies.remove(config?.cookie, { domain: domainCookie });
     Cookies.remove("idToken", { domain: domainCookie });
     setUser(null);
-    await signOut(getAuth());
-    const path = window.origin.includes("://test") ? config?.domain.replace("//", "//test.") : config?.domain
-    await router.push(path);
+    getAuth().signOut()
+    setTimeout(async () => {
+      const path = window.origin.includes("://test") ? config?.domain.replace("//", "//test.") : config?.domain
+      await router.push(path);
+    }, 500);
     toast({
       status: "success",
       title: "Gracias por visitarnos, te esperamos luego 😀",

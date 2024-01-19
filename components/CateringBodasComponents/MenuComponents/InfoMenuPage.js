@@ -48,7 +48,7 @@ export const InfoMenuPage = ({ setComponentState }) => {
                             pathname: "/facturacion",
                             query: {
                                 state: 1,
-                                product: "prod_OxRe06SGEhPqhi",
+                                product: "prod_PMUcDPRC5C7vJk",
                                 plan: "basic",
                                 originPath: "cateringBodas",
                                 stateOriginPath: "1"
@@ -68,7 +68,7 @@ export const InfoMenuPage = ({ setComponentState }) => {
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        product: "prod_OxRe06SGEhPqhi",
+                                        product: "prod_PMUcDPRC5C7vJk",
                                         plan: "basic",
                                         originPath: "cateringBodas",
                                         stateOriginPath: "1"
@@ -77,7 +77,7 @@ export const InfoMenuPage = ({ setComponentState }) => {
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        product: "prod_OxUsU7DJsvRwJ8",
+                                        product: "prod_PMUcMPf9xFhKM4",
                                         plan: "premium",
                                         originPath: "cateringBodas",
                                         stateOriginPath: "1"

@@ -1,19 +1,12 @@
 import { AuthContextProvider } from "../../../context"
 import { WebsTable } from "./CustomWebsTable"
+import Section1 from "./Section1"
 
 export const CustomWebsControl = () => {
     const { state, dispatch } = AuthContextProvider()
     return (
         <div className=" ">
-            {state.type === "view" && (
-                <WebsTable dispatch={dispatch} />
-            )}
-            {/* {state.type === "vieww" && (
-                <FormDinamicalNEW setAction={dispatch} slug={"business"} state={state} />
-            )}
-            {["edit", "create"].includes(state.type) && (
-                <PanelEditAndCreate setAction={dispatch} slug={"business"} state={state} />
-            )} */}
+          <Section1/>
         </div>
     )
 }

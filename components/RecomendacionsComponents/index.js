@@ -1,0 +1,7 @@
+export * from "./FondosCard"
+export * from "./RecomnedacionesBoddy"
+export * from "./GananciasCard"
+export * from "./RecomendacionesHeader"
+export * from "./RecomendacionesPageC"
+export * from "./OptionsTable"
+export * from "./RcDataTable"

@@ -10,7 +10,7 @@ export class UploadAdapter {
 
   async upload() {
     try {
-      if(this.file){
+      if (this.file) {
         const fd = new FormData();
         const params = {
           query: `mutation ($file :Upload!){
@@ -30,13 +30,13 @@ export class UploadAdapter {
         fd.append("operations", JSON.stringify(params));
         fd.append("map", JSON.stringify(map));
         fd.append("image", this.file); // your image
-        
+
         const {
           data: { data },
-        } = await api.GraphQL(fd);
+        } = await api.ApiBodas(fd);
         return Object.values(data)[0];
       }
-      
+
     } catch (error) {
       console.error("Server Error : ", error);
       return "Server Error";

@@ -5,8 +5,8 @@ import { ArrowDownIcon } from "./Icons/index"
 export const EventoSelect = () => {
     const { event, setEvent } = EventContextProvider()
     const { eventsGroup } = EventsGroupContextProvider()
-    const EventArry = eventsGroup.reduce((acc, el) => acc.concat(el.nombre), [])
-    const EventArryReverse = EventArry.reverse()
+    const EventArry = eventsGroup?.reduce((acc, el) => acc.concat(el.nombre), [])
+    const EventArryReverse = EventArry?.reverse()
 
     const handleChange = (item) => {
         try {

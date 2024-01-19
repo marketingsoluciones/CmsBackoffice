@@ -20,7 +20,7 @@ export const OptionsForm = ({ alertDev, setAlertDev, schema, user }) => {
                     <Button
                         size={"sm"}
                         width={"100%"}
-                        bg={"#15803d"}
+                        bg={"#FF5887"}
                         _hover={false}
                         fontFamily={""}
                         textColor={"white"}
@@ -32,7 +32,7 @@ export const OptionsForm = ({ alertDev, setAlertDev, schema, user }) => {
                 <Button
                     size={"sm"}
                     width={"50%"}
-                    bg={"#15803d"}
+                    bg={"#FF5887"}
                     _hover={false}
                     fontFamily={""}
                     textColor={"white"}

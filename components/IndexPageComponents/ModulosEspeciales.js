@@ -1,10 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { useRouter } from "next/router"
 
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/autoplay'
+import 'swiper/css/autoplay';
+import 'swiper/css/pagination';
 
 export const ModulosEspeciales = ({ DataModulos }) => {
     const router = useRouter()
@@ -13,7 +14,7 @@ export const ModulosEspeciales = ({ DataModulos }) => {
         <>
 
             <div className="px-10 space-y-3">
-                <p className="text-xl text-rosa ">Navega en los Módulos especiales</p>
+                <p className="md:text-xl text-rosa text-[15.5px] ">Navega en los módulos especiales</p>
 
                 <div className='hidden md:block'>
                     <div className="grid grid-cols-4">
@@ -38,7 +39,8 @@ export const ModulosEspeciales = ({ DataModulos }) => {
                         spaceBetween={0}
                         slidesPerView={1}
                         autoplay
-                        modules={[ Autoplay]}
+                        pagination={{ clickable: true }}
+                        modules={[Navigation, Autoplay, Pagination]}
                     >
                         {
                             DataModulos.map((item, idx) => {

@@ -44,7 +44,7 @@ export const ItinerarioInfoPage = ({ setOptionSelect, setComponentState, idxComp
             <div onClick={() => setComponentState(idxComponent)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
-            <p className="mt-1 text-3xl text-rosa">
+            <p className="mt-1 text-3xl text-rosa font-semibold">
                 Intinerarios
             </p>
             <div className="bg-white rounded-lg  h-[calc(100%-245px)] md:h-[calc(100%-145px)] overflow-auto  ">
