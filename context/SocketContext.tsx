@@ -10,6 +10,7 @@ import { AuthContextProvider } from ".";
 import { api } from '../utils/api';
 import Cookies from "js-cookie";
 import { nanoid } from 'nanoid'
+import { parseJwt } from "../utils/Authentication";
 
 
 type Context = {
@@ -32,9 +33,12 @@ const SocketProvider: FC<any> = ({ children }): JSX.Element => {
   const [fatherID, setfatherID] = useState<string>(initialContext.fatherID);
 
   useEffect(() => {
+    console.log("=======> User", user)
     const token = Cookies.get("idToken")
+    console.log("=======> parseJwt", parseJwt(token))
+    console.log("=======> development", config?.name)
     if (token && !socket?.connected) {
-      console.log("Conecta...")
+      console.log("=======> Conecta...")
       setSocket(api.socketIO({
         token,
         development: config?.name,
