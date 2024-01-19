@@ -46,8 +46,10 @@ export const InfoPlanoEventoPage = ({ actionButton, setActionButton, setComponen
                             pathname: "/facturacion",
                             query: {
                                 state: 1,
-                                producto: "12",
-                                plan: "basic"
+                                producto: "prod_PMUcYCmtkWDXd3",
+                                plan: "basic",
+                                originPath: "lugaresBodas",
+                                stateOriginPath: "1"
                             }
                         })} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
                             {/*  Inicia prueba gratis de 30 días */} Empezar
@@ -65,15 +67,19 @@ export const InfoPlanoEventoPage = ({ actionButton, setActionButton, setComponen
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "12",
-                                        plan: "basic"
+                                        producto: "prod_PMUcYCmtkWDXd3",
+                                        plan: "basic",
+                                        originPath: "lugaresBodas",
+                                        stateOriginPath: "1"
                                     }
                                 })}> BÁSICA</span> O<span className="font-semibold cursor-pointer text-amarillo" onClick={() => router.push({
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "12",
-                                        plan: "premium"
+                                        producto: "prod_PMUcvm8WKdtGkL",
+                                        plan: "premium",
+                                        originPath: "lugaresBodas",
+                                        stateOriginPath: "1"
                                     }
                                 })}> PREMIUM </span>
                             </p>

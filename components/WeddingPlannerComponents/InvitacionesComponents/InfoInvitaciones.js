@@ -26,8 +26,10 @@ export const InfoInvitaciones = ({ setComponentState }) => {
                                     pathname: "/facturacion",
                                     query: {
                                         state: 1,
-                                        producto: "56",
-                                        plan: "basic"
+                                        producto: "prod_PMUbVB2mDsPhHC",
+                                        plan: "basic",
+                                        originPath: "",
+                                        stateOriginPath: ""
                                     }
                                 })} className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
                                     {/* Inicia prueba gratis de 30 días */} Empezar
@@ -45,15 +47,19 @@ export const InfoInvitaciones = ({ setComponentState }) => {
                                         pathname: "/facturacion",
                                         query: {
                                             state: 1,
-                                            producto: "56",
-                                            plan: "basic"
+                                            producto: "prod_PMUbVB2mDsPhHC",
+                                            plan: "basic",
+                                            originPath: "",
+                                            stateOriginPath: ""
                                         }
                                     })} > BÁSICA O </span> <span className="text-amarillo cursor-pointer" onClick={() => router.push({
                                         pathname: "/facturacion",
                                         query: {
                                             state: 1,
-                                            producto: "56",
-                                            plan: "premium"
+                                            producto: "prod_PMUcU0Ypf50hVC",
+                                            plan: "premium",
+                                            originPath: "",
+                                            stateOriginPath: ""
                                         }
                                     })} >PREMIUM </span>
                                 </p>
