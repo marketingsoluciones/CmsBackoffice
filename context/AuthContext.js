@@ -120,7 +120,11 @@ const AuthProvider = ({ children }) => {
     try {
       getAuth().onAuthStateChanged(async (user) => {
         const sessionCookie = Cookies.get(config?.cookie);
-        console.info("Verificando cookie", sessionCookie);
+        const asd = parseJwt(sessionCookie)
+        console.info(8000042, "Verificando cookie", user?.uid, asd?.user_id);
+        if (user?.uid !== asd?.user_id) {
+          sessionCookie && signInWithCustomToken(getAuth(), sessionCookie)
+        }
         if (sessionCookie) {
           console.info("Tengo cookie de sesion", user);
           if (user) {
