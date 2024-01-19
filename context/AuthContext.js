@@ -129,6 +129,7 @@ const AuthProvider = ({ children }) => {
             variables: { sessionCookie },
             development: config?.name
           }).then((asdf) => {
+            console.log(11145, "asdf", asdf)
             const customToken = asdf?.customToken
             console.info("Llamo con mi sessionCookie para traerme customToken");
             console.info("Custom token", customToken)
