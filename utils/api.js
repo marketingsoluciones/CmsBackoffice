@@ -11,15 +11,17 @@ export const api = {
     ApiBodas: async (data, development) => {
         const domain = `.${development}`
         let idToken = Cookies.get("idToken")
-        if (getAuth().currentUser) {
-            //idToken = Cookies.get("idToken")
-            if (!idToken) {
-                idToken = await getAuth().currentUser?.getIdToken(true)
-                const dateExpire = new Date(parseJwt(idToken ?? "").exp * 1000)
-                Cookies.set("idToken", idToken ?? "", { domain, expires: dateExpire })
+        try {
+            if (getAuth().currentUser) {
+                if (!idToken) {
+                    idToken = await getAuth().currentUser?.getIdToken(true)
+                    const dateExpire = new Date(parseJwt(idToken ?? "").exp * 1000)
+                    Cookies.set("idToken", idToken ?? "", { domain, expires: dateExpire })
+                }
             }
+        } catch (error) {
+            //
         }
-
         if (!development) {
             development = data?.variables?.domain
         }
@@ -33,13 +35,16 @@ export const api = {
 
     ApiApp: async (params, domain) => {
         let idToken = Cookies.get("idToken")
-        if (getAuth().currentUser) {
-            //idToken = Cookies.get("idToken")
-            if (!idToken) {
-                idToken = await getAuth().currentUser?.getIdToken(true)
-                const dateExpire = new Date(parseJwt(idToken ?? "").exp * 1000)
-                Cookies.set("idToken", idToken ?? "", { domain, expires: dateExpire })
+        try {
+            if (getAuth().currentUser) {
+                if (!idToken) {
+                    idToken = await getAuth().currentUser?.getIdToken(true)
+                    const dateExpire = new Date(parseJwt(idToken ?? "").exp * 1000)
+                    Cookies.set("idToken", idToken ?? "", { domain, expires: dateExpire })
+                }
             }
+        } catch (error) {
+            //
         }
         return await instanceAPP.post("/graphql", params, {
             headers: {
