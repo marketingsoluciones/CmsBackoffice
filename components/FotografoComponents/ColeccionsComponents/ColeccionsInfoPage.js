@@ -1,4 +1,4 @@
-import { ArrowLeft, DescargaIcon, DiamanteIcon, FotoBgIcon } from "../../Icons/index"
+import { ArrowLeft, DescargaIcon, DiamanteIcon, DiamanteSinFondoIcon, FotoBgIcon } from "../../Icons/index"
 import { useRouter } from "next/router"
 
 export const ColeccionesInfoPage = ({ setComponentState }) => {
@@ -16,17 +16,18 @@ export const ColeccionesInfoPage = ({ setComponentState }) => {
         },
     ]
     return (
-        <div className="h-[100vh]">
+        <div className="">
             <div onClick={() => setComponentState(2)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
-            <p className="  mt-1 text-3xl text-rosa">
+            <p className="  mt-1 text-3xl text-rosa flex items-center ">
                 Colecciones
+                <DiamanteSinFondoIcon className="text-acento ml-1"/>
             </p>
-            <div className="bg-white rounded-lg md:h-[calc(100%-110px)] h-[calc(100%-220px)] overflow-auto">
+            <div className="bg-white rounded-lg md:h-[calc(100%-80px)]* *h-[calc(100%-220px)] overflow-auto">
                 <div className="md:grid md:grid-cols-2 px-10 py-10">
                     <div>
-                        <p className="text-xl">
+                        <p className="text-xl text-azulCorporativo font-semibold">
                             <span className="text-rosa"> Amplia tu exposición y atrae más clientes </span> con tus colecciones de fotos
                         </p>
                         <div className="text-yellow-500 flex items-center space-x-1 my-2  text-base cursor-default">
@@ -63,7 +64,7 @@ export const ColeccionesInfoPage = ({ setComponentState }) => {
                         <img src="coleccionesFoto.png" alt="colecciones fotografo" />
                     </div>
                 </div>
-                <div className="bg-gray-100 px-16 py-5">
+                <div className="bg-grayInformativo px-16 py-5">
                     <p className="text-base text-center">
                         <span className="text-rosa">Publicar las colecciones de fotos y videos de tus eventos </span> es una forma estratégica de destacar tu talento fotográfico. Más aún, si lo hacen dentro de canales como tu EventosOrganizador.
                     </p>

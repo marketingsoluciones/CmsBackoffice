@@ -67,7 +67,7 @@ export const InfoLugaresBodas = ({ setOptionSelect, setModalContacto, modalConta
                         organiza de forma óptima e intuitiva los detalles para presentarlos a tus clientes, controla desde la distribución de los salones hasta la lista de invitados de cada evento.
                     </p>
                 </div>
-                <div className="bg-gray-200 flex items-center  md:relative w-[100%]">
+                <div className="bg-grayInformativo flex items-center  md:relative w-[100%]">
                     <div className="md:z-10 flex items-center justify-stat *md:block *hidden  ">
                         <img src="/lugarBoda.png" alt="alta" className="absolute" />
                     </div>
