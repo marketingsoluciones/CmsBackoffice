@@ -14,7 +14,7 @@ export const PersonasContactoTable = ({ modalPersona, setModalPersona }) => {
             <div className="space-y-4 w-full  ">
                 <div>
 
-                    <p className=" text-slate-600 mt-1 text-3xl text-rosa ">
+                    <p className="mt-1 text-3xl text-rosa ">
                         Personas
                     </p>
 

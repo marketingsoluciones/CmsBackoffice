@@ -8,7 +8,7 @@ export const InfoInvitaciones = ({ setComponentState }) => {
             <div onClick={() => setComponentState(4)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
-            <p className="  mt-1 text-3xl text-rosa">
+            <p className="  mt-1 text-3xl text-rosa font-semibold">
                 Invitaciones
             </p>
             <div className="h-[calc(100%-240px)] md:h-[calc(100%-145px)] overflow-auto">
@@ -20,7 +20,7 @@ export const InfoInvitaciones = ({ setComponentState }) => {
                             <img src="/InvitacionesInfo.png" alt="Invitaciones informacion" />
                         </div>
                         <div className="space-y-2 flex flex-col items-center justify-center md:pr-20">
-                            <p className="text-base">Eleva el confort en la comunicación con tu lista de invitados. Ahora tus invitaciones te brindan el canal perfecto <span className="text-rosa"> para que tus invitados confirmen su asistencia o comenten a través de ellas. </span></p>
+                            <p className="text-base text-azulCorporativo">Eleva el confort en la comunicación con tu lista de invitados. Ahora tus invitaciones te brindan el canal perfecto <span className="text-rosa"> para que tus invitados confirmen su asistencia o comenten a través de ellas. </span></p>
                             <div className="w-full">
                                 <button onClick={() => router.push({
                                     pathname: "/facturacion",

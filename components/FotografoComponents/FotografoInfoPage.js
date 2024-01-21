@@ -1,46 +1,47 @@
 import { CoronaIcon } from "../Icons/index"
 
-export const FotografoInfoPage = ({modalContacto, setModalContacto, setOptionSelect}) => {
+export const FotografoInfoPage = ({ modalContacto, setModalContacto, setOptionSelect }) => {
     const dataArry = [
 
         {
             img: "Modulo1Foto.png",
             title: "Colecciones",
-            text: "Crea colecciones de cada uno de tus eventos, añadido a tus usuarios al agregar un enlace de descarga a las fotos o videos para ellos.",
+            text: "Crea colecciones de las mejores fotos de tus eventos y comparte cada uno de sus momentos memorables.",
             button: "Ver más",
             rout: "0",
         },
         {
             img: "Modulo2Foto.png",
             title: "Proyectos",
-            text: "Lleva el control de tus servicios profesionales automatizando facturas, contratos y datos de cada evento. ",
+            text: "Lleva el control de tus servicios profesionales.  Automatiza la gestión de tus contratos, facturas y datos de tus eventos. ",
             button: "Ver más",
             rout: "1",
         },
     ]
 
     return (
-        <div className="h-[100vh] px-5 py-2 ">
-            <p className=" mt-1 text-3xl text-rosa">
+        <div className="  px-5">
+            <p className=" mt-1 text-3xl text-rosa font-semibold">
                 Fotógrafos
             </p>
-            <div className="bg-white rounded-xl flex flex-col h-[calc(100%-245px)] md:h-[calc(100%-110px)] overflow-auto">
+          
+            <div className="bg-white rounded-xl flex flex-col md:h-[calc(100%-10px)] h-[calc(100%-200px)] overflow-auto">
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-14">
-                    <p className="text-xl text-gray-600 text-center ">
+                    <p className="text-[25px] text-azulCorporativo text-center font-semibold ">
                         <span className="text-rosa">Amplia tu exposición </span> y atrae más clientes
                     </p>
 
-                    <p className="text-base text-gray-600 md:px-10 text-center md:text-left">
+                    <p className="text-base text-azulCorporativo md:px-10 text-center md:text-left">
                         Con el
                         <span className="text-rosa"> Módulo Fotográfos  </span>
-                        automatiza tus proyectos, contratos y facturas además de brindarle a tus clientes una forma óptima e intuitiva para descargar las fotografias de su evento.
+                        automatiza la gestión de tus proyectos, contratos y facturas con el módulo fotógrafos de tu EventosOrganizador.  Brinda a tus clientes una plataforma optima e intuitiva para descargar las fotografías de su eventos.
                     </p>
                 </div>
-                <div className="bg-gray-200 flex  md:relative">
-                    <div className="md:z-10 hidden md:block  ">
-                        <img src="/CamaraBG.png " alt="weddin planner" className="absolute" />
+                <div className="bg-grayInformativo flex justify-center  md:relative w-[100%]">
+                    <div className="md:z-10 *flex items-center justify-stat md:block hidden  ">
+                        <img src="/camaraBG.png " alt="Fotografo" className="absolute" />
                     </div>
-                    <div className="flex flex-col items-center space-y-5 py-14 md:z-20 ">
+                    <div className="flex flex-col items-center  justify-center space-y-10 md:space-y-5 py-14 md:z-20 w-full ">
                         {
                             dataArry.map((item, idx) => {
                                 return (
@@ -104,7 +105,7 @@ export const FotografoInfoPage = ({modalContacto, setModalContacto, setOptionSel
                             Óbtenla activando la <span className="text-amarillo font-semibold"> VERSIÓN GOLD </span>
                         </p>
                     </div>
-                    <button onClick={()=>setModalContacto(!modalContacto)} className="bg-amarillo px-4 py-1 rounded-lg text-white text-base">
+                    <button onClick={() => setModalContacto(!modalContacto)} className="bg-amarillo px-4 py-1 rounded-lg text-white text-base">
                         Contactar
                     </button>
                 </div>

@@ -1,17 +1,23 @@
-import { CorazoncirculoIcon, DiamanteIcon } from "../Icons/index"
+import { CorazonCirculoIcon, CorazoncirculoIcon, DiamanteIcon, DiamanteSinFondoIcon } from "../Icons/index"
 import { useRouter } from "next/router"
 
 export const InfoContactosPage = () => {
     const router = useRouter()
     return (
-        <div className="h-[100vh] px-5 py-2 ">
-            <p className=" mt-1 text-3xl text-rosa">
-                wedding Planner
-            </p>
-            <div className="bg-white rounded-lg h-[calc(100%-200px)] md:h-[calc(100%-110px)] overflow-auto">
+        <div className=" px-5 py-2 h-[calc(100%)] ">
+            <div className="flex items-center space-x-1 ">
+                <p className=" mt-1 text-3xl text-rosa">
+                    wedding Planner
+                </p>
+                <div className="flex items-center space-x-1">
+                    <CorazonCirculoIcon />
+                    <DiamanteSinFondoIcon className="text-acento"/>
+                </div>
+            </div>
+            <div className="bg-white rounded-lg  md:h-[calc(100%-50px)] overflow-auto">
                 <div className="md:grid md:grid-cols-2 justify-content-center px-10 py-8">
                     <div className="flex items-center justify-center md:px-14">
-                        <p className="text-xl"><span className="text-rosa font-semibold"> Coordina los datos </span> de todos quienes forman parte y hacen posible tu evento.</p>
+                        <p className="text-xl text-azulCorporativo text-center md:text-left"><span className="text-rosa font-semibold"> Coordina los datos </span> de todos quienes forman parte y hacen posible tu evento.</p>
                     </div>
                     <div>
                         <img src="infoContactos.png" alt="infoContactos" />
@@ -19,15 +25,15 @@ export const InfoContactosPage = () => {
                 </div>
                 <div className="md:grid md:grid-cols-2 bg-gray-100 px-10 py-8" >
                     <div className="pl">
-                        <p className="text-base">
-                            <span className="text-rosa " >Concentrar todos los detalles en un mismo lugar es clave </span> para tengas el control de las comunicaciones y las acciones programadas con cada persona en tu lista.
+                        <p className="text-base text-center md:text-left">
+                            <span className="text-rosa  " >Concentrar todos los detalles en un mismo lugar es clave </span> para tengas el control de las comunicaciones y las acciones programadas con cada persona en tu lista.
                         </p>
                     </div>
                     <div className="col-span-1 flex flex-col justify-center items-center">
-                       {/*  <button  className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
+                        {/*  <button  className="bg-rosa text-base text-white px-2 py-1 rounded-lg">
                             Inicia prueba gratis de 30 días
                         </button> */}
-                        <div className=" flex items-center justify-center space-x-1 my-2 text-base cursor-default">
+                        <div className=" flex items-center justify-center space-x-1 my-2 text-base cursor-default ">
                             <div className="text-amarillo">
                                 <CorazoncirculoIcon />
                             </div>
