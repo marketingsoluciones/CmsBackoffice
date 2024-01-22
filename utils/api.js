@@ -10,13 +10,13 @@ const instanceAPP = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL_APP
 export const api = {
     ApiBodas: async (data, development) => {
         const domain = `.${development}`
-        let idToken = Cookies.get("idToken")
+        let idToken = Cookies.get("idTokenV0.1.0")
         try {
             if (getAuth().currentUser) {
                 if (!idToken) {
                     idToken = await getAuth().currentUser?.getIdToken(true)
                     const dateExpire = new Date(parseJwt(idToken ?? "").exp * 1000)
-                    Cookies.set("idToken", idToken ?? "", { domain, expires: dateExpire })
+                    Cookies.set("idTokenV0.1.0", idToken ?? "", { domain, expires: dateExpire })
                 }
             }
         } catch (error) {
@@ -34,13 +34,13 @@ export const api = {
     },
 
     ApiApp: async (params, domain) => {
-        let idToken = Cookies.get("idToken")
+        let idToken = Cookies.get("idTokenV0.1.0")
         try {
             if (getAuth().currentUser) {
                 if (!idToken) {
                     idToken = await getAuth().currentUser?.getIdToken(true)
                     const dateExpire = new Date(parseJwt(idToken ?? "").exp * 1000)
-                    Cookies.set("idToken", idToken ?? "", { domain, expires: dateExpire })
+                    Cookies.set("idTokenV0.1.0", idToken ?? "", { domain, expires: dateExpire })
                 }
             }
         } catch (error) {

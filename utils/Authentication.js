@@ -35,7 +35,7 @@ export const useAuthentication = () => {
     const domainCookie = `${domain}`
     await fetchApi({ query: queries.signOut, variables: { sessionCookie: Cookies.get(config?.cookie) }, development: domain })
     Cookies.remove(config?.cookie, { domain: domainCookie });
-    Cookies.remove("idToken", { domain: domainCookie });
+    Cookies.remove("idTokenV0.1.0", { domain: domainCookie });
     setUser(null);
     getAuth().signOut()
     setTimeout(async () => {

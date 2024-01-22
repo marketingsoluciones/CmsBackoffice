@@ -190,7 +190,7 @@ const AuthProvider = ({ children }) => {
       if (user && sessionCookie) {
         const idToken = await user.getIdToken()
         const dateExpire = new Date(parseJwt(idToken ?? "").exp * 1000)
-        Cookies.set("idToken", idToken, { domain: domain, expires: dateExpire })
+        Cookies.set("idTokenV0.1.0", idToken, { domain: domain, expires: dateExpire })
       }
     })
   }, [config])
