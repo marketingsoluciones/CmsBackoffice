@@ -116,7 +116,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
                         <img
                           className="relative w-[14.6px] h-[13.5px] [transform:_rotate(180deg)]"
                           alt=""
-                          src="/weddingPageFotos/vector2.png"
+                          src="/weddingPageFotos/Vector2.png"
                         />
                       </button>
                     </div>
