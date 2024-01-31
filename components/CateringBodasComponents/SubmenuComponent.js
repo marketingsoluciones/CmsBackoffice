@@ -23,7 +23,7 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
             {(() => {
                 if (screen.width > 640) {
                     return (
-                        <div className=" hidden md:block bg-gray-200 px-4 py-5 space-y-5 col-span-1">
+                        <div className=" hidden md:block bg-gray-200 px-4 py-5 space-y-5 col-span-1 ">
                             {
                                 router.pathname == "/business" ? null : eventsGroup?.length != 0 ? <EventoSelect /> : <ButtonEventForm isMounted={isMounted} setIsMounted={setIsMounted} />
                             }
@@ -32,12 +32,12 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
                                 dataComponents.map((item, idx) => {
                                     return (
                                         <div key={idx} onClick={() => onClick(idx)} className={`${optionSelect === idx ? " text-rosa " : ""} flex  items-center  space-x-3 cursor-pointer  `}>
-                                            <div className="h-full">
+                                            <div className="h-full text-gray-600">
                                                 {
                                                     item.icon
                                                 }
                                             </div>
-                                            <div className="text-sm">
+                                            <div className="text-sm text-azulCorporativo">
                                                 {
                                                     item.title
                                                 }
