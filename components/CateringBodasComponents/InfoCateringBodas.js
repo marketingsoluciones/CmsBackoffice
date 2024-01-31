@@ -6,21 +6,21 @@ export const InfoCateringBodas = ({ setOptionSelect, modalContacto, setModalCont
         {
             img: "CartaProductoP.png",
             title: "Carta de productos",
-            text: "Genera tu propia carta de productos agregando platos y bebidas para utilizar luego en la creación de tus menús para eventos.",
+            text: "Diseña la carta de productos que se identifique el tema de tu evento y tu buen paladar. Añadiendo todos tus platos y bebidas.",
             button: "Ver más",
             rout: "0",
         },
         {
             img: "PlantillaMenuP.png",
             title: "Plantilla de menú",
-            text: "Crea plantillas de menú para reutilizar en tus eventos y añadir a la versión app novios.",
+            text: "Crea tus propias plantillas de menú y genera tu propia base adaptable para todos tus eventos.  Añade tus plantillas en tu app novios.",
             button: "Ver más",
             rout: "1",
         },
         {
             img: "MenuP.png",
             title: "Menú",
-            text: "Asigna el menú a un evento, para llevar el control de platos y presentarselo a novios e invitados.",
+            text: "Asigna el menú de tu evento y lleva el control de los platos más su presentación a los novios e invitados.",
             button: "Ver más",
             rout: "2",
         },
@@ -41,33 +41,31 @@ export const InfoCateringBodas = ({ setOptionSelect, modalContacto, setModalCont
     ]
 
     return (
-        <div className="h-[100vh] px-5 py-2 ">
+        <div className=" px-5 py-2 ">
             <p className="  mt-1 text-3xl text-rosa">
-                Catering de bodas
+                Catering de Bodas
             </p>
-            <div className="bg-white rounded-xl md:h-[calc(100%-110px)] h-[calc(100%-200px)] overflow-auto">
+            <div className="bg-white rounded-xl md:h-[calc(100vh-125px)] h-[calc(100%-200px)] overflow-auto">
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-14">
-                    <p className="text-xl text-gray-600">
-                        <span className="text-rosa">Crea el menú de cada evento </span> para presentar a tus clientes
+                    <p className="md:text-[23px] text-[20px] text-azulCorporativo text-center md:text-left">
+                        <span className="text-rosa font-semibold">Armar una experiencia de degustación </span> a la altura de tu evento
                     </p>
 
-                    <p className="text-base text-gray-600 md:px-10">
+                    <p className="text-base text-azulCorporativo md:px-16 text-center">
                         Con el
-                        <span className="text-rosa"> Módulo Catering para Bodas </span>
-                        organiza los detalles del menú según el tipo de evento y lleva el control de alérgenos por invitado y su selección de platos.
+                        <span className="text-rosa font-semibold"> Módulo Catering para Bodas </span>
+                        garantiza el servicio profesional de todo lo que incluye y lleva el control de cada parte del catering de tu evento en nuestro planificador digital.
                     </p>
                 </div>
-                <div className="bg-gray-200 flex md:relative">
-
-                    <div className="flex flex-col items-center space-y-5 py-14 md:z-20 ">
+                <div className="bg-grayInformativo md:relative flex flex-col items-center justify-center space-y-10 md:space-y-5 py-14 md:z-20 ">
                         {
                             dataArry.map((item, idx) => {
                                 return (
-                                    <div key={idx} className="md:flex flex-cols md:flex-row w-full justify-center items-center space-x-5 ">
+                                    <div key={idx} className="md:flex flex-cols md:flex-row w-full justify-center items-center md:space-x-5 ">
                                         <div className="md:w-72 flex items-center justify-center">
                                             <img src={item.img} alt="s" />
                                         </div>
-                                        <div className="flex flex-col space-y-2 justify-center md:w-[40%]">
+                                        <div className="flex flex-col space-y-2 justify-center  md:w-[40%] text-center md:text-left px-5 md:px-0">
                                             <p className="text-rosa text-xl">
                                                 {item.title}
                                             </p>
@@ -84,7 +82,6 @@ export const InfoCateringBodas = ({ setOptionSelect, modalContacto, setModalCont
                                 )
                             })
                         }
-                    </div>
                 </div>
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-10">
                     <div className="md:grid md:grid-cols-2  justify-items-center content-center pb-3 md:space-y-0 space-y-5">
@@ -118,7 +115,7 @@ export const InfoCateringBodas = ({ setOptionSelect, modalContacto, setModalCont
                         </div>
                     </div>
                     <div>
-                        <p>
+                        <p className="text-center md:text-left">
                             Óbtenla activando la <span className="text-amarillo font-semibold"> VERSIÓN GOLD </span>
                         </p>
                     </div>

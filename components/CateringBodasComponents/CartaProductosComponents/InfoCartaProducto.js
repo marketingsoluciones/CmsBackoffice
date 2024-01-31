@@ -14,7 +14,7 @@ export const InfoCartaProducto = ({ actionButton, setActionButton, setComponentS
                 <ArrowLeft />
             </div>
             <p className=" mt-1 text-3xl text-rosa">
-                Carta de productos
+                Carta de Productos
             </p>
             <div className="flex flex-col items-center bg-white rounded-lg pt-8 h-[calc(100%-245px)] md:h-[calc(100%-145px)] overflow-auto">
                 <p className="text-xl px-5  text-center"><span className="text-rosa">Muestra a tus clientes </span> que ofreces para el catering de un evento</p>
