@@ -27,7 +27,7 @@ export const MenuEmpresa = ({setComponentState}) => {
     return (
         <div className="px-5 py-2 h-full">
             {(() => {
-                if (eventsGroup.length == 0) {
+                if (eventsGroup.length !== 0) {
                     return (
                         <InfoMenuPage setComponentState={setComponentState}/>
                     )
