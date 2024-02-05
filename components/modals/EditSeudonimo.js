@@ -25,7 +25,7 @@ export const EditSeudonimo = ({ modal, setModal, user, nickName, setNickName }) 
   const { domain, development, setUser } = AuthContextProvider()
   const toast = useToast();
   const asd = () => {
-    const resultSocialMedias = undefined
+    let resultSocialMedias = undefined
     for (let i = 0; i < socialMedias.length; i++) {
       const sm = !modal.create && nickName?.socialMedia?.find(elem => elem.title === socialMedias[i].title)?.link
       const smStatus = !modal.create && nickName?.socialMedia?.find(elem => elem.title === socialMedias[i].title)?.isVisible

@@ -86,7 +86,7 @@ const AuthProvider = ({ children }) => {
 
 
     //const domainDevelop = window.location.hostname.split(".")[1]
-    const resp = developments.filter(elem => elem.name === domainDevelop)[0]
+    resp = developments.filter(elem => elem.name === domainDevelop)[0]
     if (!resp?.cookie) resp = developments[0]
 
 

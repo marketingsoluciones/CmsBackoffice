@@ -6,7 +6,7 @@ import {
   useContext,
 } from "react";
 import { Socket } from "socket.io-client";
-import { AuthContextProvider } from ".";
+import { AuthContextProvider } from "./AuthContext";
 import { api } from '../utils/api';
 import Cookies from "js-cookie";
 import { nanoid } from 'nanoid'

@@ -59,7 +59,7 @@ export const WebBuilder = () => {
             html: page.html,
             css: page.css,
             js: page.js,
-            uid:"",
+            uid: "",
             type: "page",
           }]
         },
@@ -68,7 +68,7 @@ export const WebBuilder = () => {
     } catch (error) {
       console.log(error)
     }
-  } 
+  }
 
   /* useEffect(() => {
     try {
@@ -131,9 +131,9 @@ export const WebBuilder = () => {
 
   return (
     <>
-    hola
-      {/* <div id="gjs" ></div>
-      <button onClick={() => handleUpdateCodePage({ title: "primera pagina" })}>guardar</button> */}
+      hola
+      <div id="gjs" ></div>
+      <button onClick={() => handleUpdateCodePage({ title: "primera pagina" })}>guardar</button>
     </>
   )
 }

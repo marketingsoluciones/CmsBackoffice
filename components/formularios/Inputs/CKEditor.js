@@ -12,7 +12,7 @@ import { FormLabelMod } from "./FormLabelMod";
 import { AuthContextProvider } from "../../../context/AuthContext";
 import { Popup } from "../../Popup";
 
-export const CKEditorComponent = ({ label, changedForm, setChangedForm, ...props }) => {
+export const CKEditorComponent = ({ label, ...props }) => {
   const [valir, setValir] = useState(false)
   const [data, setData] = useState({ fieldMod: null, metaMod: null, helpersMod: null })
   const { changedForm, setChangedForm } = AuthContextProvider()
@@ -112,9 +112,9 @@ export const CKEditorComponent = ({ label, changedForm, setChangedForm, ...props
             //   });
             // }}
             />
-            
+
           }
-            {meta.touched && meta.error && <Popup title={`${label} ${meta.error} `} arrow={"top"} />}
+          {meta.touched && meta.error && <Popup title={`${label} ${meta.error} `} arrow={"top"} />}
         </>
       )}
     </>

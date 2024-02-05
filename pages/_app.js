@@ -5,6 +5,7 @@ import { DefaultLayout } from "../layouts/DefaultLayout";
 import "@fontsource/poppins"
 import { theme } from '../theme'
 import '../styles/CKEditor.css'
+import "regenerator-runtime/runtime"
 
 function MyApp({ Component, pageProps }) {
   return (
