@@ -1,6 +1,8 @@
 import { FunctionComponent, useState } from "react";
 import VariantNegativeSizeMNume from "../WeddingCustomWebs/TagCard";
 import { ArrowLeft } from "../../Icons/index";
+import { useRouter } from "next/router";
+
 
 interface propsSection1 {
   setPage: any
@@ -10,58 +12,44 @@ interface propsSection1 {
 
 const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData }) => {
   const [inputValue, setInputValue] = useState("");
+  const router = useRouter()
   return (
-    <section className="relative bg-whitesmoke w-full overflow-y-auto flex flex-col items-start justify-start text-left text-[32px]  font-poppins ">
+    <section className="w-full font-poppins space-y-2 ">
+
       {/* header del componente */}
-      <div className="self-stretch flex flex-col items-start justify-start py-2.5 px-5 gap-[20px]">
+      <div >
         <div onClick={() => "setPage(!page)"} className="w-5 h-5  top-2 left-3 text-gray-700 cursor-pointer">
           <ArrowLeft />
         </div>
-        <div className="self-stretch relative leading-[37.5px] capitalize font-semibold text-rosa">
+        <div className="capitalize font-semibold mt-1 text-[23px] md:text-3xl text-rosa">
           Lista de paginas para wending
         </div>
-        <div className=" rounded-xl bg-white md:h-[65px] w-full flex items-center justify-center box-border relative text-left text-sm text-slategray font-poppins">
-          <p className="flex items-star  px-4">
-            Haz que tu red conozca Bodas de Hoy y EventosOrganizador. Recibirán una prueba ampliada de 30 días, y puedes recibir increíbles recompensas.
-          </p>
+        <div className=" rounded-lg bg-white p-2 w-full text-sm ">
+          Haz que tu red conozca Bodas de Hoy y EventosOrganizador. Recibirán una prueba ampliada de 30 días, y puedes recibir increíbles recompensas.
         </div>
       </div>
+
       {/* boddy del componente  */}
-      <div className="self-stretch flex flex-col items-center justify-start gap-[10px] text-right text-sm text-text-primary font-caption-s">
+      <div className=" flex flex-col items-center space-y-2 text-sm">
+
         {/* filter  button */}
-        <div className="self-stretch flex flex-col md:flex-row items-center justify-end py-0 px-5 gap-[5px]">
-          <div className="flex-1* relative leading-[21px]">8 ítems</div>
+        <div className="self-stretch flex flex-col* md:flex-row items-center justify-end md:space-x-2 space-x-1">
+          <div className="">8 ítems</div>
           <input
-            className="[outline:none] font-caption-s text-sm bg-white rounded shadow-[0px_1px_2px_rgba(42,_54,_71,_0.08)_inset] box-border md:w-[237px] overflow-hidden shrink-0 flex flex-col items-start justify-center py-1.5 px-5 text-darkgray border-[1px] border-solid border-divider-strong1"
+            className="[outline:none] text-sm bg-white rounded-lg box-border md:w-[237px] py-1.5 px-3 border-[1px] border-solid"
             placeholder="Buscar"
             type="text"
             value={inputValue}
             onChange={(event) => setInputValue(event.target.value)}
           />
-          <button className="cursor-pointer p-1 bg-white rounded shadow-[0px_1px_2px_rgba(42,_54,_71,_0.05)] box-border h-8 overflow-hidden flex flex-row items-center justify-start border-[1px] border-solid border-divider-strong">
-            <div className="hidden flex-row items-center justify-start">
-              <img className="relative w-6 h-6" alt="" src="/24filter.svg" />
-            </div>
-            <div className="flex flex-row items-center justify-start py-0 px-1">
-              <img className="relative w-4 h-4" alt="" src="/16smfilter.svg" />
-            </div>
-            <div className="overflow-hidden flex flex-row items-center justify-center py-0 px-1">
-              <div className="relative text-sm leading-[20px] font-semibold font-caption-s text-text-primary text-center">
-                Mas relevante
-              </div>
-            </div>
-            <div className="hidden flex-row items-center justify-start">
-              <img
-                className="relative w-6 h-6"
-                alt=""
-                src="/24helpoutline.svg"
-              />
-            </div>
+          <button className="font-semibold text-sm py-1.5 px-3 bg-white rounded-lg box-border border-[1px] border-solid ">
+            Buscar
           </button>
         </div>
-        {/* grid card */}
 
-        <section className=" grid grid-cols-1 md:grid-cols-3 items-center justify-center gap-[20px]  overflow-y-auto pb-10 ">
+        {/* grid card */}
+        <section className=" grid grid-cols-1 md:grid-cols-3 items-center justify-center gap-[20px] md:h-[calc(100vh-247px)]  md:px-16 overflow-y-auto pb-5 ">
+
           <div className="md:w-[246.3px] h-[303px] flex flex-col items-start justify-start ">
             <img
               className="relative rounded-t-xl w-60 h-[270px] object-cover"
@@ -70,7 +58,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
             />
             <div className="relative rounded-2xl bg-white shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_0px_2px_rgba(145,_158,_171,_0.2),_0px_12px_24px_-4px_rgba(145,_158,_171,_0.12)] w-60 h-[100px] mt-[-67px]">
               <div className="absolute top-[14px] left-[20px] w-[200px] overflow-hidden flex flex-col items-start justify-center">
-                <div className="w-[197px] flex flex-col items-start justify-start gap-[5px]">
+                <div className="w-[197px] flex flex-col items-start justify-start ">
                   <div className="relative font-semibold text-negro">
                     Mi boda - Plantilla 1
                   </div>
@@ -107,12 +95,18 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
                       <b className="relative">Vendidos: 15</b>
                     </div>
                     <div className="flex flex-row items-center justify-end gap-[5px]">
-                      <button onClick={() => {setPage(!page),setFindData("Plantilla1") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
-                        <div  className="relative text-xs leading-[24px] font-poppins text-white text-left">
+                      <button onClick={() => { setPage(!page), setFindData("Plantilla1") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
+                        <div className="relative text-xs leading-[24px] font-poppins text-white text-left">
                           Demo
                         </div>
                       </button>
-                      <button className="cursor-pointer p-[5px] bg-[transparent] rounded-lg box-border w-[30px] h-[30px] overflow-hidden shrink-0 flex flex-col items-center justify-center [transform:_rotate(-180deg)] border-[1px] border-solid border-rosa">
+                      <button
+                        onClick={() => router.push({
+                          pathname: "https://web.bodasdehoy.com/",
+                          query: { pageID: "111111111" }
+                        })}
+                        className="cursor-pointer p-[5px] bg-[transparent] rounded-lg box-border w-[30px] h-[30px] overflow-hidden shrink-0 flex flex-col items-center justify-center [transform:_rotate(-180deg)] border-[1px] border-solid border-rosa"
+                      >
                         <img
                           className="relative w-[14.6px] h-[13.5px] [transform:_rotate(180deg)]"
                           alt=""
@@ -143,7 +137,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
             />
             <div className="relative rounded-2xl bg-white shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_0px_2px_rgba(145,_158,_171,_0.2),_0px_12px_24px_-4px_rgba(145,_158,_171,_0.12)] w-[247px] h-[100px] mt-[-66px]">
               <div className="absolute top-[14px] left-[20px] w-[207px] overflow-hidden flex flex-col items-start justify-center">
-                <div className="w-[197px] flex flex-col items-start justify-start gap-[5px]">
+                <div className="w-[197px] flex flex-col items-start justify-start ">
                   <div className="relative font-semibold text-negro">
                     Mi boda - Plantilla 2
                   </div>
@@ -180,7 +174,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
                       <b className="relative">Vendidos: 15</b>
                     </div>
                     <div className="flex flex-row items-center justify-end gap-[5px]">
-                      <button onClick={() => {setPage(!page),setFindData("Plantilla2") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
+                      <button onClick={() => { setPage(!page), setFindData("Plantilla2") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
                         <div className="relative text-xs leading-[24px] font-poppins text-white text-left">
                           Demo
                         </div>
@@ -216,7 +210,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
             />
             <div className="relative rounded-2xl bg-white shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_0px_2px_rgba(145,_158,_171,_0.2),_0px_12px_24px_-4px_rgba(145,_158,_171,_0.12)] w-[246px] h-[100px] mt-[-66px]">
               <div className="absolute top-[14px] left-[20px] w-[206px] overflow-hidden flex flex-col items-start justify-center">
-                <div className="w-[197px] flex flex-col items-start justify-start gap-[5px]">
+                <div className="w-[197px] flex flex-col items-start justify-start ">
                   <div className="relative font-semibold text-negro">
                     Mi boda - Plantilla 3
                   </div>
@@ -253,7 +247,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
                       <b className="relative">Vendidos: 15</b>
                     </div>
                     <div className="flex flex-row items-center justify-end gap-[5px]">
-                      <button onClick={() => {setPage(!page),setFindData("Plantilla3") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
+                      <button onClick={() => { setPage(!page), setFindData("Plantilla3") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
                         <div className="relative text-xs leading-[24px] font-poppins text-white text-left">
                           Demo
                         </div>
@@ -289,7 +283,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
             />
             <div className="relative rounded-2xl bg-white shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_0px_2px_rgba(145,_158,_171,_0.2),_0px_12px_24px_-4px_rgba(145,_158,_171,_0.12)] w-[246px] h-[100px] mt-[-66px]">
               <div className="absolute top-[14px] left-[20px] w-[206px] overflow-hidden flex flex-col items-start justify-center">
-                <div className="w-[197px] flex flex-col items-start justify-start gap-[5px]">
+                <div className="w-[197px] flex flex-col items-start justify-start ">
                   <div className="relative font-semibold text-negro">
                     Mi boda - Plantilla 4
                   </div>
@@ -326,7 +320,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
                       <b className="relative">Vendidos: 15</b>
                     </div>
                     <div className="flex flex-row items-center justify-end gap-[5px]">
-                      <button onClick={() => {setPage(!page),setFindData("Plantilla4") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
+                      <button onClick={() => { setPage(!page), setFindData("Plantilla4") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
                         <div className="relative text-xs leading-[24px] font-poppins text-white text-left">
                           Demo
                         </div>
@@ -362,7 +356,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
             />
             <div className="relative rounded-2xl bg-white shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_0px_2px_rgba(145,_158,_171,_0.2),_0px_12px_24px_-4px_rgba(145,_158,_171,_0.12)] w-[246px] h-[100px] mt-[-66px]">
               <div className="absolute top-[14px] left-[20px] w-[206px] overflow-hidden flex flex-col items-start justify-center">
-                <div className="w-[197px] flex flex-col items-start justify-start gap-[5px]">
+                <div className="w-[197px] flex flex-col items-start justify-start ">
                   <div className="relative font-semibold text-negro">
                     Mi boda - Plantilla 5
                   </div>
@@ -399,7 +393,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
                       <b className="relative">Vendidos: 15</b>
                     </div>
                     <div className="flex flex-row items-center justify-end gap-[5px]">
-                      <button onClick={() => {setPage(!page),setFindData("Plantilla5") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
+                      <button onClick={() => { setPage(!page), setFindData("Plantilla5") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
                         <div className="relative text-xs leading-[24px] font-poppins text-white text-left">
                           Demo
                         </div>
@@ -435,7 +429,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
             />
             <div className="relative rounded-2xl bg-white shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_0px_2px_rgba(145,_158,_171,_0.2),_0px_12px_24px_-4px_rgba(145,_158,_171,_0.12)] w-[247px] h-[100px] mt-[-66px]">
               <div className="absolute top-[14px] left-[20px] w-[207px] overflow-hidden flex flex-col items-start justify-center">
-                <div className="w-[197px] flex flex-col items-start justify-start gap-[5px]">
+                <div className="w-[197px] flex flex-col items-start justify-start ">
                   <div className="relative font-semibold text-negro">
                     Mi boda - Plantilla 6
                   </div>
@@ -472,7 +466,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
                       <b className="relative">Vendidos: 15</b>
                     </div>
                     <div className="flex flex-row items-center justify-end gap-[5px]">
-                      <button onClick={() => {setPage(!page),setFindData("Plantilla6") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
+                      <button onClick={() => { setPage(!page), setFindData("Plantilla6") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
                         <div className="relative text-xs leading-[24px] font-poppins text-white text-left">
                           Demo
                         </div>
@@ -513,7 +507,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
             />
             <div className="relative rounded-2xl bg-white shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_0px_2px_rgba(145,_158,_171,_0.2),_0px_12px_24px_-4px_rgba(145,_158,_171,_0.12)] w-[246px] h-[100px] mt-[-66px]">
               <div className="absolute top-[14px] left-[20px] w-[206px] overflow-hidden flex flex-col items-start justify-center">
-                <div className="w-[197px] flex flex-col items-start justify-start gap-[5px]">
+                <div className="w-[197px] flex flex-col items-start justify-start ">
                   <div className="relative font-semibold text-negro">
                     Mi boda - Plantilla 7
                   </div>
@@ -550,7 +544,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
                       <b className="relative">Vendidos: 15</b>
                     </div>
                     <div className="flex flex-row items-center justify-end gap-[5px]">
-                      <button onClick={() => {setPage(!page),setFindData("Plantilla7") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
+                      <button onClick={() => { setPage(!page), setFindData("Plantilla7") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
                         <div className="relative text-xs leading-[24px] font-poppinswhite text-left text-white">
                           Demo
                         </div>
@@ -586,7 +580,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
             />
             <div className="relative rounded-2xl bg-white shadow-[0px_4px_4px_rgba(0,_0,_0,_0.25),_0px_0px_2px_rgba(145,_158,_171,_0.2),_0px_12px_24px_-4px_rgba(145,_158,_171,_0.12)] w-[246px] h-[100px] mt-[-66px]">
               <div className="absolute top-[14px] left-[20px] w-[206px] overflow-hidden flex flex-col items-start justify-center">
-                <div className="w-[197px] flex flex-col items-start justify-start gap-[5px]">
+                <div className="w-[197px] flex flex-col items-start justify-start ">
                   <div className="relative font-semibold text-negro">
                     Mi boda - Plantilla 8
                   </div>
@@ -623,7 +617,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
                       <b className="relative">Vendidos: 15</b>
                     </div>
                     <div className="flex flex-row items-center justify-end gap-[5px]">
-                      <button onClick={() => {setPage(!page),setFindData("Plantilla8") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
+                      <button onClick={() => { setPage(!page), setFindData("Plantilla8") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
                         <div className="relative text-xs leading-[24px] font-poppins text-white text-left">
                           Demo
                         </div>
