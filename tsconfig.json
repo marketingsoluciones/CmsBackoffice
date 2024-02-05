@@ -28,8 +28,8 @@
     "components/EditorJS/index.tsx",
     "components/ReclamarEmpresa/ModalReclamarEmprcomponents/ButtonReclamarEmpresa.tsxEmpresa.jsx",
     "components/ButtonReclamarEmpresa.js"
-, "components/Itinerario/MicroComponente/SelectIcon.js", "components/Itinerario/BoddyIter.js", "components/IndexPageComponents/ModulosEspeciales.js", "components/IndexPageComponents/InfoPage.js", "components/formularios/FormCrearGrupo.js", "components/formularios/FormInvitado.js", "components/formularios/FormCrearMenu.js", "components/formularios/FormEditarInvitado.js"  ],
-  "exclude": [
+    , "components/Itinerario/MicroComponente/SelectIcon.js", "components/Itinerario/BoddyIter.js", "components/IndexPageComponents/ModulosEspeciales.js", "components/IndexPageComponents/InfoPage.js", "components/formularios/FormCrearGrupo.js", "components/formularios/FormInvitado.js", "components/formularios/FormCrearMenu.js", "components/formularios/FormEditarInvitado.js"  ],
+    "exclude": [
     "node_modules"
   ]
 }
