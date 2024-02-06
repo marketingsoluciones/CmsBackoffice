@@ -12,7 +12,7 @@ const ToastContainer: FC = () => {
       {/*  {
         
         <TransitionGroup initial={false} > */}
-      <ul className="fixed bottom-3 md:bottom-3 right-5 mx-auto w-max md:w-2/6 h-max z-[1000] grid grid-flow-row gap-6">
+      <ul className="fixed bottom-3 md:bottom-3 right-5 mx-auto w-max md:w-2/6 h-max z-[50] grid grid-flow-row gap-6">
         {toasts.map((toast) => (
           <Toast key={toast.id} {...toast} />
         ))}
@@ -35,7 +35,7 @@ const Toast: FC<Toast> = ({ message, id, type }) => {
   }
   return (
     <motion.li initial={{ opacity: 0, scale: 0.3, y: 25 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.5 }} transition={{ ease: "easeIn" }}  >
-      <div className={`rounded-md ${colors[type]} text-white p-4  z-[1000]`}>
+      <div className={`rounded-md ${colors[type]} text-white p-4  z-[50]`}>
         <div className="flex">
           <div className="flex-shrink-0"></div>
           <div className="ml-3">

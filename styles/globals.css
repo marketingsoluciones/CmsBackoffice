@@ -117,3 +117,8 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .save-button {
   content: url('/save-button.svg');
 }
+
+.ArrowBack{
+  content: url('/ArrowBack.svg');
+
+}

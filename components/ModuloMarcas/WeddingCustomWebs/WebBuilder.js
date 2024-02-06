@@ -7,9 +7,13 @@ import basicBlockPlugin from 'grapesjs-blocks-basic'
 import formPlugin from 'grapesjs-plugin-forms'
 import { fetchApi, queries } from '../../../utils/Fetching'
 import { AuthContextProvider } from '../../../context/AuthContext'
+//import { useToast } from '../../../hooks/useToast'
+import { Box, Flex, Text, useToast, Center } from "@chakra-ui/react";
 
-export const WebBuilder = () => {
-  const { user } = AuthContextProvider()
+
+export const WebBuilder = ({ setCommponent }) => {
+  const { user } = AuthContextProvider();
+  const toast = useToast();
 
   const storageManager = {
     id: 'gjs-',
@@ -67,6 +71,11 @@ export const WebBuilder = () => {
         },
         development: "bodasdehoy"
       })
+      toast({
+        status: "success",
+        title: "Guardada correctamente",
+        isClosable: true,
+      });
     } catch (error) {
       console.log(error)
     }
@@ -135,20 +144,20 @@ export const WebBuilder = () => {
       attributes: { title: 'Guardar' }
     });
     editor.Panels.addButton('devices-c', {
-      id: 'save-button',
-      className: 'save-button',
+      id: 'back-button',
+      className: 'ArrowBack',
       command: function (editor) {
-        handleUpdateCodePage({ title: "primera pagina" })
+        setCommponent("principal")
       },
-      attributes: { title: 'Guardar' }
+      attributes: { title: 'Salir' }
     });
   }, [])
 
 
   return (
     <>
-      <div id="gjs"></div> 
-     
+      <div id="gjs" className='z-0' ></div>
+
     </>
   )
 }

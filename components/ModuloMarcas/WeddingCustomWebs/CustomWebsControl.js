@@ -24,7 +24,9 @@ export const CustomWebsControl = ({ setPage, page }) => {
         />
       }
       {page === "WebBuilder" &&
-        <WebBuilder />
+        <WebBuilder
+          setCommponent={setPage}
+        />
       }
 
     </div>
