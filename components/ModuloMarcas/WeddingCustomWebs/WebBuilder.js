@@ -1,13 +1,15 @@
 
-import grapesjs from 'grapesjs'
+import grapesjs from 'grapesjs/dist/grapes.min.js'
 import 'grapesjs/dist/css/grapes.min.css'
 import { useEffect, useState } from 'react'
 import websitePlugin from 'grapesjs-preset-webpage'
 import basicBlockPlugin from 'grapesjs-blocks-basic'
 import formPlugin from 'grapesjs-plugin-forms'
-import { fetchApi, queries } from '../../utils/Fetching'
+import { fetchApi, queries } from '../../../utils/Fetching'
+import { AuthContextProvider } from '../../../context/AuthContext'
 
 export const WebBuilder = () => {
+  const { user } = AuthContextProvider()
 
   const storageManager = {
     id: 'gjs-',
@@ -59,7 +61,7 @@ export const WebBuilder = () => {
             html: page.html,
             css: page.css,
             js: page.js,
-            uid:"",
+            uid: user.uid,
             type: "page",
           }]
         },
@@ -68,9 +70,9 @@ export const WebBuilder = () => {
     } catch (error) {
       console.log(error)
     }
-  } 
+  }
 
-  /* useEffect(() => {
+  useEffect(() => {
     try {
       const getDataPage = fetchApi({
         query: queries.getCodePage,
@@ -84,19 +86,18 @@ export const WebBuilder = () => {
     } catch (error) {
       console.log(error)
     }
-  }, []) */
+  }, [])
 
   useEffect(() => {
 
     const editor = grapesjs.init(
       {
         container: '#gjs',
-        height: '500px',
+        height: '560px',
         width: '100%',
         plugins: [websitePlugin, basicBlockPlugin, formPlugin],
-        storageManager,
         deviceManager,
-
+        storageManager,
         pluginsOpts: {
           'grapesjs-preset-webpage': {
             blocksBasicOpts: {
@@ -125,15 +126,29 @@ export const WebBuilder = () => {
     editor.on('redo', () => {
       console.log("REDO")
     })
+    editor.Panels.addButton('devices-c', {
+      id: 'save-button',
+      className: 'save-button',
+      command: function (editor) {
+        handleUpdateCodePage({ title: "primera pagina" })
+      },
+      attributes: { title: 'Guardar' }
+    });
+    editor.Panels.addButton('devices-c', {
+      id: 'save-button',
+      className: 'save-button',
+      command: function (editor) {
+        handleUpdateCodePage({ title: "primera pagina" })
+      },
+      attributes: { title: 'Guardar' }
+    });
   }, [])
 
-  //console.log("html ", page.html)
 
   return (
     <>
-    hola
-      {/* <div id="gjs" ></div>
-      <button onClick={() => handleUpdateCodePage({ title: "primera pagina" })}>guardar</button> */}
+      <div id="gjs"></div> 
+     
     </>
   )
 }

@@ -18,7 +18,7 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
 
       {/* header del componente */}
       <div >
-        <div onClick={() => "setPage(!page)"} className="w-5 h-5  top-2 left-3 text-gray-700 cursor-pointer">
+        <div onClick={() => setPage("principal")} className="w-5 h-5  top-2 left-3 text-gray-700 cursor-pointer">
           <ArrowLeft />
         </div>
         <div className="capitalize font-semibold mt-1 text-[23px] md:text-3xl text-rosa">
@@ -95,16 +95,13 @@ const Section1: FunctionComponent<propsSection1> = ({ setPage, page, setFindData
                       <b className="relative">Vendidos: 15</b>
                     </div>
                     <div className="flex flex-row items-center justify-end gap-[5px]">
-                      <button onClick={() => { setPage(!page), setFindData("Plantilla1") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
+                      <button onClick={() => { setPage("demo"), setFindData("Plantilla1") }} className="cursor-pointer [border:none] py-0 px-2.5 bg-rosa rounded-lg overflow-hidden flex flex-row items-center justify-center">
                         <div className="relative text-xs leading-[24px] font-poppins text-white text-left">
                           Demo
                         </div>
                       </button>
                       <button
-                        onClick={() => router.push({
-                          pathname: "https://web.bodasdehoy.com/",
-                          query: { pageID: "111111111" }
-                        })}
+                        onClick={() => setPage("WebBuilder")}
                         className="cursor-pointer p-[5px] bg-[transparent] rounded-lg box-border w-[30px] h-[30px] overflow-hidden shrink-0 flex flex-col items-center justify-center [transform:_rotate(-180deg)] border-[1px] border-solid border-rosa"
                       >
                         <img

@@ -18,7 +18,7 @@ export const DescripcionCardEmpresas: FunctionComponent<propsDescripcionCardEmpr
     <section className="flex flex-col items-center justify-start gap-[10px]  text-xl text-azulCorporativo ">
       {/* header */}
       <header className="flex flex-col py-2  text-[32px]  ">
-        <div onClick={() => setPage(!page)} className="w-5 h-5  top-2 left-3 text-gray-700 cursor-pointer">
+        <div onClick={() => setPage("principal")} className="w-5 h-5  top-2 left-3 text-gray-700 cursor-pointer">
           <ArrowLeft />
         </div>
         <div className="capitalize font-semibold flex items-center md:h-14 text-rosa ">

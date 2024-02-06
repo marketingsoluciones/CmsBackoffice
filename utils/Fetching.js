@@ -90,6 +90,40 @@ export const fetchApiEventos = async ({ query, variables, domain }) => {
 };
 
 export const queries = {
+
+  createCodePage: `mutation ($args:[inputCodePage]){
+    createCodePage(args:$args){
+      total
+      results{
+        _id
+      }
+    }
+  }`,
+
+  updateCodePage: `mutation ($args:inputCodePage){
+    updateCodePage(args:$args){
+      _id
+    }
+  }`,
+
+  getCodePage: `query ($args:inputCodePage, $sort:sortCriteriaCodePage, $skip:Int, $limit:Int){
+    getCodePage(args:$args, sort:$sort, skip:$skip, limit:$limit){
+      total
+      results{
+        _id 
+        uid 
+        title 
+        html 
+        css 
+        js 
+        type 
+        price 
+        status 
+        createdAt 
+        updatedAt
+      }
+    }
+  }`,
   signOut: `mutation ($sessionCookie :String){
     signOut(sessionCookie:$sessionCookie)
   }`,
