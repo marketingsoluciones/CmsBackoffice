@@ -9,12 +9,16 @@ import { fetchApi, queries } from '../../../utils/Fetching'
 import { AuthContextProvider } from '../../../context/AuthContext'
 //import { useToast } from '../../../hooks/useToast'
 import { Box, Flex, Text, useToast, Center } from "@chakra-ui/react";
+import { Modal } from '../../modals/Modal'
 
 
 export const WebBuilder = ({ setCommponent }) => {
   const { user } = AuthContextProvider();
   const toast = useToast();
-
+  const [dataPage, setDataPage] = useState()
+  const [modal, setModal] = useState(false)
+  const [a, setA] = useState([])
+  console.log("dataPage", dataPage)
   const storageManager = {
     id: 'gjs-',
     type: 'local',
@@ -54,52 +58,68 @@ export const WebBuilder = ({ setCommponent }) => {
     css: undefined,
     js: undefined
   })
-
-  const handleUpdateCodePage = async () => {
+  console.log(page)
+  const handleUpdateCodePage = async ({ title }) => {
     try {
-      await fetchApi({
-        query: queries.createCodePage,
-        variables: {
-          args: [{
-            title: "Pagina de jafet",
-            html: page.html,
-            css: page.css,
-            js: page.js,
-            uid: user.uid,
-            type: "page",
-          }]
-        },
-        development: "bodasdehoy"
-      })
+      if (page.html != undefined) {
+        await fetchApi({
+          query: queries.createCodePage,
+          variables: {
+            args: [{
+              title: title,
+              html: page.html,
+              css: page.css,
+              js: page.js,
+              uid: user.uid,
+              type: "page",
+            }]
+          },
+          development: "bodasdehoy"
+        })
+        toast({
+          status: "success",
+          title: "Guardada correctamente",
+          isClosable: true,
+        });
+      } else {
+        toast({
+          status: "error",
+          title: "No hay cambios para guardar",
+          isClosable: true,
+        });
+      }
+    } catch (error) {
       toast({
-        status: "success",
-        title: "Guardada correctamente",
+        status: "error",
+        title: "a ocurrido un error",
         isClosable: true,
       });
-    } catch (error) {
       console.log(error)
     }
   }
 
   useEffect(() => {
     try {
-      const getDataPage = fetchApi({
+      fetchApi({
         query: queries.getCodePage,
         variables: {
           args: { _id: "65c0fa09a95a941255283dff" }
         },
         development: "bodasdehoy"
       }).then((getDataPage) => {
-        return getDataPage
+        setDataPage(getDataPage.results)
       })
     } catch (error) {
       console.log(error)
     }
   }, [])
 
+  
+ 
+  let editor = null
+  //editor.loadProjectData({ pages: [...], styles: [...], ... })
   useEffect(() => {
-
-    const editor = grapesjs.init(
+    editor = grapesjs.init(
       {
         container: '#gjs',
         height: '560px',
@@ -107,6 +127,14 @@ export const WebBuilder = ({ setCommponent }) => {
         plugins: [websitePlugin, basicBlockPlugin, formPlugin],
         deviceManager,
         storageManager,
+        pageManager: {
+          pages: [{
+            id: 'page-1',
+            name: "",
+            component: html,
+            styles: '#comp1 { color: red }',
+          }]
+        },
         pluginsOpts: {
           'grapesjs-preset-webpage': {
             blocksBasicOpts: {
@@ -120,7 +148,6 @@ export const WebBuilder = ({ setCommponent }) => {
     )
     editor.on('load', () => {
       console.log("LOAD")
-      //editor.load()
     })
     editor.on('update', () => {
       console.log("UPDATE")
@@ -139,7 +166,9 @@ export const WebBuilder = ({ setCommponent }) => {
       id: 'save-button',
       className: 'save-button',
       command: function (editor) {
-        handleUpdateCodePage({ title: "primera pagina" })
+        let title = ""
+        title = prompt("Antes de guardar la plantilla, indica el titulo: ")
+        handleUpdateCodePage({ title: title })
       },
       attributes: { title: 'Guardar' }
     });
@@ -151,13 +180,16 @@ export const WebBuilder = ({ setCommponent }) => {
       },
       attributes: { title: 'Salir' }
     });
+    setA(editor.Pages)
   }, [])
 
 
   return (
     <>
-      <div id="gjs" className='z-0' ></div>
+      <div id="gjs"></div>
+      {modal ? <Modal classe={"w-[28%] h-[86%]"}>
 
+      </Modal> : null}
     </>
   )
 }
