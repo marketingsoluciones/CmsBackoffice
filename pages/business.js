@@ -30,11 +30,11 @@ const Business = () => {
             title: "Pages list",
             component: <TablePegesList  setComponentState={setOptionSelect} />
         },
-        {
+       /*  {
             icon: <IoAnalytics className="h-6 w-auto" />,
             title: "Metricas",
             component: <IframeMetricool />
-        },
+        }, */
     ]
     const handleClickOption = (idx) => {
         setOptionSelect(idx);
