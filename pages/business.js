@@ -23,11 +23,11 @@ const Business = () => {
             title: "Wedding page",
             component: <CustomWebsControl/>
         },
-        {
+        /* {
             icon: <IoAnalytics className="h-6 w-auto" />,
             title: "Metricas",
             component: <IframeMetricool/>
-        },
+        }, */
     ]
     const handleClickOption = (idx) => {
         setOptionSelect(idx);
