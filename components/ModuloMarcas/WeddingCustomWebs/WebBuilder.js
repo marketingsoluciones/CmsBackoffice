@@ -17,6 +17,20 @@ export const WebBuilder = ({ setCommponent }) => {
   const toast = useToast();
   const [dataPage, setDataPage] = useState()
   const [pm, setPm] = useState({})
+  const [pages, setPages] = useState([])
+
+  const [isMounted, setIsMounted] = useState(false)
+  useEffect(() => {
+    if (!isMounted) {
+      setIsMounted(true)
+    }
+    return () => {
+      console.log("demontado")
+      setIsMounted(false)
+    }
+  }, [])
+
+
   const [page, setPage] = useState({
     html: undefined,
     css: undefined,
@@ -124,7 +138,7 @@ export const WebBuilder = ({ setCommponent }) => {
         pageManager: {
           pages: [{
             id: 'page-1',
-            name: "",
+            name: "sin-nombre",
             component: "",
             styles: '#comp1 { color: red }',
           }]
@@ -187,6 +201,9 @@ export const WebBuilder = ({ setCommponent }) => {
       });
     },
     methods: {
+      getAll() {
+        return pm.getAll();
+      },
       setPages(pages) {
         this.pages = [...pages];
       },
@@ -194,31 +211,40 @@ export const WebBuilder = ({ setCommponent }) => {
         return pm.getSelected().id == page.id;
       },
       selectPage(pageId) {
+        console.log(10004, pageId)
         return pm.select(pageId);
       },
       removePage(pageId) {
+        const f1 = pages.findIndex(elem => elem.id === pageId)
+        pages.splice(f1, 1)
+        setPages(pages)
         return pm.remove(pageId);
       },
       addPage() {
         const len = pm.getAll().length;
-        pm.add({
+        console.log("----------->", len)
+        const resp = pm.add({
           name: `Pagessss ${len + 1}`,
-          component: '<div>New page</div>',
+          component: `<div>New page ${len + 1}</div>`,
         });
+        console.log("----------->", resp)
+        pages.push(resp)
+        setPages(pages)
       },
     }
   };
 
   useEffect(() => {
-
-    console.log(11111, app)
-
-  }, [app])
+    if (app && isMounted) {
+      console.log(11110, app)
+      const pages = app.methods.getAll()
+      console.log(11111, pages)
+      setPages(pages)
+    }
+  }, [isMounted])
 
   useEffect(() => {
-
-    console.log(22222, pm)
-
+    console.log(222220001, pm)
   }, [pm])
 
 
@@ -230,20 +256,26 @@ export const WebBuilder = ({ setCommponent }) => {
         <div className="pages-wrp" >
           <div className="add-page" onClick={() => app.methods.addPage()} >Add new page</div>
           <div className='pages'>
-            <div v-for="page in pages" /* :key="page.id" */ /* :class="{page: 1, selected: isSelected(page) }" */ /* @click="selectPage(page.id)" */>
+            <div className='text-xs h-[200px] bg-white rounded-md overflow-y-auto'>
 
-              {app?.data?.pages?.map((item, idx) => {
-                console.log(idx, item)
+              {pages.map((item, idx) => {
+                console.log(idx, item.get("name"))
                 return (
-                  <div key={idx}>
-                    {/*  {item} */}
+                  <div className='bg-gray-200 p-1 cursor-pointer flex ' key={idx} >
+                    <span className='flex-1' onClick={() => { app?.methods?.selectPage(item?.id) }}>
+                      {item.get("name")}
+                    </span>
+                    <span
+                      className='w-4 flex justify-center hover:scale-110 hover:font-semibold'
+                      onClick={() => { !app.methods.isSelected(item) && app.methods.removePage(item?.id) }}>
+                      {!app.methods.isSelected(item) && "X"}
+                    </span>
                   </div>
                 )
               })}
 
               {/*  {{ page.get('name') || page.id }} */}
 
-              <span v-if="!isSelected(page)" /* @click="removePage(page.id)" */ /* class="page-close" */></span>
             </div>
           </div>
         </div >
