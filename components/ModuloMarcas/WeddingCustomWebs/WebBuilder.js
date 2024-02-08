@@ -16,9 +16,13 @@ export const WebBuilder = ({ setCommponent }) => {
   const { user } = AuthContextProvider();
   const toast = useToast();
   const [dataPage, setDataPage] = useState()
-  const [modal, setModal] = useState(false)
-  const [a, setA] = useState([])
-  console.log("dataPage", dataPage)
+  const [pm, setPm] = useState({})
+  const [page, setPage] = useState({
+    html: undefined,
+    css: undefined,
+    js: undefined
+  })
+
   const storageManager = {
     id: 'gjs-',
     type: 'local',
@@ -53,12 +57,6 @@ export const WebBuilder = ({ setCommponent }) => {
       ]
   }
 
-  const [page, setPage] = useState({
-    html: undefined,
-    css: undefined,
-    js: undefined
-  })
-  console.log(page)
   const handleUpdateCodePage = async ({ title }) => {
     try {
       if (page.html != undefined) {
@@ -114,12 +112,8 @@ export const WebBuilder = ({ setCommponent }) => {
     }
   }, [])
 
-  
- 
-  let editor = null
-  //editor.loadProjectData({ pages: [...], styles: [...], ... })
   useEffect(() => {
-    editor = grapesjs.init(
+    const editor = grapesjs.init(
       {
         container: '#gjs',
         height: '560px',
@@ -131,7 +125,7 @@ export const WebBuilder = ({ setCommponent }) => {
           pages: [{
             id: 'page-1',
             name: "",
-            component: html,
+            component: "",
             styles: '#comp1 { color: red }',
           }]
         },
@@ -180,16 +174,83 @@ export const WebBuilder = ({ setCommponent }) => {
       },
       attributes: { title: 'Salir' }
     });
-    setA(editor.Pages)
+    setPm(editor.Pages)
   }, [])
+
+  const app = {
+    el: '.pages-wrp',
+    data: { pages: [] },
+    mounted() {
+      this.setPages(pm.getAll());
+      editor.on('page', () => {
+        this.pages = [...pm.getAll()];
+      });
+    },
+    methods: {
+      setPages(pages) {
+        this.pages = [...pages];
+      },
+      isSelected(page) {
+        return pm.getSelected().id == page.id;
+      },
+      selectPage(pageId) {
+        return pm.select(pageId);
+      },
+      removePage(pageId) {
+        return pm.remove(pageId);
+      },
+      addPage() {
+        const len = pm.getAll().length;
+        pm.add({
+          name: `Pagessss ${len + 1}`,
+          component: '<div>New page</div>',
+        });
+      },
+    }
+  };
+
+  useEffect(() => {
+
+    console.log(11111, app)
+
+  }, [app])
+
+  useEffect(() => {
+
+    console.log(22222, pm)
+
+  }, [pm])
+
+
 
 
   return (
     <>
-      <div id="gjs"></div>
-      {modal ? <Modal classe={"w-[28%] h-[86%]"}>
+      <div className="app-wrap" >
+        <div className="pages-wrp" >
+          <div className="add-page" onClick={() => app.methods.addPage()} >Add new page</div>
+          <div className='pages'>
+            <div v-for="page in pages" /* :key="page.id" */ /* :class="{page: 1, selected: isSelected(page) }" */ /* @click="selectPage(page.id)" */>
 
-      </Modal> : null}
+              {app?.data?.pages?.map((item, idx) => {
+                console.log(idx, item)
+                return (
+                  <div key={idx}>
+                    {/*  {item} */}
+                  </div>
+                )
+              })}
+
+              {/*  {{ page.get('name') || page.id }} */}
+
+              <span v-if="!isSelected(page)" /* @click="removePage(page.id)" */ /* class="page-close" */></span>
+            </div>
+          </div>
+        </div >
+        <div className="editor-wrap">
+          <div id="gjs"></div>
+        </div>
+      </div >
     </>
   )
 }

@@ -1,15 +1,22 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { AuthContextProvider } from "../../../context"
 import { ArrowLeft, SearchIcon } from "../../Icons/index"
 import { OnlyViewTable } from "../../PanelViewTable"
 import GlobalFilter from "../../Datatable/GlobalFilter"
 import { useRouter } from "next/router"
+import { fetchApi, queries } from "../../../utils/Fetching"
 
 export const TablePegesList = ({ setComponentState }) => {
     const router = useRouter()
     const { dispatch } = AuthContextProvider()
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
+    useEffect(() => {
+        fetchApi({
+            query: queries.getCodePage
+        })
+
+    }, [])
     return (
         <div className="space-y-4 w-full  " >
             <div>

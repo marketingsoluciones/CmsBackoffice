@@ -222,12 +222,16 @@ export const OnlyViewTable = ({ slug, dispatch, setbuscador }) => {
     }
   }, [data_])
 
+  console.log("console de data table",data)
+
   const [dataRemove, isLoadingRemove, isErrorRemove, setQueryRemove] = useFetch(true);
   const { development, user, domain } = AuthContextProvider()
   const [selected, setSelected] = useState(columnsDataTable({ slug, user }));
   const [global, setGlobal] = useState()
   const [seteador, setSeteador] = useState(() => () => { })
   const router = useRouter()
+
+  console.log("selected",selected)
 
   const columns = useMemo(() => {
     const avalibleShowColumns = user?.visibleColumns?.map(elem => elem.accessor) //selected?.visibleColumns?.map(elem => elem.accessor)
@@ -242,7 +246,6 @@ export const OnlyViewTable = ({ slug, dispatch, setbuscador }) => {
 
   useEffect(() => {
     if (isMounted) {
-
       if (hasRole(development, user, selected.roles)) {
         const variables = { development: development, domain: "diariocivitas", skip, limit, sort: { [sortCriteria]: sort } }
         if (!user?.role.includes("admin", "editor")) {
