@@ -124,14 +124,14 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .app-wrap {
-  height: 100%;
+  height:100%;
   width: 100%;
   display: flex;
 }
 
 .editor-wrap {
   widtH: 100%;
-  height: 100%;
+  height: 100% ; 
 }
 
 .pages-wrp,
@@ -163,7 +163,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   border-radius: 2px;
   cursor: pointer;
 
-  &.selected {
+  &:hover {
     background-color: #706f6f
   }
 }
@@ -189,4 +189,8 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 
 .gjs-pn-options {
   right: 20% !important;
+}
+
+#gjs{
+  height: 91vh !important ;
 }

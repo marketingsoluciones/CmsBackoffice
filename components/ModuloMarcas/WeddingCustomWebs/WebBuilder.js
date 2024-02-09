@@ -7,9 +7,7 @@ import basicBlockPlugin from 'grapesjs-blocks-basic'
 import formPlugin from 'grapesjs-plugin-forms'
 import { fetchApi, queries } from '../../../utils/Fetching'
 import { AuthContextProvider } from '../../../context/AuthContext'
-//import { useToast } from '../../../hooks/useToast'
-import { Box, Flex, Text, useToast, Center } from "@chakra-ui/react";
-import { Modal } from '../../modals/Modal'
+import {useToast } from "@chakra-ui/react";
 
 
 export const WebBuilder = ({ setCommponent }) => {
@@ -18,8 +16,9 @@ export const WebBuilder = ({ setCommponent }) => {
   const [dataPage, setDataPage] = useState()
   const [pm, setPm] = useState({})
   const [pages, setPages] = useState([])
-
   const [isMounted, setIsMounted] = useState(false)
+  const [pageSelected, setPageSelected] = useState()
+
   useEffect(() => {
     if (!isMounted) {
       setIsMounted(true)
@@ -130,7 +129,6 @@ export const WebBuilder = ({ setCommponent }) => {
     const editor = grapesjs.init(
       {
         container: '#gjs',
-        height: '560px',
         width: '100%',
         plugins: [websitePlugin, basicBlockPlugin, formPlugin],
         deviceManager,
@@ -138,10 +136,23 @@ export const WebBuilder = ({ setCommponent }) => {
         pageManager: {
           pages: [{
             id: 'page-1',
-            name: "sin-nombre",
+            name: "home",
             component: "",
             styles: '#comp1 { color: red }',
-          }]
+          },
+          {
+            id: 'page-2',
+            name: "about",
+            component: "",
+            styles: '#comp1 { color: red }',
+          },
+          {
+            id: 'page-3',
+            name: "contact",
+            component: "",
+            styles: '#comp1 { color: red }',
+          },
+        ]
         },
         pluginsOpts: {
           'grapesjs-preset-webpage': {
@@ -207,8 +218,8 @@ export const WebBuilder = ({ setCommponent }) => {
       setPages(pages) {
         this.pages = [...pages];
       },
-      isSelected(page) {
-        return pm.getSelected().id == page.id;
+      isSelected(item) {
+        return pm.getSelected().id == item.id;
       },
       selectPage(pageId) {
         console.log(10004, pageId)
@@ -224,10 +235,9 @@ export const WebBuilder = ({ setCommponent }) => {
         const len = pm.getAll().length;
         console.log("----------->", len)
         const resp = pm.add({
-          name: `Pagessss ${len + 1}`,
+          name: `Page ${len + 1}`,
           component: `<div>New page ${len + 1}</div>`,
         });
-        console.log("----------->", resp)
         pages.push(resp)
         setPages(pages)
       },
@@ -259,10 +269,9 @@ export const WebBuilder = ({ setCommponent }) => {
             <div className='text-xs h-[200px] bg-white rounded-md overflow-y-auto'>
 
               {pages.map((item, idx) => {
-                console.log(idx, item.get("name"))
                 return (
-                  <div className='bg-gray-200 p-1 cursor-pointer flex ' key={idx} >
-                    <span className='flex-1' onClick={() => { app?.methods?.selectPage(item?.id) }}>
+                  <div className='bg-gray-200 p-1 cursor-pointer flex hover:bg-gray-300  ' key={idx} >
+                    <span className='flex-1' onClick={() => { app?.methods?.selectPage(item?.id), setPageSelected(item?.id) }}>
                       {item.get("name")}
                     </span>
                     <span
@@ -273,14 +282,11 @@ export const WebBuilder = ({ setCommponent }) => {
                   </div>
                 )
               })}
-
-              {/*  {{ page.get('name') || page.id }} */}
-
             </div>
           </div>
         </div >
         <div className="editor-wrap">
-          <div id="gjs"></div>
+          <div id="gjs" ></div>
         </div>
       </div >
     </>
