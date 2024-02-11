@@ -1,52 +1,34 @@
 import { useState } from "react"
-import { VistaSinDatos } from "../VistaSinDatos"
 import { ItinerarioWeddingTable } from "./ItinerarioComponents/ItinerarioWeddingTable"
 import { Itinerario } from "../Itinerario/Itinerario"
 import { ItinerarioInfoPage } from "./ItinerarioComponents/ItinerarioInfoPage"
+import { EventsGroupContextProvider } from "../../context/EventsGroupContext"
 
-export const ItinerarioWeddingPlanner = ({setComponentState}) => {
-    const [state, setState] = useState(true)
+export const ItinerarioWeddingPlanner = ({ setComponentState }) => {
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
+    const { eventsGroup } = EventsGroupContextProvider()
     const dataComponents = [
         {
-            component: <ItinerarioWeddingTable actionButton={state2} setActionButton={setState2}  setComponentState={setComponentState}/>
+            component: <ItinerarioWeddingTable setOptionSelect={setOptionSelect} />
         },
         {
-            component: <Itinerario />
+            component: <Itinerario setChildrenComponentState={setOptionSelect} />
         },
 
     ]
 
-
-
     return (
         <div className="px-5 py-2 h-full">
-            {(() => {
-                if (state) {
-                    return (
-                        <ItinerarioInfoPage  setOptionSelect={setOptionSelect} setComponentState={setComponentState} idxComponent={4}/>
-                    )
-                } else {
-                    if (state2) {
-                        return (
-                            <div>
-                                {dataComponents[optionSelect].component}
-                            </div>
-                        )
-                    } else {
-                        return (
-                            <VistaSinDatos
-                                title={"Itinerario"}
-                                button={"Agregar Itinerario"}
-                                text={"Aún no tienes un Itinerario creado"}
-                                accion={"Agrega tu Itinerario"}
-                            />
-                        )
-                    }
-                }
-            })()}
+            {
+                eventsGroup.length == 0 ?
+                    <ItinerarioInfoPage setOptionSelect={setOptionSelect} setComponentState={setComponentState} idxComponent={4} />
+                    :
+                    <div>
+                        {dataComponents[optionSelect].component}
+                    </div>
 
+            }
         </div >
     )
 }
