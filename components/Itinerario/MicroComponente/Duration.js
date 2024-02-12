@@ -6,7 +6,7 @@ export const Duration = ({ ...props }) => {
         <>
             <div className="text-[10px] md:text-[11px] lg:text-[13px]">
                 <span> Duración</span>
-                <input className="focus:outline-none w-[20px] md:w-[40px] truncate text-center bg-transparent" type="number" {...field} {...props} />
+                <input className="focus:outline-none w-[20px] md:w-[40px] truncate text-center bg-transparent" type="number" placeholder="12" {...field} {...props} />
                 <span>min</span>
             </div>
         </>

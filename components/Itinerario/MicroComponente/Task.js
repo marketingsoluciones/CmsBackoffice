@@ -5,16 +5,19 @@ import { EventContextProvider } from "../../../context/EventContext";
 import { fetchApiEventos, queries } from "../../../utils/Fetching";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { AuthContextProvider } from "../../../context";
+import { useToast } from "../../../hooks/useToast";
 
 
 
 export const Task = ({ itinerario, task }) => {
   const { domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider()
+  const toast = useToast()
+
   const initialValues = {
     icon: !task?.icon ? "" : task?.icon,
     time: !task?.hora ? "" : task?.hora,
-    duration: !task?.duracion ? "30" : task?.duracion,
+    duration: !task?.duracion ? "" : task?.duracion,
     description: !task?.descripcion ? "" : task?.descripcion,
     responsable: !task?.responsable ? "" : task?.responsable,
     tips: !task?.tips ? "" : task?.tips,
@@ -60,8 +63,9 @@ export const Task = ({ itinerario, task }) => {
         const f2 = old.itinerarios_array[f1].tasks.findIndex(elem => elem._id === task._id)
         old.itinerarios_array[f1].tasks.splice(f2, 1)
         return { ...old }
-
       })
+      toast("success", "La actividad fue borrada");
+      
     } catch (error) {
       console.log(error)
     }
