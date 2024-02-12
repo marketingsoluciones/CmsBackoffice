@@ -584,7 +584,7 @@ export const BodyStaticAPP = [
         icon: <ChatIcon />,
         title: "Chat",
         roles: ["admin", "empresa"],
-        route: "page404",
+        route: "chat",
         getData: "",
         getByID: "",
         createEntry: "",
