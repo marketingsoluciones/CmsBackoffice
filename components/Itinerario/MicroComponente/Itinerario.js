@@ -6,6 +6,9 @@ import { AddEvent } from "./AddEvent";
 import { GuardarButtom } from "./GuardarButtom";
 import { useEffect, useState } from "react";
 import { AuthContextProvider } from "../../../context";
+import { Modal } from "../../modals/Modal";
+import { useToast } from "../../../hooks/useToast";
+
 
 
 export const Itinerario = ({ data }) => {
@@ -16,7 +19,8 @@ export const Itinerario = ({ data }) => {
     const date = newDate.toLocaleDateString(navigator?.languages, options)
     const [itinerario, setItinerario] = useState()
     const [tasks, setTasks] = useState()
-
+    const [modal, setModal] = useState(false)
+    const toast = useToast()
     useEffect(() => {
         const itinerario = event?.itinerarios_array?.find(elem => elem.title === data?.title)
         setItinerario({ ...itinerario })
@@ -26,7 +30,7 @@ export const Itinerario = ({ data }) => {
     }, [data, event])
 
     useEffect(() => {
-        if (event && !event?.itinerarios_array?.find(elem => elem.title == data.title)) {
+        if (event && !event?.itinerarios_array?.find(elem => elem.title === data.title)) {
             try {
                 fetchApiEventos({
                     query: queries?.createItinerario,
@@ -37,6 +41,9 @@ export const Itinerario = ({ data }) => {
                     domain
                 }).then((result) => {
                     setEvent((old) => {
+                        if (!old?.itinerarios_array) {
+                            old.itinerarios_array = []
+                        }
                         old.itinerarios_array.push(result)
                         return { ...old }
                     })
@@ -45,12 +52,34 @@ export const Itinerario = ({ data }) => {
                 console.log(error)
             };
         }
-    }, [event])
+    }, [event._id, data.title, event])
+
+    const deleteItinerario = async () => {
+        try {
+            await fetchApiEventos({
+                query: queries.deleteItinerario,
+                variables: {
+                    eventID: event._id,
+                    itinerarioID: itinerario._id,
+                },
+                domain
+            })
+            setEvent((old) => {
+                const f1 = old.itinerarios_array.findIndex(elem => elem._id === itinerario._id)
+                old.itinerarios_array.splice(f1, 1)
+                return { ...old }
+            })
+            toast("success", "El itinerario fue borrado");
+            setModal(!modal)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     return (
         <>
-            <SubHeader date={date} title={data?.title} itinerario={itinerario} />
+            <SubHeader button={modal} setButton={setModal} date={date} title={data?.title} itinerario={itinerario} />
             <div className="w-full h-full overflow-auto flex flex-col items-center">
                 <div className="w-full">
                     {tasks?.map((elem, idx) => {
@@ -63,6 +92,26 @@ export const Itinerario = ({ data }) => {
                 <AddEvent tasks={tasks} itinerario={itinerario} />
             </div>
             <GuardarButtom />
+            {
+                modal ? (
+                    <>
+                        <Modal classe={"w-[40%] h-[20%]"}>
+                            <div className="flex flex-col items-center justify-center h-full space-y-2">
+                                <p className="text-azulCorporativo" >¿ Estas seguro de borrar todo el itinerario ?</p>
+                                <div className="space-x-2">
+                                    <button onClick={() => setModal(!modal)} className=" bg-botonBack h-10 w-20 rounded-lg text-white text-base font-base ">
+                                        Descartar
+                                    </button>
+                                    <button onClick={() => deleteItinerario()} className=" bg-rosa h-10 w-20 rounded-lg justify-center text-base text-white">
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                        </Modal>
+                    </>
+                ) :
+                    null
+            }
         </>
     )
 }

@@ -40,6 +40,7 @@ export const Tips = ({ ...props }) => {
                     onChange={(e) => { handleChange(e) }}
                     fontSize={{ md: "sm", lg: "md" }}
                     value={field.value}
+                    placeholder={"Tips para esta actividad"}
                     _focus={""}
                     bg={"none"}
                     border={"1px"}

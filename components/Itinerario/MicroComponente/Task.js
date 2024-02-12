@@ -1,7 +1,5 @@
 import { Form, Formik } from "formik";
-import { Description, Duration, Responsable, ResponsableList, SelectIcon, Tips } from ".";
-import { Modal } from "../../modals/Modal";
-import { useEffect, useState } from "react";
+import { Description, Duration, Responsable,  SelectIcon, Tips } from ".";
 import { InputTime } from "../../formularios/Inputs/InputTime";
 import { EventContextProvider } from "../../../context/EventContext";
 import { fetchApiEventos, queries } from "../../../utils/Fetching";
@@ -68,7 +66,7 @@ export const Task = ({ itinerario, task }) => {
       console.log(error)
     }
   }
-  console.log(event.itinerarios_array)
+
   return (
     <>
 

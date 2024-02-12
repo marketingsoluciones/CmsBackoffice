@@ -3,29 +3,10 @@ import { EventContextProvider } from "../../../context/EventContext"
 import { fetchApiEventos, queries } from "../../../utils/Fetching"
 
 
-export const SubHeader = ({ title, date, itinerario }) => {
-    const { domain } = AuthContextProvider()
-    const { event, setEvent } = EventContextProvider()
+export const SubHeader = ({ title, date, setButton, button }) => {
+ 
 
-    const deleteItinerario = async () => {
-        try {
-            await fetchApiEventos({
-                query: queries.deleteItinerario,
-                variables: {
-                    eventID: event._id,
-                    itinerarioID: itinerario._id,
-                },
-                domain
-            })
-            setEvent((old) => {
-                const f1 = old.itinerarios_array.findIndex(elem => elem._id === itinerario._id)
-                old.itinerarios_array.splice(f1, 1)
-                return { ...old }
-            })
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    
     return (
         <div className="w-full px-4 md:px-10 py-4 space-y-2" >
             <div className="flex w-full justify-between">
@@ -36,7 +17,7 @@ export const SubHeader = ({ title, date, itinerario }) => {
                 <div className="flex w-1/2 text-xs md:text-[14px] justify-end items-center">
                     <span
                         className="text-rosa text-right cursor-pointer hover:text-pink-500"
-                        onClick={() => deleteItinerario()}
+                        onClick={() => setButton(!button)}
                     >
                         Restablecer todo el itinerario
                     </span>
