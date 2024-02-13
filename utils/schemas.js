@@ -562,18 +562,6 @@ export const BodyStaticAPP = [
         updateEntry: "",
         schema: [],
       },
-      {
-        icon: <FotografoMenu className="h-6 w-6" />,
-        title: "webbuilder",
-        roles: ["empresa"],
-        route: "webbuilder",
-        getData: "",
-        getByID: "",
-        createEntry: "",
-        deleteEntry: "",
-        updateEntry: "",
-        schema: [],
-      },
     ],
   },
   {

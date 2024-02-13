@@ -14,11 +14,11 @@ export const MarketplaceC = () => {
         }
     ]
     return (
-        <div className="p-[0.5rem] h-[100vh]">
+        <div className="p-[0.5rem]">
             <p className="text-3xl text-rosa first-letter:uppercase ">
                 tienda
             </p>
-            <div className="bg-white h-[calc(100%-100px)] rounded-lg ">
+            <div className="bg-white h-[calc(100vh-125px)] rounded-lg ">
                 <div className="flex flex-col items-center py-4 space-y-4 px-5 justify-center h-full">
                     <div>
                         <img src="/marketplace/logoMarket.png" alt="alta" className="" />

@@ -40,13 +40,13 @@ export const EventoSelect = () => {
             <div className={`flex items-center justify-star w-full bg-white  p-2 rounded-lg `}>
                 <div className={`w-full flex md:flex-col space-x-2 md:space-x-0`}>
                     <div className={`flex gap-4 `}>
-                        <Text pl={"0.1rem"} className={`text-gray-500 font-semibold`}>{"Evento:"}</Text>
+                        <Text pl={"0.1rem"} className={`text-gray-600 font-semibold`}>{"Evento:"}</Text>
                     </div>
                     <div className="flex w-full">
                         <Menu autoSelect={false} foc  >
                             <MenuButton flex={"2"} w={"8rem"} >
                                 <div className="flex justify-between w-[90%] md:w-full">
-                                    <Text noOfLines={1} textAlign={"start"} ml={"2px"} className={"font-semibold text-gray-500"} >{event?.nombre}</Text>
+                                    <Text noOfLines={1} textAlign={"start"} ml={"2px"} className={"text-[13px] text-gray-500 z-50"} >{event?.nombre}</Text>
                                     <ArrowDownIcon h={2} w={3} />
                                 </div>
                             </MenuButton>

@@ -21,11 +21,6 @@ const Business = () => {
             component: <MarcasControl optionSelect={optionSelect} />
         },
         {
-            icon: <PiBrowsers className="h-6 w-auto" />,
-            title: "Wedding page",
-            component: <CustomWebsControl setPage={setPage} page={page} />
-        },
-        {
             icon: <CiViewTable className="h-6 w-auto" />,
             title: "Pages list",
             component: <TablePegesList  setComponentState={setOptionSelect} />

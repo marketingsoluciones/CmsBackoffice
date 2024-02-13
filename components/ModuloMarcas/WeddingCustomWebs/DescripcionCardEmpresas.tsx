@@ -15,9 +15,9 @@ export const DescripcionCardEmpresas: FunctionComponent<propsDescripcionCardEmpr
 
 
   return (
-    <section className="flex flex-col items-center justify-start gap-[10px]  text-xl text-azulCorporativo ">
+    <section className="flex flex-col items-center justify-start gap-[10px]  text-xl text-azulCorporativo h-[calc(100vh-75px)] overflow-y-auto ">
       {/* header */}
-      <header className="flex flex-col py-2  text-[32px]  ">
+      <header className="flex flex-col   text-[32px]  ">
         <div onClick={() => setPage("principal")} className="w-5 h-5  top-2 left-3 text-gray-700 cursor-pointer">
           <ArrowLeft />
         </div>
@@ -123,7 +123,7 @@ export const DescripcionCardEmpresas: FunctionComponent<propsDescripcionCardEmpr
       </div>
       {/* descripciones */}
       <div className="flex flex-col md:flex-row items-start justify-start p-2.5 gap-[10px] text-[16px] font-segoe-ui">
-        <div className=" leading-[26px] md:w-[702px]">
+        <div className=" leading-[26px] md:w-[680px]">
           <p className="">
             {FindDataPlantilla.Descripcion}
           </p>
