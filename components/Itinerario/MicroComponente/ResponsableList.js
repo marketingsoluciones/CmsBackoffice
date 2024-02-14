@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import ClickAwayListener from "react-click-away-listener"
-export const ResponsableList = ({ selectIcon, openModal, setOpenModal, DataArry, setSelectIcon, value }) => {
+export const ResponsableList = ({ selectIcon, openModal, setOpenModal, DataArry, setSelectIcon, value, DataArryDia, title }) => {
     console.log(selectIcon)
+    const [array, setArry] = useState ([])
 
     const handleClick = (item) => {
         setSelectIcon((old) => {
@@ -17,12 +18,22 @@ export const ResponsableList = ({ selectIcon, openModal, setOpenModal, DataArry,
         })
     }
 
+    useEffect(()=>{
+        if(title==="el gran día"){
+           setArry( DataArryDia)
+        }else{
+            setArry(DataArry)
+        }
+
+    },[])
+
+
     return (
         <ClickAwayListener onClickAway={() => openModal && setOpenModal(false)}>
             <div className="flex flex-col items-center space-y-2 w-max*" >
                 <span className="text-rosa text-[20px]">Responsable </span>
                 {
-                    DataArry.map((item, idx) => {
+                    array.map((item, idx) => {
                         return (
                             <div
                                 key={idx}

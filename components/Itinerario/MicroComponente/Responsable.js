@@ -32,10 +32,33 @@ const ResponsablesArry = [
     },
 ]
 
-export const Responsable = ({ itinerario, handleChange, task, ...props }) => {
+const ResponsablesArryDia = [
+
+
+
+    {
+        icon: "/rol_novia.png",
+        title: "Novia",
+    },
+    {
+        icon: "/rol_novio.png",
+        title: "Novio",
+    },
+    {
+        icon: "/rol_invitados.png",
+        title: "Invitados",
+    },
+    {
+        icon: "/rol_proveedor.png",
+        title: "Proveedor",
+    },
+]
+
+export const Responsable = ({ itinerario, handleChange, title, task, ...props }) => {
     const [field, meta, helpers] = useField({ name: props?.name });
     const [selectIcon, setSelectIcon] = useState([])
     const [openResponsableList, setOpenResponsableList] = useState(false)
+    console.log(title)
 
     useEffect(() => {
         if (selectIcon) {
@@ -63,7 +86,10 @@ export const Responsable = ({ itinerario, handleChange, task, ...props }) => {
                                 onClick={() => {
                                     setOpenResponsableList(!openResponsableList)
                                 }} {...props}>
-                                <img src={ResponsablesArry.find((elem) => elem?.title === item)?.icon} className="h-10 " />
+                                {title === "el gran día" ?
+                                    <img src={ResponsablesArryDia.find((elem) => elem?.title === item)?.icon} className="h-10 " /> :
+                                    <img src={ResponsablesArry.find((elem) => elem?.title === item)?.icon} className="h-10 " />}
+
                             </div>
                         )
                     })}
@@ -76,7 +102,7 @@ export const Responsable = ({ itinerario, handleChange, task, ...props }) => {
             {
                 openResponsableList
                     ? <Modal openIcon={openResponsableList} setOpenIcon={setOpenResponsableList} classe={"h-max w-[16%]"} >
-                        <ResponsableList itinerario={itinerario} DataArry={ResponsablesArry} openModal={openResponsableList} setOpenModal={setOpenResponsableList} setSelectIcon={setSelectIcon} task={task} selectIcon={selectIcon} value={field.value} />
+                        <ResponsableList itinerario={itinerario} DataArry={ResponsablesArry} DataArryDia={ResponsablesArryDia} openModal={openResponsableList} setOpenModal={setOpenResponsableList} setSelectIcon={setSelectIcon} task={task} selectIcon={selectIcon} value={field.value} title={title} />
                     </Modal>
                     : null
             }

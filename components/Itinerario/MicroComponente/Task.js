@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { Description, Duration, Responsable,  SelectIcon, Tips } from ".";
+import { Description, Duration, Responsable, SelectIcon, Tips } from ".";
 import { InputTime } from "../../formularios/Inputs/InputTime";
 import { EventContextProvider } from "../../../context/EventContext";
 import { fetchApiEventos, queries } from "../../../utils/Fetching";
@@ -9,11 +9,11 @@ import { useToast } from "../../../hooks/useToast";
 
 
 
-export const Task = ({ itinerario, task }) => {
+export const Task = ({ itinerario, task, title }) => {
   const { domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider()
   const toast = useToast()
-
+  
   const initialValues = {
     icon: !task?.icon ? "" : task?.icon,
     time: !task?.hora ? "" : task?.hora,
@@ -65,7 +65,7 @@ export const Task = ({ itinerario, task }) => {
         return { ...old }
       })
       toast("success", "La actividad fue borrada");
-      
+
     } catch (error) {
       console.log(error)
     }
@@ -81,12 +81,12 @@ export const Task = ({ itinerario, task }) => {
               <div className="grid grid-cols-1 lg:grid-cols-12 items-center justify-center md:px-20 lg:px-12 2xl:px-56 py-1" >
                 <div className="flex lg:col-span-8 justify-end">
                   <SelectIcon name="icon" handleChange={handleBlurData} />
-                  <div className="flex flex-col justify-center">
+                  <div className="flex flex-col justify-center ">
                     <InputTime name="time" onBlur={() => { handleBlurData("hora", values.time) }} />
                     <Duration name="duration" onBlur={() => { handleBlurData("duracion", values.duration.toString()) }} />
                   </div>
                   <Description name="description" onBlur={() => { handleBlurData("descripcion", values.description) }} />
-                  <Responsable name="responsable" handleChange={handleBlurData} itinerario={itinerario} task={task} />
+                  <Responsable name="responsable" handleChange={handleBlurData} itinerario={itinerario} task={task} title={title} />
                 </div>
                 <div className="flex lg:col-span-4 items-center ">
                   <Tips name="tips" onBlur={() => { handleBlurData("tips", values.tips) }} />

@@ -29,7 +29,7 @@ export const Description = ({ ...props }) => {
         }
     }, [refInput])
     return (
-        <div className='-ml-6 md:-ml-8 flex items-center w-full'>
+        <div className='flex items-center w-full'>
             <Box gap={"0.3rem"} alignItems={"center"} className='w-full'>
                 <Textarea
                     resize={"none"}

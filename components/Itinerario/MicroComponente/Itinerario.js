@@ -21,6 +21,7 @@ export const Itinerario = ({ data }) => {
     const [tasks, setTasks] = useState()
     const [modal, setModal] = useState(false)
     const toast = useToast()
+
     useEffect(() => {
         const itinerario = event?.itinerarios_array?.find(elem => elem.title === data?.title)
         setItinerario({ ...itinerario })
@@ -84,7 +85,7 @@ export const Itinerario = ({ data }) => {
                 <div className="w-full">
                     {tasks?.map((elem, idx) => {
                         return (
-                            <Task task={elem} key={idx} date={date} itinerario={itinerario} />
+                            <Task task={elem} key={idx} date={date} itinerario={itinerario} title={data?.title} />
                         )
                     })
                     }
