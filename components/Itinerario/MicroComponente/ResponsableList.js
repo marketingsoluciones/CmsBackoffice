@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import ClickAwayListener from "react-click-away-listener"
-export const ResponsableList = ({ selectIcon, openModal, setOpenModal, DataArry, setSelectIcon, value, DataArryDia, title }) => {
+export const ResponsableList = ({ selectIcon, openModal, setOpenModal, DataArry, setSelectIcon, value }) => {
     console.log(selectIcon)
-    const [array, setArry] = useState ([])
+
 
     const handleClick = (item) => {
         setSelectIcon((old) => {
@@ -18,36 +18,32 @@ export const ResponsableList = ({ selectIcon, openModal, setOpenModal, DataArry,
         })
     }
 
-    useEffect(()=>{
-        if(title==="el gran día"){
-           setArry( DataArryDia)
-        }else{
-            setArry(DataArry)
-        }
-
-    },[])
 
 
     return (
         <ClickAwayListener onClickAway={() => openModal && setOpenModal(false)}>
             <div className="flex flex-col items-center space-y-2 w-max*" >
                 <span className="text-rosa text-[20px]">Responsable </span>
-                {
-                    array.map((item, idx) => {
-                        return (
-                            <div
-                                key={idx}
-                                className={`grid grid-cols-3 items-center cursor-pointer hover:bg-slate-200 p-1 rounded-lg  ${value.includes(item.title)?"bg-slate-300":"bg-none"}`}
-                                onClick={() => { handleClick(item) }}
-                            >
-                                <div className="col-span-1">
-                                <img src={item.icon} className="h-10 " />
+                <div className="overflow-y-auto flex flex-col h-[calc(100vh-300px)] pr-3 ">
+
+                    {
+                        DataArry.map((item, idx) => {
+                            return (
+                                <div
+                                    key={idx}
+                                    className={`grid grid-cols-3 items-center cursor-pointer hover:bg-slate-200 p-1 rounded-lg  ${value.includes(item.title) ? "bg-slate-300" : "bg-none"}`}
+                                    onClick={() => { handleClick(item) }}
+                                >
+                                    <div className="col-span-1">
+                                        <img src={item.icon} className="h-10 " />
+                                    </div>
+                                    <span className="col-span-2  w-28">{item?.title}</span>
                                 </div>
-                                <span className="col-span-2  w-28">{item?.title}</span>
-                            </div>
-                        )
-                    })
-                }
+                            )
+                        })
+                    }
+                </div>
+
                 <button className="bg-rosa py-1 px-2 text-white rounded-lg text-" onClick={() => setOpenModal(!openModal)}>
                     cerrar
                 </button>

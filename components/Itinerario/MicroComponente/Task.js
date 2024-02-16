@@ -78,10 +78,10 @@ export const Task = ({ itinerario, task, title }) => {
         {({ values, }) => {
           return (
             <Form>
-              <div className="grid grid-cols-1 lg:grid-cols-12 items-center justify-center md:px-20 lg:px-12 2xl:px-56 py-1" >
+              <div className="grid grid-cols-1 lg:grid-cols-12 items-center justify-center md:px-10 lg:px-10 2xl:px-36 py-1" >
                 <div className="flex lg:col-span-8 justify-end">
                   <SelectIcon name="icon" handleChange={handleBlurData} />
-                  <div className="flex flex-col justify-center ">
+                  <div className="flex flex-col justify-center items-center ">
                     <InputTime name="time" onBlur={() => { handleBlurData("hora", values.time) }} />
                     <Duration name="duration" onBlur={() => { handleBlurData("duracion", values.duration.toString()) }} />
                   </div>

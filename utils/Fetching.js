@@ -142,6 +142,14 @@ export const queries = {
       ipcountry
     }
   }`,
+  updateMetricol: `mutation($uid: ID!){
+    updateMetricol(uid:$uid){
+      userId
+      blogId
+      whiteLabelLink
+      analyticModeWhitelabelLink
+    }
+  }`,
   getUser: `query ($uid: ID) {
         getUser(uid:$uid){
           phoneNumber
@@ -160,6 +168,12 @@ export const queries = {
             title
             role
             status
+            metricol {
+              userId
+              blogId
+              whiteLabelLink
+              analyticModeWhitelabelLink
+          }
             nickNames{
               _id
               nickName

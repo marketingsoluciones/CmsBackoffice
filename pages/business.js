@@ -6,13 +6,16 @@ import { PiBrowsers, PiCertificate } from "react-icons/pi";
 import { IframeMetricool } from "../components/MarcaBlancaMetricool";
 import { IoAnalytics } from "react-icons/io5";
 import { CiViewTable } from "react-icons/ci";
+import { AuthContextProvider } from "../context";
 
 
 const Business = () => {
     const [optionSelect, setOptionSelect] = useState(0)
     const [page, setPage] = useState("principal")
+    const { user, development } = AuthContextProvider()
+    const dataMetricool = user?.authDevelopments.find((element) => element.title === development) 
 
-
+    
 
     const dataComponents = [
         {
@@ -23,13 +26,13 @@ const Business = () => {
         {
             icon: <CiViewTable className="h-6 w-auto" />,
             title: "Pages list",
-            component: <TablePegesList  setComponentState={setOptionSelect} />
+            component: <TablePegesList setComponentState={setOptionSelect} />
         },
-       /*  {
+        {
             icon: <IoAnalytics className="h-6 w-auto" />,
             title: "Metricas",
-            component: <IframeMetricool />
-        }, */
+            component: <IframeMetricool dataMetricool={dataMetricool?.metricol}  />
+        },
     ]
     const handleClickOption = (idx) => {
         setOptionSelect(idx);
@@ -37,7 +40,7 @@ const Business = () => {
     return (
         <div className="md:grid md:grid-cols-6 h-full">
             <SubmenuComponent dataComponents={dataComponents} onClick={handleClickOption} optionSelect={optionSelect} />
-            <div className={` col-span-6 md:col-span-5 z-10   ${page === "WebBuilder"? optionSelect != 1 ? "px-5 py-2" :"":"px-5 py-2"} h-[calc(100%-px)] overflow-auto `}>
+            <div className={` col-span-6 md:col-span-5 z-10   ${page === "WebBuilder" ? optionSelect != 1 ? "px-5 py-2" : "" : "px-5 py-2"} h-[calc(100%-px)] overflow-auto `}>
                 {dataComponents[optionSelect].component}
             </div>
         </div>
