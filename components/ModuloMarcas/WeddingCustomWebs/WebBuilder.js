@@ -7,7 +7,7 @@ import basicBlockPlugin from 'grapesjs-blocks-basic'
 import formPlugin from 'grapesjs-plugin-forms'
 import { fetchApi, queries } from '../../../utils/Fetching'
 import { AuthContextProvider } from '../../../context/AuthContext'
-import {useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 
 
 export const WebBuilder = ({ setCommponent }) => {
@@ -133,6 +133,11 @@ export const WebBuilder = ({ setCommponent }) => {
         plugins: [websitePlugin, basicBlockPlugin, formPlugin],
         deviceManager,
         storageManager,
+        i18n: {
+          locale: 'en', // default locale
+          detectLocale: true, // by default, the editor will detect the language
+          localeFallback: 'en', // default fallback
+        },
         pageManager: {
           pages: [{
             id: 'page-1',
@@ -152,7 +157,7 @@ export const WebBuilder = ({ setCommponent }) => {
             component: "",
             styles: '#comp1 { color: red }',
           },
-        ]
+          ]
         },
         pluginsOpts: {
           'grapesjs-preset-webpage': {
