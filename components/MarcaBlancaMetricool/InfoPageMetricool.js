@@ -4,7 +4,7 @@ import { ArrowLeft, DiamanteIcon } from "../Icons/index"
 
 
 export const InfoPageMetricool = () => {
-    const { user, setUser, development } = AuthContextProvider()
+    const { user, setUser, development, config } = AuthContextProvider()
     console.log("console del user", user.authDevelopments)
 
     const ActivateMetricool = () => {
@@ -12,7 +12,8 @@ export const InfoPageMetricool = () => {
             query: queries.updateMetricol,
             variables: {
                 uid: user?.uid
-            }
+            },
+            development: config?.name
         }).then((result) => {
             setUser((old) => {
                 const f1 = old?.authDevelopments?.findIndex((element) => element.title === development)
@@ -25,9 +26,9 @@ export const InfoPageMetricool = () => {
 
     return (
         <div  >
-            <div className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+            {/* <div className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
-            </div>
+            </div> */}
             <p className="mt-1 text-3xl text-rosa font-semibold">
                 Metricas
             </p>
