@@ -18,6 +18,7 @@ export const WebBuilder = ({ setCommponent }) => {
   const [pages, setPages] = useState([])
   const [isMounted, setIsMounted] = useState(false)
   const [pageSelected, setPageSelected] = useState()
+  const [runHandleUpdateCodePage, setRunHandleUpdateCodePage] = useState({state:new Date(), value:null})
 
   useEffect(() => {
     if (!isMounted) {
@@ -70,18 +71,29 @@ export const WebBuilder = ({ setCommponent }) => {
       ]
   }
 
+      console.log("hola",page)
+      console.log("user",user)
+  
+  useEffect(()=> {
+    handleUpdateCodePage({title:runHandleUpdateCodePage.value})
+  },[runHandleUpdateCodePage.state])
+
   const handleUpdateCodePage = async ({ title }) => {
     try {
-      if (page.html != undefined) {
-        await fetchApi({
+      /*  if (page.html == undefined) { */
+      console.log("hola",page)
+      await fetchApi({
           query: queries.createCodePage,
           variables: {
             args: [{
-              title: title,
-              html: page.html,
-              css: page.css,
-              js: page.js,
-              uid: user.uid,
+              author: user?.uid,
+              title:title,
+              code: "",
+              htmlPage:{
+                html: page?.html,
+                css:page?.css,
+                js:page?.js
+              },
               type: "page",
             }]
           },
@@ -92,13 +104,13 @@ export const WebBuilder = ({ setCommponent }) => {
           title: "Guardada correctamente",
           isClosable: true,
         });
-      } else {
+     /*  } else {
         toast({
           status: "error",
           title: "No hay cambios para guardar",
           isClosable: true,
         });
-      }
+      } */
     } catch (error) {
       toast({
         status: "error",
@@ -125,6 +137,10 @@ export const WebBuilder = ({ setCommponent }) => {
     }
   }, [])
 
+  useEffect(()=>{
+    console.log(33333333,page)
+  },[page])
+
   useEffect(() => {
     const editor = grapesjs.init(
       {
@@ -133,10 +149,10 @@ export const WebBuilder = ({ setCommponent }) => {
         plugins: [websitePlugin, basicBlockPlugin, formPlugin],
         deviceManager,
         storageManager,
-        i18n: {
-          locale: 'en', // default locale
-          detectLocale: true, // by default, the editor will detect the language
-          localeFallback: 'en', // default fallback
+        lang: 'es',
+        I18n: {
+          locale: 'es', // default locale
+          localeFallback: 'es', // default fallback
         },
         pageManager: {
           pages: [{
@@ -178,7 +194,9 @@ export const WebBuilder = ({ setCommponent }) => {
       const html = editor.getHtml()
       const css = editor.getCss()
       const js = editor.getJs()
-      setPage({ html, css, js })
+      const page = {html, css , js}
+      console.log(222222222,page)
+      setPage(page)
     })
     editor.on('undo', () => {
       console.log("UNDO")
@@ -192,7 +210,8 @@ export const WebBuilder = ({ setCommponent }) => {
       command: function (editor) {
         let title = ""
         title = prompt("Antes de guardar la plantilla, indica el titulo: ")
-        handleUpdateCodePage({ title: title })
+        setRunHandleUpdateCodePage({state:new Date(), value: title })
+       /*  handleUpdateCodePage({ title: title }) */
       },
       attributes: { title: 'Guardar' }
     });

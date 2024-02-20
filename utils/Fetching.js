@@ -96,6 +96,27 @@ export const queries = {
       total
       results{
         _id
+        title
+        description
+        author{
+          _id
+          uid
+          email
+          displayName
+          photoURL
+        }
+        htmlPage{
+          html
+          css
+          js
+          status
+        }
+        code
+        type
+        price
+        status
+        createdAt
+        updatedAt
       }
     }
   }`,
@@ -110,16 +131,28 @@ export const queries = {
     getCodePage(args:$args, sort:$sort, skip:$skip, limit:$limit){
       total
       results{
-        _id 
-        uid 
-        title 
-        html 
-        css 
-        js 
-        type 
-        price 
-        status 
-        createdAt 
+        _id
+        title
+        description
+        author{
+          _id
+          uid
+          email
+          displayName
+          photoURL
+        }
+        htmlPage{
+          _id
+          html
+          css
+          js
+          status
+        }
+        code
+        type
+        price
+        status
+        createdAt
         updatedAt
       }
     }
