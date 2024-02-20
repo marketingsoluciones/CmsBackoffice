@@ -18,7 +18,6 @@ export const WebBuilder = ({ setCommponent }) => {
   const [pages, setPages] = useState([])
   const [isMounted, setIsMounted] = useState(false)
   const [pageSelected, setPageSelected] = useState()
-  const [runHandleUpdateCodePage, setRunHandleUpdateCodePage] = useState({state:new Date(), value:null})
 
   useEffect(() => {
     if (!isMounted) {
@@ -71,46 +70,40 @@ export const WebBuilder = ({ setCommponent }) => {
       ]
   }
 
-      console.log("hola",page)
-      console.log("user",user)
-  
-  useEffect(()=> {
-    handleUpdateCodePage({title:runHandleUpdateCodePage.value})
-  },[runHandleUpdateCodePage.state])
-
-  const handleUpdateCodePage = async ({ title }) => {
+  const handleUpdateCodePage = async ({ title, page, code }) => {
     try {
       /*  if (page.html == undefined) { */
-      console.log("hola",page)
+      console.log("-------------->", page)
       await fetchApi({
-          query: queries.createCodePage,
-          variables: {
-            args: [{
-              author: user?.uid,
-              title:title,
-              code: "",
-              htmlPage:{
-                html: page?.html,
-                css:page?.css,
-                js:page?.js
-              },
-              type: "page",
-            }]
-          },
-          development: "bodasdehoy"
-        })
-        toast({
-          status: "success",
-          title: "Guardada correctamente",
-          isClosable: true,
-        });
-     /*  } else {
-        toast({
-          status: "error",
-          title: "No hay cambios para guardar",
-          isClosable: true,
-        });
-      } */
+        query: queries.createCodePage,
+        variables: {
+          args: [{
+            author: user?.uid,
+            title: title,
+            code: "",
+            htmlPage: {
+              html: page?.html,
+              css: page?.css,
+              js: page?.js
+            },
+            code: JSON.stringify(code),
+            type: "page",
+          }]
+        },
+        development: "bodasdehoy"
+      })
+      toast({
+        status: "success",
+        title: "Guardada correctamente",
+        isClosable: true,
+      });
+      /*  } else {
+         toast({
+           status: "error",
+           title: "No hay cambios para guardar",
+           isClosable: true,
+         });
+       } */
     } catch (error) {
       toast({
         status: "error",
@@ -122,6 +115,7 @@ export const WebBuilder = ({ setCommponent }) => {
   }
 
   useEffect(() => {
+    console.log(user)
     try {
       fetchApi({
         query: queries.getCodePage,
@@ -136,10 +130,6 @@ export const WebBuilder = ({ setCommponent }) => {
       console.log(error)
     }
   }, [])
-
-  useEffect(()=>{
-    console.log(33333333,page)
-  },[page])
 
   useEffect(() => {
     const editor = grapesjs.init(
@@ -194,8 +184,7 @@ export const WebBuilder = ({ setCommponent }) => {
       const html = editor.getHtml()
       const css = editor.getCss()
       const js = editor.getJs()
-      const page = {html, css , js}
-      console.log(222222222,page)
+      const page = { html, css, js }
       setPage(page)
     })
     editor.on('undo', () => {
@@ -210,8 +199,15 @@ export const WebBuilder = ({ setCommponent }) => {
       command: function (editor) {
         let title = ""
         title = prompt("Antes de guardar la plantilla, indica el titulo: ")
-        setRunHandleUpdateCodePage({state:new Date(), value: title })
-       /*  handleUpdateCodePage({ title: title }) */
+        handleUpdateCodePage({
+          title: title,
+          page: {
+            html: editor.getHtml(),
+            css: editor.getCss(),
+            js: editor.getJs(),
+          },
+          code: editor.getProjectData()
+        })
       },
       attributes: { title: 'Guardar' }
     });
@@ -246,7 +242,6 @@ export const WebBuilder = ({ setCommponent }) => {
         return pm.getSelected().id == item.id;
       },
       selectPage(pageId) {
-        console.log(10004, pageId)
         return pm.select(pageId);
       },
       removePage(pageId) {
@@ -270,19 +265,10 @@ export const WebBuilder = ({ setCommponent }) => {
 
   useEffect(() => {
     if (app && isMounted) {
-      console.log(11110, app)
       const pages = app.methods.getAll()
-      console.log(11111, pages)
       setPages(pages)
     }
   }, [isMounted])
-
-  useEffect(() => {
-    console.log(222220001, pm)
-  }, [pm])
-
-
-
 
   return (
     <>
