@@ -23,7 +23,7 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
             {(() => {
                 if (screen.width > 640) {
                     return (
-                        <div className=" hidden md:block bg-gray-200 px-4 py-5 space-y-5 col-span-1 z-50 ">
+                        <div className=" hidden md:block bg-gray-200 px-4 py-5 space-y-5 col-span-1 z-10 ">
                             {
                                 router.pathname == "/business" ? null : eventsGroup?.length != 0 ? <EventoSelect /> : <ButtonEventForm isMounted={isMounted} setIsMounted={setIsMounted} />
                             }

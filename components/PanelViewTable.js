@@ -222,7 +222,6 @@ export const OnlyViewTable = ({ slug, dispatch, setbuscador }) => {
     }
   }, [data_])
 
-  console.log("console de data table",data)
 
   const [dataRemove, isLoadingRemove, isErrorRemove, setQueryRemove] = useFetch(true);
   const { development, user, domain } = AuthContextProvider()
@@ -230,8 +229,6 @@ export const OnlyViewTable = ({ slug, dispatch, setbuscador }) => {
   const [global, setGlobal] = useState()
   const [seteador, setSeteador] = useState(() => () => { })
   const router = useRouter()
-
-  console.log("selected",selected)
 
   const columns = useMemo(() => {
     const avalibleShowColumns = user?.visibleColumns?.map(elem => elem.accessor) //selected?.visibleColumns?.map(elem => elem.accessor)

@@ -218,6 +218,42 @@ export const BodyStaticAPP = [
         ],
       },
       {
+        title:null,
+        roles: ["admin", "empresa"],
+        route: "customWebBuilder",
+        getData: FetchGraphQL.business.getBusinessAll,
+        getByID: FetchGraphQL.business.getOneBusiness,
+        createEntry: FetchGraphQL.business.createBusiness,
+        updateEntry: FetchGraphQL.business.updateBusiness,
+        deleteEntry: FetchGraphQL.business.deleteBusiness,
+        schema:[
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+          },
+          {
+            Header: "Slug",
+            accessor: "slug",
+            type: "textareaSizable",
+            required: true,
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+        ]
+      },
+      {
         icon: <CategoriasIcon />,
         title: "Categorias",
         roles: ["admin"],
@@ -507,7 +543,7 @@ export const BodyStaticAPP = [
           },
         ],
       },
-
+    
     ],
   },
   {
@@ -525,6 +561,36 @@ export const BodyStaticAPP = [
         updateEntry: "",
         deleteEntry: "",
         schema: [],
+      },
+      {
+        title:null,
+        roles: ["admin", "empresa"],
+        route: "itinerario",
+        getData: FetchGraphQL.business.getBusinessAll,
+        getByID: FetchGraphQL.business.getOneBusiness,
+        createEntry: FetchGraphQL.business.createBusiness,
+        updateEntry: FetchGraphQL.business.updateBusiness,
+        deleteEntry: FetchGraphQL.business.deleteBusiness,
+        schema:[
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+        ]
       },
       {
         icon: <Catering />,
