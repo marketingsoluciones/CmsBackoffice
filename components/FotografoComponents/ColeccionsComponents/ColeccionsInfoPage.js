@@ -17,14 +17,14 @@ export const ColeccionesInfoPage = ({ setComponentState }) => {
     ]
     return (
         <div className="">
-            <div onClick={() => setComponentState(2)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+            <div onClick={() => setComponentState(2)} className="w-5 h-5 z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
             <p className="  mt-1 text-3xl text-rosa flex items-center ">
                 Colecciones
                 <DiamanteSinFondoIcon className="text-acento ml-1"/>
             </p>
-            <div className="bg-white rounded-lg md:h-[calc(100%-80px)]* *h-[calc(100%-220px)] overflow-auto">
+            <div className="bg-white rounded-lg md:h-[calc(100vh-145px)] overflow-auto">
                 <div className="md:grid md:grid-cols-2 px-10 py-10">
                     <div>
                         <p className="text-xl text-azulCorporativo font-semibold">
@@ -69,7 +69,7 @@ export const ColeccionesInfoPage = ({ setComponentState }) => {
                         <span className="text-rosa">Publicar las colecciones de fotos y videos de tus eventos </span> es una forma estratégica de destacar tu talento fotográfico. Más aún, si lo hacen dentro de canales como tu EventosOrganizador.
                     </p>
                 </div>
-                <div className="md:grid md:grid-cols-2 px-10 py-10 md:space-x-5 space-y-5 md:space-y-0">
+                <div className="md:grid md:grid-cols-2 px-10 py-8 md:space-x-5 space-y-5 md:space-y-0">
                     {
                         dataArry.map((item, idx) => {
                             return (

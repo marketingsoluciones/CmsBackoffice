@@ -22,14 +22,14 @@ export const ProyectoInfoPage = ({ setComponentState }) => {
         },
     ]
     return (
-        <div  className="h-[100vh]">
+        <div  className="">
             <div onClick={() => setComponentState(2)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
             <p className=" mt-1 text-3xl text-rosa">
                 Proyectos
             </p>
-            <div className="bg-white rounded-lg md:relative md:h-[calc(100%-110px)] h-[calc(100%-220px)] overflow-auto pt-16 md:pt-0">
+            <div className="bg-white rounded-lg md:relative md:h-[calc(100vh-145px)] h-[calc(100vh-220px)] overflow-auto pt-16 md:pt-0">
             <img src="proyectoImg.png" alt="proyect Img" className="md:absolute  md:top-24 md:right-0 h-[65%] pl-10 md:pl-0" />
 
                 <div className="md:px-10 px-5 py-8 space-y-3">
