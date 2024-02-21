@@ -39,7 +39,7 @@ export const ItinerarioWeddingTable = ({ setOptionSelect, setComponentState }) =
 
             <div className="bg-white space-y-5 rounded-xl flex flex-col py-2 px-4  ">
 
-                <OnlyViewTable slug={"business"} dispatch={dispatch} setbuscador={setSeteador} />
+                <OnlyViewTable slug={"itinerario"} dispatch={dispatch} setbuscador={setSeteador} />
 
             </div>
         </div>

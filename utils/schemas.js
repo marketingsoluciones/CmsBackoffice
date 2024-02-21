@@ -1,4 +1,4 @@
-import { FetchGraphQL } from "../utils/Fetching";
+import { FetchGraphQL, queries } from "../utils/Fetching";
 import { formatTime } from "../utils/formatTime";
 import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon } from "../components/Icons/index";
 
@@ -567,9 +567,9 @@ export const BodyStaticAPP = [
         roles: ["admin", "empresa"],
         route: "itinerario",
         getData: FetchGraphQL.business.getBusinessAll,
-        getByID: FetchGraphQL.business.getOneBusiness,
+        getByID: queries.getCodePage,
         createEntry: FetchGraphQL.business.createBusiness,
-        updateEntry: FetchGraphQL.business.updateBusiness,
+        updateEntry: queries.updateCodePage,
         deleteEntry: FetchGraphQL.business.deleteBusiness,
         schema:[
           {

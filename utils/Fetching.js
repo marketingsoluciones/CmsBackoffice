@@ -157,6 +157,7 @@ export const queries = {
       }
     }
   }`,
+  
   signOut: `mutation ($sessionCookie :String){
     signOut(sessionCookie:$sessionCookie)
   }`,

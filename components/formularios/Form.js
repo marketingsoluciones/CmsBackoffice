@@ -96,10 +96,10 @@ export const FormDinamical = forwardRef(
       textarea: Yup.string().nullable(),
       image: Yup.mixed()
         .required("requerida")
-        .test("is-valid-type", "Not a valid image type",
+       /*  .test("is-valid-type", "Not a valid image type",
           (value) => {
             if (!!value?.name) {
-              return isValidFileType(value && value?.name?.toLowerCase(), "image")
+              return value && value?.name?.toLowerCase()
             }
             return true
           }
@@ -111,7 +111,7 @@ export const FormDinamical = forwardRef(
             }
             return true
           }
-        )
+        ) */
       //imageMultiple: Yup.array().of(Yup.string()).nullable(),
     };
 

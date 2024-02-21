@@ -18,7 +18,11 @@ export const WebBuilder = ({ setCommponent }) => {
   const [pages, setPages] = useState([])
   const [isMounted, setIsMounted] = useState(false)
   const [pageSelected, setPageSelected] = useState()
+  const [page, setPage] = useState({ html: undefined, css: undefined, js: undefined})
+  const [grap, setGrape] = useState()
 
+
+  /* useEffect para montar y desmontar el componente  */
   useEffect(() => {
     if (!isMounted) {
       setIsMounted(true)
@@ -29,13 +33,23 @@ export const WebBuilder = ({ setCommponent }) => {
     }
   }, [])
 
+  /* useEffect para mapear data page y guardarlo en el estado grapes y al mismo tiempo crear el local storage */
+  useEffect(()=>{
+    dataPage?.map((item)=>{ setGrape(item.code)})
 
-  const [page, setPage] = useState({
-    html: undefined,
-    css: undefined,
-    js: undefined
-  })
+    if (typeof(Storage) !== "undefined") {
+      grap&& localStorage.setItem("gjsProject", grap)
+      if(!localStorage.getItem("gjsProject")){
+        {}
+        grap && localStorage.setItem("gjsProject", grap )
+      }
+   }
+  },[dataPage])
 
+  /* parsear lo que se guarda en el estado grapes */
+  const grapeParse = grap && JSON.parse(grap)
+
+  /* opciones de almacenado de la interfaz */
   const storageManager = {
     id: 'gjs-',
     type: 'local',
@@ -47,6 +61,7 @@ export const WebBuilder = ({ setCommponent }) => {
     storeCss: true,
   }
 
+  /* botones responsives de la interfaz */
   const deviceManager = {
     devices:
       [
@@ -70,6 +85,7 @@ export const WebBuilder = ({ setCommponent }) => {
       ]
   }
 
+  /* handle para crear la plantilla */
   const handleUpdateCodePage = async ({ title, page, code }) => {
     try {
       /*  if (page.html == undefined) { */
@@ -114,13 +130,16 @@ export const WebBuilder = ({ setCommponent }) => {
     }
   }
 
+  console.log("graaaaaaa",grapeParse)
+
+  /* useEffect donde se ejecuta la query para pedir la plantilla por id */
   useEffect(() => {
-    console.log(user)
+    if(isMounted){
     try {
       fetchApi({
         query: queries.getCodePage,
         variables: {
-          args: { _id: "65c0fa09a95a941255283dff" }
+          args: { _id: "65d640408560eb43b2a0e613" }
         },
         development: "bodasdehoy"
       }).then((getDataPage) => {
@@ -129,11 +148,15 @@ export const WebBuilder = ({ setCommponent }) => {
     } catch (error) {
       console.log(error)
     }
-  }, [])
+    
+  }
+  }, [isMounted])
 
+  /* useEffect que ejecuta la interfaz del grapes */
   useEffect(() => {
     const editor = grapesjs.init(
       {
+        autorender: false,
         container: '#gjs',
         width: '100%',
         plugins: [websitePlugin, basicBlockPlugin, formPlugin],
@@ -176,9 +199,11 @@ export const WebBuilder = ({ setCommponent }) => {
         },
       }
     )
-    editor.on('load', () => {
+    editor.on('load', (editor) => {
       console.log("LOAD")
-    })
+      editor.loadProjectData(grapeParse);      
+    });
+    editor.render();
     editor.on('update', () => {
       console.log("UPDATE")
       const html = editor.getHtml()
@@ -186,13 +211,13 @@ export const WebBuilder = ({ setCommponent }) => {
       const js = editor.getJs()
       const page = { html, css, js }
       setPage(page)
-    })
+    });
     editor.on('undo', () => {
       console.log("UNDO")
-    })
+    });
     editor.on('redo', () => {
       console.log("REDO")
-    })
+    });
     editor.Panels.addButton('devices-c', {
       id: 'save-button',
       className: 'save-button',
@@ -222,6 +247,7 @@ export const WebBuilder = ({ setCommponent }) => {
     setPm(editor.Pages)
   }, [])
 
+  /* constante donde se guardan las funciones del manejador de paginas */
   const app = {
     el: '.pages-wrp',
     data: { pages: [] },
@@ -263,6 +289,7 @@ export const WebBuilder = ({ setCommponent }) => {
     }
   };
 
+  /* useEffect donde se guardan las paginas y las metodos para el manejador de paginas en el estado de pages */
   useEffect(() => {
     if (app && isMounted) {
       const pages = app.methods.getAll()

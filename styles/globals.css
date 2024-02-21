@@ -195,3 +195,10 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 #gjs{
   height: 88.4vh !important ;
 }
+
+.gjs-pn-views-container{
+  width: 20% !important;
+}
+.gjs-cv-canvas{
+  width: calc(100% - 20%) !important;
+}
