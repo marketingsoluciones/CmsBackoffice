@@ -17,7 +17,6 @@ export const columnsDataTable = ({ slug, user }) => {
         acc?.push(item?.accessor);
       return acc;
     }, []);
-    console.log(1000421, options)
     return options;
   } else {
     return null
@@ -29,7 +28,6 @@ export const columnsDataTable = ({ slug, user }) => {
 export const FindOption = (slug) => {
 
   //Unificar hijos a un mismo nivel | Sustraer de grupos
-  console.log(1000419, BodyStaticAPP)
   const children = BodyStaticAPP.reduce((acc, item) => {
     const childrenMap = item.children.map(elem => { return { ...elem, father: item.title } })
     acc = [...acc, ...childrenMap, item]
@@ -37,6 +35,5 @@ export const FindOption = (slug) => {
   }, [])
   //Seleccionar de acuerdo al slug
   const options = children.find(item => item.route === slug)
-  console.log(1000420, options)
   return options
 }

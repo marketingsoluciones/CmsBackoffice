@@ -61,7 +61,6 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   }, [selected]);
   useEffect(() => {
     if (isMounted) {
-      console.log(10004231, selected.getData)
       if (hasRole(development, user, selected.roles)) {
         const variables = { development: development, domain: "diariocivitas", skip, limit, sort: { [sortCriteria]: sort } }
         if (!user?.role.includes("admin", "editor")) {
@@ -242,8 +241,6 @@ export const OnlyViewTable = ({ slug, dispatch, setbuscador }) => {
   }, [selected]);
 
   useEffect(() => {
-    console.log(10004232, selected.getData)
-
     if (isMounted) {
       if (hasRole(development, user, selected.roles)) {
         const variables = { development: development, domain: "diariocivitas", skip, limit, sort: { [sortCriteria]: sort } }

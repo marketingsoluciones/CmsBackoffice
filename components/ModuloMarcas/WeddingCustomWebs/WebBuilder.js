@@ -8,10 +8,11 @@ import formPlugin from 'grapesjs-plugin-forms'
 import { fetchApi, queries } from '../../../utils/Fetching'
 import { AuthContextProvider } from '../../../context/AuthContext'
 import { useToast } from "@chakra-ui/react";
+import { useRouter } from 'next/router'
 
 
-export const WebBuilder = ({ setCommponent }) => {
-  const { user } = AuthContextProvider();
+export const WebBuilder = ({ setCommponent, id }) => {
+  const { user, state ,dispatch  } = AuthContextProvider();
   const toast = useToast();
   const [dataPage, setDataPage] = useState()
   const [pm, setPm] = useState({})
@@ -21,7 +22,11 @@ export const WebBuilder = ({ setCommponent }) => {
   const [page, setPage] = useState({ html: undefined, css: undefined, js: undefined })
   const [handle, setHandle] = useState({ payload: {}, date: new Date() })
   const [showWebBuilder, setShowWebBuilder] = useState(false)
+  const router = useRouter()
 
+  console.log(router)
+
+ 
 
 
   /* useEffect para montar y desmontar el componente  */
@@ -30,27 +35,9 @@ export const WebBuilder = ({ setCommponent }) => {
       setIsMounted(true)
     }
     return () => {
-      console.log("demontado")
       setIsMounted(false)
     }
   }, [])
-
-  /* useEffect para mapear data page y guardarlo en el estado grapes y al mismo tiempo crear el local storage */
-  // useEffect(() => {
-  //   if (dataPage) {
-  //     const code = JSON.parse(dataPage.code)
-  //     console.log(4511000, code)
-  //     if (typeof (Storage) !== "undefined") {
-  //       console.log(4511001)
-  //       localStorage.setItem("gjsProject", dataPage.code)
-  //       if (!localStorage.getItem("gjsProject")) {
-  //         console.log(4511002, "*********///////******************************")
-  //         { }
-  //         localStorage.setItem("gjsProject", code)
-  //       }
-  //     }
-  //   }
-  // }, [dataPage])
 
   /* opciones de almacenado de la interfaz */
   const storageManager = {
@@ -88,17 +75,6 @@ export const WebBuilder = ({ setCommponent }) => {
       ]
   }
 
-  useEffect(() => {
-    console.log(4511099, dataPage)
-  }, [dataPage])
-
-
-  /* handle para crear la plantilla */
-  const handleUpdateCodePage = async ({ title, page, code }) => {
-
-  }
-
-
   /* useEffect donde se ejecuta la query para pedir la plantilla por id */
   useEffect(() => {
     if (isMounted) {
@@ -106,7 +82,7 @@ export const WebBuilder = ({ setCommponent }) => {
         fetchApi({
           query: queries.getCodePage,
           variables: {
-            args: { _id: "65d7650fe9b6503bd772166d" }
+            args: { _id: id }
           },
           development: "bodasdehoy"
         }).then((result) => {
@@ -119,13 +95,10 @@ export const WebBuilder = ({ setCommponent }) => {
     }
   }, [isMounted])
 
+  /* handle para crear la plantilla */
   useEffect(() => {
-    console.log(4511050, handle)
-    console.log(4511019, { dataPage, title: handle.payload.title, page: handle.payload.page, code: handle.payload.code })
     try {
-      /*  if (page.html == undefined) { */
       if (dataPage?.type === "template") {
-        console.log(45110201)
         fetchApi({
           query: queries.createCodePage,
           variables: {
@@ -144,8 +117,12 @@ export const WebBuilder = ({ setCommponent }) => {
           development: "bodasdehoy"
         }).then((result) => {
           setDataPage(result.results[0])
-          console.log(45110202, dataPage?.type, result)
         })
+        toast({
+          status: "success",
+          title: "Guardada correctamente",
+          isClosable: true,
+        });
       }
       if (dataPage?.type === "page") {
         fetchApi({
@@ -163,22 +140,14 @@ export const WebBuilder = ({ setCommponent }) => {
           },
           development: "bodasdehoy"
         }).then((result) => {
-          console.log(4511021, dataPage?.type, result)
           setDataPage(result)
         })
+        toast({
+          status: "success",
+          title: "Guardada correctamente",
+          isClosable: true,
+        });
       }
-      toast({
-        status: "success",
-        title: "Guardada correctamente",
-        isClosable: true,
-      });
-      /*  } else {
-         toast({
-           status: "error",
-           title: "No hay cambios para guardar",
-           isClosable: true,
-         });
-       } */
     } catch (error) {
       toast({
         status: "error",
@@ -188,8 +157,6 @@ export const WebBuilder = ({ setCommponent }) => {
       console.log(error)
     }
   }, [handle])
-
-
 
   /* useEffect que ejecuta la interfaz del grapes */
   let editor = {}
@@ -244,27 +211,28 @@ export const WebBuilder = ({ setCommponent }) => {
 
     // if (isMounted) {
     editor.on('load', (editor) => {
-      console.log("LOAD")
-      dataPage && editor.loadProjectData(JSON.parse(dataPage.code));
+      dataPage && editor?.loadProjectData(JSON.parse(dataPage.code));
       setTimeout(() => {
         setShowWebBuilder(true)
       }, 1000);
     });
+
     editor.render();
+
     editor.on('update', () => {
-      console.log(45110, "UPDATE",)
       const html = editor.getHtml()
       const css = editor.getCss()
       const js = editor.getJs()
       const page = { html, css, js }
       setPage(page)
     });
+
     editor.on('undo', () => {
-      console.log("UNDO")
     });
+
     editor.on('redo', () => {
-      console.log("REDO")
     });
+
     editor.Panels.addButton('devices-c', {
       id: 'save-button',
       className: 'save-button',
@@ -286,15 +254,23 @@ export const WebBuilder = ({ setCommponent }) => {
       },
       attributes: { title: 'Guardar' }
     });
+
     editor.Panels.addButton('devices-c', {
       id: 'back-button',
       className: 'ArrowBack',
       command: function (editor) {
-        setCommponent("principal")
+        if(router.pathname=="/business"){
+          dispatch({ type: "VIEW", payload: {} });
+        }
+
+        if(router.pathname=="/marketplace"){
+          setCommponent("principal")
+        }
+        
       },
       attributes: { title: 'Salir' }
     });
-    // }
+
   }, [dataPage])
 
   /* constante donde se guardan las funciones del manejador de paginas */
@@ -328,7 +304,6 @@ export const WebBuilder = ({ setCommponent }) => {
       },
       addPage() {
         const len = pm.getAll().length;
-        console.log("----------->", len)
         const resp = pm.add({
           name: `Page ${len + 1}`,
           component: `<div>New page ${len + 1}</div>`,
