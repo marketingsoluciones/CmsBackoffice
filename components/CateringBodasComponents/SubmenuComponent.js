@@ -40,11 +40,11 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
                     key={idx}
                     onClick={() => onClick(idx)}
                     className={`${
-                      optionSelect === idx ? " text-rosa " : " text-ro"
-                    } flex  items-center  space-x-3 cursor-pointer  `}
+                      optionSelect == idx ? " text-rosa " : " text-azulCorporativo"
+                    } flex text-rosa items-center  space-x-3 cursor-pointer`}
                   >
-                    <div className="h-full text-gray-600">{item.icon}</div>
-                    <div className="text-sm text-azulCorporativo">
+                    <div className="h-full">{item.icon}</div>
+                    <div className="text-sm ">
                       {item.title}
                     </div>
                   </div>

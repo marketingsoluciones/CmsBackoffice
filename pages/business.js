@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmenuComponent } from "../components/CateringBodasComponents/SubmenuComponent";
 import { MarcasControl, MarcasTable } from "../components/ModuloMarcas/Marcas";
 import {
@@ -14,10 +14,14 @@ import { AuthContextProvider } from "../context";
 const Business = () => {
   const [optionSelect, setOptionSelect] = useState(0);
   const [page, setPage] = useState("principal");
-  const { user, development } = AuthContextProvider();
+  const { user, development, dispatch } = AuthContextProvider();
   const dataMetricool = user?.authDevelopments.find(
     (element) => element.title === development
   );
+
+  useEffect(()=>{
+    dispatch({ type: "VIEW", payload: {} });
+  },[optionSelect])
 
   const dataComponents = [
     {
