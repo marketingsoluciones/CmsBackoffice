@@ -218,15 +218,15 @@ export const BodyStaticAPP = [
         ],
       },
       {
-        title:null,
+        title: null,
         roles: ["admin", "empresa"],
         route: "customWebBuilder",
-        getData: FetchGraphQL.business.getBusinessAll,
-        getByID: FetchGraphQL.business.getOneBusiness,
-        createEntry: FetchGraphQL.business.createBusiness,
-        updateEntry: FetchGraphQL.business.updateBusiness,
-        deleteEntry: FetchGraphQL.business.deleteBusiness,
-        schema:[
+        getData: { query: queries.getCodePage },
+        getByID: { query: queries.getCodePage },
+        createEntry: { query: queries.createCodePage },
+        updateEntry: { query: queries.updateCodePage },
+        deleteEntry: { query: queries.updateCodePage },
+        schema: [
           {
             Header: "ID",
             accessor: "_id",
@@ -234,12 +234,6 @@ export const BodyStaticAPP = [
           {
             Header: "Titulo",
             accessor: "title",
-          },
-          {
-            Header: "Slug",
-            accessor: "slug",
-            type: "textareaSizable",
-            required: true,
           },
           {
             Header: "Creado el",
@@ -543,7 +537,7 @@ export const BodyStaticAPP = [
           },
         ],
       },
-    
+
     ],
   },
   {
@@ -563,7 +557,7 @@ export const BodyStaticAPP = [
         schema: [],
       },
       {
-        title:null,
+        title: null,
         roles: ["admin", "empresa"],
         route: "itinerario",
         getData: FetchGraphQL.business.getBusinessAll,
@@ -571,7 +565,7 @@ export const BodyStaticAPP = [
         createEntry: FetchGraphQL.business.createBusiness,
         updateEntry: queries.updateCodePage,
         deleteEntry: FetchGraphQL.business.deleteBusiness,
-        schema:[
+        schema: [
           {
             Header: "ID",
             accessor: "_id",

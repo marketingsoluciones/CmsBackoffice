@@ -18,8 +18,10 @@ export const WebBuilder = ({ setCommponent }) => {
   const [pages, setPages] = useState([])
   const [isMounted, setIsMounted] = useState(false)
   const [pageSelected, setPageSelected] = useState()
-  const [page, setPage] = useState({ html: undefined, css: undefined, js: undefined})
-  const [grap, setGrape] = useState()
+  const [page, setPage] = useState({ html: undefined, css: undefined, js: undefined })
+  const [handle, setHandle] = useState({ payload: {}, date: new Date() })
+  const [showWebBuilder, setShowWebBuilder] = useState(false)
+
 
 
   /* useEffect para montar y desmontar el componente  */
@@ -34,20 +36,21 @@ export const WebBuilder = ({ setCommponent }) => {
   }, [])
 
   /* useEffect para mapear data page y guardarlo en el estado grapes y al mismo tiempo crear el local storage */
-  useEffect(()=>{
-    dataPage?.map((item)=>{ setGrape(item.code)})
-
-    if (typeof(Storage) !== "undefined") {
-      grap&& localStorage.setItem("gjsProject", grap)
-      if(!localStorage.getItem("gjsProject")){
-        {}
-        grap && localStorage.setItem("gjsProject", grap )
-      }
-   }
-  },[dataPage])
-
-  /* parsear lo que se guarda en el estado grapes */
-  const grapeParse = grap && JSON.parse(grap)
+  // useEffect(() => {
+  //   if (dataPage) {
+  //     const code = JSON.parse(dataPage.code)
+  //     console.log(4511000, code)
+  //     if (typeof (Storage) !== "undefined") {
+  //       console.log(4511001)
+  //       localStorage.setItem("gjsProject", dataPage.code)
+  //       if (!localStorage.getItem("gjsProject")) {
+  //         console.log(4511002, "*********///////******************************")
+  //         { }
+  //         localStorage.setItem("gjsProject", code)
+  //       }
+  //     }
+  //   }
+  // }, [dataPage])
 
   /* opciones de almacenado de la interfaz */
   const storageManager = {
@@ -85,29 +88,85 @@ export const WebBuilder = ({ setCommponent }) => {
       ]
   }
 
+  useEffect(() => {
+    console.log(4511099, dataPage)
+  }, [dataPage])
+
+
   /* handle para crear la plantilla */
   const handleUpdateCodePage = async ({ title, page, code }) => {
+
+  }
+
+
+  /* useEffect donde se ejecuta la query para pedir la plantilla por id */
+  useEffect(() => {
+    if (isMounted) {
+      try {
+        fetchApi({
+          query: queries.getCodePage,
+          variables: {
+            args: { _id: "65d7650fe9b6503bd772166d" }
+          },
+          development: "bodasdehoy"
+        }).then((result) => {
+          setDataPage(result.results[0])
+        })
+      } catch (error) {
+        console.log(error)
+      }
+
+    }
+  }, [isMounted])
+
+  useEffect(() => {
+    console.log(4511050, handle)
+    console.log(4511019, { dataPage, title: handle.payload.title, page: handle.payload.page, code: handle.payload.code })
     try {
       /*  if (page.html == undefined) { */
-      console.log("-------------->", page)
-      await fetchApi({
-        query: queries.createCodePage,
-        variables: {
-          args: [{
-            author: user?.uid,
-            title: title,
-            code: "",
-            htmlPage: {
-              html: page?.html,
-              css: page?.css,
-              js: page?.js
-            },
-            code: JSON.stringify(code),
-            type: "page",
-          }]
-        },
-        development: "bodasdehoy"
-      })
+      if (dataPage?.type === "template") {
+        console.log(45110201)
+        fetchApi({
+          query: queries.createCodePage,
+          variables: {
+            args: [{
+              author: user?.uid,
+              title: handle.payload.title,
+              htmlPage: {
+                html: handle.payload.page?.html,
+                css: handle.payload.page?.css,
+                js: handle.payload.page?.js
+              },
+              code: JSON.stringify(handle.payload.code),
+              type: "page",
+            }]
+          },
+          development: "bodasdehoy"
+        }).then((result) => {
+          setDataPage(result.results[0])
+          console.log(45110202, dataPage?.type, result)
+        })
+      }
+      if (dataPage?.type === "page") {
+        fetchApi({
+          query: queries.updateCodePage,
+          variables: {
+            args: {
+              _id: dataPage?._id,
+              htmlPage: {
+                html: handle.payload.page?.html,
+                css: handle.payload.page?.css,
+                js: handle.payload.page?.js
+              },
+              code: JSON.stringify(handle.payload.code),
+            }
+          },
+          development: "bodasdehoy"
+        }).then((result) => {
+          console.log(4511021, dataPage?.type, result)
+          setDataPage(result)
+        })
+      }
       toast({
         status: "success",
         title: "Guardada correctamente",
@@ -128,31 +187,12 @@ export const WebBuilder = ({ setCommponent }) => {
       });
       console.log(error)
     }
-  }
+  }, [handle])
 
-  console.log("graaaaaaa",grapeParse)
 
-  /* useEffect donde se ejecuta la query para pedir la plantilla por id */
-  useEffect(() => {
-    if(isMounted){
-    try {
-      fetchApi({
-        query: queries.getCodePage,
-        variables: {
-          args: { _id: "65d640408560eb43b2a0e613" }
-        },
-        development: "bodasdehoy"
-      }).then((getDataPage) => {
-        setDataPage(getDataPage.results)
-      })
-    } catch (error) {
-      console.log(error)
-    }
-    
-  }
-  }, [isMounted])
 
   /* useEffect que ejecuta la interfaz del grapes */
+  let editor = {}
   useEffect(() => {
     const editor = grapesjs.init(
       {
@@ -199,13 +239,20 @@ export const WebBuilder = ({ setCommponent }) => {
         },
       }
     )
+
+    setPm(editor.Pages)
+
+    // if (isMounted) {
     editor.on('load', (editor) => {
       console.log("LOAD")
-      editor.loadProjectData(grapeParse);      
+      dataPage && editor.loadProjectData(JSON.parse(dataPage.code));
+      setTimeout(() => {
+        setShowWebBuilder(true)
+      }, 1000);
     });
     editor.render();
     editor.on('update', () => {
-      console.log("UPDATE")
+      console.log(45110, "UPDATE",)
       const html = editor.getHtml()
       const css = editor.getCss()
       const js = editor.getJs()
@@ -224,14 +271,17 @@ export const WebBuilder = ({ setCommponent }) => {
       command: function (editor) {
         let title = ""
         title = prompt("Antes de guardar la plantilla, indica el titulo: ")
-        handleUpdateCodePage({
-          title: title,
-          page: {
-            html: editor.getHtml(),
-            css: editor.getCss(),
-            js: editor.getJs(),
+        setHandle({
+          payload: {
+            title: title,
+            page: {
+              html: editor.getHtml(),
+              css: editor.getCss(),
+              js: editor.getJs(),
+            },
+            code: editor.getProjectData()
           },
-          code: editor.getProjectData()
+          date: new Date()
         })
       },
       attributes: { title: 'Guardar' }
@@ -244,8 +294,8 @@ export const WebBuilder = ({ setCommponent }) => {
       },
       attributes: { title: 'Salir' }
     });
-    setPm(editor.Pages)
-  }, [])
+    // }
+  }, [dataPage])
 
   /* constante donde se guardan las funciones del manejador de paginas */
   const app = {
@@ -299,7 +349,7 @@ export const WebBuilder = ({ setCommponent }) => {
 
   return (
     <>
-      <div className="app-wrap" >
+      <div className={`${!showWebBuilder && "invisible"} app-wrap`} >
         <div className="pages-wrp" >
           <div className="add-page" onClick={() => app.methods.addPage()} >Add new page</div>
           <div className='pages'>

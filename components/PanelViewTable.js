@@ -3,7 +3,7 @@ import { columnsDataTable } from "../components/Datatable/Columns";
 import { Datatable } from "../components/Datatable/Datatable";
 import { useFetch } from "../hooks/useFetch";
 import { useEffect, useMemo, useState } from "react";
-import {  SearchIcon } from "../components/Icons/index"
+import { SearchIcon } from "../components/Icons/index"
 import GlobalFilter from "./Datatable/GlobalFilter";
 import { AuthContextProvider } from "../context/AuthContext";
 import { useRouter } from "next/router";
@@ -30,14 +30,14 @@ export const PanelViewTable = ({ slug, dispatch }) => {
 
   useEffect(() => {
     if (data_?.results?.length) {
-     
+
       /* setValidationData(true) */
       const results = data_?.results.map(item => {
         return { ...item, imgMiniatura: item?.imgMiniatura?.i320 }
       })
       setData({ total: data_.total, results })
     } else {
-      
+
       /* router.push(`${selected?.resumenRout}`) */
     }
   }, [data_])
@@ -61,7 +61,7 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   }, [selected]);
   useEffect(() => {
     if (isMounted) {
-
+      console.log(10004231, selected.getData)
       if (hasRole(development, user, selected.roles)) {
         const variables = { development: development, domain: "diariocivitas", skip, limit, sort: { [sortCriteria]: sort } }
         if (!user?.role.includes("admin", "editor")) {
@@ -242,6 +242,8 @@ export const OnlyViewTable = ({ slug, dispatch, setbuscador }) => {
   }, [selected]);
 
   useEffect(() => {
+    console.log(10004232, selected.getData)
+
     if (isMounted) {
       if (hasRole(development, user, selected.roles)) {
         const variables = { development: development, domain: "diariocivitas", skip, limit, sort: { [sortCriteria]: sort } }

@@ -9,6 +9,7 @@ const instanceAPP = axios.create({ baseURL: process.env.NEXT_PUBLIC_BASE_URL_APP
 
 export const api = {
     ApiBodas: async (data, development) => {
+        console.log(1000422, data)
         const domain = `.${development}`
         let idToken = Cookies.get("idTokenV0.1.0")
         try {

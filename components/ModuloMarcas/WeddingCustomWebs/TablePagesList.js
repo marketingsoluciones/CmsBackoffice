@@ -11,25 +11,25 @@ export const TablePegesList = ({ setComponentState }) => {
     const { dispatch } = AuthContextProvider()
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
-    useEffect(() => {
-        fetchApi({
-            query: queries.getCodePage
-        })
+    // useEffect(() => {
+    //     fetchApi({
+    //         query: queries.getCodePage
+    //     })
 
-    }, [])
+    // }, [])
     return (
         <div className="space-y-4 w-full  " >
             <div>
                 <div onClick={() => router.push("/")} className="w-5 h-5  text-gray-700 cursor-pointer">
                     <ArrowLeft />
                 </div>
-                <p   className=" mt-1 text-3xl text-rosa">
+                <p className=" mt-1 text-3xl text-rosa">
                     Tus Paginas Web
                 </p>
                 <p className=" text-sm bg-white p-2 rounded-lg">Administra tus Webs Pages.  </p>
             </div>
             <div className=" md:relative">
-                <button onClick={()=>router.push("/marketplace")} className="bg-rosa rounded-lg px-4 py-1 text-white text-base " >
+                <button onClick={() => router.push("/marketplace")} className="bg-rosa rounded-lg px-4 py-1 text-white text-base " >
                     Añadir Pagina
                 </button>
                 <div className=" absolute h-8  rounded-md px-2 flex items-center  border-gray-400 border-2  bottom-0 right-0 w-1/3 ">

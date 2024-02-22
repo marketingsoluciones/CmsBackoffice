@@ -13,9 +13,9 @@ const Business = () => {
     const [optionSelect, setOptionSelect] = useState(0)
     const [page, setPage] = useState("principal")
     const { user, development } = AuthContextProvider()
-    const dataMetricool = user?.authDevelopments.find((element) => element.title === development) 
+    const dataMetricool = user?.authDevelopments.find((element) => element.title === development)
 
-    
+
 
     const dataComponents = [
         {
@@ -31,7 +31,7 @@ const Business = () => {
         {
             icon: <IoAnalytics className="h-6 w-auto" />,
             title: "Metricas",
-            component: <IframeMetricool dataMetricool={dataMetricool?.metricol}  />
+            component: <IframeMetricool dataMetricool={dataMetricool?.metricol} />
         },
     ]
     const handleClickOption = (idx) => {

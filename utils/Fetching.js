@@ -124,8 +124,29 @@ export const queries = {
   updateCodePage: `mutation ($args:inputCodePage){
     updateCodePage(args:$args){
       _id
-    }
-  }`,
+       title
+        description
+        author{
+          _id
+          uid
+          email
+          displayName
+          photoURL
+        }
+        htmlPage{
+          html
+          css
+          js
+          status
+        }
+        code
+        type
+        price
+        status
+        createdAt
+        updatedAt
+      }
+    }`,
 
   getCodePage: `query ($args:inputCodePage, $sort:sortCriteriaCodePage, $skip:Int, $limit:Int){
     getCodePage(args:$args, sort:$sort, skip:$skip, limit:$limit){
@@ -157,7 +178,7 @@ export const queries = {
       }
     }
   }`,
-  
+
   signOut: `mutation ($sessionCookie :String){
     signOut(sessionCookie:$sessionCookie)
   }`,
