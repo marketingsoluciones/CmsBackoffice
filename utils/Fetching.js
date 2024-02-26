@@ -297,7 +297,7 @@ export const queries = {
     deleteItinerario ( eventID:$eventID  itinerarioID:$itinerarioID  )
   }`,
 
-  getItinerario:` query($evento_id:String, $itinario_id: String){
+  getItinerario: ` query($evento_id:String, $itinario_id: String){
     getItinerario(evento_id:$evento_id, itinario_id:$itinario_id){
       total
       response{

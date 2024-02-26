@@ -68,48 +68,43 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   );
 
   /* Fetch para actualizar */
-  const fetchUpdate = useCallback(
-    async ({
-      _id,
-      characteristics2,
-      questionsAndAnswers2,
-      categories,
-      ...values
-    }) => {
-      try {
-        values.video = values?.imgMiniatura?.videoFile
-        values.imgMiniatura = values?.imgMiniatura?.imageFile
-        values.imgBanner = values?.imgBanner?.imageFile
-        values.imgLogo = values?.imgLogo?.imageFile
-        values.icon = values?.icon?.imageFile
-        delete values.createdAt;
-        delete values.updatedAt;
-        const data = await fetchApi({
-          query: options?.updateEntry?.query,
-          variables: { id: _id, args: { ...values } },
-          type: "formData"
-        });
-        if (data) {
-          toast({
-            status: "success",
-            title: "Operacion exitosa",
-            isClosable: true,
-          });
-          setAction({ type: "VIEW", payload: {} });
-        } else {
-          throw new Error(10011, "Error en la peticion");
-        }
-      } catch (error) {
-        console.log(8001, error)
+  const fetchUpdate = useCallback(async ({ _id, characteristics2, questionsAndAnswers2, categories, ...values }) => {
+    try {
+      //por cada values hacer enviar imagen al servidor por singleupload y reescribir el valor de vuelta, setear el estado
+      console.log(values)
+      values.video = values?.imgMiniatura?.videoFile
+      values.imgMiniatura = values?.imgMiniatura?.imageFile
+      values.imgBanner = values?.imgBanner?.imageFile
+      values.imgLogo = values?.imgLogo?.imageFile
+      values.icon = values?.icon?.imageFile
+      delete values.createdAt;
+      delete values.updatedAt;
+      const data = await fetchApi({
+        query: options?.updateEntry?.query,
+        variables: { id: _id, args: { ...values } },
+        type: "formData"
+      });
+      if (data) {
         toast({
-          status: "error",
-          title: "Error",
-          description: JSON.stringify(error),
+          status: "success",
+          title: "Operacion exitosa",
           isClosable: true,
         });
-        console.log(8002, error);
+        setAction({ type: "VIEW", payload: {} });
+      } else {
+        throw new Error(10011, "Error en la peticion");
       }
-    },
+    } catch (error) {
+      console.log(8001, error.message)
+      toast({
+        status: "error",
+        title: "Error",
+        description: error.message,
+        isClosable: true,
+      });
+      console.log(8002, error);
+    }
+  },
     [slug]
   );
 
@@ -211,21 +206,21 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
             </Box>
           </Flex>
           {/* Cuerpo del formulario */}
-         {/*  <Flex h={"85%"}  > */}
-            <Box w={"100%"}  >
-              <FormDinamical
-                schema={options?.schema}
-                initialValues={valuesEdit}
-                onSubmit={handleSubmit}
-                ref={refButton}
-                Information={Information}
-                values={valuesEdit}
-                options={options}
-                estado={state}
-                setAction={setAction}
-                columns={["repeat(1, 1fr)", , , "repeat(5, 1fr)"]}
-              />
-            </Box>
+          {/*  <Flex h={"85%"}  > */}
+          <Box w={"100%"}  >
+            <FormDinamical
+              schema={options?.schema}
+              initialValues={valuesEdit}
+              onSubmit={handleSubmit}
+              ref={refButton}
+              Information={Information}
+              values={valuesEdit}
+              options={options}
+              estado={state}
+              setAction={setAction}
+              columns={["repeat(1, 1fr)", , , "repeat(5, 1fr)"]}
+            />
+          </Box>
           {/* </Flex> */}
         </>
       ) : (

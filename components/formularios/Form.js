@@ -96,22 +96,22 @@ export const FormDinamical = forwardRef(
       textarea: Yup.string().nullable(),
       image: Yup.mixed()
         .required("requerida")
-       /*  .test("is-valid-type", "Not a valid image type",
-          (value) => {
-            if (!!value?.name) {
-              return value && value?.name?.toLowerCase()
-            }
-            return true
-          }
-        )
-        .test("is-valid-size", "Max allowed size is 100KB",
-          (value) => {
-            if (!!value?.name) {
-              return value && value.size <= MAX_FILE_SIZE
-            }
-            return true
-          }
-        ) */
+      /*  .test("is-valid-type", "Not a valid image type",
+         (value) => {
+           if (!!value?.name) {
+             return value && value?.name?.toLowerCase()
+           }
+           return true
+         }
+       )
+       .test("is-valid-size", "Max allowed size is 100KB",
+         (value) => {
+           if (!!value?.name) {
+             return value && value.size <= MAX_FILE_SIZE
+           }
+           return true
+         }
+       ) */
       //imageMultiple: Yup.array().of(Yup.string()).nullable(),
     };
 
@@ -379,41 +379,41 @@ export const FormDinamical = forwardRef(
                     {/* columna derecha */}
                     <div bg={colorBaground} shadow={"sm"} rounded={"xl"} className="col-span-2 px-[1rem] rounded-xl bg-white   " >
                       <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
-                        {schema &&
-                          schema?.map((item, idx) => {
-                            const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
-                            switch (valir && item.type) {
-                              case "image":
-                                return (
-                                  <UploadImage
-                                    key={idx}
-                                    name={item.accessor}
-                                    label={item.Header}
-                                    typeFile={item.typeFile}
-                                  />
-                                );
-                                break
-                              case "imageMultiple":
-                                return (
-                                  <MultipleImages
-                                    name={item.accessor}
-                                    label={item.Header}
-                                    key={idx}
-                                  />
-                                );
-                                break;
-                              case "fieldArray":
-                                return (
-                                  <FieldArrayField
-                                    key={idx}
-                                    name={item.accessor}
-                                    label={item.Header}
-                                    schema={item.schema}
-                                  />
-                                );
-                                break;
-                            }
-                          })}
+                      {schema &&
+                        schema?.map((item, idx) => {
+                          const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))
+                          switch (valir && item.type) {
+                            case "image":
+                              return (
+                                <UploadImage
+                                  key={idx}
+                                  name={item.accessor}
+                                  label={item.Header}
+                                  typeFile={item.typeFile}
+                                />
+                              );
+                              break
+                            case "imageMultiple":
+                              return (
+                                <MultipleImages
+                                  name={item.accessor}
+                                  label={item.Header}
+                                  key={idx}
+                                />
+                              );
+                              break;
+                            case "fieldArray":
+                              return (
+                                <FieldArrayField
+                                  key={idx}
+                                  name={item.accessor}
+                                  label={item.Header}
+                                  schema={item.schema}
+                                />
+                              );
+                              break;
+                          }
+                        })}
                       <InfoForm
                         Information={Information}
                         state={state}

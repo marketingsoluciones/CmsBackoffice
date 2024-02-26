@@ -1,5 +1,28 @@
 import axios from "axios";
 import { api } from "../utils/api";
+import Resizer from "react-image-file-resizer";
+
+export const resizeImage = (file) => {
+  try {
+    console.log(file)
+    return new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        1200,
+        1200,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        "file"
+      );
+    });
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 export class UploadAdapter {
   constructor(loader) {
@@ -29,11 +52,9 @@ export class UploadAdapter {
         const map = { image: ["variables.file"] };
         fd.append("operations", JSON.stringify(params));
         fd.append("map", JSON.stringify(map));
-        fd.append("image", this.file); // your image
+        fd.append("image", this.file?.size > 900000 ? await resizeImage(this.file) : this.file); // your image
 
-        const {
-          data: { data },
-        } = await api.ApiBodas(fd);
+        const { data: { data } } = await api.ApiBodas(fd);
         return Object.values(data)[0];
       }
 

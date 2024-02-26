@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 
 
 export const WebBuilder = ({ setCommponent, id }) => {
-  const { user, state ,dispatch  } = AuthContextProvider();
+  const { user, state, dispatch } = AuthContextProvider();
   const toast = useToast();
   const [dataPage, setDataPage] = useState()
   const [pm, setPm] = useState({})
@@ -26,7 +26,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
 
   console.log(router)
 
- 
+
 
 
   /* useEffect para montar y desmontar el componente  */
@@ -259,14 +259,14 @@ export const WebBuilder = ({ setCommponent, id }) => {
       id: 'back-button',
       className: 'ArrowBack',
       command: function (editor) {
-        if(router.pathname=="/business"){
+        if (router.pathname == "/business") {
           dispatch({ type: "VIEW", payload: {} });
         }
 
-        if(router.pathname=="/marketplace"){
+        if (router.pathname == "/marketplace") {
           setCommponent("principal")
         }
-        
+
       },
       attributes: { title: 'Salir' }
     });
