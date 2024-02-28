@@ -119,20 +119,24 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   content: url('/save-button.svg');
 }
 
+.create-button {
+  content: url('/save-button.svg');
+}
+
 .ArrowBack {
   content: url('/ArrowBack.svg');
 
 }
 
 .app-wrap {
-  height:100%;
+  height: 100%;
   width: 100%;
   display: flex;
 }
 
 .editor-wrap {
   widtH: 100%;
-  height: 100% ; 
+  height: 100%;
 }
 
 .pages-wrp,
@@ -177,7 +181,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   display: flex;
   align-items: center;
   justify-content: center;
-    width: 17px;
+  width: 17px;
   text-align: center;
   border-radius: 3px;
 
@@ -196,13 +200,14 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   right: 20% !important;
 }
 
-#gjs{
-  height: 88.4vh !important ;
+#gjs {
+  height: 88.4vh !important;
 }
 
-.gjs-pn-views-container{
+.gjs-pn-views-container {
   width: 20% !important;
 }
-.gjs-cv-canvas{
+
+.gjs-cv-canvas {
   width: calc(100% - 20%) !important;
 }

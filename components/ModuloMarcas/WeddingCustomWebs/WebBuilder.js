@@ -8,50 +8,23 @@ import { fetchApi, queries } from "../../../utils/Fetching";
 import { AuthContextProvider } from "../../../context/AuthContext";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-
+import { transformBase64 } from "../../../utils/trasformBase64"
 
 export const WebBuilder = ({ setCommponent, id }) => {
-  const { user, state, dispatch } = AuthContextProvider();
+  const { user, dispatch } = AuthContextProvider();
   const toast = useToast();
   const [dataPage, setDataPage] = useState();
   const [pm, setPm] = useState({});
   const [pages, setPages] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
-  const [pageSelected, setPageSelected] = useState();
-  const [idPageSelected, setIdPageSelected] = useState("page-1");
-  const [page, setPage] = useState({
+  const [pageHtml, setPageHtml] = useState({
     html: undefined,
     css: undefined,
     js: undefined,
   });
-  const [handleUploadFile, setHandleUploadFile] = useState({
-    payload: {},
-    date: new Date(),
-  });
   const [handle, setHandle] = useState({ payload: {}, date: new Date() });
   const [showWebBuilder, setShowWebBuilder] = useState(false);
   const router = useRouter();
-  const pegesGrapes = handleUploadFile?.payload?.code?.pages;
-  const elemento = pegesGrapes?.find(
-    (element) => element?.id === idPageSelected
-  ).frames[0];
-
-  const filter = elemento?.component.components.filter(
-    (objeto) => objeto.type === "image"
-  );
-
-  const fitler2 = filter?.map((item) => {
-    return item.attributes;
-  });
-  const filter3 = fitler2?.map((item) => {
-    return item.src;
-  });
-  console.log(filter3);
-
-  filter3?.map((item) => {
-    if (item.includes("data:image")) {
-    }
-  });
 
   /* useEffect para montar y desmontar el componente  */
   useEffect(() => {
@@ -62,6 +35,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
       setIsMounted(false);
     };
   }, []);
+
 
   /* opciones de almacenado de la interfaz */
   const storageManager = {
@@ -117,60 +91,98 @@ export const WebBuilder = ({ setCommponent, id }) => {
     }
   }, [isMounted]);
 
+
+
   /* handle para crear la plantilla */
   useEffect(() => {
     try {
-      if (dataPage?.type === "template") {
-        fetchApi({
-          query: queries.createCodePage,
-          variables: {
-            args: [
-              {
-                author: user?.uid,
-                title: handle.payload.title,
-                htmlPage: {
-                  html: handle.payload.page?.html,
-                  css: handle.payload.page?.css,
-                  js: handle.payload.page?.js,
+      if (handle?.payload?.code) {
+        transformBase64(handle.payload).then((payload) => {
+          console.log(1101, "---------------------------------->", payload)
+          const strCode = JSON.stringify(payload?.code)
+          if (payload?.type) {
+            fetchApi({
+              query: queries.createCodePage,
+              variables: {
+                args: [
+                  {
+                    author: user?.uid,
+                    title: payload.title,
+                    htmlPage: {
+                      html: payload.page?.html,
+                      css: payload.page?.css,
+                      js: payload.page?.js,
+                    },
+                    code: strCode,
+                    type: payload?.type,
+                  },
+                ],
+              },
+              development: "bodasdehoy",
+            }).then((result) => {
+              setDataPage(result.results[0]);
+            });
+            toast({
+              status: "success",
+              title: "Plantilla Creada Correctamente",
+              isClosable: true,
+            });
+          }
+
+          if (dataPage?.type === "template" && !payload?.type) {
+            fetchApi({
+              query: queries.createCodePage,
+              variables: {
+                args: [
+                  {
+                    author: user?.uid,
+                    title: payload.title,
+                    htmlPage: {
+                      html: payload.page?.html,
+                      css: payload.page?.css,
+                      js: payload.page?.js,
+                    },
+                    code: strCode,
+                    type: "page",
+                  },
+                ],
+              },
+              development: "bodasdehoy",
+            }).then((result) => {
+              setDataPage(result.results[0]);
+            });
+            toast({
+              status: "success",
+              title: "Guardada correctamente",
+              isClosable: true,
+            });
+          }
+          if (dataPage?.type === "page" && !payload?.type) {
+
+            fetchApi({
+              query: queries.updateCodePage,
+              variables: {
+                args: {
+                  _id: dataPage?._id,
+                  htmlPage: {
+                    html: payload.page?.html,
+                    css: payload.page?.css,
+                    js: payload.page?.js,
+                  },
+                  code: strCode,
                 },
-                code: JSON.stringify(handle.payload.code),
-                type: "page",
               },
-            ],
-          },
-          development: "bodasdehoy",
-        }).then((result) => {
-          setDataPage(result.results[0]);
-        });
-        toast({
-          status: "success",
-          title: "Guardada correctamente",
-          isClosable: true,
-        });
-      }
-      if (dataPage?.type === "page") {
-        fetchApi({
-          query: queries.updateCodePage,
-          variables: {
-            args: {
-              _id: dataPage?._id,
-              htmlPage: {
-                html: handle.payload.page?.html,
-                css: handle.payload.page?.css,
-                js: handle.payload.page?.js,
-              },
-              code: JSON.stringify(handle.payload.code),
-            },
-          },
-          development: "bodasdehoy",
-        }).then((result) => {
-          setDataPage(result);
-        });
-        toast({
-          status: "success",
-          title: "Guardada correctamente",
-          isClosable: true,
-        });
+              development: "bodasdehoy",
+            }).then((result) => {
+              setDataPage(result);
+            });
+            toast({
+              status: "success",
+              title: "Guardada correctamente",
+              isClosable: true,
+            });
+          }
+        })
       }
     } catch (error) {
       toast({
@@ -180,7 +192,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
       });
       console.log(error);
     }
-  }, [handle]);
+  }, [handle, isMounted]);
 
   /* useEffect que ejecuta la interfaz del grapes */
   let editor = {};
@@ -257,13 +269,8 @@ export const WebBuilder = ({ setCommponent, id }) => {
       const css = editor.getCss();
       const js = editor.getJs();
       const page = { html, css, js };
-      setPage(page);
-      setHandleUploadFile({
-        payload: {
-          code: code,
-        },
-        date: new Date(),
-      });
+      setPageHtml(page);
+
     });
 
     editor.on("undo", () => { });
@@ -279,11 +286,34 @@ export const WebBuilder = ({ setCommponent, id }) => {
         setHandle({
           payload: {
             title: title,
-            page: {
-              html: editor.getHtml(),
-              css: editor.getCss(),
-              js: editor.getJs(),
-            },
+            // page: {
+            //   html: editor.getHtml(),
+            //   css: editor.getCss(),
+            //   js: editor.getJs(),
+            // },
+            code: editor.getProjectData(),
+          },
+          date: new Date(),
+        });
+      },
+      attributes: { title: "Guardar" },
+    });
+
+    editor.Panels.addButton("devices-c", {
+      id: "create-button",
+      className: "create-button",
+      command: function (editor) {
+        let title = "";
+        title = prompt("Antes de guardar la plantilla, indica el titulo:", "plantilla");
+        setHandle({
+          payload: {
+            type: "template",
+            title: title,
+            // page: {
+            //   html: editor.getHtml(),
+            //   css: editor.getCss(),
+            //   js: editor.getJs(),
+            // },
             code: editor.getProjectData(),
           },
           date: new Date(),
@@ -376,8 +406,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
                     <span
                       className="flex-1"
                       onClick={() => {
-                        app?.methods?.selectPage(item?.id),
-                          setPageSelected(item?.id);
+                        app?.methods?.selectPage(item?.id)
                       }}
                     >
                       {item.get("name")}

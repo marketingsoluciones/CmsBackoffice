@@ -91,6 +91,14 @@ export const fetchApiEventos = async ({ query, variables, domain }) => {
 
 export const queries = {
 
+  singleUpload: `mutation($file:Upload!,$use:String)
+  {
+    singleUpload(file:$file,use:$use){
+      _id
+      i800
+    }
+  }`,
+
   createCodePage: `mutation ($args:[inputCodePage]){
     createCodePage(args:$args){
       total
