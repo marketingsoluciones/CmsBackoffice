@@ -8,7 +8,7 @@ import { fetchApi, queries } from "../../../utils/Fetching";
 import { AuthContextProvider } from "../../../context/AuthContext";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { transformBase64 } from "../../../utils/trasformBase64"
+import { transformBase64 } from "../../../utils/trasformBase64";
 
 export const WebBuilder = ({ setCommponent, id }) => {
   const { user, dispatch } = AuthContextProvider();
@@ -26,6 +26,8 @@ export const WebBuilder = ({ setCommponent, id }) => {
   const [showWebBuilder, setShowWebBuilder] = useState(false);
   const router = useRouter();
 
+  console.log(1000, );
+
   /* useEffect para montar y desmontar el componente  */
   useEffect(() => {
     if (!isMounted) {
@@ -35,7 +37,6 @@ export const WebBuilder = ({ setCommponent, id }) => {
       setIsMounted(false);
     };
   }, []);
-
 
   /* opciones de almacenado de la interfaz */
   const storageManager = {
@@ -91,15 +92,12 @@ export const WebBuilder = ({ setCommponent, id }) => {
     }
   }, [isMounted]);
 
-
-
   /* handle para crear la plantilla */
   useEffect(() => {
     try {
       if (handle?.payload?.code) {
         transformBase64(handle.payload).then((payload) => {
-          console.log(1101, "---------------------------------->", payload)
-          const strCode = JSON.stringify(payload?.code)
+          const strCode = JSON.stringify(payload?.code);
           if (payload?.type) {
             fetchApi({
               query: queries.createCodePage,
@@ -130,35 +128,36 @@ export const WebBuilder = ({ setCommponent, id }) => {
           }
 
           if (dataPage?.type === "template" && !payload?.type) {
-            fetchApi({
-              query: queries.createCodePage,
-              variables: {
-                args: [
-                  {
-                    author: user?.uid,
-                    title: payload.title,
-                    htmlPage: {
-                      html: payload.page?.html,
-                      css: payload.page?.css,
-                      js: payload.page?.js,
+            if (payload?.title !== null) {
+              fetchApi({
+                query: queries.createCodePage,
+                variables: {
+                  args: [
+                    {
+                      author: user?.uid,
+                      title: payload.title,
+                      htmlPage: {
+                        html: payload.page?.html,
+                        css: payload.page?.css,
+                        js: payload.page?.js,
+                      },
+                      code: strCode,
+                      type: "page",
                     },
-                    code: strCode,
-                    type: "page",
-                  },
-                ],
-              },
-              development: "bodasdehoy",
-            }).then((result) => {
-              setDataPage(result.results[0]);
-            });
-            toast({
-              status: "success",
-              title: "Guardada correctamente",
-              isClosable: true,
-            });
+                  ],
+                },
+                development: "bodasdehoy",
+              }).then((result) => {
+                setDataPage(result.results[0]);
+              });
+              toast({
+                status: "success",
+                title: "Guardada correctamente",
+                isClosable: true,
+              });
+            } 
           }
           if (dataPage?.type === "page" && !payload?.type) {
-
             fetchApi({
               query: queries.updateCodePage,
               variables: {
@@ -182,7 +181,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
               isClosable: true,
             });
           }
-        })
+        });
       }
     } catch (error) {
       toast({
@@ -200,13 +199,12 @@ export const WebBuilder = ({ setCommponent, id }) => {
     const editor = grapesjs.init({
       autorender: false,
       container: "#gjs",
-      width: "100%",
       plugins: [websitePlugin, basicBlockPlugin, formPlugin],
       deviceManager,
       storageManager,
       i18n: {
-        locale: "es", // default locale
-        localeFallback: "es", // default fallback
+        locale: "es",
+        localeFallback: "es",
       },
       pageManager: {
         pages: [
@@ -251,8 +249,6 @@ export const WebBuilder = ({ setCommponent, id }) => {
     });
 
     setPm(editor.Pages);
-
-    // if (isMounted) {
     editor.on("load", (editor) => {
       dataPage && editor?.loadProjectData(JSON.parse(dataPage.code));
       setTimeout(() => {
@@ -270,58 +266,77 @@ export const WebBuilder = ({ setCommponent, id }) => {
       const js = editor.getJs();
       const page = { html, css, js };
       setPageHtml(page);
-
     });
 
-    editor.on("undo", () => { });
+    editor.on("undo", () => {});
 
-    editor.on("redo", () => { });
+    editor.on("redo", () => {});
 
     editor.Panels.addButton("devices-c", {
       id: "save-button",
       className: "save-button",
       command: function (editor) {
-        let title = "";
-        title = prompt("Antes de guardar la plantilla, indica el titulo: ");
-        setHandle({
-          payload: {
-            title: title,
-            // page: {
-            //   html: editor.getHtml(),
-            //   css: editor.getCss(),
-            //   js: editor.getJs(),
-            // },
-            code: editor.getProjectData(),
-          },
-          date: new Date(),
-        });
+        if (dataPage?.type === "template") {
+          let title;
+          while (true) {
+            var valor = prompt(
+              "Antes de guardar la plantilla, indica el titulo: "
+            );
+            if (valor === "" ) {
+              alert("Por favor, ingrese un nick válido");
+            } else {
+              title = valor;
+              break;
+            }
+            if(valor === null){
+              return;
+            }
+          }
+          setHandle({
+            payload: {
+              title: title,
+              code: editor.getProjectData(),
+            },
+            date: new Date(),
+          });
+        }
+        if (dataPage?.type === "page") {
+          setHandle({
+            payload: {
+              title: dataPage.title,
+              code: editor.getProjectData(),
+            },
+            date: new Date(),
+          });
+        }
       },
       attributes: { title: "Guardar" },
     });
 
-    editor.Panels.addButton("devices-c", {
-      id: "create-button",
-      className: "create-button",
-      command: function (editor) {
-        let title = "";
-        title = prompt("Antes de guardar la plantilla, indica el titulo:", "plantilla");
-        setHandle({
-          payload: {
-            type: "template",
-            title: title,
-            // page: {
-            //   html: editor.getHtml(),
-            //   css: editor.getCss(),
-            //   js: editor.getJs(),
-            // },
-            code: editor.getProjectData(),
-          },
-          date: new Date(),
-        });
-      },
-      attributes: { title: "Guardar" },
-    });
+    if(user.role.includes("admin")){
+      editor.Panels.addButton("devices-c", {
+        id: "create-button",
+        className: "create-button",
+        command: function (editor) {
+          let title = "";
+          title = prompt(
+            "Antes de guardar la plantilla, indica el titulo:",
+            "plantilla"
+          );
+          setHandle({
+            payload: {
+              type: "template",
+              title: title,
+              code: editor.getProjectData(),
+            },
+            date: new Date(),
+          });
+        },
+        attributes: { title: "Crear nuevo" },
+      });
 
+    }
+    
     editor.Panels.addButton("devices-c", {
       id: "back-button",
       className: "ArrowBack",
@@ -331,9 +346,8 @@ export const WebBuilder = ({ setCommponent, id }) => {
         }
 
         if (router.pathname == "/marketplace") {
-          setCommponent("principal")
+          setCommponent("principal");
         }
-
       },
       attributes: { title: "Salir" },
     });
@@ -406,7 +420,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
                     <span
                       className="flex-1"
                       onClick={() => {
-                        app?.methods?.selectPage(item?.id)
+                        app?.methods?.selectPage(item?.id);
                       }}
                     >
                       {item.get("name")}
