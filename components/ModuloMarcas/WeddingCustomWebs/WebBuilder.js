@@ -10,6 +10,7 @@ import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { transformBase64 } from "../../../utils/trasformBase64";
 import * as localEs from "grapesjs/locale/es.js";
+import { ArrowLeft } from "../../Icons/index";
 
 export const WebBuilder = ({ setCommponent, id }) => {
   const { user, dispatch } = AuthContextProvider();
@@ -26,8 +27,6 @@ export const WebBuilder = ({ setCommponent, id }) => {
   const [handle, setHandle] = useState({ payload: {}, date: new Date() });
   const [showWebBuilder, setShowWebBuilder] = useState(false);
   const router = useRouter();
-
-  console.log(1000);
 
   /* useEffect para montar y desmontar el componente  */
   useEffect(() => {
@@ -333,7 +332,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
       });
     }
 
-    editor.Panels.addButton("devices-c", {
+   /*  editor.Panels.addButton("devices-c", {
       id: "back-button",
       className: "ArrowBack",
       command: function (editor) {
@@ -346,7 +345,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
         }
       },
       attributes: { title: "Salir" },
-    });
+    }); */
     editor.I18n.addMessages({
       en: {
         // indicate the locale to update
@@ -408,17 +407,31 @@ export const WebBuilder = ({ setCommponent, id }) => {
     <>
       <div className={`${!showWebBuilder && "invisible"} app-wrap`}>
         <div className="pages-wrp">
+          <div className="text-white text-[15px] my-2 flex items-center ">
+            <div>
+              <ArrowLeft
+                className="w-4 h-4 mr-1 text-white cursor-pointer"
+                onClick={() => {
+                  if (router.pathname == "/business") {
+                    dispatch({ type: "VIEW", payload: {} });
+                  }
+
+                  if (router.pathname == "/marketplace") {
+                    setCommponent("principal");
+                  }
+                }}
+              />
+            </div>
+            <div className="truncate w-[80px]">{dataPage?.title}</div>
+          </div>
           <div className="add-page" onClick={() => app.methods.addPage()}>
-            Add new page
+            Nueva pagina
           </div>
           <div className="pages">
-            <div className="text-xs* h-[200px]* bg-white* rounded-md* overflow-y-auto*">
+            <div className="">
               {pages.map((item, idx) => {
                 return (
-                  <div
-                    className="bg-gray-200* p-1* cursor-pointer* flex* hover:bg-gray-300* page selected  "
-                    key={idx}
-                  >
+                  <div className=" page selected  " key={idx}>
                     <span
                       className="flex-1"
                       onClick={() => {
@@ -428,7 +441,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
                       {item.get("name")}
                     </span>
                     <span
-                      className="w-4* flex* justify-center* hover:scale-110* hover:font-semibold* page-close"
+                      className="page-close"
                       onClick={() => {
                         !app.methods.isSelected(item) &&
                           app.methods.removePage(item?.id);

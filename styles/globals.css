@@ -172,6 +172,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   padding: 5px;
   border-radius: 2px;
   cursor: pointer;
+  font-size: 12px;
   white-space: nowrap;
   margin-bottom: 10px;
 }
@@ -184,6 +185,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   border-radius: 2px;
   cursor: pointer;
   display: flex;
+  font-size: 13px;
 
   &:hover {
     background-color: #2A425E
