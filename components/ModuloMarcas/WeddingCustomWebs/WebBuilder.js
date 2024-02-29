@@ -9,6 +9,7 @@ import { AuthContextProvider } from "../../../context/AuthContext";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { transformBase64 } from "../../../utils/trasformBase64";
+import * as localEs from "grapesjs/locale/es.js";
 
 export const WebBuilder = ({ setCommponent, id }) => {
   const { user, dispatch } = AuthContextProvider();
@@ -26,7 +27,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
   const [showWebBuilder, setShowWebBuilder] = useState(false);
   const router = useRouter();
 
-  console.log(1000, );
+  console.log(1000);
 
   /* useEffect para montar y desmontar el componente  */
   useEffect(() => {
@@ -155,7 +156,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
                 title: "Guardada correctamente",
                 isClosable: true,
               });
-            } 
+            }
           }
           if (dataPage?.type === "page" && !payload?.type) {
             fetchApi({
@@ -202,10 +203,6 @@ export const WebBuilder = ({ setCommponent, id }) => {
       plugins: [websitePlugin, basicBlockPlugin, formPlugin],
       deviceManager,
       storageManager,
-      i18n: {
-        locale: "es",
-        localeFallback: "es",
-      },
       pageManager: {
         pages: [
           {
@@ -282,13 +279,13 @@ export const WebBuilder = ({ setCommponent, id }) => {
             var valor = prompt(
               "Antes de guardar la plantilla, indica el titulo: "
             );
-            if (valor === "" ) {
+            if (valor === "") {
               alert("Por favor, ingrese un nick válido");
             } else {
               title = valor;
               break;
             }
-            if(valor === null){
+            if (valor === null) {
               return;
             }
           }
@@ -313,7 +310,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
       attributes: { title: "Guardar" },
     });
 
-    if(user.role.includes("admin")){
+    if (user.role.includes("admin")) {
       editor.Panels.addButton("devices-c", {
         id: "create-button",
         className: "create-button",
@@ -334,9 +331,8 @@ export const WebBuilder = ({ setCommponent, id }) => {
         },
         attributes: { title: "Crear nuevo" },
       });
-
     }
-    
+
     editor.Panels.addButton("devices-c", {
       id: "back-button",
       className: "ArrowBack",
@@ -350,6 +346,12 @@ export const WebBuilder = ({ setCommponent, id }) => {
         }
       },
       attributes: { title: "Salir" },
+    });
+    editor.I18n.addMessages({
+      en: {
+        // indicate the locale to update
+        ...localEs?.default,
+      },
     });
   }, [dataPage]);
 
