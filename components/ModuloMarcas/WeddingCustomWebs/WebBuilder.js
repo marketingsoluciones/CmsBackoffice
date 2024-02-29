@@ -6,7 +6,7 @@ import basicBlockPlugin from "grapesjs-blocks-basic";
 import formPlugin from "grapesjs-plugin-forms";
 import { fetchApi, queries } from "../../../utils/Fetching";
 import { AuthContextProvider } from "../../../context/AuthContext";
-import { useToast } from "@chakra-ui/react";
+import { Tooltip, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { transformBase64 } from "../../../utils/trasformBase64";
 import * as localEs from "grapesjs/locale/es.js";
@@ -332,7 +332,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
       });
     }
 
-   /*  editor.Panels.addButton("devices-c", {
+    /*  editor.Panels.addButton("devices-c", {
       id: "back-button",
       className: "ArrowBack",
       command: function (editor) {
@@ -422,7 +422,9 @@ export const WebBuilder = ({ setCommponent, id }) => {
                 }}
               />
             </div>
-            <div className="truncate w-[80px]">{dataPage?.title}</div>
+            <Tooltip label={dataPage?.title.length>7? dataPage.title:""}>
+              <div className="truncate w-[80px] cursor-default">{dataPage?.title}</div>
+            </Tooltip>
           </div>
           <div className="add-page" onClick={() => app.methods.addPage()}>
             Nueva pagina
