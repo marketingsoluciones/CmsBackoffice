@@ -1,6 +1,6 @@
 import grapesjs from "grapesjs/dist/grapes.min.js";
 import "grapesjs/dist/css/grapes.min.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import websitePlugin from "grapesjs-preset-webpage";
 import basicBlockPlugin from "grapesjs-blocks-basic";
 import formPlugin from "grapesjs-plugin-forms";
@@ -11,6 +11,8 @@ import { useRouter } from "next/router";
 import { transformBase64 } from "../../../utils/trasformBase64";
 import * as localEs from "grapesjs/locale/es.js";
 import { ArrowLeft } from "../../Icons/index";
+import { confgiAsset } from "../../../utils/configGrapes.js"
+import { uploadImage, resizeImage } from "../../../utils/UploadAdapter";
 
 export const WebBuilder = ({ setCommponent, id }) => {
   const { user, dispatch } = AuthContextProvider();
@@ -94,11 +96,42 @@ export const WebBuilder = ({ setCommponent, id }) => {
 
   /* handle para crear la plantilla */
   useEffect(() => {
+    console.log("*/*******************************************")
     try {
       if (handle?.payload?.code) {
-        transformBase64(handle.payload).then((payload) => {
-          const strCode = JSON.stringify(payload?.code);
-          if (payload?.type) {
+        const payload = handle?.payload
+        const strCode = JSON.stringify(payload?.code);
+        if (payload?.type) {
+          fetchApi({
+            query: queries.createCodePage,
+            variables: {
+              args: [
+                {
+                  author: user?.uid,
+                  title: payload.title,
+                  htmlPage: {
+                    html: payload.page?.html,
+                    css: payload.page?.css,
+                    js: payload.page?.js,
+                  },
+                  code: strCode,
+                  type: payload?.type,
+                },
+              ],
+            },
+            development: "bodasdehoy",
+          }).then((result) => {
+            setDataPage(result.results[0]);
+          });
+          toast({
+            status: "success",
+            title: "Plantilla Creada Correctamente",
+            isClosable: true,
+          });
+        }
+
+        if (dataPage?.type === "template" && !payload?.type) {
+          if (payload?.title !== null) {
             fetchApi({
               query: queries.createCodePage,
               variables: {
@@ -112,7 +145,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
                       js: payload.page?.js,
                     },
                     code: strCode,
-                    type: payload?.type,
+                    type: "page",
                   },
                 ],
               },
@@ -122,66 +155,35 @@ export const WebBuilder = ({ setCommponent, id }) => {
             });
             toast({
               status: "success",
-              title: "Plantilla Creada Correctamente",
-              isClosable: true,
-            });
-          }
-
-          if (dataPage?.type === "template" && !payload?.type) {
-            if (payload?.title !== null) {
-              fetchApi({
-                query: queries.createCodePage,
-                variables: {
-                  args: [
-                    {
-                      author: user?.uid,
-                      title: payload.title,
-                      htmlPage: {
-                        html: payload.page?.html,
-                        css: payload.page?.css,
-                        js: payload.page?.js,
-                      },
-                      code: strCode,
-                      type: "page",
-                    },
-                  ],
-                },
-                development: "bodasdehoy",
-              }).then((result) => {
-                setDataPage(result.results[0]);
-              });
-              toast({
-                status: "success",
-                title: "Guardada correctamente",
-                isClosable: true,
-              });
-            }
-          }
-          if (dataPage?.type === "page" && !payload?.type) {
-            fetchApi({
-              query: queries.updateCodePage,
-              variables: {
-                args: {
-                  _id: dataPage?._id,
-                  htmlPage: {
-                    html: payload.page?.html,
-                    css: payload.page?.css,
-                    js: payload.page?.js,
-                  },
-                  code: strCode,
-                },
-              },
-              development: "bodasdehoy",
-            }).then((result) => {
-              setDataPage(result);
-            });
-            toast({
-              status: "success",
               title: "Guardada correctamente",
               isClosable: true,
             });
           }
-        });
+        }
+        if (dataPage?.type === "page" && !payload?.type) {
+          fetchApi({
+            query: queries.updateCodePage,
+            variables: {
+              args: {
+                _id: dataPage?._id,
+                htmlPage: {
+                  html: payload.page?.html,
+                  css: payload.page?.css,
+                  js: payload.page?.js,
+                },
+                code: strCode,
+              },
+            },
+            development: "bodasdehoy",
+          }).then((result) => {
+            setDataPage(result);
+          });
+          toast({
+            status: "success",
+            title: "Guardada correctamente",
+            isClosable: true,
+          });
+        }
       }
     } catch (error) {
       toast({
@@ -196,6 +198,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
   /* useEffect que ejecuta la interfaz del grapes */
   let editor = {};
   useEffect(() => {
+    let componentAdd = {}
     const editor = grapesjs.init({
       autorender: false,
       container: "#gjs",
@@ -203,26 +206,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
       deviceManager,
       storageManager,
       pageManager: {
-        pages: [
-          {
-            id: "page-1",
-            name: "home",
-            component: "",
-            styles: "#comp1 { color: red }",
-          },
-          {
-            id: "page-2",
-            name: "about",
-            component: "",
-            styles: "#comp1 { color: red }",
-          },
-          {
-            id: "page-3",
-            name: "contact",
-            component: "",
-            styles: "#comp1 { color: red }",
-          },
-        ],
+        pages: [],
       },
       pluginsOpts: {
         "grapesjs-preset-webpage": {
@@ -242,7 +226,68 @@ export const WebBuilder = ({ setCommponent, id }) => {
           blocks: ["link-block", "quote", "text-basic"],
         },
       },
+
+      assetManager: {
+        // // Upload endpoint, set `false` to disable upload, default `false`
+        // upload: 'http://96.126.110.203:3000/upload',
+
+        // // The name used in POST to pass uploaded files, default: `'files'`
+        // uploadName: 'files',
+        custom: false,
+        // assets: [
+        //   { type: '*', someOtherCustomProp: 1 },
+        // ],
+        noAssets: '',
+        upload: 0,
+        uploadName: 'files',
+        headers: {},
+        params: {},
+        credentials: 'include',
+        multiUpload: true,
+        autoAdd: 0,
+        uploadText: 'Drop files here or click to upload1',
+        addBtnText: 'Add image1',
+        uploadFile: async (e) => {
+          //alert("otro tipo de imagen")
+          let data = []
+          if (e.dataTransfer) {
+            data = e.dataTransfer.files
+          } else {
+            data = e.target.files
+          }
+          const iterarObjeto = async (objeto) => {
+            for (let i = 0; i < objeto.length; i++) {
+              //console.log("imagen antes del resize", objeto[i])
+              const file = await resizeImage(objeto[i])
+              //console.log("imagen para ser subida", file)
+              const url = await uploadImage(file)
+              editor.AssetManager.add(url)
+              //componentAdd.attributes.attributes.src = url
+            }
+          }
+          iterarObjeto(data);
+          //editor.AssetManager.open()
+          console.log("-------------------->1")
+        },
+        handleAdd: (textFromInput) => {
+          // algún cheque...
+          console.log("-------------------->2", textFromInput)
+          editor.AssetManager.add(textFromInput);
+        },
+        handleRemove: () => {
+          // algún cheque...
+          console.log("-------------------->3", textFromInput)
+
+        },
+        dropzone: 1,
+        openAssetsOnDrop: 1,
+        dropzoneContent: '',
+        modalTitle: 'Select Image',
+      },
+
     });
+
+
 
     setPm(editor.Pages);
     editor.on("load", (editor) => {
@@ -255,7 +300,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
     editor.render();
 
     editor.on("update", () => {
-      console.log("update");
+      console.log("update1");
       const code = editor.getProjectData();
       const html = editor.getHtml();
       const css = editor.getCss();
@@ -264,9 +309,51 @@ export const WebBuilder = ({ setCommponent, id }) => {
       setPageHtml(page);
     });
 
-    editor.on("undo", () => {});
+    editor.on('asset', (e) => {
+      // startAnimation();
+      //console.log("-------------------->4", e)
+    });
 
-    editor.on("redo", () => {});
+    editor.on('component:add', (e) => {
+      componentAdd = e
+      console.log("-------------------->4", e)
+    });
+
+    // The upload is ended (completed or not)
+    editor.on('asset:upload:end', () => {
+      // endAnimation();
+      console.log("-------------------->5")
+    });
+
+    // Error handling
+    editor.on('asset:upload:error', (err) => {
+      // notifyError(err);
+      console.log("-------------------->6", err)
+    });
+
+    // Do something on response
+    editor.on('asset:upload:response', (response) => {
+
+      console.log("-------------------->7", response)
+    });
+
+    editor.on('asset:custom', props => {
+      console.log("-------------------->8", props)
+      // The `props` will contain all the information you need in order to update your UI.
+      // props.open (boolean) - Indicates if the Asset Manager is open
+      // props.assets (Array<Asset>) - Array of all assets
+      // props.types (Array<String>) - Array of asset types requested, eg. ['image'],
+      // props.close (Function) - A callback to close the Asset Manager
+      // props.remove (Function<Asset>) - A callback to remove an asset
+      // props.select (Function<Asset, boolean>) - A callback to select an asset
+      // props.container (HTMLElement) - The element where you should append your UI
+
+      // Here you would put the logic to render/update your UI.
+    });
+
+    editor.on("undo", () => { });
+
+    editor.on("redo", () => { });
 
     editor.Panels.addButton("devices-c", {
       id: "save-button",
@@ -422,7 +509,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
                 }}
               />
             </div>
-            <Tooltip label={dataPage?.title.length>7? dataPage.title:""}>
+            <Tooltip label={dataPage?.title.length > 7 ? dataPage.title : ""}>
               <div className="truncate w-[80px] cursor-default">{dataPage?.title}</div>
             </Tooltip>
           </div>

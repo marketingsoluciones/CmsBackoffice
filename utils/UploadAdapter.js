@@ -1,6 +1,7 @@
 import axios from "axios";
 import { api } from "../utils/api";
 import Resizer from "react-image-file-resizer";
+import { fetchApi, queries } from "./Fetching";
 
 
 export const convertBase64ToFile = function (image, name) {
@@ -21,12 +22,12 @@ export const resizeImageBase64 = (file, name) => {
   try {
     file = convertBase64ToFile(file, name)
     if (file) {
-      console.log(4111100, file)
+      ///console.log(4111100, file)
       return new Promise((resolve) => {
         Resizer.imageFileResizer(
           file,
-          1200,
-          1200,
+          file.size > 900000 ? 900 : file.size - 100,
+          file.size > 900000 ? 900 : file.size - 100,
           "JPEG",
           100,
           0,
@@ -41,17 +42,31 @@ export const resizeImageBase64 = (file, name) => {
     console.log(error)
   }
 }
+export const uploadImage = async (file) => {
+  return await new Promise((resolve) => {
+    fetchApi({
+      query: queries.singleUpload,
+      variables: {
+        file: file,
+      },
+      type: "formData",
+      development: "bodasdehoy",
+    }).then((result) => {
+      resolve(`https://api.bodasdehoy.com${result?.i800}`)
+    });
+  })
+}
 
 
 export const resizeImage = (file) => {
   try {
-    console.log(10000000, file)
     return new Promise((resolve) => {
+      console.log("text de imagen", file.type, "size de imagen", file.size,)
       Resizer.imageFileResizer(
         file,
         1200,
         1200,
-        "JPEG",
+        `${["image/png", "image/webp"].includes(file.type) ? file.type.split("/")[1] : "jpeg"}`.toLowerCase(),
         100,
         0,
         (uri) => {
@@ -65,6 +80,7 @@ export const resizeImage = (file) => {
   }
 }
 
+
 export class UploadAdapter {
   constructor(loader) {
     this.loader = loader;
@@ -76,6 +92,7 @@ export class UploadAdapter {
     try {
       if (this.file) {
         const fd = new FormData();
+        console.log(this.file)
         const params = {
           query: `mutation ($file :Upload!){
                   ckeditorUpload(file: $file){
