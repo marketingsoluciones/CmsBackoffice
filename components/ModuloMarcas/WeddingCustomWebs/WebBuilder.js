@@ -3,6 +3,7 @@ import "grapesjs/dist/css/grapes.min.css";
 import { useCallback, useEffect, useState } from "react";
 import websitePlugin from "grapesjs-preset-webpage";
 import basicBlockPlugin from "grapesjs-blocks-basic";
+import flexbox from "grapesjs-blocks-flexbox"
 import formPlugin from "grapesjs-plugin-forms";
 import { fetchApi, queries } from "../../../utils/Fetching";
 import { AuthContextProvider } from "../../../context/AuthContext";
@@ -202,7 +203,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
     const editor = grapesjs.init({
       autorender: false,
       container: "#gjs",
-      plugins: [websitePlugin, basicBlockPlugin, formPlugin],
+      plugins: [websitePlugin, basicBlockPlugin, formPlugin, flexbox],
       deviceManager,
       storageManager,
       pageManager: {
