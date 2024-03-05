@@ -16,6 +16,7 @@ import * as localEs from "grapesjs/locale/es.js";
 import { ArrowLeft } from "../../Icons/index";
 import { confgiAsset } from "../../../utils/configGrapes.js";
 import { uploadImage, resizeImage } from "../../../utils/UploadAdapter";
+import { ListPages } from "./ListPages";
 
 export const WebBuilder = ({ setCommponent, id }) => {
   const { user, dispatch } = AuthContextProvider();
@@ -31,7 +32,9 @@ export const WebBuilder = ({ setCommponent, id }) => {
   });
   const [handle, setHandle] = useState({ payload: {}, date: new Date() });
   const [showWebBuilder, setShowWebBuilder] = useState(false);
+  const [isPageSelect, setIsPageSelect] = useState("");
   const router = useRouter();
+
 
   /* useEffect para montar y desmontar el componente  */
   useEffect(() => {
@@ -99,7 +102,6 @@ export const WebBuilder = ({ setCommponent, id }) => {
 
   /* handle para crear la plantilla */
   useEffect(() => {
-    console.log("*/*******************************************");
     try {
       if (handle?.payload?.code) {
         const payload = handle?.payload;
@@ -203,6 +205,8 @@ export const WebBuilder = ({ setCommponent, id }) => {
   /* useEffect que ejecuta la interfaz del grapes */
   let editor = {};
   useEffect(() => {
+    const pages = dataPage?.code && JSON.parse(dataPage.code).pages.map(elem => { return { id: elem.id, name: elem.name } })
+    setPages(pages);
     let componentAdd = {};
     const editor = grapesjs.init({
       autorender: false,
@@ -269,26 +273,17 @@ export const WebBuilder = ({ setCommponent, id }) => {
           }
           const iterarObjeto = async (objeto) => {
             for (let i = 0; i < objeto.length; i++) {
-              //console.log("imagen antes del resize", objeto[i])
               const file = await resizeImage(objeto[i]);
-              //console.log("imagen para ser subida", file)
               const url = await uploadImage(file);
               editor.AssetManager.add(url);
-              //componentAdd.attributes.attributes.src = url
             }
           };
           iterarObjeto(data);
-          //editor.AssetManager.open()
-          console.log("-------------------->1");
         },
         handleAdd: (textFromInput) => {
-          // algún cheque...
-          console.log("-------------------->2", textFromInput);
           editor.AssetManager.add(textFromInput);
         },
         handleRemove: () => {
-          // algún cheque...
-          console.log("-------------------->3", textFromInput);
         },
         dropzone: 1,
         openAssetsOnDrop: 1,
@@ -298,8 +293,9 @@ export const WebBuilder = ({ setCommponent, id }) => {
     });
 
     setPm(editor.Pages);
+
     editor.on("load", (editor) => {
-      dataPage && editor?.loadProjectData(JSON.parse(dataPage.code));
+      dataPage ? editor?.loadProjectData(JSON.parse(dataPage.code)) : []
       setTimeout(() => {
         setShowWebBuilder(true);
       }, 1000);
@@ -358,9 +354,9 @@ export const WebBuilder = ({ setCommponent, id }) => {
       // Here you would put the logic to render/update your UI.
     });
 
-    editor.on("undo", () => {});
+    editor.on("undo", () => { });
 
-    editor.on("redo", () => {});
+    editor.on("redo", () => { });
 
     editor.Panels.addButton("devices-c", {
       id: "save-button",
@@ -414,7 +410,6 @@ export const WebBuilder = ({ setCommponent, id }) => {
               var valor = prompt(
                 "Antes de guardar la plantilla, indica el titulo:"
               );
-              console.log(11, valor);
               if (valor === "") {
                 alert("Por favor, ingrese un titulo válido");
               } else {
@@ -442,7 +437,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
     editor.Panels.addButton("devices-c", {
       id: "publicate-button",
       className: "publicate-button",
-      command: function (editor) {},
+      command: function (editor) { },
       attributes: { title: "Publicar" },
     });
 
@@ -458,50 +453,50 @@ export const WebBuilder = ({ setCommponent, id }) => {
   const app = {
     el: ".pages-wrp",
     data: { pages: [] },
-    mounted() {
-      this.setPages(pm.getAll());
-      editor.on("page", () => {
-        this.pages = [...pm.getAll()];
-      });
-    },
+    // mounted() {
+    //   this.setPages(pm.getAll());
+    //   editor.on("page", () => {
+    //     this.pages = [...pm.getAll()];
+    //   });
+    // },
     methods: {
-      getAll() {
+      getAll: () => {
         return pm.getAll();
       },
-      setPages(pages) {
+      setPages: (pages) => {
         this.pages = [...pages];
       },
-      isSelected(item) {
+      isSelected: (item) => {
         return pm.getSelected().id == item.id;
       },
-      selectPage(pageId) {
+      selectPage: (pageId) => {
         return pm.select(pageId);
       },
-      removePage(pageId) {
+      getPage: (pageId) => {
+        return pm.get(pageId);
+      },
+      renamePage: (pageId, name) => {
+        let page = pm.get(pageId);
+        page.setName(name)
+        return { id: pageId, name }
+      },
+      removePage: (pageId) => {
         const f1 = pages.findIndex((elem) => elem.id === pageId);
         pages.splice(f1, 1);
         setPages(pages);
         return pm.remove(pageId);
       },
-      addPage() {
+      addPage: () => {
         const len = pm.getAll().length;
         const resp = pm.add({
           name: `Page ${len + 1}`,
-component: `<div>New page ${len + 1}</div>`,
-        });
-        pages.push(resp);
+          component: `<div>New page ${len + 1}</div>`,
+        })
+        pages.push({ id: resp.attributes.id, name: resp.attributes.name });
         setPages(pages);
       },
     },
   };
-
-  /* useEffect donde se guardan las paginas y las metodos para el manejador de paginas en el estado de pages */
-  useEffect(() => {
-    if (app && isMounted) {
-      const pages = app.methods.getAll();
-      setPages(pages);
-    }
-  }, [isMounted]);
 
   return (
     <>
@@ -533,29 +528,10 @@ component: `<div>New page ${len + 1}</div>`,
           </div>
           <div className="pages">
             <div className="">
-              {pages.map((item, idx) => {
-                                return (
-                  <div className=" page selected  " key={idx}>
-                    <span
-                      className="flex-1"
-                      onClick={() => {
-                        app?.methods?.selectPage(item?.id);
-                      }}
-                    >
-                      {item.get("name")}
-                    </span>
-                    <span
-                      className="page-close"
-                      onClick={() => {
-                        !app.methods.isSelected(item) &&
-                          app.methods.removePage(item?.id);
-                      }}
-                    >
-                      {!app.methods.isSelected(item) && "X"}
-                    </span>
-                  </div>
-                );
-              })}
+              {pages?.length && pages?.map((item, idx) => (
+                < ListPages key={idx} item={item} app={app} pages={pages} setPages={setPages} isPageSelect={isPageSelect} setIsPageSelect={setIsPageSelect} />
+              ))
+              }
             </div>
           </div>
         </div>
