@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import websitePlugin from "grapesjs-preset-webpage";
 import basicBlockPlugin from "grapesjs-blocks-basic";
 import flexbox from "grapesjs-blocks-flexbox"
+import navbar from "grapesjs-navbar"
+import customCode from "grapesjs-custom-code"
 import formPlugin from "grapesjs-plugin-forms";
-import { fetchApi, queries } from "../../../utils/Fetching";
+import { fetchApi, queries} from "../../../utils/Fetching";
 import { AuthContextProvider } from "../../../context/AuthContext";
 import { Tooltip, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -19,7 +21,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
   const [dataPage, setDataPage] = useState();
   const [pm, setPm] = useState({});
   const [pages, setPages] = useState([]);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isMounted, setIsMounted ] = useState(false);
   const [pageHtml, setPageHtml] = useState({
     html: undefined,
     css: undefined,
@@ -200,7 +202,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
     const editor = grapesjs.init({
       autorender: false,
       container: "#gjs",
-      plugins: [websitePlugin, basicBlockPlugin, formPlugin, flexbox],
+      plugins: [websitePlugin, basicBlockPlugin, formPlugin, flexbox, navbar, customCode],
       deviceManager,
       storageManager,
       pageManager: {
