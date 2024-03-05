@@ -439,20 +439,13 @@ export const WebBuilder = ({ setCommponent, id }) => {
       });
     }
 
-    /*  editor.Panels.addButton("devices-c", {
-      id: "back-button",
-      className: "ArrowBack",
-      command: function (editor) {
-        if (router.pathname == "/business") {
-          dispatch({ type: "VIEW", payload: {} });
-        }
+    editor.Panels.addButton("devices-c", {
+      id: "publicate-button",
+      className: "publicate-button",
+      command: function (editor) {},
+      attributes: { title: "Publicar" },
+    });
 
-        if (router.pathname == "/marketplace") {
-          setCommponent("principal");
-        }
-      },
-      attributes: { title: "Salir" },
-    }); */
     editor.I18n.addMessages({
       en: {
         // indicate the locale to update
@@ -494,7 +487,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
         const len = pm.getAll().length;
         const resp = pm.add({
           name: `Page ${len + 1}`,
-          component: `<div>New page ${len + 1}</div>`,
+component: `<div>New page ${len + 1}</div>`,
         });
         pages.push(resp);
         setPages(pages);
@@ -541,7 +534,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
           <div className="pages">
             <div className="">
               {pages.map((item, idx) => {
-                return (
+                                return (
                   <div className=" page selected  " key={idx}>
                     <span
                       className="flex-1"

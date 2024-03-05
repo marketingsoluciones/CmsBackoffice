@@ -119,6 +119,10 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   content: url('/save-button.svg');
 }
 
+.publicate-button{
+  content: url('/publicate.svg');
+}
+
 .create-button {
   content: url('/save-button.svg');
 }
