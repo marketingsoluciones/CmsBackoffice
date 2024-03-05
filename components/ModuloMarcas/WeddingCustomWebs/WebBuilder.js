@@ -3,18 +3,18 @@ import "grapesjs/dist/css/grapes.min.css";
 import { useCallback, useEffect, useState } from "react";
 import websitePlugin from "grapesjs-preset-webpage";
 import basicBlockPlugin from "grapesjs-blocks-basic";
-import flexbox from "grapesjs-blocks-flexbox"
-import navbar from "grapesjs-navbar"
-import customCode from "grapesjs-custom-code"
+import flexbox from "grapesjs-blocks-flexbox";
+import navbar from "grapesjs-navbar";
+import customCode from "grapesjs-custom-code";
 import formPlugin from "grapesjs-plugin-forms";
-import { fetchApi, queries} from "../../../utils/Fetching";
+import { fetchApi, queries } from "../../../utils/Fetching";
 import { AuthContextProvider } from "../../../context/AuthContext";
 import { Tooltip, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { transformBase64 } from "../../../utils/trasformBase64";
 import * as localEs from "grapesjs/locale/es.js";
 import { ArrowLeft } from "../../Icons/index";
-import { confgiAsset } from "../../../utils/configGrapes.js"
+import { confgiAsset } from "../../../utils/configGrapes.js";
 import { uploadImage, resizeImage } from "../../../utils/UploadAdapter";
 
 export const WebBuilder = ({ setCommponent, id }) => {
@@ -23,7 +23,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
   const [dataPage, setDataPage] = useState();
   const [pm, setPm] = useState({});
   const [pages, setPages] = useState([]);
-  const [isMounted, setIsMounted ] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const [pageHtml, setPageHtml] = useState({
     html: undefined,
     css: undefined,
@@ -99,38 +99,40 @@ export const WebBuilder = ({ setCommponent, id }) => {
 
   /* handle para crear la plantilla */
   useEffect(() => {
-    console.log("*/*******************************************")
+    console.log("*/*******************************************");
     try {
       if (handle?.payload?.code) {
-        const payload = handle?.payload
+        const payload = handle?.payload;
         const strCode = JSON.stringify(payload?.code);
         if (payload?.type) {
-          fetchApi({
-            query: queries.createCodePage,
-            variables: {
-              args: [
-                {
-                  author: user?.uid,
-                  title: payload.title,
-                  htmlPage: {
-                    html: payload.page?.html,
-                    css: payload.page?.css,
-                    js: payload.page?.js,
+          if (payload?.title !== null) {
+            fetchApi({
+              query: queries.createCodePage,
+              variables: {
+                args: [
+                  {
+                    author: user?.uid,
+                    title: payload.title,
+                    htmlPage: {
+                      html: payload.page?.html,
+                      css: payload.page?.css,
+                      js: payload.page?.js,
+                    },
+                    code: strCode,
+                    type: payload?.type,
                   },
-                  code: strCode,
-                  type: payload?.type,
-                },
-              ],
-            },
-            development: "bodasdehoy",
-          }).then((result) => {
-            setDataPage(result.results[0]);
-          });
-          toast({
-            status: "success",
-            title: "Plantilla Creada Correctamente",
-            isClosable: true,
-          });
+                ],
+              },
+              development: "bodasdehoy",
+            }).then((result) => {
+              setDataPage(result.results[0]);
+            });
+            toast({
+              status: "success",
+              title: "Plantilla Creada Correctamente",
+              isClosable: true,
+            });
+          }
         }
 
         if (dataPage?.type === "template" && !payload?.type) {
@@ -201,11 +203,18 @@ export const WebBuilder = ({ setCommponent, id }) => {
   /* useEffect que ejecuta la interfaz del grapes */
   let editor = {};
   useEffect(() => {
-    let componentAdd = {}
+    let componentAdd = {};
     const editor = grapesjs.init({
       autorender: false,
       container: "#gjs",
-      plugins: [websitePlugin, basicBlockPlugin, formPlugin, flexbox, navbar, customCode],
+      plugins: [
+        websitePlugin,
+        basicBlockPlugin,
+        formPlugin,
+        flexbox,
+        navbar,
+        customCode,
+      ],
       deviceManager,
       storageManager,
       pageManager: {
@@ -240,57 +249,53 @@ export const WebBuilder = ({ setCommponent, id }) => {
         // assets: [
         //   { type: '*', someOtherCustomProp: 1 },
         // ],
-        noAssets: '',
+        noAssets: "",
         upload: 0,
-        uploadName: 'files',
+        uploadName: "files",
         headers: {},
         params: {},
-        credentials: 'include',
+        credentials: "include",
         multiUpload: true,
         autoAdd: 0,
-        uploadText: 'Drop files here or click to upload1',
-        addBtnText: 'Add image1',
+        uploadText: "Drop files here or click to upload1",
+        addBtnText: "Add image1",
         uploadFile: async (e) => {
           //alert("otro tipo de imagen")
-          let data = []
+          let data = [];
           if (e.dataTransfer) {
-            data = e.dataTransfer.files
+            data = e.dataTransfer.files;
           } else {
-            data = e.target.files
+            data = e.target.files;
           }
           const iterarObjeto = async (objeto) => {
             for (let i = 0; i < objeto.length; i++) {
               //console.log("imagen antes del resize", objeto[i])
-              const file = await resizeImage(objeto[i])
+              const file = await resizeImage(objeto[i]);
               //console.log("imagen para ser subida", file)
-              const url = await uploadImage(file)
-              editor.AssetManager.add(url)
+              const url = await uploadImage(file);
+              editor.AssetManager.add(url);
               //componentAdd.attributes.attributes.src = url
             }
-          }
+          };
           iterarObjeto(data);
           //editor.AssetManager.open()
-          console.log("-------------------->1")
+          console.log("-------------------->1");
         },
         handleAdd: (textFromInput) => {
           // algún cheque...
-          console.log("-------------------->2", textFromInput)
+          console.log("-------------------->2", textFromInput);
           editor.AssetManager.add(textFromInput);
         },
         handleRemove: () => {
           // algún cheque...
-          console.log("-------------------->3", textFromInput)
-
+          console.log("-------------------->3", textFromInput);
         },
         dropzone: 1,
         openAssetsOnDrop: 1,
-        dropzoneContent: '',
-        modalTitle: 'Select Image',
+        dropzoneContent: "",
+        modalTitle: "Select Image",
       },
-
     });
-
-
 
     setPm(editor.Pages);
     editor.on("load", (editor) => {
@@ -312,36 +317,35 @@ export const WebBuilder = ({ setCommponent, id }) => {
       setPageHtml(page);
     });
 
-    editor.on('asset', (e) => {
+    editor.on("asset", (e) => {
       // startAnimation();
       //console.log("-------------------->4", e)
     });
 
-    editor.on('component:add', (e) => {
-      componentAdd = e
-      console.log("-------------------->4", e)
+    editor.on("component:add", (e) => {
+      componentAdd = e;
+      console.log("-------------------->4", e);
     });
 
     // The upload is ended (completed or not)
-    editor.on('asset:upload:end', () => {
+    editor.on("asset:upload:end", () => {
       // endAnimation();
-      console.log("-------------------->5")
+      console.log("-------------------->5");
     });
 
     // Error handling
-    editor.on('asset:upload:error', (err) => {
+    editor.on("asset:upload:error", (err) => {
       // notifyError(err);
-      console.log("-------------------->6", err)
+      console.log("-------------------->6", err);
     });
 
     // Do something on response
-    editor.on('asset:upload:response', (response) => {
-
-      console.log("-------------------->7", response)
+    editor.on("asset:upload:response", (response) => {
+      console.log("-------------------->7", response);
     });
 
-    editor.on('asset:custom', props => {
-      console.log("-------------------->8", props)
+    editor.on("asset:custom", (props) => {
+      console.log("-------------------->8", props);
       // The `props` will contain all the information you need in order to update your UI.
       // props.open (boolean) - Indicates if the Asset Manager is open
       // props.assets (Array<Asset>) - Array of all assets
@@ -354,9 +358,9 @@ export const WebBuilder = ({ setCommponent, id }) => {
       // Here you would put the logic to render/update your UI.
     });
 
-    editor.on("undo", () => { });
+    editor.on("undo", () => {});
 
-    editor.on("redo", () => { });
+    editor.on("redo", () => {});
 
     editor.Panels.addButton("devices-c", {
       id: "save-button",
@@ -369,7 +373,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
               "Antes de guardar la plantilla, indica el titulo: "
             );
             if (valor === "") {
-              alert("Por favor, ingrese un nick válido");
+              alert("Por favor, ingrese un titulo válido");
             } else {
               title = valor;
               break;
@@ -404,19 +408,32 @@ export const WebBuilder = ({ setCommponent, id }) => {
         id: "create-button",
         className: "create-button",
         command: function (editor) {
-          let title = "";
-          title = prompt(
-            "Antes de guardar la plantilla, indica el titulo:",
-            "plantilla"
-          );
-          setHandle({
-            payload: {
-              type: "template",
-              title: title,
-              code: editor.getProjectData(),
-            },
-            date: new Date(),
-          });
+          if (dataPage?.type === "template") {
+            let title;
+            while (true) {
+              var valor = prompt(
+                "Antes de guardar la plantilla, indica el titulo:"
+              );
+              console.log(11, valor);
+              if (valor === "") {
+                alert("Por favor, ingrese un titulo válido");
+              } else {
+                title = valor;
+                break;
+              }
+              if (valor === null) {
+                return;
+              }
+            }
+            setHandle({
+              payload: {
+                type: "template",
+                title: title,
+                code: editor.getProjectData(),
+              },
+              date: new Date(),
+            });
+          }
         },
         attributes: { title: "Crear nuevo" },
       });
@@ -513,7 +530,9 @@ export const WebBuilder = ({ setCommponent, id }) => {
               />
             </div>
             <Tooltip label={dataPage?.title.length > 7 ? dataPage.title : ""}>
-              <div className="truncate w-[80px] cursor-default">{dataPage?.title}</div>
+              <div className="truncate w-[80px] cursor-default">
+                {dataPage?.title}
+              </div>
             </Tooltip>
           </div>
           <div className="add-page" onClick={() => app.methods.addPage()}>
