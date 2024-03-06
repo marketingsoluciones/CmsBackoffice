@@ -25,16 +25,11 @@ export const WebBuilder = ({ setCommponent, id }) => {
   const [pm, setPm] = useState({});
   const [pages, setPages] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
-  const [pageHtml, setPageHtml] = useState({
-    html: undefined,
-    css: undefined,
-    js: undefined,
-  });
   const [handle, setHandle] = useState({ payload: {}, date: new Date() });
   const [showWebBuilder, setShowWebBuilder] = useState(false);
   const [isPageSelect, setIsPageSelect] = useState("");
   const router = useRouter();
-
+  const [isUpdated, setIsUpdated] = useState(false);
 
   /* useEffect para montar y desmontar el componente  */
   useEffect(() => {
@@ -138,6 +133,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
         }
 
         if (dataPage?.type === "template" && !payload?.type) {
+
           if (payload?.title !== null) {
             fetchApi({
               query: queries.createCodePage,
@@ -159,6 +155,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
               development: "bodasdehoy",
             }).then((result) => {
               setDataPage(result.results[0]);
+              setIsUpdated(false)
             });
             toast({
               status: "success",
@@ -168,6 +165,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
           }
         }
         if (dataPage?.type === "page" && !payload?.type) {
+          const state = payload?.state
           fetchApi({
             query: queries.updateCodePage,
             variables: {
@@ -179,10 +177,12 @@ export const WebBuilder = ({ setCommponent, id }) => {
                   js: payload.page?.js,
                 },
                 code: strCode,
+                state
               },
             },
             development: "bodasdehoy",
           }).then((result) => {
+            setIsUpdated(false)
             setDataPage(result);
           });
           toast({
@@ -305,12 +305,13 @@ export const WebBuilder = ({ setCommponent, id }) => {
 
     editor.on("update", () => {
       console.log("update1");
-      const code = editor.getProjectData();
-      const html = editor.getHtml();
-      const css = editor.getCss();
-      const js = editor.getJs();
-      const page = { html, css, js };
-      setPageHtml(page);
+      setIsUpdated(true)
+      // const code = editor.getProjectData();
+      // const html = editor.getHtml();
+      // const css = editor.getCss();
+      // const js = editor.getJs();
+      // const page = { html, css, js };
+      // setPageHtml(page);
     });
 
     editor.on("asset", (e) => {
@@ -436,8 +437,24 @@ export const WebBuilder = ({ setCommponent, id }) => {
 
     editor.Panels.addButton("devices-c", {
       id: "publicate-button",
-      className: "publicate-button",
-      command: function (editor) { },
+      className: !isUpdated ? "publicate-button" : "publicated-button",
+      command: function (editor) {
+        if (dataPage?.type === "page") {
+          const html = editor.getHtml();
+          const css = editor.getCss();
+          const js = editor.getJs();
+          const page = { html, css, js };
+          setHandle({
+            payload: {
+              title: dataPage.title,
+              code: editor.getProjectData(),
+              page,
+              state: "publicated"
+            },
+            date: new Date(),
+          });
+        }
+      },
       attributes: { title: "Publicar" },
     });
 

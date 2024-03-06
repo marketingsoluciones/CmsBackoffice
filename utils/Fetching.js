@@ -180,6 +180,7 @@ export const queries = {
         code
         type
         price
+        state
         status
         createdAt
         updatedAt
