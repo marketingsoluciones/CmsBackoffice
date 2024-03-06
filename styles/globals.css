@@ -116,7 +116,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .save-button {
-  content: url('/save-button.svg');
+  content: url('/saveButton.svg');
 }
 
 .publicate-button{
@@ -127,7 +127,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .create-button {
-  content: url('/save-button.svg');
+  content: url('/saveButton.svg');
 }
 
 .ArrowBack {
