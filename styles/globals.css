@@ -126,6 +126,10 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   content: url('/cloud-check.svg');
 }
 
+.searchScreen {
+  content: url('/searchScreen.svg');
+}
+
 .create-button {
   content: url('/saveButton.svg');
 }

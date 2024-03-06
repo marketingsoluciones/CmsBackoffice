@@ -458,6 +458,16 @@ export const WebBuilder = ({ setCommponent, id }) => {
       attributes: { title: "Publicar" },
     });
 
+    
+    editor.Panels.addButton("devices-c", {
+      id: "vistaPrevia",
+      className:  "searchScreen",
+      command: function (editor) {
+        
+      },
+      attributes: { title: "Vista previa" },
+    });
+
     editor.I18n.addMessages({
       en: {
         // indicate the locale to update
