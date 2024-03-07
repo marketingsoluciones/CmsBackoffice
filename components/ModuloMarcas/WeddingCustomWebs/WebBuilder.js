@@ -28,6 +28,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
   const [handle, setHandle] = useState({ payload: {}, date: new Date() });
   const [showWebBuilder, setShowWebBuilder] = useState(false);
   const [isPageSelect, setIsPageSelect] = useState("");
+  const [isNewPage, setIsNewPage] = useState("");
   const router = useRouter();
   const [isUpdated, setIsUpdated] = useState(false);
 
@@ -187,7 +188,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
           });
           toast({
             status: "success",
-            title: "Guardada correctamente",
+            title: !state ? "Guardada correctamente" : "Su sitio web ha sido publicado",
             isClosable: true,
           });
         }
@@ -239,6 +240,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
             ],
             flexGrid: 1,
           },
+          textCleanCanvas: "algo",
           blocks: ["link-block", "quote", "text-basic"],
         },
       },
@@ -306,19 +308,16 @@ export const WebBuilder = ({ setCommponent, id }) => {
     editor.on("update", () => {
       console.log("update1");
       setIsUpdated(true)
-      // const code = editor.getProjectData();
-      // const html = editor.getHtml();
-      // const css = editor.getCss();
-      // const js = editor.getJs();
-      // const page = { html, css, js };
-      // setPageHtml(page);
     });
 
     editor.on("asset", (e) => {
       // startAnimation();
       //console.log("-------------------->4", e)
     });
-
+    editor.on("preview", (e) => {
+      console.log('Spots', editor.Canvas.getSpots());
+      console.log("-------------------->4", e)
+    });
     editor.on("component:add", (e) => {
       componentAdd = e;
       console.log("-------------------->4", e);
@@ -354,7 +353,31 @@ export const WebBuilder = ({ setCommponent, id }) => {
 
       // Here you would put the logic to render/update your UI.
     });
-
+    editor.on("page:add", (resp) => {
+      pages.push({ id: resp.attributes.id, name: resp.attributes.name });
+      setIsNewPage(resp.attributes.id)
+      setPages([...pages]);
+    });
+    editor.on("page:remove", (resp) => {
+      const pageId = resp.attributes.id
+      const isUnique = pages[0] === pageId
+      const isSelected = pm.getSelected().id === pageId
+      const isPrimary = pages[0].id === pageId
+      if (!isUnique) {
+        if (isSelected) {
+          if (isPrimary) {
+            pm.select(pages[1].id)
+            setIsPageSelect(pages[1].id)
+          } else {
+            pm.select(pages[0].id)
+            setIsPageSelect(pages[0].id)
+          }
+        }
+        const f1 = pages.findIndex((elem) => elem.id === pageId);
+        pages.splice(f1, 1);
+        setPages([...pages]);
+      }
+    });
     editor.on("undo", () => { });
 
     editor.on("redo", () => { });
@@ -458,12 +481,12 @@ export const WebBuilder = ({ setCommponent, id }) => {
       attributes: { title: "Publicar" },
     });
 
-    
+
     editor.Panels.addButton("devices-c", {
       id: "vistaPrevia",
-      className:  "searchScreen",
+      className: "searchScreen",
       command: function (editor) {
-        
+        console.log("aqui")
       },
       attributes: { title: "Vista previa" },
     });
@@ -508,19 +531,17 @@ export const WebBuilder = ({ setCommponent, id }) => {
         return { id: pageId, name }
       },
       removePage: (pageId) => {
-        const f1 = pages.findIndex((elem) => elem.id === pageId);
-        pages.splice(f1, 1);
-        setPages(pages);
-        return pm.remove(pageId);
+        if (pages.length > 1) {
+          const isUnique = pages[0] === pageId
+          if (!isUnique) {
+            pm.remove(pageId)
+          }
+        }
       },
       addPage: () => {
-        const len = pm.getAll().length;
-        const resp = pm.add({
-          name: `Page ${len + 1}`,
-          component: `<div>New page ${len + 1}</div>`,
-        })
-        pages.push({ id: resp.attributes.id, name: resp.attributes.name });
-        setPages(pages);
+        if (pages.length < 8) {
+          const resp = pm.add({ name: `sin nombre` })
+        }
       },
     },
   };
@@ -551,12 +572,12 @@ export const WebBuilder = ({ setCommponent, id }) => {
             </Tooltip>
           </div>
           <div className="add-page" onClick={() => app.methods.addPage()}>
-            Nueva pagina
+            Agregar pagina
           </div>
           <div className="pages">
             <div className="">
               {pages?.length && pages?.map((item, idx) => (
-                < ListPages key={idx} item={item} app={app} pages={pages} setPages={setPages} isPageSelect={isPageSelect} setIsPageSelect={setIsPageSelect} />
+                < ListPages key={item.id} item={item} app={app} pages={pages} setPages={setPages} isPageSelect={isPageSelect} setIsPageSelect={setIsPageSelect} isNewPAge={isNewPage} setIsNewPAge={setIsNewPage} />
               ))
               }
             </div>
