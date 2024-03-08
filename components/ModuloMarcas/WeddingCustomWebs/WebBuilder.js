@@ -18,7 +18,7 @@ import { confgiAsset } from "../../../utils/configGrapes.js";
 import { uploadImage, resizeImage } from "../../../utils/UploadAdapter";
 import { ListPages } from "./ListPages";
 
-export const WebBuilder = ({ setCommponent, id }) => {
+export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
   const { user, dispatch } = AuthContextProvider();
   const toast = useToast();
   const [dataPage, setDataPage] = useState();
@@ -31,6 +31,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
   const [isNewPage, setIsNewPage] = useState("");
   const router = useRouter();
   const [isUpdated, setIsUpdated] = useState(false);
+
 
   /* useEffect para montar y desmontar el componente  */
   useEffect(() => {
@@ -96,119 +97,18 @@ export const WebBuilder = ({ setCommponent, id }) => {
     }
   }, [isMounted]);
 
-  /* handle para crear la plantilla */
-  useEffect(() => {
-    try {
-      if (handle?.payload?.code) {
-        const payload = handle?.payload;
-        const strCode = JSON.stringify(payload?.code);
-        if (payload?.type) {
-          if (payload?.title !== null) {
-            fetchApi({
-              query: queries.createCodePage,
-              variables: {
-                args: [
-                  {
-                    author: user?.uid,
-                    title: payload.title,
-                    htmlPage: {
-                      html: payload.page?.html,
-                      css: payload.page?.css,
-                      js: payload.page?.js,
-                    },
-                    code: strCode,
-                    type: payload?.type,
-                  },
-                ],
-              },
-              development: "bodasdehoy",
-            }).then((result) => {
-              setDataPage(result.results[0]);
-            });
-            toast({
-              status: "success",
-              title: "Plantilla Creada Correctamente",
-              isClosable: true,
-            });
-          }
-        }
 
-        if (dataPage?.type === "template" && !payload?.type) {
-
-          if (payload?.title !== null) {
-            fetchApi({
-              query: queries.createCodePage,
-              variables: {
-                args: [
-                  {
-                    author: user?.uid,
-                    title: payload.title,
-                    htmlPage: {
-                      html: payload.page?.html,
-                      css: payload.page?.css,
-                      js: payload.page?.js,
-                    },
-                    code: strCode,
-                    type: "page",
-                  },
-                ],
-              },
-              development: "bodasdehoy",
-            }).then((result) => {
-              setDataPage(result.results[0]);
-              setIsUpdated(false)
-            });
-            toast({
-              status: "success",
-              title: "Guardada correctamente",
-              isClosable: true,
-            });
-          }
-        }
-        if (dataPage?.type === "page" && !payload?.type) {
-          const state = payload?.state
-          fetchApi({
-            query: queries.updateCodePage,
-            variables: {
-              args: {
-                _id: dataPage?._id,
-                htmlPages: payload?.htmlPages,
-                htmlPage: {
-                  html: payload.page?.html,
-                  css: payload.page?.css,
-                  js: payload.page?.js,
-                },
-                code: strCode,
-                state
-              },
-            },
-            development: "bodasdehoy",
-          }).then((result) => {
-            setIsUpdated(false)
-            setDataPage(result);
-          });
-          toast({
-            status: "success",
-            title: !state ? "Guardada correctamente" : "Su sitio web ha sido publicado",
-            isClosable: true,
-          });
-        }
-      }
-    } catch (error) {
-      toast({
-        status: "error",
-        title: "a ocurrido un error",
-        isClosable: true,
-      });
-      console.log(error);
-    }
-  }, [handle, isMounted]);
 
   /* useEffect que ejecuta la interfaz del grapes */
+
+
+  const [metaData, setMetaData] = useState()
+  useEffect(() => {
+    console.log(11110000001, { pages })
+  }, [pages])
+
   let editor = {};
   useEffect(() => {
-    const pages = dataPage?.code && JSON.parse(dataPage.code).pages.map(elem => { return { id: elem.id, name: elem.name } })
-    setPages(pages);
     let componentAdd = {};
     const editor = grapesjs.init({
       keymaps: {
@@ -307,10 +207,22 @@ export const WebBuilder = ({ setCommponent, id }) => {
     setPm(editor.Pages);
 
     editor.on("load", (editor) => {
-      dataPage ? editor?.loadProjectData(JSON.parse(dataPage.code)) : []
-      setTimeout(() => {
+      fetchApi({
+        query: queries.getCodePage,
+        variables: {
+          args: { _id: id },
+        },
+        development: "bodasdehoy",
+      }).then((result) => {
+        const data = result.results[0]
+        editor?.loadProjectData(JSON.parse(data.code))
+        const pages = data?.code && JSON.parse(data.code).pages.map(elem => { return { id: elem.id, name: elem.name } })
+        setPages(pages);
+        const { type: typeResult, title, _id, state } = result.results[0]
+        type = typeResult
+        setMetaData({ type: typeResult, title, _id, state })
         setShowWebBuilder(true);
-      }, 1000);
+      })
     });
 
     editor.render();
@@ -364,28 +276,30 @@ export const WebBuilder = ({ setCommponent, id }) => {
       // Here you would put the logic to render/update your UI.
     });
     editor.on("page:add", (resp) => {
-      pages.push({ id: resp.attributes.id, name: resp.attributes.name });
+      let pages = editor.Pages.getAll().map(elem => { return { id: elem.id, name: elem.attributes.name } })
       setIsNewPage(resp.attributes.id)
       setPages([...pages]);
     });
     editor.on("page:remove", (resp) => {
       const pageId = resp.attributes.id
-      const isUnique = pages[0] === pageId
-      const isSelected = pm.getSelected().id === pageId
-      const isPrimary = pages[0].id === pageId
+
+      const isUnique = editor.Pages.getAll()[0].id === pageId
+      const isSelected = editor.Pages.getSelected().id === pageId
+      const isPrimary = editor.Pages.getAll()[0].id === pageId
       if (!isUnique) {
         if (isSelected) {
           if (isPrimary) {
-            pm.select(pages[1].id)
-            setIsPageSelect(pages[1].id)
+            editor.Pages.select(editor.Pages.getAll()[1].id)
+            setIsPageSelect(editor.Pages.getAll()[1].id)
           } else {
-            pm.select(pages[0].id)
-            setIsPageSelect(pages[0].id)
+            editor.Pages.select(editor.Pages.getAll()[0].id)
+            setIsPageSelect(editor.Pages.getAll()[0].id)
           }
         }
-        const f1 = pages.findIndex((elem) => elem.id === pageId);
-        pages.splice(f1, 1);
-        setPages([...pages]);
+        // const f1 = pages.findIndex((elem) => elem.id === pageId);
+        // pages.splice(f1, 1);
+        console.log(774444, editor.Pages.getAll())
+        setPages(editor.Pages.getAll().map(elem => { return { id: elem.id, name: elem.attributes.name } }));
       }
     });
     editor.on("undo", () => { });
@@ -396,7 +310,8 @@ export const WebBuilder = ({ setCommponent, id }) => {
       id: "save-button",
       className: "save-button",
       command: function (editor) {
-        if (dataPage?.type === "template") {
+        console.log(7414410, metaData, type)
+        if (type === "template") {
           let title;
           while (true) {
             var valor = prompt(
@@ -412,22 +327,40 @@ export const WebBuilder = ({ setCommponent, id }) => {
               return;
             }
           }
-          setHandle({
-            payload: {
-              title: title,
-              code: editor.getProjectData(),
-            },
-            date: new Date(),
-          });
+          if (!!title) {
+            fetchApi({
+              query: queries.createCodePage,
+              variables: {
+                args: {
+                  author: user?.uid,
+                  title: title,
+                  code: JSON.stringify(editor.getProjectData()),
+                  type: "page"
+                }
+              },
+              development: "bodasdehoy",
+            }).then((result) => {
+              id = result?.results[0]?._id
+              type = result?.results[0]?.type
+              console.log(result, id, type)
+              toast({ status: "success", title: "La web ha sido creada", isClosable: true });
+            })
+          }
         }
-        if (dataPage?.type === "page") {
-          setHandle({
-            payload: {
-              title: dataPage.title,
-              code: editor.getProjectData(),
+        if (type === "page") {
+          fetchApi({
+            query: queries.updateCodePage,
+            variables: {
+              args: {
+                _id: id,
+                code: JSON.stringify(editor.getProjectData())
+              }
             },
-            date: new Date(),
-          });
+            development: "bodasdehoy",
+          }).then((result) => {
+            id = result._id
+            toast({ status: "success", title: "La páginas han sido guardadas", isClosable: true });
+          })
         }
       },
       attributes: { title: "Guardar" },
@@ -473,31 +406,36 @@ export const WebBuilder = ({ setCommponent, id }) => {
       className: !isUpdated ? "publicate-button" : "publicated-button",
       command: function (editor) {
         setIsUpdated(!isUpdated)
-        if (dataPage?.type === "page") {
-          const html = editor.getHtml();
-          const css = editor.getCss();
-          const js = editor.getJs();
-          const page = { html, css, js };
+        // if (dataPage?.type === "page") {
 
-          const htmlPages = editor.Pages.getAll().map(page => {
-            const component = page.getMainComponent();
-            return {
-              title: page.attributes.name,
-              html: editor.getHtml({ component }),
-              css: editor.getCss({ component })
-            }
-          });
-          setHandle({
-            payload: {
-              title: dataPage.title,
-              code: editor.getProjectData(),
+
+        const htmlPages = editor.Pages.getAll().map(page => {
+          const component = page.getMainComponent();
+          return {
+            title: page.attributes.name,
+            html: editor.getHtml({ component }),
+            css: editor.getCss({ component })
+          }
+        });
+
+
+        fetchApi({
+          query: queries.updateCodePage,
+          variables: {
+            args: {
+              _id: id,
               htmlPages,
-              page,
               state: "publicated"
             },
-            date: new Date(),
-          });
-        }
+          },
+          development: "bodasdehoy",
+        }).then((result) => {
+          console.log(1000, result)
+        });
+
+
+
+        // }
       },
       attributes: { title: "Publicar" },
     });
@@ -518,7 +456,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
         ...localEs?.default,
       },
     });
-  }, [dataPage]);
+  }, []);
 
   /* constante donde se guardan las funciones del manejador de paginas */
   const app = {
