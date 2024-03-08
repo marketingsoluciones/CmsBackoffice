@@ -78,7 +78,6 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
     ],
   };
 
-  /* useEffect donde se ejecuta la query para pedir la plantilla por id */
   useEffect(() => {
     if (isMounted) {
       try {
@@ -96,10 +95,6 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
       }
     }
   }, [isMounted]);
-
-
-
-  /* useEffect que ejecuta la interfaz del grapes */
 
 
   const [metaData, setMetaData] = useState()
