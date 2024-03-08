@@ -172,6 +172,7 @@ export const WebBuilder = ({ setCommponent, id }) => {
             variables: {
               args: {
                 _id: dataPage?._id,
+                htmlPages: payload?.htmlPages,
                 htmlPage: {
                   html: payload.page?.html,
                   css: payload.page?.css,
@@ -210,6 +211,15 @@ export const WebBuilder = ({ setCommponent, id }) => {
     setPages(pages);
     let componentAdd = {};
     const editor = grapesjs.init({
+      keymaps: {
+        // Object of keymaps
+        defaults: {
+          'your-namespace:keymap-name': {
+            keys: '⌘+z, ctrl+z',
+            handler: 'some-command-id'
+          },
+        }
+      },
       autorender: false,
       container: "#gjs",
       plugins: [
@@ -462,15 +472,26 @@ export const WebBuilder = ({ setCommponent, id }) => {
       id: "publicate-button",
       className: !isUpdated ? "publicate-button" : "publicated-button",
       command: function (editor) {
+        setIsUpdated(!isUpdated)
         if (dataPage?.type === "page") {
           const html = editor.getHtml();
           const css = editor.getCss();
           const js = editor.getJs();
           const page = { html, css, js };
+
+          const htmlPages = editor.Pages.getAll().map(page => {
+            const component = page.getMainComponent();
+            return {
+              title: page.attributes.name,
+              html: editor.getHtml({ component }),
+              css: editor.getCss({ component })
+            }
+          });
           setHandle({
             payload: {
               title: dataPage.title,
               code: editor.getProjectData(),
+              htmlPages,
               page,
               state: "publicated"
             },
