@@ -607,6 +607,18 @@ export const BodyStaticAPP = [
     ]
   },
   {
+    title: "Pruebas",
+    roles: ["all"],
+    children: [
+      {
+        icon: <MetricasSociales className="" />,
+        title: "Hijo de Pruebas",
+        roles: ["all"],
+        route: "pruebas1",
+      },
+    ]
+  },
+  {
     title: "Blog",
     roles: ["all"],
     children: [
