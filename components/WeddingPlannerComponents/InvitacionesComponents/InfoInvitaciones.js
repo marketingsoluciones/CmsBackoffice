@@ -4,17 +4,17 @@ import { useRouter } from "next/router"
 export const InfoInvitaciones = ({ setComponentState }) => {
     const router = useRouter()
     return (
-        <div className="h-[100vh]">
+        <div className="">
             <div onClick={() => setComponentState(4)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
-            <p className="  mt-1 text-3xl text-rosa font-semibold">
+            <p className="  mt-1 text-3xl text-rosa ">
                 Invitaciones
             </p>
-            <div className="h-[calc(100%-240px)] md:h-[calc(100%-145px)] overflow-auto">
+            <div className="h-[calc(100%-240px)]* md:h-[calc(100vh-145px)] overflow-auto bg-gray-200 rounded-lg">
 
                 <div className="bg-white rounded-t-lg flex flex-col items-center px-5 md:px-0 py-10 space-y-5 ">
-                    <h1 className="text-xl"><span className="text-rosa"> Las Invitaciones </span> son tu red de conexión con tus invitados.</h1>
+                    <h1 className="text-xl text-azulCorporativo"><span className="text-rosa"> Las Invitaciones </span> son tu red de conexión con tus invitados.</h1>
                     <div className="md:grid md:grid-cols-2 justify-items-center content-center">
                         <div>
                             <img src="/InvitacionesInfo.png" alt="Invitaciones informacion" />
@@ -67,8 +67,8 @@ export const InfoInvitaciones = ({ setComponentState }) => {
                         </div>
                     </div>
                 </div>
-                <div className="bg-gray-200 rounded-b-lg md:px-28 py-8">
-                    <p className="text-base text-center ">
+                <div className=" md:px-28 py-8">
+                    <p className="text-base text-center text-azulCorporativo ">
                         Agrega ubicaciones de Google, crea cuentas regresivas, añade listas de regalo y cuanta idea creativa tengas para interactuar de forma divertida con tus invitados.
                     </p>
                 </div>

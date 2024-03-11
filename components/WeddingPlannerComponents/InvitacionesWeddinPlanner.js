@@ -8,7 +8,7 @@ export const InvitacionesWeddinPlanner = ({ setComponentState }) => {
     return (
 
 
-        eventsGroup.length == 0
+        eventsGroup.length !== 0
             ? <div className="h-full">
                 <iframe src={`${path}/invitaciones/?show=iframe`} width={"100%"} className="h-[89vh] md:h-[100%]" ></iframe>
             </div> :

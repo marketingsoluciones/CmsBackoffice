@@ -26,14 +26,14 @@ export const InfoListaInvitadosPage = ({ setState, state, setComponentState, idx
         },
     ]
     return (
-        <div className="md:h-full h-[98vh]  px-5 py-2">
+        <div className=" px-5 py-2">
             <div onClick={() => setComponentState(idxComponent)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
             <p className=" mt-1 text-3xl text-rosa">
                 Lista de invitados
             </p>
-            <div className="bg-white rounded-xl  md:h-[calc(100%-90px)] h-[calc(100%-215px)] overflow-auto pb-16 md:pb-0  " >
+            <div className="bg-white rounded-xl  md:h-[calc(100vh-145px)] *h-[calc(100%-215px)] overflow-auto pb-16 md:pb-0  " >
                 <div className="px-5 bg-gray-200 py-10 content-center rounded-t-lg flex flex-col items-center justify-center space-y-3 ">
                     <p>
                         <span className="text-rosa font-semibold">Lleva el control </span> de tu lista de invitados en un sólo lugar

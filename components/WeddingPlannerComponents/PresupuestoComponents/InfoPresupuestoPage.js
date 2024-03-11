@@ -16,8 +16,8 @@ export const InfoPresupuestoPage = ({ actionButton, setActionButton, setComponen
             <p className=" mt-1 text-3xl text-rosa">
                 Presupuestos
             </p>
-            <div className="bg-white rounded-lg md:h-[calc(100vh-145px)] h-[calc(100%-220px)]  overflow-auto flex flex-col justify-center">
-                <div className="md:grid md:grid-cols-2 py-8 px-5 md:px-12 justify-items-center content-center" >
+            <div className="bg-white rounded-lg md:h-[calc(100vh-145px)] h-[calc(100%-220px)]  overflow-auto flex flex-col">
+                <div className="md:grid md:grid-cols-2 py-10 px-5 md:px-12 justify-items-center content-center" >
                     <div className="flex flex-col justify-center items-center md:items-start space-y-3 mb-3 md:mb-0">
                         <p className="text-[20px] text-center md:text-left text-azulCorporativo">
                             <span className="text-rosa">Calcula y controla el presupuesto </span> de tu evento con facilidad
@@ -33,7 +33,7 @@ export const InfoPresupuestoPage = ({ actionButton, setActionButton, setComponen
                             </button>
                         </div>
                     </div>
-                    <div>
+                    <div className="">
                         <img src="presupuestoPage.png" alt="presupuesto page" />
                     </div>
                 </div>
