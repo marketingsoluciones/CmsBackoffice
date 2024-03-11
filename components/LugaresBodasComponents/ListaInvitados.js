@@ -11,7 +11,6 @@ export const ListaInvitados = ({ setComponentState }) => {
     const { eventsGroup } = EventsGroupContextProvider()
     const { fatherID } = SocketContextProvider()
 
-    console.log(eventsGroup)
     useEffect(() => {
         if (event?.invitados_array?.length != 0) {
             setState(false)
