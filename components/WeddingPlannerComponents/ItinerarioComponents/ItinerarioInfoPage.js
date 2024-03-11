@@ -40,21 +40,21 @@ export const ItinerarioInfoPage = ({ setOptionSelect, setComponentState, idxComp
 
 
     return (
-        <div className="h-[100vh]">
+        <div className="">
             <div onClick={() => setComponentState(idxComponent)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
-            <p className="mt-1 text-3xl text-rosa font-semibold">
+            <p className="mt-1 text-3xl text-rosa ">
                 Intinerarios
             </p>
-            <div className="bg-white rounded-lg  h-[calc(100%-245px)] md:h-[calc(100%-145px)] overflow-auto  ">
+            <div className="bg-white rounded-lg  h-[calc(100%-245px)] md:h-[calc(100vh-145px)] overflow-auto  ">
                 <div className="flex flex-col items-center py-8 space-y-4 px-5">
-                    <p className="text-xl text-center">
+                    <p className="text-xl text-center text-azulCorporativo">
                         <span className="text-rosa">Crea tu itinerario </span> y gestiona con éxito la ejecución de tu evento.
                     </p>
                     <img src="itinerarioImg.png" alt="itinerario imagen" />
                 </div>
-                <div className="md:grid md:grid-cols-3 md:space-x-10 space-y-5 md:space-y-0  bg-gray-200 px-10 py-8">
+                <div className="md:grid md:grid-cols-3 md:space-x-10 space-y-5 md:space-y-0  bg-grayInformativo px-10 py-8">
                     {dataArry.map((item, idx) => {
                         return (
                             <div key={idx} className="flex space-x-1 ">
@@ -63,7 +63,7 @@ export const ItinerarioInfoPage = ({ setOptionSelect, setComponentState, idxComp
                                         item.icon
                                     }
                                 </div>
-                                <p className="text-base">
+                                <p className="text-base text-azulCorporativo">
                                     <span className="font-semibold">{item.span}</span> {item.text}
                                 </p>
                             </div>
@@ -73,7 +73,7 @@ export const ItinerarioInfoPage = ({ setOptionSelect, setComponentState, idxComp
                 <div className="md:grid md:grid-cols-2 py-8 px-8 space-y-3 md:space-y-0">
                     <div className="flex flex-col items-center justify-center space-y-5" >
                         <img src="itinerarioImg2.png" alt="itinerario img 2" />
-                        <p className="text-base text-center">
+                        <p className="text-base text-center text-azulCorporativo">
                             Organiza desde itinerarios para novios hasta itinerarios de prestación de servicios.
                         </p>
                     </div>

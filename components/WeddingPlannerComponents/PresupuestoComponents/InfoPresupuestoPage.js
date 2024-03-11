@@ -9,7 +9,7 @@ export const InfoPresupuestoPage = ({ actionButton, setActionButton, setComponen
 
 
     return (
-        <div className=" px-5 py-2">
+        <div className=" ">
             <div onClick={() => setComponentState(4)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>

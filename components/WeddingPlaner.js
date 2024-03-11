@@ -15,6 +15,7 @@ import { InvitacionesWeddinPlanner } from "./WeddingPlannerComponents/Invitacion
 import { Modal } from "./modals/Modal";
 import { ContactarGold } from "./formularios/ContactarGold";
 import { ListaInvitados } from "./LugaresBodasComponents/ListaInvitados";
+import { TablePegesList } from "./ModuloMarcas/WeddingCustomWebs";
 
 export const WeddingPlanner = () => {
   const [optionSelect, setOptionSelect] = useState(5);
@@ -49,7 +50,7 @@ export const WeddingPlanner = () => {
       icon: <Webs />,
       title: "Tus Paginas Web",
       component: (
-        <ItinerarioWeddingPlanner setComponentState={setOptionSelect} />
+        <TablePegesList setComponentState={setOptionSelect} />
       ),
     },
     {
@@ -78,7 +79,7 @@ export const WeddingPlanner = () => {
           onClick={handleClickOption}
         />
 
-        <div className="col-span-6 md:col-span-5 z-10">
+        <div className="col-span-6 md:col-span-5 z-10 px-5 py-2">
           {dataComponents[optionSelect].component}
         </div>
       </div>

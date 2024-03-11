@@ -12,7 +12,7 @@ export const InvitacionesWeddinPlanner = ({ setComponentState }) => {
             ? <div className="h-full">
                 <iframe src={`${path}/invitaciones/?show=iframe`} width={"100%"} className="h-[89vh] md:h-[100%]" ></iframe>
             </div> :
-            <div className="px-5 py-2">
+            <div className="">
                 <InfoInvitaciones setComponentState={setComponentState} />
             </div>
 
