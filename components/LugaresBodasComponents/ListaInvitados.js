@@ -23,6 +23,6 @@ export const ListaInvitados = ({ setComponentState }) => {
             ? < div className="h-full" >
                 <iframe src={`${path}/invitados/?show=iframe&father=${fatherID}`} width={"100%"}  className="h-[89vh] md:h-[100%]"></iframe>
             </div >
-            : <InfoListaInvitadosPage setState={setState} state={state} setComponentState={setComponentState} idxComponent={4} />
+            : <InfoListaInvitadosPage setState={setState} state={state} setComponentState={setComponentState} idxComponent={5} />
     )
 }

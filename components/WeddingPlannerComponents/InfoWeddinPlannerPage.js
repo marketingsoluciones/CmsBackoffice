@@ -35,7 +35,7 @@ export const InfoWeddinPlannrePage = ({ setOptionSelect, modalContacto, setModal
     ]
 
     return (
-        <div className=" px-5 py-2 ">
+        <div className="">
             <p className="  mt-1 text-3xl text-rosa">
                 Wedding Planner
             </p>

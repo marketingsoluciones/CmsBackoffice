@@ -22,7 +22,7 @@ export const ItinerarioWeddingPlanner = ({ setComponentState }) => {
         <div className="">
             {
                 eventsGroup.length == 0 ?
-                    <ItinerarioInfoPage setOptionSelect={setOptionSelect} setComponentState={setComponentState} idxComponent={4} />
+                    <ItinerarioInfoPage setOptionSelect={setOptionSelect} setComponentState={setComponentState} idxComponent={5} />
                     :
                     <div>
                         {dataComponents[optionSelect].component}
