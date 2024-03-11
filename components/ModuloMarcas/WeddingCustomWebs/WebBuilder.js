@@ -1,6 +1,6 @@
 import grapesjs from "grapesjs/dist/grapes.min.js";
 import "grapesjs/dist/css/grapes.min.css";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import websitePlugin from "grapesjs-preset-webpage";
 import basicBlockPlugin from "grapesjs-blocks-basic";
 import flexbox from "grapesjs-blocks-flexbox";
@@ -11,12 +11,11 @@ import { fetchApi, queries } from "../../../utils/Fetching";
 import { AuthContextProvider } from "../../../context/AuthContext";
 import { Tooltip, useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { transformBase64 } from "../../../utils/trasformBase64";
 import * as localEs from "grapesjs/locale/es.js";
 import { ArrowLeft } from "../../Icons/index";
-import { confgiAsset } from "../../../utils/configGrapes.js";
 import { uploadImage, resizeImage } from "../../../utils/UploadAdapter";
 import { ListPages } from "./ListPages";
+import { SharedUrl } from "../../ToolsComponents/SharedUrl";
 
 export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
   const { user, dispatch } = AuthContextProvider();
@@ -32,6 +31,9 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
   const router = useRouter();
   const [isUpdated, setIsUpdated] = useState(false);
 
+  const UrlPage = dataPage?.title + "-" + dataPage?._id?.slice(-6);
+
+  console.log("console del data", pages[0]?.name);
 
   /* useEffect para montar y desmontar el componente  */
   useEffect(() => {
@@ -96,11 +98,10 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
     }
   }, [isMounted]);
 
-
-  const [metaData, setMetaData] = useState()
+  const [metaData, setMetaData] = useState();
   useEffect(() => {
-    console.log(11110000001, { pages })
-  }, [pages])
+    //console.log(11110000001, { pages })
+  }, [pages]);
 
   let editor = {};
   useEffect(() => {
@@ -109,11 +110,11 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
       keymaps: {
         // Object of keymaps
         defaults: {
-          'your-namespace:keymap-name': {
-            keys: '⌘+z, ctrl+z',
-            handler: 'some-command-id'
+          "your-namespace:keymap-name": {
+            keys: "⌘+z, ctrl+z",
+            handler: "some-command-id",
           },
-        }
+        },
       },
       autorender: false,
       container: "#gjs",
@@ -190,8 +191,7 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
         handleAdd: (textFromInput) => {
           editor.AssetManager.add(textFromInput);
         },
-        handleRemove: () => {
-        },
+        handleRemove: () => {},
         dropzone: 1,
         openAssetsOnDrop: 1,
         dropzoneContent: "",
@@ -209,22 +209,26 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
         },
         development: "bodasdehoy",
       }).then((result) => {
-        const data = result.results[0]
-        editor?.loadProjectData(JSON.parse(data.code))
-        const pages = data?.code && JSON.parse(data.code).pages.map(elem => { return { id: elem.id, name: elem.name } })
+        const data = result.results[0];
+        editor?.loadProjectData(JSON.parse(data.code));
+        const pages =
+          data?.code &&
+          JSON.parse(data.code).pages.map((elem) => {
+            return { id: elem.id, name: elem.name };
+          });
         setPages(pages);
-        const { type: typeResult, title, _id, state } = result.results[0]
-        type = typeResult
-        setMetaData({ type: typeResult, title, _id, state })
+        const { type: typeResult, title, _id, state } = result.results[0];
+        type = typeResult;
+        setMetaData({ type: typeResult, title, _id, state });
         setShowWebBuilder(true);
-      })
+      });
     });
 
     editor.render();
 
     editor.on("update", () => {
-      console.log("update1");
-      setIsUpdated(true)
+      //console.log("update1");
+      setIsUpdated(true);
     });
 
     editor.on("asset", (e) => {
@@ -232,8 +236,8 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
       //console.log("-------------------->4", e)
     });
     editor.on("preview", (e) => {
-      console.log('Spots', editor.Canvas.getSpots());
-      console.log("-------------------->4", e)
+      //console.log('Spots', editor.Canvas.getSpots());
+      console.log("-------------------->4", e);
     });
     editor.on("component:add", (e) => {
       componentAdd = e;
@@ -271,41 +275,47 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
       // Here you would put the logic to render/update your UI.
     });
     editor.on("page:add", (resp) => {
-      let pages = editor.Pages.getAll().map(elem => { return { id: elem.id, name: elem.attributes.name } })
-      setIsNewPage(resp.attributes.id)
+      let pages = editor.Pages.getAll().map((elem) => {
+        return { id: elem.id, name: elem.attributes.name };
+      });
+      setIsNewPage(resp.attributes.id);
       setPages([...pages]);
     });
     editor.on("page:remove", (resp) => {
-      const pageId = resp.attributes.id
+      const pageId = resp.attributes.id;
 
-      const isUnique = editor.Pages.getAll()[0].id === pageId
-      const isSelected = editor.Pages.getSelected().id === pageId
-      const isPrimary = editor.Pages.getAll()[0].id === pageId
+      const isUnique = editor.Pages.getAll()[0].id === pageId;
+      const isSelected = editor.Pages.getSelected().id === pageId;
+      const isPrimary = editor.Pages.getAll()[0].id === pageId;
       if (!isUnique) {
         if (isSelected) {
           if (isPrimary) {
-            editor.Pages.select(editor.Pages.getAll()[1].id)
-            setIsPageSelect(editor.Pages.getAll()[1].id)
+            editor.Pages.select(editor.Pages.getAll()[1].id);
+            setIsPageSelect(editor.Pages.getAll()[1].id);
           } else {
-            editor.Pages.select(editor.Pages.getAll()[0].id)
-            setIsPageSelect(editor.Pages.getAll()[0].id)
+            editor.Pages.select(editor.Pages.getAll()[0].id);
+            setIsPageSelect(editor.Pages.getAll()[0].id);
           }
         }
         // const f1 = pages.findIndex((elem) => elem.id === pageId);
         // pages.splice(f1, 1);
-        console.log(774444, editor.Pages.getAll())
-        setPages(editor.Pages.getAll().map(elem => { return { id: elem.id, name: elem.attributes.name } }));
+        // console.log(774444, editor.Pages.getAll())
+        setPages(
+          editor.Pages.getAll().map((elem) => {
+            return { id: elem.id, name: elem.attributes.name };
+          })
+        );
       }
     });
-    editor.on("undo", () => { });
+    editor.on("undo", () => {});
 
-    editor.on("redo", () => { });
+    editor.on("redo", () => {});
 
     editor.Panels.addButton("devices-c", {
       id: "save-button",
       className: "save-button",
       command: function (editor) {
-        console.log(7414410, metaData, type)
+        //console.log(7414410, metaData, type)
         if (type === "template") {
           let title;
           while (true) {
@@ -330,16 +340,20 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
                   author: user?.uid,
                   title: title,
                   code: JSON.stringify(editor.getProjectData()),
-                  type: "page"
-                }
+                  type: "page",
+                },
               },
               development: "bodasdehoy",
             }).then((result) => {
-              id = result?.results[0]?._id
-              type = result?.results[0]?.type
-              console.log(result, id, type)
-              toast({ status: "success", title: "La web ha sido creada", isClosable: true });
-            })
+              id = result?.results[0]?._id;
+              type = result?.results[0]?.type;
+              //console.log(result, id, type)
+              toast({
+                status: "success",
+                title: "La web ha sido creada",
+                isClosable: true,
+              });
+            });
           }
         }
         if (type === "page") {
@@ -348,14 +362,18 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
             variables: {
               args: {
                 _id: id,
-                code: JSON.stringify(editor.getProjectData())
-              }
+                code: JSON.stringify(editor.getProjectData()),
+              },
             },
             development: "bodasdehoy",
           }).then((result) => {
-            id = result._id
-            toast({ status: "success", title: "La páginas han sido guardadas", isClosable: true });
-          })
+            id = result._id;
+            toast({
+              status: "success",
+              title: "La páginas han sido guardadas",
+              isClosable: true,
+            });
+          });
         }
       },
       attributes: { title: "Guardar" },
@@ -400,19 +418,17 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
       id: "publicate-button",
       className: !isUpdated ? "publicate-button" : "publicated-button",
       command: function (editor) {
-        setIsUpdated(!isUpdated)
+        setIsUpdated(!isUpdated);
         // if (dataPage?.type === "page") {
 
-
-        const htmlPages = editor.Pages.getAll().map(page => {
+        const htmlPages = editor.Pages.getAll().map((page) => {
           const component = page.getMainComponent();
           return {
             title: page.attributes.name,
             html: editor.getHtml({ component }),
-            css: editor.getCss({ component })
-          }
+            css: editor.getCss({ component }),
+          };
         });
-
 
         fetchApi({
           query: queries.updateCodePage,
@@ -420,27 +436,24 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
             args: {
               _id: id,
               htmlPages,
-              state: "publicated"
+              state: "publicated",
             },
           },
           development: "bodasdehoy",
         }).then((result) => {
-          console.log(1000, result)
+          //console.log(1000, result)
         });
-
-
 
         // }
       },
       attributes: { title: "Publicar" },
     });
 
-
     editor.Panels.addButton("devices-c", {
       id: "vistaPrevia",
       className: "searchScreen",
       command: function (editor) {
-        console.log("aqui")
+        //console.log("aqui")
       },
       attributes: { title: "Vista previa" },
     });
@@ -481,20 +494,20 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
       },
       renamePage: (pageId, name) => {
         let page = pm.get(pageId);
-        page.setName(name)
-        return { id: pageId, name }
+        page.setName(name);
+        return { id: pageId, name };
       },
       removePage: (pageId) => {
         if (pages.length > 1) {
-          const isUnique = pages[0] === pageId
+          const isUnique = pages[0] === pageId;
           if (!isUnique) {
-            pm.remove(pageId)
+            pm.remove(pageId);
           }
         }
       },
       addPage: () => {
         if (pages.length < 8) {
-          const resp = pm.add({ name: `sin nombre` })
+          const resp = pm.add({ name: `sin nombre` });
         }
       },
     },
@@ -530,11 +543,28 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
           </div>
           <div className="pages">
             <div className="">
-              {pages?.length && pages?.map((item, idx) => (
-                < ListPages key={item.id} item={item} app={app} pages={pages} setPages={setPages} isPageSelect={isPageSelect} setIsPageSelect={setIsPageSelect} isNewPAge={isNewPage} setIsNewPAge={setIsNewPage} />
-              ))
-              }
+              {pages?.length &&
+                pages?.map((item, idx) => (
+                  <ListPages
+                    key={item.id}
+                    item={item}
+                    app={app}
+                    pages={pages}
+                    setPages={setPages}
+                    isPageSelect={isPageSelect}
+                    setIsPageSelect={setIsPageSelect}
+                    isNewPAge={isNewPage}
+                    setIsNewPAge={setIsNewPage}
+                  />
+                ))}
             </div>
+          </div>
+          <div className=" mt-[15px]">
+            {UrlPage != undefined ? (
+              <SharedUrl
+                link={`https://bodasdehoy.com/landingpage/${UrlPage}/${pages[0].name}`}
+              />
+            ) : null}
           </div>
         </div>
         <div className="editor-wrap">
