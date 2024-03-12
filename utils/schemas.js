@@ -666,6 +666,22 @@ export const BodyStaticAPP = [
       },
     ]
   },
+
+ /*  Para realizar pruebas esta este menu aparte */
+
+/*   {
+    title: "Pruebas",
+    roles: ["all"],
+    children: [
+      {
+        icon: <MetricasSociales className="" />,
+        title: "Hijo de Pruebas",
+        roles: ["all"],
+        route: "pruebas1",
+      },
+    ]
+  }, */
+  
   {
     title: "Blog",
     roles: ["all"],
