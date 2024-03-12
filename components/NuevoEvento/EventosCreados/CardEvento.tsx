@@ -1,8 +1,16 @@
-import { FunctionComponent, memo } from "react";
+import { FC, FunctionComponent, memo } from "react";
+interface propsCardEventos {
+  componentState: any;
+  setComponentState: any;
 
-const card1: FunctionComponent = memo(() => {
+}
+
+const card1: FC <propsCardEventos> = memo(({componentState,setComponentState}) => {
   return (
-    <div className="w-auto rounded-md bg-white overflow-hidden flex flex-row items-start justify-start py-0 pr-[7px] pl-0 box-border gap-[7px] tracking-[normal]  text-sm">
+    <div onClick={()=>{ 
+      setComponentState(7)
+    }} 
+    className="cursor-pointer w-auto rounded-md bg-white overflow-hidden flex flex-row items-start justify-start py-0 pr-[7px] pl-0 box-border gap-[7px] tracking-[normal]  text-sm">
       <div className="flex flex-row w-[140px] rounded-tl-2xs-5 rounded-tr-none rounded-br-none rounded-bl-2xs-5 overflow-hidden shrink-0 items-start justify-end pt-0 px-0 pb-[105px] box-border relative">
         <img
           className="h-full w-full absolute overflow-hidden object-cover"

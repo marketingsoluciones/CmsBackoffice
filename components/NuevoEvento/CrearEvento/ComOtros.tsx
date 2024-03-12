@@ -1,5 +1,6 @@
 import { Switch } from "@chakra-ui/react";
 import { FC, memo, useState } from "react";
+import { SwichtC } from "../../ToolsComponents/Swicht";
 interface propsComOtros {
   componentState: any;
   setComponentState: any;
@@ -30,12 +31,7 @@ const ComOtros: FC <propsComOtros> = memo(({componentState,setComponentState}) =
             </div>
 
             <div className="flex flex-row items-start justify-start pr-3 pl-0">
-        <Switch
-          className="h-[38px] w-[38px] pt-2"
-          colorScheme="gray"
-          defaultChecked="off"
-          isRequired
-        />
+<SwichtC/>
           </div>
 
           </div>

@@ -7,9 +7,10 @@ import ConfigurarEvento from "../components/NuevoEvento/CrearEvento/ConfigurarEv
 import DatoEvento from "../components/NuevoEvento/CrearEvento/DatosEvento";
 import Asistencia from "../components/NuevoEvento/CrearEvento/Asistencia";
 import Permisos from "../components/NuevoEvento/CrearEvento/Permisos";
+import DescripcionEvento from "../components/NuevoEvento/EventosCreados/PanelEventCreado";
 
-const Prueba1: FC = () => {
-  eventosPage
+const EventosOri: FC = () => {
+
   const [optionSelect, setOptionSelect] = useState(0)
 
   const handleClickOption = (idx) => {
@@ -38,6 +39,9 @@ const Prueba1: FC = () => {
 {
   component: <Permisos componentState={optionSelect} setComponentState={setOptionSelect} />
 },
+{
+  component: <DescripcionEvento componentState={optionSelect} setComponentState={setOptionSelect} />
+},
   ]
   
   return (
@@ -48,4 +52,4 @@ const Prueba1: FC = () => {
   );
 };
 
-export default Prueba1;
+export default EventosOri;

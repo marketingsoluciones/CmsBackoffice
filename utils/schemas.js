@@ -606,7 +606,10 @@ export const BodyStaticAPP = [
       },
     ]
   },
-  {
+
+ /*  Para realizar pruebas esta este menu aparte */
+
+/*   {
     title: "Pruebas",
     roles: ["all"],
     children: [
@@ -617,7 +620,8 @@ export const BodyStaticAPP = [
         route: "pruebas1",
       },
     ]
-  },
+  }, */
+  
   {
     title: "Blog",
     roles: ["all"],

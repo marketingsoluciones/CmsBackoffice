@@ -92,7 +92,7 @@ const EventosCreados: FC <propsEventosCreados> = ({componentState,setComponentSt
           <div className="w-auto h-[21px] relative leading-[21px] font-semibold inline-block text-left text-sm">
             Febrero
           </div>
-          <Card1/>
+          <Card1 componentState={componentState} setComponentState={setComponentState}/>
 
         </div>
       </div>

@@ -3,7 +3,7 @@ import { Switch } from "@chakra-ui/react";
 
 const ModoDemo: FunctionComponent = memo(() => {
   return (
-        <div className="rounded-md bg-green-300 w-auto overflow-hidden flex flex-row items-start justify-between py-1.5 px-4 box-border text-left text-green-900">
+        <div className="rounded-md bg-green-300 w-full overflow-hidden flex flex-row items-start justify-between py-1.5 px-4 box-border text-left text-green-900">
         <div className="flex flex-row items-start justify-start">
           <div className="flex flex-row items-start justify-start pr-3 pl-0">
 {/*             <img
