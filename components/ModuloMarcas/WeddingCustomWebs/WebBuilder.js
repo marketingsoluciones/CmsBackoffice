@@ -560,11 +560,11 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
             </div>
           </div>
           <div className=" mt-[15px]">
-            {(UrlPage != undefined && pages.length) ? (
+            {(UrlPage != undefined && pages.length) &&
               <SharedUrl
-                link={`https://bodasdehoy.com/landingpage/${UrlPage}/${pages[0].name}`}
+                link={`https://${window.origin.includes("://test.") ? "test." : ""}bodasdehoy.com/landingpage/${UrlPage}/${pages[0].name}`}
               />
-            ) : null}
+            }
           </div>
         </div>
         <div className="editor-wrap">
