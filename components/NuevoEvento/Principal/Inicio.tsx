@@ -6,13 +6,41 @@ interface propsPantallaPrincipal {
 
 }
 
-const PantallaPrincipal: FC <propsPantallaPrincipal> = ({componentState,setComponentState}) => {
+const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComponentState }) => {
+
+  const DataEventos = [
+    {
+      img: "ModuloEvento/frame-481889@2x.png",
+      title: "Bodas"
+    },
+    {
+      img: "ModuloEvento/frame-4818891@2x.png",
+      title: "Cumpleaños"
+    },
+    {
+      img: "ModuloEvento/frame-4818892@2x.png",
+      title: "Baby Shower"
+    },
+    {
+      img: "ModuloEvento/frame-4818894@2x.png",
+      title: "Despedidas"
+    },
+    {
+      img: "ModuloEvento/frame-4818894@2x.png",
+      title: "Bautizos"
+    },
+    {
+      img: "ModuloEvento/frame-4818895@2x.png",
+      title: "Comunión"
+    },
+  
+  ]
 
   return (
     <div className="relative bg-whitesmoke-100 w-auto h-auto flex flex-col items-start
      justify-start py-6 px-2.5 box-border gap-[20px] text-center text-xl text-slategray-300 font-poppins">
-      
-      <ModoDemo/> 
+
+      <ModoDemo />
 
       {/* seccion 2 */}
       <div className="rounded-md bg-white w-auto overflow-hidden flex flex-row items-center justify-center py-6 px-10 box-border text-base">
@@ -30,7 +58,7 @@ const PantallaPrincipal: FC <propsPantallaPrincipal> = ({componentState,setCompo
       </div>
 
       {/* Seccion 3 */}
-      <div className="rounded-md bg-white w-[1050px] flex flex-col items-center justify-start py-[53px] px-[16px] box-border">
+      <div className="rounded-md bg-white w-[calc(100%-50px)] flex flex-col items-center justify-start py-[53px] px-[16px] box-border">
         <div className="flex flex-row items-center justify-start gap-[20px]">
           <div className="flex flex-col items-center justify-start gap-[10px]">
             <img
@@ -55,72 +83,30 @@ const PantallaPrincipal: FC <propsPantallaPrincipal> = ({componentState,setCompo
             </button>
           </div>
           <div className="flex flex-row items-start justify-start gap-[12px] text-sm text-white">
-            <div className="relative w-[120px] h-[120px]">
-              <img
-                className="absolute top-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
-                alt=""
-                src="ModuloEvento/frame-481889@2x.png"
-              />
-              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
-                Bodas
-              </div>
-            </div>
-            <div className="relative w-[120px] h-[120px]">
-              <img
-                className="absolute top-[0px] left-[0px] max-h-full w-[120px] object-cover"
-                alt=""
-                src="ModuloEvento/frame-4818891@2x.png"
-              />
-              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
-                Cumpleaños
-              </div>
-            </div>
-            <div className="relative w-[120px] h-[120px]">
-              <img
-                className="absolute top-[0px] left-[0px] max-h-full w-[120px] overflow-hidden object-cover"
-                alt=""
-                src="ModuloEvento/frame-4818892@2x.png"
-              />
-              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
-                Baby Shower
-              </div>
-            </div>
-            <div className="relative w-[120px] h-[120px]">
-              <img
-                className="absolute top-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
-                alt=""
-                src="ModuloEvento/frame-4818893@2x.png"
-              />
-              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
-                Despedidas
-              </div>
-            </div>
-            <div className="relative w-[120px] h-[120px]">
-              <img
-                className="absolute top-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
-                alt=""
-                src="ModuloEvento/frame-4818894@2x.png"
-              />
-              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
-                Bautizos
-              </div>
-            </div>
-            <div className="relative w-[120px] h-[120px]">
-              <img
-                className="absolute top-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
-                alt=""
-                src="ModuloEvento/frame-4818895@2x.png"
-              />
-              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
-                Comunión
-              </div>
-            </div>
+            {
+              DataEventos.map((item, idx) => {
+                return (
+                  <div key={idx} className="relative w-[120px] h-[120px]">
+                    <img
+                      className="absolute top-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
+                      alt=""
+                      src={item.img}
+                    />
+                    <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
+                      {item.title}
+                    </div>
+                  </div>
+                )
+              })
+            }
+          
           </div>
         </div>
       </div>
+      
 
       {/* seccion 4 */}
-      <div className="rounded-md w-[1050px] bg-white flex flex-col items-center justify-start py-[47px] px-[16px] border-[2px] border-solid border-rosa"> 
+      <div className="rounded-md w-[1050px] bg-white flex flex-col items-center justify-start py-[47px] px-[16px] border-[2px] border-solid border-rosa">
         <div className="flex flex-row items-start justify-start gap-[60px]">
           <div className="flex flex-col items-center justify-center gap-[10px]">
             <img
@@ -138,9 +124,9 @@ const PantallaPrincipal: FC <propsPantallaPrincipal> = ({componentState,setCompo
                 </p>
               </span>
             </div>
-            <button onClick={()=>{ 
-        setComponentState(1)
-      }} className="cursor-pointer [border:none] py-2.5 px-2 bg-rosa rounded-md h-[30px] flex flex-row items-center justify-center box-border">
+            <button onClick={() => {
+              setComponentState(1)
+            }} className="cursor-pointer [border:none] py-2.5 px-2 bg-rosa rounded-md h-[30px] flex flex-row items-center justify-center box-border">
               <b className="relative text-base leading-[24px] font-poppins text-white text-center">
                 ¡Comienza Ahora!
               </b>
