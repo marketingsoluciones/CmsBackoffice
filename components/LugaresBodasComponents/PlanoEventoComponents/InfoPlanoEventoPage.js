@@ -1,17 +1,17 @@
 import { ArrowLeft, CorazoncirculoIcon, DiamanteIcon } from "../../Icons/index"
 import { useRouter } from "next/router"
 
-export const InfoPlanoEventoPage = ({ actionButton, setActionButton, setComponentState }) => {
+export const InfoPlanoEventoPage = ({  setComponentState }) => {
     const router = useRouter()
     return (
-        <div className="h-[100vh] px-5 py-2 ">
-            <div onClick={() => setComponentState(4)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+        <div className=" px-5 py-2 ">
+            <div onClick={() => setComponentState(4)} className="w-5 h-5  z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
             <p className="mt-1 text-3xl text-rosa">
                 Plano Del Evento
             </p>
-            <div className="bg-white rounded-xl flex flex-col  md:h-[calc(100%-130px)]  h-[calc(100%-230px)] overflow-auto   " >
+            <div className="bg-white rounded-xl flex flex-col  md:h-[calc(100vh-145px)]  h-[calc(100%-230px)] overflow-auto   " >
                 <div className="  flex items-center justify-center mt-3 ">
                     <img src="/PlanoEvento.png" alt="alta" className="w-[95%] h-full" />
                 </div>

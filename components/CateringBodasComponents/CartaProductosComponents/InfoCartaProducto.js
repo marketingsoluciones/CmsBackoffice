@@ -9,14 +9,14 @@ export const InfoCartaProducto = ({ actionButton, setActionButton, setComponentS
     const toast = useToast()
     const router = useRouter()
     return (
-        <div className="h-[100vh]">
+        <div className="">
             <div onClick={() => setComponentState(5)} className="w-5 h-5 z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
             <p className=" mt-1 text-3xl text-rosa">
                 Carta de Productos
             </p>
-            <div className="flex flex-col items-center bg-white rounded-lg pt-8 h-[calc(100%-245px)] md:h-[calc(100%-145px)] overflow-auto">
+            <div className="flex flex-col items-center bg-white rounded-lg pt-8 h-[calc(100%-245px)] md:h-[calc(100vh-145px)] overflow-auto">
                 <p className="text-xl px-5  text-center"><span className="text-rosa">Muestra a tus clientes </span> que ofreces para el catering de un evento</p>
                 <div className="md:grid md:grid-cols-2 px-8 py-5 content-center justify-items-center">
                     <div>

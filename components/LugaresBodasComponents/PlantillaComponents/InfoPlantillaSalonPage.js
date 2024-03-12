@@ -22,17 +22,16 @@ export const InfoPlantillaSalonPage = ({ componentState, setComponentState }) =>
     ]
 
     return (
-        <div className="h-[100%] ">
-            <div onClick={() => setComponentState(4)} className="flex items-center space-x-3" >
+        <div className="">
+            <div onClick={() => setComponentState(4)} className=" items-center " >
                 <div className="w-5 h-5 top-2 left-3 text-gray-700 cursor-pointer">
-
                     <ArrowLeft />
                 </div>
-                <p className="  mt-1 text-3xl text-rosa font-semibold">
+                <p className="mt-1 text-3xl text-rosa ">
                     Plantillas del Salón
                 </p>
             </div>
-            <div className="bg-white rounded-xl md:flex md:flex-col md:h-[calc(100%-50px)] h-[calc(100%-250px)] overflow-y-auto " >
+            <div className="bg-white rounded-xl md:flex md:flex-col md:h-[calc(100vh-145px)] h-[calc(100%-250px)]* overflow-y-auto " >
                 <div className="grid md:grid-cols-2 px-8  py-6 content-center ">
                     <div className=" col-span-1 space-y-2  flex flex-col justify-center ">
                         <p className="text-[22px] text-azulCorporativo text-center md:text-left">

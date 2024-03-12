@@ -52,10 +52,10 @@ export const InfoLugaresBodas = ({ setOptionSelect, setModalContacto, modalConta
     ]
     return (
         <div className="px-5">
-            <p className=" mt-1 text-3xl text-rosa font-semibold">
+            <p className=" mt-1 text-3xl text-rosa">
                 Lugares para bodas
             </p>
-            <div className="bg-white rounded-xl flex flex-col md:h-[calc(100%-10px)] h-[calc(100%-200px)] overflow-auto">
+            <div className="bg-white rounded-xl flex flex-col md:h-[calc(100vh-120px)] h-[calc(100%-200px)] overflow-auto">
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-14">
                     <p className="text-[23px] text-azulCorporativo text-center md:text-left">
                         <span className="text-rosa">El lugar de celebración </span> es una de las piedras angulares de todo evento

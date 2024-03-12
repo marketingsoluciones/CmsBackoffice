@@ -31,16 +31,7 @@ export const PlantillaSalon = ({ componentState, setComponentState }) => {
                                 {dataComponents[optionSelect].component}
                             </div>
                         )
-                    } else {
-                        return (
-                            <VistaSinDatos
-                                title={"Plantillas del Salón"}
-                                button={"Agregar Plantilla"}
-                                text={"Aún no tienes Plantillas guardadas"}
-                                accion={"añade tu Plantilla"}
-                            />
-                        )
-                    }
+                    } 
                 }
             })()}
 

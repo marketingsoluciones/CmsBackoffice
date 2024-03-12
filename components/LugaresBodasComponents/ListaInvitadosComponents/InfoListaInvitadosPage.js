@@ -26,7 +26,7 @@ export const InfoListaInvitadosPage = ({ setState, state, setComponentState, idx
         },
     ]
     return (
-        <div className="">
+        <div className="px-5 py-2">
             <div onClick={() => setComponentState(idxComponent)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>

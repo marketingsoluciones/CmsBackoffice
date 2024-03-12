@@ -4,17 +4,17 @@ import { InfoPlantillaMenuPage } from "./PlantillaMenu/infoPlantillaMenuPage"
 import { PlantillaMenuTable } from "./PlantillaMenu/PlantillaMenuTable"
 import { EventsGroupContextProvider } from "../../context/EventsGroupContext"
 
-export const PlantillaMenu = ({setComponentState}) => {
+export const PlantillaMenu = ({ setComponentState }) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
-    const {eventsGroup} = EventsGroupContextProvider()
+    const { eventsGroup } = EventsGroupContextProvider()
     const dataComponents = [
-       /*  {
-
-            component: <PlantillaMenuTable setActionButton={setOptionSelect} actionButton={optionSelect} setComponentState={setComponentState}/>
-
-        }, */
+        /*  {
+ 
+             component: <PlantillaMenuTable setActionButton={setOptionSelect} actionButton={optionSelect} setComponentState={setComponentState}/>
+ 
+         }, */
         {
             component: <VerMenu setChildrenComponentState={setOptionSelect} />
         },
@@ -25,7 +25,7 @@ export const PlantillaMenu = ({setComponentState}) => {
             {(() => {
                 if (state) {
                     return (
-                        <InfoPlantillaMenuPage actionButton={state} setActionButton={setState} setComponentState={setComponentState}/>
+                        <InfoPlantillaMenuPage actionButton={state} setActionButton={setState} setComponentState={setComponentState} />
                     )
                 } else {
                     if (state2) {
@@ -34,11 +34,6 @@ export const PlantillaMenu = ({setComponentState}) => {
                             <div>
                                 {dataComponents[optionSelect].component}
                             </div>
-                        )
-                    } else {
-                        return (
-                            <>
-                            </>
                         )
                     }
                 }

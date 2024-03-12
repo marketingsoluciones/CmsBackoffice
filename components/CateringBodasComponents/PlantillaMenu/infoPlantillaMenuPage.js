@@ -18,14 +18,14 @@ export const InfoPlantillaMenuPage = ({ actionButton, setActionButton, setCompon
         },
     ]
     return (
-        <div className="h-[100vh]">
+        <div className="">
             <div onClick={() => setComponentState(5)} className="w-5 h-5 z-10 top-2 left-3 text-gray-700 cursor-pointer">
                 <ArrowLeft />
             </div>
             <p className="  mt-1 text-3xl text-rosa">
                 Plantillas de Menú
             </p>
-            <div className="bg-white rounded-lg  h-[calc(100%-245px)] md:h-[calc(100%-145px)] overflow-auto">
+            <div className="bg-white rounded-lg  h-[calc(100%-245px)] md:h-[calc(100vh-145px)] overflow-auto">
                 <div className="md:grid md:grid-cols-2 justify-items-center content-center py-8 px-10 space-y-5 md:space-y-5 ">
                     <div className="flex flex-col  justify-center items-center md:items-start md:pl-10 space-y-4 ">
                         <p className="md:text-left text-center">

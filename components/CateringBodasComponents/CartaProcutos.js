@@ -42,18 +42,6 @@ export const CartaProducto = ({setComponentState}) => {
                                 {dataComponents[optionSelect].component}
                             </div>
                         )
-                    } else {
-                        return (
-                            <>
-                                <VistaSinDatos
-                                    title={"Carta de productos"}
-                                    button={"Añadir producto"}
-                                    text={"Aún no tienes Productos en tu carta"}
-                                    accion={"añade tu productos"}
-                                    onClick={handleClick()}
-                                />
-                            </>
-                        )
                     }
                 }
             })()}
