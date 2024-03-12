@@ -134,10 +134,10 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
             {/* sub-seccion 1 */}
             <div className="flex flex-col items-start justify-start gap-[5px]">
 
-              <div className="flex flex-row items-center justify-start gap-[1px]">
-                <div className="flex flex-col items-start justify-start text-base-7 font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-font-awesome-5-free-solid-105">
+              <div className="flex flex-row items-center justify-start gap-[1px] text-lg text-black font-medium">
+                <div className="flex flex-col items-start justify-start font-semibold">
                   <div className="w-3.5 h-[15.8px] relative leading-[15.75px] inline-block max-h-[15.75px]">
-                    
+                    <img src="ModuloEvento/icon.svg" alt="" />
                   </div>
                 </div>
                 <div className="flex flex-col items-start justify-start pt-[2.5px] pb-1 pr-[2.479999542236328px] pl-0">
@@ -291,63 +291,79 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
             </div>
 
           </div>
+
         </section>
+
         <section className="w-[1247.5px] flex flex-row items-start justify-start py-0 px-[45px] box-border shrink-0 max-w-full text-left text-mid-5 text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-black font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-inter-medium-123 lg:pl-[22px] lg:pr-[22px] lg:box-border">
           <div className="flex-1 flex flex-row items-start justify-start gap-[36px] max-w-full mq750:gap-[18px] mq1050:flex-wrap">
-            <div className="flex-1 flex flex-col items-start justify-start gap-[9.92px] max-w-full mq750:min-w-full">
-              <div className="w-[168px] h-[25px] relative leading-[24.5px] font-semibold inline-block">
+            
+            <div className="flex flex-col items-start justify-start gap-[9.92px] max-w-full mq750:min-w-full">
+              <div className="w-auto h-[25px] relative leading-[24.5px] font-semibold inline-block">
                 Informes del evento
               </div>
               <div className="self-stretch flex flex-row items-start justify-start gap-[10px] max-w-full text-sm mq750:flex-wrap">
-                <div className="h-[105.5px] rounded-2xs-5 bg-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-nero shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-row items-start justify-start [transform:_rotate(180deg)] min-w-[226px] mq750:flex-1">
+               
+               {/*  Usuarios y equipos */}
+                <div className="h-[105.5px] rounded-md bg-white shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-row items-start justify-start min-w-[226px] mq750:flex-1">
                   <div className="self-stretch flex flex-row items-start justify-start">
+                  
+                  <div className="h-[106px] w-[54px] bg-slate-300 flex flex-col items-center justify-start pt-[12.5px] pb-[60px] pr-[13.869999885559082px] pl-[13.880000114440918px] box-border relative">
+                      
+                      <div className="my-0 top-[12.5px] left-[calc(50%_-_13.1px)] flex flex-row items-start justify-start ">
+                        <img
+                          className="h-[26px] w-[26.3px] relative overflow-hidden shrink-0"
+                          loading="lazy"
+                          alt=""
+                          src="ModuloEvento/uyq.svg"
+                        />
+                      </div>
+
+                    </div> 
+
                     <div className="self-stretch flex flex-col items-start justify-start pt-[10.5px] px-[10.5px] pb-2.5">
-                      <div className="flex flex-row items-start justify-start pt-[7px] pb-0 pr-[21px] pl-0 [transform:_rotate(180deg)]">
-                        <div className="h-[21px] w-[130px] relative leading-[21px] font-semibold inline-block">
+                      <div className="flex flex-row items-start justify-start pt-[7px] pb-0 pr-[21px] pl-0 ">
+                        <div className="h-[21px] w-auto relative leading-[21px] font-semibold inline-block">
                           Usuarios y equipos
                         </div>
                       </div>
-                      <div className="flex flex-row items-start justify-start [transform:_rotate(180deg)] text-2xs-5 text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-gull-gray">
-                        <div className="h-[21px] w-[151px] relative leading-[21px] inline-block">
+                      <div className="flex flex-row items-start justify-start text-2xs-5 text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-gull-gray">
+                        <div className="h-[21px] w-auto relative leading-[21px] inline-block">
                           Ranking de usuarios y equipos
                         </div>
                       </div>
                     </div>
-                    <div className="h-[106px] w-[54px] flex flex-col items-center justify-start pt-[12.5px] pb-[60px] pr-[13.869999885559082px] pl-[13.880000114440918px] box-border relative">
-                      <div className="my-0 mx-[!important] absolute top-[12.5px] left-[calc(50%_-_13.1px)] flex flex-row items-start justify-start">
-                        <img
-                          className="h-[26px] w-[26.3px] relative overflow-hidden shrink-0 [transform:_rotate(-180deg)]"
-                          loading="lazy"
-                          alt=""
-                        />
-                      </div>
-                      <div className="w-full h-full absolute my-0 mx-[!important] top-[0%] right-[0%] bottom-[0.47%] left-[0%] bg-royalblue z-[1]" />
-                    </div>
+
+
+
                   </div>
                 </div>
-                <div className="flex-1 shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] flex flex-row items-start justify-start min-w-[302px] max-w-full text-center text-2xs-5">
-                  <div className="w-[465px] rounded-2xs-5 bg-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-nero shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden shrink-0 flex flex-col items-start justify-start min-h-[99px] max-w-full">
-                    <div className="ml-[-12.5px] mb-[10.5px] w-[490.3px] flex flex-row items-center justify-start shrink-0 max-w-[105%] [row-gap:20px] mq750:flex-wrap">
-                      <div className="flex-1 flex flex-col items-start justify-start min-w-[164px]">
-                        <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[57.06463623046875px] pl-[57.38536071777344px]">
+
+                {/* chicas, chicos, sin genero */}
+                <div className="h-[105.5px] shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] flex flex-row items-center justify-center bg-white rounded-md max-w-full text-center text-2xs-5">
+                  <div className="shrink-0 flex flex-col items-start gap-2 justify-start">
+                    
+                    <div className="w-full flex flex-row items-center justify-start shrink-0 [row-gap:20px] mq750:flex-wrap">
+                      <div className="flex flex-col items-start justify-start min-w-[164px]">
+                        
+                        <div className="self-stretch w-full flex flex-col items-center justify-center py-0 ">
                           <div className="w-10 h-3.5 relative leading-[14px] uppercase flex items-center justify-center">
                             Chicas
                           </div>
                         </div>
-                        <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[61px] pl-[61.908653259277344px] text-2xl text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-amethyst">
-                          <div className="self-stretch h-7 relative leading-[28px] font-medium inline-block mq450:text-mid mq450:leading-[22px]">
+                        <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[61px] pl-[61.908653259277344px] text-xl text-purple-700 font-bold">
+                          <div className="self-stretch h-7 relative leading-[28px] inline-block mq450:text-mid mq450:leading-[22px]">
                             60%
                           </div>
                         </div>
                       </div>
-                      <div className="w-[154.4px] flex flex-col items-start justify-start">
+                      <div className="w-auto text-md flex flex-col items-start justify-start">
                         <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[45px] pl-[45.412357330322266px]">
                           <div className="self-stretch h-3.5 relative leading-[14px] uppercase inline-block">
                             Sin género
                           </div>
                         </div>
-                        <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[61px] pl-[61.91865539550781px] text-2xl text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-slate-gray">
-                          <div className="self-stretch h-7 relative leading-[28px] font-medium inline-block mq450:text-mid mq450:leading-[22px]">
+                        <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[61px] pl-[61.91865539550781px] text-xl text-gray-600">
+                          <div className="self-stretch h-7 relative leading-[28px] font-bold inline-block mq450:text-mid mq450:leading-[22px]">
                             5%
                           </div>
                         </div>
@@ -358,71 +374,555 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
                             Chicos
                           </div>
                         </div>
-                        <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[61px] pl-[61.908653259277344px] text-2xl text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-dodger-blue">
-                          <div className="self-stretch h-7 relative leading-[28px] font-medium inline-block mq450:text-mid mq450:leading-[22px]">
+                        <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[61px] pl-[61.908653259277344px] text-xl text-blue-700">
+                          <div className="self-stretch h-7 relative leading-[28px] font-bold inline-block mq450:text-mid mq450:leading-[22px]">
                             35%
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="self-stretch h-px relative box-border border-t-[1px] border-solid border-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-catskill-white" />
-                    <div className="self-stretch flex flex-row items-start justify-center py-0 pr-5 pl-[21px] text-xs-9 text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-ebony">
-                      <div className="h-6 w-[130px] relative leading-[24px] flex items-center justify-center">
+
+                    <div className="self-stretch  box-border border-t-[1px] border-solid border-slate-200" />
+                    <div className="self-stretch flex flex-row items-start justify-center py-0 pr-5 pl-[21px] text-xs text-black">
+                      <div className="h-auto w-auto relative leading-[24px] flex items-center justify-center">
                         Ver informe de clientes
                       </div>
                     </div>
                   </div>
                 </div>
+
               </div>
               <div className="self-stretch flex flex-row items-start justify-start gap-[17px] mq750:flex-wrap">
-                <CeCreado1
-                  icon="26.25x26x-1612832161"
-                  tarifas="Tarifas"
-                  recuentoPorTarifa="Recuento por tarifa"
-                  propWidth="171px"
-                  propLeft="calc(50% - 13.1px)"
-                  propWidth1="26.3px"
-                  propBackgroundColor="rgba(15, 23, 42, 0.1)"
-                />
-                <CeCreado1
-                  icon="29.53x26x-1261380472"
-                  tarifas="Entradas"
-                  recuentoPorTarifa="Ranking de usuarios y equipos"
-                  propWidth="226px"
-                  propFlex="unset"
-                  propMinWidth="unset"
-                  propLeft="calc(50% - 14.7px)"
-                  propWidth1="29.5px"
-                  propBackgroundColor="rgba(13, 148, 136, 0.1)"
-                />
-                <CeCreado1
-                  icon="22.97x26x51124289"
-                  tarifas="Preguntas"
-                  recuentoPorTarifa="Evalúa las respuestas de las preguntas"
-                  propWidth="unset"
-                  propFlex="1"
-                  propMinWidth="174px"
-                  propLeft="calc(50% - 11.5px)"
-                  propWidth1="23px"
-                  propBackgroundColor="rgba(147, 51, 234, 0.1)"
-                />
-              </div>
-              <CeCreado2 lISTAS="LISTAS" />
-              <CeCreado2 lISTAS="ENTRADAS" />
-              <CeCreado2 lISTAS="ACCESO RRPP" />
-              <CeCreado2 lISTAS="RESERVAS" />
+      <button className="cursor-pointer [border:none] p-0 bg-white rounded-md shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-col items-start justify-start ">
+        <div className="self-stretch flex flex-row items-start justify-start">
+          
+        <div className="self-stretch w-auto bg-gray-200 flex flex-col items-center justify-start pt-[12.5px] pb-[24.5px] pr-[13.869999885559082px] pl-[13.880000114440918px] box-border relative z-[0]">
+            <div className="flex flex-row items-start justify-start z-[0]">
+              <img
+                className="relative w-[26.3px] h-[26px] overflow-hidden shrink-0"
+                alt=""
+                src="ModuloEvento/dolar.svg"
+              />
             </div>
-            <div className="w-[420.7px] flex flex-col items-start justify-start gap-[10.5px] min-w-[420.6999999999971px] max-w-full text-center text-sm mq750:min-w-full mq1050:flex-1">
+          </div>
+
+          <div className="self-stretch w-full flex flex-col items-start justify-start p-[10.5px]">
+          <div className="self-stretch h-auto flex flex-col items-start justify-center pt-0 px-0 pb-[7px] box-border">
+              <div className="relative text-sm leading-[21px] font-semibold text-left">
+                Tarifas
+              </div>
+            </div>
+            <div className="self-stretch w-auto flex flex-col items-start justify-start">
+              <div className="text-xs leading-[21px] text-left text-gray-400">
+                Recuento por tarifa
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </button>
+      <button className="cursor-pointer [border:none] p-0 bg-white rounded-md shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-col items-start justify-start">
+        <div className="self-stretch flex flex-row items-start justify-start">
+        
+        <div className="self-stretch w-auto flex flex-col bg-green-100 items-center justify-start pt-[12.5px] pb-[24.5px] pr-[12.239999771118164px] pl-[12.229999542236328px] box-border">
+            <div className="flex flex-row items-start justify-start z-[0]">
+              <img
+                className="relative w-auto h-[26px] overflow-hidden shrink-0 [transform:_rotate(-180deg)]"
+                alt=""
+                src="ModuloEvento/entrada1.svg"
+              />
+            </div>
+          </div>
+          
+          <div className="self-stretch flex flex-col items-start justify-start p-[10.5px] ">
+            
+          <div className="self-stretch h-7 flex flex-col items-start justify-center pt-0 px-0 pb-[7px] box-border">
+              <div className="relative text-sm leading-[21px] font-semibold text-black text-left">
+                Entradas
+              </div>
+            </div>
+            <div className="self-stretch flex flex-col items-start justify-start">
+              <div className="relative text-xs leading-[21px] font-medium text-gray-400 text-left">
+                Ranking de usuarios y equipos
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </button>
+      <button className="cursor-pointer bg-white rounded-md shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-col items-start justify-start">
+        <div className="self-stretch flex flex-row items-start justify-start">
+        <div className="self-stretch w-auto bg-purple-100 flex flex-col items-center justify-start pt-[12.5px] pb-[24.5px] pr-[15.520000457763672px] pl-[15.510000228881836px] box-border">
+            <div className="flex flex-row items-start justify-start">
+              <img
+                className="relative w-[23px] h-[26px] overflow-hidden shrink-0"
+                alt=""
+                src="ModuloEvento/preguntas.svg"
+              />
+            </div>
+        </div>
+          <div className="self-stretch flex flex-col items-start justify-start p-[10.5px]">
+            
+          <div className="self-stretch h-7 flex flex-col items-start justify-center pt-0 px-0 pb-[7px] box-border">
+              <div className="relative text-sm leading-[21px] font-semibold text-black text-left">
+                Preguntas
+              </div>
+            </div>
+            <div className="self-stretch flex flex-col items-start justify-start">
+              <div className="relative text-xs leading-[21px] font-medium text-gray-400 text-left">
+                Evalúa las respuestas de las preguntas
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+      </button>
+    </div>
+
+  {/*  Resumenes de listas, entradas, rrpp y reservas */}
+    <div className="flex flex-col items-start justify-start gap-[11px] text-left text-sm text-black font-semibold">                 
+            <div className="self-stretch rounded-md bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col w-auto items-start justify-start gap-[5px]">
+              <div className="w-full flex flex-col items-start justify-start py-[7px] pr-[13.75px] pl-3.5 box-border relative">
+                <div className="absolute my-0 mx-[!important] h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] bg-gray-600 opacity-[0.13]" />
+                <div className="self-stretch flex flex-row items-center justify-start gap-[10.5px]">
+                  <div className="w-full h-[17.5px] leading-[17.5px] text-lg font-semibold">             
+                      LISTAS
+                  </div>
+                </div>
+              </div>
+              <div className="w-full flex flex-row items-center justify-between py-0 px-[15px] box-border">
+                <div className="flex flex-col items-start justify-start gap-1">
+                  <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[383.5199890136719px] pl-0">
+                    <div className="relative leading-[14px] font-semibold text-xs">
+                      TIEMPO REAL
+                    </div>
+                  </div>
+                  <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[398.5199890136719px] pl-0 text-gray-600">
+                    <div className="relative leading-[14px] font-medium text-gray-400">
+                      PREVISIÓN
+                    </div>
+                  </div>
+                </div>
+                <div className="w-auto h-auto flex flex-col items-center gap-1 justify-center text-right text-sm text-gray-600">
+                  <div className="rounded-full bg-slate-200 py-[1px] px-[8px] flex flex-row items-center justify-start box-border gap-[3.1px]">
+                    <b className="relative leading-[24px] uppercase">15</b>
+                    <div className="flex flex-row items-start justify-end text-sm ">
+                      <div className="relative leading-[12.25px] uppercase inline-block max-h-[12.25px]">
+                        <img src="ModuloEvento/humano1.svg" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-auto flex flex-row items-center justify-center box-border gap-[3.19px] text-md text-gray-600">
+                    <div className="leading-[14px] text-gray-400">{`0 `}</div>
+                    <div className="flex flex-row items-start justify-end">
+                      <div className="relative leading-[10.5px] uppercase inline-block ">
+                      <img src="ModuloEvento/humano2.svg" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="relative box-border w-full h-px border-t-[1px] border-solid border-slate-200" />
+              <div className="w-full flex flex-col items-start justify-start gap-1 py-[7px] px-3.5 box-border text-sm text-gray-600">
+                
+                <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border">
+                  
+                  <div className="flex flex-col items-start justify-start">
+                    <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[286.3800048828125px] pl-0">
+                      <div className="relative leading-[14px] font-semibol text-black">
+                        EVENTO ANTERIOR (Jue. 25 enero)
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-row items-center justify-center w-auto h-auto ">                  
+                    <div className="w-auto flex flex-row items-start justify-start gap-1">
+                        <b className="leading-[14px] text-black">
+                          25
+                        </b>
+                        <div className="flex flex-col items-center justify-center leading-[10.5px]">
+                          <img src="ModuloEvento/humano1.svg" alt="" />
+                      </div>
+                    </div>
+                    <div className="w-auto flex flex-col items-start justify-start">
+                      <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
+                        <div className="relative leading-[14px] inline-block text-black">
+                          35%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border text-gray-400">
+                  <div className="flex flex-col items-start justify-start ">
+                    <div className="self-stretch flex flex-col items-start justify-start">
+                      <div className="relative leading-[14px] font-medium">
+                        FINAL EVENTO ANT. (Jue. 25 enero)
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-row items-start justify-start w-auto h-auto text-right">
+                    
+                    <div className="flex flex-row gap-1 items-center justify-center">
+
+                        <div className="leading-[14px]">{`0 `}</div>
+                          <div className=" leading-[10.5px] inline-block">
+                          <img src="ModuloEvento/humano2.svg" alt="" />
+                        </div>
+                    
+                    </div>
+
+                    <div className="w-auto flex flex-col items-start justify-start">
+                      <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
+                        <div className="relative leading-[14px] inline-block max-w-[50px]">
+                          0%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div className="self-stretch rounded-md bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col w-auto items-start justify-start gap-[5px]">
+              <div className="w-full flex flex-col items-start justify-start py-[7px] pr-[13.75px] pl-3.5 box-border relative">
+                <div className="absolute my-0 mx-[!important] h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] bg-gray-600 opacity-[0.13]" />
+                <div className="self-stretch flex flex-row items-center justify-start gap-[10.5px]">
+                  <div className="w-full h-[17.5px] leading-[17.5px] text-lg font-semibold">             
+                      ENTRADAS
+                  </div>
+                </div>
+              </div>
+              <div className="w-full flex flex-row items-center justify-between py-0 px-[15px] box-border">
+                <div className="flex flex-col items-start justify-start gap-1">
+                  <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[383.5199890136719px] pl-0">
+                    <div className="relative leading-[14px] font-semibold text-xs">
+                      TIEMPO REAL
+                    </div>
+                  </div>
+                  <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[398.5199890136719px] pl-0 text-gray-600">
+                    <div className="relative leading-[14px] font-medium text-gray-400">
+                      PREVISIÓN
+                    </div>
+                  </div>
+                </div>
+                <div className="w-auto h-auto flex flex-col items-center gap-1 justify-center text-right text-sm text-gray-600">
+                  <div className="rounded-full bg-slate-200 py-[1px] px-[8px] flex flex-row items-center justify-start box-border gap-[3.1px]">
+                    <b className="relative leading-[24px] uppercase">15</b>
+                    <div className="flex flex-row items-start justify-end text-sm ">
+                      <div className="relative leading-[12.25px] uppercase inline-block max-h-[12.25px]">
+                        <img src="ModuloEvento/humano1.svg" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-auto flex flex-row items-center justify-center box-border gap-[3.19px] text-md text-gray-600">
+                    <div className="leading-[14px] text-gray-400">{`0 `}</div>
+                    <div className="flex flex-row items-start justify-end">
+                      <div className="relative leading-[10.5px] uppercase inline-block ">
+                      <img src="ModuloEvento/humano2.svg" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="relative box-border w-full h-px border-t-[1px] border-solid border-slate-200" />
+              <div className="w-full flex flex-col items-start justify-start gap-1 py-[7px] px-3.5 box-border text-sm text-gray-600">
+                
+                <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border">
+                  
+                  <div className="flex flex-col items-start justify-start">
+                    <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[286.3800048828125px] pl-0">
+                      <div className="relative leading-[14px] font-semibol text-black">
+                        EVENTO ANTERIOR (Jue. 25 enero)
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-row items-center justify-center w-auto h-auto ">                  
+                    <div className="w-auto flex flex-row items-start justify-start gap-1">
+                        <b className="leading-[14px] text-black">
+                          25
+                        </b>
+                        <div className="flex flex-col items-center justify-center leading-[10.5px]">
+                          <img src="ModuloEvento/humano1.svg" alt="" />
+                      </div>
+                    </div>
+                    <div className="w-auto flex flex-col items-start justify-start">
+                      <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
+                        <div className="relative leading-[14px] inline-block text-black">
+                          35%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border text-gray-400">
+                  <div className="flex flex-col items-start justify-start ">
+                    <div className="self-stretch flex flex-col items-start justify-start">
+                      <div className="relative leading-[14px] font-medium">
+                        FINAL EVENTO ANT. (Jue. 25 enero)
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-row items-start justify-start w-auto h-auto text-right">
+                    
+                    <div className="flex flex-row gap-1 items-center justify-center">
+
+                        <div className="leading-[14px]">{`0 `}</div>
+                          <div className=" leading-[10.5px] inline-block">
+                          <img src="ModuloEvento/humano2.svg" alt="" />
+                        </div>
+                    
+                    </div>
+
+                    <div className="w-auto flex flex-col items-start justify-start">
+                      <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
+                        <div className="relative leading-[14px] inline-block max-w-[50px]">
+                          0%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div className="self-stretch rounded-md bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col w-auto items-start justify-start gap-[5px]">
+              <div className="w-full flex flex-col items-start justify-start py-[7px] pr-[13.75px] pl-3.5 box-border relative">
+                <div className="absolute my-0 mx-[!important] h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] bg-gray-600 opacity-[0.13]" />
+                <div className="self-stretch flex flex-row items-center justify-start gap-[10.5px]">
+                  <div className="w-full h-[17.5px] leading-[17.5px] text-lg font-semibold">             
+                      ACCESO A RRPP
+                  </div>
+                </div>
+              </div>
+              <div className="w-full flex flex-row items-center justify-between py-0 px-[15px] box-border">
+                <div className="flex flex-col items-start justify-start gap-1">
+                  <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[383.5199890136719px] pl-0">
+                    <div className="relative leading-[14px] font-semibold text-xs">
+                      TIEMPO REAL
+                    </div>
+                  </div>
+                  <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[398.5199890136719px] pl-0 text-gray-600">
+                    <div className="relative leading-[14px] font-medium text-gray-400">
+                      PREVISIÓN
+                    </div>
+                  </div>
+                </div>
+                <div className="w-auto h-auto flex flex-col items-center gap-1 justify-center text-right text-sm text-gray-600">
+                  <div className="rounded-full bg-slate-200 py-[1px] px-[8px] flex flex-row items-center justify-start box-border gap-[3.1px]">
+                    <b className="relative leading-[24px] uppercase">15</b>
+                    <div className="flex flex-row items-start justify-end text-sm ">
+                      <div className="relative leading-[12.25px] uppercase inline-block max-h-[12.25px]">
+                        <img src="ModuloEvento/humano1.svg" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-auto flex flex-row items-center justify-center box-border gap-[3.19px] text-md text-gray-600">
+                    <div className="leading-[14px] text-gray-400">{`0 `}</div>
+                    <div className="flex flex-row items-start justify-end">
+                      <div className="relative leading-[10.5px] uppercase inline-block ">
+                      <img src="ModuloEvento/humano2.svg" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="relative box-border w-full h-px border-t-[1px] border-solid border-slate-200" />
+              <div className="w-full flex flex-col items-start justify-start gap-1 py-[7px] px-3.5 box-border text-sm text-gray-600">
+                
+                <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border">
+                  
+                  <div className="flex flex-col items-start justify-start">
+                    <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[286.3800048828125px] pl-0">
+                      <div className="relative leading-[14px] font-semibol text-black">
+                        EVENTO ANTERIOR (Jue. 25 enero)
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-row items-center justify-center w-auto h-auto ">                  
+                    <div className="w-auto flex flex-row items-start justify-start gap-1">
+                        <b className="leading-[14px] text-black">
+                          25
+                        </b>
+                        <div className="flex flex-col items-center justify-center leading-[10.5px]">
+                          <img src="ModuloEvento/humano1.svg" alt="" />
+                      </div>
+                    </div>
+                    <div className="w-auto flex flex-col items-start justify-start">
+                      <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
+                        <div className="relative leading-[14px] inline-block text-black">
+                          35%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border text-gray-400">
+                  <div className="flex flex-col items-start justify-start ">
+                    <div className="self-stretch flex flex-col items-start justify-start">
+                      <div className="relative leading-[14px] font-medium">
+                        FINAL EVENTO ANT. (Jue. 25 enero)
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-row items-start justify-start w-auto h-auto text-right">
+                    
+                    <div className="flex flex-row gap-1 items-center justify-center">
+
+                        <div className="leading-[14px]">{`0 `}</div>
+                          <div className=" leading-[10.5px] inline-block">
+                          <img src="ModuloEvento/humano2.svg" alt="" />
+                        </div>
+                    
+                    </div>
+
+                    <div className="w-auto flex flex-col items-start justify-start">
+                      <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
+                        <div className="relative leading-[14px] inline-block max-w-[50px]">
+                          0%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div className="self-stretch rounded-md bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col w-auto items-start justify-start gap-[5px]">
+              <div className="w-full flex flex-col items-start justify-start py-[7px] pr-[13.75px] pl-3.5 box-border relative">
+                <div className="absolute my-0 mx-[!important] h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] bg-gray-600 opacity-[0.13]" />
+                <div className="self-stretch flex flex-row items-center justify-start gap-[10.5px]">
+                  <div className="w-full h-[17.5px] leading-[17.5px] text-lg font-semibold">             
+                      RESERVA
+                  </div>
+                </div>
+              </div>
+              <div className="w-full flex flex-row items-center justify-between py-0 px-[15px] box-border">
+                <div className="flex flex-col items-start justify-start gap-1">
+                  <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[383.5199890136719px] pl-0">
+                    <div className="relative leading-[14px] font-semibold text-xs">
+                      TIEMPO REAL
+                    </div>
+                  </div>
+                  <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[398.5199890136719px] pl-0 text-gray-600">
+                    <div className="relative leading-[14px] font-medium text-gray-400">
+                      PREVISIÓN
+                    </div>
+                  </div>
+                </div>
+                <div className="w-auto h-auto flex flex-col items-center gap-1 justify-center text-right text-sm text-gray-600">
+                  <div className="rounded-full bg-slate-200 py-[1px] px-[8px] flex flex-row items-center justify-start box-border gap-[3.1px]">
+                    <b className="relative leading-[24px] uppercase">15</b>
+                    <div className="flex flex-row items-start justify-end text-sm ">
+                      <div className="relative leading-[12.25px] uppercase inline-block max-h-[12.25px]">
+                        <img src="ModuloEvento/humano1.svg" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-auto flex flex-row items-center justify-center box-border gap-[3.19px] text-md text-gray-600">
+                    <div className="leading-[14px] text-gray-400">{`0 `}</div>
+                    <div className="flex flex-row items-start justify-end">
+                      <div className="relative leading-[10.5px] uppercase inline-block ">
+                      <img src="ModuloEvento/humano2.svg" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="relative box-border w-full h-px border-t-[1px] border-solid border-slate-200" />
+              <div className="w-full flex flex-col items-start justify-start gap-1 py-[7px] px-3.5 box-border text-sm text-gray-600">
+                
+                <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border">
+                  
+                  <div className="flex flex-col items-start justify-start">
+                    <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[286.3800048828125px] pl-0">
+                      <div className="relative leading-[14px] font-semibol text-black">
+                        EVENTO ANTERIOR (Jue. 25 enero)
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-row items-center justify-center w-auto h-auto ">                  
+                    <div className="w-auto flex flex-row items-start justify-start gap-1">
+                        <b className="leading-[14px] text-black">
+                          25
+                        </b>
+                        <div className="flex flex-col items-center justify-center leading-[10.5px]">
+                          <img src="ModuloEvento/humano1.svg" alt="" />
+                      </div>
+                    </div>
+                    <div className="w-auto flex flex-col items-start justify-start">
+                      <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
+                        <div className="relative leading-[14px] inline-block text-black">
+                          35%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border text-gray-400">
+                  <div className="flex flex-col items-start justify-start ">
+                    <div className="self-stretch flex flex-col items-start justify-start">
+                      <div className="relative leading-[14px] font-medium">
+                        FINAL EVENTO ANT. (Jue. 25 enero)
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-row items-start justify-start w-auto h-auto text-right">
+                    
+                    <div className="flex flex-row gap-1 items-center justify-center">
+
+                        <div className="leading-[14px]">{`0 `}</div>
+                          <div className=" leading-[10.5px] inline-block">
+                          <img src="ModuloEvento/humano2.svg" alt="" />
+                        </div>
+                    
+                    </div>
+
+                    <div className="w-auto flex flex-col items-start justify-start">
+                      <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
+                        <div className="relative leading-[14px] inline-block max-w-[50px]">
+                          0%
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+    </div>
+
+            </div>
+
+            <div className="w-auto flex flex-col items-start justify-start gap-[10.5px] text-center text-sm mq750:min-w-full mq1050:flex-1">
               <div className="self-stretch flex flex-row items-start justify-start py-0 px-1 box-border max-w-full text-left">
-                <div className="flex-1 rounded-2xs-5 bg-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-nero shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col items-start justify-start py-[10.5px] px-0 box-border gap-[10.5px] max-w-full">
+                
+                <div className="rounded-md bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col items-start justify-start py-[10.5px] px-0 box-border gap-[10.5px] max-w-full">
                   <div className="self-stretch flex flex-row items-center justify-start py-0 px-2.5 box-border max-w-full [row-gap:20px] mq450:flex-wrap">
                     <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
                       <div className="flex flex-col items-center justify-start pt-1 px-[2.75px] pb-[3px]">
                         <div className="flex flex-row items-start justify-start">
                           <img
-                            className="h-3.5 w-[10.5px] relative overflow-hidden shrink-0"
+                            className="h-auto w-[10.5px] relative overflow-hidden shrink-0"
                             loading="lazy"
                             alt=""
+                            src="ModuloEvento/info1.svg"
                           />
                         </div>
                       </div>
@@ -442,6 +942,7 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
                             className="h-3.5 w-[12.3px] relative overflow-hidden shrink-0"
                             loading="lazy"
                             alt=""
+                            src="ModuloEnvento/liqui1.svg"
                           />
                         </div>
                       </div>
@@ -482,6 +983,8 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
                     </div>
                   </div>
                 </div>
+
+
               </div>
               <div className="self-stretch rounded-2xs-5 bg-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-nero shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col items-end justify-start gap-[5px] max-w-full text-2xs-5">
                 <div className="self-stretch flex flex-col items-start justify-start pt-[9.5px] px-[10.5px] pb-[10.5px] box-border max-w-full text-left">
