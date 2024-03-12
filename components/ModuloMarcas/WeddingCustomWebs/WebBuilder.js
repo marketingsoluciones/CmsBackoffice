@@ -559,7 +559,8 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
                 ))}
             </div>
           </div>
-          <div className=" mt-[15px]">
+          <div className="flex-1" />
+          <div className="h-40">
             {(UrlPage != undefined && pages.length) &&
               <SharedUrl
                 link={`https://${window.origin.includes("://test.") ? "test." : ""}bodasdehoy.com/landingpage/${UrlPage}/${pages[0].name}`}
