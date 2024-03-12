@@ -5,18 +5,11 @@ import { FormDinamicalNEW } from "../../Resumen"
 import { MarcasTable } from "./MarcasTable"
 import { useRouter } from "next/router"
 
-export const MarcasControl = ({optionSelect}) => {
+export const MarcasControl = ({ optionSelect }) => {
     const { state, dispatch } = AuthContextProvider()
-    const r = useRouter()
-
-    /* useEffect(() => {
-        
-          dispatch({ type: "view", payload: {} });
-      
-      }, [optionSelect]); */
 
     return (
-        <div className=" ">
+        <div className="w-full h-full">
             {state?.type === "view" && (
                 <MarcasTable dispatch={dispatch} />
             )}

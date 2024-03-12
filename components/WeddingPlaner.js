@@ -72,25 +72,24 @@ export const WeddingPlanner = () => {
 
   return (
     <>
-      <div className="md:grid md:grid-cols-6 h-full w-[100%]">
+      <div className="h-full flex w-[100%]">
         <SubmenuComponent
           dataComponents={newArryDataComponents}
           optionSelect={optionSelect}
           onClick={handleClickOption}
         />
-
-        <div className="col-span-6 md:col-span-5 z-10 px-5 py-2">
+        <div className="flex-1 w-full z-10 px-5 py-2">
           {dataComponents[optionSelect].component}
         </div>
       </div>
-      {modalContacto ? (
+      {modalContacto &&
         <Modal classe={"w-[28%] h-[86%]"}>
           <ContactarGold
             openModal={modalContacto}
             setOpenModal={setModalContacto}
           />
         </Modal>
-      ) : null}
+      }
     </>
   );
 };

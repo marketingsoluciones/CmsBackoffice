@@ -1,7 +1,4 @@
-import {
-    Flex,
-    useToast,
-} from "@chakra-ui/react";
+import { Flex, useToast } from "@chakra-ui/react";
 import { EditIcon } from '@chakra-ui/icons';
 import { useEffect, useCallback, useRef, useState } from "react";
 import { useFetch } from "../../hooks/useFetch";
@@ -75,7 +72,7 @@ export const FormDinamicalNEW = ({ slug, setAction, state }) => {
     };
 
     return (
-        <Flex flexDir={"column"} overflow={"auto"} maxH={"100%"} mb={"4rem"}>
+        <Flex flexDir={"column"} overflow={"auto"} w={"100%"} maxH={"100%"} mb={"4rem"} bg={"red.200"}>
             {!loadingValues && !errorValues ? (
                 <>
                     <div className="px-5">

@@ -20,8 +20,8 @@ export const ListaInvitados = ({ setComponentState }) => {
     const path = window?.origin?.includes("://testcms.") ? process.env.NEXT_PUBLIC_EVENTSAPP?.replace("//", "//test") ?? "" : process.env.NEXT_PUBLIC_EVENTSAPP ?? ""
     return (
         eventsGroup.length !== 0
-            ? < div className="h-full" >
-                <iframe src={`${path}/invitados/?show=iframe&father=${fatherID}`} width={"100%"}  className="h-[89vh] md:h-[100%]"></iframe>
+            ? < div className="w-full h-full" >
+                <iframe src={`${path}/invitados/?show=iframe&father=${fatherID}`} width={"100%"} className="h-[89vh] md:h-[100%]"></iframe>
             </div >
             : <InfoListaInvitadosPage setState={setState} state={state} setComponentState={setComponentState} idxComponent={5} />
     )

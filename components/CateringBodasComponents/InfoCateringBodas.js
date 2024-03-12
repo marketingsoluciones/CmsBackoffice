@@ -1,4 +1,3 @@
-import { Icon } from "@chakra-ui/icons"
 import { CoronaIcon } from "../Icons/index"
 
 export const InfoCateringBodas = ({ setOptionSelect, modalContacto, setModalContacto }) => {
@@ -58,30 +57,28 @@ export const InfoCateringBodas = ({ setOptionSelect, modalContacto, setModalCont
                     </p>
                 </div>
                 <div className="bg-grayInformativo md:relative flex flex-col items-center justify-center space-y-10 md:space-y-5 py-14 md:z-20 ">
-                        {
-                            dataArry.map((item, idx) => {
-                                return (
-                                    <div key={idx} className="md:flex flex-cols md:flex-row w-full justify-center items-center md:space-x-5 ">
-                                        <div className="md:w-72 flex items-center justify-center">
-                                            <img src={item.img} alt="s" />
-                                        </div>
-                                        <div className="flex flex-col space-y-2 justify-center  md:w-[40%] text-center md:text-left px-5 md:px-0">
-                                            <p className="text-rosa text-xl">
-                                                {item.title}
-                                            </p>
-                                            <p className="text-base">
-                                                {item.text}
-                                            </p>
-                                            <div>
-                                                <button type="button" onClick={() => setOptionSelect(item.rout)} className="bg-rosa text-base text-white px-7 py-1 rounded-lg">
-                                                    {item.button}
-                                                </button>
-                                            </div>
-                                        </div>
+                    {dataArry.map((item, idx) => {
+                        return (
+                            <div key={idx} className="md:flex flex-cols md:flex-row w-full justify-center items-center md:space-x-5 ">
+                                <div className="md:w-72 flex items-center justify-center">
+                                    <img src={item.img} alt="s" />
+                                </div>
+                                <div className="flex flex-col space-y-2 justify-center  md:w-[40%] text-center md:text-left px-5 md:px-0">
+                                    <p className="text-rosa text-xl">
+                                        {item.title}
+                                    </p>
+                                    <p className="text-base">
+                                        {item.text}
+                                    </p>
+                                    <div>
+                                        <button type="button" onClick={() => setOptionSelect(item.rout)} className="bg-rosa text-base text-white px-7 py-1 rounded-lg">
+                                            {item.button}
+                                        </button>
                                     </div>
-                                )
-                            })
-                        }
+                                </div>
+                            </div>
+                        )
+                    })}
                 </div>
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-10">
                     <div className="md:grid md:grid-cols-2  justify-items-center content-center pb-3 md:space-y-0 space-y-5">
@@ -90,7 +87,6 @@ export const InfoCateringBodas = ({ setOptionSelect, modalContacto, setModalCont
                                 <CoronaIcon />
                             </div>
                             <div>
-
                                 <p className="text-xl text-gray-600 font-semibold">
                                     Vende tickets
                                 </p>
@@ -104,7 +100,6 @@ export const InfoCateringBodas = ({ setOptionSelect, modalContacto, setModalCont
                                 <CoronaIcon />
                             </div>
                             <div>
-
                                 <p className="text-xl text-gray-600 font-semibold">
                                     QR para el menú
                                 </p>
@@ -119,7 +114,7 @@ export const InfoCateringBodas = ({ setOptionSelect, modalContacto, setModalCont
                             Óbtenla activando la <span className="text-amarillo font-semibold"> VERSIÓN GOLD </span>
                         </p>
                     </div>
-                    <button onClick={()=>setModalContacto(!modalContacto)} className="bg-amarillo px-4 py-1 rounded-lg text-white text-base">
+                    <button onClick={() => setModalContacto(!modalContacto)} className="bg-amarillo px-4 py-1 rounded-lg text-white text-base">
                         Contactar
                     </button>
                 </div>

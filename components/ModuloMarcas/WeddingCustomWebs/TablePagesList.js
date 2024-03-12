@@ -9,17 +9,13 @@ import { WebBuilder } from "./WebBuilder"
 
 export const TablePegesList = ({ setComponentState }) => {
     const router = useRouter()
-    const {state,dispatch } = AuthContextProvider()
+    const { state, dispatch } = AuthContextProvider()
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
 
-
-   
     return (
         <>
-        {
-            state?.type === "view" &&(
-            <div className="space-y-4 w-full  " >
+            {state?.type === "view" && <div className="space-y-4 w-full h-full" >
                 <div>
                     <div onClick={() => router.push("/")} className="w-5 h-5  text-gray-700 cursor-pointer">
                         <ArrowLeft />
@@ -41,19 +37,16 @@ export const TablePegesList = ({ setComponentState }) => {
                         />
                     </div>
                 </div>
-
                 <div className="bg-white space-y-5 rounded-xl flex flex-col py-2 px-4  ">
                     <OnlyViewTable slug={"customWebBuilder"} dispatch={dispatch} setbuscador={setSeteador} />
                 </div>
-             </div>
-            )
-        }
-        {
-            "edit".includes(state?.type) && (
-                    <WebBuilder id={state.data._id} />
-                )
+            </div>
             }
-        
+            {state?.type === "edit" && (
+                <WebBuilder id={state.data._id} />
+            )
+            }
+
         </>
 
     )

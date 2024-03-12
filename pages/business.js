@@ -19,9 +19,9 @@ const Business = () => {
     (element) => element.title === development
   );
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch({ type: "VIEW", payload: {} });
-  },[optionSelect])
+  }, [optionSelect])
 
   const dataComponents = [
     {
@@ -36,7 +36,7 @@ const Business = () => {
     },
     {
       icon: <IoAnalytics className="h-6 w-auto" />,
-      title: "Metricas",
+      title: "Métricas",
       component: <IframeMetricool dataMetricool={dataMetricool?.metricol} />,
     },
   ];
@@ -44,21 +44,14 @@ const Business = () => {
     setOptionSelect(idx);
   };
   return (
-    <div className="md:grid md:grid-cols-6 h-full">
+    <div className="w-full h-full flex">
       <SubmenuComponent
         dataComponents={dataComponents}
         onClick={handleClickOption}
         optionSelect={optionSelect}
       />
       <div
-        className={` col-span-6 md:col-span-5 z-10   ${
-          page === "WebBuilder"
-            ? optionSelect != 1
-              ? "px-5 py-2"
-              : ""
-            : "px-5 py-2"
-        } h-[calc(100%-px)] overflow-auto `}
-      >
+        className={`flex-1 flex z-10 px-5 py-2`}>
         {dataComponents[optionSelect].component}
       </div>
     </div>

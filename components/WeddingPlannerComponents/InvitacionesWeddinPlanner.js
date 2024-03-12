@@ -6,16 +6,12 @@ export const InvitacionesWeddinPlanner = ({ setComponentState }) => {
 
     const path = window?.origin?.includes("://testcms.") ? process.env.NEXT_PUBLIC_EVENTSAPP?.replace("//", "//test") ?? "" : process.env.NEXT_PUBLIC_EVENTSAPP ?? ""
     return (
-
-
         eventsGroup.length !== 0
-            ? <div className="h-full">
+            ? <div className="w-full h-full">
                 <iframe src={`${path}/invitaciones/?show=iframe`} width={"100%"} className="h-[89vh] md:h-[100%]" ></iframe>
             </div> :
             <div className="">
                 <InfoInvitaciones setComponentState={setComponentState} />
             </div>
-
-
     )
 }

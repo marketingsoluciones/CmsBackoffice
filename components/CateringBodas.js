@@ -65,24 +65,17 @@ export const CateringBodas = () => {
     return (
         <>
             <div className="flex h-full w-full">
-                <div className="md:grid md:grid-cols-6 h-full w-[100%] ">
-
+                <div className="w-full h-full flex">
                     {optionSelect > -1 && <SubmenuComponent dataComponents={newArryDataComponents} optionSelect={optionSelect} onClick={handleClickOption} />}
-
-                    <div className="col-span-6 md:col-span-5 ">
+                    <div className="flex-1">
                         {dataComponents[optionSelect]?.component}
                     </div>
 
                 </div>
             </div >
-            {
-                modalContacto ? (
-                    <Modal classe={"w-[28%] h-[86%]"}>
-                        <ContactarGold openModal={modalContacto} setOpenModal={setModalContacto} />
-                    </Modal>
-                ) :
-                    null
-            }
+            {modalContacto && <Modal classe={"w-[28%] h-[86%]"}>
+                <ContactarGold openModal={modalContacto} setOpenModal={setModalContacto} />
+            </Modal>}
         </>
     )
 }
