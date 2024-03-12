@@ -22,7 +22,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
       title: "Baby Shower"
     },
     {
-      img: "ModuloEvento/frame-4818894@2x.png",
+      img: "ModuloEvento/frame-4818893@2x.png",
       title: "Despedidas"
     },
     {
@@ -33,7 +33,6 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
       img: "ModuloEvento/frame-4818895@2x.png",
       title: "Comunión"
     },
-  
   ]
 
   return (
@@ -58,7 +57,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
       </div>
 
       {/* Seccion 3 */}
-      <div className="rounded-md bg-white w-[calc(100%-50px)] flex flex-col items-center justify-start py-[53px] px-[16px] box-border">
+      <div className="rounded-md bg-white w-[1050px] flex flex-col items-center justify-start py-[53px] px-[16px] box-border">
         <div className="flex flex-row items-center justify-start gap-[20px]">
           <div className="flex flex-col items-center justify-start gap-[10px]">
             <img
@@ -99,11 +98,69 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
                 )
               })
             }
-          
+           {/*  <div className="relative w-[120px] h-[120px]">
+              <img
+                className="absolute top-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
+                alt=""
+                src="ModuloEvento/frame-481889@2x.png"
+              />
+              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
+                Bodas
+              </div>
+            </div>
+            <div className="relative w-[120px] h-[120px]">
+              <img
+                className="absolute top-[0px] left-[0px] max-h-full w-[120px] object-cover"
+                alt=""
+                src="ModuloEvento/frame-4818891@2x.png"
+              />
+              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
+                Cumpleaños
+              </div>
+            </div>
+            <div className="relative w-[120px] h-[120px]">
+              <img
+                className="absolute top-[0px] left-[0px] max-h-full w-[120px] overflow-hidden object-cover"
+                alt=""
+                src="ModuloEvento/frame-4818892@2x.png"
+              />
+              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
+                Baby Shower
+              </div>
+            </div>
+            <div className="relative w-[120px] h-[120px]">
+              <img
+                className="absolute top-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
+                alt=""
+                src="ModuloEvento/frame-4818893@2x.png"
+              />
+              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
+                Despedidas
+              </div>
+            </div>
+            <div className="relative w-[120px] h-[120px]">
+              <img
+                className="absolute top-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
+                alt=""
+                src="ModuloEvento/frame-4818894@2x.png"
+              />
+              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
+                Bautizos
+              </div>
+            </div>
+            <div className="relative w-[120px] h-[120px]">
+              <img
+                className="absolute top-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
+                alt=""
+                src="ModuloEvento/frame-4818895@2x.png"
+              />
+              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
+                Comunión
+              </div>
+            </div> */}
           </div>
         </div>
       </div>
-      
 
       {/* seccion 4 */}
       <div className="rounded-md w-[1050px] bg-white flex flex-col items-center justify-start py-[47px] px-[16px] border-[2px] border-solid border-rosa">
