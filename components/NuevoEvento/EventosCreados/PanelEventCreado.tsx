@@ -10,7 +10,7 @@ interface propsDescripcionEvento {
 
 const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setComponentState}) => {
   return (
-    <div className="w-[1100px] bg-slate-100 flex flex-col items-start justify-start pt-7 pb-[67px] pr-[15px] pl-7 box-border gap-[28px] tracking-[normal] text-left text-7xl-3">
+    <div className="w-auto bg-slate-100 flex flex-col items-center justify-center px-4 pt-7 pb-[67px] box-border gap-[28px] tracking-[normal]">
       <ModoDemo />
     {/* seccion 1 */}
 
@@ -120,7 +120,7 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
 
     {/* Seccion 2 */}
 
-      <div className="self-stretch flex flex-col items-end justify-start py-0 px-px box-border gap-[35px] mq750:gap-[17px]">
+      <div className="self-stretch flex flex-col items-center justify-start py-0 px-px box-border gap-[35px] mq750:gap-[17px]">
         
         <section className="self-stretch flex flex-row flex-wrap items-start justify-start gap-[5px] shrink-0 text-left">
           <img
@@ -294,8 +294,8 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
 
         </section>
 
-        <section className="w-[1247.5px] flex flex-row items-start justify-start py-0 px-[45px] box-border shrink-0 max-w-full text-left text-mid-5 text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-black font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-inter-medium-123 lg:pl-[22px] lg:pr-[22px] lg:box-border">
-          <div className="flex-1 flex flex-row items-start justify-start gap-[36px] max-w-full mq750:gap-[18px] mq1050:flex-wrap">
+        <section className="w-full flex flex-row items-start justify-start box-border shrink-0 text-left">
+          <div className="flex flex-row items-start justify-start gap-[16px] max-w-full mq750:gap-[18px] mq1050:flex-wrap">
             
             <div className="flex flex-col items-start justify-start gap-[9.92px] max-w-full mq750:min-w-full">
               <div className="w-auto h-[25px] relative leading-[24.5px] font-semibold inline-block">
@@ -382,7 +382,7 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
                       </div>
                     </div>
 
-                    <div className="self-stretch  box-border border-t-[1px] border-solid border-slate-200" />
+                    <div className="self-stretch w-auto  box-border border-t-[1px] border-solid border-slate-200" />
                     <div className="self-stretch flex flex-row items-start justify-center py-0 pr-5 pl-[21px] text-xs text-black">
                       <div className="h-auto w-auto relative leading-[24px] flex items-center justify-center">
                         Ver informe de clientes
@@ -911,9 +911,11 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
             </div>
 
             <div className="w-auto flex flex-col items-start justify-start gap-[10.5px] text-center text-sm mq750:min-w-full mq1050:flex-1">
+              
+              {/* liquidaciones, comisiones, informe financiero */}
               <div className="self-stretch flex flex-row items-start justify-start py-0 px-1 box-border max-w-full text-left">
                 
-                <div className="rounded-md bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col items-start justify-start py-[10.5px] px-0 box-border gap-[10.5px] max-w-full">
+                <div className="rounded-md bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] w-full overflow-hidden flex flex-col items-start justify-start py-[10.5px] px-0 box-border gap-[10.5px] max-w-full">
                   <div className="self-stretch flex flex-row items-center justify-start py-0 px-2.5 box-border max-w-full [row-gap:20px] mq450:flex-wrap">
                     <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
                       <div className="flex flex-col items-center justify-start pt-1 px-[2.75px] pb-[3px]">
@@ -942,7 +944,7 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
                             className="h-3.5 w-[12.3px] relative overflow-hidden shrink-0"
                             loading="lazy"
                             alt=""
-                            src="ModuloEnvento/liqui1.svg"
+                            src="ModuloEvento/liqui1.svg"
                           />
                         </div>
                       </div>
@@ -950,11 +952,6 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
                     <div className="flex-1 flex flex-col items-start justify-start min-w-[233px] max-w-full">
                       <div className="w-[91px] h-[21px] relative leading-[21px] inline-block">
                         Liquidaciones
-                      </div>
-                    </div>
-                    <div className="w-[11px] flex flex-col items-start justify-start pt-1 px-0 pb-[3px] box-border text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-geyser font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-font-awesome-5-free-solid-105">
-                      <div className="self-stretch h-3.5 relative leading-[14px] flex items-center">
-                        
                       </div>
                     </div>
                   </div>
@@ -967,6 +964,7 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
                             className="h-3.5 w-[15.8px] relative overflow-hidden shrink-0"
                             loading="lazy"
                             alt=""
+                            src="ModuloEvento/comi1.svg"
                           />
                         </div>
                       </div>
@@ -976,149 +974,140 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
                         Comisiones
                       </div>
                     </div>
-                    <div className="w-[11px] flex flex-col items-start justify-start pt-1 px-0 pb-[3px] box-border text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-geyser font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-font-awesome-5-free-solid-105">
-                      <div className="self-stretch h-3.5 relative leading-[14px] flex items-center">
-                        
-                      </div>
-                    </div>
                   </div>
                 </div>
 
 
               </div>
-              <div className="self-stretch rounded-2xs-5 bg-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-nero shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col items-end justify-start gap-[5px] max-w-full text-2xs-5">
+
+              <div className="self-stretch rounded-md bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col items-center justify-start gap-[5px] max-w-[350px] text-xs">
                 <div className="self-stretch flex flex-col items-start justify-start pt-[9.5px] px-[10.5px] pb-[10.5px] box-border max-w-full text-left">
                   <div className="self-stretch flex flex-col items-start justify-start pt-0 pb-[10.5px] pr-[7px] pl-0 box-border gap-[4.5px] max-w-full">
-                    <div className="w-[222px] h-3.5 relative leading-[14px] inline-block">
+                    <div className="w-auto h-3.5 relative leading-[14px] inline-block">
                       Comparte tu link para conseguir más ventas:
                     </div>
-                    <div className="self-stretch flex flex-row items-start justify-start max-w-full [row-gap:20px] text-sm mq450:flex-wrap">
-                      <div className="flex-1 flex flex-col items-start justify-start min-w-[235px] max-w-full">
-                        <div className="flex flex-col items-start justify-start shrink-0 max-w-[103%]">
-                          <div className="rounded-[5.25px] bg-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-catskill-white flex flex-col items-start justify-start py-0 px-2.5 opacity-[0.5] border-[1px] border-solid border-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-catskill-white">
-                            <div className="overflow-hidden flex flex-col items-start justify-start">
-                              <div className="w-[351px] h-9 relative leading-[36px] inline-block">
-                                https://www.bodasdehoy.com/marketing-solucione...
+                    <div className="self-stretch flex flex-row items-start justify-start max-w-full gap-1 [row-gap:20px] text-sm mq450:flex-wrap">
+                    <div className="flex flex-col w-full items-start justify-start py-0 pr-[3.5px] pl-0 box-border max-w-full">
+                        <div className="self-stretch flex flex-col items-start justify-start">
+                          <div className="self-stretch rounded-md bg-slate-200 flex flex-col items-start justify-start py-0 px-2.5 ">
+                            <div className="self-stretch overflow-hidden flex flex-col items-start justify-start py-0 pr-[6.980010986328125px] pl-0">
+                              <div className="w-auto h-9 relative leading-[36px] inline-block">
+                                https://www.bodasdehoy....
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                       <div className="flex flex-col items-start justify-start">
-                        <div className="rounded-6xs bg-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-mystic flex flex-row items-start justify-start pt-3 px-[10.5px] pb-3.5">
+                        <div className="rounded-md bg-slate-200 flex flex-row items-start justify-start pt-3 px-[10.5px] pb-3.5">
                           <div className="flex flex-row items-start justify-start">
                             <img
-                              className="h-2.5 w-[9.2px] relative overflow-hidden shrink-0"
+                              className="h-3 w-[12px] relative overflow-hidden shrink-0"
                               alt=""
+                              src="ModuloEvento/copiar.svg"
                             />
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="self-stretch flex flex-col items-start justify-start gap-[4.5px] max-w-full z-[1] mt-[-1px]">
-                    <div className="w-14 h-3.5 relative leading-[14px] inline-block">
+                  <div className="self-stretch flex flex-col items-start justify-start gap-[4.5px] max-w-full ">
+                    <div className="w-auto h-3.5 relative leading-[14px] inline-block">
                       Link oficial:
                     </div>
                     <div className="self-stretch flex flex-row items-start justify-start max-w-full [row-gap:20px] text-sm mq450:flex-wrap">
-                      <div className="flex-1 flex flex-col items-start justify-start py-0 pr-[3.5px] pl-0 box-border min-w-[240px] max-w-full">
+                      <div className="flex flex-col w-full items-start justify-start py-0 pr-[3.5px] pl-0 box-border max-w-full">
                         <div className="self-stretch flex flex-col items-start justify-start">
-                          <div className="self-stretch rounded-[5.25px] bg-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-catskill-white flex flex-col items-start justify-start py-0 px-2.5 opacity-[0.5] border-[1px] border-solid border-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-catskill-white">
+                          <div className="self-stretch rounded-md bg-slate-200 flex flex-col items-start justify-start py-0 px-2.5 ">
                             <div className="self-stretch overflow-hidden flex flex-col items-start justify-start py-0 pr-[6.980010986328125px] pl-0">
-                              <div className="w-[336px] h-9 relative leading-[36px] inline-block">
-                                https://www.bodasdehoy.com/beach-aguilas/81Y9
+                              <div className="w-auto h-9 relative leading-[36px] inline-block">
+                                https://www.bodasdeho...
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                       <div className="flex flex-col items-start justify-start">
-                        <div className="rounded-6xs bg-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-mystic flex flex-row items-start justify-start pt-3 px-[10.5px] pb-3.5">
+                        <div className="rounded-md bg-slate-200 flex flex-row items-start justify-start pt-3 px-[10.5px] pb-3.5">
                           <div className="flex flex-row items-start justify-start">
                             <img
-                              className="h-2.5 w-[9.2px] relative overflow-hidden shrink-0"
+                              className="h-3 w-3 relative overflow-hidden shrink-0"
                               alt=""
+                              src="ModuloEvento/copiar.svg"
                             />
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+
                 </div>
-                <div className="self-stretch h-px flex flex-row items-start justify-start py-0 pr-[3.5px] pl-[3px] box-border max-w-full">
+                
                   <div className="self-stretch flex-1 relative box-border max-w-full border-t-[1px] border-solid border-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-catskill-white" />
-                </div>
-                <div className="flex flex-row items-start justify-start py-0 px-1.5 box-border max-w-full">
-                  <div className="w-[409px] flex flex-row items-center justify-start py-0 px-0 box-border max-w-full [row-gap:20px] mq750:flex-wrap">
-                    <div className="w-[222.3px] flex flex-col items-start justify-start">
-                      <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[14.004788398742676px] pl-[14.33520793914795px]">
-                        <div className="w-[168px] h-3.5 relative leading-[14px] uppercase flex items-center justify-center">
-                          Visitas a través de mi enlace
+
+                <div className="flex flex-row w-full items-center justify-center box-border max-w-full">
+                  <div className="w-auto flex flex-row items-center justify-start gap-6 box-border max-w-full [row-gap:20px] mq750:flex-wrap">
+                    <div className="w-auto flex flex-col items-start justify-start">
+                      <div className="self-stretch flex flex-col items-center justify-start">
+                        <div className="w-auto h-3.5 relative leading-[14px] text-black text-xs font-medium flex items-center justify-center">
+                          Visitas con el enlace
                         </div>
                       </div>
-                      <div className="self-stretch flex flex-col items-center justify-start py-0 px-5 text-2xl">
-                        <div className="w-10 h-7 relative leading-[28px] font-medium flex items-center justify-center mq450:text-mid mq450:leading-[22px]">
+                      <div className="self-stretch flex flex-col items-center justify-start text-2xl">
+                        <div className="w-auto h-7 relative leading-[28px] font-semibold text-black flex items-center justify-center mq450:text-mid mq450:leading-[22px]">
                           258
                         </div>
                       </div>
-                      <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[59.02056121826172px] pl-[59.319435119628906px] text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-gull-gray">
-                        <div className="w-[78px] h-3.5 relative leading-[14px] lowercase flex items-center justify-center">
+                      <div className="self-stretch flex flex-col items-center justify-start text-gray-400">
+                        <div className="w-auto h-3.5 relative leading-[14px] text-xs flex items-center justify-center">
                           Usuarios únicos
                         </div>
                       </div>
                     </div>
-                    <div className="w-[237.3px] flex flex-col items-start justify-start z-[1]">
-                      <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[54.00711441040039px] pl-[54.332881927490234px]">
-                        <div className="w-[88px] h-3.5 relative leading-[14px] uppercase flex items-center justify-center">
+                    <div className="w-auto flex flex-col items-start justify-start ">
+                      <div className="self-stretch flex flex-col items-center justify-start ">
+                        <div className="w-auto h-3.5 relative leading-[14px] font-medium text-black flex items-center justify-center">
                           Visitas totales
                         </div>
                       </div>
-                      <div className="self-stretch flex flex-col items-center justify-start py-0 px-5 text-2xl">
-                        <div className="w-[51px] h-7 relative leading-[28px] font-medium flex items-center justify-center mq450:text-mid mq450:leading-[22px]">
+                      <div className="self-stretch flex flex-col items-center justify-start text-2xl">
+                        <div className="w-auto h-7 relative leading-[28px] font-semibold text-black flex items-center justify-center mq450:text-mid mq450:leading-[22px]">
                           1456
                         </div>
                       </div>
-                      <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[59.01055908203125px] pl-[59.329437255859375px] text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-gull-gray">
-                        <div className="w-[78px] h-3.5 relative leading-[14px] lowercase flex items-center justify-center">
+                      <div className="self-stretch flex flex-col items-center justify-start text-gray-400">
+                        <div className="w-auto h-3.5 relative leading-[14px] lowercase flex items-center justify-center">
                           Usuarios únicos
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="self-stretch h-px flex flex-row items-start justify-start py-0 pr-[3.5px] pl-[3px] box-border max-w-full">
                   <div className="self-stretch flex-1 relative box-border max-w-full border-t-[1px] border-solid border-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-catskill-white" />
-                </div>
-                <div className="self-stretch flex flex-row items-start justify-center py-0 px-5 text-xs-9 text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-ebony">
-                  <div className="h-6 w-[91px] relative leading-[24px] flex items-center justify-center">
+
+                <div className="self-stretch flex flex-row items-start justify-center text-xs text-gray-800">
+                  <div className="h-6 w-auto relative leading-[24px] flex items-center justify-center">
                     iFrame de venta
                   </div>
                 </div>
               </div>
-              <div className="self-stretch flex flex-row items-start justify-start py-0 pr-[3px] pl-[3.5px] box-border max-w-full text-[31.5px] text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-turmeric font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-font-awesome-5-free-solid-105">
-                <div className="flex-1 rounded-2xs-5 bg-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-nero shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col items-start justify-start pt-7 px-0 pb-0 box-border gap-[35px] max-w-full mq450:gap-[17px]">
-                  <div className="self-stretch h-[35px] flex flex-row items-start justify-center py-0 px-5 box-border">
-                    <div className="self-stretch w-4 relative leading-[35px] flex items-center justify-center mq450:text-[19px] mq450:leading-[21px] mq1050:text-[25px] mq1050:leading-[28px]">
-                      
-                    </div>
-                  </div>
-                  <div className="self-stretch flex flex-col items-start justify-start gap-[14px] max-w-full text-left text-sm font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-inter-medium-123">
-                    <div className="self-stretch flex flex-row items-start justify-start py-0 px-3.5 box-border max-w-full">
-                      <div className="flex-1 flex flex-row items-end justify-between max-w-full gap-[20px]">
-                        <div className="w-[236.5px] flex flex-row items-start justify-start gap-[6.75px]">
+              
+              <div className="self-stretch flex flex-row items-start justify-start py-0 pr-[3px] pl-[3.5px] box-border max-w-full text-[31.5px] text-black font-normal">
+                <div className="w-full rounded-md bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col items-start justify-start box-border gap-[35px] max-w-full mq450:gap-[17px]">
+                  <div className="self-stretch flex flex-col items-start justify-start gap-[14px] max-w-full text-left text-sm">
+                    
+                    
+                    <div className="self-stretch flex flex-row items-start justify-between pt-4 px-3.5 box-border max-w-full">
+                        <div className="w-auto flex flex-row items-start justify-start gap-[6.75px]">
                           <div className="flex flex-col items-start justify-start pt-[5.5px] px-0 pb-0">
-                            <b className="w-[11px] h-[21px] relative leading-[21px] inline-block">
+                            <b className="w-auto h-auto text-yellow-500 font-bold relative leading-[21px] inline-block">
                               1.
                             </b>
                           </div>
-                          <div className="h-8 w-8 rounded-13xl bg-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-catskill-white overflow-hidden shrink-0 flex flex-col items-start justify-start relative">
-                            <img
-                              className="w-8 h-8 relative rounded-13xl object-cover max-w-[32px]"
-                              loading="lazy"
-                              alt=""
-                            />
-                            <div className="w-full h-full absolute my-0 mx-[!important] top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-9980xl bg-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-nero-02 shadow-[0px_2px_4px_rgba(0,_0,_0,_0.06)_inset] z-[1]" />
+                          <div className="w-8 h-8 rounded-full">
+                            <img src="ModuloEvento/img2.svg" alt="" />
                           </div>
+
                           <div className="flex-1 flex flex-col items-start justify-start pt-[5.5px] px-0 pb-0 text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-black">
                             <div className="w-full overflow-hidden flex flex-row items-start justify-start max-w-[180px]">
                               <div className="h-[21px] w-[100px] relative leading-[21px] inline-block">
@@ -1128,17 +1117,17 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
                             </div>
                           </div>
                         </div>
-                        <div className="flex flex-col items-start justify-start pt-0 px-0 pb-[8.5px] text-[13.7px] font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-font-awesome-5-free-solid-105">
+                        <div className="flex flex-col items-center justify-center pb-1 pt-1 text-sm">
                           <div className="w-3.5 h-3.5 relative leading-[14px] inline-block">
-                            
+                            <img src="ModuloEvento/insignia.svg" alt="" />
                           </div>
                         </div>
-                      </div>
+                      
                     </div>
                     <div className="self-stretch flex flex-col items-end justify-start text-center text-xs-9 text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-ebony">
                       <div className="self-stretch h-px relative box-border border-t-[1px] border-solid border-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-catskill-white" />
                       <div className="self-stretch flex flex-row items-start justify-center py-0 px-5">
-                        <div className="h-6 w-32 relative leading-[24px] flex items-center justify-center">
+                        <div className="h-6 w-auto relative leading-[24px] flex items-center justify-center text-xs">
                           Ver recuento completo
                         </div>
                       </div>
@@ -1146,6 +1135,7 @@ const DescripcionEvento: FC <propsDescripcionEvento> = ({componentState,setCompo
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </section>
