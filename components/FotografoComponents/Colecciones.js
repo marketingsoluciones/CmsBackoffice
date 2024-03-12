@@ -2,7 +2,7 @@ import { useState } from "react"
 import { VistaSinDatos } from "../VistaSinDatos"
 import { ColeccionesInfoPage } from "./ColeccionsComponents/ColeccionsInfoPage"
 
-export const Colecciones = ({setComponentState}) => {
+export const Colecciones = ({ setComponentState }) => {
     const [state, setState] = useState(true)
     const [state2, setState2] = useState(true)
     const [optionSelect, setOptionSelect] = useState(0)
@@ -16,32 +16,20 @@ export const Colecciones = ({setComponentState}) => {
 
     ]
     return (
-        <div className="px-5 py-2 h-full">
-            {(() => {
-                if (state) {
-                    return (
-                        <ColeccionesInfoPage setComponentState={setComponentState} />
-                    )
-                } else {
-                    if (state2) {
-                        return (
-                            <div>
-                                {dataComponents[optionSelect].component}
-                            </div>
-                        )
-                    } else {
-                        return (
-                            <VistaSinDatos
-                                title={"Itinerario"}
-                                button={"Agregar Itinerario"}
-                                text={"Aún no tienes un Itinerario creado"}
-                                accion={"Agrega tu Itinerario"}
-                            />
-                        )
-                    }
-                }
-            })()}
-
+        <div className="w-full h-full">
+            {state
+                ? <ColeccionesInfoPage setComponentState={setComponentState} />
+                : state2
+                    ? <div>
+                        {dataComponents[optionSelect].component}
+                    </div>
+                    : <VistaSinDatos
+                        title={"Itinerario"}
+                        button={"Agregar Itinerario"}
+                        text={"Aún no tienes un Itinerario creado"}
+                        accion={"Agrega tu Itinerario"}
+                    />
+            }
         </div >
     )
 }

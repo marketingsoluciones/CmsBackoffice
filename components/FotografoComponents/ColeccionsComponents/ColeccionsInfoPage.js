@@ -22,7 +22,7 @@ export const ColeccionesInfoPage = ({ setComponentState }) => {
             </div>
             <p className="  mt-1 text-3xl text-rosa flex items-center ">
                 Colecciones
-                <DiamanteSinFondoIcon className="text-acento ml-1"/>
+                <DiamanteSinFondoIcon className="text-acento ml-1" />
             </p>
             <div className="bg-white rounded-lg md:h-[calc(100vh-145px)] overflow-auto">
                 <div className="md:grid md:grid-cols-2 px-10 py-10">

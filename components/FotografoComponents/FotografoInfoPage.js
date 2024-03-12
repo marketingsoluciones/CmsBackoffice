@@ -20,12 +20,12 @@ export const FotografoInfoPage = ({ modalContacto, setModalContacto, setOptionSe
     ]
 
     return (
-        <div className="  px-5">
+        <div className="w-full h-full">
             <p className=" mt-1 text-3xl text-rosa font-semibold">
                 Fotógrafos
             </p>
-          
-            <div className="bg-white rounded-xl flex flex-col md:h-[calc(100vh-110px)] h-[calc(100%-200px)] overflow-auto">
+
+            <div className="bg-white rounded-xl flex flex-col md:h-[calc(100vh-128px)] h-[calc(100%-200px)] overflow-auto">
                 <div className="flex flex-col items-center justify-center space-y-3  px-10 py-14">
                     <p className="text-[25px] text-azulCorporativo text-center font-semibold ">
                         <span className="text-rosa">Amplia tu exposición </span> y atrae más clientes

@@ -30,7 +30,7 @@ export const InfoPageMetricool = () => {
                 <ArrowLeft />
             </div> */}
             <p className="mt-1 text-3xl text-rosa font-semibold">
-                Metricas
+                Métricas
             </p>
             <div className="bg-white rounded-lg h-[calc(100vh-145px)] flex flex-col items-center justify-center overflow-y-auto">
                 <div className="text-[23px] text-center text-rosa font-semibold">

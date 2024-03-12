@@ -191,7 +191,7 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
         handleAdd: (textFromInput) => {
           editor.AssetManager.add(textFromInput);
         },
-        handleRemove: () => {},
+        handleRemove: () => { },
         dropzone: 1,
         openAssetsOnDrop: 1,
         dropzoneContent: "",
@@ -307,9 +307,9 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
         );
       }
     });
-    editor.on("undo", () => {});
+    editor.on("undo", () => { });
 
-    editor.on("redo", () => {});
+    editor.on("redo", () => { });
 
     editor.Panels.addButton("devices-c", {
       id: "save-button",
@@ -559,12 +559,13 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
                 ))}
             </div>
           </div>
-          <div className=" mt-[15px]">
-            {UrlPage != undefined ? (
+          <div className="flex-1" />
+          <div className="h-40">
+            {(UrlPage != undefined && pages.length) &&
               <SharedUrl
-                link={`https://bodasdehoy.com/landingpage/${UrlPage}/${pages[0].name}`}
+                link={`https://${window.origin.includes("://test.") ? "test." : ""}bodasdehoy.com/landingpage/${UrlPage}/${pages[0].name}`}
               />
-            ) : null}
+            }
           </div>
         </div>
         <div className="editor-wrap">

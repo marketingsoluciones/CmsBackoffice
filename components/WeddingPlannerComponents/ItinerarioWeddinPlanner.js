@@ -15,19 +15,15 @@ export const ItinerarioWeddingPlanner = ({ setComponentState }) => {
         {
             component: <Itinerario setChildrenComponentState={setOptionSelect} />
         },
-
     ]
 
     return (
-        <div className="">
-            {
-                eventsGroup.length == 0 ?
-                    <ItinerarioInfoPage setOptionSelect={setOptionSelect} setComponentState={setComponentState} idxComponent={5} />
-                    :
-                    <div>
-                        {dataComponents[optionSelect].component}
-                    </div>
-
+        <div className="w-full h-full">
+            {eventsGroup.length == 0
+                ? <ItinerarioInfoPage setOptionSelect={setOptionSelect} setComponentState={setComponentState} idxComponent={5} />
+                : <div>
+                    {dataComponents[optionSelect].component}
+                </div>
             }
         </div >
     )

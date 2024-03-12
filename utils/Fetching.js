@@ -572,8 +572,8 @@ export const queries = {
       }
     }
   }`,
-  getEventsByID: `query SolicitarEventos($userID : String) {
-    queryenEvento(variable: "usuario_id", valor: $userID){
+  getEventsByID: `query SolicitarEventos($userID : String, $development: String!) {
+    queryenEvento(valor: $userID, development: $development){
       _id
       grupos_array
       estatus

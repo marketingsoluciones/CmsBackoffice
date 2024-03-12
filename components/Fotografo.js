@@ -23,7 +23,7 @@ export const FotografoComponent = () => {
             component: <Proyectos setComponentState={setOptionSelect} />
         },
         {
-            component: <FotografoInfoPage  setOptionSelect={setOptionSelect}  modalContacto={modalContacto} setModalContacto={setModalContacto} />
+            component: <FotografoInfoPage setOptionSelect={setOptionSelect} modalContacto={modalContacto} setModalContacto={setModalContacto} />
         },
     ]
     const handleClickOption = (idx) => {
@@ -31,25 +31,18 @@ export const FotografoComponent = () => {
     };
 
     const newArryDataComponents = dataComponents.slice()
-    newArryDataComponents.splice(2,1)
+    newArryDataComponents.splice(2, 1)
     return (
         <>
-            <div className="md:grid md:grid-cols-6 h-full ">
-
+            <div className="w-full h-full flex">
                 <SubmenuComponent dataComponents={newArryDataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
-
-                <div className="col-span-6 md:col-span-5 ">
+                <div className="flex-1 w-full h-full px-5 py-2 ">
                     {dataComponents[optionSelect]?.component}
                 </div>
-
             </div>
-            {
-                modalContacto ? (
-                    <Modal classe={"w-[28%] h-[86%]"}>
-                        <ContactarGold openModal={modalContacto} setOpenModal={setModalContacto} />
-                    </Modal>
-                ) :
-                    null
+            {modalContacto && <Modal classe={"w-[28%] h-[86%]"}>
+                <ContactarGold openModal={modalContacto} setOpenModal={setModalContacto} />
+            </Modal>
             }
         </>
     )

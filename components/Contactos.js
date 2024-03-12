@@ -9,17 +9,17 @@ export const Contactos = () => {
     const [optionSelect, setOptionSelect] = useState(2)
     const dataComponents = [
         {
-            icon: <InvitadosContactos/>,
+            icon: <InvitadosContactos />,
             title: "Personas",
-            component: <ContactosComponent/>
+            component: <ContactosComponent />
         },
         {
-            icon: <BusinessIcon/>,
+            icon: <BusinessIcon />,
             title: "Empresas",
-            component: <EmpresasComponent/>
+            component: <EmpresasComponent />
         },
         {
-            component: <InfoContactosPage/>
+            component: <InfoContactosPage />
         }
     ]
 
@@ -29,9 +29,9 @@ export const Contactos = () => {
 
     return (
         <>
-            <div className="md:grid grid-cols-6 h-full">
+            <div className="w-full h-full flex">
                 <SubmenuComponent dataComponents={dataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
-                <div className="col-span-6 md:col-span-5">
+                <div className="flex-1 flex">
                     {dataComponents[optionSelect].component}
                 </div>
             </div>

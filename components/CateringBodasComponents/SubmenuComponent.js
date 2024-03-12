@@ -22,7 +22,7 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
       {(() => {
         if (screen.width > 640) {
           return (
-            <div className=" hidden md:block bg-gray-200 px-4 py-5 space-y-5 col-span-1 z-10 ">
+            <div className=" hidden md:block bg-gray-200 px-2 py-5 space-y-5 w-[190px] z-10 ">
               {router.pathname == "/business" ? null : eventsGroup?.length !=
                 0 ? (
                 <EventoSelect />
@@ -39,9 +39,8 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
                   <div
                     key={idx}
                     onClick={() => onClick(idx)}
-                    className={`${
-                      optionSelect == idx ? " text-rosa " : " text-azulCorporativo"
-                    } flex text-rosa items-center  space-x-3 cursor-pointer`}
+                    className={`${optionSelect == idx ? " text-rosa " : " text-azulCorporativo"
+                      } flex text-rosa items-center  space-x-3 cursor-pointer`}
                   >
                     <div className="h-full">{item.icon}</div>
                     <div className="text-sm ">
@@ -77,20 +76,18 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
                 </div>
 
                 <div
-                  className={`space-y-5 absolute bg-gray-200 px-4 py-5 rounded-b-lg ${
-                    stateSubOptions
-                      ? "transition w-full duration-500 "
-                      : "transition w-full -translate-y-56 duration-500 top-0  "
-                  }`}
+                  className={`space-y-5 absolute bg-gray-200 px-4 py-5 rounded-b-lg ${stateSubOptions
+                    ? "transition w-full duration-500 "
+                    : "transition w-full -translate-y-56 duration-500 top-0  "
+                    }`}
                 >
                   {dataComponents.map((item, idx) => {
                     return (
                       <div
                         key={idx}
                         onClick={() => onClick(idx)}
-                        className={`${
-                          optionSelect === idx ? " text-rosa " : ""
-                        } flex  items-center  space-x-3 cursor-pointer`}
+                        className={`${optionSelect === idx ? " text-rosa " : ""
+                          } flex  items-center  space-x-3 cursor-pointer`}
                       >
                         <div className="h-full">{item.icon}</div>
                         <div className="text-sm">{item.title}</div>
