@@ -60,12 +60,8 @@ const ComOtros: FC <propsComOtros> = memo(({componentState,setComponentState}) =
             </div>
 
             <div className="flex flex-row items-start justify-start pr-3 pl-0">
-        <Switch
-          className="h-[38px] w-[38px] pt-2"
-          colorScheme="gray"
-          defaultChecked="off"
-          isRequired
-        />
+            <SwichtC/>
+     
           </div>
 
           </div>
@@ -96,12 +92,8 @@ const ComOtros: FC <propsComOtros> = memo(({componentState,setComponentState}) =
               </div>
             </div>
             <div className="flex flex-row items-start justify-start pr-3 pl-0">
-        <Switch
-          className="h-[38px] w-[38px] pt-2"
-          colorScheme="pink"
-          defaultChecked="off"
-          isRequired
-        />
+            <SwichtC/>
+  
           </div>
           </div>
           <div className="self-stretch flex flex-col items-start justify-start pt-[7px] pb-0 pr-7 pl-0 text-smi-3 text-gray-600">
@@ -147,12 +139,8 @@ const ComOtros: FC <propsComOtros> = memo(({componentState,setComponentState}) =
               </div>
             </div>
             <div className="flex flex-row items-start justify-start pr-3 pl-0">
-        <Switch
-          className="h-[38px] w-[38px] pt-2"
-          colorScheme="pink"
-          defaultChecked="off"
-          isRequired
-        />
+            <SwichtC/>
+     
           </div>
           </div>
           <div className="self-stretch flex flex-col items-start justify-start pt-[5.980000019073486px] pb-[0.45999860763549805px] pr-[21px] pl-0 shrink-0 text-smi-3 text-pro-fourvenues-com-beach-aguilas-create-event-1318x573-default-gull-gray">
@@ -182,12 +170,8 @@ const ComOtros: FC <propsComOtros> = memo(({componentState,setComponentState}) =
               </div>
             </div>
             <div className="flex flex-row items-start justify-start pr-3 pl-0">
-        <Switch
-          className="h-[38px] w-[38px] pt-2"
-          colorScheme="pink"
-          defaultChecked="off"
-          isRequired
-        />
+            <SwichtC/>
+        
           </div>
           </div>
           <div className="self-stretch flex flex-col items-start justify-start pt-[5.989999771118164px] px-0 pb-[0.42000389099121094px] shrink-0 text-smi-3 text-pro-fourvenues-com-beach-aguilas-create-event-1318x573-default-gull-gray">
