@@ -98,66 +98,6 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
                 )
               })
             }
-           {/*  <div className="relative w-[120px] h-[120px]">
-              <img
-                className="absolute top-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
-                alt=""
-                src="ModuloEvento/frame-481889@2x.png"
-              />
-              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
-                Bodas
-              </div>
-            </div>
-            <div className="relative w-[120px] h-[120px]">
-              <img
-                className="absolute top-[0px] left-[0px] max-h-full w-[120px] object-cover"
-                alt=""
-                src="ModuloEvento/frame-4818891@2x.png"
-              />
-              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
-                Cumpleaños
-              </div>
-            </div>
-            <div className="relative w-[120px] h-[120px]">
-              <img
-                className="absolute top-[0px] left-[0px] max-h-full w-[120px] overflow-hidden object-cover"
-                alt=""
-                src="ModuloEvento/frame-4818892@2x.png"
-              />
-              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
-                Baby Shower
-              </div>
-            </div>
-            <div className="relative w-[120px] h-[120px]">
-              <img
-                className="absolute top-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
-                alt=""
-                src="ModuloEvento/frame-4818893@2x.png"
-              />
-              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
-                Despedidas
-              </div>
-            </div>
-            <div className="relative w-[120px] h-[120px]">
-              <img
-                className="absolute top-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
-                alt=""
-                src="ModuloEvento/frame-4818894@2x.png"
-              />
-              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
-                Bautizos
-              </div>
-            </div>
-            <div className="relative w-[120px] h-[120px]">
-              <img
-                className="absolute top-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
-                alt=""
-                src="ModuloEvento/frame-4818895@2x.png"
-              />
-              <div className="absolute top-[calc(50%_-_19px)] left-[calc(50%_-_60px)] leading-[30px] font-semibold flex items-center justify-center w-[120px]">
-                Comunión
-              </div>
-            </div> */}
           </div>
         </div>
       </div>

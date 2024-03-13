@@ -60,7 +60,7 @@ export const IndexPage = () => {
             {(() => {
                 if (development == "bodasdehoy") {
                     return (
-                        <>
+                        <div className="flex flex-col">
                             <p className=" hidden md:block mt-1 px-5 text-3xl text-rosa">
                                 Panel De Gestión Para Empresas
                             </p>
@@ -71,7 +71,7 @@ export const IndexPage = () => {
                                 <InfoPage DataArry={DataArry} />
                                 <ModulosEspeciales DataModulos={DataModulos} />
                             </div>
-                        </>
+                        </div>
                     )
                 } else {
                     return (

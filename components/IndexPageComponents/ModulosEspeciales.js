@@ -21,7 +21,7 @@ export const ModulosEspeciales = ({ DataModulos }) => {
                         {
                             DataModulos.map((item, idx) => {
                                 return (
-                                        <div key={idx} className="flex  items-center justify-center cursor-pointer " onClick={()=> router.push(item.route)}>
+                                        <div key={idx} className="flex  items-center justify-center cursor-pointer text-azulCorporativo " onClick={()=> router.push(item.route)}>
                                             <div className="bg-white p-4 rounded-full mr-4 text-rosa">
                                                 {item.icon}
                                             </div>
@@ -46,7 +46,7 @@ export const ModulosEspeciales = ({ DataModulos }) => {
                             DataModulos.map((item, idx) => {
                                 return (
                                     <SwiperSlide  key={idx}>
-                                            <div className="flex  items-center justify-center  ">
+                                            <div className="flex  items-center justify-center text-azulCorporativo  ">
                                                 <div className="bg-white p-4 rounded-full mr-4 text-rosa">
                                                     {item.icon}
                                                 </div>

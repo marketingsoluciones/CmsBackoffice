@@ -12,7 +12,7 @@ export const InfoPage = ({ DataArry }) => {
     return (
         <>
             <div className="bg-white  py-10  space-y-5 rounded-xl">
-                <p className=" text-center px-5 md:px-0 ">Coordina desde tu <span className="text-rosa"> panel de gestión para empresas </span> tus publicaciones en Bodas de Hoy y tus eventos<br /> activos.</p>
+                <p className=" text-center px-5 md:px-0 text-azulCorporativo ">Coordina desde tu <span className="text-rosa"> panel de gestión para empresas </span> tus publicaciones en Bodas de Hoy y tus eventos<br /> activos.</p>
                 <div className="hidden md:block">
                     <div className=" grid grid-cols-3">
                         {
@@ -22,9 +22,9 @@ export const InfoPage = ({ DataArry }) => {
                                         <div className="h-44">
                                             <img src={item.img} alt={item.title} />
                                         </div>
-                                        <p className="font-semibold">{item.title}</p>
+                                        <p className="font-semibold text-azulCorporativo">{item.title}</p>
                                         <div className="h-13 w-[80%]">
-                                            <p className="text-center text-[13px] text-gray-800 ">{item.texto}</p>
+                                            <p className="text-center text-[13px] text-azulCorporativo ">{item.texto}</p>
                                         </div>
                                         <button onClick={() => router.push(item.route)} className="bg-rosa rounded-lg text-white py-1 px-7 shadow-lg text-base " >
                                             {item.button}
