@@ -1,4 +1,3 @@
-import { FC } from "react";
 import Inicio from "../components/NuevoEvento/Principal/Inicio"
 import { useState } from "react"
 import EventosCreados from "../components/NuevoEvento/EventosCreados/PrincipalEventos";
@@ -10,14 +9,12 @@ import Permisos from "../components/NuevoEvento/CrearEvento/Permisos";
 import DescripcionEvento from "../components/NuevoEvento/EventosCreados/PanelEventCreado";
 import { IframeApp } from "../layouts/IframeApp";
 
-const EventosOri: FC = () => {
-
+const EventosOri = () => {
   const [optionSelect, setOptionSelect] = useState(0)
-
+  // handleClickOption se usara mas adelante para poder regresar entre componentes 
   const handleClickOption = (idx) => {
     setOptionSelect(idx);
   };
-
   const dataComponents = [
     {
       component: <Inicio componentState={optionSelect} setComponentState={setOptionSelect} />
@@ -49,10 +46,10 @@ const EventosOri: FC = () => {
   ]
 
   return (
-     <div>
-         <div id="rootElement"/>
-         {dataComponents[optionSelect].component}
-     </div>
+    <div>
+      <div id="rootElement" />
+      {dataComponents[optionSelect].component}
+    </div>
   );
 };
 

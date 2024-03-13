@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import { SubmenuComponent } from "../components/CateringBodasComponents/SubmenuComponent";
-import { MarcasControl, MarcasTable } from "../components/ModuloMarcas/Marcas";
-import {
-  CustomWebsControl,
-  TablePegesList,
-} from "../components/ModuloMarcas/WeddingCustomWebs";
-import { PiBrowsers, PiCertificate } from "react-icons/pi";
+import { MarcasControl } from "../components/ModuloMarcas/Marcas";
+import { TablePegesList } from "../components/ModuloMarcas/WeddingCustomWebs";
+import { PiCertificate } from "react-icons/pi";
 import { IframeMetricool } from "../components/MarcaBlancaMetricool";
 import { IoAnalytics } from "react-icons/io5";
 import { CiViewTable } from "react-icons/ci";
