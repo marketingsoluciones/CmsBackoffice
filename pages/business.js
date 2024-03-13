@@ -13,7 +13,6 @@ import { AuthContextProvider } from "../context";
 
 const Business = () => {
   const [optionSelect, setOptionSelect] = useState(0);
-  const [page, setPage] = useState("principal");
   const { user, development, dispatch } = AuthContextProvider();
   const dataMetricool = user?.authDevelopments.find(
     (element) => element.title === development

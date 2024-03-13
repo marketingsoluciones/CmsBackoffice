@@ -1,4 +1,4 @@
-import { CorazonBodasICon } from "../components/Icons/index"
+import { ArrowLeft, CorazonBodasICon } from "../components/Icons/index"
 import { useRouter } from "next/router"
 export const Marcas = () => {
     const router = useRouter()
@@ -26,12 +26,18 @@ export const Marcas = () => {
         }
     ]
     return (
-        <div className="p-[0.5rem] h-[100vh]">
-            <p className=" text-3xl text-rosa">
-                Marcas
-            </p>
-            <div className="bg-white h-[calc(100%-30px)] md:h-[calc(100%-45px)] rounded-lg ">
-                <div className="grid md:grid-cols-2 justify-items-center bg-grayInformativo rounded-t-lg py-7 md:py-14 px-5 md:px-20 space-y-3 md:space-y-0 " >
+        <div >
+            <div>
+                <div onClick={() => "setComponentState(5)"} className="w-5 h-5 top-2 left-3 text-gray-700 cursor-pointer">
+                    <ArrowLeft />
+                </div>
+
+                <p className=" text-3xl text-rosa">
+                    Marcas
+                </p>
+            </div>
+            <div className="bg-white h-[calc(100vh-145px)] md:h-[calc(100vh-145px)] rounded-lg overflow-auto">
+                <div className="grid md:grid-cols-2 justify-items-center bg-grayInformativo py-7 md:py-14 px-5 md:px-20 space-y-3 md:space-y-0 " >
                     <div className="text-[20px] md:text-[24px] text-azulCorporativo">
                         <span className="text-rosa font-semibold">Registra</span> tu empresa de bodas
                     </div>
