@@ -20,7 +20,7 @@ const Slug = ({ slug, props }) => {
   }, [slug, r]);
 
   return (
-    <Flex as={"section"} flexDir={"column"} gap={"1rem"} h={"100%"} w={"100%"}>
+    <Flex as={"section"} flexDir={"column"} gap={"1rem"} h={"100%"} w={"100%"} className="px-5 py-2">
       {state.type === "view" && (
         <PanelViewTable slug={slug} dispatch={dispatch} />
       )}

@@ -107,12 +107,12 @@ export const PanelViewTable = ({ slug, dispatch }) => {
       {validationData &&
         <>
 
-          <div className="w-full px-5">
+          <div className="w-full space-y-2">
             <div className=" flex justify-between w-100%">
               <Box>
                 <Heading textTransform={"capitalize"} className="mt-2 text-3xl">
                   <div className="text-slate-600 mt-2 text-3xl">
-                    <Text className=" text-rosa ">{/* ${selected?.father}/ */}{`${selected?.title}`}</Text>
+                    <Text className=" text-rosa font-normal">{/* ${selected?.father}/ */}{`${selected?.title}`}</Text>
                   </div>
                 </Heading>
               </Box>
@@ -136,9 +136,9 @@ export const PanelViewTable = ({ slug, dispatch }) => {
                 Añadir registro
               </button>
               <div className=" w-[44%]">
-                <button onClick={() => router.push(`${selected?.resumenRout}`)} type="button" className="border border-rosa px-3 rounded-lg text-rosa text-base hidden md:block">
+                {/* <button onClick={() => router.push(`${selected?.resumenRout}`)} type="button" className="border border-rosa px-3 rounded-lg text-rosa text-base hidden md:block">
                   ver resumen
-                </button>
+                </button> */}
                 <div className=" absolute h-8  rounded-md px-2 flex items-center  border-gray-400 border-2  bottom-0.5 right-0 w-1/3 ">
                   <SearchIcon />
                   <GlobalFilter
