@@ -43,14 +43,16 @@ const EventosOri: FC = () => {
     {
       component: <DescripcionEvento componentState={optionSelect} setComponentState={setOptionSelect} />
     },
+    {
+      component: <IframeApp route={"/"} />
+    },
   ]
 
   return (
-    <IframeApp route={"/"} />
-    // <div>
-    //     <div id="rootElement"/>
-    //     {dataComponents[optionSelect].component}
-    // </div>
+     <div>
+         <div id="rootElement"/>
+         {dataComponents[optionSelect].component}
+     </div>
   );
 };
 
