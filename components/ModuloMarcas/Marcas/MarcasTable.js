@@ -8,9 +8,9 @@ export const MarcasTable = ({ dispatch }) => {
     const [seteador, setSeteador] = useState(() => () => { })
 
     return (
-        <div className="space-y-4 w-full h-full">
+        <div className="space-y-4 w-full ">
             <div>
-                <div onClick={() => "setComponentState(5)"} className="w-5 h-5 top-2 left-3 text-gray-700 cursor-pointer">
+                <div onClick={() => "setComponentState(5)"} className="w-5 h-5 top-2 left-3 text-gray-700 cursor-pointer ">
                     <ArrowLeft />
                 </div>
                 <p className=" mt-1 text-3xl text-rosa font-semibold">
@@ -30,7 +30,7 @@ export const MarcasTable = ({ dispatch }) => {
                     />
                 </div>
             </div>
-            <div className="bg-white space-y-5 rounded-xl flex flex-col py-2 px-4  ">
+            <div className="bg-white space-y-5 rounded-xl flex flex-col py-2 px-4   ">
                 <OnlyViewTable slug={"business"} dispatch={dispatch} setbuscador={setSeteador} />
             </div>
         </div>

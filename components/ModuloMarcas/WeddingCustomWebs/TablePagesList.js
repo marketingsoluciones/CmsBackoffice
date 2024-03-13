@@ -39,7 +39,7 @@ export const TablePegesList = ({ setComponentState }) => {
                                 />
                             </div>
                         </div>
-                        <div className="bg-white space-y-5 rounded-xl flex flex-col py-2 px-4  ">
+                        <div className="bg-white space-y-5 rounded-xl flex flex-col py-2 px-4   ">
                             <OnlyViewTable slug={"customWebBuilder"} dispatch={dispatch} setbuscador={setSeteador} />
                         </div>
                     </div>
