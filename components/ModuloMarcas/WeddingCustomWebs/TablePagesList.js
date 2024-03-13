@@ -17,7 +17,7 @@ export const TablePegesList = ({ setComponentState }) => {
         <>
             {
                 state?.type === "view" &&
-                    <div className="space-y-4 w-full h-full" >
+                    <div className="space-y-4 w-full h-full px-5 py-2" >
                         <div>
                             <div onClick={() => router.push("/")} className="w-5 h-5  text-gray-700 cursor-pointer">
                                 <ArrowLeft />
