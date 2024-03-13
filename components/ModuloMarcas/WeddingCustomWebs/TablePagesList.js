@@ -14,7 +14,7 @@ export const TablePegesList = ({ setComponentState }) => {
     const [seteador, setSeteador] = useState(() => () => { })
 
     return (
-        <>
+        <div className="px-5 py-2">
             {state?.type === "view" && <div className="space-y-4 w-full h-full" >
                 <div>
                     <div onClick={() => router.push("/")} className="w-5 h-5  text-gray-700 cursor-pointer">
@@ -46,8 +46,6 @@ export const TablePegesList = ({ setComponentState }) => {
                 <WebBuilder id={state.data._id} />
             )
             }
-
-        </>
-
+        </div>
     )
 }

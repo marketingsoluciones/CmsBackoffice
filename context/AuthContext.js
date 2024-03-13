@@ -56,6 +56,7 @@ const AuthProvider = ({ children }) => {
   const [changedForm, setChangedForm] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
   const [geoInfo, setGeoInfo] = useState();
+  const [showApp, setShowApp] = useState(false);
 
 
   useEffect(() => {
@@ -198,7 +199,7 @@ const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ user, setUser, verificationDone, setVerificationDone, state, dispatch, development, setDevelopment, domain, config, verificandoCookie, setVerificandoCookie, changedForm, setChangedForm, geoInfo }}>
+    <AuthContext.Provider value={{ user, setUser, verificationDone, setVerificationDone, state, dispatch, development, setDevelopment, domain, config, verificandoCookie, setVerificandoCookie, changedForm, setChangedForm, geoInfo, showApp, setShowApp }}>
       {children}
     </AuthContext.Provider>
   );

@@ -18,7 +18,7 @@ export const ItinerarioWeddingPlanner = ({ setComponentState }) => {
     ]
 
     return (
-        <div className="w-full h-full">
+        <div className="w-full h-full px-5 py-2">
             {eventsGroup.length == 0
                 ? <ItinerarioInfoPage setOptionSelect={setOptionSelect} setComponentState={setComponentState} idxComponent={5} />
                 : <div>

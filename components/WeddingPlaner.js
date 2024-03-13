@@ -16,6 +16,7 @@ import { Modal } from "./modals/Modal";
 import { ContactarGold } from "./formularios/ContactarGold";
 import { ListaInvitados } from "./LugaresBodasComponents/ListaInvitados";
 import { TablePegesList } from "./ModuloMarcas/WeddingCustomWebs";
+import { IframeApp } from "../layouts/IframeApp";
 
 export const WeddingPlanner = () => {
   const [optionSelect, setOptionSelect] = useState(5);
@@ -25,42 +26,37 @@ export const WeddingPlanner = () => {
     {
       icon: <InvitadosCatering />,
       title: "Lista de invitados",
-      component: <ListaInvitados setComponentState={setOptionSelect} />,
+      component: <IframeApp route="invitados" />,//<ListaInvitados setComponentState={setOptionSelect} />,
+      type: "iframe",
     },
     {
       icon: <PresupuestoIcon />,
       title: "Presupuesto",
-      component: <Presupuesto setComponentState={setOptionSelect} />,
+      component: <IframeApp route="presupuesto" />,//<Presupuesto setComponentState={setOptionSelect} />,
+      type: "iframe",
     },
     {
       icon: <CorreoIcon />,
       title: "Invitaciones",
-      component: (
-        <InvitacionesWeddinPlanner setComponentState={setOptionSelect} />
-      ),
+      component: <IframeApp route="invitaciones" />,//<InvitacionesWeddinPlanner setComponentState={setOptionSelect} />,
+      type: "iframe",
     },
     {
       icon: <ItinerarioCatering />,
       title: "Intinerarios",
-      component: (
-        <ItinerarioWeddingPlanner setComponentState={setOptionSelect} />
-      ),
+      component: <ItinerarioWeddingPlanner setComponentState={setOptionSelect} />,
     },
     {
       icon: <Webs />,
       title: "Tus Paginas Web",
-      component: (
-        <TablePegesList setComponentState={setOptionSelect} />
-      ),
+      component: <TablePegesList setComponentState={setOptionSelect} />,
     },
     {
-      component: (
-        <InfoWeddinPlannrePage
-          setOptionSelect={setOptionSelect}
-          modalContacto={modalContacto}
-          setModalContacto={setModalContacto}
-        />
-      ),
+      component: <InfoWeddinPlannrePage
+        setOptionSelect={setOptionSelect}
+        modalContacto={modalContacto}
+        setModalContacto={setModalContacto}
+      />,
     },
   ];
   const handleClickOption = (idx) => {
@@ -72,13 +68,13 @@ export const WeddingPlanner = () => {
 
   return (
     <>
-      <div className="h-full flex w-[100%]">
+      <div className={`flex h-full ${dataComponents[optionSelect].type !== "iframe" && "w-full"}`}>
         <SubmenuComponent
           dataComponents={newArryDataComponents}
           optionSelect={optionSelect}
           onClick={handleClickOption}
         />
-        <div className="flex-1 w-full z-10 px-5 py-2">
+        <div className="flex-1">
           {dataComponents[optionSelect].component}
         </div>
       </div>

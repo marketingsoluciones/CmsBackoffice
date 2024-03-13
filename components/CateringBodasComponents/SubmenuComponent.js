@@ -13,7 +13,7 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [stateSubOptions, setStateSubOptions] = useState(false);
   const router = useRouter();
-  console.log(optionSelect);
+
   return (
     <>
       <ModalLeft state={isMounted} set={setIsMounted}>
@@ -34,7 +34,6 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
               )}
 
               {dataComponents.map((item, idx) => {
-                console.log("dentro del map", idx)
                 return (
                   <div
                     key={idx}

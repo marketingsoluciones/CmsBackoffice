@@ -9,6 +9,7 @@ import { InfoLugaresBodas } from "./LugaresBodasComponents/InfoLugaresBodas"
 import { Modal } from "./modals/Modal"
 import { ContactarGold } from "./formularios/ContactarGold"
 import { useRouter } from "next/router"
+import { IframeApp } from "../layouts/IframeApp";
 
 
 export const LugaresBodas = () => {
@@ -30,12 +31,14 @@ export const LugaresBodas = () => {
         {
             icon: <PlanoEventoIcon />,
             title: "Plano del evento",
-            component: <PlanoEvento componentState={optionSelect} setComponentState={setOptionSelect} />
+            component: <IframeApp route="mesas" />,//<PlanoEvento componentState={optionSelect} setComponentState={setOptionSelect} />
+            type: "iframe",
         },
         {
             icon: <InvitadosCatering />,
             title: "Lista de invitados",
-            component: <ListaInvitados setComponentState={setOptionSelect} />
+            component: <IframeApp route="invitados" />,//<ListaInvitados setComponentState={setOptionSelect} />
+            type: "iframe",
         },
         {
             icon: <ItinerarioCatering />,
@@ -55,9 +58,9 @@ export const LugaresBodas = () => {
 
     return (
         <>
-            <div className="md:grid md:grid-cols-6 h-full w-[100%]">
+            <div className={`flex h-full ${dataComponents[optionSelect].type !== "iframe" && "w-full"}`}>
                 <SubmenuComponent dataComponents={newArryDataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
-                <div className="col-span-6 md:col-span-5 ">
+                <div className="flex-1">
                     {dataComponents[optionSelect].component}
                 </div>
             </div>

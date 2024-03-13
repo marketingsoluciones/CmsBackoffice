@@ -12,6 +12,7 @@ import { ContactarGold } from "./formularios/ContactarGold"
 import { EventsGroupContextProvider } from "../context/EventsGroupContext"
 import { useRouter } from "next/router"
 import { ListaInvitados } from "./LugaresBodasComponents/ListaInvitados"
+import { IframeApp } from "../layouts/IframeApp"
 
 
 export const CateringBodas = () => {
@@ -44,7 +45,8 @@ export const CateringBodas = () => {
         {
             icon: <InvitadosCatering />,
             title: "Lista de Invitados",
-            component: <ListaInvitados setComponentState={setOptionSelect} eventsGroup={eventsGroup} />
+            component: <IframeApp route= "invitados" />,//<ListaInvitados setComponentState={setOptionSelect} eventsGroup={eventsGroup} />
+            type: "iframe",
         },
         {
             icon: <ItinerarioCatering />,
@@ -64,13 +66,10 @@ export const CateringBodas = () => {
 
     return (
         <>
-            <div className="flex h-full w-full">
-                <div className="w-full h-full flex">
-                    {optionSelect > -1 && <SubmenuComponent dataComponents={newArryDataComponents} optionSelect={optionSelect} onClick={handleClickOption} />}
-                    <div className="flex-1">
-                        {dataComponents[optionSelect]?.component}
-                    </div>
-
+            <div className={`flex h-full ${dataComponents[optionSelect].type !== "iframe" && "w-full"}`}>
+                {optionSelect > -1 && <SubmenuComponent dataComponents={newArryDataComponents} optionSelect={optionSelect} onClick={handleClickOption} />}
+                <div className="flex-1">
+                    {dataComponents[optionSelect]?.component}
                 </div>
             </div >
             {modalContacto && <Modal classe={"w-[28%] h-[86%]"}>

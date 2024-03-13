@@ -35,8 +35,8 @@ export const InfoWeddinPlannrePage = ({ setOptionSelect, modalContacto, setModal
     ]
 
     return (
-        <div className="">
-            <p className="  mt-1 text-3xl text-rosa">
+        <div className="px-5 py-2">
+            <p className="mt-1 text-3xl text-rosa">
                 Wedding Planner
             </p>
             <div className="bg-white rounded-xl md:h-[calc(100vh-125px)] h-[calc(100%-200px)] overflow-auto">

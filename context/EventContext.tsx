@@ -108,11 +108,6 @@ const EventProvider = ({ children }) => {
     //console.log("seteado event _________________________")
     console.log("seteado event", event)
     setAllFilterGuests({ ...getAllFilterGuest(event), update: new Date().getTime() })
-    socket?.emit(`cms:message`, {
-      receiver: fatherID,
-      context: "event",
-      eventID: event?._id,
-    });
     //console.log("---------------------------------------")
   }, [event])
 

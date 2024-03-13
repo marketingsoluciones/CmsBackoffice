@@ -40,7 +40,7 @@ export const InfoCateringBodas = ({ setOptionSelect, modalContacto, setModalCont
     ]
 
     return (
-        <div className=" px-5 py-2 ">
+        <div className="px-5 py-2">
             <p className="  mt-1 text-3xl text-rosa">
                 Catering de Bodas
             </p>
