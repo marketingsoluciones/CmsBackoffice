@@ -6,12 +6,12 @@ import { Modal } from "../modals/Modal"
 import { PDFViewer } from "@react-pdf/renderer"
 import { ArrowLeft } from "../Icons/index"
 
-export const Itinerario = ({ setChildrenComponentState }) => {
+export const Itinerario = ({  setComponentState, idxComponent }) => {
     const [IterArryst, setIterArryst] = useState([])
     const [createPdf, setCreatePdf] = useState(false)
 
     return (<>
-        <div onClick={() => setChildrenComponentState(0)} className="flex items-center z-10 text-gray-700 cursor-pointer py-1 space-x-2">
+        <div onClick={() => setComponentState(idxComponent)} className="flex items-center z-10 text-gray-700 cursor-pointer py-1 space-x-2">
             <ArrowLeft className="w-5 h-5" /> 
             <span>Volver</span>
         </div>

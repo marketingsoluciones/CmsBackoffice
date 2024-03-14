@@ -8,7 +8,7 @@ export const MarcasTable = ({ dispatch }) => {
     const [seteador, setSeteador] = useState(() => () => { })
 
     return (
-        <div className="space-y-4 w-full ">
+        <div className="space-y-4 w-full h-[calc(100vh-70px)] overflow-auto ">
             <div>
                 <div onClick={() => "setComponentState(5)"} className="w-5 h-5 top-2 left-3 text-gray-700 cursor-pointer ">
                     <ArrowLeft />
