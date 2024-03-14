@@ -3,9 +3,10 @@ import { AuthContextProvider } from "../../context/AuthContext"
 import { SearchIcon } from "../Icons/index"
 import GlobalFilter from "../Datatable/GlobalFilter"
 import { OnlyViewTable } from "../PanelViewTable"
+import { ArrowLeft } from "lucide-react"
 
 
-export const EmpresasContactoTable = ({modalEmpresa, setModalEmpresa}) => {
+export const EmpresasContactoTable = ({ modalEmpresa, setModalEmpresa, setOptionSelect }) => {
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
     const { state, dispatch } = AuthContextProvider()
@@ -13,7 +14,9 @@ export const EmpresasContactoTable = ({modalEmpresa, setModalEmpresa}) => {
         <>
             <div className="space-y-4 w-full  ">
                 <div>
-
+                    <div onClick={() => setOptionSelect(3)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
+                        <ArrowLeft />
+                    </div>
                     <p className=" mt-1 text-3xl text-rosa ">
                         Empresas
                     </p>
@@ -22,7 +25,7 @@ export const EmpresasContactoTable = ({modalEmpresa, setModalEmpresa}) => {
                 </div>
 
                 <div className="relative">
-                    <button onClick={()=> setModalEmpresa(!modalEmpresa)} className="bg-rosa rounded-lg px-4 py-1 text-white text-base">
+                    <button onClick={() => setModalEmpresa(!modalEmpresa)} className="bg-rosa rounded-lg px-4 py-1 text-white text-base">
                         + Persona
                     </button>
 

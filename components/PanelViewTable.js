@@ -245,7 +245,7 @@ export const OnlyViewTable = ({ slug, dispatch, setbuscador }) => {
       if (hasRole(development, user, selected.roles)) {
         const variables = { development: development, domain: "diariocivitas", skip, limit, sort: { [sortCriteria]: sort } }
         if (!user?.role.includes("admin", "editor")) {
-          variables = { ...variables, authorUid: user?.uid, userUid: user?.uid }
+          variables = { ...variables, authorUid: user?.uid, userUid: user?.uid, args: { author: user?.uid } }
         }
         setQuery({
           ...selected.getData,

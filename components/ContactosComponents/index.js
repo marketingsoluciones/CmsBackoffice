@@ -1,0 +1,7 @@
+export * from "./AddContactoComponent"
+export * from "./AddEmpresaComponent"
+export * from "./EmpresaComponent"
+export * from "./EmpresasTable"
+export * from "./InfoContactosPage"
+export * from "./PersonasComponent"
+export * from "./PersonasTable"

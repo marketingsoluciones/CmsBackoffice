@@ -5,7 +5,7 @@ import GlobalFilter from "../Datatable/GlobalFilter"
 import { OnlyViewTable } from "../PanelViewTable"
 
 
-export const PersonasContactoTable = ({ modalPersona, setModalPersona }) => {
+export const PersonasContactoTable = ({ modalPersona, setModalPersona, setOptionSelect }) => {
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
     const { state, dispatch } = AuthContextProvider()

@@ -164,7 +164,7 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                                 }
                             }
                           >
-                            <Center fontSize={{ base: "10px", "2xl": "12px" }} textAlign={"center"}>
+                            <Center fontSize={{ base: "10px", "2xl": "12px" }} >
                               {column.render("Header")}
                               {/*  <span>
                         {column.isSorted

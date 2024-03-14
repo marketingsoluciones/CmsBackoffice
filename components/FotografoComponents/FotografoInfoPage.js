@@ -21,7 +21,7 @@ export const FotografoInfoPage = ({ modalContacto, setModalContacto, setOptionSe
 
     return (
         <div className="w-full h-full">
-            <p className=" mt-1 text-3xl text-rosa font-semibold">
+            <p className=" mt-1 text-3xl text-rosa ">
                 Fotógrafos
             </p>
 

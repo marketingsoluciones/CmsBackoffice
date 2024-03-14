@@ -4,7 +4,7 @@ import { AddContactoComponent } from "./AddContactoComponent"
 import { VistaSinDatos } from "../VistaSinDatos"
 import { PersonasContactoTable } from "./PersonasTable"
 
-export const ContactosComponent = () => {
+export const ContactosComponent = ({setOptionSelect}) => {
     const [modalPersona, setModalPersona] = useState(false)
     const [state, setState] = useState(true)
 
@@ -12,7 +12,7 @@ export const ContactosComponent = () => {
         <>
             <div className="px-5 py-2 w-full h-full">
                 {state
-                    ? <PersonasContactoTable modalPersona={modalPersona} setModalPersona={setModalPersona} />
+                    ? <PersonasContactoTable modalPersona={modalPersona} setModalPersona={setModalPersona} setOptionSelect={setOptionSelect} />
                     : <VistaSinDatos
                         title={"Contactos"}
                         button={"+ Persona"}
