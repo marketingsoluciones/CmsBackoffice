@@ -22,7 +22,7 @@ export const InfoPageCalendario = () => {
 
     return (
         <>
-            <div className="bg-white space-y-2 rounded-xl  flex flex-col items-center justify-center h-full pt-10 pb-5">
+            <div className="bg-white space-y-2 rounded-xl  flex flex-col items-center justify-center h-[calc(100vh-120px)] pt-10 pb-5">
 
                 <img src="/photoCalendari.png" alt="alta" className="w-[80%] md:w-[30%]" />
 

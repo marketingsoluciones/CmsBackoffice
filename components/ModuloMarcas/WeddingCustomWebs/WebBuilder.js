@@ -365,6 +365,7 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
                 code: JSON.stringify(editor.getProjectData()),
               },
             },
+            type: "formData",
             development: "bodasdehoy",
           }).then((result) => {
             id = result._id;
