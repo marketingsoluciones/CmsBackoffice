@@ -16,9 +16,9 @@ export const HeaderIter: FC<HeaderIterProps> = ({ IterArryst, setIterArryst, set
                 <div className=" text-gray-500 text-[13px]">
                     Crea intinerarios para tus clientes
                 </div>
-                <div className="cursor-pointer">
+                {/* <div className="cursor-pointer">
                     <LiaDownloadSolid className="h-auto w-5" />
-                </div>
+                </div> */}
             </div>
         </>
     )

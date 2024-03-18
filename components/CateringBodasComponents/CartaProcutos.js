@@ -22,18 +22,12 @@ export const CartaProducto = ({ setComponentState }) => {
 
     return (
         <div className="px-5 py-2 w-full h-full">
-            {eventsGroup.length 
-                ? <InfoCartaProducto actionButton={state} setActionButton={setState} setComponentState={setComponentState} />
-                : state2
-                    ? <div>
+            {
+                eventsGroup.length ?
+                    <div>
                         {dataComponents[optionSelect].component}
-                    </div>
-                    : <VistaSinDatos
-                        title={"Carta de productos"}
-                        button={"Añadir producto"}
-                        text={"Aún no tienes Productos en tu carta"}
-                        accion={"añade tu productos"}
-                    />
+                    </div> :
+                    <InfoCartaProducto setComponentState={setComponentState} />
             }
         </div >
     )

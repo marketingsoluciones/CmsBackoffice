@@ -507,7 +507,7 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
         }
       },
       addPage: () => {
-        if (pages.length < 8) {
+        if (pages.length < 10) {
           const resp = pm.add({ name: `sin nombre` });
         }
       },

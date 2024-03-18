@@ -3,7 +3,7 @@ import { ArrowLeft } from "../../Icons/index"
 import { useToast } from "../../../hooks/useToast"
 import { EventContextProvider } from "../../../context/EventContext"
 
-export const InfoCartaProducto = ({ actionButton, setActionButton, setComponentState }) => {
+export const InfoCartaProducto = ({ setComponentState }) => {
     const { event } = EventContextProvider()
 
     const toast = useToast()
@@ -27,7 +27,7 @@ export const InfoCartaProducto = ({ actionButton, setActionButton, setComponentS
                             <span className="text-rosa">Genera tu propia carta de productos</span> añadiendo platos y bebidas de tu restaurante para crear el menú de cada uno de sus eventos.
                         </p>
                         <div>
-                            <button onClick={() => event != null ? setState(!state) : toast("error", "Crea un evento para gestionar tu lista de invitados")} className="bg-rosa rounded-lg px-4 py-1 text-white text-base">
+                            <button onClick={() => event != null && toast("error", "No tienes eventos para poder acceder, crea un evento")} className="bg-rosa rounded-lg px-4 py-1 text-white text-base">
                                 Crear carta de productos
                             </button>
                         </div>
