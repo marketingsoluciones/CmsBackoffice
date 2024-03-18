@@ -1,16 +1,10 @@
 import { Formik, Form } from "formik"
 import { InputFieldGlobal } from "../../formularios/Inputs/InputFieldGlobal"
 import { SelectField } from "../../formularios/Inputs/SelectField"
-import { Altramuces, Apio, ArrowDownIcon, ArrowLeft, Azucar, Cacahuetes, Crustaceos, FrutosCascara, Gluten, Huevos, Lacteos, Moluscos, Mostaza, Pescado, Sesamo, Soja, Sulfitos } from "../../Icons/index"
-import { AlergenosModal } from "./AlergenosModal"
-import { useState } from "react"
+import { ArrowDownIcon, ArrowLeft } from "../../Icons/index"
+import { AlergenosInput } from "./AlergenosInput"
 
 export const AgregarProducto = ({ setActionButton, setChildrenComponentState }) => {
-
-    const [openAlergenosModal, setOpenAlergenosModal] = useState(false)
-    const [addAlergenos, setAddAlergenos] = useState([])
-
-
     const initialValues = {
         nombre: "",
         categoria: "",
@@ -28,69 +22,6 @@ export const AgregarProducto = ({ setActionButton, setChildrenComponentState }) 
         "Lista de aperitivos ",
         "Listado de entradas ",
         "Listado de postres"
-    ]
-
-    const DataAlergenos = [
-        {
-            icon: <Gluten />,
-            title: "Gluten"
-        },
-        {
-            icon: <Crustaceos />,
-            title: "Crustáceos"
-        },
-        {
-            icon: <Huevos />,
-            title: "Huevos"
-        },
-        {
-            icon: <Sesamo />,
-            title: "Sésamo"
-        },
-        {
-            icon: <Azucar />,
-            title: "Azúcar"
-        },
-        {
-            icon: <Apio />,
-            title: "Apio"
-        },
-        {
-            icon: <Cacahuetes />,
-            title: "Cacahuetes"
-        },
-        {
-            icon: <Moluscos />,
-            title: "Moluscos"
-        },
-        {
-            icon: <Sulfitos />,
-            title: "Sulfitos"
-        },
-        {
-            icon: <Lacteos />,
-            title: "Lácteos"
-        },
-        {
-            icon: <Mostaza />,
-            title: "Mostaza"
-        },
-        {
-            icon: <FrutosCascara />,
-            title: "Frutos Cascara"
-        },
-        {
-            icon: <Soja />,
-            title: "Soja"
-        },
-        {
-            icon: <Altramuces />,
-            title: "Altramuces"
-        },
-        {
-            icon: <Pescado />,
-            title: "Pescado"
-        },
     ]
 
     return (
@@ -133,21 +64,9 @@ export const AgregarProducto = ({ setActionButton, setChildrenComponentState }) 
                                 />
                             </div>
                         </div>
-                        <div className="flex flex-col mb-5 md:mb-10 space-y-1 relative">
-                            <label className="text-gray-500">Alérgenos</label>
-                            <label className="text-gray-500 text-sm">Indica si este plato tiene algun alérgeno</label>
-                            <div onClick={() => setOpenAlergenosModal(!openAlergenosModal)} className="cursor-pointer capitalize text-sm  border border-gray-300  transition w-full py-6 px-2 mt-1 rounded-lg focus:outline-none relative " >
-                                <div>
 
-                                </div>
-                                <div className={`absolute right-5 top-3.5 text-gray-600 transition ${openAlergenosModal && "rotate-180"} `}>
-                                    <ArrowDownIcon />
-                                </div>
-                            </div>
-                            <div className={`absolute -top-52 right-10  ${!openAlergenosModal ? "hidden" : ""}`}>
-                                <AlergenosModal DataAlergenos={DataAlergenos} openModal={openAlergenosModal} setOpenModal={setOpenAlergenosModal} />
-                            </div>
-                        </div>
+                        <AlergenosInput name="alergenos" />
+
                         <div className="flex justify-center space-x-5">
                             <button className="px-4 py-2 bg-gray-400 rounded-lg text-white text-base" onClick={() => setActionButton(0)} type="button">
                                 cancelar

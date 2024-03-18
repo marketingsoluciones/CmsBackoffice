@@ -2,11 +2,28 @@ import { FC } from "react"
 import ClickAwayListener from "react-click-away-listener"
 
 interface PropsAlergenosModal {
-    DataAlergenos: any
-    setOpenModal: any
-    openModal: any
+    DataAlergenos?: any
+    setOpenModal?: any
+    openModal?: any
+    setAddAlergenos?: any
+    addAlergenos?: any
+    value?: any
 }
-export const AlergenosModal: FC<PropsAlergenosModal> = ({ DataAlergenos, setOpenModal, openModal }) => {
+export const AlergenosModal: FC<PropsAlergenosModal> = ({ DataAlergenos, setOpenModal, openModal, setAddAlergenos, addAlergenos, value }) => {
+
+    const handleClick = (item: any) => {
+        setAddAlergenos((old: any) => {
+            const f1 = old.findIndex(elem => elem.title === item.title)
+            if (f1 < 0) {
+                old.push(item)
+                return [...old]
+            }
+            if (f1 > -1) {
+                old.splice(f1, 1)
+                return [...old]
+            }
+        })
+    }
 
     return (
         <ClickAwayListener onClickAway={() => openModal && setOpenModal(false)}>
@@ -14,7 +31,11 @@ export const AlergenosModal: FC<PropsAlergenosModal> = ({ DataAlergenos, setOpen
                 {
                     DataAlergenos.map((item: any, idx: any) => {
                         return (
-                            <div key={idx} className="flex flex-col items-center justify-center cursor-pointer hover:bg-gray-400 w-[80px] py-1 rounded-lg" >
+                            <div
+                                key={idx}
+                                className={`flex flex-col items-center justify-center cursor-pointer hover:bg-gray-400 w-[80px] py-1 rounded-lg ${value.includes(item.title) ? "bg-slate-300" : "bg-none"} `}
+                                onClick={() => { handleClick(item) }}
+                            >
                                 <div>
                                     {item.icon}
                                 </div>

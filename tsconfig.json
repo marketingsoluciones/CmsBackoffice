@@ -38,7 +38,7 @@
     "components/formularios/FormEditarInvitado.js",
     "components/NuevoEvento/Principal/ModoDemo.tsx",
     "layouts/IframeApp.js"
-  ],
+, "components/CateringBodasComponents/CartaProductosComponents/AlergenosInput.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,8 +1,5 @@
-import { useEffect, useState } from "react"
 import ClickAwayListener from "react-click-away-listener"
-export const ResponsableList = ({ selectIcon, openModal, setOpenModal, DataArry, setSelectIcon, value }) => {
-    console.log(selectIcon)
-
+export const ResponsableList = ({  openModal, setOpenModal, DataArry, setSelectIcon, value }) => {
 
     const handleClick = (item) => {
         setSelectIcon((old) => {
