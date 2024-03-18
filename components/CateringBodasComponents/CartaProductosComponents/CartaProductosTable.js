@@ -12,16 +12,17 @@ export const CartaProductosTable = ({ actionButton, setActionButton, setComponen
     const { state, dispatch } = AuthContextProvider()
 
     return (
-        <div className="space-y-4 w-full  ">
+        <div className="space-y-4 w-full h-[calc(100vh-80px)] overflow-auto  ">
             <div>
-                <div onClick={() => setComponentState(5)} className="w-5 h-5 absolute* z-10* top-2 left-3 text-gray-700 cursor-pointer">
+                <div onClick={() => setComponentState(5)} className="w-5 h-5* top-2 left-3 text-gray-700 cursor-pointer ">
                     <ArrowLeft />
                 </div>
-                <p className=" mt-1 text-3xl text-rosa">
+                <p className="  text-3xl text-rosa">
                     Carta de productos
                 </p>
                 <p className=" text-sm bg-white p-2 rounded-lg">Crea tu carta de productos agregando cada uno de tus platos y bebidas.  </p>
             </div>
+
             <div className=" md:relative">
                 <button className="bg-rosa rounded-lg px-4 py-1 text-white " onClick={() => setActionButton(1)}>
                     Añadir producto
@@ -35,7 +36,7 @@ export const CartaProductosTable = ({ actionButton, setActionButton, setComponen
                 </div>
             </div>
             <div className="bg-white space-y-5 rounded-xl flex flex-col py-2 px-4  ">
-                <OnlyViewTable slug={"business"} dispatch={dispatch} setbuscador={setSeteador} />
+                <OnlyViewTable slug={"CartaProducto"} dispatch={dispatch} setbuscador={setSeteador} />
             </div>
         </div>
     )

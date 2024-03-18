@@ -64,9 +64,7 @@ export const AgregarProducto = ({ setActionButton, setChildrenComponentState }) 
                                 />
                             </div>
                         </div>
-
                         <AlergenosInput name="alergenos" />
-
                         <div className="flex justify-center space-x-5">
                             <button className="px-4 py-2 bg-gray-400 rounded-lg text-white text-base" onClick={() => setActionButton(0)} type="button">
                                 cancelar

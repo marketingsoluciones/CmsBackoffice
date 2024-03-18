@@ -17,8 +17,8 @@ export const VerMenu = ({ setChildrenComponentState }) => {
 
 
     return (
-        <>
-            <div className="space-y-4 h-[100vh]">
+        <div className="h-[calc(100vh-90px)] overflow-auto">
+            <div className="space-y-4 ">
                 <div onClick={() => setChildrenComponentState(5)} className="w-5 h-5 absolute* z-10 top-2 left-3 text-gray-700 cursor-pointer">
                     <ArrowLeft />
                 </div>
@@ -53,6 +53,6 @@ export const VerMenu = ({ setChildrenComponentState }) => {
                     </Modal>
                 ) : null
             }
-        </>
+        </div>
     )
 }

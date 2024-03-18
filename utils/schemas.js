@@ -560,11 +560,41 @@ export const BodyStaticAPP = [
         title: null,
         roles: ["admin", "empresa"],
         route: "itinerario",
-        getData: {query: queries.getItinerario},
-        getByID: {query: queries.getItinerario},
+        getData: { query: queries.getItinerario },
+        getByID: { query: queries.getItinerario },
         createEntry: FetchGraphQL.business.createBusiness,
         updateEntry: queries.updateCodePage,
         deleteEntry: FetchGraphQL.business.deleteBusiness,
+        schema: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+        ]
+      },
+      {
+        title: null,
+        roles: ["admin", "empresa"],
+        route: "CartaProducto",
+        getData: null,//sda{query: queries.getItinerario},
+        getByID: null, // {query: queries.getItinerario},
+        createEntry: null,// FetchGraphQL.business.createBusiness,
+        updateEntry: null, // queries.updateCodePage,
+        deleteEntry: null, // FetchGraphQL.business.deleteBusiness,
         schema: [
           {
             Header: "ID",
@@ -667,21 +697,21 @@ export const BodyStaticAPP = [
     ]
   },
 
- /*  Para realizar pruebas esta este menu aparte */
+  /*  Para realizar pruebas esta este menu aparte */
 
   {
     title: "Modulos en Desarrollo",
     roles: ["all"],
     children: [
       {
-        icon: <DemoEnterprice/>,
+        icon: <DemoEnterprice />,
         title: "Demo Enterprice",
         roles: ["all"],
         route: "pruebas1",
       },
     ]
   },
-  
+
   {
     title: "Blog",
     roles: ["all"],
