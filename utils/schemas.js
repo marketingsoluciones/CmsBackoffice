@@ -1,6 +1,6 @@
 import { FetchGraphQL, queries } from "../utils/Fetching";
 import { formatTime } from "../utils/formatTime";
-import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon } from "../components/Icons/index";
+import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, DemoEnterprice } from "../components/Icons/index";
 
 // componentes que definen la estructura del menu, fetchs,columnas visibles en la tabla y los inputs que componen el formulario
 
@@ -669,18 +669,18 @@ export const BodyStaticAPP = [
 
  /*  Para realizar pruebas esta este menu aparte */
 
-/*   {
-    title: "Pruebas",
+  {
+    title: "Modulos en Desarrollo",
     roles: ["all"],
     children: [
       {
-        icon: <MetricasSociales className="" />,
-        title: "Hijo de Pruebas",
+        icon: <DemoEnterprice/>,
+        title: "Demo Enterprice",
         roles: ["all"],
         route: "pruebas1",
       },
     ]
-  }, */
+  },
   
   {
     title: "Blog",

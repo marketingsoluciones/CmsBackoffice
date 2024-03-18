@@ -101,6 +101,16 @@ export const Altramuces: FC<PropsIcon> = (props) => {
   );
 };
 
+export const DemoEnterprice: FC<PropsIcon> = (props) => {
+  return (
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+</svg>
+
+  );
+};
+
+
 export const Soja: FC<PropsIcon> = (props) => {
   return (
     <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">

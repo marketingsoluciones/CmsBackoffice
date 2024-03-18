@@ -60,10 +60,10 @@ const card1: FC <propsCardEventos> = memo(({componentState,setComponentState}) =
               Playa y rumba
             </b>
           </div>
-          <div className="flex flex-col items-start justify-start gap-[7px] text-center text-5xs font-semibold">
+          <div className="flex flex-col items-start justify-start gap-[7px] text-center text-xs font-semibold">
             <div className="self-stretch flex flex-row flex-wrap items-start justify-start py-0 pr-[21px] pl-0 gap-[6px]">
               <div className="rounded-[5.25px] bg-blue-100 text-blue-500 flex flex-col items-center justify-center pt-[3px] pb-[5px] pr-[15px] pl-[17px]">
-                <div className="w-auto h-3 relative leading-[12px] inline-block ">
+                <div className="w-auto h-3 relative leading-[12px] inline-block font-medium">
                   LISTAS
                 </div>
                 <div className="flex flex-row items-center justify-center py-0 pr-[7px] pl-1.5 mt-[-1px] text-2xs-5">

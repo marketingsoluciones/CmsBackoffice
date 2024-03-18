@@ -1,12 +1,7 @@
-import { FC } from "react";
-import Inicio from "../components/NuevoEvento/Principal/Inicio"
-import { useState } from "react"
-import EventosCreados from "../components/NuevoEvento/EventosCreados/PrincipalEventos";
-import InicioCE from "../components/NuevoEvento/CrearEvento/InicioCE";
-import ConfigurarEvento from "../components/NuevoEvento/CrearEvento/ConfigurarEvento";
-import DatoEvento from "../components/NuevoEvento/CrearEvento/DatosEvento";
-import Asistencia from "../components/NuevoEvento/CrearEvento/Asistencia";
-import Permisos from "../components/NuevoEvento/CrearEvento/Permisos";
+import { FC, useState } from "react";
+import PrincipalDE from "../components/NuevoEvento/DemoEnterprice/PrincipalDE";
+import VentasEntradas from "../components/NuevoEvento/DemoEnterprice/VentasEntradas";
+import EntradasGratis from "../components/NuevoEvento/DemoEnterprice/EntradasGratis";
 
 const Prueba1: FC = () => {
   const [optionSelect, setOptionSelect] = useState(0)
@@ -16,30 +11,18 @@ const Prueba1: FC = () => {
 
   const dataComponents = [
     {
-      component: <Inicio componentState={optionSelect} setComponentState={setOptionSelect} />
+      component: <PrincipalDE componentState={optionSelect} setComponentState={setOptionSelect} />
     },
     {
-      component: <EventosCreados componentState={optionSelect} setComponentState={setOptionSelect} />
+      component: <VentasEntradas componentState={optionSelect} setComponentState={setOptionSelect} />
     },
     {
-      component: <InicioCE componentState={optionSelect} setComponentState={setOptionSelect} />
-    },
-    {
-      component: <ConfigurarEvento componentState={optionSelect} setComponentState={setOptionSelect} />
-    },
-    {
-      component: <DatoEvento componentState={optionSelect} setComponentState={setOptionSelect} />
-    },
-    {
-      component: <Asistencia componentState={optionSelect} setComponentState={setOptionSelect} />
-    },
-    {
-      component: <Permisos componentState={optionSelect} setComponentState={setOptionSelect} />
+      component: <EntradasGratis componentState={optionSelect} setComponentState={setOptionSelect} />
     },
   ]
 
   return (
-    <div>
+    <div className="w-[100%] h-[100%]">
       <div id="rootElement" />
       {dataComponents[optionSelect].component}
     </div>
