@@ -74,7 +74,7 @@ const PrincipalDE: FC <propsPrincipalDE> = memo(({componentState,setComponentSta
           </div>
         </div>
       </div>
-      <div className="w-[327.3px] bg-white rounded-md flex flex-col items-start justify-start pt-[7.5px] px-0 pb-0 box-border min-w-[327.3000000000029px] max-w-full text-center text-sm">
+      <div className="w-[327.3px] bg-white rounded-md flex flex-col items-start justify-start pt-[7.5px] px-0 pb-0 box-border min-w-[327.3000000000029px] min-h-[160px] max-w-full text-center text-sm">
         <div className="self-stretch flex flex-col items-start justify-start">
           <div className="self-stretch rounded-2xs-5 bg-primary-contrast flex flex-col items-center justify-center pt-[21px] px-[21px] pb-[31.5px]">
             <div className="h-[35px] flex flex-col items-start justify-start">
