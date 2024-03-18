@@ -80,10 +80,7 @@ export const Responsable = ({ itinerario, handleChange, title, task, ...props })
                                 onClick={() => {
                                     setOpenResponsableList(!openResponsableList)
                                 }} {...props}>
-                                
-                                   
                                     <img src={ResponsablesArry.find((elem) => elem?.title === item)?.icon} className="h-10 " />
-
                             </div>
                         )
                     })}
