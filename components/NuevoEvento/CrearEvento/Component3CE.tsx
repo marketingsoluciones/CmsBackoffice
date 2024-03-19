@@ -141,7 +141,10 @@ ver este evento
           </div>
         </div>
 
-      <div className="cursor-pointer w-auto rounded-md bg-white shadow-[0px_1px_3px_rgba(0,_0,_0,_0.1),_0px_1px_2px_rgba(0,_0,_0,_0.06)] overflow-hidden shrink-0 flex flex-col items-start justify-start">
+      <div onClick={()=>{ 
+        setComponentState(8)
+      }}
+      className="cursor-pointer w-auto rounded-md bg-white shadow-[0px_1px_3px_rgba(0,_0,_0,_0.1),_0px_1px_2px_rgba(0,_0,_0,_0.06)] overflow-hidden shrink-0 flex flex-col items-start justify-start">
           <div className="self-stretch flex flex-row items-start justify-start [row-gap:20px] mq450:flex-wrap">
             <div className="bg-pink-600 flex flex-col items-start justify-start pt-0 px-0 pb-[17.460002899169922px]">
               <div className="flex flex-col items-center justify-start pt-[11.739999771118164px] pb-[12.989999771118164px] pr-[8.039999008178711px] pl-[10.489999771118164px]">
@@ -171,7 +174,10 @@ tantas tarifas como quieras
           </div>
         </div>
 
-        <div className="cursor-pointer w-auto rounded-md bg-white shadow-[0px_1px_3px_rgba(0,_0,_0,_0.1),_0px_1px_2px_rgba(0,_0,_0,_0.06)] overflow-hidden shrink-0 flex flex-col items-start justify-start">
+        <div onClick={()=>{ 
+        setComponentState(9)
+      }}
+        className="cursor-pointer w-auto rounded-md bg-white shadow-[0px_1px_3px_rgba(0,_0,_0,_0.1),_0px_1px_2px_rgba(0,_0,_0,_0.06)] overflow-hidden shrink-0 flex flex-col items-start justify-start">
           <div className="self-stretch flex flex-row items-start justify-start [row-gap:20px] mq450:flex-wrap">
             <div className="bg-pink-600 flex flex-col items-start justify-start pt-0 px-0 pb-[17.460002899169922px]">
               <div className="flex flex-col items-center justify-start pt-[11.739999771118164px] pb-[12.989999771118164px] pr-[8.039999008178711px] pl-[10.489999771118164px]">

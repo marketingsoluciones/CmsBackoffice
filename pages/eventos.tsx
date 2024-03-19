@@ -8,6 +8,9 @@ import Asistencia from "../components/NuevoEvento/CrearEvento/Asistencia";
 import Permisos from "../components/NuevoEvento/CrearEvento/Permisos";
 import DescripcionEvento from "../components/NuevoEvento/EventosCreados/PanelEventCreado";
 import { IframeApp } from "../layouts/IframeApp";
+import DescuentosEvento from "../components/NuevoEvento/CrearEvento/DescuentosEvento";
+import CartaQrEvento from "../components/NuevoEvento/CrearEvento/CartaQrEvento";
+import TarifaListas from "../components/NuevoEvento/CrearEvento/TarifaListas";
 
 const EventosOri = () => {
   const [optionSelect, setOptionSelect] = useState(0)
@@ -41,12 +44,21 @@ const EventosOri = () => {
       component: <DescripcionEvento componentState={optionSelect} setComponentState={setOptionSelect} />
     },
     {
+      component: <DescuentosEvento componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+    {
+      component: <CartaQrEvento componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+    {
+      component: <TarifaListas componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+    {
       component: <IframeApp route={"/"} />
     },
   ]
 
   return (
-    <div>
+    <div className="w-[100%] h-[100%]">
       <div id="rootElement" />
       {dataComponents[optionSelect].component}
     </div>
