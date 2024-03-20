@@ -11,6 +11,8 @@ import { IframeApp } from "../layouts/IframeApp";
 import DescuentosEvento from "../components/NuevoEvento/CrearEvento/DescuentosEvento";
 import CartaQrEvento from "../components/NuevoEvento/CrearEvento/CartaQrEvento";
 import TarifaListas from "../components/NuevoEvento/CrearEvento/TarifaListas";
+import CrearTarifaListas from "../components/NuevoEvento/CrearEvento/CrearTarifaListas";
+import DatosLimiteTL from "../components/NuevoEvento/CrearEvento/DatosLimitesTL";
 
 const EventosOri = () => {
   const [optionSelect, setOptionSelect] = useState(0)
@@ -19,38 +21,57 @@ const EventosOri = () => {
     setOptionSelect(idx);
   };
   const dataComponents = [
+    /* 0 */
     {
       component: <Inicio componentState={optionSelect} setComponentState={setOptionSelect} />
     },
+     /* 1 */
     {
       component: <EventosCreados componentState={optionSelect} setComponentState={setOptionSelect} />
     },
+     /* 2 */
     {
       component: <InicioCE componentState={optionSelect} setComponentState={setOptionSelect} />
     },
+     /* 3 */
     {
       component: <ConfigurarEvento componentState={optionSelect} setComponentState={setOptionSelect} />
     },
+     /* 4 */
     {
       component: <DatoEvento componentState={optionSelect} setComponentState={setOptionSelect} />
     },
+     /* 5 */
     {
       component: <Asistencia componentState={optionSelect} setComponentState={setOptionSelect} />
     },
+     /* 6 */
     {
       component: <Permisos componentState={optionSelect} setComponentState={setOptionSelect} />
     },
+     /* 7 */
     {
       component: <DescripcionEvento componentState={optionSelect} setComponentState={setOptionSelect} />
     },
+     /* 8 */
     {
       component: <DescuentosEvento componentState={optionSelect} setComponentState={setOptionSelect} />
     },
+     /* 9 */
     {
       component: <CartaQrEvento componentState={optionSelect} setComponentState={setOptionSelect} />
     },
+     /* 10 */
     {
       component: <TarifaListas componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+     /* 11 */
+    {
+      component: <CrearTarifaListas componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+     /* 12 */
+    {
+      component: <DatosLimiteTL componentState={optionSelect} setComponentState={setOptionSelect} />
     },
     {
       component: <IframeApp route={"/"} />

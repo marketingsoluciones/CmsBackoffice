@@ -700,14 +700,20 @@ export const BodyStaticAPP = [
   /*  Para realizar pruebas esta este menu aparte */
 
   {
-    title: "Modulos en Desarrollo",
+    title: "Formacion Enterprice",
     roles: ["all"],
     children: [
       {
         icon: <DemoEnterprice />,
-        title: "Demo Enterprice",
+        title: "RRPP Eventos",
         roles: ["all"],
         route: "pruebas1",
+      },
+      {
+        icon: <CampañasIcon />,
+        title: "Eventos",
+        roles: ["all"],
+        route: "eventos",
       },
     ]
   },
@@ -956,6 +962,7 @@ export const BodyStaticAPP = [
       },
     ],
   },
+
   {
     title: "Marketplace",
     roles: ["empresa"],
@@ -974,6 +981,7 @@ export const BodyStaticAPP = [
       },
     ]
   },
+
   {
     title: "Páginas",
     roles: ["admin"],
@@ -1022,6 +1030,7 @@ export const BodyStaticAPP = [
       },
     ]
   },
+  
   {
     title: "Configuracion",
     roles: ["dev"],

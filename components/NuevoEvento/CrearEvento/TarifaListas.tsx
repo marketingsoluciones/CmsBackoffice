@@ -158,7 +158,10 @@ const TarifaListas: FC <propsTarifaListas> = ({componentState,setComponentState}
             Crea una tarifa de listas para permitir que la gente se apunte en
             lista
           </div>
-          <div className="self-stretch flex flex-row items-start justify-center py-0 px-5">
+          <div onClick={()=>{ 
+        setComponentState(11)
+      }}
+          className="self-stretch flex flex-row items-start justify-center py-0 px-5">
             <button className="cursor-pointer [border:none] py-0 px-[10.5px] bg-rosa w-[115px] rounded-md flex flex-row items-center justify-start box-border gap-[6.97px]">
               <div className="flex flex-row items-start justify-center pt-[1.300000000000182px] px-0 pb-[2.699999999999818px]">
                 <div className="h-[13.3px] flex flex-row items-start justify-start text-white font-medium text-md">
