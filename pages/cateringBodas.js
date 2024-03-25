@@ -56,11 +56,11 @@ const cateringBodasPage = () => {
     newArryDataComponents.splice(5, 1)
     return (
         <>
-            <div className={`flex h-full ${dataComponents[optionSelect].type !== "iframe" && "w-full"}`}>
+            <div className={`md:flex h-full ${dataComponents[optionSelect].type !== "iframe" && "w-full"}`}>
                 {optionSelect > -1 &&
                     <SubmenuComponent dataComponents={newArryDataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
                 }
-                <div className="flex-1">
+                <div className="md:flex-1">
                     {dataComponents[optionSelect]?.component}
                 </div>
             </div >

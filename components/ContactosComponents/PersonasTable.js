@@ -11,7 +11,7 @@ export const PersonasContactoTable = ({ modalPersona, setModalPersona, setOption
     const { state, dispatch } = AuthContextProvider()
     return (
         <>
-            <div className="space-y-4 w-full  ">
+            <div className="space-y-4 w-full h-[calc(100vh-80px)] overflow-auto ">
                 <div>
 
                     <p className="mt-1 text-3xl text-rosa ">
@@ -37,7 +37,7 @@ export const PersonasContactoTable = ({ modalPersona, setModalPersona, setOption
 
                 <div className="bg-white space-y-5 rounded-xl flex flex-col py-2 px-4  ">
 
-                    <OnlyViewTable slug={"business"} dispatch={dispatch} setbuscador={setSeteador} />
+                    <OnlyViewTable slug={"contactosPersonas"} dispatch={dispatch} setbuscador={setSeteador} />
 
                 </div>
             </div>

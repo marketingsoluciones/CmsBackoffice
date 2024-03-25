@@ -675,12 +675,72 @@ export const BodyStaticAPP = [
         title: "Contactos",
         roles: ["empresa"],
         route: "contactos",
-        getData: "",
-        getByID: "",
-        createEntry: "",
-        deleteEntry: "",
-        updateEntry: "",
+        getData: null,
+        getByID: null,
+        createEntry: null,
+        deleteEntry: null,
+        updateEntry: null,
         schema: [],
+      },
+      {
+        title: null,
+        roles: ["admin", "empresa"],
+        route: "contactosPersonas",
+        getData: null,
+        getByID: null,
+        createEntry: null,
+        updateEntry: null,
+        deleteEntry: null,
+        schema: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+        ]
+      },
+      {
+        title: null,
+        roles: ["admin", "empresa"],
+        route: "contactosEmpresas",
+        getData: null,
+        getByID: null,
+        createEntry: null,
+        updateEntry: null,
+        deleteEntry: null,
+        schema: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+        ]
       },
     ],
   },
@@ -1030,7 +1090,7 @@ export const BodyStaticAPP = [
       },
     ]
   },
-  
+
   {
     title: "Configuracion",
     roles: ["dev"],

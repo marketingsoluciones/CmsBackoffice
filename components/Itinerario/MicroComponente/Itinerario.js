@@ -92,7 +92,7 @@ export const Itinerario = ({ data }) => {
                 </div>
                 <AddEvent tasks={tasks} itinerario={itinerario} />
             </div>
-            <GuardarButtom />
+            {/* <GuardarButtom /> */}
             {
                 modal ? (
                     <>
