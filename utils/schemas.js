@@ -1,6 +1,7 @@
 import { FetchGraphQL, queries } from "../utils/Fetching";
 import { formatTime } from "../utils/formatTime";
-import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, DemoEnterprice } from "../components/Icons/index";
+import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, DemoEnterprice, RpIcon, ClusterIcon } from "../components/Icons/index";
+import { ClubIcon } from "lucide-react";
 
 // componentes que definen la estructura del menu, fetchs,columnas visibles en la tabla y los inputs que componen el formulario
 
@@ -764,8 +765,8 @@ export const BodyStaticAPP = [
     roles: ["all"],
     children: [
       {
-        icon: <DemoEnterprice />,
-        title: "RRPP Eventos",
+        icon: <RpIcon />,
+        title: "RRPP",
         roles: ["all"],
         route: "pruebas1",
       },
@@ -774,6 +775,12 @@ export const BodyStaticAPP = [
         title: "Eventos",
         roles: ["all"],
         route: "eventos",
+      },
+      {
+        icon: <ClusterIcon />,
+        title: "Cluster",
+        roles: ["all"],
+        route: "Cluster",
       },
     ]
   },

@@ -13,6 +13,7 @@ import router from "next/router";
 import packageJson from "../package.json";
 import { hasRole } from "../utils/auth";
 import Cookies from "js-cookie";
+import { BreadCumbs } from "./ToolsComponents/BreadCumbs";
 
 export const Navigation = ({ set, state, }) => {
   const { _signOut } = useAuthentication()
@@ -84,9 +85,14 @@ export const Navigation = ({ set, state, }) => {
   return (
     <Flex bg={"white"} shadow={"sm"} w={"100%"} padding={"0.5rem"} className="z-50" >
       <Flex alignItems={"center"} justifyContent={"space-between"} w={"100%"} gap={{ base: "1", md: "4" }} >
+        <div className="flex items-center justify-center gap-2">
         <IconButton onClick={() => set(!state)}>
           <HamburgerIcon w={"1.5rem"} h={"1.5rem"} color={"gray.500"} />
         </IconButton>
+        
+        <BreadCumbs/>
+
+        </div>
         <Center w={{ base: `${show ? "100%" : "50%"}`, md: "50%" }}>
           <SearchNavigation show={show} setShow={setShow} showValir={showValir} setShowValir={setShowValir} />
         </Center>
@@ -94,18 +100,7 @@ export const Navigation = ({ set, state, }) => {
           <Menu >
             <MenuButton mr={"0.5rem"}>
               <Flex gap={"2"} >
-                {/* <Center >
-                  {screen.width > 764 ?
-                    <Text className="text-right truncate" textTransform={"capitalize"}>
-                      {user?.displayName}
-                    </Text>
-                    : !show ?
-                      <Text className="text-right truncate hidden" textTransform={"capitalize"}>
-                        {user?.displayName}
-                      </Text>
-                      : <></>
-                  }
-                </Center> */}
+
                 <Flex alignItems={"center"} gap={"0.5rem"}>
                   {user?.photoURL ?
                     <Flex w={"32px"} h={"32px"} borderColor={"gray.400"} rounded={"full"} isTruncated>

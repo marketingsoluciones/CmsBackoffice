@@ -1,4 +1,4 @@
-import { FC } from "react";
+/* import { FC } from "react";
 import Inicio from "../NuevoEvento/Principal/Inicio"
 import { useState } from "react"
 import EventosCreados from "../NuevoEvento/EventosCreados/PrincipalEventos";
@@ -53,3 +53,4 @@ const EventosOri: FC = () => {
 };
 
 export default EventosOri;
+ */

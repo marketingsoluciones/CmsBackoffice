@@ -1,5 +1,5 @@
 import Inicio from "../components/NuevoEvento/Principal/Inicio"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import EventosCreados from "../components/NuevoEvento/EventosCreados/PrincipalEventos";
 import InicioCE from "../components/NuevoEvento/CrearEvento/InicioCE";
 import ConfigurarEvento from "../components/NuevoEvento/CrearEvento/ConfigurarEvento";
@@ -13,28 +13,35 @@ import CartaQrEvento from "../components/NuevoEvento/CrearEvento/CartaQrEvento";
 import TarifaListas from "../components/NuevoEvento/CrearEvento/TarifaListas";
 import CrearTarifaListas from "../components/NuevoEvento/CrearEvento/CrearTarifaListas";
 import DatosLimiteTL from "../components/NuevoEvento/CrearEvento/DatosLimitesTL";
+import { AuthContextProvider } from "../context";
 
 const EventosOri = () => {
+  const { pathArray, setPathArray } = AuthContextProvider();
   const [optionSelect, setOptionSelect] = useState(0)
   // handleClickOption se usara mas adelante para poder regresar entre componentes 
   const handleClickOption = (idx) => {
     setOptionSelect(idx);
   };
+  
   const dataComponents = [
     /* 0 */
     {
+      title:"Inicio",
       component: <Inicio componentState={optionSelect} setComponentState={setOptionSelect} />
     },
      /* 1 */
     {
+      title:"Eventos Creados",
       component: <EventosCreados componentState={optionSelect} setComponentState={setOptionSelect} />
     },
      /* 2 */
     {
+      title:"Crear Evento",
       component: <InicioCE componentState={optionSelect} setComponentState={setOptionSelect} />
     },
      /* 3 */
     {
+      title:"Configurar Evento",
       component: <ConfigurarEvento componentState={optionSelect} setComponentState={setOptionSelect} />
     },
      /* 4 */
@@ -77,6 +84,13 @@ const EventosOri = () => {
       component: <IframeApp route={"/"} />
     },
   ]
+  useEffect(()=>{
+    
+    setPathArray([dataComponents[optionSelect].title])
+  }, [optionSelect])
+
+  
+
 
   return (
     <div className="w-[100%] h-[100%]">
