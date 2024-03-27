@@ -13,8 +13,8 @@ export const ModulosEspeciales = ({ DataModulos }) => {
     return (
         <>
 
-            <div className="px-10 space-y-3">
-                <p className="md:text-xl text-rosa text-[15.5px] ">Navega en los módulos especiales</p>
+            <div className="md:px-10 space-y-3">
+                <p className="md:text-xl text-center md:text-left text-rosa text-[15.5px] ">Navega en los módulos especiales</p>
 
                 <div className='hidden md:block'>
                     <div className="grid grid-cols-4">
@@ -34,7 +34,7 @@ export const ModulosEspeciales = ({ DataModulos }) => {
                     </div>
                 </div>
 
-                <div className='md:hidden block'>
+                <div className='md:hidden '>
                     <Swiper
                         spaceBetween={0}
                         slidesPerView={1}
@@ -45,7 +45,7 @@ export const ModulosEspeciales = ({ DataModulos }) => {
                         {
                             DataModulos.map((item, idx) => {
                                 return (
-                                    <SwiperSlide  key={idx}>
+                                    <SwiperSlide className=''  key={idx}>
                                             <div className="flex  items-center justify-center text-azulCorporativo  ">
                                                 <div className="bg-white p-4 rounded-full mr-4 text-rosa">
                                                     {item.icon}

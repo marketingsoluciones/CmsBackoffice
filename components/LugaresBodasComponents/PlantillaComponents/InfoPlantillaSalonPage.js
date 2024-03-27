@@ -31,8 +31,8 @@ export const InfoPlantillaSalonPage = ({ componentState, setComponentState }) =>
                     Plantillas del Salón
                 </p>
             </div>
-            <div className="bg-white rounded-xl md:flex md:flex-col md:h-[calc(100vh-145px)] h-[calc(100%-250px)]* overflow-y-auto " >
-                <div className="grid md:grid-cols-2 px-8  py-6 content-center ">
+            <div className="bg-white rounded-xl md:flex md:flex-col  items-center justify-center md:h-[calc(100vh-155px)]  overflow-y-auto " >
+                <div className="grid md:grid-cols-2 px-8  py-6 content-center justify-items-center max-w-[1000px] ">
                     <div className=" col-span-1 space-y-2  flex flex-col justify-center ">
                         <p className="text-[22px] text-azulCorporativo text-center md:text-left">
                             <span className="text-rosa">Crear Plantilla </span>
@@ -97,7 +97,7 @@ export const InfoPlantillaSalonPage = ({ componentState, setComponentState }) =>
                     }
 
                 </div>
-                <div className="flex flex-col items-center justify-center h-[80px] px-8  ">
+                <div className="flex flex-col items-center justify-center  h-full px-8  ">
                     <p className="text-rosa font-semibold">Cada espacio es importante.</p>
                     <p className="text-base text-center text-azulCorporativo ">Activa tus plantillas para tener presencia en la versión app para novios.  </p>
                 </div>

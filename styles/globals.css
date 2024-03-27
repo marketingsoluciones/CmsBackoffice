@@ -11,6 +11,11 @@
   /* Firefox */
 }
 
+.swiper {
+  width: 300px;
+  height: 400px;
+}
+
 .swiper-pagination-bullet-active {
   background: #f7628c !important;
 }

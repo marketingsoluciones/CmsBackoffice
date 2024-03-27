@@ -67,7 +67,7 @@ export const IndexPage = () => {
                             <p className=" md:hidden mt-1 px-5 text-3xl text-rosa">
                                 Panel De Gestión 
                             </p>
-                            <div className=" w-full px-5 py-2 space-y-2 ">
+                            <div className=" w-full px-5 py-2 space-y-5 ">
                                 <InfoPage DataArry={DataArry} />
                                 <ModulosEspeciales DataModulos={DataModulos} />
                             </div>
