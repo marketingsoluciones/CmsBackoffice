@@ -175,7 +175,7 @@ export type UserRCRC = {
     amount: string
 }
 // Columns de Recomendaciones y Recompensas
-export const columnsRCRC: ColumnDef<UserRCRC>[] = [
+export const    columnsRCRC: ColumnDef<UserRCRC>[] = [
     {
         id: "select",
         header: ({ table }) => (
