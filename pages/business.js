@@ -8,6 +8,7 @@ import { IoAnalytics } from "react-icons/io5";
 import { CiViewTable } from "react-icons/ci";
 import { AuthContextProvider } from "../context";
 import { IframeWorkFlow } from "../components/ModuloMarcas/IframeWorkFlow";
+import { GoWorkflow } from "react-icons/go";
 
 const Business = () => {
   const [optionSelect, setOptionSelect] = useState(0);
@@ -39,7 +40,7 @@ const Business = () => {
     {
       icon: <IoAnalytics className="h-6 w-auto" />,
       title: "WorkFlow",
-      component: <IframeWorkFlow />,
+      component: <GoWorkflow />,
     },
   ];
   const handleClickOption = (idx) => {
