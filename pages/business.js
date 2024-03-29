@@ -38,9 +38,9 @@ const Business = () => {
       component: <IframeMetricool dataMetricool={dataMetricool?.metricol} />,
     },
     {
-      icon: <IoAnalytics className="h-6 w-auto" />,
+      icon: <GoWorkflow className="h-6 w-auto" />,
       title: "WorkFlow",
-      component: <GoWorkflow />,
+      component: <IframeWorkFlow/>,
     },
   ];
   const handleClickOption = (idx) => {

@@ -7,7 +7,7 @@ export const IframeWorkFlow = () => {
         <div className="h-full w-full"  >
             {
                 
-                    <iframe src="http://64.23.203.125:5678/" width={"100%"} className="h-[89vh] md:h-[100%]"></iframe> 
+                    <iframe src="https://workflow.bodasdehoy.com/" width={"100%"} className="h-[89vh] md:h-[100%]"></iframe> 
                    
             }
         </div>
