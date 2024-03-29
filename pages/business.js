@@ -7,6 +7,7 @@ import { IframeMetricool } from "../components/MarcaBlancaMetricool";
 import { IoAnalytics } from "react-icons/io5";
 import { CiViewTable } from "react-icons/ci";
 import { AuthContextProvider } from "../context";
+import { IframeWorkFlow } from "../components/ModuloMarcas/IframeWorkFlow";
 
 const Business = () => {
   const [optionSelect, setOptionSelect] = useState(0);
@@ -34,6 +35,11 @@ const Business = () => {
       icon: <IoAnalytics className="h-6 w-auto" />,
       title: "Métricas",
       component: <IframeMetricool dataMetricool={dataMetricool?.metricol} />,
+    },
+    {
+      icon: <IoAnalytics className="h-6 w-auto" />,
+      title: "WorkFlow",
+      component: <IframeWorkFlow />,
     },
   ];
   const handleClickOption = (idx) => {
