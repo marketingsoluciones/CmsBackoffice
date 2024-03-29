@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { BuzonProsIcon, ChatBotIcon, ChatEnVivoIcon, FormulariosWebIcon, Invitados1Icon, Leads1Icon, Mensajes1Icon, VisitasWebIcon } from "../../../components/Icons/index"
+import { BuzonProsIcon, ChatBotIcon, ChatEnVivoIcon, FormulariosWebIcon, Invitados1Icon, Leads1Icon, Mensajes1Icon, VisitasWebIcon } from "../../Icons/index"
 import { useEffect, useState } from "react"
 import { ClusterInfo1 }  from "./ClusterInfo1"
 import InfoGeneral1 from "./InfoGeneral1"
@@ -8,7 +8,8 @@ import CompVisitasWebs from "./CompVisitasWeb"
 import CompMensajes from "./CompMensajes"
 import { BuzonProspectos }  from "./BuzonProspectos"
 
-const ClusterComp = () => {
+const ClusterComp = ({componentState, setComponentState}) => {
+
     const [optionSelect, setOptionSelect] = useState(0)
     const [modalContacto, setModalContacto] = useState(false)
     const router = useRouter()
