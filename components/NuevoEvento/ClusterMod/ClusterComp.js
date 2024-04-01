@@ -10,7 +10,7 @@ import { BuzonProspectos }  from "./BuzonProspectos"
 
 const ClusterComp = ({componentState, setComponentState}) => {
 
-    const [optionSelect, setOptionSelect] = useState(0)
+    const [optionSelect, setOptionSelect] = useState(8)
     const [modalContacto, setModalContacto] = useState(false)
     const router = useRouter()
     const { stateOriginPath } = router?.query

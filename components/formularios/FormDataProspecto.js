@@ -22,7 +22,7 @@ export const FormDataProspecto = ({ data }) => {
             <Formik initialValues={initialValue}>
                 <Form>
                     <div className="space-y-3 flex flex-col items-center">
-                        <h1 className="text-[40px] text-azulCorporativo text-center truncate w-[100%]">{data.title}</h1>
+                        <h1 className="text-[40px] text-azulCorporativo text-center truncate w-[100%]">{data?.title}</h1>
 
                         <div className="grid grid-cols-2 space-x-2 w-full">
                             <div className="flex flex-col space-y-1 mb-5 md:mb-0 ">
