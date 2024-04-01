@@ -15,41 +15,41 @@ const Cluster = () => {
   const handleClickOption = (idx) => {
     setOptionSelect(idx);
   };
-  
+
   const dataComponents = [
     /* 0 */
     {
-      title:"Inicio",
+      title: "Inicio",
       component: <ClusterComp componentState={optionSelect} setComponentState={setOptionSelect} />
     },
-        /* 1 */
-        {
-            title:"Buzon de Prospectos",
-            component: <BuzonProspectos componentState={optionSelect} setComponentState={setOptionSelect} />
-          },
-                  /* 2 */
-        {
-          title:"Informacion General",
-          component: <InfoGeneral1 componentState={optionSelect} setComponentState={setOptionSelect} />
-        },
-        {
-          title:"Visitas Web",
-          component: <CompVisitasWebs componentState={optionSelect} setComponentState={setOptionSelect} />
-        },
-        {
-          title:"Mensajes",
-          component: <CompMensajes componentState={optionSelect} setComponentState={setOptionSelect} />
-        },
+    /* 1 */
+    {
+      title: "Buzon de Prospectos",
+      component: <BuzonProspectos componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+    /* 2 */
+    {
+      title: "Informacion General",
+      component: <InfoGeneral1 componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+    {
+      title: "Visitas Web",
+      component: <CompVisitasWebs componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+    {
+      title: "Mensajes",
+      component: <CompMensajes componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
     {
       component: <IframeApp route={"/"} />
     },
   ]
-  useEffect(()=>{
-    
+  useEffect(() => {
+
     setPathArray([dataComponents[optionSelect].title])
   }, [optionSelect])
 
-  
+
 
 
   return (
