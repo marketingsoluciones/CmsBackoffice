@@ -4,10 +4,12 @@ import { ColumnDef } from "@tanstack/react-table"
 import { Button } from "../ui"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Checkbox } from "../ui"
 import { IoIosMore, IoIosWarning } from "react-icons/io";
-import { IoSettingsOutline } from "react-icons/io5";
 import { LuArrowUpDown } from "react-icons/lu";
 import { FaPhoneVolume } from "react-icons/fa6";
 import { HiUsers } from "react-icons/hi2";
+import { AuthContextProvider } from "../../context";
+
+
 
 // type Columns de estado de referido
 export type UserER = {
@@ -175,7 +177,7 @@ export type UserRCRC = {
     amount: string
 }
 // Columns de Recomendaciones y Recompensas
-export const    columnsRCRC: ColumnDef<UserRCRC>[] = [
+export const columnsRCRC: ColumnDef<UserRCRC>[] = [
     {
         id: "select",
         header: ({ table }) => (
@@ -209,8 +211,12 @@ export const    columnsRCRC: ColumnDef<UserRCRC>[] = [
             )
         },
         cell: ({ row }) => {
+            const { openModalRight, setOpenModalRight } = AuthContextProvider()
+
             return (
-                <div className="">
+                <div className=" cursor-pointer"
+                    onClick={() => setOpenModalRight(!openModalRight)}
+                >
                     {row.original.referido}
                 </div>
             )
@@ -279,7 +285,7 @@ export const    columnsRCRC: ColumnDef<UserRCRC>[] = [
     },
     {
         accessorKey: "amount",
-        header: "Cantidad", 
+        header: "Cantidad",
     },
     {
         id: "actions",

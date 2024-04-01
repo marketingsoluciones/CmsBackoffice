@@ -76,9 +76,9 @@ const ClusterComp = ({componentState, setComponentState}) => {
 
     return (
         <>
-            <div className={`flex h-full ${dataComponents[optionSelect].type !== "" && "w-full"}`}>
+            <div className={`md:flex h-full ${dataComponents[optionSelect].type !== "" && "w-full"}`}>
                 <SlideBar1 dataComponents={newArryDataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
-                <div className="flex-1 items-center justify-center">
+                <div className="md:flex-1 items-center justify-center">
                 {dataComponents[optionSelect].component}
                 </div>
             </div>
