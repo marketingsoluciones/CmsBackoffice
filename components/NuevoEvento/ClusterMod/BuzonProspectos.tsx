@@ -2,7 +2,8 @@ import { FC, useState } from "react";
 import { OptionsTable, RcDataTable } from "../../RecomendacionsComponents"
 import { columnsRCRC } from "../../ui"
 import { AuthContextProvider } from "../../../context";
-import { ModalRight } from "../../modals/ModalRight"
+import { ModalRight } from "../../modals/ModalRight";
+import {FormDataProspecto} from "../../formularios/FormDataProspecto"
 
 interface propsBuzonProspectos {
   componentState: any;
@@ -80,7 +81,7 @@ export const BuzonProspectos: FC<propsBuzonProspectos> = ({ componentState, setC
       {
         openModalRight ?
           <ModalRight state={openModalRight} set={setOpenModalRight}>
-            hola
+            <FormDataProspecto data={openModalRight.data}/>
           </ModalRight>
           : null
       }

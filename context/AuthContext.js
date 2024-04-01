@@ -58,7 +58,7 @@ const AuthProvider = ({ children }) => {
   const [geoInfo, setGeoInfo] = useState();
   const [showApp, setShowApp] = useState(false);
   const [pathArray, setPathArray] = useState([]);
-  const [openModalRight, setOpenModalRight] = useState(false);
+  const [openModalRight, setOpenModalRight] = useState({ data: {}, state: false });
 
 
 
@@ -203,7 +203,7 @@ const AuthProvider = ({ children }) => {
 
 
   return (
-    <AuthContext.Provider value={{ openModalRight, setOpenModalRight ,user, setUser, pathArray, setPathArray, verificationDone, setVerificationDone, state, dispatch, development, setDevelopment, domain, config, verificandoCookie, setVerificandoCookie, changedForm, setChangedForm, geoInfo, showApp, setShowApp }}>
+    <AuthContext.Provider value={{ openModalRight, setOpenModalRight, user, setUser, pathArray, setPathArray, verificationDone, setVerificationDone, state, dispatch, development, setDevelopment, domain, config, verificandoCookie, setVerificandoCookie, changedForm, setChangedForm, geoInfo, showApp, setShowApp }}>
       {children}
     </AuthContext.Provider>
   );

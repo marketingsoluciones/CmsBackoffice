@@ -215,7 +215,7 @@ export const columnsRCRC: ColumnDef<UserRCRC>[] = [
 
             return (
                 <div className=" cursor-pointer"
-                    onClick={() => setOpenModalRight(!openModalRight)}
+                    onClick={() => setOpenModalRight({ data: { title: row.original.referido }, state: true })}
                 >
                     {row.original.referido}
                 </div>
