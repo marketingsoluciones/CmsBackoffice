@@ -79,7 +79,7 @@ export const BuzonProspectos: FC<propsBuzonProspectos> = ({ componentState, setC
         </div>
       </div>
       {
-        openModalRight.state ?
+        openModalRight?.state ?
           <ModalRight state={openModalRight} set={setOpenModalRight} styles={"px-3 py-[10px]"}>
             <FormDataProspecto data={openModalRight.data}/>
           </ModalRight>
