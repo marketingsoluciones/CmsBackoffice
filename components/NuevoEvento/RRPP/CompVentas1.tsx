@@ -3,13 +3,16 @@ import { FunctionComponent, memo, useMemo, type CSSProperties, FC } from "react"
 type CompVentas1Type = {
   lolo?: string;
   icon?: string;
+  link?: string;
+  componentState: any;
+  setComponentState: any;
 
   /** Style props */
   propMinWidth?: CSSProperties["minWidth"];
 };
 
 const CompVentas1: FC <CompVentas1Type> = memo(
-  ({ lolo, icon, propMinWidth}) => {
+  ({ lolo, icon, propMinWidth, link, componentState, setComponentState}) => {
     const loloStyle: CSSProperties = useMemo(() => {
       return {
         minWidth: propMinWidth,
@@ -40,7 +43,9 @@ const CompVentas1: FC <CompVentas1Type> = memo(
                     </div>
                   </div>
                 </div>
-                <button className="cursor-pointer [border:none] p-0 bg-[transparent] flex-1 flex flex-col items-start justify-start">
+                <button onClick={()=>{ 
+        setComponentState(link)
+      }}   className="cursor-pointer [border:none] p-0 bg-[transparent] flex-1 flex flex-col items-start justify-start">
                   <div className="self-stretch rounded-md bg-rosa flex flex-row items-start justify-start pt-[13.5px] px-[21px] pb-[15px]">
                     <div className="h-[17px] flex flex-row items-start justify-start">
                       <img

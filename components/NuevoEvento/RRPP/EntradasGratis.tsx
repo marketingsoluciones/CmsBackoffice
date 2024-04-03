@@ -204,7 +204,9 @@ const EntradasGratis: FC <propsEntradasGratis> = memo(({componentState,setCompon
                 </div>
               </div>
             </div>
-            <button className="cursor-pointer [border:none] pt-[9.5px] pb-[11px] pr-5 pl-[21px] bg-rosa self-stretch rounded-md flex flex-row items-start justify-center hover:bg-crimson-100">
+            <button onClick={()=>{ 
+        setComponentState(3)
+      }}  className="cursor-pointer [border:none] pt-[9.5px] pb-[11px] pr-5 pl-[21px] bg-rosa self-stretch rounded-md flex flex-row items-start justify-center hover:bg-crimson-100">
               <div className="h-[25px] w-[83px] relative text-mid-5 leading-[25px] font-medium text-white text-center flex items-center justify-center min-w-[83px] max-w-[264.3399963378906px]">
                 Continuar
               </div>
