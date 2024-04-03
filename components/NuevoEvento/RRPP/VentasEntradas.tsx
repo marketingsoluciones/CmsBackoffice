@@ -230,11 +230,15 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
               lolo="lolo"
               icon="ModuloEvento/flesh.svg"
               propMinWidth="28px"
+              link="5"
+              componentState={componentState} setComponentState={setComponentState}
             />
             <CompVentas1
               lolo="invitados generales"
               icon="ModuloEvento/flesh.svg"
               propMinWidth="unset"
+              link="0"
+              componentState={componentState} setComponentState={setComponentState}
             />
           </div>
         </div>

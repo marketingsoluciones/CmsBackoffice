@@ -768,7 +768,7 @@ export const BodyStaticAPP = [
         icon: <RpIcon />,
         title: "RRPP",
         roles: ["all"],
-        route: "pruebas1",
+        route: "RelacionesPublicas",
       },
       {
         icon: <CampañasIcon />,

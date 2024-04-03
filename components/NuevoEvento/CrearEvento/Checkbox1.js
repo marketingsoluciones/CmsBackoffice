@@ -9,7 +9,7 @@ const Checkbox = ({ label }) => {
 
   return (
     <div className="inline-flex items-center">
-      <label className="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="checkbox">
+      <label className="flex items-center p-3 rounded-full cursor-pointer" htmlFor="checkbox">
         <input
           type="checkbox"
           className="form-checkbox h-4 w-4  text-indigo-600 accent-rosa"
