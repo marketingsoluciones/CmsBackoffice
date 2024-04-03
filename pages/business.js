@@ -9,6 +9,7 @@ import { CiViewTable } from "react-icons/ci";
 import { AuthContextProvider } from "../context";
 import { IframeWorkFlow } from "../components/ModuloMarcas/IframeWorkFlow";
 import { GoWorkflow } from "react-icons/go";
+import Link from "next/link";
 
 const Business = () => {
   const [optionSelect, setOptionSelect] = useState(0);
@@ -40,7 +41,7 @@ const Business = () => {
     {
       icon: <GoWorkflow className="h-6 w-auto" />,
       title: "WorkFlow",
-      component: <IframeWorkFlow/>,
+      url: "https://workflow.bodasdehoy.com/",
     },
   ];
   const handleClickOption = (idx) => {
@@ -55,7 +56,11 @@ const Business = () => {
       />
       <div
         className={`flex-1 flex z-10 px-5 py-2`}>
-        {dataComponents[optionSelect].component}
+        {
+          dataComponents[optionSelect].component != undefined ?
+            dataComponents[optionSelect].component :
+            null
+        }
       </div>
     </div>
   );

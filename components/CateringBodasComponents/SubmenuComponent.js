@@ -37,7 +37,7 @@ export const SubmenuComponent = ({ dataComponents, optionSelect, onClick }) => {
                 return (
                   <div
                     key={idx}
-                    onClick={() => onClick(idx)}
+                    onClick={() => item.url != undefined ? router.push(item?.url) : onClick(idx)}
                     className={`${optionSelect == idx ? " text-rosa " : " text-azulCorporativo"
                       } flex text-rosa items-center  space-x-3 cursor-pointer`}
                   >
