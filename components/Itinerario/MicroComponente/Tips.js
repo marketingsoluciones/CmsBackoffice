@@ -30,7 +30,7 @@ export const Tips = ({ ...props }) => {
         }
     }, [refInput])
     return (
-        <div className='w-full mx-12 lg:mx-4 my-2 lg:my-0'>
+        <div className='w-full md:mx-12 lg:mx-4 my-2 lg:my-0'>
             <Box gap={"0.3rem"} alignItems={"center"}>
                 <Textarea
                     resize={"none"}

@@ -3,7 +3,6 @@ import { AddUser } from "../../Icons/index"
 import { ResponsableList } from "./ResponsableList"
 import { useEffect, useState } from "react"
 import { useField } from "formik";
-import { EventContextProvider } from "../../../context/EventContext";
 
 const ResponsablesArry = [
     {
@@ -52,7 +51,6 @@ export const Responsable = ({ itinerario, handleChange, title, task, ...props })
     const [field, meta, helpers] = useField({ name: props?.name });
     const [selectIcon, setSelectIcon] = useState([])
     const [openResponsableList, setOpenResponsableList] = useState(false)
-    console.log(title)
 
     useEffect(() => {
         if (selectIcon) {
@@ -70,13 +68,13 @@ export const Responsable = ({ itinerario, handleChange, title, task, ...props })
                 ?
                 <div
                     style={{ width: 25 * field?.value?.length }}
-                    className="w-6 md:w-8 lg:w-8 h-6 md:h-8 lg:h-10 cursor-pointer relative">
+                    className="w-10 md:w-8 lg:w-8 h-12 md:h-8 lg:h-10 cursor-pointer relative">
                     {field.value.map((item, idx) => {
                         return (
                             < div
                                 key={idx}
                                 style={{ left: 20 * idx }}
-                                className="w-6 md:w-8 lg:w-10 h-6 md:h-8 lg:h-10 cursor-pointer absolute border border-gray-400 flex items-center justify-center rounded-full shadow-lg "
+                                className="w-10 md:w-8 lg:w-10 h-10 md:h-8 lg:h-10 cursor-pointer absolute border border-gray-400 flex items-center justify-center rounded-full shadow-lg mt-2 md:mt-0"
                                 onClick={() => {
                                     setOpenResponsableList(!openResponsableList)
                                 }} {...props}>
@@ -86,13 +84,13 @@ export const Responsable = ({ itinerario, handleChange, title, task, ...props })
                     })}
                 </div>
                 :
-                <div onClick={() => setOpenResponsableList(!openResponsableList)} className="w-10 md:w-12 lg:w-8 h-10 md:h-12 lg:h-14 rounded-full flex items-center justify-center cursor-pointer text-gray-600 hover:text-gray-800 -mr-4">
-                    <AddUser className="w-6 md:w-8 lg:w-10 h-6 md:h-8 lg:h-10" />
+                <div onClick={() => setOpenResponsableList(!openResponsableList)} className="w-10 md:w-12 lg:w-8 h-10 md:h-12 lg:h-14 rounded-full flex items-center justify-center cursor-pointer text-gray-600 hover:text-gray-800 -mr-4 mt-2 md:mt-0">
+                    <AddUser className="w-10 md:w-8 lg:w-10 h-10 md:h-8 lg:h-10" />
                 </div>
             }
             {
                 openResponsableList
-                    ? <Modal openIcon={openResponsableList} setOpenIcon={setOpenResponsableList} classe={"h-max w-[20%]"} >
+                    ? <Modal openIcon={openResponsableList} setOpenIcon={setOpenResponsableList} classe={"h-max md:w-[20%]"} >
                         <ResponsableList itinerario={itinerario} DataArry={ResponsablesArry}  openModal={openResponsableList} setOpenModal={setOpenResponsableList} setSelectIcon={setSelectIcon} task={task} selectIcon={selectIcon} value={field.value} />
                     </Modal>
                     : null

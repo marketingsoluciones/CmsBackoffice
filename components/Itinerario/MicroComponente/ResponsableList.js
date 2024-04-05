@@ -21,7 +21,7 @@ export const ResponsableList = ({  openModal, setOpenModal, DataArry, setSelectI
         <ClickAwayListener onClickAway={() => openModal && setOpenModal(false)}>
             <div className="flex flex-col items-center space-y-2 w-max*" >
                 <span className="text-rosa text-[20px]">Responsable </span>
-                <div className="overflow-y-auto flex flex-col h-[calc(100vh-300px)] pr-3 ">
+                <div className="overflow-y-auto flex flex-col h-[calc(100vh-300px)] pr-3 space-y-2 ">
 
                     {
                         DataArry.map((item, idx) => {

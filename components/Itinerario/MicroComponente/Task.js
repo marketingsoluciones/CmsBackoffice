@@ -79,18 +79,27 @@ export const Task = ({ itinerario, task, title }) => {
           return (
             <Form>
               <div className=" md:grid lg:grid-cols-12 items-center justify-center md:px-10 lg:px-10 2xl:px-36 py-1" >
-                <div className="flex col-span-2 lg:col-span-8 justify-end ">
+                <div className="md:flex  lg:col-span-8 md:justify-end ">
+                  
                   <SelectIcon name="icon" handleChange={handleBlurData} />
-                  <div className="flex flex-col justify-center items-center ">
+
+                  <div className=" py-4 md:py-0 flex md:flex-col justify-center items-center ">
+
                     <InputTime name="time" onBlur={() => { handleBlurData("hora", values.time) }} />
+
                     <Duration name="duration" onBlur={() => { handleBlurData("duracion", values.duration.toString()) }} />
+
                   </div>
+
                   <Description name="description" onBlur={() => { handleBlurData("descripcion", values.description) }} />
+
                   <Responsable name="responsable" handleChange={handleBlurData} itinerario={itinerario} task={task} title={title} />
+
                 </div>
+
                 <div className="flex lg:col-span-4 items-center ">
                   <Tips name="tips" onBlur={() => { handleBlurData("tips", values.tips) }} />
-                  <div className="-ml-3" >
+                  <div className="md:-ml-3" >
                     <MdOutlineDeleteOutline className="w-7 h-auto cursor-pointer text-gray-500 hover:text-gray-700" onClick={() => deleteTask()} />
                   </div>
                 </div>
