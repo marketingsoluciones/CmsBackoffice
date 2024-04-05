@@ -1,8 +1,6 @@
 import { FC, useState } from "react";
 import ClickAwayListener from "react-click-away-listener";
-import CustomButton from "./MyButton";
-import MyButton from "./MyButton";
-import { string } from "yup";
+
 interface propsAñadirProductoM {
  addProucto:any
  setAddProducto:any
@@ -10,8 +8,7 @@ interface propsAñadirProductoM {
 
 export const AñadirProductoM: FC <propsAñadirProductoM> = ({addProucto,setAddProducto}) => {
     const [inputValue, setInputValue] = useState("");
-    const [ischecked1, setCheck1] = useState(false);
-    const [ischecked2, setCheck2] = useState(false);
+
     return (
 <ClickAwayListener onClickAway={() => addProucto && setAddProducto(false)}>
     
@@ -41,8 +38,7 @@ export const AñadirProductoM: FC <propsAñadirProductoM> = ({addProucto,setAddP
         />
       </div>
 
-      <MyButton texto={"hola"} ischecked={ischecked1} setCheck={setCheck1}/>
-      <MyButton texto={"pepito"} ischecked={ischecked2} setCheck={setCheck2}/>
+
 
       <div className="self-stretch flex flex-row items-center justify-end pt-[22px] px-[21px] pb-[21px] border-t-[1px] border-solid border-pro-fourvenues-com-beach-aguilas-create-event-1318x573-default-mystic">
         <button onClick={() => {setAddProducto(!addProucto)}} className="cursor-pointer [border:none] p-0 bg-[transparent] w-[76px] flex flex-col items-start justify-start">

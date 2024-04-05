@@ -104,7 +104,9 @@ const ConfigurarEvento: FC <propsConfigurarEvento> = ({componentState,setCompone
           </div>
         </button>
 
-        <button className="cursor-pointer [border:none] py-3.5 pr-2.5 pl-3.5 bg-white w-[111px] rounded-md shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] flex flex-col items-start justify-start box-border">
+        <button onClick={()=>{ 
+        setComponentState(13)
+      }} className="cursor-pointer [border:none] py-3.5 pr-2.5 pl-3.5 bg-white w-[111px] rounded-md shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] flex flex-col items-start justify-start box-border">
           <div className="self-stretch h-[24.5px] flex flex-row items-center justify-start pt-0 pb-[4.989999771118164px] pr-px pl-0 box-border">
             <div className="flex flex-row items-start justify-start">
               <img

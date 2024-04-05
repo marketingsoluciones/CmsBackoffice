@@ -14,6 +14,9 @@ import TarifaListas from "../components/NuevoEvento/CrearEvento/TarifaListas";
 import CrearTarifaListas from "../components/NuevoEvento/CrearEvento/CrearTarifaListas";
 import DatosLimiteTL from "../components/NuevoEvento/CrearEvento/DatosLimitesTL";
 import { AuthContextProvider } from "../context";
+import EntradasTarifa from "../components/NuevoEvento/CrearEvento/EntradasTarifa/EntradasTarifas";
+import EntradasOpciones from "../components/NuevoEvento/CrearEvento/EntradasTarifa/EntradasOpciones";
+import ModalPrecio from "../components/NuevoEvento/CrearEvento/EntradasTarifa/Sub-Componentes/ModalPrecio";
 
 const EventosOri = () => {
   const { pathArray, setPathArray } = AuthContextProvider();
@@ -79,6 +82,17 @@ const EventosOri = () => {
      /* 12 */
     {
       component: <DatosLimiteTL componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+         /* 13 */
+    {
+      component: <EntradasTarifa componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+         /* 14 */
+    {
+      component: <EntradasOpciones componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+    {
+      component: <ModalPrecio componentState={optionSelect} setComponentState={setOptionSelect} />
     },
     {
       component: <IframeApp route={"/"} />
