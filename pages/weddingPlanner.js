@@ -36,7 +36,7 @@ const weddingPlannerPage = () => {
     },
     {
       icon: <Webs />,
-      title: "Tus Paginas Web",
+      title: "MisWebs",
       component: <TablePegesList setComponentState={setOptionSelect} />,
     },
     {

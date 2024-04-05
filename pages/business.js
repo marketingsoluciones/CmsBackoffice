@@ -30,7 +30,7 @@ const Business = () => {
     },
     {
       icon: <CiViewTable className="h-6 w-auto" />,
-      title: "Pages list",
+      title: "MisWebs",
       component: <TablePegesList setComponentState={setOptionSelect} />,
     },
     {
