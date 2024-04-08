@@ -91,6 +91,11 @@ export const fetchApiEventos = async ({ query, variables, domain }) => {
 
 export const queries = {
 
+  getN8n: `query
+  {
+    getN8n
+  }`,
+
   singleUpload: `mutation($file:Upload!,$use:String)
   {
     singleUpload(file:$file,use:$use){

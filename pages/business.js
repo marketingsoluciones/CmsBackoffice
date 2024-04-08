@@ -41,7 +41,7 @@ const Business = () => {
     {
       icon: <GoWorkflow className="h-6 w-auto" />,
       title: "WorkFlow",
-      url: "https://workflow.bodasdehoy.com/",
+      component: <IframeWorkFlow />,
     },
   ];
   const handleClickOption = (idx) => {
