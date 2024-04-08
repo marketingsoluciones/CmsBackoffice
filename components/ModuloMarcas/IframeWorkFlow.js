@@ -16,7 +16,8 @@ export const IframeWorkFlow = () => {
         }).then(cookie => {
             const dateExpire = new Date(parseJwt(cookie ?? "").exp * 1000)
             Cookies.set("n8n-auth", cookie, { domain: domain, expires: dateExpire })
-            router.push("https://workflow.bodasdehoy.com/")
+            const path = window.origin.includes("://test") ? "https://testworkflow.bodasdehoy.com/" : "https://workflow.bodasdehoy.com/"
+            router.push(path)
         })
     }, [])
 
