@@ -106,7 +106,7 @@ const EventosOri = () => {
 
   
   return (
-    <div className={` ${optionSelect === 16 ? "" : "w-[100%]"} h-[100%]`}>
+    <div className={` ${optionSelect === 16 ? "" : "w-[100%] h-[100%]"}`}>
       <div id="rootElement" />
       {dataComponents[optionSelect].component}
     </div>

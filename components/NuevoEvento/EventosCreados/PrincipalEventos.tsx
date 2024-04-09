@@ -11,14 +11,14 @@ interface propsEventosCreados {
 
 const EventosCreados: FC <propsEventosCreados> = ({componentState,setComponentState}) => {
   return (
-    <div className="w-auto relative bg-whitesmoke flex flex-col items-start justify-start py-[30px] px-[20px] box-border gap-[30px]">
+    <div className="w-[100%] bg-whitesmoke flex flex-col items-start justify-start py-[30px] px-[20px] box-border gap-[30px]">
               <ModoDemo/>
       <Component1 componentState={componentState} setComponentState={setComponentState} />
       <Component2 />
 
       {/* seccion de tags y crear evento/ver tus ventas */}
 
-      <div className="  w-auto self-stretch flex flex-col items-start justify-start text-md ">
+      <div className="w-[100%] flex flex-col items-start justify-start text-md ">
         <div className="self-stretch flex flex-row items-start justify-between box-border">
 
                 <div className="flex flex-row items-start justify-start pt-0 pb-px pr-[29px] pl-7 border-b-[1px] border-solid border-slate-300">
