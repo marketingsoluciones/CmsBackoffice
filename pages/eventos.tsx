@@ -94,6 +94,7 @@ const EventosOri = () => {
     {
       component: <ModalPrecio componentState={optionSelect} setComponentState={setOptionSelect} />
     },
+    
     {
       component: <IframeApp route={"/"} />
     },
