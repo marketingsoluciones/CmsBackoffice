@@ -37,28 +37,26 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
   ]
 
   return (
-    <div className="relative bg-whitesmoke-100 w-auto h-auto flex flex-col items-start
-     justify-start py-6 px-2.5 box-border gap-[20px] text-center text-xl text-slategray-300 font-poppins">
+    <div className=" bg-whitesmoke-100 w-[100%] h-auto flex flex-col items-start
+     justify-start py-6 px-6 box-border gap-[20px] text-center text-xl text-slategray-300 font-poppins">
+
 
       <ModoDemo />
 
-      {/* seccion 2 */}
-      <div className="rounded-md bg-white w-auto overflow-hidden flex flex-row items-center justify-center py-6 px-10 box-border text-base">
-        <div className="relative leading-[30px] whitespace-pre-wrap flex items-center w-auto shrink-0">
-          <span className="w-auto">
-            <p className="m-0">
-              <span className="font-poppins">{`Estás a un paso de lograr los mejores eventos. Genera `}</span>
-              <span className="font-semibold font-poppins">{`experiencias de impacto para tus usuarios `}</span>
-              <span>{`con nuestras herramientas y funciones profesionales. `}</span>
+      {/* seccion 1 */}
+      <div className="rounded-md bg-white w-[100%] overflow-hidden flex flex-col items-center justify-center py-6 px-10 box-border text-base">
+
+            <p>
+              Estás a un paso de lograr los mejores eventos. Genera experiencias de impacto para tus usuarios con nuestras herramientas y funciones profesionales.
             </p>
-            <p className="m-0">&nbsp;</p>
-            <p className="m-0">{`Es la plataforma que buscas para ser creativo y llevar con rigurosidad  tu evento. `}</p>
-          </span>
-        </div>
+            <p>
+              Es la plataforma que buscas para ser creativo y llevar con rigurosidad  tu evento.
+            </p>
+
       </div>
 
-      {/* Seccion 3 */}
-      <div className="rounded-md bg-white w-[1050px] flex flex-col items-center justify-start py-[53px] px-[16px] box-border">
+      {/* Seccion 2 */}
+      <div className="rounded-md bg-white w-[100%] flex flex-col items-center justify-start py-[53px] px-[16px] box-border">
         <div className="flex flex-row items-center justify-start gap-[20px]">
           <div className="flex flex-col items-center justify-start gap-[10px]">
             <img
@@ -103,9 +101,9 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
         </div>
       </div>
 
-      {/* seccion 4 */}
-      <div className="rounded-md w-[1050px] bg-white flex flex-col items-center justify-start py-[47px] px-[16px] border-[2px] border-solid border-rosa">
-        <div className="flex flex-row items-start justify-start gap-[60px]">
+      {/* seccion 3 */}
+      <div className="rounded-md w-[100%] bg-white flex flex-col items-center justify-start py-[47px] px-[16px] border-[2px] border-solid border-rosa">
+        <div className=" flex flex-row items-start justify-start gap-[60px]">
           <div className="flex flex-col items-center justify-center gap-[10px]">
             <img
               className="relative w-[77px] h-[77px] overflow-hidden shrink-0"
@@ -221,8 +219,8 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
         </div>
       </div>
 
-      {/* seccion 5 */}
-      <div className="flex flex-row items-start justify-start p-2.5 gap-[8px]">
+      {/* seccion 4 */}
+      <div className="flex flex-row w-[100%] items-start justify-center p-2.5 gap-[8px]">
         <div className="rounded-lg bg-white h-[281px] flex flex-col items-center justify-center py-6 px-0 box-border min-w-[340px]">
           <div className="flex flex-col items-center justify-center gap-[10px]">
             <img
@@ -299,17 +297,19 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
         </div>
       </div>
 
-      {/* seccion 6 */}
-      <div className="w-[1050px] flex flex-row items-center justify-start py-0 px-[22px] box-border">
-        <button className="cursor-pointer [border:none] p-0 bg-[transparent] relative w-[258px] h-[23px]">
-          <div className="absolute top-[0px] left-[0px] text-sm font-poppins text-rosa text-right">
+      {/* seccion 5 */}
+      <div className="w-[100%]  flex flex-row items-center justify-start py-0 px-[22px] box-border">
+        <button className="flex cursor-pointer [border:none] p-0 bg-[transparent] relative gap-2 w-auto h-[23px]">
+
+          <div className="text-sm font-poppins text-rosa text-right">
             Ver todos los eventos disponibles
           </div>
           <img
-            className="absolute top-[3.5px] left-[244px] w-3.5 h-4 object-cover"
+            className="w-3.5 h-4"
             alt=""
             src="ModuloEvento/img@2x.png"
           />
+
         </button>
       </div>
 

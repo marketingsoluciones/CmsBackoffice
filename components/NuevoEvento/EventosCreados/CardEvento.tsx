@@ -63,7 +63,7 @@ const card1: FC <propsCardEventos> = memo(({componentState,setComponentState}) =
           <div className="flex flex-col items-start justify-start gap-[7px] text-center text-xs font-semibold">
             <div className="self-stretch flex flex-row flex-wrap items-start justify-start py-0 pr-[21px] pl-0 gap-[6px]">
               <div className="rounded-[5.25px] bg-blue-100 text-blue-500 flex flex-col items-center justify-center pt-[3px] pb-[5px] pr-[15px] pl-[17px]">
-                <div className="w-auto h-3 relative leading-[12px] inline-block font-medium">
+                <div className="w-auto h-3 relative leading-[12px] inline-block font-semibold text-[10px] ">
                   LISTAS
                 </div>
                 <div className="flex flex-row items-center justify-center py-0 pr-[7px] pl-1.5 mt-[-1px] text-2xs-5">
@@ -79,10 +79,10 @@ const card1: FC <propsCardEventos> = memo(({componentState,setComponentState}) =
                 </div>
               </div>
               <div className="rounded-[5.25px] bg-green-100 flex flex-col items-center justify-center pt-[3px] px-[3px] pb-[5px] text-green-600">
-                <div className="w-auto h-3 relative leading-[12px] inline-block">
+                <div className="w-auto h-3 relative leading-[12px] inline-block text-[10px] font-semibold ">
                   ENTRADAS
                 </div>
-                <div className="flex flex-row items-center justify-center py-0 pr-[17px] pl-[15px] mt-[-1px] text-2xs-5">
+                <div className="flex flex-row items-center justify-center py-0 pr-[17px] pl-[15px] mt-[-1px]">
                   <b className="h-3 w-[11px] relative leading-[12px] inline-block">{`0 `}</b>
                   <div className="flex flex-col items-center justify-center py-0 px-0">
                     <img
@@ -97,7 +97,7 @@ const card1: FC <propsCardEventos> = memo(({componentState,setComponentState}) =
               <div className="rounded-[5.25px] bg-red-100 shadow-[0px_0px_0px_2px_#e98f2e] overflow-hidden flex flex-col items-center justify-start pt-0 pb-[5px] pr-0 pl-[9px] text-sm text-red-600">
 
                 <div className="flex flex-row items-center justify-center py-0 pr-[9px] pl-0 mt-[-2px] text-5xs pt-2">
-                  <div className="h-3 w-auto relative leading-[12px] inline-block">
+                  <div className="h-3 w-auto relative leading-[12px] inline-block text-[10px] ">
                     RESERVAS
                   </div>
                 </div>
@@ -116,7 +116,7 @@ const card1: FC <propsCardEventos> = memo(({componentState,setComponentState}) =
                 </div>
               </div>
               <div className="rounded-[5.25px] bg-purple-100 flex flex-col items-center justify-center pt-[3px] px-[3px] pb-[5px] text-purple-600">
-                <div className="w-auto h-3 relative leading-[12px] inline-block">
+                <div className="w-auto h-3 relative leading-[12px] inline-block text-[10px] ">
                   A. RRPP
                 </div>
                 <div className="flex flex-row items-center justify-start py-0 pr-5 pl-[19px] mt-[-1px] text-2xs-5">

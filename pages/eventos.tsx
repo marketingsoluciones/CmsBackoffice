@@ -1,6 +1,6 @@
 import Inicio from "../components/NuevoEvento/Principal/Inicio"
 import { useEffect, useState } from "react"
-import EventosCreados from "../components/NuevoEvento/EventosCreados/PrincipalEventos";
+import EventosCreados from "../components/NuevoEvento/EventosCreados/EventosCreados";
 import InicioCE from "../components/NuevoEvento/CrearEvento/InicioCE";
 import ConfigurarEvento from "../components/NuevoEvento/CrearEvento/ConfigurarEvento";
 import DatoEvento from "../components/NuevoEvento/CrearEvento/DatosEvento";
@@ -17,6 +17,7 @@ import { AuthContextProvider } from "../context";
 import EntradasTarifa from "../components/NuevoEvento/CrearEvento/EntradasTarifa/EntradasTarifas";
 import EntradasOpciones from "../components/NuevoEvento/CrearEvento/EntradasTarifa/EntradasOpciones";
 import ModalPrecio from "../components/NuevoEvento/CrearEvento/EntradasTarifa/Sub-Componentes/ModalPrecio";
+import InformesPage from "../components/NuevoEvento/EventosCreados/InformesPage";
 
 const EventosOri = () => {
   const { pathArray, setPathArray } = AuthContextProvider();
@@ -97,6 +98,9 @@ const EventosOri = () => {
     
     {
       component: <IframeApp route={"/"} />
+    },
+    {
+      component: <InformesPage componentState={optionSelect} setComponentState={setOptionSelect} />
     },
   ]
   useEffect(()=>{
