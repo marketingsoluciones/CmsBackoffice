@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import ClickAwayListener from "react-click-away-listener";
 import { ToastProvider } from "../context/ToastContext";
 import { IframeLayout } from "./IframeLayout";
+import Head from "next/head";
 const AuthProvider = dynamic(() => import('../context/AuthContext').then(mod => mod.AuthProvider))
 const SocketProvider = dynamic(() => import('../context/SocketContext').then(mod => mod.SocketProvider))
 const Sidebar = dynamic(() => import('../components/Sidebar').then(mod => mod.Sidebar))
@@ -25,34 +26,41 @@ export const DefaultLayout = ({ children }) => {
   }, [])
 
   return (
-    <AuthProvider>
-      <SocketProvider>
-        <EventsGroupProvider>
-          <EventProvider>
-            <ToastProvider>
-              {valir && <Flex h={"100vh"} w={"100%"} overflow={"hidden"} position={"relative"} >
-                {screen.width < 640
-                  ? <div className="absolute z-[100]">
-                    <Sidebar state={show} setState={setShow} />
-                  </div>
+    <>
+      <Head>
+        {/* <title>Bodas de hoy - Organizador de Bodas</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="¡Bodas de Hoy Organizador! Organiza tu boda en un sólo click., user-scalable=no, width=device-width, initial-scale=1" /> */}
+      </Head>
+      <AuthProvider>
+        <SocketProvider>
+          <EventsGroupProvider>
+            <EventProvider>
+              <ToastProvider>
+                {valir && <Flex h={"100vh"} w={"100%"} overflow={"hidden"} position={"relative"} >
+                  {screen.width < 640
+                    ? <div className="absolute z-[100]">
+                      <Sidebar state={show} setState={setShow} />
+                    </div>
 
-                  : <div className=" ">
-                    <Sidebar state={show} />
-                  </div>
-                }
-                <Flex flexDir={"column"} w={show ? "calc(100%)" : "100%"} onClick={() => screen.width < 640 ? show ? setShow(!show) : null : null} >
-                  <Navigation set={setShow} state={show} />
-                  <Box as={"main"} className="bg-bg w-full h-[calc(100%-56px)] overflow-auto flex">
-                    {children}
-                    <IframeLayout />
-                  </Box>
-                </Flex>
-              </Flex>}
-            </ToastProvider>
-          </EventProvider>
-        </EventsGroupProvider>
-      </SocketProvider>
-    </AuthProvider>
+                    : <div className=" ">
+                      <Sidebar state={show} />
+                    </div>
+                  }
+                  <Flex flexDir={"column"} w={show ? "calc(100%)" : "100%"} onClick={() => screen.width < 640 ? show ? setShow(!show) : null : null} >
+                    <Navigation set={setShow} state={show} />
+                    <Box as={"main"} className="bg-bg w-full h-[calc(100%-56px)] overflow-auto flex">
+                      {children}
+                      <IframeLayout />
+                    </Box>
+                  </Flex>
+                </Flex>}
+              </ToastProvider>
+            </EventProvider>
+          </EventsGroupProvider>
+        </SocketProvider>
+      </AuthProvider>
+    </>
   );
 };
 
