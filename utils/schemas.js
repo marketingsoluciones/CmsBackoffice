@@ -1029,14 +1029,31 @@ export const BodyStaticAPP = [
       },
     ],
   },
-
+  {
+    title: "Editor Web",
+    roles: ["empresa"],
+    children: [
+      {
+        icon: <MarcasEmIcon className="" />,
+        title: "Web builder",
+        roles: ["all"],
+        route: "webbuilder",
+        getData: "",
+        getByID: "",
+        createEntry: "",
+        updateEntry: "",
+        deleteEntry: "",
+        schema: [],
+      },
+    ]
+  },
   {
     title: "Marketplace",
     roles: ["empresa"],
     children: [
       {
         icon: <MarcasEmIcon className="" />,
-        title: "tienda",
+        title: "Tienda",
         roles: ["all"],
         route: "marketplace",
         getData: "",
@@ -1048,7 +1065,6 @@ export const BodyStaticAPP = [
       },
     ]
   },
-
   {
     title: "Páginas",
     roles: ["admin"],
