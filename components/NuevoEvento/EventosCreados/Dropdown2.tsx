@@ -2,13 +2,14 @@ import React, { FC, useState } from 'react';
 interface Dropdown2Props {
     items: any;
     title: any;
+    selectedOption: any;
+    setSelectedOption: any;
   }
 
-const Dropdown2: FC <Dropdown2Props> = ({items, title}) => {
+const Dropdown2: FC <Dropdown2Props> = ({items, title, selectedOption, setSelectedOption}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
 
-  const handleOptionSelect = (option: string) => {
+  const handleOptionSelect = (option) => {
     setSelectedOption(option);
     setIsDropdownOpen(false);
   };
@@ -24,7 +25,7 @@ const Dropdown2: FC <Dropdown2Props> = ({items, title}) => {
           aria-haspopup="true"
           aria-expanded={isDropdownOpen}
         >
-          {selectedOption || title}
+          {title}
           <svg
             className="-mr-1 ml-2 h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
@@ -48,9 +49,10 @@ const Dropdown2: FC <Dropdown2Props> = ({items, title}) => {
           aria-labelledby="options-menu"
         >
           <div className="flex flex-col py-1" role="none">
-          {items.map((items) => (
+          {items.map((items, idx) => (
             <button
-              onClick={() => handleOptionSelect(items.text)}
+              key={idx}
+              onClick={() => handleOptionSelect(items.page)}
               className="inline-flex px-4 py-2 items-center gap-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 "
               role="menuitem"
             >

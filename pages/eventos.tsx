@@ -18,6 +18,10 @@ import EntradasTarifa from "../components/NuevoEvento/CrearEvento/EntradasTarifa
 import EntradasOpciones from "../components/NuevoEvento/CrearEvento/EntradasTarifa/EntradasOpciones";
 import ModalPrecio from "../components/NuevoEvento/CrearEvento/EntradasTarifa/Sub-Componentes/ModalPrecio";
 import InformesPage from "../components/NuevoEvento/EventosCreados/InformesPage";
+import Comision1 from "../components/NuevoEvento/EventosCreados/ComponentesE.C/Comision1";
+import Comision2 from "../components/NuevoEvento/EventosCreados/ComponentesE.C/Comision2";
+import Liquidaciones from "../components/NuevoEvento/EventosCreados/ComponentesE.C/Liquidaciones";
+import { DataGeneral } from "../components/NuevoEvento/EventosCreados/DataGeneral";
 
 const EventosOri = () => {
   const { pathArray, setPathArray } = AuthContextProvider();
@@ -92,16 +96,34 @@ const EventosOri = () => {
     {
       component: <EntradasOpciones componentState={optionSelect} setComponentState={setOptionSelect} />
     },
+             /* 15 */
     {
       component: <ModalPrecio componentState={optionSelect} setComponentState={setOptionSelect} />
     },
-    
+             /* 16 */
     {
       component: <IframeApp route={"/"} />
     },
+             /* 17 */
     {
       component: <InformesPage componentState={optionSelect} setComponentState={setOptionSelect} />
     },
+             /* 18 */
+    {
+      component: <Comision1 componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+             /* 19 */
+    {
+      component: <Comision2 componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+              /* 20 */
+    {
+      component: <Liquidaciones componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+/*     {
+      component: <DataGeneral componentState={optionSelect} setComponentState={setOptionSelect} />
+    }, */
+
   ]
   useEffect(()=>{
     
