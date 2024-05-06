@@ -10,6 +10,7 @@ import ReservasRecepcion from "./ComponentesE.C/ReservasRecepcion";
 import AsisUsuRecepcion from "./ComponentesE.C/AsisUsuRecepcion";
 import ControlAforoRecepcion from "./ComponentesE.C/ControlAforoRecepcion";
 import UsuariosEquipos from "./ComponentesE.C/UsuariosEquipos";
+import DatosNegocios from "./AjustesComponents/DatosNegocio";
 interface propsDescripcionEvento {
   componentState: any;
   setComponentState: any;

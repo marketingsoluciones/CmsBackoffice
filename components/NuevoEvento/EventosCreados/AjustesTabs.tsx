@@ -25,15 +25,21 @@ const AjustesTabs: FC <propsAjustesTabs> = ({componentState,setComponentState}) 
 
       <div className="w-full self-stretch flex flex-row items-center justify-between box-border gap-[10px] max-w-full text-sm mq450:flex-col mq750:pr-[39px] mq750:box-border">
         
-        <Card1 
+        <Card1
+        urls={21} 
         icon="ModuloEvento/a1.svg" 
         title={"Datos del negocio"} 
         content={"Cambia el nombre o la descripción del negocio, modifica los datos de contacto y configura los complementos web disponibles."}
+        componentState={componentState}
+        setComponentState={setComponentState}
         />
         <Card1 
+         urls={16} 
         icon={"ModuloEvento/a2.svg"} 
         title={"Ajustes generales"} 
         content={"Configura ciertos parámetros de tu negocio que afectarán directamente al funcionamiento del sistema"}
+        componentState={componentState}
+        setComponentState={setComponentState}
         />
         
       </div>
@@ -52,20 +58,29 @@ const AjustesTabs: FC <propsAjustesTabs> = ({componentState,setComponentState}) 
         <div className="w-full self-stretch flex flex-row items-center justify-between box-border gap-[10px] max-w-full text-sm mq450:flex-col mq750:pr-[39px] mq750:box-border">
         
         <Card1 
+        urls={16} 
         icon="ModuloEvento/a3.svg" 
         title={"Usuarios"} 
         content={"Gestiona usuarios, equipos y solicitudes a tu negocio."}
+        componentState={componentState}
+        setComponentState={setComponentState}
         />
         <Card1 
+        urls={16} 
         icon="ModuloEvento/a4.svg" 
         title={"Permisos"} 
         content={"Asigna roles específicos a tus usuarios y limita acciones e información."}
+        componentState={componentState}
+        setComponentState={setComponentState}
         />
         </div>
         <Card1 
+        urls={16} 
         icon="ModuloEvento/a5.svg" 
         title={"Términos y condiciones"} 
         content={"Especifica los términos y condiciones del negocio"}
+        componentState={componentState}
+        setComponentState={setComponentState}
         />
 
       </div>
@@ -82,32 +97,45 @@ const AjustesTabs: FC <propsAjustesTabs> = ({componentState,setComponentState}) 
       <div className="w-full self-stretch flex flex-col items-start justify-between box-border gap-[10px] max-w-full text-sm mq450:flex-col mq750:pr-[39px] mq750:box-border">
         <div className="w-full flex flex-row items-start justify-start gap-[10px] ">
         <Card1 
+        urls={16} 
         icon="ModuloEvento/a6.svg" 
         title={"Zonas"} 
         content={"Crea las zonas de tu negocio, espacios y tarifas sobre el plano interactivo."}
+        componentState={componentState}
+        setComponentState={setComponentState}
         />
                 <Card1 
+                urls={16} 
         icon="ModuloEvento/a7.svg" 
         title={"Códigos de descuento"} 
         content={"Configura los códigos de descuento y aplicalos a tantas tarifas como quieras"}
+        componentState={componentState}
+        setComponentState={setComponentState}
         />
         </div>
         <div className="w-full flex flex-row items-start justify-start gap-[10px] ">
         <Card1 
+        urls={16} 
         icon="ModuloEvento/a8.svg" 
         title={"Microsite"} 
         content={"Configura el microsite de tu organización."}
+        componentState={componentState}
+        setComponentState={setComponentState}
         />
         <Card1 
+        urls={16} 
         icon="ModuloEvento/a9.svg" 
         title={"Plantillas para PDF"} 
         content={"Selecciona una plantilla para los PDF de tus ventas"}
         />
         </div>
         <Card1 
+        urls={16} 
         icon="ModuloEvento/a10.svg" 
         title={"Etiquetas de ventas"} 
         content={"Configura aquí las etiquetas para tus ventas."}
+        componentState={componentState}
+        setComponentState={setComponentState}
         />
       </div>
     </div>
@@ -122,15 +150,21 @@ const AjustesTabs: FC <propsAjustesTabs> = ({componentState,setComponentState}) 
 
       <div className="w-full self-stretch flex flex-row items-center justify-between box-border gap-[10px] max-w-full text-sm mq450:flex-col mq750:pr-[39px] mq750:box-border">
         
-      <Card1 
+      <Card1
+      urls={16}  
         icon="ModuloEvento/a11.svg" 
         title={"Monedero"} 
         content={"Visualiza las ventas realizadas por la pasarela de pago."}
+        componentState={componentState}
+        setComponentState={setComponentState}
         />
-            <Card1 
+            <Card1
+            urls={16} 
         icon="ModuloEvento/a12.svg" 
         title={"Facturas"} 
         content={"Descarga las facturas de nuestros servicios."}
+        componentState={componentState}
+        setComponentState={setComponentState}
         />
         
       </div>

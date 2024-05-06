@@ -22,6 +22,7 @@ import Comision1 from "../components/NuevoEvento/EventosCreados/ComponentesE.C/C
 import Comision2 from "../components/NuevoEvento/EventosCreados/ComponentesE.C/Comision2";
 import Liquidaciones from "../components/NuevoEvento/EventosCreados/ComponentesE.C/Liquidaciones";
 import { DataGeneral } from "../components/NuevoEvento/EventosCreados/DataGeneral";
+import DatosNegocios from "../components/NuevoEvento/EventosCreados/AjustesComponents/DatosNegocio";
 
 const EventosOri = () => {
   const { pathArray, setPathArray } = AuthContextProvider();
@@ -119,6 +120,10 @@ const EventosOri = () => {
               /* 20 */
     {
       component: <Liquidaciones componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+      /* 21 */
+    {
+      component: <DatosNegocios componentState={optionSelect} setComponentState={setOptionSelect} />
     },
 /*     {
       component: <DataGeneral componentState={optionSelect} setComponentState={setOptionSelect} />
