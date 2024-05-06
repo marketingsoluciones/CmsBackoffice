@@ -36,10 +36,10 @@ const ComponentR: FC<ComponentRType> = ({
       <div className="flex-1 rounded-[5.25px] box-border flex flex-row items-start justify-start p-[3px] gap-[8.6px] max-w-full border-[1px] border-solid border-profourvenuescom-nero mq450:flex-wrap">
         <div className="flex flex-col items-start justify-start pt-4 px-0 pb-0">
           <div className="flex flex-col items-start justify-start py-0 pr-[3.5px] pl-0">
-            <div className="rounded-[5.25px] bg-profourvenuescom-geyser flex flex-row items-center justify-center p-2.5">
-              <div className="rounded-9980xl bg-profourvenuescom-ecstasy shadow-[0px_2px_4px_rgba(0,_0,_0,_0.06)_inset] flex flex-col items-start justify-start">
+            <div className="rounded-md bg-[#CBD5E1] flex flex-row items-center justify-center p-2.5">
+              <div className="rounded-full bg-[#F97316] shadow-[0px_2px_4px_rgba(0,_0,_0,_0.06)_inset] flex flex-col items-start justify-start">
                 <div className="flex flex-col items-center justify-start py-2.5 px-[15px]">
-                  <div className="relative leading-[14px] inline-block min-w-[4px]">
+                  <div className="relative leading-[14px] inline-block min-w-[4px] text-gray-600">
                     !
                   </div>
                 </div>

@@ -382,7 +382,7 @@ interface propsDataGeneral {
   
                       </div>
   
-                      <div  className="cursor-pointer self-stretch flex flex-col items-start justify-start pt-[10.5px] px-[10.5px] pb-2.5">
+                      <div onClick={() => { setSelectedOption(7) }}  className="cursor-pointer self-stretch flex flex-col items-start justify-start pt-[10.5px] px-[10.5px] pb-2.5">
                         <div className="flex flex-row items-start justify-start pt-[7px] pb-0 pr-[21px] pl-0 ">
                           <div className="h-[21px] w-auto relative leading-[21px] font-semibold inline-block">
                             Usuarios y equipos

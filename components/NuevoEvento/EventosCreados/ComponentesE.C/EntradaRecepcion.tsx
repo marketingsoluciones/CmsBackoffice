@@ -10,12 +10,12 @@ interface propsEntradaRecepcion {
 const EntradaRecepcion: FC<propsEntradaRecepcion> = ({componentState, setComponentState}) => {
     const [addInforme, setAddInforme] = useState(false);
   return (
-    <div className="w-full relative flex flex-col items-start justify-start py-6 px-6 box-border gap-[35px] tracking-[normal] leading-[normal] text-left text-7xl-3 text-black mq750:gap-[17px]">
+    <div className="w-full relative flex flex-col items-start justify-start py-6 px-6 box-border gap-[35px] tracking-[normal] leading-[normal] text-left  text-black mq750:gap-[17px]">
       <div className="flex flex-row items-center justify-start py-0 pr-5 pl-0 gap-3">
         
 
           <div onClick={() => {
-            setComponentState(12)
+            setComponentState()
           }} className="cursor-pointer flex flex-row items-center justify-center pt-[4.5px] px-[3.9px] pb-[5.5px]">
                 <img
                   className="h-[27px] w-[23px] relative overflow-hidden shrink-0"
