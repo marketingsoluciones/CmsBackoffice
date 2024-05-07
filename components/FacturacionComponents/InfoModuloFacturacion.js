@@ -14,13 +14,9 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
     const { user } = AuthContextProvider()
     const [viewInfo, setViewInfo] = useState()
     const [products, setProducts] = useState([])
-    const [optionSelect, setOptionSelect] = useState(null)
     const { originPath, stateOriginPath, product, plan } = router?.query
     const idProduct = product
     const findProducto = data?.data?.find(product => (product.id === idProduct))
-    console.log("data", data.data)
-    console.log("findProducto", findProducto)
-
 
     const info = [
         {
@@ -134,14 +130,22 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
                         </p>
                     </div>
                 </div>
-                
-                {findProducto != undefined && (<ModuloFacturacion data={data} elem={findProducto?.metadata.grupo} products={products} setProducts={setProducts} />)}
 
-                {findProducto == undefined && data?.modulos?.map((elem, idx) => {
-                    return (
-                        <ModuloFacturacion key={idx} data={data} elem={elem} products={products} setProducts={setProducts} idProduct={product} />
+                {
+                    findProducto !== undefined &&
+                    (
+                        <ModuloFacturacion data={data} elem={findProducto?.metadata.grupo} products={products} setProducts={setProducts} />
                     )
-                })
+                }
+
+                {
+                    findProducto == undefined &&
+                    data?.modulos?.map((elem, idx) => {
+                        return (
+                            <ModuloFacturacion key={idx} data={data} elem={elem} products={products} setProducts={setProducts} idProduct={product} />
+                        )
+                    }
+                    )
                 }
             </div>
         </div >

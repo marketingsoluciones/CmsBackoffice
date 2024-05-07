@@ -1,15 +1,13 @@
+import { elements } from "chart.js";
 import { ArrowBackComponent } from "../ToolsComponents"
 import { useRouter } from "next/router";
 
 
 export const InfoModulos = ({ data, setOptionSelect }) => {
     const router = useRouter()
-
-
     const actionBut = () => {
        { router.back()}
     }
-
     return (
         <div className="h-[100vh]">
             <ArrowBackComponent action={actionBut}/>
@@ -80,9 +78,10 @@ export const InfoModulos = ({ data, setOptionSelect }) => {
 }
 
 const InfoModulo = ({ data, setOptionSelect }) => {
-    const dataArry = data?.modulos?.map(elem => {
+    let dataArry = data?.modulos?.map(elem => {
         return data?.data.find(el => (el.metadata.grupo === elem && el.metadata.tipo === "basic"))
     })
+    dataArry = dataArry?.filter(elements => elements != undefined  )
     return (
         <div className="space-y-4">
             {

@@ -30,7 +30,6 @@ export const ModulosFacturacion = () => {
             variables: {},
             development: config?.name
         }));
-        console.log(1002, data)
         const asd = data.reduce((acc, item) => {
             if (!acc.modulos.includes(item.metadata.grupo)) {
                 acc.modulos.push(item.metadata.grupo)
