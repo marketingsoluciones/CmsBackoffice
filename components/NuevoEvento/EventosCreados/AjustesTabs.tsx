@@ -34,7 +34,7 @@ const AjustesTabs: FC <propsAjustesTabs> = ({componentState,setComponentState}) 
         setComponentState={setComponentState}
         />
         <Card1 
-         urls={16} 
+         urls={"21"} 
         icon={"ModuloEvento/a2.svg"} 
         title={"Ajustes generales"} 
         content={"Configura ciertos parámetros de tu negocio que afectarán directamente al funcionamiento del sistema"}
@@ -127,6 +127,8 @@ const AjustesTabs: FC <propsAjustesTabs> = ({componentState,setComponentState}) 
         icon="ModuloEvento/a9.svg" 
         title={"Plantillas para PDF"} 
         content={"Selecciona una plantilla para los PDF de tus ventas"}
+        componentState={componentState}
+        setComponentState={setComponentState}
         />
         </div>
         <Card1 
