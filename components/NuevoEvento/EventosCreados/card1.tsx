@@ -1,11 +1,11 @@
 import { FC } from "react";
 interface propsCard1 {
-  componentState: any;
-  setComponentState: any;
-    icon: any;
-    title: any;
-    content: any;
-    urls:any;
+  componentState?: any;
+  setComponentState?: any;
+    icon?: any;
+    title?: any;
+    content?: any;
+    urls?:any;
 }
 
 const Card1: FC<propsCard1> = ({icon, title, content, urls, componentState, setComponentState}) => {
