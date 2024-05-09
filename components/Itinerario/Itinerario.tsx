@@ -17,7 +17,7 @@ export const Itinerario = ({  setComponentState, idxComponent }) => {
         </div>
         <div className="space-y-4 h-[75vh]">
             <HeaderIter IterArryst={IterArryst} setIterArryst={setIterArryst} setCreatePdf={setCreatePdf} createPdf={createPdf} />
-            <BoddyIter IterArryst={IterArryst} setIterArryst={setIterArryst} createPdf={createPdf} />
+            <BoddyIter/>
         </div>
         {
             createPdf ? (

@@ -14,7 +14,7 @@ export const ModulosFacturacion = () => {
     const [data, setData] = useState({})
     const router = useRouter()
     const { state } = router?.query
-    
+    console.log("=>>>>>>>",data)
 
     useEffect(() => {
         if (state) {

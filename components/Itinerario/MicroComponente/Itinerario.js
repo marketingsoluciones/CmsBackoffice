@@ -81,18 +81,19 @@ export const Itinerario = ({ data }) => {
     return (
         <>
             <SubHeader button={modal} setButton={setModal} date={date} title={data?.title} itinerario={itinerario} />
-            <div className="w-full h-full overflow-auto flex flex-col items-center">
-                <div className="w-full">
+            <div className="w-full h-full overflow-auto flex flex-col items-center pb-10">
+                <div className="w-full divide-y-2 md:divide-y-0">
                     {tasks?.map((elem, idx) => {
                         return (
-                            <Task task={elem} key={idx} date={date} itinerario={itinerario} title={data?.title} />
+                            <div key={idx}>
+                                <Task task={elem} key={idx} date={date} itinerario={itinerario} title={data?.title} />
+                            </div>
                         )
                     })
                     }
                 </div>
                 <AddEvent tasks={tasks} itinerario={itinerario} />
             </div>
-            {/* <GuardarButtom /> */}
             {
                 modal ? (
                     <>

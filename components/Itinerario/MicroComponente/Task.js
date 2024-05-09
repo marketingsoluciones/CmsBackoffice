@@ -13,7 +13,7 @@ export const Task = ({ itinerario, task, title }) => {
   const { domain } = AuthContextProvider()
   const { event, setEvent } = EventContextProvider()
   const toast = useToast()
-  
+
   const initialValues = {
     icon: !task?.icon ? "" : task?.icon,
     time: !task?.hora ? "" : task?.hora,
@@ -71,7 +71,7 @@ export const Task = ({ itinerario, task, title }) => {
     }
   }
 
-  return (
+  /* return (
     <>
 
       <Formik enableReinitialize initialValues={initialValues} >
@@ -109,12 +109,41 @@ export const Task = ({ itinerario, task, title }) => {
         }}
       </Formik>
     </>
+  ) */
+
+
+  return (
+    <>
+
+      <Formik enableReinitialize initialValues={initialValues} >
+        {({ values }) => {
+          return (
+            <Form className="">
+              <div className=" md:grid grid-cols-12 items-center justify-center 2xl:px-36 py-1  " >
+                <div className=" grid grid-cols-2 md:grid-cols-3 col-span-3 py-5 md:py-0 ">
+                  <SelectIcon name="icon" handleChange={handleBlurData} />
+                  <div className="  flex flex-col justify-center md:items-center md:col-span-2 ">
+                    <InputTime name="time" onBlur={() => { handleBlurData("hora", values.time) }} />
+                    <Duration name="duration" onBlur={() => { handleBlurData("duracion", values.duration.toString()) }} />
+                  </div>
+                </div>
+                <div className="col-span-3 px-8 md:px-0">
+                  <Description name="description" onBlur={() => { handleBlurData("descripcion", values.description) }} />
+                </div>
+                <div className="col-span-1 py-3 md:py-0">
+                  <Responsable name="responsable" handleChange={handleBlurData} itinerario={itinerario} task={task} title={title} />
+                </div>
+                <div className="col-span-4 md:-mr-4 px-8 md:px-0 ">
+                  <Tips name="tips" onBlur={() => { handleBlurData("tips", values.tips) }} />
+                </div>
+                <div className="flex items-center justify-center py-3 md:py-0">
+                  <MdOutlineDeleteOutline className="w-7 h-auto cursor-pointer text-gray-500 hover:text-gray-700" onClick={() => deleteTask()} />
+                </div>
+              </div>
+            </Form>
+          )
+        }}
+      </Formik>
+    </>
   )
 }
-
-/* const AutoFormik = ({ values }) => {
-  useEffect(() => {
-    console.log(values.icon)
-  }, [values])
-  return (null)
-} */

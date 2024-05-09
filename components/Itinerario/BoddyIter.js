@@ -4,7 +4,7 @@ import { BsCake } from "react-icons/bs";
 import { LiaRingSolid } from "react-icons/lia";
 import { MenuOptions, Itinerario } from "./MicroComponente"
 
-export const BoddyIter = ({ IterArryst, setIterArryst, createPdf }) => {
+export const BoddyIter = () => {
     const [optionSelect, setOptionSelect] = useState("el gran día")
 
     const handleClickOption = (idx) => {
