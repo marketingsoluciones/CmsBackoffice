@@ -24,6 +24,7 @@ import Liquidaciones from "../components/NuevoEvento/EventosCreados/ComponentesE
 import { DataGeneral } from "../components/NuevoEvento/EventosCreados/DataGeneral";
 import DatosNegocios from "../components/NuevoEvento/EventosCreados/AjustesComponents/DatosNegocio";
 import AjustesGeneralesTabs from "../components/NuevoEvento/EventosCreados/AjustesComponents/AjustesGeneralesTabs";
+import AjustesGenePrin from "../components/NuevoEvento/EventosCreados/AjustesComponents/AjustesGenePrin";
 
 const EventosOri = () => {
   const { pathArray, setPathArray } = AuthContextProvider();
@@ -126,10 +127,11 @@ const EventosOri = () => {
     {
       component: <DatosNegocios componentState={optionSelect} setComponentState={setOptionSelect} />
     },
-          /* 22 */
-          {
-            component: <AjustesGeneralesTabs componentState={optionSelect} setComponentState={setOptionSelect} />
-          },
+
+    /* 22 */
+    {
+      component: <AjustesGenePrin componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
 /*     {
       component: <DataGeneral componentState={optionSelect} setComponentState={setOptionSelect} />
     }, */

@@ -75,7 +75,7 @@ const OpcionesC: FC <propsOpcionesC> = ({componentState, setComponentState}) => 
                   
                   <div className="flex items-start justify-start">
       
-                      <Checkbox label={""}/>
+                      <Checkbox/>
                    
                   </div>
                   <div className="relative leading-[24px] text-black inline-block min-w-[94px]">
@@ -95,7 +95,7 @@ const OpcionesC: FC <propsOpcionesC> = ({componentState, setComponentState}) => 
                   
                 <div className="flex items-start justify-start">
     
-                    <Checkbox label={""}/>
+                    <Checkbox/>
                  
                 </div>
                 <div className="relative leading-[24px] text-black inline-block min-w-[94px]">

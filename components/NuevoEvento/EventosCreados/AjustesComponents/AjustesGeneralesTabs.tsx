@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import EventosPasados from '../EventosPasados';
 import EventosProximos from '../EventosProximos';
+import GenericaComp from './GenericaComp';
+import ReservadosComp from './ReservadosComp';
 
 interface propsAjustesGeneralesTabs {
   componentState: any;
@@ -10,7 +12,7 @@ interface propsAjustesGeneralesTabs {
 
 const AjustesGeneralesTabs: React.FC <propsAjustesGeneralesTabs> = ({componentState,setComponentState}) => {
   // Estado para controlar la opción seleccionada
-  const [selectedTab, setSelectedTab] = useState<string>('Próximos eventos');
+  const [selectedTab, setSelectedTab] = useState<string>('Genérica');
 
   // Función para cambiar la opción seleccionada
   const handleTabChange = (tab: string) => {
@@ -44,8 +46,8 @@ const AjustesGeneralesTabs: React.FC <propsAjustesGeneralesTabs> = ({componentSt
 
       {/* Contenedor de contenido */}
       <div className="mt-4">
-        {selectedTab === 'Genérica' && <EventosPasados componentState={componentState} setComponentState={setComponentState}/>}
-        {selectedTab === 'Reservados' && <EventosProximos componentState={componentState} setComponentState={setComponentState}/>}
+        {selectedTab === 'Genérica' && <GenericaComp componentState={componentState} setComponentState={setComponentState}/>}
+        {selectedTab === 'Reservados' && <ReservadosComp componentState={componentState} setComponentState={setComponentState}/>}
    </div>
     </main>
   );

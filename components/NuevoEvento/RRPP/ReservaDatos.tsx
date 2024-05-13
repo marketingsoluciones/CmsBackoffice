@@ -174,7 +174,7 @@ const ReservaDatos: FC <propsReservaDatos> = ({componentState, setComponentState
               <div className="flex flex-row items-end justify-start pt-0 px-0 pb-5 box-border gap-[3.4px] max-w-full text-text-disabled">
 
                 <div className="self-stretch flex flex-row items-center justify-start py-[3.5px] px-0 box-border">             
-        <Checkbox label="" />
+        <Checkbox/>
                   <div className="text-sm text-gray-400">
                   Quiero recibir información sobre eventos o promociones de <b>Beach Aguilas</b>
                   </div>                

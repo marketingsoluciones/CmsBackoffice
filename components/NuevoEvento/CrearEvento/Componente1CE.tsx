@@ -135,7 +135,7 @@ const Componente1CE: FC <propsComponente1CE> = ({componentState,setComponentStat
         </div>
       </div>
       <div className="self-stretch flex flex-row items-center justify-start py-[3.5px] px-0 box-border">
-        <Checkbox label="" />
+        <Checkbox/>
         <div className="flex-col items-start justify-start min-w-[423px] max-w-full text-base-8 text-pro-fourvenues-com-beach-aguilas-create-event-1318x573-default-black font-pro-fourvenues-com-beach-aguilas-create-event-1318x573-default-inter-semi-bold-123 mq750:min-w-full">
           <div className="w-[83px] h-[24.5px] relative leading-[24.5px] font-semibold inline-block max-h-[24.5px]">
             fumadores
@@ -150,13 +150,13 @@ const Componente1CE: FC <propsComponente1CE> = ({componentState,setComponentStat
       <div className="self-stretch flex-col items-start justify-start gap-[9px] font-medium">
         <div className="flex-col items-start justify-start gap-[11px]">
           <div className=" flex-row items-end justify-start gap-[7px]">
-            <Checkbox label="" />
+            <Checkbox/>
             <div className="h-[17.5px] w-auto relative text-smi-3 leading-[17.5px] text-black inline-block ">
               Copiar tarifas
             </div>
           </div>
           <div className="flex-row items-end justify-start gap-[7px]">
-            <Checkbox label="" />
+            <Checkbox/>
             <div className="h-auto w-auto relative text-smi-3 leading-[17.5px] font-medium text-black inline-block ">
               Repetir evento
             </div>

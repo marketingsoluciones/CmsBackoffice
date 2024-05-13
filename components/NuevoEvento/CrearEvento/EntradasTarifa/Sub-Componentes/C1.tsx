@@ -53,7 +53,7 @@ const C1: FC <C1Type> = ({
 
 
         <div className="flex flex-col items-start justify-start">
-            <Checkbox label={""}/>
+            <Checkbox/>
         </div>
 
       </div>
