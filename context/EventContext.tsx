@@ -82,7 +82,6 @@ const EventProvider = ({ children }) => {
     }
     if (eventsGroup && eventsGroup.length > 0) {
       if (!valir) {
-        console.log("seteando evento")
         const eventsPendientes = eventsGroup.filter(item => item.estatus === "pendiente")
         const eventsGroupSort = eventsPendientes?.sort((a: any, b: any) => { return b.fecha_creacion - a.fecha_creacion })
         setEvent(eventsGroupSort[0]);
@@ -93,35 +92,17 @@ const EventProvider = ({ children }) => {
 
   useEffect(() => {
     if (event?.planSpaceSelect) {
-      //console.log("seteando planSpaceSelect")
       setPlanSpaceActive(event?.planSpace?.find(elem => elem?._id === event?.planSpaceSelect))
     }
   }, [event?.planSpaceSelect])
 
-  useEffect(() => {
-    //console.log("seteado PlanSpaceActive________________")
-    console.log("seteado PlanSpaceActive", planSpaceActive)
-    //console.log("---------------------------------------")
-  }, [planSpaceActive])
+
 
   useEffect(() => {
-    //console.log("seteado event _________________________")
-    console.log("seteado event", event)
     setAllFilterGuests({ ...getAllFilterGuest(event), update: new Date().getTime() })
-    //console.log("---------------------------------------")
   }, [event])
 
-  useEffect(() => {
-    //console.log("seteado event.planSpaceSelect__________")
-    console.log("seteado event.planSpaceSelect", event?.planSpaceSelect)
-    //console.log("---------------------------------------")
-  }, [event?.planSpaceSelect])
 
-  useEffect(() => {
-    //console.log("seteado eventsGroup____________________")
-    console.log("seteado eventsGroup", eventsGroup)
-    //console.log("---------------------------------------")
-  }, [eventsGroup])
 
   return (
     <EventContext.Provider value={{ event, setEvent, invitadoCero, setInvitadoCero, idxGroupEvent, setIdxGroupEvent, planSpaceActive, setPlanSpaceActive, filterGuests, setFilterGuests, editDefault, setEditDefault, currencyState, setCurrencyState, allFilterGuests, setAllFilterGuests, }}>

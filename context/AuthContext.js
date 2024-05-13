@@ -105,11 +105,8 @@ const AuthProvider = ({ children }) => {
       const firebaseClient = initializeApp(resp.fileConfig);
       firebaseClient
     } catch (error) {
-      console.log(90001, error)
     }
-    //auth = getAuth()
     setConfig(resp)
-    // }
 
   }, [])
 
@@ -126,54 +123,41 @@ const AuthProvider = ({ children }) => {
       getAuth().onAuthStateChanged(async (user) => {
         const sessionCookie = Cookies.get(config?.cookie);
         const asd = parseJwt(sessionCookie)
-        console.info(8000042, "Verificando cookie", user?.uid, asd?.user_id);
         if (user?.uid !== asd?.user_id) {
-          console.log("entro para loguear de nuevo")
           fetchApi({
             query: queries.authStatus,
             variables: { sessionCookie },
             development: config?.name
           }).then((asdf) => {
-            console.log(11145, "asdf", asdf)
             const customToken = asdf?.customToken
-            console.info("Llamo con mi sessionCookie para traerme customToken");
-            console.info("Custom token", customToken)
             customToken && signInWithCustomToken(getAuth(), customToken).then(
               setVerificandoCookie(true)
             )
-            console.info("Hago sesion con el custom token****");
           })
         }
         if (sessionCookie) {
-          console.info("Tengo cookie de sesion", user);
           if (user) {
-            console.info("Tengo user de contexto firebase");
             await fetchApi({
               query: queries.getUser,
               variables: { uid: user?.uid },
               development: config?.name
             }).then((moreInfo) => {
-              moreInfo && console.info("Tengo datos de la base de datos");
+              /* moreInfo && console.info("Tengo datos de la base de datos"); */
               setUser({ ...user, ...moreInfo });
-              console.info("Guardo datos en contexto react");
               setTimeout(() => {
                 setVerificandoCookie(true)
               }, 50);
             })
           } else {
-            console.info("NO tengo user de contexto de firebase");
             fetchApi({
               query: queries.authStatus,
               variables: { sessionCookie },
               development: config?.name
             }).then((asdf) => {
               const customToken = asdf?.customToken
-              console.info("Llamo con mi sessionCookie para traerme customToken");
-              console.info("Custom token", customToken)
               customToken && signInWithCustomToken(getAuth(), customToken).then(
                 setVerificandoCookie(true)
               )
-              console.info("Hago sesion con el custom token");
             })
           }
         } else {

@@ -33,12 +33,8 @@ const SocketProvider: FC<any> = ({ children }): JSX.Element => {
   const [fatherID, setfatherID] = useState<string>(initialContext.fatherID);
 
   useEffect(() => {
-    console.log("=======> User", user)
     const token = Cookies.get("idTokenV0.1.0")
-    console.log("=======> parseJwt", parseJwt(token))
-    console.log("=======> development", config?.name)
     if (token && !socket?.connected) {
-      console.log("=======> Conecta...")
       setSocket(api.socketIO({
         token,
         development: config?.name,
@@ -47,15 +43,12 @@ const SocketProvider: FC<any> = ({ children }): JSX.Element => {
       }))
     }
     if (!token && socket) {
-      console.log("=======> desconecta...")
       socket.disconnect();
     }
   }, [user])
 
-  useEffect(() => {
+ /*  useEffect(() => {
     socket?.on("connect", () => {
-      console.log(1445411144, socket)
-      console.log(1.00003, "Conectado", new Date().toLocaleString('es-VE', { timeZone: 'america/Caracas' }))
     })
     socket?.on("disconnect", (reason) => {
       console.log(1.00003, "Desconectado", new Date().toLocaleString('es-VE', { timeZone: 'america/Caracas' }),
@@ -82,7 +75,7 @@ const SocketProvider: FC<any> = ({ children }): JSX.Element => {
       console.log(1.00003, "ping", new Date().toLocaleString('es-VE', { timeZone: 'america/Caracas' }))
     })
 
-  }, [socket])
+  }, [socket]) */
 
   return (
     <SocketContext.Provider value={{ socket, fatherID }}>

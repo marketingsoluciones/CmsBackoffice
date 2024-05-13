@@ -3,13 +3,10 @@ import { Task } from "./Task"
 import { fetchApiEventos, queries } from "../../../utils/Fetching";
 import { SubHeader } from "./SubHeader";
 import { AddEvent } from "./AddEvent";
-import { GuardarButtom } from "./GuardarButtom";
 import { useEffect, useState } from "react";
 import { AuthContextProvider } from "../../../context";
 import { Modal } from "../../modals/Modal";
 import { useToast } from "../../../hooks/useToast";
-
-
 
 export const Itinerario = ({ data }) => {
     const { domain } = AuthContextProvider()

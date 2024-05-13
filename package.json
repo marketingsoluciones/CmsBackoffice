@@ -11,7 +11,7 @@
     "lint": "next lint"
   },
   "keywords": [],
-  "author": "Jafet Montilla <jafetmontilla@gmail.com>, Francisco Montilla <ciscomontilla@gmail.com>, Eduarcho Chavez <edodch4@gmail.com>",
+  "author": "Jafet Montilla <jafetmontilla@gmail.com>, Francisco Montilla <ciscomontilla@gmail.com>, Eduardo Chavez <edodch4@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
