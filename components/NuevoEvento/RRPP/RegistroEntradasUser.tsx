@@ -19,7 +19,7 @@ const RegistroEntradasUser: FC <propsRegistroEntradasUser> = ({componentState, s
 
         <div className="w-full right-[0px] left-[0px] flex flex-col items-start py-0 pl-0 box-border text-xl  text-gray">
           <div className="relative w-full leading-[31.5px] font-semibold inline-block max-h-[31.5px]">
-            Playa y rumba
+            Concierto de los Iracundos
           </div>
         </div>
         <div className="w-full flex flex-row items-start justify-start py-0 pl-0 box-border gap-[21px] text-sm text-black">

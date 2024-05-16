@@ -42,14 +42,14 @@ const ReservaDatos: FC <propsReservaDatos> = ({componentState, setComponentState
                 />
               </div>
               <div className="flex flex-col items-start justify-start">
-                <div className="flex flex-row items-start justify-start py-0 pr-3.5 pl-[13.700000000000728px]">
-                  <b className="w-24 relative leading-[21px] flex items-center justify-center min-w-[96px] max-w-[465px] mq450:max-w-full">
-                    Playa y rumba
+                <div className="flex flex-row items-start justify-center">
+                  <b className="w-auto relative leading-[21px] flex items-center justify-center min-w-[96px] max-w-[465px] mq450:max-w-full">
+                    Concierto de los Iracundos
                   </b>
                 </div>
                 <div className="relative text-2xs-5 leading-[14px] text-gray-600 whitespace-nowrap">
-                  <b>Jueves</b>
-                  <span>, 29 de febrero 2024</span>
+                  <b>Sabado</b>
+                  <span>, 29 de Junio 2024</span>
                 </div>
               </div>
             </div>
@@ -85,7 +85,7 @@ const ReservaDatos: FC <propsReservaDatos> = ({componentState, setComponentState
                     </div>
                     <div className="self-stretch flex flex-col items-center justify-start py-0 px-5">
                       <div className="w-full relative leading-[14px] inline-block min-w-[18px] max-w-[267.5px]">
-                        lolo
+                        VIP
                       </div>
                     </div>
                   </div>
@@ -176,7 +176,7 @@ const ReservaDatos: FC <propsReservaDatos> = ({componentState, setComponentState
                 <div className="self-stretch flex flex-row items-center justify-start py-[3.5px] px-0 box-border">             
         <Checkbox/>
                   <div className="text-sm text-gray-400">
-                  Quiero recibir información sobre eventos o promociones de <b>Beach Aguilas</b>
+                  Quiero recibir información sobre eventos o promociones de <b>Oro Verde</b>
                   </div>                
                   <span>.</span>
                 </div>

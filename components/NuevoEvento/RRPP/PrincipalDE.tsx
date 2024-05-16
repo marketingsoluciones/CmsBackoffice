@@ -16,7 +16,7 @@ const PrincipalDE: FC <propsPrincipalDE> = memo(({componentState,setComponentSta
           className="h-[] w-[126px] relative overflow-hidden shrink-0 object-cover"
           loading="lazy"
           alt=""
-          src="ModuloEvento/div.absolute.svg"
+          src="ModuloEvento/evento1.jpg"
         />
         <div className="w-full flex flex-col items-start justify-start pt-[10.5px] px-0 pb-0 box-border min-w-[238.1999999999971px]">
           <div className="self-stretch flex flex-col items-start justify-start gap-[50.5px]">
@@ -27,13 +27,13 @@ const PrincipalDE: FC <propsPrincipalDE> = memo(({componentState,setComponentSta
                     <div className="rounded-[5.25px] bg-rosa flex flex-col items-start justify-start py-[3.5px] px-[7px]">
                       <div className="overflow-x-auto flex flex-row items-start justify-start py-0 pr-[2.5px] pl-0 gap-[4.4px]">
                         <div className="h-[17.5px] w-9 relative tracking-[2.45px] leading-[17.5px] uppercase font-extralight inline-block min-w-[36px] max-h-[17.5px] whitespace-nowrap">
-                          Jue.
+                          Sab.
                         </div>
                         <b className="h-[17.5px] w-auto relative tracking-[2.45px] leading-[17.5px] uppercase inline-block min-w-[21px] max-h-[17.5px] whitespace-nowrap">
                           29
                         </b>
                         <div className="h-[17.5px] w-auto relative tracking-[2.45px] leading-[17.5px] uppercase font-extralight inline-block min-w-[36px] max-h-[17.5px] whitespace-nowrap">
-                          Feb.
+                          Jun.
                         </div>
                       </div>
                     </div>
@@ -56,7 +56,7 @@ const PrincipalDE: FC <propsPrincipalDE> = memo(({componentState,setComponentSta
                 </div>
               </div>
               <h3 className="m-0 w-auto h-7 relative text-2xl leading-[28px] font-semibold font-inherit text-text-primary inline-block max-w-[528.6599731445312px] mq416:max-w-full">
-                Playa y rumba
+                Concierto de los Iracundos
               </h3>
             </div>
             <button className="cursor-pointer [border:none] pt-[3.5px] pb-[3px] pr-1.5 pl-[7px] bg-rosa rounded-[5.25px] flex flex-row items-start justify-start gap-[3.5px] opacity-[0.4]">
@@ -68,7 +68,7 @@ const PrincipalDE: FC <propsPrincipalDE> = memo(({componentState,setComponentSta
                 />
               </div>
               <div className="h-[18px] w-auto relative text-smi-3 leading-[18px] font-medium text-white text-left inline-block min-w-[82px]">
-                Beach Aguilas
+                Banaoro / Rocafuerte y 25 de junio
               </div>
             </button>
           </div>

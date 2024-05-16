@@ -39,10 +39,10 @@ const EntradasGratis: FC <propsEntradasGratis> = memo(({componentState,setCompon
                 />
               </div>
               <div className="h-[18px] w-[217px] relative tracking-[2.45px] leading-[17.5px] uppercase font-medium inline-block">
-                <b>Jueves</b>
+                <b>Sabado</b>
 
 
-                <span>, 29 febrero 2024</span>
+                <span>, 29 Junio 2024</span>
               </div>
             </div>
             <div className="w-[138.7px] flex flex-row items-center justify-start gap-[6px]">
@@ -70,7 +70,7 @@ const EntradasGratis: FC <propsEntradasGratis> = memo(({componentState,setCompon
         </div>
         <div className="flex flex-col items-start justify-start pl-8 text-xl text-rosa">
           <b className="w-auto h-[31.5px] relative leading-[31.5px] inline-block max-w-[1024px] max-h-[31.5px] mq416:max-w-full">
-            Playa y rumba
+            Concierto de los Iracundos
           </b>
         </div>
       </section>
@@ -83,13 +83,13 @@ const EntradasGratis: FC <propsEntradasGratis> = memo(({componentState,setCompon
               <div className="flex-1 flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0 box-border min-w-[395px] max-w-full mq416:min-w-full">
                 <div className="self-stretch flex flex-col items-start justify-start">
                   <div className="w-auto h-[24.5px] relative leading-[24.5px] font-semibold inline-block text-black max-h-[24.5px]">
-                    Gratis
+                    Entrada General
                   </div>
                 </div>
               </div>
               <div className="flex flex-col items-start justify-start text-mid-5 text-success-dark">
                 <div className="w-auto h-[24.5px] relative leading-[24.5px] font-semibold inline-block text-black whitespace-nowrap">
-                  0€
+                  55.50$
                 </div>
               </div>
             </div>
@@ -171,7 +171,7 @@ const EntradasGratis: FC <propsEntradasGratis> = memo(({componentState,setCompon
               <div className="self-stretch flex flex-row items-start justify-between gap-[20px] text-sm text-gray-600">
                 <div className="flex flex-col items-start justify-start gap-[10.5px]">
                   <div className="w-[auto h-[21px] relative leading-[21px] font-light inline-block min-w-[120px] max-w-[243.27999877929688px]">
-                    1  x Gratis (0,00 €)
+                    1  x General (55,50 $)
                   </div>
                   <div className="w-auto h-[21px] relative leading-[21px] font-light inline-block min-w-[55px] max-w-[243.27999877929688px]">
                     Subtotal
@@ -179,10 +179,10 @@ const EntradasGratis: FC <propsEntradasGratis> = memo(({componentState,setCompon
                 </div>
                 <div className="w-auto flex flex-col items-start justify-start gap-[10.5px] text-right">
                   <div className="self-stretch h-[21px] relative leading-[21px] font-light inline-block min-w-[43px]">
-                    0,00 €
+                    55,50 $
                   </div>
                   <div className="self-stretch h-[21px] relative leading-[21px] font-light inline-block min-w-[43px]">
-                    0,00 €
+                    55,50 $
                   </div>
                 </div>
               </div>
@@ -191,7 +191,7 @@ const EntradasGratis: FC <propsEntradasGratis> = memo(({componentState,setCompon
                   Gastos de gestión
                 </div>
                 <div className="h-[21px] w-auto relative leading-[21px] font-light text-right flex items-center min-w-[43px]">
-                  0,00 €
+                  0,00 $
                 </div>
               </div>
               <div className="self-stretch h-px relative bg-gray-600" />
@@ -200,7 +200,7 @@ const EntradasGratis: FC <propsEntradasGratis> = memo(({componentState,setCompon
                   Total
                 </div>
                 <div className="h-[24.5px] w-[51px] relative leading-[24.5px] font-semibold text-right inline-block min-w-[51px] max-h-[24.5px]">
-                  0,00 €
+                  55,50 $
                 </div>
               </div>
             </div>

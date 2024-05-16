@@ -132,7 +132,7 @@ interface propsDataGeneral {
             <div className="flex-1 flex flex-col items-start justify-start py-0 pr-[9px] pl-0 box-border">
               <div className="self-stretch overflow-hidden flex flex-col items-start justify-start">
                 <div className="w-auto h-[31.5px] relative leading-[31.5px] font-semibold inline-block max-h-[31.5px] mq450:text-2xl mq450:leading-[25px]">
-                  Playa y Rumba
+                  Concierto de los Iracundos
                 </div>
               </div>
             </div>
@@ -189,7 +189,7 @@ interface propsDataGeneral {
               className="h-[98.3px] w-[84px] relative rounded-md overflow-hidden shrink-0 object-cover"
               loading="lazy"
               alt=""
-              src="ModuloEvento/img1.svg"
+              src="ModuloEvento/evento1.jpg"
             />
             <div className="flex flex-row items-start justify-between py-[7px] px-0 box-border max-w-full gap-[20px] lg:flex-wrap mq1050:min-w-full">
   
@@ -204,7 +204,7 @@ interface propsDataGeneral {
                   </div>
                   <div className="flex flex-col items-start justify-start pt-[2.5px] pb-1 pr-[2.479999542236328px] pl-0">
                     <div className="w-auto h-[25px] relative leading-[24.5px] uppercase inline-block box-border pr-0">
-                      Jue.
+                      Sab.
                     </div>
                   </div>
                   <div className="flex flex-col items-start justify-start pt-[2.5px] pb-1 pr-[3px] pl-0">
@@ -214,7 +214,7 @@ interface propsDataGeneral {
                   </div>
                   <div className="flex flex-col items-start justify-start pt-[2.5px] pb-1 pr-[3px] pl-0">
                     <div className="w-auto h-[25px] relative leading-[24.5px] uppercase inline-block">
-                      Febrero
+                      Junio
                     </div>
                   </div>
                   <div className="flex flex-col items-start justify-start pt-[2.5px] px-0 pb-1">

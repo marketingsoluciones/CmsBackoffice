@@ -16,7 +16,7 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
           className="self-stretch h-[366.6px] relative rounded-md max-w-full overflow-hidden shrink-0 object-cover [debug_commit:1cbd860]"
           loading="lazy"
           alt=""
-          src="ModuloEvento/div.absolute.svg"
+          src="ModuloEvento/evento1.jpg"
         />
         <div className="flex flex-col items-start justify-start gap-[10.5px] shrink-0 [debug_commit:1cbd860]">
           <div className="w-full h-7 relative leading-[28px] font-semibold inline-block min-w-[102px] max-w-[313.3299865722656px] mq416:text-mid mq416:leading-[22px]">
@@ -24,10 +24,10 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
           </div>
           <div className="flex flex-col items-start justify-start text-sm">
             <div className="w-full h-[21px] relative leading-[21px] font-semibold inline-block min-w-[106px] max-w-[313.3299865722656px]">
-              Aguials Crsistla
+              Oro Verde
             </div>
             <div className="w-full h-[21px] relative leading-[21px] inline-block max-w-[313.3299865722656px]">
-              Águilas, Murcia, España
+            Banaoro / Rocafuerte y 25 de junio
             </div>
           </div>
           <button className="cursor-pointer [border:none] pt-[3.5px] pb-[3px] pr-[4.700000000004366px] pl-[7px] bg-red-600 rounded-[5.25px] flex flex-row items-start justify-start gap-[3.5px]">
@@ -68,7 +68,7 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
 
               <div className="flex flex-row items-center justify-center py-0 px-0 box-border gap-[3px] max-w-full">
                 <div className="h-[25px] w-full relative tracking-[3.15px] leading-[24.5px] uppercase text-black inline-block">
-                  Jue. 29 Febrero 2024 /
+                  Sab. 29 Junio 2024 /
                 </div>
                 <div className="h-[25px] w-[60px] relative tracking-[3.15px] leading-[25px] uppercase inline-block min-w-[60px] whitespace-nowrap">{`00:00 `}</div>
                 <div className="h-4 flex flex-row items-start justify-start opacity-[0.5]">
@@ -85,9 +85,9 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
                 </div>
               </div>
             </div>
-            <div className="flex flex-col items-start justify-start gap-[14px] max-w-full text-[52.5px] text-rosa">
+            <div className="flex flex-col items-start justify-start gap-[14px] max-w-full text-[32.5px] text-rosa">
               <b className="w-full h-14 relative leading-[56px] inline-block max-w-[668.6699829101562px] mq416:text-[31px] mq416:leading-[34px]">
-                Playa y rumba
+                Concierto de los Iracunddos
               </b>
               <div className="flex flex-row items-start justify-start gap-[7px] text-smi-3 text-primary-contrast">
                 
@@ -136,8 +136,8 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
                 <div className="self-stretch flex flex-row items-center justify-start max-w-full [row-gap:20px]">
                   <div className="flex-1 flex flex-col items-start justify-start py-[10.5px] pr-[21px] pl-[10.5px] box-border min-w-[323px] max-w-full">
                     <div className="self-stretch flex flex-col items-start justify-start">
-                      <div className="w-[46px] h-[24.5px] relative leading-[24.5px] font-semibold inline-block min-w-[46px] max-w-[497.1600036621094px] max-h-[24.5px]">
-                        Gratis
+                      <div className="w-auto h-[24.5px] relative leading-[24.5px] font-semibold inline-block min-w-[46px] max-w-[497.1600036621094px] max-h-[24.5px]">
+                        Entrada General
                       </div>
                     </div>
                   </div>
@@ -148,7 +148,7 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
                           <div className="self-stretch rounded-md bg-green-200 flex flex-row items-start justify-start p-[10.5px]">
                             <div className="flex flex-col items-center justify-start py-0 pr-2.5 pl-[10.19999999999709px]">
                               <div className="self-stretch h-[24.5px] relative leading-[24.5px] font-semibold inline-block min-w-[22px] max-h-[24.5px] whitespace-nowrap">
-                                0€
+                                55.50$
                               </div>
                             </div>
                           </div>
@@ -179,7 +179,7 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
                 <div className="flex flex-col items-start justify-start py-[10.5px] pr-[21px] pl-[10.5px] box-border min-w-[318px] max-w-full">
                   <div className="self-stretch flex flex-col items-start justify-start">
                     <div className="w-full h-[24.5px] relative leading-[24.5px] font-semibold inline-block max-w-[489.5799865722656px] max-h-[24.5px]">
-                      entrada + consumo general
+                      Entrada Vip + botella de Whisky 
                     </div>
                   </div>
                 </div>
@@ -190,7 +190,7 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
                         <div className="self-stretch rounded-md bg-red-200 flex flex-row items-start justify-start p-[10.5px]">
                           <div className="flex flex-col items-center justify-start py-0 px-[10.5px]">
                             <div className="self-stretch h-[24.5px] relative leading-[24.5px] font-semibold inline-block min-w-[29px] max-h-[24.5px] whitespace-nowrap">
-                              10€
+                              150.50$
                             </div>
                           </div>
                         </div>
@@ -222,12 +222,12 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
             </div>
             <b className="h-7 w-full relative tracking-[4.2px] leading-[28px] uppercase inline-block min-w-[101px] mq416:text-mid mq416:leading-[22px]">
               {" "}
-              Mesas
+              Zonas de Reserva
             </b>
           </div>
           <div className="self-stretch flex flex-col items-start justify-start gap-[10.5px] max-w-full">
             <CompVentas1
-              lolo="lolo"
+              lolo="Zona Vip"
               icon="ModuloEvento/flesh.svg"
               propMinWidth="28px"
               link="5"

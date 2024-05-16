@@ -36,8 +36,8 @@ export const CabeceraR: FC <propsCabeceraR> =({componentState, setComponentState
                 />
               </div>
               <div className="relative tracking-[2.45px] leading-[17.5px] uppercase">
-                <b>Jueves</b>
-                <span>, 29 febrero 2024</span>
+                <b>Sabado</b>
+                <span>, 29 Junio 2024</span>
               </div>
             </div>
             <div className="w-[141.73px] flex flex-row items-center justify-start gap-[6px]">

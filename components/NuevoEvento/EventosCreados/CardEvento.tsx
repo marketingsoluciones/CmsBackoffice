@@ -11,22 +11,22 @@ const card1: FC <propsCardEventos> = memo(({componentState,setComponentState}) =
       setComponentState(7)
     }} 
     className="cursor-pointer w-auto rounded-md bg-white overflow-hidden flex flex-row items-start justify-start py-0 pr-[7px] pl-0 box-border gap-[7px] tracking-[normal]  text-sm">
-      <div className="flex flex-row w-[140px] rounded-tl-2xs-5 rounded-tr-none rounded-br-none rounded-bl-2xs-5 overflow-hidden shrink-0 items-start justify-end pt-0 px-0 pb-[105px] box-border relative">
+      <div className="flex flex-row w-[140px] rounded-tl-2xs-5 rounded-tr-none rounded-br-none rounded-bl-2xs-5 shrink-0 items-start justify-end pt-0 px-0 pb-[105px] box-border relative">
         <img
           className="h-full w-full absolute overflow-hidden object-cover"
           loading="lazy"
           alt=""
-          src="ModuloEvento/divabsolute@2x.png"
+          src="ModuloEvento/evento1.jpg"
         />
-        <div className="flex flex-col bg-black items-center justify-center py-[7px] pr-[13px] pl-3.5 text-white">
+        <div className="flex flex-col bg-black items-center justify-center overflow-hidden py-[7px] pr-[13px] pl-3.5 text-white z-[1] ">
           <b className="w-7 h-[18px] relative leading-[17.5px] uppercase inline-block">
-            Jue.
+            Sab.
           </b>
             <b className="h-[25px] w-[21px] relative leading-[24.5px] inline-block">
               29
             </b>
           <b className="w-[27px] h-[18px] relative leading-[17.5px] uppercase inline-block">
-            Feb.
+            JUN.
           </b>
         </div>
       </div>
@@ -56,8 +56,8 @@ const card1: FC <propsCardEventos> = memo(({componentState,setComponentState}) =
                 </div>
               </div>
             </div>
-            <b className="w-[140px] h-[24.5px] relative text-mid-5 leading-[24.5px] flex font-semibold text-pro-fourvenues-com-beach-aguilas-create-event-1318x573-default-black items-center box-border pr-5">
-              Playa y rumba
+            <b className="w-auto h-[24.5px] relative text-mid-5 leading-[24.5px] flex font-semibold text-pro-fourvenues-com-beach-aguilas-create-event-1318x573-default-black items-center box-border pr-5">
+              Concierto de Los Iracundos
             </b>
           </div>
           <div className="flex flex-col items-start justify-start gap-[7px] text-center text-xs font-semibold">

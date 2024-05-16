@@ -12,7 +12,7 @@ const EventosProximos: FC <propsEventosProximos> = ({componentState,setComponent
   return (
         <div className="w-auto flex flex-col items-start justify-start gap-[14px]">
           <div className="w-auto h-[21px] relative leading-[21px] font-semibold inline-block text-left text-sm">
-            Febrero
+            Junio
           </div>
           <Card1 componentState={componentState} setComponentState={setComponentState}/>
 

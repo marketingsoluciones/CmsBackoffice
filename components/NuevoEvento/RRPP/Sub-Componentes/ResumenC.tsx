@@ -21,12 +21,12 @@ export const ResumenComponents: FC <propsResumenComponents> =({componentState, s
                   <div className="self-stretch flex flex-row items-center justify-start">
                     <div className="flex-1 flex flex-col items-start justify-start py-0 pr-[123.27999877929688px] pl-0">
                       <div className="relative leading-[21px] font-light inline-block max-w-[243.27999877929688px]">
-                        1  x Gratis (0,00 €)
+                        1  x Gratis (55,50 $)
                       </div>
                     </div>
                     <div className="w-[42.1px] flex flex-col items-end justify-start text-right">
                       <div className="relative leading-[21px] font-light">
-                        0,00 €
+                      55,50 $
                       </div>
                     </div>
                   </div>
@@ -38,7 +38,7 @@ export const ResumenComponents: FC <propsResumenComponents> =({componentState, s
                     </div>
                     <div className="w-[42.1px] flex flex-col items-end justify-start text-right">
                       <div className="relative leading-[21px] font-light">
-                        0,00 €
+                      55,50 $
                       </div>
                     </div>
                   </div>
@@ -50,7 +50,7 @@ export const ResumenComponents: FC <propsResumenComponents> =({componentState, s
                     </div>
                     <div className="w-[42.1px] flex flex-col items-end justify-start text-right">
                       <div className="relative leading-[21px] font-light">
-                        0,00 €
+                        0,00 $
                       </div>
                     </div>
                   </div>
@@ -64,7 +64,7 @@ export const ResumenComponents: FC <propsResumenComponents> =({componentState, s
                   </div>
                   <div className="w-[49.9px] flex flex-col items-end justify-start text-right">
                     <div className="relative leading-[24.5px] font-semibold inline-block max-h-[24.5px]">
-                      0,00 €
+                    55,50 $
                     </div>
                   </div>
                 </div>

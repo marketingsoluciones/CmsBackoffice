@@ -28,7 +28,7 @@ const CancelarReserva: FC <propsCancelarReserva> = ({componentState, setComponen
               className="self-stretch h-[200px] max-w-full overflow-hidden shrink-0 object-cover"
               loading="lazy"
               alt=""
-              src="ModuloEvento/img6.svg"
+              src="ModuloEvento/vip.jpg"
             />
             <div className="self-stretch flex flex-col items-start justify-start gap-[28px] max-w-full">
               <div className="self-stretch flex flex-col items-start justify-start gap-[17.5px] max-w-full">
@@ -39,7 +39,7 @@ const CancelarReserva: FC <propsCancelarReserva> = ({componentState, setComponen
                         <img src="ModuloEvento/calcal.svg" alt="" />
                       </div>
                       <div className="relative text-sm leading-[21px] font-light font-www-fourvenues-com-es-christian-lanza1-success-hlruskh2900003j8e5u90hawff1v50hb-1358x573-default-inter-semi-bold-175">
-                        29 jue. febrero 2024
+                        29 Sab. Junio 2024
                       </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-[12.8px] text-smi-3 text-www-fourvenues-com-es-christian-lanza1-my-tickets-booking-pls4z3fgj1gu901dw7c075ptv4hejjwd-cancel-b-81y931x9l-0c02b57039897024944853aa75818e88cd46dccdfaa53215199820ece72e9159-18106666259765625x764-default-nero">
@@ -47,7 +47,7 @@ const CancelarReserva: FC <propsCancelarReserva> = ({componentState, setComponen
                        
                       </div>
                       <div className="relative text-sm leading-[21px] font-light font-www-fourvenues-com-es-christian-lanza1-success-hlruskh2900003j8e5u90hawff1v50hb-1358x573-default-inter-semi-bold-175 text-text-primary inline-block min-w-[92px]">
-                        Beach Aguilas
+                        Banaoro / Rocafuerte y 25 de junio
                       </div>
                     </div>
                     <div className="flex flex-row items-center justify-start gap-[10.229999542236328px]">
