@@ -25,6 +25,7 @@ import { DataGeneral } from "../components/NuevoEvento/EventosCreados/DataGenera
 import DatosNegocios from "../components/NuevoEvento/EventosCreados/AjustesComponents/DatosNegocio";
 import AjustesGeneralesTabs from "../components/NuevoEvento/EventosCreados/AjustesComponents/AjustesGeneralesTabs";
 import AjustesGenePrin from "../components/NuevoEvento/EventosCreados/AjustesComponents/AjustesGenePrin";
+import Usuarios from "../components/NuevoEvento/EventosCreados/AjustesComponents/Usuarios";
 
 const EventosOri = () => {
   const { pathArray, setPathArray } = AuthContextProvider();
@@ -131,6 +132,10 @@ const EventosOri = () => {
     /* 22 */
     {
       component: <AjustesGenePrin componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+        /* 23 */
+    {
+      component: <Usuarios componentState={optionSelect} setComponentState={setOptionSelect} />
     },
 /*     {
       component: <DataGeneral componentState={optionSelect} setComponentState={setOptionSelect} />

@@ -58,7 +58,7 @@ const AjustesTabs: FC <propsAjustesTabs> = ({componentState,setComponentState}) 
         <div className="w-full self-stretch flex flex-row items-center justify-between box-border gap-[10px] max-w-full text-sm mq450:flex-col mq750:pr-[39px] mq750:box-border">
         
         <Card1 
-        urls={16} 
+        urls={23} 
         icon="ModuloEvento/a3.svg" 
         title={"Usuarios"} 
         content={"Gestiona usuarios, equipos y solicitudes a tu negocio."}
