@@ -71,7 +71,6 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const fetchUpdate = useCallback(async ({ _id, characteristics2, questionsAndAnswers2, categories, ...values }) => {
     try {
       //por cada values hacer enviar imagen al servidor por singleupload y reescribir el valor de vuelta, setear el estado
-      console.log(values)
       values.video = values?.imgMiniatura?.videoFile
       values.imgMiniatura = values?.imgMiniatura?.imageFile
       values.imgBanner = values?.imgBanner?.imageFile
@@ -158,7 +157,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
                 <div className="flex items-start">
                   <Center mb={"2px"} >
                     <ArrowLeft
-                      className="w-6 h-6 mr-2 text-gray-600 cursor-pointer"
+                      className="w-5 h-5 text-gray-700 cursor-pointer"
 
                       onClick={() => {
                         if (changedForm) {
@@ -209,6 +208,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
           {/*  <Flex h={"85%"}  > */}
           <Box w={"100%"}  >
             <FormDinamical
+              slug={slug}
               schema={options?.schema}
               initialValues={valuesEdit}
               onSubmit={handleSubmit}

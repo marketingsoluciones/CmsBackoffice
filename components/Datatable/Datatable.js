@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, DeleteIcon, SettingsIcon } from "@chakra-ui/icons";
+import { ArrowLeftIcon, ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, CloseIcon, DeleteIcon, SettingsIcon } from "@chakra-ui/icons";
 import { Table, Tbody, Th, Thead, Tr, Td, Select, Flex, Text, IconButton, Tooltip, Divider, Button, Heading, Checkbox, FormLabel, Menu, MenuButton, MenuList, Switch, Image, Center, Box } from "@chakra-ui/react";
 import { useTable, usePagination, useRowSelect, useFilters, useGlobalFilter, } from "react-table";
 import { LoadingComponent } from "../../components/LoadingComponent";
@@ -14,11 +14,25 @@ import { AuthContextProvider } from "../../context/AuthContext";
 
 
 
-export const Datatable = ({ isLoading, initialState, columns, data = [], total, handleRemoveItem, setAction, setSeteador, skip, setSkip, limit, setLimit, setSortCriteria, setSort, ...props }) => {
+export const Datatable = ({ isLoading, initialState, columns, data = [], total, handleRemoveItem, setAction, setSeteador, skip, setSkip, limit, setLimit, setSortCriteria, setSort, slug, setSlug, ...props }) => {
   const { user, setUser, config } = AuthContextProvider()
   const [modal, setModal] = useState(false)
   const [modalMasivo, setModalMasivo] = useState(false)
   const [saveId, setSaveId] = useState("")
+  const [showTableRootMain, setShowTableRootMain] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    if (!isMounted) {
+      setIsMounted(true)
+    }
+    return () => {
+      if (isMounted) {
+        document.getElementById(`child-${slug}`)?.remove()
+        setIsMounted(false)
+      }
+    }
+  }, [isMounted])
 
   const totalPage = Math.trunc(total / limit) + 1
 
@@ -74,7 +88,7 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
     usePagination,
     useRowSelect,
     (hooks) => {
-      hooks.visibleColumns.push((columns) => [
+      !["links"].includes(slug) && hooks.visibleColumns.push((columns) => [
         // Let's make a column for selection
         {
           id: "selection",
@@ -132,9 +146,26 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
     setSeteador(() => setGlobalFilter)
   }, [setGlobalFilter])
 
+  useEffect(() => {
+    if (isMounted) {
+      const rootElement = document.getElementById("rootElementMain")
+      const child = document.getElementById(`child-${slug}`)
+      if (rootElement && child) {
+        rootElement?.appendChild(child)
+      }
+    }
+  }, [isMounted])
+
   return (
     <>
-
+      <div id={`child-${slug}`}>
+        {showTableRootMain && <div className={`w-full h-full z-50 top-0 left-0 absolute`}>
+          <div className="bg-black w-full h-full absolute opacity-70" />
+          <div onClick={() => setShowTableRootMain(false)} className="w-10 h-10 rounded-full bg-slate-200 hover:bg-zinc-300 cursor-pointer top-4 right-4 absolute flex items-center justify-center" >
+            <CloseIcon className="text-black w-5 h-5" />
+          </div>
+        </div>}
+      </div>
       {!isLoading ? (
         <>
           <Box w={"100%"} overflowX={"auto"} >
@@ -292,6 +323,10 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                             {...cell.getCellProps()}
                             w={cell.column.id === "selection" && "16"}
                             onClick={() => {
+                              if (slug === "links") {
+                                setShowTableRootMain(true)
+                                return
+                              }
                               ["title", "businessName", "_id"].includes(cell.column.id) &&
                                 setAction({ type: "EDIT", payload: { _id: row.original._id } })
                             }}>
@@ -319,8 +354,8 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                                   :
                                   cell.column.id === "title" || cell.column.id === "businessName" ?
                                     <ComponentCursorPointer cell={cell} setAction={setAction} row={row} />
-                                    : cell.column.id === "slug" ?
-                                      <Text noOfLines={1} >
+                                    : ["slug", "socialMedia", "link"].includes(cell.column.id) ?
+                                      <Text noOfLines={1}  >
                                         {cell.render("Cell")}
                                       </Text>
                                       : cell.column.id === "_id" ?
@@ -340,9 +375,9 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                         {modal ? (
                           <ModalAlert id={saveId} handleRemoveItem={handleRemoveItem} setModal={setModal} modal={modal} />
                         ) : null}
-                        <Center onClick={() => [setModal(!modal), setSaveId(row.original._id)]} className="cursor-pointer" >
+                        {!["links"].includes(slug) && <Center onClick={() => [setModal(!modal), setSaveId(row.original._id)]} className="cursor-pointer" >
                           <IconButton size={`${screen.width < 640 ? "xs" : "sm"}`} icon={<DeleteIcon />} />
-                        </Center>
+                        </Center>}
                       </Td>
                     </Tr>
                   );

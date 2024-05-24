@@ -2,7 +2,7 @@ import { useToast } from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
 import { api } from "../utils/api";
 
-//query : {query, variables, type}
+//query : {query, variables, type, api}
 export const useFetch = (toast = false) => {
   const [data, setData] = useState(null);
   const [query, setQuery] = useState(null);
@@ -24,7 +24,7 @@ export const useFetch = (toast = false) => {
         if (query.type === "json") {
           const {
             data: { data },
-          } = await api.ApiBodas(query);
+          } = query?.api === "eventos" ? await api.ApiApp(query) : await api.ApiBodas(query)
           setData(Object.values(data)[0]);
 
           //Form data

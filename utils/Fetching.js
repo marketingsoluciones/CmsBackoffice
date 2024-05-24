@@ -90,7 +90,75 @@ export const fetchApiEventos = async ({ query, variables, domain }) => {
 };
 
 export const queries = {
-
+  createLink: `mutation($args:inputLink){
+    createLink(args:$args){
+      _id
+      ownerUid
+      title
+      socialMedia
+      link
+    }
+  }`,
+  getLinks: `query($development:String){
+    getLinks(development:$development){
+      total
+      results{
+        _id
+        development
+        ownerUid
+        title
+        socialMedia
+        link
+        createdAt
+        updatedAt
+      }
+    }
+  }`,
+  getActivityLink: `query($link_id:ID){
+    getActivityLink(link_id:$link_id){
+      total
+      results{
+        _id
+        link_id
+        link
+        storage_id
+        usuario_id
+        name
+        role
+        email
+        phoneNumber
+        referer
+        acceptLanguage
+        loop
+        connectingIp
+        ipcountry
+        navigator
+        mobile
+        localStorageId
+        accessed{
+          count
+          accessedAt
+        }
+        preregistered{
+          count
+          accessedAt
+        }
+        registered{
+          count
+          accessedAt
+        }
+        logged{
+          count
+          accessedAt
+        }
+        logoutd{
+          count
+          accessedAt
+        }
+        usedAt
+      }
+    }
+  }`,
   getN8n: `query
   {
     getN8n

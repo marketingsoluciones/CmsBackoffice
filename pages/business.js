@@ -10,6 +10,9 @@ import { AuthContextProvider } from "../context";
 import { IframeWorkFlow } from "../components/ModuloMarcas/IframeWorkFlow";
 import { GoWorkflow } from "react-icons/go";
 import Link from "next/link";
+import { TableLinkList } from "../components/ModuloMarcas/Links/TableLinkList";
+import { useResizeObserver } from "../hooks/useResize"
+import { IoLinkOutline } from "react-icons/io5";
 
 const Business = () => {
   const [optionSelect, setOptionSelect] = useState(0);
@@ -17,6 +20,7 @@ const Business = () => {
   const dataMetricool = user?.authDevelopments.find(
     (element) => element.title === development
   );
+  const [ref, dimensions] = useResizeObserver();
 
   useEffect(() => {
     dispatch({ type: "VIEW", payload: {} });
@@ -43,6 +47,11 @@ const Business = () => {
       title: "WorkFlow",
       component: <IframeWorkFlow />,
     },
+    {
+      icon: <IoLinkOutline className="h-6 w-auto" />,
+      title: "Links",
+      component: <TableLinkList setComponentState={setOptionSelect} dimensions={dimensions} />,
+    },
   ];
   const handleClickOption = (idx) => {
     setOptionSelect(idx);
@@ -55,7 +64,8 @@ const Business = () => {
         optionSelect={optionSelect}
       />
       <div
-        className={`flex-1 flex z-10 px-5 py-2`}>
+        ref={ref}
+        className={`flex-1 flex z-10`}>
         {
           dataComponents[optionSelect].component != undefined ?
             dataComponents[optionSelect].component :

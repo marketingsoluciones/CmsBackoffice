@@ -1,4 +1,4 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Button, FormLabel, Grid, GridItem } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 import { InputField } from "../../components/formularios/Inputs/InputField";
 import { InputNumberField } from "../../components/formularios/Inputs/InputNumberField";
@@ -31,7 +31,7 @@ import { InfoForm } from "./InfoForm";
 import { TextareaFieldSizable } from "./Inputs/TextareaFieldSizable";
 
 export const FormDinamical = forwardRef(
-  ({ schema: state, initialValues, onSubmit, Information, options, estado }, ref) => {
+  ({ schema: state, initialValues, onSubmit, Information, options, estado, slug }, ref) => {
     const { user, changedForm, setChangedForm } = AuthContextProvider()
     const [schema, setSchema] = useState(null);
     const [modal, setModal] = useState({ show: false, create: false })
@@ -378,7 +378,22 @@ export const FormDinamical = forwardRef(
 
                     {/* columna derecha */}
                     <div bg={colorBaground} shadow={"sm"} rounded={"xl"} className="col-span-2 px-[1rem] rounded-xl bg-white   " >
-                      <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
+                      {!["links"].includes(slug)
+                        ? <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
+                        : <FormLabel width={"45%"} pt={8}>
+                          <Button
+                            size={"sm"}
+                            width={"100%"}
+                            bg={"#FF5887"}
+                            _hover={false}
+                            fontFamily={""}
+                            textColor={"white"}
+                            type="submit"
+                          >
+                            Guardar
+                          </Button>
+                        </FormLabel>
+                      }
                       {schema &&
                         schema?.map((item, idx) => {
                           const valir = !item?.roles ? true : item?.roles?.some(role => user?.role.includes(role))

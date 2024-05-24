@@ -49,7 +49,7 @@ export const DefaultLayout = ({ children }) => {
                   }
                   <Flex flexDir={"column"} w={show ? "calc(100%)" : "100%"} onClick={() => screen.width < 640 ? show ? setShow(!show) : null : null} >
                     <Navigation set={setShow} state={show} />
-                    <Box as={"main"} className="bg-bg w-full h-[calc(100%-56px)] overflow-auto flex">
+                    <Box id="rootElementMain" as={"main"} className="bg-bg w-full h-[calc(100%-56px)] flex">
                       {children}
                       <IframeLayout />
                     </Box>

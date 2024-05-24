@@ -8,6 +8,8 @@ import GlobalFilter from "./Datatable/GlobalFilter";
 import { AuthContextProvider } from "../context/AuthContext";
 import { useRouter } from "next/router";
 import { hasRole } from "../utils/auth";
+import { api } from "../utils/api";
+import { visibleColumns } from "../utils/schemas";
 
 export const PanelViewTable = ({ slug, dispatch }) => {
 
@@ -50,7 +52,10 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   const [seteador, setSeteador] = useState(() => () => { })
 
   const columns = useMemo(() => {
-    const avalibleShowColumns = user?.visibleColumns?.map(elem => elem.accessor) //selected?.visibleColumns?.map(elem => elem.accessor)
+    let avalibleShowColumns = visibleColumns.map(elem => {
+      const item = user?.visibleColumns?.find(el => el.accessor === elem.accessor)
+      return item ? item?.accessor : elem?.accessor
+    })
     return selected?.schema?.reduce((acc, item) => {
       if (avalibleShowColumns?.includes(item?.accessor) && !item?.roles)
         acc.push(item)
@@ -196,7 +201,7 @@ export const PanelViewTable = ({ slug, dispatch }) => {
   );
 };
 
-export const OnlyViewTable = ({ slug, dispatch, setbuscador }) => {
+export const OnlyViewTable = ({ slug, setSlug, dispatch, setbuscador }) => {
   const [skip, setSkip] = useState(0)
   const [limit, setLimit] = useState(10)
   const [sortCriteria, setSortCriteria] = useState()
@@ -230,7 +235,10 @@ export const OnlyViewTable = ({ slug, dispatch, setbuscador }) => {
   const router = useRouter()
 
   const columns = useMemo(() => {
-    const avalibleShowColumns = user?.visibleColumns?.map(elem => elem.accessor) //selected?.visibleColumns?.map(elem => elem.accessor)
+    let avalibleShowColumns = visibleColumns.map(elem => {
+      const item = user?.visibleColumns?.find(el => el.accessor === elem.accessor)
+      return item ? item?.accessor : elem?.accessor
+    })
     return selected?.schema?.reduce((acc, item) => {
       if (avalibleShowColumns?.includes(item?.accessor) && !item?.roles)
         acc.push(item)
@@ -250,7 +258,8 @@ export const OnlyViewTable = ({ slug, dispatch, setbuscador }) => {
         setQuery({
           ...selected.getData,
           variables,
-          type: "json"
+          type: "json",
+          api: selected?.api
         });
       } else {
         setTimeout(() => {
@@ -285,6 +294,8 @@ export const OnlyViewTable = ({ slug, dispatch, setbuscador }) => {
           m={"0.5rem"}
         >
           <Datatable
+            slug={slug}
+            setSlug={setSlug}
             skip={skip}
             setSkip={setSkip}
             limit={limit}

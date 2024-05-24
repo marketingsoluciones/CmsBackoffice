@@ -3,13 +3,14 @@ import { PanelEditAndCreate } from "../../PanelEditAndCreate"
 import { FormDinamicalNEW } from "../../Resumen"
 import { MarcasTable } from "./MarcasTable"
 import { Marcas } from "../../Marcas"
+import { useEffect } from "react"
 
 export const MarcasControl = () => {
     const { state, dispatch } = AuthContextProvider()
 
     if (true) {
         return (
-            <div className="w-full h-full" >
+            <div className="w-full h-full px-5 py-2" >
                 {
                     state?.type === "view" && (
                         <MarcasTable dispatch={dispatch} />

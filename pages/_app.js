@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <ChakraProvider theme={theme}>
         <DefaultLayout>
-          <Component {...pageProps} />
+          <Component  {...pageProps} />
         </DefaultLayout>
       </ChakraProvider>
       <style jsx global>
@@ -20,7 +20,8 @@ function MyApp({ Component, pageProps }) {
   overscroll-behavior: contain;
 }
         ::-webkit-scrollbar {
-          width: 4px;
+          width: 8px;
+          height: 8px;
         }
         ::-webkit-scrollbar-track {
           /* background: #f1f1f1 */
@@ -28,7 +29,7 @@ function MyApp({ Component, pageProps }) {
         }
 
         ::-webkit-scrollbar-thumb {
-          background: #E2E2E2;
+          background: #A3A3A3;
           border-radius: 6px;
           height: 50%;
         }

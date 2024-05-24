@@ -18,6 +18,8 @@ export const visibleColumns = [
   { accessor: "status", show: false },
   { accessor: "title", show: true },
   { accessor: "updatedAt", show: false },
+  { accessor: "socialMedia", show: false },
+  { accessor: "link", show: false },
 ]
 
 export const BodyStaticAPP = [
@@ -235,6 +237,47 @@ export const BodyStaticAPP = [
           {
             Header: "Titulo",
             accessor: "title",
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+        ]
+      },
+      {
+        title: null,
+        roles: ["admin", "empresa"],
+        route: "links",
+        api: "eventos",
+        getData: { query: queries.getLinks },
+        getByID: { query: queries.getLinks },
+        createEntry: { query: queries.createLink },
+        schema: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+            type: "stringL",
+            required: true,
+          },
+          {
+            Header: "Red social",
+            accessor: "socialMedia",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Link",
+            accessor: "link",
           },
           {
             Header: "Creado el",
