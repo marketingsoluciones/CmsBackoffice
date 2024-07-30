@@ -2,6 +2,7 @@ import { Divider, Input } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useAsyncDebounce } from "react-table";
 import { SearchIcon } from "../Icons/index"
+import 'regenerator-runtime/runtime';
 
 const GlobalFilter = ({ setGlobalFilter }) => {
   const [value, setValue] = useState()
