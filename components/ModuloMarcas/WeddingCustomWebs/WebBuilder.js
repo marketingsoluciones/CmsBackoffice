@@ -17,7 +17,7 @@ import { uploadImage, resizeImage } from "../../../utils/UploadAdapter";
 import { ListPages } from "./ListPages";
 import { SharedUrl } from "../../ToolsComponents/SharedUrl";
 
-export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
+export const WebBuilder = ({ setCommponent, id, type = "title", isUpdated = false }) => {
   const { user, dispatch } = AuthContextProvider();
   const toast = useToast();
   const [dataPage, setDataPage] = useState();
@@ -29,11 +29,9 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
   const [isPageSelect, setIsPageSelect] = useState("");
   const [isNewPage, setIsNewPage] = useState("");
   const router = useRouter();
-  const [isUpdated, setIsUpdated] = useState(false);
+
 
   const UrlPage = dataPage?.title + "-" + dataPage?._id?.slice(-6);
-
-  console.log("console del data", pages[0]?.name);
 
   /* useEffect para montar y desmontar el componente  */
   useEffect(() => {
@@ -100,7 +98,6 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
 
   const [metaData, setMetaData] = useState();
   useEffect(() => {
-    //console.log(11110000001, { pages })
   }, [pages]);
 
   let editor = {};
@@ -227,8 +224,7 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
     editor.render();
 
     editor.on("update", () => {
-      //console.log("update1");
-      setIsUpdated(true);
+      isUpdated = true;
     });
 
     editor.on("asset", (e) => {
@@ -297,9 +293,6 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
             setIsPageSelect(editor.Pages.getAll()[0].id);
           }
         }
-        // const f1 = pages.findIndex((elem) => elem.id === pageId);
-        // pages.splice(f1, 1);
-        // console.log(774444, editor.Pages.getAll())
         setPages(
           editor.Pages.getAll().map((elem) => {
             return { id: elem.id, name: elem.attributes.name };
@@ -315,7 +308,14 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
       id: "save-button",
       className: "save-button",
       command: function (editor) {
-        //console.log(7414410, metaData, type)
+        const page = editor.Pages.getSelected()
+        const component = page.getMainComponent();
+        const htmlPage = {
+          id: page.id,
+          title: page.attributes.name,
+          html: editor.getHtml({ component }),
+          css: editor.getCss({ component }),
+        }
         if (type === "template") {
           let title;
           while (true) {
@@ -340,6 +340,7 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
                   author: user?.uid,
                   title: title,
                   code: JSON.stringify(editor.getProjectData()),
+                  htmlPages: [htmlPage],
                   type: "page",
                 },
               },
@@ -347,7 +348,6 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
             }).then((result) => {
               id = result?.results[0]?._id;
               type = result?.results[0]?.type;
-              //console.log(result, id, type)
               toast({
                 status: "success",
                 title: "La web ha sido creada",
@@ -363,17 +363,26 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
               args: {
                 _id: id,
                 code: JSON.stringify(editor.getProjectData()),
+                htmlPage
               },
             },
-            type: "formData",
             development: "bodasdehoy",
           }).then((result) => {
-            id = result._id;
-            toast({
-              status: "success",
-              title: "La páginas han sido guardadas",
-              isClosable: true,
-            });
+            if (result?._id) {
+              id = result._id;
+              toast({
+                status: "success",
+                title: "La páginas han sido guardadas",
+                isClosable: true,
+              })
+              isUpdated = false
+            } else {
+              toast({
+                status: "error",
+                title: "Ha ocurrido un error, la página no se ha guardado",
+                isClosable: true,
+              })
+            }
           });
         }
       },
@@ -419,33 +428,39 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
       id: "publicate-button",
       className: !isUpdated ? "publicate-button" : "publicated-button",
       command: function (editor) {
-        setIsUpdated(!isUpdated);
-        // if (dataPage?.type === "page") {
-
-        const htmlPages = editor.Pages.getAll().map((page) => {
-          const component = page.getMainComponent();
-          return {
-            title: page.attributes.name,
-            html: editor.getHtml({ component }),
-            css: editor.getCss({ component }),
-          };
-        });
-
-        fetchApi({
-          query: queries.updateCodePage,
-          variables: {
-            args: {
-              _id: id,
-              htmlPages,
-              state: "publicated",
+        if (!isUpdated) {
+          fetchApi({
+            query: queries.updateCodePage,
+            variables: {
+              args: {
+                _id: id,
+                state: "publicated",
+              },
             },
-          },
-          development: "bodasdehoy",
-        }).then((result) => {
-          //console.log(1000, result)
-        });
-
-        // }
+            development: "bodasdehoy",
+          }).then((result) => {
+            if (result?._id) {
+              id = result._id;
+              toast({
+                status: "success",
+                title: "Se ha publicado con éxito",
+                isClosable: true,
+              })
+            } else {
+              toast({
+                status: "error",
+                title: "Ha ocurrido un error al publicar",
+                isClosable: true,
+              })
+            }
+          });
+        } else {
+          toast({
+            status: "warning",
+            title: "Guarda primero para poder publicar",
+            isClosable: true,
+          })
+        }
       },
       attributes: { title: "Publicar" },
     });
@@ -454,7 +469,6 @@ export const WebBuilder = ({ setCommponent, id, type = "title" }) => {
       id: "vistaPrevia",
       className: "searchScreen",
       command: function (editor) {
-        //console.log("aqui")
       },
       attributes: { title: "Vista previa" },
     });
