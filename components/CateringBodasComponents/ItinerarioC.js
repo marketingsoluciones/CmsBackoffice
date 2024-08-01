@@ -1,22 +1,16 @@
-import { Itinerario } from "../Itinerario/Itinerario"
 import { ItinerarioInfoPage } from "../WeddingPlannerComponents/ItinerarioComponents/ItinerarioInfoPage"
+import { SocketContextProvider } from "../../context"
 import { EventsGroupContextProvider } from "../../context/EventsGroupContext"
 
 export const ItinerarioC = ({ setComponentState }) => {
     const { eventsGroup } = EventsGroupContextProvider()
-   
-
+    const { fatherID } = SocketContextProvider()
+    const path = window?.origin?.includes("://testcms.") ? process.env.NEXT_PUBLIC_EVENTSAPP?.replace("//", "//test") ?? "" : process.env.NEXT_PUBLIC_EVENTSAPP ?? ""
     return (
-
-        <div className="px-5 py-2 w-full h-full">
-            {eventsGroup.length == 0
-                ? <ItinerarioInfoPage setComponentState={setComponentState} idxComponent={5} />
-                : <div>
-                   <Itinerario setComponentState={setComponentState} idxComponent={5} />
-                </div>
-            }
-        </div >
-
-
+        eventsGroup.length !== 0
+            ? < div className="h-full " >
+                <iframe src={`${path}/itinerario/?show=iframe&father=${fatherID}`} width={"100%"} className="h-[89vh] md:h-[100%]"></iframe>
+            </div >
+            : <ItinerarioInfoPage setComponentState={setComponentState} idxComponent={4} />
     )
 }
