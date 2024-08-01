@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import ClusterC1 from "./ClusterC1";
 
-export const ClusterInfo1 = ({optionSelect, setOptionSelect, setModalContacto, modalContacto}) => {
+export const ClusterInfo1 = ({}) => {
 
   return (   
     <div className="w-full flex flex-row items-start justify-start bg-slate-100 gap-[20px] tracking-[normal] text-left text-xs font-poppins mq700:pl-5 mq700:pr-5 mq700:box-border">

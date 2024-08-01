@@ -33,6 +33,8 @@ export const RecomendacionesPageC = () => {
     
     return (
         <div className="space-y-3">
+
+            
             <RecomendacionesHeader />
             <RecomendacionesBoddy />
 

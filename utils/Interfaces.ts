@@ -1,3 +1,24 @@
+export interface Factura {
+    _id: string
+    id_factura: string
+    fecha_pago: Date
+    scanedFacturas: Date
+    scanedFacturasTotal: number
+    fecha_pago_ref: string
+    total_cobrado: number
+    referencia: string
+    forma_pagoID: number
+    forma_pago: String
+    cajeroID: number
+    cajero: String
+    pagado: boolean
+    recargado: boolean
+    criterio: string
+    monto_facturas: number
+    diferencia: number
+    createdAt: Date
+    updatedAt: Date
+  }
 
 export interface Event {
     _id: string

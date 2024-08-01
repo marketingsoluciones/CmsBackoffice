@@ -1,61 +1,84 @@
 import { useEffect, useState } from "react"
-import { IframeApp } from "../layouts/IframeApp";
-import { AuthContextProvider } from "../context";
-import ClusterComp from "../components/NuevoEvento/ClusterMod/ClusterComp";
-import { BuzonProspectos } from "../components/NuevoEvento/ClusterMod/BuzonProspectos";
-import InfoGeneral1 from "../components/NuevoEvento/ClusterMod/InfoGeneral1";
-import { ClusterInfo1 } from "../components/NuevoEvento/ClusterMod/ClusterInfo1";
-import CompVisitasWebs from "../components/NuevoEvento/ClusterMod/CompVisitasWeb";
-import CompMensajes from "../components/NuevoEvento/ClusterMod/CompMensajes";
+import { BuzonProsIcon, ChatBotIcon, ChatEnVivoIcon, FormulariosWebIcon, Invitados1Icon, Leads1Icon, Mensajes1Icon, VisitasWebIcon } from "../components/Icons/index";
+import { useRouter } from "next/router";
+import { SlideBar1 } from "../components/NuevoEvento/ClusterMod/utilidades/SlideBar1";
+import { BuzonProspectos, ClusterInfo1, CompMensajes, CompVisitasWebs, InfoGeneral1 } from "../components/NuevoEvento/ClusterMod/indx";
+import { SubmenuComponent } from "../components/CateringBodasComponents/SubmenuComponent"
 
 const Cluster = () => {
-  const { pathArray, setPathArray } = AuthContextProvider();
-  const [optionSelect, setOptionSelect] = useState(0)
-  // handleClickOption se usara mas adelante para poder regresar entre componentes 
+  const [optionSelect, setOptionSelect] = useState(8)
+  const [modalContacto, setModalContacto] = useState(false)
+  const router = useRouter()
+  /* const { stateOriginPath } = router?.query
+
+  useEffect(() => {
+    if (stateOriginPath) {
+      setOptionSelect(stateOriginPath)
+    }
+  }, []) */
+
   const handleClickOption = (idx) => {
     setOptionSelect(idx);
   };
 
   const dataComponents = [
-    /* 0 */
     {
-      title: "Inicio",
-      component: <ClusterComp componentState={optionSelect} setComponentState={setOptionSelect} />
-    },
-    /* 1 */
-    {
+      icon: <BuzonProsIcon />,
       title: "Buzon de Prospectos",
       component: <BuzonProspectos componentState={optionSelect} setComponentState={setOptionSelect} />
     },
-    /* 2 */
     {
-      title: "Informacion General",
+      icon: <ChatEnVivoIcon />,
+      title: "Chat en vivo",
       component: <InfoGeneral1 componentState={optionSelect} setComponentState={setOptionSelect} />
     },
     {
-      title: "Visitas Web",
-      component: <CompVisitasWebs componentState={optionSelect} setComponentState={setOptionSelect} />
+      icon: <ChatBotIcon />,
+      title: "Chatbot",
+      component: <InfoGeneral1 componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+
+    {
+      icon: <FormulariosWebIcon />,
+      title: "Formularios Web",
+      component: <InfoGeneral1 componentState={optionSelect} setComponentState={setOptionSelect} />
     },
     {
+      icon: <Leads1Icon />,
+      title: "Leads",
+      component: <InfoGeneral1 componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+    {
+      icon: <Invitados1Icon />,
+      title: "Invitados",
+      component: <InfoGeneral1 componentState={optionSelect} setComponentState={setOptionSelect} />
+    },
+    {
+      icon: <VisitasWebIcon />,
+      title: "Visitas Web",
+      component: <CompVisitasWebs  />
+    },
+    {
+      icon: <Mensajes1Icon />,
       title: "Mensajes",
       component: <CompMensajes componentState={optionSelect} setComponentState={setOptionSelect} />
     },
     {
-      component: <IframeApp route={"/"} />
+      component: <ClusterInfo1 />
     },
+
   ]
-  useEffect(() => {
 
-    setPathArray([dataComponents[optionSelect].title])
-  }, [optionSelect])
-
-
+  const newArryDataComponents = dataComponents.slice()
+  newArryDataComponents.splice(8, 1)
 
 
   return (
-    <div className="w-[100%] h-[100%]">
-      <div id="rootElement" />
-      {dataComponents[optionSelect].component}
+    <div className={`md:flex h-full w-full`}>
+      <SlideBar1 dataComponents={newArryDataComponents} optionSelect={optionSelect} onClick={handleClickOption} />
+      <div className="md:flex-1 items-center justify-center px-5 py-5">
+        {dataComponents[optionSelect].component}
+      </div>
     </div>
   );
 };

@@ -17,7 +17,7 @@ const ClusterC1: FunctionComponent<FrameComponentType> = memo(
 
     return (
       <div
-        className="h-[144.4px] w-[263px] my-0 mx-[!important] absolute top-[0px] left-[8px] flex flex-col items-start justify-start pt-0 px-0 pb-[94.60000000000218px] box-border gap-[10px] text-left text-base text-rosa font-poppins"
+        className="h-[144.4px] w-[263px] my-0 mx-[!important]  flex flex-col items-start justify-start pt-0 px-0 pb-[94.60000000000218px] box-border gap-[10px] text-left text-base text-rosa font-poppins"
         style={frameDivStyle}
       >
         <div className="self-stretch h-[49.8px] flex flex-row items-start justify-start py-0 pr-px pl-0 box-border gap-[10px] shrink-0 [debug_commit:f6aba90]">

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { ExclamacionIcon, VideoIcon } from "../Icons/index"
 import { InfoModuloFacturacion } from "./InfoModuloFacturacion"
 import { InfoModulos } from "./InfoModulos"
 import { DetalladoCompra } from "./DetalladoCompra"
@@ -10,18 +9,17 @@ import { useRouter } from "next/router"
 
 export const ModulosFacturacion = () => {
     const { config } = AuthContextProvider();
-    const [optionSelect, setOptionSelect] = useState(null)
+    const [optionSelect, setOptionSelect] = useState(0)
     const [data, setData] = useState({})
     const router = useRouter()
-    const { state } = router?.query
-    console.log("=>>>>>>>",data)
+    /* const { state } = router?.query */
 
     useEffect(() => {
-        if (state) {
+      /*   if (state) {
             setOptionSelect(state)
-        } else {
+        } else { */
             setOptionSelect(0)
-        }
+      /*   } */
     }, [])
 
     useEffect(async () => {

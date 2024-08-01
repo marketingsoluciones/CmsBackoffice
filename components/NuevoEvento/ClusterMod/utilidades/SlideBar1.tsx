@@ -1,15 +1,17 @@
-import { EventsGroupContextProvider } from "../../../../context/EventsGroupContext";
 import { ModalLeft } from "../../../modals/ModalLeft";
 import { FormCrearEvento } from "../../../EventosComponents/FormCrearEvento";
-import { useState } from "react";
+import { FC, useState } from "react";
 import ClickAwayListener from "react-click-away-listener";
-import { useRouter } from "next/router";
 
-export const SlideBar1 = ({ dataComponents, optionSelect, onClick }) => {
-  const { eventsGroup } = EventsGroupContextProvider();
+interface PropsSlideBar1 {
+  dataComponents?:any
+  optionSelect?:any
+  onClick?:any
+}
+
+export const SlideBar1: FC <PropsSlideBar1> = ({ dataComponents, optionSelect, onClick }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [stateSubOptions, setStateSubOptions] = useState(false);
-  const router = useRouter();
 
   return (
     <>
@@ -20,14 +22,13 @@ export const SlideBar1 = ({ dataComponents, optionSelect, onClick }) => {
         if (screen.width > 640) {
           return (
             <div className=" hidden md:block bg-gray-100 px-2 py-5 space-y-5 w-[190px] z-10 ">
-
-              {dataComponents.map((item, idx) => {
+              {dataComponents?.map((item:any, idx:any) => {
                 return (
                   <div
                     key={idx}
                     onClick={() => onClick(idx)}
-                    className={`${optionSelect == idx ? " text-rosa bg-[#F6E2E9] rounded-md px-1 py-1 font-medium " : " text-azulCorporativo hover:bg-[#E3E5E8] rounded-md px-1 py-1 hover:font-medium "
-                      } flex text-rosa items-center  space-x-3 cursor-pointer`}
+                    className={`${optionSelect === idx ? " text-rosa bg-[#F6E2E9] rounded-md px-1 py-1 font-medium " : " text-azulCorporativo hover:bg-[#E3E5E8] rounded-md px-1 py-1 hover:font-medium "
+                      } flex items-center space-x-3 cursor-pointer`}
                   >
                     <div className="h-full">{item.icon}</div>
                     <div className="text-sm ">
@@ -52,7 +53,7 @@ export const SlideBar1 = ({ dataComponents, optionSelect, onClick }) => {
                     : "transition w-full -translate-y-56 duration-500 top-0  "
                     }`}
                 >
-                  {dataComponents.map((item, idx) => {
+                  {dataComponents?.map((item, idx) => {
                     return (
                       <div
                         key={idx}
