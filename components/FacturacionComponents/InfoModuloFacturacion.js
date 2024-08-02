@@ -43,12 +43,15 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
         fetchApi({
             query: queries.createCheckoutSession,
             variables: {
-                pricesIDs: products?.map(elem => elem?.priceID),
+                items: products?.map((elem) => { return { price: elem?.priceID, quantity: 1 } }),
                 email: user?.email,
                 cancel_url: `${window.location.href}/?stage=1`
             },
         }).then((result) => {
-            router.push(result)
+            console.log(result)
+            if (result != null) {
+                router.push(result)
+            }
         })
     }
 
@@ -63,33 +66,31 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
     }
 
     return (
-        <div className=" relative">
+        <div className=" h-[95vh] w-[100%]">
             <div >
                 <ArrowBackComponent action={actionBut} />
             </div>
 
-            <div className="bg-white rounded-lg px-5 py-5 my-3  ">
-                <div className="flex  justify-between items-center">
-                    <div className="">
-                        <div className="flex items-center space-x-1">
-                            <p className="text-azulCorporativo text-[25px]">
-                                Activa la <span className={`${plan === "basic" ? "text-rosa" : "text-acento"} font-semibold`}>VERSIÓN {plan === "basic" ? "BÁSICO" : " PREMIUM"}</span>
-                            </p>
-                            <DiamanteSinFondoIcon className={`${plan === "basic" ? "text-rosa" : "text-acento"}`} />
-                        </div>
-                        <p className="text-base font-semibold text-azulCorporativo">Mejora tu organización con los módulos especiales </p>
-                        <p className="text-base text-azulCorporativo"> Si se suscribe en la mitad del ciclo de facturación, se le cobrará un monto parcial.</p>
+            <div className="bg-white rounded-lg px-5 py-5 my-3 w-full flex  justify-between items-center ">
+                <div className="">
+                    <div className="flex items-center space-x-1">
+                        <p className="text-azulCorporativo text-[25px]">
+                            Activa la <span className={`${plan === "basic" ? "text-rosa" : "text-acento"} font-semibold`}>VERSIÓN {plan === "basic" ? "BÁSICO" : " PREMIUM"}</span>
+                        </p>
+                        <DiamanteSinFondoIcon className={`${plan === "basic" ? "text-rosa" : "text-acento"}`} />
                     </div>
-                    <div className="relative flex h-max">
-                        {products?.length > 0 && <span className="bg-rosa w-5 h-5 absolute z-10 rounded-full border-2 border-rosa flex items-center justify-center text-white translate-x-4 translate-y-1">{products?.length}</span>}
-                        <LiaCartArrowDownSolid className="w-12 h-12 text-rosa" />
-                        <button
-                            onClick={handleCheckout}
-                            className={`${products.length ? "bg-rosa" : "bg-gray-300"} text-white rounded-lg capitalize px-4 m-2`}
-                            disabled={!products.length}>
-                            pagar
-                        </button>
-                    </div>
+                    <p className="text-base font-semibold text-azulCorporativo">Mejora tu organización con los módulos especiales </p>
+                    <p className="text-base text-azulCorporativo"> Si se suscribe en la mitad del ciclo de facturación, se le cobrará un monto parcial.</p>
+                </div>
+                <div className="relative flex h-max">
+                    {products?.length > 0 && <span className="bg-rosa w-5 h-5 absolute z-10 rounded-full border-2 border-rosa flex items-center justify-center text-white translate-x-4 translate-y-1">{products?.length}</span>}
+                    <LiaCartArrowDownSolid className="w-12 h-12 text-rosa" />
+                    <button
+                        onClick={handleCheckout}
+                        className={`${products.length ? "bg-rosa" : "bg-gray-300"} text-white rounded-lg capitalize px-4 m-2`}
+                        disabled={!products.length}>
+                        pagar
+                    </button>
                 </div>
             </div>
 

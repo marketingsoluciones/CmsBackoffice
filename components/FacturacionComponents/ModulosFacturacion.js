@@ -58,7 +58,7 @@ export const ModulosFacturacion = () => {
 
     return (
 
-        <div>
+        <div className="bg-red">
             {optionSelect > -1 && dataComponents[optionSelect]?.component}
         </div>
     )
