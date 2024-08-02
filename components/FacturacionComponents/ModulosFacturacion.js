@@ -9,33 +9,37 @@ import { useRouter } from "next/router"
 
 export const ModulosFacturacion = () => {
     const { config } = AuthContextProvider();
-    const [optionSelect, setOptionSelect] = useState(0)
+    const [optionSelect, setOptionSelect] = useState(-1)
     const [data, setData] = useState({})
     const router = useRouter()
-    /* const { state } = router?.query */
+    const { state } = router?.query
 
     useEffect(() => {
-      /*   if (state) {
+        if (state) {
             setOptionSelect(state)
-        } else { */
-            setOptionSelect(0)
-      /*   } */
+        }
     }, [])
 
-    useEffect(async () => {
-        const data = JSON.parse(await fetchApi({
+
+    useEffect(() => {
+        fetchApi({
             query: queries.getAllProducts,
             variables: {},
             development: config?.name
-        }));
-        const asd = data.reduce((acc, item) => {
-            if (!acc.modulos.includes(item.metadata.grupo)) {
-                acc.modulos.push(item.metadata.grupo)
+        }).then(result => {
+            const data = JSON.parse(result)
+            const asd = data?.reduce((acc, item) => {
+                if (!acc.modulos.includes(item.metadata.grupo)) {
+                    acc.modulos.push(item.metadata.grupo)
+                }
+                return acc
+            }, { modulos: [] })
+            setData({ data, ...asd })
+            if (data.length) {
+                setOptionSelect(0)
             }
-            return acc
-        }, { modulos: [] })
-        setData({ data, ...asd })
-    }, [optionSelect])
+        })
+    }, [])
 
     const dataComponents = [
         {
@@ -53,6 +57,7 @@ export const ModulosFacturacion = () => {
     ]
 
     return (
+
         <div>
             {optionSelect > -1 && dataComponents[optionSelect]?.component}
         </div>
