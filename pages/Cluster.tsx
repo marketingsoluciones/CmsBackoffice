@@ -25,7 +25,7 @@ const Cluster = () => {
     {
       icon: <BuzonProsIcon />,
       title: "Buzon de Prospectos",
-      component: <BuzonProspectos componentState={optionSelect} setComponentState={setOptionSelect} />
+      component: <BuzonProspectos />
     },
     {
       icon: <ChatEnVivoIcon />,

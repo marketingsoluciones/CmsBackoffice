@@ -15,7 +15,7 @@ interface PropsFiltroTime {
     startDateFilter: any
     setStartDateFilter: any
     endDateFilter: any
-    setEndDateFilter:any
+    setEndDateFilter: any
 }
 
 export const FiltroFactura: FC<PropsFiltroFactura> = ({ onOptionChangeType, typeFilter, onOptionChangeState, stateFilter, handleRecargarAll }) => {
@@ -57,9 +57,9 @@ export const FiltroFactura: FC<PropsFiltroFactura> = ({ onOptionChangeType, type
     )
 }
 
-export const FiltroTime: FC<PropsFiltroTime> = ({ onOptionChangeDate, dateFilter, startDateFilter, setStartDateFilter, endDateFilter,setEndDateFilter }) => {
+export const FiltroTime: FC<PropsFiltroTime> = ({ onOptionChangeDate, dateFilter, startDateFilter, setStartDateFilter, endDateFilter, setEndDateFilter }) => {
     return (
-        <div className="border-[1px] border-gray-300 flex-1 rounded-xl inline-flex flex-col px-1 py-2 space-y-2">
+        <div className="border-[1px] border-gray-300 flex-1 rounded-xl inline-flex flex-col px-1 py-2 space-y-2 " >
             <div className="space-x-3">
                 <div className="inline-flex items-center space-x-1">
                     <input type="radio" name="date" value="lastmonth" id="lastmonth" onChange={onOptionChangeDate} checked={"lastmonth" === dateFilter} />
@@ -77,30 +77,30 @@ export const FiltroTime: FC<PropsFiltroTime> = ({ onOptionChangeDate, dateFilter
                     <input type="radio" name="date" value="day" id="day" onChange={onOptionChangeDate} checked={"day" === dateFilter} />
                     <label htmlFor="day">dia</label>
                 </div>
-            </div>
-            <div className="flex w-full text-xs">
-                <div className="inline-flex items-center space-x-1">
-                    <input type="radio" name="date" value="range" id="range" onChange={onOptionChangeDate} checked={"range" === dateFilter} />
-                    <label htmlFor="range">rango</label>
+                <div className="flex* inline-flex items-center space-x-1 text-xs">
+                    <div className="inline-flex items-center space-x-1">
+                        <input type="radio" name="date" value="range" id="range" onChange={onOptionChangeDate} checked={"range" === dateFilter} />
+                        <label htmlFor="range">rango</label>
+                    </div>
+                    <DatePicker
+                        selected={dateFilter === "range" ? startDateFilter : null}
+                        onChange={(date: Date) => setStartDateFilter(date)}
+                        popperClassName="!text-xs"
+                        calendarClassName="rasta-stripes scale-75 -translate-x-10 -translate-y-8"
+                        disabled={dateFilter !== "range"}
+                        locale="es"
+                        dateFormat="P"
+                        className="text-xs w-24 h-6 ml-2 bg-slate-100 rounded-md focus:ring-0 pl-1 focus:outline-none" />
+                    <DatePicker
+                        selected={dateFilter === "range" ? endDateFilter : null}
+                        onChange={(date: Date) => setEndDateFilter(date)}
+                        popperClassName="!text-xs"
+                        calendarClassName="rasta-stripes scale-75 -translate-x-10 -translate-y-8"
+                        disabled={dateFilter !== "range"}
+                        locale="es"
+                        dateFormat="P"
+                        className="text-xs w-24 h-6 ml-2 bg-slate-100 rounded-md focus:ring-0 pl-1 focus:outline-none" />
                 </div>
-                <DatePicker
-                    selected={dateFilter === "range" ? startDateFilter : null}
-                    onChange={(date: Date) => setStartDateFilter(date)}
-                    popperClassName="!text-xs"
-                    calendarClassName="rasta-stripes scale-75 -translate-x-10 -translate-y-8"
-                    disabled={dateFilter !== "range"}
-                    locale="es"
-                    dateFormat="P"
-                    className="text-xs w-24 h-6 ml-2" />
-                <DatePicker
-                    selected={dateFilter === "range" ? endDateFilter : null}
-                    onChange={(date: Date) => setEndDateFilter(date)}
-                    popperClassName="!text-xs"
-                    calendarClassName="rasta-stripes scale-75 -translate-x-10 -translate-y-8"
-                    disabled={dateFilter !== "range"}
-                    locale="es"
-                    dateFormat="P"
-                    className="text-xs w-24 h-6 ml-2" />
             </div>
 
         </div>

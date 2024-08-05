@@ -5,12 +5,11 @@ import { FormDataProspecto } from "../../formularios/FormDataProspecto"
 import TableCompleto from "../../TableJF/TableCompleto";
 
 interface propsBuzonProspectos {
-  componentState: any;
-  setComponentState: any;
+  
 
 }
 
-export const BuzonProspectos: FC<propsBuzonProspectos> = ({ componentState, setComponentState }) => {
+export const BuzonProspectos: FC<propsBuzonProspectos> = ({  }) => {
   const { openModalRight, setOpenModalRight } = AuthContextProvider()
 
   return (

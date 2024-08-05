@@ -3,46 +3,47 @@ import { BiSearchAlt2 } from "react-icons/bi"
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti"
 
 interface PropsTable {
-    showTable:any
-    targetRef:any
-    table:any
-    TableForward:any
-    typeFilter:any
-    setTableMaster:any
-    setSearch:any
-    search:any
-    flexRender:any
-    Filter:any
-    setSelectRow:any
-    selectRow:any
+    showTable: any
+    targetRef: any
+    table: any
+    TableForward: any
+    typeFilter: any
+    setTableMaster: any
+    setSearch: any
+    search: any
+    flexRender: any
+    Filter: any
+    setSelectRow: any
+    selectRow: any
 }
 
 
-export const TableJF: FC<PropsTable> = ({ Filter, showTable, targetRef, table, TableForward, typeFilter, setTableMaster, setSearch, search, flexRender,  setSelectRow, selectRow }) => {
+export const TableJF: FC<PropsTable> = ({ Filter, showTable, targetRef, table, TableForward, typeFilter, setTableMaster, setSearch, search, flexRender, setSelectRow, selectRow }) => {
     return (
         <div>
             {
                 showTable &&
                 <div ref={targetRef} className="flex flex-col flex-1 border-[1px] border-gray-300 !rounded-xl">
                     <table className="w-full">
-                        <thead className="top-0 left-0">
+                        <thead className="top-0 left-0 h-[55px]">
                             {table.getHeaderGroups().map(headerGroup => {
                                 return (
                                     <tr key={headerGroup.id} className="border-b-[1px] border-gray-300">
                                         <TableForward table={table} typeFilter={typeFilter} setTableMaster={setTableMaster} />
                                         {headerGroup.headers.map((header, idx) => (
-                                            <th key={header.id} className={`h-6 ${idx !== 0 && "border-l-[1px] border-gray-300"}`}>
+                                            <th key={header.id} className={` ${search ? "h-[50px]" : "h-8"}  transition-all  ${idx !== 0 && "border-l-[1px] border-gray-300 "} py-2 `}>
                                                 {header.isPlaceholder
                                                     ? null
-                                                    : (<div className="space-y-1 flex flex-col justify-start h-full">
+                                                    : (<div className={` flex flex-col justify-center h-full `}>
                                                         <div className="flex items-center">
-                                                            {idx === 0 && <BiSearchAlt2
+                                                            {/* {idx === 0 && <BiSearchAlt2
                                                                 onClick={() => {
                                                                     setSearch(!search)
                                                                     //setSearchColumn(searchColumn === header.id ? null : header.id)
                                                                     //searchColumn === header.id && header.column.setFilterValue(null)
                                                                 }}
-                                                                className="w-3.5 h-3.5 ml-1 cursor-pointer" />}
+                                                                className="w-3.5 h-3.5 ml-1 cursor-pointer" />
+                                                            } */}
                                                             <div
                                                                 {...{
                                                                     className: header.column.getCanSort()
@@ -64,14 +65,14 @@ export const TableJF: FC<PropsTable> = ({ Filter, showTable, targetRef, table, T
                                                                 }[header.column.getIsSorted() as string] ?? <span className="w-3" />}
                                                             </div>
                                                         </div>
-                                                        {search
-                                                            ? header.column.getCanFilter() ? (
-                                                                <div className="flex-1 px-1 flex items-center">
+                                                        {/* { search
+                                                            ?  header.column.getCanFilter() ? (
+                                                                <div className={`${search ? " translate-x-0" : " "} flex-1 px-1 flex items-center mt-1 transition-all delay-150  `}>
                                                                     <Filter column={header.column} table={table} />
                                                                 </div>
                                                             ) : null
                                                             : null
-                                                        }
+                                                        } */}
                                                     </div>
                                                     )}
                                             </th>
@@ -80,7 +81,7 @@ export const TableJF: FC<PropsTable> = ({ Filter, showTable, targetRef, table, T
                                 )
                             })}
                         </thead>
-                        <tbody className="block overflow-y-scroll w-[calc(100%+8px)] h-[calc(100vh-340px)]">
+                        <tbody className={` block overflow-y-scroll w-[calc(100%+8px)] h-[calc(100vh-325px)] `}>
                             {table.getRowModel().rows.map(row => {
                                 return (
                                     <tr key={row.id} onClick={() => setSelectRow(row.id === selectRow ? null : row.id)} className={`${row.id === selectRow && "bg-gray-300"} hover:bg-gray-200 select-none`}>
@@ -139,7 +140,7 @@ export const TableJF: FC<PropsTable> = ({ Filter, showTable, targetRef, table, T
                         </tfoot>
                     </table>
                     <hr className="" />
-                    <div className="flex flex-1 items-center gap-2 justify-between px-4 bg-gray-100">
+                    <div className="flex flex-1 items-center gap-2 justify-between px-4 bg-gray-100 rounded-b-xl">
                         <select
                             value={table.getState().pagination.pageSize}
                             onChange={e => {

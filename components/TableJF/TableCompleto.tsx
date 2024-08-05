@@ -108,7 +108,6 @@ export default function TableCompleto() {
         console.log(e.target.value)
         setStateFilter(e.target.value)
     }
-
     const handleGetFactura = (id_factura: string) => {
         /*   fetchApiJaihom({
               query: queries.getFacturaWispHup,
@@ -119,7 +118,6 @@ export default function TableCompleto() {
               console.log(JSON.parse(resp))
           }) */
     }
-
     const handleGetReferencia = (id_referencia: string) => {
         /* console.log(id_referencia) */
         /* fetchApiJaihom({
@@ -132,7 +130,20 @@ export default function TableCompleto() {
         }) */
     }
 
+    const ejem = [
+        {
+            name:"",
+            header:"",
+            cell:"",
+            footer:"",
+            enableColumnFilter:"",
+            enableHiding: false,
+        }
+    ]
+
     const columnsFactura = useMemo<ColumnDef<Factura>[]>(() => [
+        
+
         columnHelperFactura.accessor('id_factura', {
             id: 'id_factura',
             header: () => <span>id_factura</span>,
@@ -195,23 +206,6 @@ export default function TableCompleto() {
             cell: info => <div className="text-right" >{info.getValue()}</div>,
             footer: info => info.column.id,
         }),
-        /* columnHelperFactura.accessor('transacciones', {
-            header: () => <span>transacciones</span>,
-            footer: info => info.column.id,
-            cell: info => {
-                if (info.getValue().length) {
-                    return (
-                        <div className="w-full flex flex-wrap space-x-2 justify-end">
-                            {info.getValue().map((elem, idx) =>
-                                <span onClick={() => handleGetReferencia(elem.referencia)} key={idx} className="">
-                                    {elem.referencia}
-                                </span>)}
-                        </div>
-                    )
-                }
-            },
-            enableColumnFilter: false
-        }), */
         columnHelperFactura.accessor('updatedAt', {
             header: () => <span>updatedAt</span>,
             cell: info => { return <div className="text-center">{getDateTime(info.getValue())}</div> },
@@ -445,19 +439,9 @@ export default function TableCompleto() {
             {/* <input id="child" type="number" onKeyDown={handleChange} className={`${!inputView && "hidden"} h-4 text-right text-xs font-medium`} /> */}
             <div className="w-full h-[calc(100vh-110px)] overflow-auto">
                 <div className="bg-white flex flex-col w-[calc(1280px-40px)] xl:w-[calc(100%-64px)] h-[calc(100vh-160px)] border border-gray-300 rounded-xl p-2 mx-2 xl:ml-8">
-                    <div className="flex space-x-4">
+                    <div className="flex space-x-4 items-center">
                         <div className="flex-1 flex justify-end py-1">
-                            <div className="w-72 flex flex-col px-2 pb-1">
-                                {/* filtrar por estado de factura */}
-                                <FiltroFactura
-                                    onOptionChangeType={onOptionChangeType}
-                                    typeFilter={typeFilter}
-                                    onOptionChangeState={onOptionChangeState}
-                                    stateFilter={stateFilter}
-                                    handleRecargarAll={handleRecargarAll}
-                                />
-                            </div>
-                            <div className="w-72 flex flex-col px-2 pb-1">
+                            <div className="w-[600px] flex flex-col px-2 pb-1">
                                 {/* filtrar por fecha de pago */}
                                 <FiltroTime
                                     onOptionChangeDate={onOptionChangeDate}
@@ -474,7 +458,6 @@ export default function TableCompleto() {
                         </div>
                     </div>
                     <TableJF showTable={showTable} targetRef={targetRef} table={table} TableForward={TableForward} typeFilter={typeFilter} setTableMaster={setTableMaster} setSearch={setSearch} search={search} flexRender={flexRender} setSelectRow={setSelectRow} selectRow={selectRow} Filter={Filter} />
-                    
                 </div>
             </div>
             <style>{`
@@ -548,8 +531,7 @@ function Filter({ column, table }: { column: Column<any, unknown>, table: Table<
 
     return typeof firstValue === 'number' ? (
         <>
-            <div className="w-[calc(100%-10px)]">
-                <div className="flex space-x-2">
+            <div className="w-[calc(100%-10px)] flex space-x-2 ">
                     <DebouncedInput
                         type="number"
                         min={Number(column.getFacetedMinMaxValues()?.[0] ?? '')}
@@ -559,7 +541,7 @@ function Filter({ column, table }: { column: Column<any, unknown>, table: Table<
                             column.setFilterValue((old: [number, number]) => [value, old?.[1]])
                         }
                         placeholder={`Min`}
-                        className="flex-1 text-xs font-normal w-10 h-4 border shadow rounded-[0.25rem] text-right"
+                        className="flex-1 text-xs font-normal w-10* h-4 border shadow rounded-[0.25rem] text-right focus:ring-0 pl-1 focus:outline-none"
                     />
                     <DebouncedInput
                         type="number"
@@ -570,9 +552,8 @@ function Filter({ column, table }: { column: Column<any, unknown>, table: Table<
                             column.setFilterValue((old: [number, number]) => [old?.[0], value])
                         }
                         placeholder={`Max`}
-                        className="flex-1 text-xs font-normal w-10 h-4 border shadow rounded-[0.25rem] text-right"
+                        className="flex-1 text-xs font-normal w-10 h-4 border shadow rounded-[0.25rem] text-right focus:ring-0 pl-1 focus:outline-none"
                     />
-                </div>
             </div>
             <div className="relative">
                 <span onClick={() => column.setFilterValue("")} className="absolute select-none translate-x-0.5 -translate-y-3 text-sm font-medium text-gray-700 w-3 h-3 cursor-pointer">x</span>
@@ -590,11 +571,11 @@ function Filter({ column, table }: { column: Column<any, unknown>, table: Table<
                 value={(columnFilterValue ?? '') as string}
                 onChange={value => column.setFilterValue(value)}
                 placeholder={`${column.id}`}
-                className="text-xs font-normal w-full h-4 rounded-[0.25rem]"
+                className="text-xs font-normal w-full h-4 rounded-[0.25rem] focus:ring-0 pl-1 focus:outline-none border py-2 relative"
                 list={column.id + 'list'}
             />
             <div className="relative">
-                <span onClick={() => column.setFilterValue("")} className="absolute select-none -translate-x-3.5 -translate-y-3 text-sm font-medium text-gray-700 w-3 h-3 cursor-pointer">x</span>
+                <span onClick={() => column.setFilterValue("")} className="absolute select-none -translate-x-3.5 -translate-y-2 text-sm font-medium text-gray-700 w-3 h-3 cursor-pointer">x</span>
             </div>
         </>
     )
