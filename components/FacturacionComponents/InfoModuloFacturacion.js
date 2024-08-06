@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 import { ArrowBackComponent } from "../ToolsComponents";
 
 export const InfoModuloFacturacion = ({ data, actionButtton }) => {
-    console.log(10004, data)
     const router = useRouter()
     const { user, config } = AuthContextProvider()
     const [viewInfo, setViewInfo] = useState()
@@ -41,7 +40,6 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
     ]
 
     const handleCheckout = () => {
-        console.log(config)
         fetchApi({
             query: queries.createCheckoutSession,
             variables: {
@@ -51,7 +49,6 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
             },
             development: config?.name,
         }).then((result) => {
-            console.log(result)
             if (result != null) {
                 router.push(result)
             }
@@ -132,7 +129,6 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
                         </p>
                     </div>
                 </div>
-                aqui
                 {
                     findProducto !== undefined &&
                     (

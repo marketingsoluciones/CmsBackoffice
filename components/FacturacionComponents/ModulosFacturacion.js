@@ -34,7 +34,6 @@ export const ModulosFacturacion = () => {
                 }
                 return acc
             }, { modulos: [] })
-            console.log(asd)
             setData({ data, ...asd })
             if (data.length) {
                 setOptionSelect(0)

@@ -6,7 +6,6 @@ import { InfoItemsFacturation } from "../../utils/schemas"
 
 
 export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
-  console.log("aaaaaaaaaaaaaaaaa")
   const [optionSelect, setOptionSelect] = useState("basic")
   const [viewInfo, setViewInfo] = useState()
 
