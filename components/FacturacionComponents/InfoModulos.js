@@ -82,7 +82,7 @@ const InfoModulo = ({ data, setOptionSelect }) => {
 
     useEffect(() => {
         let dataArry = data?.modulos?.map(elem => {
-            return data?.data.find(el => (el.metadata.grupo === elem && el.metadata.tipo === "basic"))
+            return data?.data.find(el => (el.metadata.segmento === elem && el.metadata.tipo === "basic"))
         })
         dataArry = dataArry?.filter(elements => elements != undefined)
         setDataArry(dataArry)
@@ -98,7 +98,7 @@ const InfoModulo = ({ data, setOptionSelect }) => {
                         </div>
                         <div className="md:w-[75%] space-y-1 ">
                             <p className="font-semibold">
-                                {`Módulo ${item?.metadata?.grupo}`}
+                                {`Módulo ${item?.metadata?.segmento}`}
                             </p>
                             <p className="text-base md:w-[85%]">
                                 {item?.description}

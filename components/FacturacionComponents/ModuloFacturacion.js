@@ -6,10 +6,11 @@ import { InfoItemsFacturation } from "../../utils/schemas"
 
 
 export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
+  console.log("aaaaaaaaaaaaaaaaa")
   const [optionSelect, setOptionSelect] = useState("basic")
   const [viewInfo, setViewInfo] = useState()
 
-  const item = data?.data?.find(el => (el.metadata.grupo === elem && el.metadata.tipo === optionSelect))
+  const item = data?.data?.find(el => (el.metadata.segmento === elem && el.metadata.tipo === optionSelect))
 
   return (
     <>
@@ -64,11 +65,11 @@ export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
                 onClick={() => {
                   setProducts(old => {
                     if (!products?.map(elem => elem.id).includes(item?.id)) {
-                      const f1 = old.findIndex(elem => elem?.grupo === item?.metadata?.grupo)
+                      const f1 = old.findIndex(elem => elem?.segmento === item?.metadata?.segmento)
                       if (f1 > -1) {
                         old?.splice(f1, 1)
                       }
-                      old = [...old, { id: item?.id, name: item?.name, priceID: item?.prices[0]?.id, grupo: item?.metadata?.grupo }]
+                      old = [...old, { id: item?.id, name: item?.name, priceID: item?.prices[0]?.id, segmento: item?.metadata?.segmento }]
                       return old
                     }
                     const f1 = old.findIndex(elem => elem?.id === item?.id)

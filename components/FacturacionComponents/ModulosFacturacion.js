@@ -24,16 +24,17 @@ export const ModulosFacturacion = () => {
     useEffect(() => {
         fetchApi({
             query: queries.getAllProducts,
-            variables: {},
+            variables: { grupo: "cms" },
             development: config?.name
         }).then(result => {
             const data = JSON.parse(result)
             const asd = data?.reduce((acc, item) => {
-                if (!acc.modulos.includes(item.metadata.grupo)) {
-                    acc.modulos.push(item.metadata.grupo)
+                if (!acc.modulos.includes(item.metadata.segmento)) {
+                    acc.modulos.push(item.metadata.segmento)
                 }
                 return acc
             }, { modulos: [] })
+            console.log(asd)
             setData({ data, ...asd })
             if (data.length) {
                 setOptionSelect(0)

@@ -10,8 +10,9 @@ import { useRouter } from "next/router";
 import { ArrowBackComponent } from "../ToolsComponents";
 
 export const InfoModuloFacturacion = ({ data, actionButtton }) => {
+    console.log(10004, data)
     const router = useRouter()
-    const { user } = AuthContextProvider()
+    const { user, config } = AuthContextProvider()
     const [viewInfo, setViewInfo] = useState()
     const [products, setProducts] = useState([])
     const { originPath, stateOriginPath, product, plan } = router?.query
@@ -40,6 +41,7 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
     ]
 
     const handleCheckout = () => {
+        console.log(config)
         fetchApi({
             query: queries.createCheckoutSession,
             variables: {
@@ -47,6 +49,7 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
                 email: user?.email,
                 cancel_url: `${window.location.href}/?stage=1`
             },
+            development: config?.name,
         }).then((result) => {
             console.log(result)
             if (result != null) {
@@ -70,7 +73,6 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
             <div >
                 <ArrowBackComponent action={actionBut} />
             </div>
-
             <div className="bg-white rounded-lg px-5 py-5 my-3 w-full flex  justify-between items-center ">
                 <div className="">
                     <div className="flex items-center space-x-1">
@@ -93,7 +95,6 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
                     </button>
                 </div>
             </div>
-
             <div className="space-y-4 md:h-[calc(100%-180px)] h-[calc(100%-300px)] overflow-auto">
                 <div className="flex md:flex-row flex-col items-center md:items-start justify-center bg-white rounded-lg px-5 py-5 md:space-x-4 md:space-y-0 space-y-3">
                     <div>
@@ -131,11 +132,11 @@ export const InfoModuloFacturacion = ({ data, actionButtton }) => {
                         </p>
                     </div>
                 </div>
-
+                aqui
                 {
                     findProducto !== undefined &&
                     (
-                        <ModuloFacturacion data={data} elem={findProducto?.metadata.grupo} products={products} setProducts={setProducts} />
+                        <ModuloFacturacion data={data} elem={findProducto?.metadata.segmento} products={products} setProducts={setProducts} />
                     )
                 }
 

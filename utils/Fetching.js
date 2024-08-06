@@ -264,8 +264,8 @@ export const queries = {
   signOut: `mutation ($sessionCookie :String){
     signOut(sessionCookie:$sessionCookie)
   }`,
-  getAllProducts: `query {
-    getAllProducts
+  getAllProducts: `query ($grupo:String) {
+    getAllProducts(grupo:$grupo)
   }`,
   createCheckoutSession: `mutation ($items:[inputItemsCheckout], $email:String, $cancel_url:String, $mode:String, $success_url:String){
     createCheckoutSession(items:$items, email:$email, cancel_url:$cancel_url, mode:$mode, success_url:$success_url)
