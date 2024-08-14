@@ -1,47 +1,34 @@
 import { FC } from "react";
 interface propsCompVisitasWeb {
-    componentState: any;
-    setComponentState: any;
-  
-  }
 
-const CompVisitasWebs: FC <propsCompVisitasWeb> = ({componentState, setComponentState}) => {
-    
+
+}
+
+export const CompVisitasWebs: FC<propsCompVisitasWeb> = ({ }) => {
+
 
   return (
-    <div className="w-[100%] bg-white max-w-full overflow-hidden flex flex-col items-center justify-center pt-[31.299999999999272px] px-5 pb-[71.20000000000073px] box-border tracking-[normal] text-center text-sm text-[#21232C] font-semibold">
-      <div className="w-full flex flex-row items-start justify-center pt-0 px-0 pb-[7.5px] box-border max-w-full text-6xl">
-        <div className="w-full relative leading-[38px] flex items-center justify-center max-w-[1007px] mq450:text-xl mq450:leading-[30px] mq1000:max-w-full">
-          Visitas web
-        </div>
-      </div>
+    <div className="w-[100%] h-[90vh] bg-white flex flex-col items-center justify-center ext-sm gap-4 rounded-xl ">
+
+      <h1 className=" text-6xl text-[#21232C] font-semibold">
+        Visitas web
+      </h1>
+
       <div className="flex flex-row items-start justify-start pt-0 pb-5 pr-4 pl-[16.5px] box-border max-w-full text-gray-400">
-        <div className="flex flex-col items-start justify-start gap-[20.5px] max-w-full">
-          <div className="flex flex-row items-start justify-start py-0 pr-[29px] pl-[29.5px]">
-            <div className="w-full relative leading-[20px] font-medium flex items-center max-w-[1007px] mq1000:max-w-full">
-              <span className="w-full">
-                <p className="m-0">
-                  Descubre prospectos prometedores y oportunidades ocultas entre
-                  las empresas que visitan su sitio.
-                </p>
-                <p className="m-0">
-                  Ponte en contacto con tus prospectos antes de que los
-                  competidores los detecten.
-                </p>
-              </span>
-            </div>
+        <div className="flex flex-col items-start justify-start gap-[20.5px] max-w-full ">
+          <div className="flex font-medium max-w-[1007px] text-center">
+            Descubre prospectos prometedores, oportunidades ocultas entre
+            las empresas que visitan su sitio y ponte en contacto con tus prospectos antes de que los
+            competidores los detecten.
           </div>
           <div className="flex flex-row items-center justify-center max-w-full [row-gap:20px] mq975:flex-wrap">
-            <div className="relative leading-[20px] font-medium inline-block max-w-full mq1000:max-w-full">
-              14 días gratis. El precio del complemento comienza a partir de
-              49 € al mes. 
-            </div>
+            14 días gratis. El precio del complemento comienza a partir de
+            49 € al mes.
             <div
-              className="w-auto flex flex-row items-start justify-start pt-0 px-0 pb-[0.5px] box-border cursor-pointer text-sm text-rosa">
-              <div className="flex-1 relative leading-[20px] font-semibold">
-                Más información sobre precios 
-              </div>
-              <div className="h-4 flex flex-col items-start justify-start pt-1 px-0 pb-0 box-border">
+              className="font-semibold flex items-start  cursor-pointer text-sm text-rosa pl-1"
+            >
+              Más información sobre precios
+              <div className="h-4 flex flex-col items-start justify-start pt-1 px-0 pb-0 box-border pl-1">
                 <img
                   className="w-3 h-3 relative overflow-hidden shrink-0"
                   loading="lazy"
@@ -106,4 +93,3 @@ const CompVisitasWebs: FC <propsCompVisitasWeb> = ({componentState, setComponent
   );
 };
 
-export default CompVisitasWebs;

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { ExclamacionIcon, VideoIcon } from "../Icons/index"
 import { InfoModuloFacturacion } from "./InfoModuloFacturacion"
 import { InfoModulos } from "./InfoModulos"
 import { DetalladoCompra } from "./DetalladoCompra"
@@ -10,34 +9,37 @@ import { useRouter } from "next/router"
 
 export const ModulosFacturacion = () => {
     const { config } = AuthContextProvider();
-    const [optionSelect, setOptionSelect] = useState(null)
+    const [optionSelect, setOptionSelect] = useState(-1)
     const [data, setData] = useState({})
     const router = useRouter()
     const { state } = router?.query
-    console.log("=>>>>>>>",data)
 
     useEffect(() => {
         if (state) {
             setOptionSelect(state)
-        } else {
-            setOptionSelect(0)
         }
     }, [])
 
-    useEffect(async () => {
-        const data = JSON.parse(await fetchApi({
+
+    useEffect(() => {
+        fetchApi({
             query: queries.getAllProducts,
-            variables: {},
+            variables: { grupo: "cms" },
             development: config?.name
-        }));
-        const asd = data.reduce((acc, item) => {
-            if (!acc.modulos.includes(item.metadata.grupo)) {
-                acc.modulos.push(item.metadata.grupo)
+        }).then(result => {
+            const data = result.results
+            const asd = data?.reduce((acc, item) => {
+                if (!acc.modulos.includes(item.metadata.segmento)) {
+                    acc.modulos.push(item.metadata.segmento)
+                }
+                return acc
+            }, { modulos: [] })
+            setData({ data, ...asd })
+            if (data.length) {
+                setOptionSelect(0)
             }
-            return acc
-        }, { modulos: [] })
-        setData({ data, ...asd })
-    }, [optionSelect])
+        })
+    }, [])
 
     const dataComponents = [
         {
@@ -55,7 +57,8 @@ export const ModulosFacturacion = () => {
     ]
 
     return (
-        <div>
+
+        <div className="bg-red">
             {optionSelect > -1 && dataComponents[optionSelect]?.component}
         </div>
     )

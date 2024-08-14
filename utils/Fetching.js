@@ -264,11 +264,39 @@ export const queries = {
   signOut: `mutation ($sessionCookie :String){
     signOut(sessionCookie:$sessionCookie)
   }`,
-  getAllProducts: `query {
-    getAllProducts
+  getAllProducts: `query ($grupo:String) {
+    getAllProducts(grupo:$grupo){
+      currency
+      total
+      results{
+        id
+        name
+        description
+        images
+        usage
+        subscriptionId
+        current_period_start
+        current_period_end
+        prices{
+          id
+          currency
+          unit_amount
+          recurring{
+            interval
+            trial_period_days
+          }
+        }
+        metadata{
+          grupo
+          includes
+          segmento
+          tipo
+        }
+      }
+    }
   }`,
-  createCheckoutSession: `mutation ($pricesIDs:[String], $email:String, $cancel_url:String){
-    createCheckoutSession(pricesIDs:$pricesIDs, email:$email, cancel_url:$cancel_url)
+  createCheckoutSession: `mutation ($items:[inputItemsCheckout], $email:String, $cancel_url:String, $mode:String, $success_url:String){
+    createCheckoutSession(items:$items, email:$email, cancel_url:$cancel_url, mode:$mode, success_url:$success_url)
   }`,
   getGeoInfo: `query  {
     getGeoInfo {

@@ -19,6 +19,7 @@ const ClusterComp = ({componentState, setComponentState}) => {
             setOptionSelect(stateOriginPath)
         }
     }, [])
+    
     const dataComponents = [
 
         {
@@ -67,6 +68,7 @@ const ClusterComp = ({componentState, setComponentState}) => {
         },
 
     ]
+
     const handleClickOption = (idx) => {
         setOptionSelect(idx);
     };

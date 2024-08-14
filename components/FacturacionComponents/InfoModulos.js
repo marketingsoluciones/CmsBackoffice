@@ -1,16 +1,16 @@
 import { elements } from "chart.js";
 import { ArrowBackComponent } from "../ToolsComponents"
 import { useRouter } from "next/router";
-
+import { useEffect, useState } from "react";
 
 export const InfoModulos = ({ data, setOptionSelect }) => {
     const router = useRouter()
     const actionBut = () => {
-       { router.back()}
+        { router.back() }
     }
     return (
         <div className="h-[100vh]">
-            <ArrowBackComponent action={actionBut}/>
+            <ArrowBackComponent action={actionBut} />
             <p className="  mt-1 text-3xl text-rosa">
                 Planes
             </p>
@@ -78,34 +78,38 @@ export const InfoModulos = ({ data, setOptionSelect }) => {
 }
 
 const InfoModulo = ({ data, setOptionSelect }) => {
-    let dataArry = data?.modulos?.map(elem => {
-        return data?.data.find(el => (el.metadata.grupo === elem && el.metadata.tipo === "basic"))
-    })
-    dataArry = dataArry?.filter(elements => elements != undefined  )
+    const [dataArry, setDataArry] = useState([])
+
+    useEffect(() => {
+        let dataArry = data?.modulos?.map(elem => {
+            return data?.data.find(el => (el.metadata.segmento === elem && el.metadata.tipo === "basic"))
+        })
+        dataArry = dataArry?.filter(elements => elements != undefined)
+        setDataArry(dataArry)
+    }, [])
+
     return (
         <div className="space-y-4">
-            {
-                dataArry?.map((item, idx) => {
-                    return (
-                        <div key={idx} className="flex md:flex-row flex-col items-center justify-between px-4 space-y-2 ">
-                            <div>
-                                <img src={item?.images[0]} />
-                            </div>
-                            <div className="md:w-[75%] space-y-1 ">
-                                <p className="font-semibold">
-                                    {`Módulo ${item?.metadata?.grupo}`}
-                                </p>
-                                <p className="text-base md:w-[85%]">
-                                    {item?.description}
-                                </p>
-                            </div>
-                            <button onClick={() => setOptionSelect(1)} className="text-base font-semibold border rounded-lg py-1 px-2 border-gray-400">
-                                Ver oferta
-                            </button>
+            {dataArry?.map((item, idx) => {
+                return (
+                    <div key={idx} className="flex md:flex-row flex-col items-center justify-between px-4 space-y-2 ">
+                        <div>
+                            <img src={item?.images[0]} />
                         </div>
-                    )
-                })
-            }
+                        <div className="md:w-[75%] space-y-1 ">
+                            <p className="font-semibold">
+                                {`Módulo ${item?.metadata?.segmento}`}
+                            </p>
+                            <p className="text-base md:w-[85%]">
+                                {item?.description}
+                            </p>
+                        </div>
+                        <button onClick={() => setOptionSelect(1)} className="text-base font-semibold border rounded-lg py-1 px-2 border-gray-400">
+                            Ver oferta
+                        </button>
+                    </div>
+                )
+            })}
         </div>
     )
 }
