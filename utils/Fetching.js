@@ -265,7 +265,35 @@ export const queries = {
     signOut(sessionCookie:$sessionCookie)
   }`,
   getAllProducts: `query ($grupo:String) {
-    getAllProducts(grupo:$grupo)
+    getAllProducts(grupo:$grupo){
+      currency
+      total
+      results{
+        id
+        name
+        description
+        images
+        usage
+        subscriptionId
+        current_period_start
+        current_period_end
+        prices{
+          id
+          currency
+          unit_amount
+          recurring{
+            interval
+            trial_period_days
+          }
+        }
+        metadata{
+          grupo
+          includes
+          segmento
+          tipo
+        }
+      }
+    }
   }`,
   createCheckoutSession: `mutation ($items:[inputItemsCheckout], $email:String, $cancel_url:String, $mode:String, $success_url:String){
     createCheckoutSession(items:$items, email:$email, cancel_url:$cancel_url, mode:$mode, success_url:$success_url)

@@ -27,7 +27,7 @@ export const ModulosFacturacion = () => {
             variables: { grupo: "cms" },
             development: config?.name
         }).then(result => {
-            const data = JSON.parse(result)
+            const data = result.results
             const asd = data?.reduce((acc, item) => {
                 if (!acc.modulos.includes(item.metadata.segmento)) {
                     acc.modulos.push(item.metadata.segmento)
