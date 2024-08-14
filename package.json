@@ -79,6 +79,9 @@
     "use-places-autocomplete": "^1.11.0",
     "yup": "^0.32.11"
   },
+  "resolutions": {
+    "next/@swc/helpers": "0.4.36"
+  },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.20",
