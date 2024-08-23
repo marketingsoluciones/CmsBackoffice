@@ -47,7 +47,6 @@ export const ModuloFacturacion = ({ data, elem, products, setProducts }) => {
                     return <InfoModulos key={idx} item={el} viewInfo={viewInfo} setViewInfo={setViewInfo} />
                   })}
                 </div>
-
                 {/* <ModalInfoModulo data={item} setViewInfo={setViewInfo} viewInfo={viewInfo} /> Módulo Lugares para Bodas */}
               </div>
             </div>
