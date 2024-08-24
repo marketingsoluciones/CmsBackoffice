@@ -2,6 +2,8 @@ import { FetchGraphQL, queries } from "../utils/Fetching";
 import { formatTime } from "../utils/formatTime";
 import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, DemoEnterprice, RpIcon, ClusterIcon } from "../components/Icons/index";
 import { ClubIcon } from "lucide-react";
+import { IoSettingsOutline } from "react-icons/io5";
+
 
 // componentes que definen la estructura del menu, fetchs,columnas visibles en la tabla y los inputs que componen el formulario
 
@@ -1081,6 +1083,72 @@ export const BodyStaticAPP = [
         title: "Web builder",
         roles: ["all"],
         route: "webbuilder",
+        getData: "",
+        getByID: "",
+        createEntry: "",
+        updateEntry: "",
+        deleteEntry: "",
+        schema: [],
+      },
+    ]
+  },
+  {
+    title: "Marca Blanca",
+    roles: ["empresa"],
+    children: [
+      // {
+      //   icon: <IoSettingsOutline className="w-5 h-5" />,
+      //   title: "Usuarios",
+      //   roles: ["all"],
+      //   route: "users",
+      //   getData: "",
+      //   getByID: "",
+      //   createEntry: "",
+      //   updateEntry: "",
+      //   deleteEntry: "",
+      //   schema: [],
+      // },
+      // {
+      //   icon: <IoSettingsOutline className="w-5 h-5" />,
+      //   title: "Eventos",
+      //   roles: ["all"],
+      //   route: "events",
+      //   getData: "",
+      //   getByID: "",
+      //   createEntry: "",
+      //   updateEntry: "",
+      //   deleteEntry: "",
+      //   schema: [],
+      // },
+      // {
+      //   icon: <IoSettingsOutline className="w-5 h-5" />,
+      //   title: "Catálogo de productos",
+      //   roles: ["all"],
+      //   route: "products",
+      //   getData: "",
+      //   getByID: "",
+      //   createEntry: "",
+      //   updateEntry: "",
+      //   deleteEntry: "",
+      //   schema: [],
+      // },
+      // {
+      //   icon: <IoSettingsOutline className="w-5 h-5" />,
+      //   title: "Transacciones",
+      //   roles: ["all"],
+      //   route: "payments",
+      //   getData: "",
+      //   getByID: "",
+      //   createEntry: "",
+      //   updateEntry: "",
+      //   deleteEntry: "",
+      //   schema: [],
+      // },
+      {
+        icon: <IoSettingsOutline className="w-5 h-5" />,
+        title: "Configuración",
+        roles: ["all"],
+        route: "whitelabel/setup",
         getData: "",
         getByID: "",
         createEntry: "",
