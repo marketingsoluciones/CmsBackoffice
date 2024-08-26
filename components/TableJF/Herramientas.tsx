@@ -7,21 +7,40 @@ import { TbFilterPlus } from "react-icons/tb";
 import { TbFilterX } from "react-icons/tb";
 import { useState } from "react";
 import { MdOutlineEdit } from "react-icons/md";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 export const Herramientas = ({ setShowPreviewPdf, setColumnsView, columnsView, table }) => {
     const [favoriteFilterView, setFavoriteFilterView] = useState(false)
+    const [ToolsViw, setToolsView] = useState(false)
+
 
     return (
         <div className="space-x-3 flex px-2">
-            <div /* onClick={() => generateXLSX({ data, tableMaster })} */ className="w-6 h-6 hover:scale-120 transform  flex flex-col items-center justify-center gap-1 cursor-pointer relative" >
-                <RiFileExcel2Fill className="w-6 h-6 text-green-700" />
-            </div>
-            <div onClick={() => { setShowPreviewPdf({ state: true }) }} className="w-6 h-6 hover:scale-120 transform  flex flex-col items-center justify-center gap-1 cursor-pointer relative">
-                <GrDocumentPdf className="w-6 h-6 text-red-700" />
-            </div>
             < FavoriteFilter setFavoriteFilterView={setFavoriteFilterView} favoriteFilterView={favoriteFilterView} table={table} />
             < Filter setColumnsView={setColumnsView} columnsView={columnsView} table={table} />
+            < Tools setToolsView={setToolsView} ToolsViw={ToolsViw} table={table} setShowPreviewPdf={setShowPreviewPdf} />
         </div>
+    )
+}
+
+
+export const Tools = ({ setToolsView, ToolsViw, table, setShowPreviewPdf }) => {
+    return (
+        <div className="relative">
+            <BsThreeDotsVertical onClick={() => setToolsView(!ToolsViw)} className="w-6 h-6 cursor-pointer" />
+            {ToolsViw &&
+                <ClickAwayListener onClickAway={() => ToolsViw && setToolsView(!ToolsViw)}>
+                    <div className="bg-white w-max h-max border border-gray-300 shadow rounded-md absolute translate-y-2 p-3 -left-7 space-y-3 " >
+                        <div /* onClick={() => generateXLSX({ data, tableMaster })} */ className="w-6 h-6 hover:scale-120 transform  flex flex-col items-center justify-center gap-1 cursor-pointer relative" >
+                            <RiFileExcel2Fill className="w-6 h-6 text-green-700" />
+                        </div>
+                        <div onClick={() => { setShowPreviewPdf({ state: true }) }} className="w-6 h-6 hover:scale-120 transform  flex flex-col items-center justify-center gap-1 cursor-pointer relative">
+                            <GrDocumentPdf className="w-6 h-6 text-red-700" />
+                        </div>
+                    </div>
+                </ClickAwayListener>
+            }
+        </div >
     )
 }
 
@@ -79,7 +98,7 @@ export const Filter = ({ setColumnsView, columnsView, table }) => {
                             <div className="flex items-center space-x-2 font-semibold">
                                 <TbFilterPlus className="h-5 w-5" />
                                 <label >
-                                    Crear filtro
+                                    Crear Vista
                                 </label>
                             </div>
                             <div>
@@ -105,7 +124,7 @@ export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, tabl
                     <div className=" bg-white w-[250px] h-max border border-gray-300 shadow rounded-md absolute -translate-x-[200px] translate-y-2 " >
                         <div className="px-3 pt-3">
                             <label className="font-semibold text-[14px]">
-                                Vistas 
+                                Vistas
                             </label>
                         </div>
                         <div className="p-3 ">
@@ -133,7 +152,7 @@ export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, tabl
                         </div>
                         <div className="flex items-center justify-between p-3 bg-gray-100">
                             <div className="flex items-center space-x-2 font-semibold">
-                                <TbFilterX  className="h-5 w-5" />
+                                <TbFilterX className="h-5 w-5" />
                                 <label >
                                     Eliminar Vistas
                                 </label>
@@ -147,7 +166,7 @@ export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, tabl
                     </div>
                 </ClickAwayListener>
             }
-            
+
         </div >
     )
 }

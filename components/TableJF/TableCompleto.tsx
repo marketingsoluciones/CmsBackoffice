@@ -9,11 +9,9 @@ import { FetchGraphQL, /* fetchApiJaihom, */ queries } from "../../utils/Fetchin
 import { Factura, /* FetchFacturas, FetchTransaction */ } from "../../utils/Interfaces.js";
 import { Column, ColumnDef, ColumnFiltersState, FilterFn, SortingFn, Table, createColumnHelper, flexRender, getCoreRowModel, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, sortingFns, useReactTable } from "@tanstack/react-table";
 import { RankingInfo, rankItem, compareItems } from '@tanstack/match-sorter-utils'
-import { getDate, getDateTime, obtenerPrimerYUltimoDiaSemana } from "./Time";
+import { TableJF, Herramientas, FiltroFactura, FiltroTime, getDate, getDateTime, obtenerPrimerYUltimoDiaSemana } from "./index";
 import ClickAwayListener from "react-click-away-listener";
-import { FiltroFactura, FiltroTime } from "./Filtros";
-import { Herramientas } from "./Herramientas";
-import { TableJF } from "./Table";
+import { IndeterminateCheckbox } from "../Datatable/IndeterminateCheckbox.js";
 
 const columnHelperFactura = createColumnHelper<Factura>()
 
@@ -86,6 +84,7 @@ export default function TableCompleto() {
     const [columnVisibility, setColumnVisibility] = React.useState({ recargado: false, forma_pago: false, cajeroID: false, cajero: false, banco: false, conciliado: false, updatedAt: false })
     const [tableMaster, setTableMaster] = useState<any>()
 
+
     const handleChange = (event) => {
         if (event.key === 'Enter') {
             console.log(inputRef.current.ref)
@@ -130,19 +129,8 @@ export default function TableCompleto() {
         }) */
     }
 
-    const ejem = [
-        {
-            name:"",
-            header:"",
-            cell:"",
-            footer:"",
-            enableColumnFilter:"",
-            enableHiding: false,
-        }
-    ]
-
     const columnsFactura = useMemo<ColumnDef<Factura>[]>(() => [
-        
+
 
         columnHelperFactura.accessor('id_factura', {
             id: 'id_factura',
@@ -154,7 +142,7 @@ export default function TableCompleto() {
             enableHiding: false,
         }),
         columnHelperFactura.accessor('criterio', {
-            header: () => <span>criterio</span>,
+            header: () => <span>Colum1</span>,
             cell: info => info.getValue(),
             footer: info => info.column.id,
             enableColumnFilter: false,
@@ -439,21 +427,16 @@ export default function TableCompleto() {
             {/* <input id="child" type="number" onKeyDown={handleChange} className={`${!inputView && "hidden"} h-4 text-right text-xs font-medium`} /> */}
             <div className="w-full h-[calc(100vh-110px)] overflow-auto">
                 <div className="bg-white flex flex-col w-[calc(1280px-40px)] xl:w-[calc(100%-64px)] h-[calc(100vh-160px)] border border-gray-300 rounded-xl p-2 mx-2 xl:ml-8">
-                    <div className="flex space-x-4 items-center">
-                        <div className="flex-1 flex justify-end py-1">
-                            <div className="w-[600px] flex flex-col px-2 pb-1">
-                                {/* filtrar por fecha de pago */}
-                                <FiltroTime
-                                    onOptionChangeDate={onOptionChangeDate}
-                                    dateFilter={dateFilter}
-                                    startDateFilter={startDateFilter}
-                                    setStartDateFilter={setStartDateFilter}
-                                    endDateFilter={endDateFilter}
-                                    setEndDateFilter={setEndDateFilter}
-                                />
-                            </div>
-                        </div>
-                        <div className="h-10 py-1 space-y-4 text-gray-600 items-center justify-center">
+                    <div className="flex justify-end  space-x-4 items-center">
+                        <div className="h-10 py-1  text-gray-600 flex items-center justify-center">
+                            <FiltroTime
+                                onOptionChangeDate={onOptionChangeDate}
+                                dateFilter={dateFilter}
+                                startDateFilter={startDateFilter}
+                                setStartDateFilter={setStartDateFilter}
+                                endDateFilter={endDateFilter}
+                                setEndDateFilter={setEndDateFilter}
+                            />
                             <Herramientas setShowPreviewPdf={setShowPreviewPdf} setColumnsView={setColumnsView} columnsView={columnsView} table={table} />
                         </div>
                     </div>
@@ -493,7 +476,7 @@ export default function TableCompleto() {
 
       thead, tbody tr, tfoot {
         display: table;
-        width: 100%;
+        
         table-layout: fixed;
       }
 
@@ -532,28 +515,28 @@ function Filter({ column, table }: { column: Column<any, unknown>, table: Table<
     return typeof firstValue === 'number' ? (
         <>
             <div className="w-[calc(100%-10px)] flex space-x-2 ">
-                    <DebouncedInput
-                        type="number"
-                        min={Number(column.getFacetedMinMaxValues()?.[0] ?? '')}
-                        max={Number(column.getFacetedMinMaxValues()?.[1] ?? '')}
-                        value={(columnFilterValue as [number, number])?.[0] ?? ''}
-                        onChange={value =>
-                            column.setFilterValue((old: [number, number]) => [value, old?.[1]])
-                        }
-                        placeholder={`Min`}
-                        className="flex-1 text-xs font-normal w-10* h-4 border shadow rounded-[0.25rem] text-right focus:ring-0 pl-1 focus:outline-none"
-                    />
-                    <DebouncedInput
-                        type="number"
-                        min={Number(column.getFacetedMinMaxValues()?.[0] ?? '')}
-                        max={Number(column.getFacetedMinMaxValues()?.[1] ?? '')}
-                        value={(columnFilterValue as [number, number])?.[1] ?? ''}
-                        onChange={value =>
-                            column.setFilterValue((old: [number, number]) => [old?.[0], value])
-                        }
-                        placeholder={`Max`}
-                        className="flex-1 text-xs font-normal w-10 h-4 border shadow rounded-[0.25rem] text-right focus:ring-0 pl-1 focus:outline-none"
-                    />
+                <DebouncedInput
+                    type="number"
+                    min={Number(column.getFacetedMinMaxValues()?.[0] ?? '')}
+                    max={Number(column.getFacetedMinMaxValues()?.[1] ?? '')}
+                    value={(columnFilterValue as [number, number])?.[0] ?? ''}
+                    onChange={value =>
+                        column.setFilterValue((old: [number, number]) => [value, old?.[1]])
+                    }
+                    placeholder={`Min`}
+                    className="flex-1 text-xs font-normal w-10* h-4 border shadow rounded-[0.25rem] text-right focus:ring-0 pl-1 focus:outline-none"
+                />
+                <DebouncedInput
+                    type="number"
+                    min={Number(column.getFacetedMinMaxValues()?.[0] ?? '')}
+                    max={Number(column.getFacetedMinMaxValues()?.[1] ?? '')}
+                    value={(columnFilterValue as [number, number])?.[1] ?? ''}
+                    onChange={value =>
+                        column.setFilterValue((old: [number, number]) => [old?.[0], value])
+                    }
+                    placeholder={`Max`}
+                    className="flex-1 text-xs font-normal w-10 h-4 border shadow rounded-[0.25rem] text-right focus:ring-0 pl-1 focus:outline-none"
+                />
             </div>
             <div className="relative">
                 <span onClick={() => column.setFilterValue("")} className="absolute select-none translate-x-0.5 -translate-y-3 text-sm font-medium text-gray-700 w-3 h-3 cursor-pointer">x</span>
