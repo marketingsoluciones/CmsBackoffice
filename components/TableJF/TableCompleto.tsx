@@ -425,8 +425,8 @@ export default function TableCompleto() {
             }
 
             {/* <input id="child" type="number" onKeyDown={handleChange} className={`${!inputView && "hidden"} h-4 text-right text-xs font-medium`} /> */}
-            <div className="w-full h-[calc(100vh-110px)] overflow-auto">
-                <div className="bg-white flex flex-col w-[calc(1280px-40px)] xl:w-[calc(100%-64px)] h-[calc(100vh-160px)] border border-gray-300 rounded-xl p-2 mx-2 xl:ml-8">
+            <div className="w-full h-[calc(100vh-120px)] overflow-auto">
+                <div className="bg-white flex flex-col w-[calc(1280px-40px)] xl:w-[calc(100%)] h-[calc(100vh-135px)] border border-gray-300 rounded-xl p-2 ">
                     <div className="flex justify-end  space-x-4 items-center">
                         <div className="h-10 py-1  text-gray-600 flex items-center justify-center">
                             <FiltroTime

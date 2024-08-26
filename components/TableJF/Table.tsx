@@ -81,7 +81,7 @@ export const TableJF: FC<PropsTable> = ({ Filter, showTable, targetRef, table, T
                                 )
                             })}
                         </thead>
-                        <tbody className={` block overflow-y-scroll w-[calc(100%+8px)] h-[calc(100vh-325px)] `}>
+                        <tbody className={` block overflow-y-scroll w-[calc(100%+8px)] h-[calc(100vh-265px)] `}>
                             {table.getRowModel().rows.map(row => {
                                 return (
                                     <tr key={row.id} onClick={() => setSelectRow(row.id === selectRow ? null : row.id)} className={`${row.id === selectRow && "bg-gray-300"} hover:bg-gray-200 select-none`}>
