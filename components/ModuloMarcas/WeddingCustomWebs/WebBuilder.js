@@ -207,12 +207,28 @@ export const WebBuilder = ({ setCommponent, id, type = "title", isUpdated = fals
         development: "bodasdehoy",
       }).then((result) => {
         const data = result.results[0];
-        editor?.loadProjectData(JSON.parse(data.code));
-        const pages =
-          data?.code &&
-          JSON.parse(data.code).pages.map((elem) => {
-            return { id: elem.id, name: elem.name };
-          });
+        let pages = {}
+        try {
+          if (data?.code) {
+            editor?.loadProjectData(JSON.parse(data.code));
+            pages = JSON.parse(data.code).pages.map((elem) => {
+              return { id: elem.id, name: elem.name };
+            })
+          } else {
+            const code = {
+              assets: JSON.parse(data.assets),
+              pages: JSON.parse(data.pages),
+              styles: JSON.parse(data.styles),
+              symbols: JSON.parse(data.symbols),
+            }
+            editor?.loadProjectData(code);
+            pages = JSON.parse(data.pages).map((elem) => {
+              return { id: elem.id, name: elem.name };
+            })
+          }
+        } catch (error) {
+          console.log(error)
+        }
         setPages(pages);
         const { type: typeResult, title, _id, state } = result.results[0];
         type = typeResult;
@@ -237,7 +253,7 @@ export const WebBuilder = ({ setCommponent, id, type = "title", isUpdated = fals
     });
     editor.on("component:add", (e) => {
       componentAdd = e;
-      console.log("-------------------->4", e);
+      // console.log("-------------------->4", e);
     });
 
     // The upload is ended (completed or not)
@@ -333,13 +349,18 @@ export const WebBuilder = ({ setCommponent, id, type = "title", isUpdated = fals
             }
           }
           if (!!title) {
+            const code = editor.getProjectData()
             fetchApi({
               query: queries.createCodePage,
               variables: {
                 args: {
                   author: user?.uid,
                   title: title,
-                  code: JSON.stringify(editor.getProjectData()),
+                  // code: JSON.stringify(editor.getProjectData()),
+                  assets: JSON.stringify(code.assets),
+                  pages: JSON.stringify(code.pages),
+                  styles: JSON.stringify(code.styles),
+                  symbols: JSON.stringify(code.symbols),
                   htmlPages: [htmlPage],
                   type: "page",
                 },
@@ -357,12 +378,17 @@ export const WebBuilder = ({ setCommponent, id, type = "title", isUpdated = fals
           }
         }
         if (type === "page") {
+          const code = editor.getProjectData()
           fetchApi({
             query: queries.updateCodePage,
             variables: {
               args: {
                 _id: id,
-                code: JSON.stringify(editor.getProjectData()),
+                //code: JSON.stringify(editor.getProjectData()),
+                assets: JSON.stringify(code.assets),
+                pages: JSON.stringify(code.pages),
+                styles: JSON.stringify(code.styles),
+                symbols: JSON.stringify(code.symbols),
                 htmlPage
               },
             },
@@ -576,7 +602,7 @@ export const WebBuilder = ({ setCommponent, id, type = "title", isUpdated = fals
           </div>
           <div className="flex-1" />
           <div className="h-40">
-            {(UrlPage != undefined && pages.length) &&
+            {(UrlPage != undefined && pages?.length) &&
               <SharedUrl
                 link={`https://${window.origin.includes("://test.") ? "test." : ""}bodasdehoy.com/landingpage/${UrlPage}/${pages[0].name}`}
               />

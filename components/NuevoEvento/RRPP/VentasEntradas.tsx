@@ -173,6 +173,48 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
                 </div>
               </div>
             </div>
+            <div className="self-stretch rounded-md bg-white shadow-[0px_1px_14px_rgba(0,_0,_0,_0.12),_0px_5px_8px_rgba(0,_0,_0,_0.14),_0px_3px_5px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-col items-start justify-start max-w-full">
+              <div className="self-stretch rounded-md shadow-[0px_1px_5px_rgba(0,_0,_0,_0.12),_0px_2px_2px_rgba(0,_0,_0,_0.14),_0px_3px_1px_-2px_rgba(0,_0,_0,_0.2)] box-border flex flex-col items-start justify-start py-px px-0 max-w-full border-[1px] border-solid border-green-400">
+                <div className="self-stretch flex flex-row items-center justify-start max-w-full [row-gap:20px]">
+                  <div className="flex-1 flex flex-col items-start justify-start py-[10.5px] pr-[21px] pl-[10.5px] box-border min-w-[323px] max-w-full">
+                    <div className="self-stretch flex flex-col items-start justify-start">
+                      <div className="w-auto h-[24.5px] relative leading-[24.5px] font-semibold inline-block min-w-[46px] max-w-[497.1600036621094px] max-h-[24.5px]">
+                        Entrada + Servicio
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-auto flex flex-col items-start justify-start py-[10.5px] pr-[10.5px] pl-0 box-border ml-[-0.01px] text-center mq416:ml-0">
+                    <div className="self-stretch flex flex-row items-center justify-start gap-[0.01px]">
+                      <div className="flex-1 flex flex-col items-start justify-start py-0 pr-[7px] pl-0">
+                        <div className="self-stretch flex flex-col items-center justify-start">
+                          <div className="self-stretch rounded-md bg-green-200 flex flex-row items-start justify-start p-[10.5px]">
+                            <div className="flex flex-col items-center justify-start py-0 pr-2.5 pl-[10.19999999999709px]">
+                              <div className="self-stretch h-[24.5px] relative leading-[24.5px] font-semibold inline-block min-w-[22px] max-h-[24.5px] whitespace-nowrap">
+                                55.50$
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button onClick={()=>{ 
+        setComponentState(2)
+      }}  
+                       className="cursor-pointer [border:none] p-0 bg-[transparent] flex flex-col items-start justify-start">
+                        <div className="rounded-md bg-rosa flex flex-row items-start justify-start pt-[13.5px] px-[21px] pb-[15px]">
+                          <div className="h-[17px] flex flex-row items-start justify-start">
+                            <img
+                              className="h-[17px] w-[15.3px] relative overflow-hidden shrink-0"
+                              alt=""
+                              src="ModuloEvento/flesh.svg"
+                            />
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             
             <div className="self-stretch rounded-md bg-white shadow-[0px_1px_14px_rgba(0,_0,_0,_0.12),_0px_5px_8px_rgba(0,_0,_0,_0.14),_0px_3px_5px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-col items-start justify-start p-px box-border max-w-full">
               <div className="self-stretch flex flex-row items-center justify-start max-w-full [row-gap:20px]">

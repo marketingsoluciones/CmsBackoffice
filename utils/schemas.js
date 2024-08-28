@@ -2,6 +2,8 @@ import { FetchGraphQL, queries } from "../utils/Fetching";
 import { formatTime } from "../utils/formatTime";
 import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, DemoEnterprice, RpIcon, ClusterIcon } from "../components/Icons/index";
 import { ClubIcon } from "lucide-react";
+import { IoSettingsOutline } from "react-icons/io5";
+
 
 // componentes que definen la estructura del menu, fetchs,columnas visibles en la tabla y los inputs que componen el formulario
 
@@ -1090,6 +1092,76 @@ export const BodyStaticAPP = [
       },
     ]
   },
+  {
+    title: "Marca Blanca",
+    roles: ["empresa"],
+    children: [
+      {
+        icon: <IoSettingsOutline className="w-5 h-5" />,
+        title: "Configuración",
+        roles: ["all"],
+        route: "whitelabel/setup",
+        getData: "",
+        getByID: "",
+        createEntry: "",
+        updateEntry: "",
+        deleteEntry: "",
+        schema: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Nombre",
+            accessor: "name",
+            type: "stringM",
+          },
+          {
+            Header: "Dominio",
+            accessor: "domain",
+            type: "stringM",
+          },
+          {
+            Header: "Página web",
+            accessor: "pathDirectory",
+            type: "stringM",
+          },
+          {
+            Header: "Titulo del navegador",
+            accessor: "headTitle",
+            type: "stringM",
+          },
+          {
+            Header: "Logotipo",
+            accessor: "logoDirectory",
+            type: "textareaSizable",
+          },
+          {
+            Header: "Color pirncipal",
+            accessor: "primaryColor",
+            type: "string",
+          },
+          {
+            Header: "Color secundario",
+            accessor: "secondaryColor",
+            type: "string",
+          },
+          {
+            Header: "Color terciario",
+            accessor: "tertiaryColor",
+            type: "string",
+          },
+          {
+            Header: "Color para fondos y rellenos",
+            accessor: "baseColor",
+            type: "string",
+          },
+          
+        ],
+      },
+    ]
+  },
+
   {
     title: "Marketplace",
     roles: ["empresa"],
