@@ -1,4 +1,4 @@
-import { FC, FunctionComponent } from "react";
+import { FC } from "react";
 import ModoDemo from "./ModoDemo";
 
 interface propsPantallaPrincipal {
@@ -37,14 +37,14 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
   ]
 
   return (
-    <div className=" bg-whitesmoke-100 w-[100%] h-auto flex flex-col items-start
-     justify-start py-6 px-6 box-border gap-[20px] text-center text-xl text-slategray-300 font-poppins">
+    <div className="w-[100%] h-[100vh] flex flex-col bg-whitesmoke-100 items-center justify-start overflow-auto py-6 px-6 box-border gap-[20px] text-center text-xl text-slategray-300 font-poppins">
 
-
+      <div className="flex items-center justify-center">
       <ModoDemo />
+      </div>
 
       {/* seccion 1 */}
-      <div className="rounded-md bg-white w-[100%] overflow-hidden flex flex-col items-center justify-center py-6 px-10 box-border text-base">
+      <div className="rounded-md bg-white w-[100%]  flex flex-col items-center justify-center py-6 px-10 box-border text-base">
 
             <p>
               Estás a un paso de lograr los mejores eventos. Genera experiencias de impacto para tus usuarios con nuestras herramientas y funciones profesionales.
@@ -56,9 +56,9 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
       </div>
 
       {/* Seccion 2 */}
-      <div className="rounded-md bg-white w-[100%] flex flex-col items-center justify-start py-[53px] px-[16px] box-border">
-        <div className="flex flex-row items-center justify-start gap-[20px]">
-          <div className="flex flex-col items-center justify-start gap-[10px]">
+      <div className="rounded-md bg-white w-[100%]  flex flex-col items-center justify-center py-[20px] px-[16px] box-border">
+        <div className="flex md:flex-row flex-col  items-center justify-center gap-[20px]">
+          <div className="flex flex-col  items-center justify-center gap-[10px]">
             <img
               className="relative w-[65.1px] h-[61.3px]"
               alt=""
@@ -80,11 +80,11 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
               </b>
             </button>
           </div>
-          <div className="flex flex-row items-start justify-start gap-[12px] text-sm text-white">
+          <div className="flex md:flex-row flex-wrap  items-start justify-center gap-[12px] text-sm text-white ">
             {
               DataEventos.map((item, idx) => {
                 return (
-                  <div key={idx} className="relative w-[120px] h-[120px]">
+                  <div key={idx} className="relative w-[120px] h-[120px] ">
                     <img
                       className="absolute top-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
                       alt=""
@@ -102,8 +102,8 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
       </div>
 
       {/* seccion 3 */}
-      <div className="rounded-md w-[100%] bg-white flex flex-col items-center justify-start py-[47px] px-[16px] border-[2px] border-solid border-rosa">
-        <div className=" flex flex-row items-start justify-start gap-[60px]">
+      <div className="rounded-md w-[100%] bg-white flex flex-col items-center justify-start py-[20px] px-[16px] border-[2px] border-solid border-rosa">
+        <div className=" flex md:flex-row flex-col md:items-start items-center md:justify-start justify-center gap-[60px]">
           <div className="flex flex-col items-center justify-center gap-[10px]">
             <img
               className="relative w-[77px] h-[77px] overflow-hidden shrink-0"
@@ -128,7 +128,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
               </b>
             </button>
           </div>
-          <div className="h-[229px] flex flex-row items-center justify-start gap-[20px] text-left text-base">
+          <div className="h-auto flex md:flex-row flex-col  items-center justify-start gap-[20px] text-left text-base">
             <div className="flex flex-col items-end justify-start gap-[16px]">
               <div className="flex flex-row items-start justify-start gap-[10px]">
                 <img
@@ -197,7 +197,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
                 </div>
               </div>
             </div>
-            <div className="h-[189px] flex flex-col items-start justify-start">
+            <div className="h-auto flex flex-col items-start justify-start">
               <div className="flex flex-row items-start justify-start gap-[8px]">
                 <img
                   className="relative w-[25px] h-[25px] overflow-hidden shrink-0 object-cover"
@@ -220,8 +220,8 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
       </div>
 
       {/* seccion 4 */}
-      <div className="flex flex-row w-[100%] items-start justify-center p-2.5 gap-[8px]">
-        <div className="rounded-lg bg-white h-[281px] flex flex-col items-center justify-center py-6 px-0 box-border min-w-[340px]">
+      <div className="w-[100%] flex md:flex-row flex-col  md:items-start items-center justify-center gap-[8px]">
+        <div className="rounded-lg bg-white h-auto flex flex-col items-center justify-center py-6 md:px-0 px-3 box-border md:min-w-[320px]">
           <div className="flex flex-col items-center justify-center gap-[10px]">
             <img
               className="relative w-[105px] h-[93px] object-cover"
@@ -248,7 +248,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
             </button>
           </div>
         </div>
-        <div className="rounded-lg bg-white h-[281px] flex flex-col items-center justify-center py-6 px-0 box-border min-w-[340px]">
+        <div className="rounded-lg bg-white h-auto flex flex-col items-center justify-center py-6 md:px-0 px-3 box-border md:min-w-[320px]">
           <div className="flex flex-col items-center justify-center gap-[10px]">
             <img
               className="relative w-[93px] h-[93px] object-cover"
@@ -271,7 +271,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
             </button>
           </div>
         </div>
-        <div className="rounded-lg bg-white flex flex-col items-center justify-center py-6 px-0 box-border min-w-[340px]">
+        <div className="rounded-lg bg-white flex flex-col items-center justify-center py-6 md:px-0 px-3 box-border md:min-w-[320px]">
           <div className="flex flex-col items-center justify-center gap-[10px]">
             <img
               className="relative w-[103px] h-[103px] object-cover"
@@ -301,7 +301,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
       <div className="w-[100%]  flex flex-row items-center justify-start py-0 px-[22px] box-border">
         <button className="flex cursor-pointer [border:none] p-0 bg-[transparent] relative gap-2 w-auto h-[23px]">
 
-          <div className="text-sm font-poppins text-rosa text-right">
+          <div className="md:text-sm text-xs font-poppins text-rosa text-right">
             Ver todos los eventos disponibles
           </div>
           <img
