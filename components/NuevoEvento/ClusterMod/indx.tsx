@@ -6,6 +6,8 @@ export * from "./CompMensajes"
 export * from "./CompVisitasWeb"
 export * from "./InfoGeneral1"
 export * from "./BuzonProspectos"
+export * from "./Leads"
+export * from "./Invitados"
 
 
 

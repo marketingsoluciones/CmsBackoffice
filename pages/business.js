@@ -9,7 +9,6 @@ import { CiViewTable } from "react-icons/ci";
 import { AuthContextProvider } from "../context";
 import { IframeWorkFlow } from "../components/ModuloMarcas/IframeWorkFlow";
 import { GoWorkflow } from "react-icons/go";
-import Link from "next/link";
 import { TableLinkList } from "../components/ModuloMarcas/Links/TableLinkList";
 import { useResizeObserver } from "../hooks/useResize"
 import { IoLinkOutline } from "react-icons/io5";

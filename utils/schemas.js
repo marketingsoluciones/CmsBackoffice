@@ -1096,54 +1096,6 @@ export const BodyStaticAPP = [
     title: "Marca Blanca",
     roles: ["empresa"],
     children: [
-      // {
-      //   icon: <IoSettingsOutline className="w-5 h-5" />,
-      //   title: "Usuarios",
-      //   roles: ["all"],
-      //   route: "users",
-      //   getData: "",
-      //   getByID: "",
-      //   createEntry: "",
-      //   updateEntry: "",
-      //   deleteEntry: "",
-      //   schema: [],
-      // },
-      // {
-      //   icon: <IoSettingsOutline className="w-5 h-5" />,
-      //   title: "Eventos",
-      //   roles: ["all"],
-      //   route: "events",
-      //   getData: "",
-      //   getByID: "",
-      //   createEntry: "",
-      //   updateEntry: "",
-      //   deleteEntry: "",
-      //   schema: [],
-      // },
-      // {
-      //   icon: <IoSettingsOutline className="w-5 h-5" />,
-      //   title: "Catálogo de productos",
-      //   roles: ["all"],
-      //   route: "products",
-      //   getData: "",
-      //   getByID: "",
-      //   createEntry: "",
-      //   updateEntry: "",
-      //   deleteEntry: "",
-      //   schema: [],
-      // },
-      // {
-      //   icon: <IoSettingsOutline className="w-5 h-5" />,
-      //   title: "Transacciones",
-      //   roles: ["all"],
-      //   route: "payments",
-      //   getData: "",
-      //   getByID: "",
-      //   createEntry: "",
-      //   updateEntry: "",
-      //   deleteEntry: "",
-      //   schema: [],
-      // },
       {
         icon: <IoSettingsOutline className="w-5 h-5" />,
         title: "Configuración",
@@ -1154,10 +1106,62 @@ export const BodyStaticAPP = [
         createEntry: "",
         updateEntry: "",
         deleteEntry: "",
-        schema: [],
+        schema: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Nombre",
+            accessor: "name",
+            type: "stringM",
+          },
+          {
+            Header: "Dominio",
+            accessor: "domain",
+            type: "stringM",
+          },
+          {
+            Header: "Página web",
+            accessor: "pathDirectory",
+            type: "stringM",
+          },
+          {
+            Header: "Titulo del navegador",
+            accessor: "headTitle",
+            type: "stringM",
+          },
+          {
+            Header: "Logotipo",
+            accessor: "logoDirectory",
+            type: "textareaSizable",
+          },
+          {
+            Header: "Color pirncipal",
+            accessor: "primaryColor",
+            type: "string",
+          },
+          {
+            Header: "Color secundario",
+            accessor: "secondaryColor",
+            type: "string",
+          },
+          {
+            Header: "Color terciario",
+            accessor: "tertiaryColor",
+            type: "string",
+          },
+          {
+            Header: "Color para fondos y rellenos",
+            accessor: "baseColor",
+            type: "string",
+          },
+          
+        ],
       },
     ]
   },
+
   {
     title: "Marketplace",
     roles: ["empresa"],

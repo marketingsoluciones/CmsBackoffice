@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { BuzonProsIcon, ChatBotIcon, ChatEnVivoIcon, FormulariosWebIcon, Invitados1Icon, Leads1Icon, Mensajes1Icon, VisitasWebIcon } from "../components/Icons/index";
 import { useRouter } from "next/router";
 import { SlideBar1 } from "../components/NuevoEvento/ClusterMod/utilidades/SlideBar1";
-import { BuzonProspectos, ClusterInfo1, CompMensajes, CompVisitasWebs, InfoGeneral1 } from "../components/NuevoEvento/ClusterMod/indx";
+import { BuzonProspectos, ClusterInfo1, CompMensajes, CompVisitasWebs, InfoGeneral1, InvitadosCloster, Leads } from "../components/NuevoEvento/ClusterMod/indx";
 import { SubmenuComponent } from "../components/CateringBodasComponents/SubmenuComponent"
 
 const Cluster = () => {
@@ -46,17 +46,17 @@ const Cluster = () => {
     {
       icon: <Leads1Icon />,
       title: "Leads",
-      component: <InfoGeneral1 componentState={optionSelect} setComponentState={setOptionSelect} />
+      component: <Leads /> /* <InfoGeneral1 componentState={optionSelect} setComponentState={setOptionSelect} /> */
     },
     {
       icon: <Invitados1Icon />,
       title: "Invitados",
-      component: <InfoGeneral1 componentState={optionSelect} setComponentState={setOptionSelect} />
+      component:<InvitadosCloster/> /*  <InfoGeneral1 componentState={optionSelect} setComponentState={setOptionSelect} /> */
     },
     {
       icon: <VisitasWebIcon />,
       title: "Visitas Web",
-      component: <CompVisitasWebs  />
+      component: <CompVisitasWebs />
     },
     {
       icon: <Mensajes1Icon />,
