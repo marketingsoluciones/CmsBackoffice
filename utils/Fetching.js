@@ -186,13 +186,11 @@ export const queries = {
           displayName
           photoURL
         }
-        htmlPage{
-          html
-          css
-          js
-          status
-        }
         code
+        assets
+        pages
+        styles
+        symbols
         type
         price
         status
@@ -214,13 +212,11 @@ export const queries = {
           displayName
           photoURL
         }
-        htmlPage{
-          html
-          css
-          js
-          status
-        }
         code
+        assets
+        pages
+        styles
+        symbols
         type
         price
         status
@@ -243,14 +239,11 @@ export const queries = {
           displayName
           photoURL
         }
-        htmlPage{
-          _id
-          html
-          css
-          js
-          status
-        }
         code
+        assets
+        pages
+        styles
+        symbols
         type
         price
         state
