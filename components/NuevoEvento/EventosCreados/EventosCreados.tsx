@@ -13,8 +13,10 @@ const EventosCreados: FC <propsEventosCreados> = ({componentState,setComponentSt
   
 
   return (
-    <div className="w-[100%] bg-whitesmoke flex flex-col items-start justify-start py-[30px] px-[20px] box-border gap-[30px]">
+    <div className="w-[100%] h-full bg-whitesmoke flex flex-col items-start justify-start overflow-auto py-[30px] px-[20px] box-border gap-[30px]">
+      <div className="flex items-center justify-center">
       <ModoDemo/>
+      </div>
       <Component1 componentState={componentState} setComponentState={setComponentState} />
 
       

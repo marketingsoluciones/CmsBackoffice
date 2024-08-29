@@ -108,13 +108,16 @@ interface propsDataGeneral {
   
     ];
     return (
-      <div className="w-auto bg-slate-100 flex flex-col items-center justify-center px-4 pt-7 pb-[67px] box-border gap-[28px] tracking-[normal]">
+      <div className="w-[100%] h-[100vh] bg-slate-100 flex flex-col items-center justify-start px-4 pt-7 pb-[20px] overflow-auto box-border gap-[28px] ">
+        
+        <div className="flex items-center justify-center">
         <ModoDemo />
+        </div>
         {/* seccion 1 */}
   
         <div className="self-stretch w-full flex flex-row flex-wrap items-center justify-between [row-gap:20px]">
   
-          <div className="flex flex-row items-center justify-start box-border [row-gap:20px] mq450:pr-5 mq450:box-border mq750:flex-wrap mq750:pr-[186px] mq750:box-border">
+          <div className="flex flex-row items-center justify-start box-border [row-gap:20px] ">
   
             <div onClick={() => {
               setComponentState(1)
@@ -132,7 +135,7 @@ interface propsDataGeneral {
             <div className="flex-1 flex flex-col items-start justify-start py-0 pr-[9px] pl-0 box-border">
               <div className="self-stretch overflow-hidden flex flex-col items-start justify-start">
                 <div className="w-auto h-[31.5px] relative leading-[31.5px] font-semibold inline-block max-h-[31.5px] mq450:text-2xl mq450:leading-[25px]">
-                  Concierto de los Iracundos
+                  Noche de Divas
                 </div>
               </div>
             </div>
@@ -189,7 +192,7 @@ interface propsDataGeneral {
               className="h-[98.3px] w-[84px] relative rounded-md overflow-hidden shrink-0 object-cover"
               loading="lazy"
               alt=""
-              src="ModuloEvento/evento1.jpg"
+              src="ModuloEvento/banner3.svg"
             />
             <div className="flex flex-row items-start justify-between py-[7px] px-0 box-border max-w-full gap-[20px] lg:flex-wrap mq1050:min-w-full">
   
@@ -1212,6 +1215,7 @@ interface propsDataGeneral {
             </div>
           </section>
         </div>
+
         {
           addInforme ? (
             <Modal
