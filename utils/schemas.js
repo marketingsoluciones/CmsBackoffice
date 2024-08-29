@@ -1124,39 +1124,44 @@ export const BodyStaticAPP = [
           {
             Header: "Página web",
             accessor: "pathDirectory",
-            type: "stringM",
+            type: "urlLg",
           },
           {
             Header: "Titulo del navegador",
             accessor: "headTitle",
-            type: "stringM",
+            type: "stringL",
+          },
+          {
+            Header: "Favicon",
+            accessor: "logoDirectory",
+            type: "urlLg",
           },
           {
             Header: "Logotipo",
             accessor: "logoDirectory",
-            type: "textareaSizable",
+            type: "urlLg",
           },
           {
             Header: "Color pirncipal",
             accessor: "primaryColor",
-            type: "string",
+            type: "color",
           },
           {
             Header: "Color secundario",
             accessor: "secondaryColor",
-            type: "string",
+            type: "color",
           },
           {
             Header: "Color terciario",
             accessor: "tertiaryColor",
-            type: "string",
+            type: "color",
           },
           {
             Header: "Color para fondos y rellenos",
             accessor: "baseColor",
-            type: "string",
+            type: "color",
           },
-          
+
         ],
       },
     ]
