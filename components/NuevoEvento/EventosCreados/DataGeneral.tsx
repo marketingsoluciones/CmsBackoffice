@@ -3,6 +3,7 @@ import ModoDemo from "../Principal/ModoDemo";
 import Dropdown2 from "./Dropdown2";
 import InformeFinanciero from "./ComponentesE.C/InformeFinanciero";
 import { Modal } from "../../modals/Modal";
+import CardData1 from "./CardDataGeneral";
 interface propsDataGeneral {
     componentState?: any;
     setComponentState?: any;
@@ -108,7 +109,7 @@ interface propsDataGeneral {
   
     ];
     return (
-      <div className="w-[100%] h-[100vh] bg-slate-100 flex flex-col items-center justify-start px-4 pt-7 pb-[20px] overflow-auto box-border gap-[28px] ">
+      <div className="w-[100%] md:h-[100vh] h-full bg-slate-100 flex flex-col items-center justify-start px-4 pt-7 pb-[20px] overflow-auto box-border gap-[28px] ">
         
         <div className="flex items-center justify-center">
         <ModoDemo />
@@ -141,7 +142,7 @@ interface propsDataGeneral {
             </div>
           </div>
   
-          <div className="w-auto flex flex-row items-start justify-start gap-[7px] mq750:flex-wrap">
+          <div className="w-auto flex md:flex-row flex-wrap md:items-start items-center md:justify-start justify-center gap-[7px] ">
   
             <button className="cursor-pointer bg-slate-50 rounded-md w-auto flex flex-row gap-[9.77px] py-[10px] px-4 items-center justify-center border-[1px] border-solid border-slate-200">
   
@@ -160,8 +161,10 @@ interface propsDataGeneral {
   
             <Dropdown2 items={dataComponents2} title={"Informes"} selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
   
-  
-            <button className="cursor-pointer [border:none] p-0 bg-[transparent] flex-1 flex flex-col items-start justify-start text-sm text-white">
+            <button onClick={() => {
+              setComponentState(3)
+            }}
+            className="cursor-pointer [border:none] bg-[transparent] flex flex-col items-start justify-start text-sm text-white">
               <div className="w-auto rounded-md bg-rosa box-border flex flex-row items-center justify-center py-[9.75px] px-[17px] gap-[10.41px] border-[1px] border-solid border-rosa">
                 <div className="flex flex-col items-center justify-start ">
                   <img
@@ -172,7 +175,7 @@ interface propsDataGeneral {
                   />
                 </div>
                 <div className="flex-1 flex flex-col items-center justify-start">
-                  <div className="self-stretch h-[17.5px] relative text-smi-3 leading-[17.5px] font-semibold font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-inter-medium-123 text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-nero text-center inline-block max-h-[17.5px]">
+                  <div className="self-stretch h-[17.5px] relative text-smi-3 leading-[17.5px] font-semibold text-center inline-block ">
                     Configurar evento
                   </div>
                 </div>
@@ -187,186 +190,142 @@ interface propsDataGeneral {
   
         <div className="self-stretch flex flex-col items-center justify-start py-0 px-px box-border gap-[35px] mq750:gap-[17px]">
   
-          <section className="self-stretch flex flex-row flex-wrap items-start justify-start gap-[5px] shrink-0 text-left">
+          <section className="self-stretch flex flex-row flex-wrap items-start justify-start gap-[20px] shrink-0 text-left">
+            <div className="flex flex-row items-start justify-start gap-2">
             <img
               className="h-[98.3px] w-[84px] relative rounded-md overflow-hidden shrink-0 object-cover"
               loading="lazy"
               alt=""
               src="ModuloEvento/banner3.svg"
             />
-            <div className="flex flex-row items-start justify-between py-[7px] px-0 box-border max-w-full gap-[20px] lg:flex-wrap mq1050:min-w-full">
+            <div className="flex flex-col items-start justify-start gap-[5px]">
   
-              {/* sub-seccion 1 */}
-              <div className="flex flex-col items-start justify-start gap-[5px]">
-  
-                <div className="flex flex-row items-center justify-start gap-[1px] text-lg text-black font-medium">
-                  <div className="flex flex-col items-start justify-start font-semibold">
-                    <div className="w-3.5 h-[15.8px] relative leading-[15.75px] inline-block max-h-[15.75px]">
-                      <img src="ModuloEvento/icon.svg" alt="" />
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-start justify-start pt-[2.5px] pb-1 pr-[2.479999542236328px] pl-0">
-                    <div className="w-auto h-[25px] relative leading-[24.5px] uppercase inline-block box-border pr-0">
-                      Sab.
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-start justify-start pt-[2.5px] pb-1 pr-[3px] pl-0">
-                    <b className="w-auto h-[25px] relative leading-[24.5px] inline-block">
-                      29
-                    </b>
-                  </div>
-                  <div className="flex flex-col items-start justify-start pt-[2.5px] pb-1 pr-[3px] pl-0">
-                    <div className="w-auto h-[25px] relative leading-[24.5px] uppercase inline-block">
-                      Junio
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-start justify-start pt-[2.5px] px-0 pb-1">
-                    <div className="w-auto h-[25px] relative leading-[24.5px] uppercase inline-block">
-                      2024
-                    </div>
-                  </div>
-                </div>
-  
-                <div className="overflow-hidden flex flex-row items-center justify-start py-0 pr-5 pl-0 text-smi-3 text-gray-400">
-                  <div className="h-[13px] w-[13px] relative leading-[12.25px] inline-block">
-                    <img src="ModuloEvento/reg.svg" alt="" />
-                  </div>
-                  <div className="w-auto relative leading-[17.5px] font-medium inline-block whitespace-nowrap">
-                    00:00 - 07:30
-                  </div>
-                </div>
-                <div className="rounded-md bg-red-300 flex flex-col items-start justify-start pt-[2px] pb-[2px] pr-[8px] pl-[8px] text-xs text-red-800">
-                  <div className="relative leading-[14px] font-semibold inline-block whitespace-nowrap">
-                    +18
-                  </div>
-                </div>
-              </div>
-  
-              <div className="w-auto flex flex-row items-start justify-center gap-[10px] text-right text-smi-3 text-text-primary mq750:flex-wrap">
-                <div className="rounded-md bg-white shadow-[0px_1px_5px_rgba(0,_0,_0,_0.12),_0px_2px_2px_rgba(0,_0,_0,_0.14),_0px_3px_1px_-2px_rgba(0,_0,_0,_0.2)] flex flex-col items-end justify-start pt-[10.5px] px-3.5 pb-2.5 box-border min-w-[142px] min-h-[100px] shrink-0 mq450:flex-1 mq750:min-h-[auto]">
-                  <div className="flex flex-col items-start justify-start">
-                    <div className="w-auto h-auto relative leading-[17.5px] font-medium inline-block text-sm text-gray-400">
-                      A. RRPP
-                    </div>
-                    <div className="flex flex-col items-end justify-start text-7xl-3 text-gray-600">
-                      <div className="w-auto h-auto relative leading-[31.5px] text-xl font-medium inline-block mq450:text-2xl mq450:leading-[25px]">
-                        200 €
-                      </div>
-                    </div>
-                  </div>
-                </div>
-  
-                <div className="rounded-md bg-white shadow-[0px_1px_5px_rgba(0,_0,_0,_0.12),_0px_2px_2px_rgba(0,_0,_0,_0.14),_0px_3px_1px_-2px_rgba(0,_0,_0,_0.2)] flex flex-col items-end justify-start py-[10.5px] pr-3.5 pl-[11px] box-border gap-[5px] min-w-[142px] min-h-[100px] shrink-0 mq450:flex-1">
-                  <div className="flex flex-col items-start justify-start">
-  
-                    <div className="h-[17.5px] w-auto relative leading-[17.5px] font-medium inline-block text-gray-400 text-xs max-h-[17.5px]">
-                      ENTRADAS
-  
-                    </div>
-                    <div className="w-auto h-[31.5px] relative leading-[31.5px] font-medium text-gray-400 text-xl inline-block max-h-[31.5px] whitespace-nowrap mq450:text-2xl mq450:leading-[25px]">
-                      1000 €
-                    </div>
-                  </div>
-                  <div className="self-stretch flex flex-col items-start justify-start gap-[2px] text-left text-2xs-5 font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-font-awesome-5-free-solid-105">
-                    <div className="flex flex-row items-end justify-start gap-[2.8px]">
-                      <div className="h-3 w-[9px] flex flex-col items-start justify-start pt-0 px-0 pb-px box-border">
-                        <div className="self-stretch flex-1 relative leading-[10.5px] flex items-center">
-                          
-                        </div>
-                      </div>
-                      <div className="h-3.5 w-auto relative leading-[14px] text-xs inline-block">
-                        {" "}
-                        800/3000
-                      </div>
-                    </div>
-                    <div className="w-full rounded-full h-1.5 dark:bg-slate-300">
-                      <div className="bg-blue-600 h-1.5 rounded-full dark:bg-rosa" style={{ width: "25%" }}></div>
-                    </div>
-                  </div>
-                </div>
-  
-                <div className="rounded-md bg-white shadow-[0px_1px_5px_rgba(0,_0,_0,_0.12),_0px_2px_2px_rgba(0,_0,_0,_0.14),_0px_3px_1px_-2px_rgba(0,_0,_0,_0.2)] flex flex-col items-end justify-start py-[10.5px] pr-3.5 pl-[11px] box-border gap-[5px] min-w-[142px] min-h-[100px] shrink-0 mq450:flex-1">
-                  <div className="flex flex-col items-start justify-start">
-  
-                    <div className="h-[17.5px] w-auto relative leading-[17.5px] font-medium text-gray-400 inline-block text-xs max-h-[17.5px]">
-                      LISTAS
-                    </div>
-                    <div className="w-auto h-[31.5px] relative leading-[31.5px] font-medium text-gray-400 text-xl inline-block max-h-[31.5px] whitespace-nowrap mq450:text-2xl mq450:leading-[25px]">
-                      150 €
-                    </div>
-                  </div>
-                  <div className="self-stretch flex flex-col items-start justify-start gap-[2px] text-left text-2xs-5 font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-font-awesome-5-free-solid-105">
-                    <div className="flex flex-row items-end justify-start gap-[2.8px]">
-                      <div className="h-3 w-[9px] flex flex-col items-start justify-start pt-0 px-0 pb-px box-border">
-                        <div className="self-stretch flex-1 relative leading-[10.5px] flex items-center">
-                          
-                        </div>
-                      </div>
-                      <div className="h-3.5 w-auto relative leading-[14px] text-xs inline-block">
-                        {" "}
-                        1500/20000
-                      </div>
-                    </div>
-                    <div className="w-full rounded-full h-1.5 dark:bg-slate-300">
-                      <div className="bg-blue-600 h-1.5 rounded-full dark:bg-rosa" style={{ width: "25%" }}></div>
-                    </div>
-                  </div>
-                </div>
-  
-                <div className="rounded-md bg-white shadow-[0px_1px_5px_rgba(0,_0,_0,_0.12),_0px_2px_2px_rgba(0,_0,_0,_0.14),_0px_3px_1px_-2px_rgba(0,_0,_0,_0.2)] flex flex-col items-end justify-start py-[10.5px] pr-3.5 pl-[11px] box-border gap-[5px] min-w-[142px] min-h-[100px] shrink-0 mq450:flex-1">
-                  <div className="flex flex-col items-start justify-start">
-  
-                    <div className="h-[17.5px] w-auto relative leading-[17.5px] font-medium text-gray-400 inline-block text-xs max-h-[17.5px]">
-                      RESERVAS
-                    </div>
-                    <div className="w-auto h-[31.5px] relative leading-[31.5px] font-medium text-gray-400 text-xl inline-block max-h-[31.5px] whitespace-nowrap mq450:text-2xl mq450:leading-[25px]">
-                      300 €
-                    </div>
-                  </div>
-                  <div className="self-stretch flex flex-col items-start justify-start gap-[2px] text-left text-2xs-5 font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-font-awesome-5-free-solid-105">
-                    <div className="flex flex-row items-end justify-start gap-[2.8px]">
-                      <div className="h-3 w-[9px] flex flex-col items-start justify-start pt-0 px-0 pb-px box-border">
-                        <div className="self-stretch flex-1 relative leading-[10.5px] flex items-center">
-                          
-                        </div>
-                      </div>
-                      <div className="h-3.5 w-auto relative leading-[14px] text-xs inline-block">
-                        {" "}
-                        3/20
-                      </div>
-                    </div>
-                    <div className="w-full rounded-full h-1.5 dark:bg-slate-300">
-                      <div className="bg-blue-600 h-1.5 rounded-full dark:bg-rosa" style={{ width: "25%" }}></div>
-                    </div>
-                  </div>
-                </div>
-  
-                <div className="rounded-md bg-white shadow-[0px_1px_5px_rgba(0,_0,_0,_0.12),_0px_2px_2px_rgba(0,_0,_0,_0.14),_0px_3px_1px_-2px_rgba(0,_0,_0,_0.2)] flex flex-col items-end justify-start py-[10.5px] pr-3.5 pl-[11px] box-border gap-[5px] min-w-[142px] min-h-[100px] shrink-0 mq450:flex-1">
-                  <div className="flex flex-col items-start justify-start">
-  
-                    <div className="h-[17.5px] w-auto relative leading-[17.5px] font-medium text-gray-400 inline-block text-xs max-h-[17.5px]">
-                      TOTAL
-                    </div>
-                    <div className="w-auto h-[31.5px] relative leading-[31.5px] font-medium text-gray-400 text-xl inline-block max-h-[31.5px] whitespace-nowrap mq450:text-2xl mq450:leading-[25px]">
-                      1650 €
-                    </div>
-                  </div>
-                </div>
-  
-              </div>
-  
+  <div className="flex flex-row items-center justify-start gap-[1px] text-lg text-black font-medium">
+    <div className="flex flex-col items-start justify-start font-semibold">
+      <div className="w-3.5 h-[15.8px] relative leading-[15.75px] inline-block max-h-[15.75px]">
+        <img src="ModuloEvento/icon.svg" alt="" />
+      </div>
+    </div>
+    <div className="flex flex-col items-start justify-start pt-[2.5px] pb-1 pr-[2.479999542236328px] pl-0">
+      <div className="w-auto h-[25px] relative leading-[24.5px] uppercase inline-block box-border pr-0">
+        Vier.
+      </div>
+    </div>
+    <div className="flex flex-col items-start justify-start pt-[2.5px] pb-1 pr-[3px] pl-0">
+      <b className="w-auto h-[25px] relative leading-[24.5px] inline-block">
+        29
+      </b>
+    </div>
+    <div className="flex flex-col items-start justify-start pt-[2.5px] pb-1 pr-[3px] pl-0">
+      <div className="w-auto h-[25px] relative leading-[24.5px] uppercase inline-block">
+        Nov.
+      </div>
+    </div>
+    <div className="flex flex-col items-start justify-start pt-[2.5px] px-0 pb-1">
+      <div className="w-auto h-[25px] relative leading-[24.5px] uppercase inline-block">
+        2024
+      </div>
+    </div>
+  </div>
+
+  <div className="overflow-hidden flex flex-row items-center justify-start py-0 pr-5 pl-0 text-smi-3 text-gray-400">
+    <div className="h-[13px] w-[13px] relative leading-[12.25px] inline-block">
+      <img src="ModuloEvento/reg.svg" alt="" />
+    </div>
+    <div className="w-auto relative leading-[17.5px] font-medium inline-block whitespace-nowrap">
+      20:00 - 02:30
+    </div>
+  </div>
+  <div className="rounded-md bg-red-300 flex flex-col items-start justify-start pt-[2px] pb-[2px] pr-[8px] pl-[8px] text-xs text-red-800">
+    <div className="relative leading-[14px] font-semibold inline-block whitespace-nowrap">
+      +18
+    </div>
+  </div>
             </div>
+            </div>
+
+            <div className="w-auto flex md:flex-row flex-wrap bg-white rounded-md shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] items-center justify-center md:px-2 gap-[10px] text-right">
+              
+              <div className="w-[150px] h-[100px] flex flex-col items-center justify-between box-border py-4 gap-[5px] ">
+                  
+
+                  <div className="w-[100%]  flex flex-row items-start justify-between px-2 text-xs">
+                  <div className="flex text-purple-600 font-bold">
+                    RRPP
+                  </div>
+                  <div className="flex items-start justify-start font-medium text-gray-500">
+                  150
+                  </div>
+                  </div>
+
+                  <div className="w-auto relative leading-[31.5px] font-medium text-gray-700 text-[24px] inline-block whitespace-nowrap">
+                    15.000 €
+                  </div>
+                
+              </div>
+                <div className="w-[150px] h-[100px] flex flex-col items-center justify-between box-border py-4 border-l-[1px] border-gray-300 gap-[5px] ">
+                  
+
+                    <div className="w-[100%]  flex flex-row items-start justify-between px-2 text-xs">
+                    <div className="flex text-green-600 font-bold">
+                      ENTRADAS
+                    </div>
+                    <div className="flex items-start justify-start font-medium text-gray-500">
+                    1.000 (70.19%)
+                    </div>
+                    </div>
+
+                    <div className="w-auto relative leading-[31.5px] font-medium text-gray-700 text-[24px] inline-block whitespace-nowrap">
+                      25.000 €
+                    </div>
+                  
+                </div>
+                <div className="w-[150px] h-[100px] flex flex-col items-center justify-between box-border py-4 md:border-l-[1px] md:border-gray-300 gap-[5px] ">
+                  
+
+                  <div className="w-[100%]  flex flex-row items-start justify-between px-2 text-xs">
+                  <div className="flex text-blue-600 font-bold">
+                  LISTAS
+                  </div>
+                  <div className="flex items-start justify-start font-medium text-gray-500">
+                  166 (11.76%)
+                  </div>
+                  </div>
+
+                  <div className="w-auto relative leading-[31.5px] font-medium text-gray-700 text-[24px] inline-block whitespace-nowrap">
+                    5.000 €
+                  </div>
+                
+              </div>
+              <div className="w-[150px] h-[100px] flex flex-col items-center justify-between box-border py-4 border-l-[1px] border-gray-300 gap-[5px] ">
+                  
+
+                  <div className="w-[100%]  flex flex-row items-start justify-between px-2 text-xs">
+                  <div className="flex text-pink-600 font-bold">
+                  RESERVAS
+                  </div>
+                  <div className="flex items-start justify-start font-medium text-right text-gray-500">
+                  250 (17.65%)
+                  </div>
+                  </div>
+
+                  <div className="w-auto relative leading-[31.5px] font-medium text-gray-700 text-[24px] inline-block whitespace-nowrap">
+                    7.500 €
+                  </div>
+                
+              </div>
+  
+              </div>
   
           </section>
   
-          <section className="w-full flex flex-row items-start justify-start box-border shrink-0 text-left">
-            <div className="flex flex-row items-start justify-start gap-[16px] max-w-full mq750:gap-[18px] mq1050:flex-wrap">
-  
+          <section className="w-full flex md:flex-row flex-col items-start justify-start gap-[16px] max-w-full text-left">
+
               <div className="flex flex-col items-start justify-start gap-[9.92px] max-w-full mq750:min-w-full">
                 <div className="w-auto h-[25px] relative leading-[24.5px] font-semibold inline-block">
                   Informes del evento
                 </div>
-                <div className="self-stretch flex flex-row items-start justify-start gap-[10px] max-w-full text-sm mq750:flex-wrap">
+                <div className="self-stretch flex md:flex-row flex-col items-start justify-start gap-[10px] max-w-full text-sm mq750:flex-wrap">
   
                   {/*  Usuarios y equipos */}
                   <div className="h-[105.5px] rounded-md bg-white shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-row items-start justify-start min-w-[226px] mq750:flex-1">
@@ -391,7 +350,7 @@ interface propsDataGeneral {
                             Usuarios y equipos
                           </div>
                         </div>
-                        <div className="flex flex-row items-start justify-start text-2xs-5 text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-gull-gray">
+                        <div className="flex flex-row items-start justify-start text-2xs-5 ">
                           <div className="h-[21px] w-auto relative leading-[21px] inline-block">
                             Ranking de usuarios y equipos
                           </div>
@@ -417,7 +376,7 @@ interface propsDataGeneral {
                           </div>
                           <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[61px] pl-[61.908653259277344px] text-xl text-purple-700 font-bold">
                             <div className="self-stretch h-7 relative leading-[28px] inline-block mq450:text-mid mq450:leading-[22px]">
-                              60%
+                              90%
                             </div>
                           </div>
                         </div>
@@ -441,7 +400,7 @@ interface propsDataGeneral {
                           </div>
                           <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[61px] pl-[61.908653259277344px] text-xl text-blue-700">
                             <div className="self-stretch h-7 relative leading-[28px] font-bold inline-block mq450:text-mid mq450:leading-[22px]">
-                              35%
+                              5%
                             </div>
                           </div>
                         </div>
@@ -457,7 +416,8 @@ interface propsDataGeneral {
                   </div>
   
                 </div>
-                <div className="self-stretch flex flex-row items-start justify-start gap-[17px] mq750:flex-wrap">
+                <div className="self-stretch flex md:flex-row flex-wrap items-start justify-start gap-[12px]">
+                  <div className="flex flex-row items-start justify-start gap-4">
                   <button className="cursor-pointer [border:none] p-0 bg-white rounded-md shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-col items-start justify-start ">
                     <div className="self-stretch flex flex-row items-start justify-start">
   
@@ -487,6 +447,7 @@ interface propsDataGeneral {
   
                     </div>
                   </button>
+
                   <button className="cursor-pointer [border:none] p-0 bg-white rounded-md shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-col items-start justify-start">
                     <div className="self-stretch flex flex-row items-start justify-start">
   
@@ -518,6 +479,7 @@ interface propsDataGeneral {
   
                     </div>
                   </button>
+                  </div>
                   <button className="cursor-pointer bg-white rounded-md shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-col items-start justify-start">
                     <div className="self-stretch flex flex-row items-start justify-start">
                       <div className="self-stretch w-auto bg-purple-100 flex flex-col items-center justify-start pt-[12.5px] pb-[24.5px] pr-[15.520000457763672px] pl-[15.510000228881836px] box-border">
@@ -547,430 +509,82 @@ interface propsDataGeneral {
   
                     </div>
                   </button>
+
                 </div>
   
                 {/*  Resumenes de listas, entradas, rrpp y reservas */}
-                <div className="flex flex-col items-start justify-start gap-[11px] text-left text-sm text-black font-semibold">
-                  <div className="self-stretch rounded-md bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col w-auto items-start justify-start gap-[5px]">
-                    <div className="w-full flex flex-col items-start justify-start py-[7px] pr-[13.75px] pl-3.5 box-border relative">
-                      <div className="absolute my-0 mx-[!important] h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] bg-gray-600 opacity-[0.13]" />
-                      <div className="self-stretch flex flex-row items-center justify-start gap-[10.5px]">
-                        <div className="w-full h-[17.5px] leading-[17.5px] text-lg font-semibold">
-                          LISTAS
-                        </div>
-                      </div>
-                    </div>
-                    <div className="w-full flex flex-row items-center justify-between py-0 px-[15px] box-border">
-                      <div className="flex flex-col items-start justify-start gap-1">
-                        <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[383.5199890136719px] pl-0">
-                          <div className="relative leading-[14px] font-semibold text-xs">
-                            TIEMPO REAL
-                          </div>
-                        </div>
-                        <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[398.5199890136719px] pl-0 text-gray-600">
-                          <div className="relative leading-[14px] font-medium text-gray-400">
-                            PREVISIÓN
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-auto h-auto flex flex-col items-center gap-1 justify-center text-right text-sm text-gray-600">
-                        <div className="rounded-full bg-slate-200 py-[1px] px-[8px] flex flex-row items-center justify-start box-border gap-[3.1px]">
-                          <b className="relative leading-[24px] uppercase">15</b>
-                          <div className="flex flex-row items-start justify-end text-sm ">
-                            <div className="relative leading-[12.25px] uppercase inline-block max-h-[12.25px]">
-                              <img src="ModuloEvento/humano1.svg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="w-auto flex flex-row items-center justify-center box-border gap-[3.19px] text-md text-gray-600">
-                          <div className="leading-[14px] text-gray-400">{`0 `}</div>
-                          <div className="flex flex-row items-start justify-end">
-                            <div className="relative leading-[10.5px] uppercase inline-block ">
-                              <img src="ModuloEvento/humano2.svg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="relative box-border w-full h-px border-t-[1px] border-solid border-slate-200" />
-                    <div className="w-full flex flex-col items-start justify-start gap-1 py-[7px] px-3.5 box-border text-sm text-gray-600">
-  
-                      <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border">
-  
-                        <div className="flex flex-col items-start justify-start">
-                          <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[286.3800048828125px] pl-0">
-                            <div className="relative leading-[14px] font-semibol text-black">
-                              EVENTO ANTERIOR (Jue. 25 enero)
-                            </div>
-                          </div>
-                        </div>
-  
-                        <div className="flex flex-row items-center justify-center w-auto h-auto ">
-                          <div className="w-auto flex flex-row items-start justify-start gap-1">
-                            <b className="leading-[14px] text-black">
-                              25
-                            </b>
-                            <div className="flex flex-col items-center justify-center leading-[10.5px]">
-                              <img src="ModuloEvento/humano1.svg" alt="" />
-                            </div>
-                          </div>
-                          <div className="w-auto flex flex-col items-start justify-start">
-                            <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
-                              <div className="relative leading-[14px] inline-block text-black">
-                                35%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-  
-                      </div>
-  
-                      <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border text-gray-400">
-                        <div className="flex flex-col items-start justify-start ">
-                          <div className="self-stretch flex flex-col items-start justify-start">
-                            <div className="relative leading-[14px] font-medium">
-                              FINAL EVENTO ANT. (Jue. 25 enero)
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex flex-row items-start justify-start w-auto h-auto text-right">
-  
-                          <div className="flex flex-row gap-1 items-center justify-center">
-  
-                            <div className="leading-[14px]">{`0 `}</div>
-                            <div className=" leading-[10.5px] inline-block">
-                              <img src="ModuloEvento/humano2.svg" alt="" />
-                            </div>
-  
-                          </div>
-  
-                          <div className="w-auto flex flex-col items-start justify-start">
-                            <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
-                              <div className="relative leading-[14px] inline-block max-w-[50px]">
-                                0%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-  
-                    </div>
-                  </div>
-                  <div className="self-stretch rounded-md bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col w-auto items-start justify-start gap-[5px]">
-                    <div className="w-full flex flex-col items-start justify-start py-[7px] pr-[13.75px] pl-3.5 box-border relative">
-                      <div className="absolute my-0 mx-[!important] h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] bg-gray-600 opacity-[0.13]" />
-                      <div className="self-stretch flex flex-row items-center justify-start gap-[10.5px]">
-                        <div className="w-full h-[17.5px] leading-[17.5px] text-lg font-semibold">
-                          ENTRADAS
-                        </div>
-                      </div>
-                    </div>
-                    <div className="w-full flex flex-row items-center justify-between py-0 px-[15px] box-border">
-                      <div className="flex flex-col items-start justify-start gap-1">
-                        <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[383.5199890136719px] pl-0">
-                          <div className="relative leading-[14px] font-semibold text-xs">
-                            TIEMPO REAL
-                          </div>
-                        </div>
-                        <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[398.5199890136719px] pl-0 text-gray-600">
-                          <div className="relative leading-[14px] font-medium text-gray-400">
-                            PREVISIÓN
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-auto h-auto flex flex-col items-center gap-1 justify-center text-right text-sm text-gray-600">
-                        <div className="rounded-full bg-slate-200 py-[1px] px-[8px] flex flex-row items-center justify-start box-border gap-[3.1px]">
-                          <b className="relative leading-[24px] uppercase">15</b>
-                          <div className="flex flex-row items-start justify-end text-sm ">
-                            <div className="relative leading-[12.25px] uppercase inline-block max-h-[12.25px]">
-                              <img src="ModuloEvento/humano1.svg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="w-auto flex flex-row items-center justify-center box-border gap-[3.19px] text-md text-gray-600">
-                          <div className="leading-[14px] text-gray-400">{`0 `}</div>
-                          <div className="flex flex-row items-start justify-end">
-                            <div className="relative leading-[10.5px] uppercase inline-block ">
-                              <img src="ModuloEvento/humano2.svg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="relative box-border w-full h-px border-t-[1px] border-solid border-slate-200" />
-                    <div className="w-full flex flex-col items-start justify-start gap-1 py-[7px] px-3.5 box-border text-sm text-gray-600">
-  
-                      <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border">
-  
-                        <div className="flex flex-col items-start justify-start">
-                          <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[286.3800048828125px] pl-0">
-                            <div className="relative leading-[14px] font-semibol text-black">
-                              EVENTO ANTERIOR (Jue. 25 enero)
-                            </div>
-                          </div>
-                        </div>
-  
-                        <div className="flex flex-row items-center justify-center w-auto h-auto ">
-                          <div className="w-auto flex flex-row items-start justify-start gap-1">
-                            <b className="leading-[14px] text-black">
-                              25
-                            </b>
-                            <div className="flex flex-col items-center justify-center leading-[10.5px]">
-                              <img src="ModuloEvento/humano1.svg" alt="" />
-                            </div>
-                          </div>
-                          <div className="w-auto flex flex-col items-start justify-start">
-                            <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
-                              <div className="relative leading-[14px] inline-block text-black">
-                                35%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-  
-                      </div>
-  
-                      <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border text-gray-400">
-                        <div className="flex flex-col items-start justify-start ">
-                          <div className="self-stretch flex flex-col items-start justify-start">
-                            <div className="relative leading-[14px] font-medium">
-                              FINAL EVENTO ANT. (Jue. 25 enero)
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex flex-row items-start justify-start w-auto h-auto text-right">
-  
-                          <div className="flex flex-row gap-1 items-center justify-center">
-  
-                            <div className="leading-[14px]">{`0 `}</div>
-                            <div className=" leading-[10.5px] inline-block">
-                              <img src="ModuloEvento/humano2.svg" alt="" />
-                            </div>
-  
-                          </div>
-  
-                          <div className="w-auto flex flex-col items-start justify-start">
-                            <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
-                              <div className="relative leading-[14px] inline-block max-w-[50px]">
-                                0%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-  
-                    </div>
-                  </div>
-                  <div className="self-stretch rounded-md bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col w-auto items-start justify-start gap-[5px]">
-                    <div className="w-full flex flex-col items-start justify-start py-[7px] pr-[13.75px] pl-3.5 box-border relative">
-                      <div className="absolute my-0 mx-[!important] h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] bg-gray-600 opacity-[0.13]" />
-                      <div className="self-stretch flex flex-row items-center justify-start gap-[10.5px]">
-                        <div className="w-full h-[17.5px] leading-[17.5px] text-lg font-semibold">
-                          ACCESO A RRPP
-                        </div>
-                      </div>
-                    </div>
-                    <div className="w-full flex flex-row items-center justify-between py-0 px-[15px] box-border">
-                      <div className="flex flex-col items-start justify-start gap-1">
-                        <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[383.5199890136719px] pl-0">
-                          <div className="relative leading-[14px] font-semibold text-xs">
-                            TIEMPO REAL
-                          </div>
-                        </div>
-                        <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[398.5199890136719px] pl-0 text-gray-600">
-                          <div className="relative leading-[14px] font-medium text-gray-400">
-                            PREVISIÓN
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-auto h-auto flex flex-col items-center gap-1 justify-center text-right text-sm text-gray-600">
-                        <div className="rounded-full bg-slate-200 py-[1px] px-[8px] flex flex-row items-center justify-start box-border gap-[3.1px]">
-                          <b className="relative leading-[24px] uppercase">15</b>
-                          <div className="flex flex-row items-start justify-end text-sm ">
-                            <div className="relative leading-[12.25px] uppercase inline-block max-h-[12.25px]">
-                              <img src="ModuloEvento/humano1.svg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="w-auto flex flex-row items-center justify-center box-border gap-[3.19px] text-md text-gray-600">
-                          <div className="leading-[14px] text-gray-400">{`0 `}</div>
-                          <div className="flex flex-row items-start justify-end">
-                            <div className="relative leading-[10.5px] uppercase inline-block ">
-                              <img src="ModuloEvento/humano2.svg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="relative box-border w-full h-px border-t-[1px] border-solid border-slate-200" />
-                    <div className="w-full flex flex-col items-start justify-start gap-1 py-[7px] px-3.5 box-border text-sm text-gray-600">
-  
-                      <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border">
-  
-                        <div className="flex flex-col items-start justify-start">
-                          <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[286.3800048828125px] pl-0">
-                            <div className="relative leading-[14px] font-semibol text-black">
-                              EVENTO ANTERIOR (Jue. 25 enero)
-                            </div>
-                          </div>
-                        </div>
-  
-                        <div className="flex flex-row items-center justify-center w-auto h-auto ">
-                          <div className="w-auto flex flex-row items-start justify-start gap-1">
-                            <b className="leading-[14px] text-black">
-                              25
-                            </b>
-                            <div className="flex flex-col items-center justify-center leading-[10.5px]">
-                              <img src="ModuloEvento/humano1.svg" alt="" />
-                            </div>
-                          </div>
-                          <div className="w-auto flex flex-col items-start justify-start">
-                            <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
-                              <div className="relative leading-[14px] inline-block text-black">
-                                35%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-  
-                      </div>
-  
-                      <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border text-gray-400">
-                        <div className="flex flex-col items-start justify-start ">
-                          <div className="self-stretch flex flex-col items-start justify-start">
-                            <div className="relative leading-[14px] font-medium">
-                              FINAL EVENTO ANT. (Jue. 25 enero)
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex flex-row items-start justify-start w-auto h-auto text-right">
-  
-                          <div className="flex flex-row gap-1 items-center justify-center">
-  
-                            <div className="leading-[14px]">{`0 `}</div>
-                            <div className=" leading-[10.5px] inline-block">
-                              <img src="ModuloEvento/humano2.svg" alt="" />
-                            </div>
-  
-                          </div>
-  
-                          <div className="w-auto flex flex-col items-start justify-start">
-                            <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
-                              <div className="relative leading-[14px] inline-block max-w-[50px]">
-                                0%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-  
-                    </div>
-                  </div>
-                  <div className="self-stretch rounded-md bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] overflow-hidden flex flex-col w-auto items-start justify-start gap-[5px]">
-                    <div className="w-full flex flex-col items-start justify-start py-[7px] pr-[13.75px] pl-3.5 box-border relative">
-                      <div className="absolute my-0 mx-[!important] h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] bg-gray-600 opacity-[0.13]" />
-                      <div className="self-stretch flex flex-row items-center justify-start gap-[10.5px]">
-                        <div className="w-full h-[17.5px] leading-[17.5px] text-lg font-semibold">
-                          RESERVA
-                        </div>
-                      </div>
-                    </div>
-                    <div className="w-full flex flex-row items-center justify-between py-0 px-[15px] box-border">
-                      <div className="flex flex-col items-start justify-start gap-1">
-                        <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[383.5199890136719px] pl-0">
-                          <div className="relative leading-[14px] font-semibold text-xs">
-                            TIEMPO REAL
-                          </div>
-                        </div>
-                        <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[398.5199890136719px] pl-0 text-gray-600">
-                          <div className="relative leading-[14px] font-medium text-gray-400">
-                            PREVISIÓN
-                          </div>
-                        </div>
-                      </div>
-                      <div className="w-auto h-auto flex flex-col items-center gap-1 justify-center text-right text-sm text-gray-600">
-                        <div className="rounded-full bg-slate-200 py-[1px] px-[8px] flex flex-row items-center justify-start box-border gap-[3.1px]">
-                          <b className="relative leading-[24px] uppercase">15</b>
-                          <div className="flex flex-row items-start justify-end text-sm ">
-                            <div className="relative leading-[12.25px] uppercase inline-block max-h-[12.25px]">
-                              <img src="ModuloEvento/humano1.svg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="w-auto flex flex-row items-center justify-center box-border gap-[3.19px] text-md text-gray-600">
-                          <div className="leading-[14px] text-gray-400">{`0 `}</div>
-                          <div className="flex flex-row items-start justify-end">
-                            <div className="relative leading-[10.5px] uppercase inline-block ">
-                              <img src="ModuloEvento/humano2.svg" alt="" />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="relative box-border w-full h-px border-t-[1px] border-solid border-slate-200" />
-                    <div className="w-full flex flex-col items-start justify-start gap-1 py-[7px] px-3.5 box-border text-sm text-gray-600">
-  
-                      <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border">
-  
-                        <div className="flex flex-col items-start justify-start">
-                          <div className="self-stretch flex flex-col items-start justify-start py-0 pr-[286.3800048828125px] pl-0">
-                            <div className="relative leading-[14px] font-semibol text-black">
-                              EVENTO ANTERIOR (Jue. 25 enero)
-                            </div>
-                          </div>
-                        </div>
-  
-                        <div className="flex flex-row items-center justify-center w-auto h-auto ">
-                          <div className="w-auto flex flex-row items-start justify-start gap-1">
-                            <b className="leading-[14px] text-black">
-                              25
-                            </b>
-                            <div className="flex flex-col items-center justify-center leading-[10.5px]">
-                              <img src="ModuloEvento/humano1.svg" alt="" />
-                            </div>
-                          </div>
-                          <div className="w-auto flex flex-col items-start justify-start">
-                            <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
-                              <div className="relative leading-[14px] inline-block text-black">
-                                35%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-  
-                      </div>
-  
-                      <div className="w-full flex flex-row items-center justify-between py-0 px-2.5 box-border text-gray-400">
-                        <div className="flex flex-col items-start justify-start ">
-                          <div className="self-stretch flex flex-col items-start justify-start">
-                            <div className="relative leading-[14px] font-medium">
-                              FINAL EVENTO ANT. (Jue. 25 enero)
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex flex-row items-start justify-start w-auto h-auto text-right">
-  
-                          <div className="flex flex-row gap-1 items-center justify-center">
-  
-                            <div className="leading-[14px]">{`0 `}</div>
-                            <div className=" leading-[10.5px] inline-block">
-                              <img src="ModuloEvento/humano2.svg" alt="" />
-                            </div>
-  
-                          </div>
-  
-                          <div className="w-auto flex flex-col items-start justify-start">
-                            <div className="self-stretch flex flex-col items-end justify-start py-0 pr-0 pl-[34.366127014160156px]">
-                              <div className="relative leading-[14px] inline-block max-w-[50px]">
-                                0%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-  
-                    </div>
-                  </div>
+                <div className="w-full flex flex-col items-start justify-start gap-[11px] text-left text-sm text-black font-semibold">
+                  
+                  <CardData1 componentState={componentState} setComponentState={setComponentState}
+                  title={"LISTAS"}
+
+                  Subtitle1={"TIEMPO REAL"}
+                  NSubtitle1={"300"}
+
+                  Subtitle2={"PREVISION"}
+                  NSubtitle2={"150"}
+
+                  SubTFecha1={"EVENTO ANTERIOR (jue. 24 Agosto)"}
+                  SubTFechaNumber1={"250"}
+                  SubTFechaPorcentaje1={"35%"}
+
+                  SubTFecha2={"FINAL EVENTO ANT. (jue. 24 Agosto)"}
+                  SubTFechaNumber2={"200"}
+                  SubTFechaPorcentaje2={"40%"}
+                  />
+                  <CardData1 componentState={componentState} setComponentState={setComponentState}
+                  title={"ENTRADAS"}
+
+                  Subtitle1={"TIEMPO REAL"}
+                  NSubtitle1={"300"}
+
+                  Subtitle2={"PREVISION"}
+                  NSubtitle2={"600"}
+
+                  SubTFecha1={"EVENTO ANTERIOR (jue. 24 Agosto)"}
+                  SubTFechaNumber1={"200"}
+                  SubTFechaPorcentaje1={"30%"}
+
+                  SubTFecha2={"FINAL EVENTO ANT. (jue. 24 Agosto)"}
+                  SubTFechaNumber2={"150"}
+                  SubTFechaPorcentaje2={"25%"}
+                  />
+                  <CardData1 componentState={componentState} setComponentState={setComponentState}
+                  title={"ACCESO A RRPP"}
+
+                  Subtitle1={"TIEMPO REAL"}
+                  NSubtitle1={"50"}
+
+                  Subtitle2={"PREVISION"}
+                  NSubtitle2={"100"}
+
+                  SubTFecha1={"EVENTO ANTERIOR (jue. 24 Agosto)"}
+                  SubTFechaNumber1={"25"}
+                  SubTFechaPorcentaje1={"25%"}
+
+                  SubTFecha2={"FINAL EVENTO ANT. (jue. 24 Agosto)"}
+                  SubTFechaNumber2={"5"}
+                  SubTFechaPorcentaje2={"5%"}
+                  />
+                  <CardData1 componentState={componentState} setComponentState={setComponentState}
+                  title={"RESERVA"}
+
+                  Subtitle1={"TIEMPO REAL"}
+                  NSubtitle1={"20"}
+
+                  Subtitle2={"PREVISION"}
+                  NSubtitle2={"40"}
+
+                  SubTFecha1={"EVENTO ANTERIOR (jue. 24 Agosto)"}
+                  SubTFechaNumber1={"10"}
+                  SubTFechaPorcentaje1={"30%"}
+
+                  SubTFecha2={"FINAL EVENTO ANT. (jue. 24 Agosto)"}
+                  SubTFechaNumber2={"5"}
+                  SubTFechaPorcentaje2={"15%"}
+                  />
+
+
                 </div>
   
               </div>
@@ -1059,7 +673,7 @@ interface propsDataGeneral {
                   <div className="self-stretch flex flex-col items-start justify-start pt-[9.5px] px-[10.5px] pb-[10.5px] box-border max-w-full text-left">
                     <div className="self-stretch flex flex-col items-start justify-start pt-0 pb-[10.5px] pr-[7px] pl-0 box-border gap-[4.5px] max-w-full">
                       <div className="w-auto h-3.5 relative leading-[14px] inline-block">
-                        Comparte tu link para conseguir más ventas:
+                        Comparte tu link:
                       </div>
                       <div className="self-stretch flex flex-row items-start justify-start max-w-full gap-1 [row-gap:20px] text-sm mq450:flex-wrap">
                         <div className="flex flex-col w-full items-start justify-start py-0 pr-[3.5px] pl-0 box-border max-w-full">
@@ -1212,7 +826,7 @@ interface propsDataGeneral {
                 </div>
   
               </div>
-            </div>
+            
           </section>
         </div>
 

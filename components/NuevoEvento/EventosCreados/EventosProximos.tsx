@@ -27,7 +27,7 @@ const EventosProximos: FC <propsEventosProximos> = ({componentState,setComponent
       fecha1:"VIE",
       fecha2:"29",
       fecha3:"NV",
-      hora: "29:00 - 02:30",
+      hora: "20:00 - 02:30",
       image: "ModuloEvento/banner3.svg",
       component: ()=>{setComponentState(7)},
       
