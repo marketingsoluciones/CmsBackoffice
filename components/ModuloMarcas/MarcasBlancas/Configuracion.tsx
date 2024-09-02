@@ -1,7 +1,7 @@
 import { AuthContextProvider } from "../../../context";
-import { PanelEditAndCreate } from "../../../components/PanelEditAndCreate";
+import { PanelEditAndCreate } from "../../PanelEditAndCreate";
 
-export const Setup = ({}) => {
+export const Configuracion = ({}) => {
     const {  dispatch, state } = AuthContextProvider();
 
     return (

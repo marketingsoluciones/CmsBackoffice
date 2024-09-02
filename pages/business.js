@@ -13,7 +13,7 @@ import { TableLinkList } from "../components/ModuloMarcas/Links/TableLinkList";
 import { useResizeObserver } from "../hooks/useResize"
 import { IoLinkOutline } from "react-icons/io5";
 import { GoProjectSymlink } from "react-icons/go";
-import {Setup} from "../components/ModuloMarcas/MarcasBlancas/Setup";
+import { MarcaBlanca } from "../components/ModuloMarcas/MarcasBlancas";
 
 const Business = () => {
   const [optionSelect, setOptionSelect] = useState(0);
@@ -56,7 +56,7 @@ const Business = () => {
     {
       icon: <GoProjectSymlink className="h-6 w-auto" />,
       title: "MarcaBlanca",
-      component: <Setup setComponentState={setOptionSelect} dimensions={dimensions} optionSelect={optionSelect} />,
+      component: <MarcaBlanca setComponentState={setOptionSelect} dimensions={dimensions} optionSelect={optionSelect} />,
     },
   ];
   const handleClickOption = (idx) => {
