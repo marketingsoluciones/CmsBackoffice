@@ -418,7 +418,10 @@ interface propsDataGeneral {
                 </div>
                 <div className="self-stretch flex md:flex-row flex-wrap items-start justify-start gap-[12px]">
                   <div className="flex flex-row items-start justify-start gap-4">
-                  <button className="cursor-pointer [border:none] p-0 bg-white rounded-md shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-col items-start justify-start ">
+                  <button onClick={() => {
+              setSelectedOption(16)
+            }}
+                   className="cursor-pointer [border:none] p-0 bg-white rounded-md shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-col items-start justify-start ">
                     <div className="self-stretch flex flex-row items-start justify-start">
   
                       <div className="self-stretch w-auto bg-gray-200 flex flex-col items-center justify-start pt-[12.5px] pb-[24.5px] pr-[13.869999885559082px] pl-[13.880000114440918px] box-border relative z-[0]">
@@ -448,7 +451,9 @@ interface propsDataGeneral {
                     </div>
                   </button>
 
-                  <button className="cursor-pointer [border:none] p-0 bg-white rounded-md shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-col items-start justify-start">
+                  <button onClick={() => {
+              setSelectedOption(17)
+            }} className="cursor-pointer [border:none] p-0 bg-white rounded-md shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] overflow-hidden flex flex-col items-start justify-start">
                     <div className="self-stretch flex flex-row items-start justify-start">
   
                       <div className="self-stretch w-auto flex flex-col bg-green-100 items-center justify-start pt-[12.5px] pb-[24.5px] pr-[12.239999771118164px] pl-[12.229999542236328px] box-border">

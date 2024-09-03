@@ -11,6 +11,8 @@ import AsisUsuRecepcion from "./ComponentesE.C/AsisUsuRecepcion";
 import ControlAforoRecepcion from "./ComponentesE.C/ControlAforoRecepcion";
 import UsuariosEquipos from "./ComponentesE.C/UsuariosEquipos";
 import DatosNegocios from "./AjustesComponents/DatosNegocio";
+import ResumenDePrecios from "./ResumenDePrecios";
+import EntradasInformes from "./EntradasInformes";
 interface propsDescripcionEvento {
   componentState: any;
   setComponentState: any;
@@ -83,15 +85,30 @@ const DescripcionEvento: FC<propsDescripcionEvento> = ({ componentState, setComp
         page: 13,
         component: <Comision1 componentState={optionSelect} setComponentState={setOptionSelect} />
       },
-               /* 19 */
+              
       {
         page: 14,
         component: <Comision2 componentState={optionSelect} setComponentState={setOptionSelect} />
       },
-                /* 20 */
+
       {
         page: 15,
         component: <Liquidaciones componentState={optionSelect} setComponentState={setOptionSelect} />
+      },
+      
+
+      {
+        page: 15,
+        component: <Liquidaciones componentState={optionSelect} setComponentState={setOptionSelect} />
+      },
+
+      {
+        page: 16,
+        component: <ResumenDePrecios componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+      },
+      {
+        page: 17,
+        component: <EntradasInformes componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
       },
       
 
