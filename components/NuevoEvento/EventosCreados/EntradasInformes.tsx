@@ -34,25 +34,29 @@ const EntradasInformes: FC <Props> = ({componentState, setComponentState, setSel
             </div>
             <div className="w-[100%] flex flex-wrap items-start justify-start font-semibold px-2 gap-4">
             <ProgressIndicator 
-            title='Solo entradda'
-            value={150}
-            maxValue={1000}
-            currency='1500$'/>
+            title='Solo entrada'
+            value={300}
+            maxValue={400}
+            currency='4,500$'/>
+
             <ProgressIndicator 
             title='Entrada + 1 bebida'
-            value={150}
-            maxValue={1000}
-            currency='1500$'/>
+            value={450}
+            maxValue={600}
+            currency='9,000$'/>
+
             <ProgressIndicator 
             title='Entrada + servicio de whisky'
             value={150}
-            maxValue={1000}
-            currency='1500$'/>
+            maxValue={200}
+            currency='4,500$'/>
+
             <ProgressIndicator 
             title='Entrada + Servicio + 2 shots de tequila'
-            value={150}
-            maxValue={1000}
-            currency='1500$'/>
+            value={100}
+            maxValue={200}
+            currency='3,500$'/>
+
             </div>
             <div className="w-[100%] flex flex-wrap items-start justify-start font-semibold px-2 gap-4">
             
