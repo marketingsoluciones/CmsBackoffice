@@ -12,6 +12,8 @@ import { GoWorkflow } from "react-icons/go";
 import { TableLinkList } from "../components/ModuloMarcas/Links/TableLinkList";
 import { useResizeObserver } from "../hooks/useResize"
 import { IoLinkOutline } from "react-icons/io5";
+import { GoProjectSymlink } from "react-icons/go";
+import { MarcaBlanca } from "../components/ModuloMarcas/MarcasBlancas";
 
 const Business = () => {
   const [optionSelect, setOptionSelect] = useState(0);
@@ -23,7 +25,7 @@ const Business = () => {
 
   useEffect(() => {
     dispatch({ type: "VIEW", payload: {} });
-  }, [optionSelect])
+  }, [optionSelect != 5])
 
   const dataComponents = [
     {
@@ -50,6 +52,11 @@ const Business = () => {
       icon: <IoLinkOutline className="h-6 w-auto" />,
       title: "Links",
       component: <TableLinkList setComponentState={setOptionSelect} dimensions={dimensions} />,
+    },
+    {
+      icon: <GoProjectSymlink className="h-6 w-auto" />,
+      title: "MarcaBlanca",
+      component: <MarcaBlanca setComponentState={setOptionSelect} dimensions={dimensions} optionSelect={optionSelect} />,
     },
   ];
   const handleClickOption = (idx) => {
