@@ -1,5 +1,6 @@
 import { BarChart } from 'lucide-react';
 import React from 'react';
+import BarData1 from './CReutilizable3';
 
 interface InfoCardProps {
   icon: any;
@@ -8,12 +9,12 @@ interface InfoCardProps {
 }
 
 const InfoCard: React.FC<InfoCardProps> = ({ icon, title, body }) => (
-  <div className="self-stretch flex flex-col bg-white rounded-lg p-4">
-    <div className="flex flex-col items-center">
+  <div className="self-stretch flex flex-col items-center justify-center bg-white rounded-lg p-4">
+    <div className="flex flex-col items-center justify-between">
       <div className="w-8 h-8 mr-4">
         {icon}
         </div>
-      <div>
+      <div className='flex flex-col items-center justify-center'>
         <h3 className="text-lg font-bold">{title}</h3>
         <p className="text-gray-600 text-md">{body}</p>
       </div>
@@ -44,12 +45,11 @@ interface SalesDashboardProps {
 }
 
 const chartData = [
-    { label: 'general 2', value: 3, color: 'green' },
-    { label: 'Gratis', value: 4, color: 'gold' },
-    { label: 'general 2', value: 3, color: 'green' },
-    { label: 'Gratis', value: 4, color: 'gold' },
-    { label: 'general 2', value: 3, color: 'green' },
-    { label: 'Gratis', value: 4, color: 'gold' },
+    { label: 'Solo entradda', value: 3, color: 'pink' },
+    { label: 'Entrada + 1 bebida', value: 4, color: 'gray' },
+    { label: 'Entrada + servicio de whisky', value: 4, color: 'pink' },
+    { label: 'Entrada + Servicio + 2 shots de tequila', value: 4, color: 'gray' },
+
     // ... otros datos
   ];
 
@@ -68,9 +68,9 @@ const SalesDashboard: React.FC<SalesDashboardProps> = ({
       ))}
     </div>
 
-    <div className="flex  gap-4">
-      <div className="w-[100%] rounded-md bg-white">
-      <BarChart data={chartData} />
+    <div className="flex gap-4">
+      <div className="w-auto flex items-center justify-center rounded-md bg-white py-2 px-2">
+      <BarData1 data={chartData}/>
       </div>
       <InfoCard icon={icon} title={infoTitle} body={infoBody} />
     </div>
