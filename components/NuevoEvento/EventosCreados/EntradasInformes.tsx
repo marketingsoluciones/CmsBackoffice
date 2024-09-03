@@ -13,7 +13,7 @@ interface Props {
 
 const EntradasInformes: FC <Props> = ({componentState, setComponentState, setSelectedOption, selectedOption}) => {
     return (
-        <div className='h-full flex flex-col items-start justify-start overflow-auto gap-6 px-4 py-4'>
+        <div className='h-[100vh] flex flex-col items-start justify-start overflow-auto gap-6 px-4 py-4'>
             <div className="flex flex-row items-center justify-start box-border gap-4 ">
 
             <div onClick={() => {

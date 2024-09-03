@@ -13,6 +13,7 @@ import UsuariosEquipos from "./ComponentesE.C/UsuariosEquipos";
 import DatosNegocios from "./AjustesComponents/DatosNegocio";
 import ResumenDePrecios from "./ResumenDePrecios";
 import EntradasInformes from "./EntradasInformes";
+import PreguntasFrecu from "./PreguntasFrecu";
 interface propsDescripcionEvento {
   componentState: any;
   setComponentState: any;
@@ -109,6 +110,10 @@ const DescripcionEvento: FC<propsDescripcionEvento> = ({ componentState, setComp
       {
         page: 17,
         component: <EntradasInformes componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+      },
+      {
+        page: 18,
+        component: <PreguntasFrecu componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
       },
       
 

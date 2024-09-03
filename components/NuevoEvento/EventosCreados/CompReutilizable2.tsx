@@ -69,7 +69,7 @@ const SalesDashboard: React.FC<SalesDashboardProps> = ({
     </div>
 
     <div className="flex gap-4">
-      <div className="w-auto flex items-center justify-center rounded-md bg-white py-2 px-2">
+      <div className="w-auto md:flex flex-col items-center justify-center rounded-md bg-white py-2 px-2">
       <BarData1 data={chartData}/>
       </div>
       <InfoCard icon={icon} title={infoTitle} body={infoBody} />
