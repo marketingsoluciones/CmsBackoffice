@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import ProgressIndicator from './CompReutilizable1';
 import SalesDashboard from './CompReutilizable2';
 
 
@@ -11,14 +10,13 @@ interface Props {
 
 }
 
-
-const EntradasInformes: FC <Props> = ({componentState, setComponentState, setSelectedOption, selectedOption}) => {
+const ClientesInforme: FC <Props> = ({componentState, setComponentState, setSelectedOption, selectedOption}) => {
     
     const chartData = [
-        { label: 'Solo entradda', value: 3, color: 'pink' },
-        { label: 'Entrada + 1 bebida', value: 4, color: 'gray' },
-        { label: 'Entrada + servicio de whisky', value: 4, color: 'pink' },
-        { label: 'Entrada + Servicio + 2 shots de tequila', value: 4, color: 'gray' },
+        { label: 'Menores con permiso', value: 3, color: 'pink' },
+        { label: 'Mujeres +18', value: 4, color: 'gray' },
+        { label: 'No Binario +25', value: 4, color: 'pink' },
+        { label: 'Lesbianas +32', value: 4, color: 'gray' },
     
         // ... otros datos
       ];
@@ -40,45 +38,19 @@ const EntradasInformes: FC <Props> = ({componentState, setComponentState, setSel
 
                 </div>
                 <div className="w-auto h-[31.5px] relative leading-[31.5px] font-semibold inline-block">
-                Entradas
+                Informe de clientes
                 </div>
-            </div>
-            <div className="w-[100%] flex flex-wrap items-start justify-start font-semibold px-2 gap-4">
-            <ProgressIndicator 
-            title='Solo entrada'
-            value={300}
-            maxValue={400}
-            currency='4,500$'/>
-
-            <ProgressIndicator 
-            title='Entrada + 1 bebida'
-            value={450}
-            maxValue={600}
-            currency='9,000$'/>
-
-            <ProgressIndicator 
-            title='Entrada + servicio de whisky'
-            value={150}
-            maxValue={200}
-            currency='4,500$'/>
-
-            <ProgressIndicator 
-            title='Entrada + Servicio + 2 shots de tequila'
-            value={100}
-            maxValue={200}
-            currency='3,500$'/>
-
             </div>
             <div className="w-[100%] flex flex-wrap items-start justify-start font-semibold px-2 gap-4">
             
             <SalesDashboard
-            title="Ventas mensuales"
-            buttonLabels={["Todos", "Productos", "Servicios"]}
+            title="Genero / Edad"
+            buttonLabels={["Todos", "Listas", "Entradas", "Reservas"]}
             icon={<svg data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
               </svg>}
-            infoTitle="Ventas más altas en enero"
-            infoBody="Las ventas aumentaron un 20% en enero."
+            infoTitle="Sin informacion"
+            infoBody="No tiene informacion que mostrar, por favor llene datos del evento para poder mostrar metricas reales"
             chartData={chartData}
             />
             </div>
@@ -88,4 +60,4 @@ const EntradasInformes: FC <Props> = ({componentState, setComponentState, setSel
     );
 };
 
-export default EntradasInformes;
+export default ClientesInforme;

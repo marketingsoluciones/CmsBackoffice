@@ -42,16 +42,8 @@ interface SalesDashboardProps {
   infoTitle: string;
   infoBody: string;
   className?: string;
+  chartData: any;
 }
-
-const chartData = [
-    { label: 'Solo entradda', value: 3, color: 'pink' },
-    { label: 'Entrada + 1 bebida', value: 4, color: 'gray' },
-    { label: 'Entrada + servicio de whisky', value: 4, color: 'pink' },
-    { label: 'Entrada + Servicio + 2 shots de tequila', value: 4, color: 'gray' },
-
-    // ... otros datos
-  ];
 
 const SalesDashboard: React.FC<SalesDashboardProps> = ({
   title,
@@ -59,6 +51,7 @@ const SalesDashboard: React.FC<SalesDashboardProps> = ({
   icon,
   infoTitle,
   infoBody,
+  chartData
 }) => (
   <div className="w-full flex flex-col items-start justify-start bg-gray-200 p-4 rounded-lg">
     <h2 className="text-2xl font-bold mb-4">{title}</h2>

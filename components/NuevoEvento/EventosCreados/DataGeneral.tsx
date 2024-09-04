@@ -75,7 +75,7 @@ interface propsDataGeneral {
   
       },
       {
-        page: 8,
+        page: 19,
         text: "Clientes",
         icon: <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.99935 5.25C6.68993 5.25 6.39318 5.37292 6.17439 5.59171C5.9556 5.8105 5.83268 6.10725 5.83268 6.41667C5.83268 6.72609 5.9556 7.02283 6.17439 7.24162C6.39318 7.46042 6.68993 7.58333 6.99935 7.58333C7.30877 7.58333 7.60551 7.46042 7.82431 7.24162C8.0431 7.02283 8.16602 6.72609 8.16602 6.41667C8.16602 6.10725 8.0431 5.8105 7.82431 5.59171C7.60551 5.37292 7.30877 5.25 6.99935 5.25ZM4.66602 10.2083C4.66602 9.7442 4.85039 9.29908 5.17858 8.9709C5.50677 8.64271 5.95189 8.45833 6.41602 8.45833H7.58268C8.04681 8.45833 8.49193 8.64271 8.82012 8.9709C9.14831 9.29908 9.33268 9.7442 9.33268 10.2083C9.33268 10.363 9.27122 10.5114 9.16183 10.6208C9.05243 10.7302 8.90406 10.7917 8.74935 10.7917H5.24935C5.09464 10.7917 4.94627 10.7302 4.83687 10.6208C4.72747 10.5114 4.66602 10.363 4.66602 10.2083Z" fill="#EF6C00" />
@@ -363,8 +363,8 @@ interface propsDataGeneral {
                   </div>
   
                   {/* chicas, chicos, sin genero */}
-                  <div className="h-[105.5px] shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] flex flex-row items-center justify-center bg-white rounded-md max-w-full text-center text-2xs-5">
-                    <div className="shrink-0 flex flex-col items-start gap-2 justify-start">
+                  <div className="h-[105.5px] shadow-[0px_1px_10px_rgba(0,_0,_0,_0.12),_0px_4px_5px_rgba(0,_0,_0,_0.14),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.2)] flex flex-col items-center justify-between bg-white rounded-md max-w-full text-center text-2xs-5 py-3">
+                    
   
                       <div className="w-full flex flex-row items-center justify-start shrink-0 [row-gap:20px] mq750:flex-wrap">
                         <div className="flex flex-col items-start justify-start min-w-[164px]">
@@ -374,19 +374,19 @@ interface propsDataGeneral {
                               Chicas
                             </div>
                           </div>
-                          <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[61px] pl-[61.908653259277344px] text-xl text-purple-700 font-bold">
+                          <div className="self-stretch flex flex-col items-center justify-start text-xl text-purple-700 font-bold">
                             <div className="self-stretch h-7 relative leading-[28px] inline-block mq450:text-mid mq450:leading-[22px]">
                               90%
                             </div>
                           </div>
                         </div>
                         <div className="w-auto text-md flex flex-col items-start justify-start">
-                          <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[45px] pl-[45.412357330322266px]">
+                          <div className="self-stretch flex flex-col items-center justify-start">
                             <div className="self-stretch h-3.5 relative leading-[14px] uppercase inline-block">
                               Sin género
                             </div>
                           </div>
-                          <div className="self-stretch flex flex-col items-center justify-start py-0 pr-[61px] pl-[61.91865539550781px] text-xl text-gray-600">
+                          <div className="self-stretch flex flex-col items-center justify-start  text-xl text-gray-600">
                             <div className="self-stretch h-7 relative leading-[28px] font-bold inline-block mq450:text-mid mq450:leading-[22px]">
                               5%
                             </div>
@@ -406,13 +406,15 @@ interface propsDataGeneral {
                         </div>
                       </div>
   
-                      <div className="self-stretch w-auto  box-border border-t-[1px] border-solid border-slate-200" />
-                      <div className="self-stretch flex flex-row items-start justify-center py-0 pr-5 pl-[21px] text-xs text-black">
+                      <div className="self-stretch  box-border border-t-[1px] border-solid border-slate-200" />
+                      <button onClick={() => {
+              setSelectedOption(19)
+            }} className="self-stretch flex flex-row hover:bg-slate-200  items-start justify-center text-xs text-black">
                         <div className="h-auto w-auto relative leading-[24px] flex items-center justify-center">
                           Ver informe de clientes
                         </div>
-                      </div>
-                    </div>
+                      </button>
+                  
                   </div>
   
                 </div>
