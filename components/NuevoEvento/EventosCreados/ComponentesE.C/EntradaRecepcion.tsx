@@ -2,12 +2,15 @@ import { FC, useState } from "react";
 import ModalListasRecepcion from "./ModalListaRecepcion";
 import { Modal } from "../../../modals/Modal";
 interface propsEntradaRecepcion {
-    componentState: any;
-    setComponentState: any;
-  
-  }
 
-const EntradaRecepcion: FC<propsEntradaRecepcion> = ({componentState, setComponentState}) => {
+    componentState?: any;
+    setComponentState?: any;
+    selectedOption: any;
+    setSelectedOption: any;
+    
+    }
+
+const EntradaRecepcion: FC<propsEntradaRecepcion> = ({componentState, setComponentState, selectedOption, setSelectedOption}) => {
     const [addInforme, setAddInforme] = useState(false);
   return (
     <div className="w-full relative flex flex-col items-start justify-start py-6 px-6 box-border gap-[35px] tracking-[normal] leading-[normal] text-left  text-black mq750:gap-[17px]">
@@ -15,7 +18,7 @@ const EntradaRecepcion: FC<propsEntradaRecepcion> = ({componentState, setCompone
         
 
           <div onClick={() => {
-            setComponentState()
+            setSelectedOption(12)
           }} className="cursor-pointer flex flex-row items-center justify-center pt-[4.5px] px-[3.9px] pb-[5.5px]">
                 <img
                   className="h-[27px] w-[23px] relative overflow-hidden shrink-0"

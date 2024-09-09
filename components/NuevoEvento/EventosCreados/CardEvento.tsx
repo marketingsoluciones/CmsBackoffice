@@ -18,9 +18,9 @@ const card1: FC <propsCardEventos> = memo(({componentState,setComponentState, it
     }}
     
     className="cursor-pointer w-auto rounded-md bg-white overflow-hidden flex flex-row items-start justify-start py-0 pr-[7px] pl-0 box-border gap-[7px] tracking-[normal]  text-sm">
-      <div className="flex flex-row w-[140px] rounded-tl-2xs-5 rounded-tr-none rounded-br-none rounded-bl-2xs-5 shrink-0 items-start justify-end pt-0 px-0 pb-[105px] box-border relative">
+      <div className="flex flex-row w-[140px] h-full rounded-tl-2xs-5 rounded-tr-none rounded-br-none rounded-bl-2xs-5 shrink-0 items-start justify-end pt-0 px-0 md:pb-[105px] box-border relative">
         <img
-          className="h-full w-full absolute overflow-hidden object-cover"
+          className="md:h-full h-[205px] w-full absolute overflow-hidden object-cover"
           loading="lazy"
           alt=""
           src={items.image}
@@ -64,7 +64,7 @@ const card1: FC <propsCardEventos> = memo(({componentState,setComponentState, it
                 </div>
               </div>
             </div>
-            <b className="w-auto h-[24.5px] relative text-mid-5 leading-[24.5px] flex font-semibold text-pro-fourvenues-com-beach-aguilas-create-event-1318x573-default-black items-center box-border pr-5">
+            <b className="w-auto md:h-[24.5px] relative md:text-md text-xs flex font-semibold items-center box-border pr-5">
             {items.title}
             </b>
           </div>

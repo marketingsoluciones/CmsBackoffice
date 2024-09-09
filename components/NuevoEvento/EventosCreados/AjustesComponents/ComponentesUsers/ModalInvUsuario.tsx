@@ -84,8 +84,7 @@ const AddUserModal: React.FC<AddUserModalProps> = ({ addUsers, setAddUsers }) =>
           <p className="text-sm text-gray-500">Se enviará una invitación a cada correo electrónico.</p>
           <textarea 
           id="inviteEmails" 
-          placeholder="Escribe aquí... Cada línea es un e-mail (e-mail][ESPACIO][Nombre y apellidos]"
-          rows="4" 
+          placeholder="Escribe aquí... Cada línea es un e-mail (e-mail][ESPACIO][Nombre y apellidos]" 
           className="shadow-sm focus:ring-pink-500 focus:border-pink-500 mt-1 block w-full sm:text-sm border-[1px] border-gray-300 rounded-md" 
           value={inviteEmails.join('/n')} 
           
