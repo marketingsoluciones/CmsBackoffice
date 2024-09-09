@@ -171,7 +171,7 @@ const AuthProvider = ({ children }) => {
             const ID = setTimeout(() => {
               const path = `${window.origin.includes("://test.") ? process.env.NEXT_PUBLIC_DIRECTORY?.replace("//", "//test") : process.env.NEXT_PUBLIC_DIRECTORY}`
               const pathEnd = `${window.origin.includes("://test.") ? process.env.NEXT_PUBLIC_CMS?.replace("//", "//test") : process.env.NEXT_PUBLIC_CMS}`
-              router.push(`${path}login?d=cms&end=${pathEnd}${router?.asPath.slice(1)}`)
+              router.push(`${path}/login?d=cms&end=${pathEnd}${router?.asPath.slice(1)}`)
             }, 2000);
             valirTimeout = ID
           }
