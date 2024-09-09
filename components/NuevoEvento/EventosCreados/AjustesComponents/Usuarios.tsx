@@ -1,5 +1,7 @@
-import { FC } from "react";
+import { FC, useState } from "react";
+import { Modal } from "../../../modals/Modal";
 import Comp5 from "./ComponentesUsers/Comp5";
+import AddUserModal from "./ComponentesUsers/ModalInvUsuario";
 interface propsUsuarios {
     componentState: any;
     setComponentState: any;
@@ -25,6 +27,7 @@ interface propsUsuarios {
   }
 
 const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
+  const [addUsers, setAddUsers] = useState(false);
   
   const users: User[] = [
     {
@@ -155,7 +158,7 @@ const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
           </div>
         </div>
 
-        <button className="cursor-pointer [border:none] rounded-md bg-rosa w-auto flex flex-row items-start justify-start py-2 px-[17px] gap-2">
+        <button onClick={() => { setAddUsers(!addUsers) }} className="cursor-pointer [border:none] rounded-md bg-rosa w-auto flex flex-row items-start justify-start py-2 px-[17px] gap-2">
               <div className="relative text-sm leading-[18px] font-semibold text-white text-center inline-block min-w-[39px]">
                 Nuevo
               </div>
@@ -280,6 +283,18 @@ const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
             </div>
         
       </section>
+      {
+          addUsers ? (
+            <Modal
+              setOpenIcon=""
+              openIcon=""
+              classe={"w-[46%] h-[90%]"}>
+  
+              <AddUserModal addUsers={addUsers} setAddUsers={setAddUsers} />
+            </Modal>
+          ) :
+            null
+        }
     </div>
   );
 };
