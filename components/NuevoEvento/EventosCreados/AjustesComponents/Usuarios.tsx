@@ -3,10 +3,102 @@ import Comp5 from "./ComponentesUsers/Comp5";
 interface propsUsuarios {
     componentState: any;
     setComponentState: any;
+    
   
   }
 
+  interface User {
+    title: string;
+    subtitle: string;
+    tags: string;
+    img: string;
+    myUser: {
+      name: string;
+      email: string;
+      rrppLink: string;
+      label: string;
+      label2: string;
+      label3: string;
+      label4: string;
+      Avatar: string; // Fix casing for consistency (Avatar vs avatar)
+    };
+  }
+
 const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
+  
+  const users: User[] = [
+    {
+      title:"Eduardo Hernandez",
+      subtitle:"Rd",
+      tags:"#Directores",
+      img:"ModuloEvento/imgE.svg",
+
+      myUser: { 
+        name: 'Eduardo RD',
+        email: 'eduardord.com@gmail.com',
+        rrppLink: 'eventosorganizador.com/eduardo-rd',
+        label: 'Directores',
+        label2: 'Relaciones Publicas',
+        label3: 'Control de Aforo',
+        label4: 'Reservaciones',  
+        Avatar: "ModuloEvento/Perfil2.png", 
+      },
+    },
+    {
+       title:"Christian Lanza",
+       subtitle:"",
+       tags:"#ControlDeAforo", 
+       img:"ModuloEvento/imgC.svg",
+
+      myUser: { 
+        name: 'Christian Lanza',
+        email: 'christianlanza.com@gmail.com',
+        rrppLink: 'eventosorganizador.com/christian-lanza',
+        label: 'Directores',
+        label2: 'Relaciones Publicas',
+        label3: 'Control de Aforo',
+        label4: 'Reservaciones',  
+        Avatar: "ModuloEvento/Perfil2.png", 
+      },
+    },
+    {
+      title:"Juan C. Carrillo", 
+      subtitle:"", 
+      tags:"#Directores", 
+      img:"ModuloEvento/imgJ.svg",
+
+      myUser: { 
+        name: 'Juan C. Carrillo',
+        email: 'juanccarrillo.com@gmail.com',
+        rrppLink: 'eventosorganizador.com/juan-c-carrillo',
+        label: 'Directores',
+        label2: 'Relaciones Publicas',
+        label3: 'Control de Aforo',
+        label4: 'Reservaciones',  
+        Avatar: "ModuloEvento/Perfil2.png", 
+      },
+    },
+    {
+      title:"Maria Perez", 
+      subtitle:"", 
+      tags:"#RelacionesPublicas", 
+      img: "ModuloEvento/imgM.svg",
+
+      myUser: { 
+        name: 'Maria Perez',
+        email: 'mariaperez.com@gmail.com',
+        rrppLink: 'eventosorganizador.com/maria-perez',
+        label: 'Directores',
+        label2: 'Relaciones Publicas',
+        label3: 'Control de Aforo',
+        label4: 'Reservaciones',  
+        Avatar: "ModuloEvento/Perfil1.png", 
+      },
+    },
+    // ... otros usuarios
+  ];
+
+
   return (
     <div className="w-[100%] max-w-full flex flex-col items-start justify-start gap-[21px] tracking-[normal] leading-[normal] text-left px-5 py-5">
       
@@ -173,15 +265,21 @@ const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
             </div>
 
             <div className="self-stretch flex flex-col items-start justify-center max-w-full text-left text-sm">
+            {users.map((user, idx) => (
+            
+            <Comp5
+              key={idx} // Add a unique key for each item
+              myUser={user.myUser}
+              title={user.title}
+              subtitle={user.subtitle}
+              tags={user.tags}
+              img={user.img}
+            />
+          ))}
               
-            <Comp5 title={"Eduardo Hernandez"} subtitle={"Rd"} tags={"#Directores"} img={"ModuloEvento/imgE.svg"} />
-            <Comp5 title={"Christian Lanza"} subtitle={""} tags={"#ControlDeAforo"} img={"ModuloEvento/imgC.svg"} />
-            <Comp5 title={"Juan C. Carrillo"} subtitle={""} tags={"#Directores"} img={"ModuloEvento/imgJ.svg"} />
-            <Comp5 title={"Maria Perez"} subtitle={""} tags={"#RelacionesPublicas"} img={"ModuloEvento/imgM.svg"} />
             </div>
         
       </section>
-
     </div>
   );
 };
