@@ -6,6 +6,7 @@ import { fetchApi, queries } from "../utils/Fetching";
 import { boolean } from "yup";
 import { initializeApp } from "firebase/app";
 import { parseJwt } from "../utils/Authentication";
+import { useRouter } from "next/router";
 
 
 
@@ -59,8 +60,9 @@ const AuthProvider = ({ children }) => {
   const [showApp, setShowApp] = useState(false);
   const [pathArray, setPathArray] = useState([]);
   const [openModalRight, setOpenModalRight] = useState({ data: {}, state: false });
+  const router = useRouter()
 
-
+  let valirTimeout = null
 
 
   useEffect(() => {
@@ -163,15 +165,28 @@ const AuthProvider = ({ children }) => {
         } else {
           setVerificandoCookie(true)
         }
-        setTimeout(() => {
-          setVerificationDone(true)
-        }, 800);
+        // setTimeout(() => {
+        if (isMounted) {
+          if (!user) {
+            const ID = setTimeout(() => {
+              const path = `${window.origin.includes("://test.") ? process.env.NEXT_PUBLIC_DIRECTORY?.replace("//", "//test") : process.env.NEXT_PUBLIC_DIRECTORY}`
+              const pathEnd = `${window.origin.includes("://test.") ? process.env.NEXT_PUBLIC_CMS?.replace("//", "//test") : process.env.NEXT_PUBLIC_CMS}`
+              router.push(`${path}login?d=cms&end=${pathEnd}${router?.asPath.slice(1)}`)
+            }, 2000);
+            valirTimeout = ID
+          }
+          else {
+            clearTimeout(valirTimeout)
+            setVerificationDone(true)
+          }
+        }
+
       });
     } catch (error) {
       console.log(90002, error)
     }
 
-  }, [config]);
+  }, [config, isMounted]);
 
   useEffect(() => {
     getAuth().onIdTokenChanged(async user => {
@@ -188,7 +203,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ openModalRight, setOpenModalRight, user, setUser, pathArray, setPathArray, verificationDone, setVerificationDone, state, dispatch, development, setDevelopment, domain, config, verificandoCookie, setVerificandoCookie, changedForm, setChangedForm, geoInfo, showApp, setShowApp }}>
-      {children}
+      {verificationDone ? children : null}
     </AuthContext.Provider>
   );
 };
