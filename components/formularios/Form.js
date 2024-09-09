@@ -389,7 +389,7 @@ export const FormDinamical = forwardRef(
 
                     {/* columna derecha */}
                     <div bg={colorBaground} shadow={"sm"} rounded={"xl"} className="col-span-2 px-[1rem] rounded-xl bg-white   " >
-                      {!["links"].includes(slug)
+                      {!["links", "whitelabel/setup"].includes(slug)
                         ? <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
                         : <FormLabel width={"45%"} pt={8}>
                           <Button

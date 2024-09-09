@@ -11,6 +11,7 @@ export const fetchApi = async ({
 
     //JSON
     if (type === "json") {
+      console.log(54541, development)
       const {
         data: { data },
       } = await api.ApiBodas({ query, variables }, development);
@@ -18,6 +19,7 @@ export const fetchApi = async ({
 
       //Form data
     } else if (type === "formData") {
+      console.log(54542)
       const formData = new FormData();
       const values = Object?.entries(variables);
 
@@ -90,6 +92,26 @@ export const fetchApiEventos = async ({ query, variables, domain }) => {
 };
 
 export const queries = {
+  createWhiteLabel: `mutation($args:inputWhiteLabel){
+    createWhiteLabel(args:$args){
+      _id
+      name
+      whiteLabelDomain
+      pathDirectory
+      favicon
+      logoDirectory
+      headTitle
+      primaryColor
+      secondaryColor
+      tertiaryColor
+      baseColor
+      status
+      userUid
+      authorUsername
+      createdAt
+      updatedAt
+    }
+  }`,
   createLink: `mutation($args:inputLink){
     createLink(args:$args){
       _id

@@ -1103,7 +1103,7 @@ export const BodyStaticAPP = [
         route: "whitelabel/setup",
         getData: "",
         getByID: "",
-        createEntry: "",
+        createEntry: { query: queries.createWhiteLabel },
         updateEntry: "",
         deleteEntry: "",
         schema: [
@@ -1118,7 +1118,7 @@ export const BodyStaticAPP = [
           },
           {
             Header: "Dominio",
-            accessor: "domain",
+            accessor: "whiteLabelDomain",
             type: "stringM",
           },
           {
@@ -1133,7 +1133,7 @@ export const BodyStaticAPP = [
           },
           {
             Header: "Favicon",
-            accessor: "logoDirectory",
+            accessor: "favicon",
             type: "urlLg",
           },
           {

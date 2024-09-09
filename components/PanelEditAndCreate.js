@@ -31,20 +31,34 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
     }
   }, [state]);
 
+  useEffect(() => {
+    console.log(5454, { userUid: user?.uid, authorUsername: user?.displayName })
+  }, [user]);
+
   /* Fetch para crear */
   const fetchCreate = useCallback(
     async (values) => {
+      console.log(54543, { userUid: user?.uid, authorUsername: user?.displayName })
       try {
         values.video = values?.imgMiniatura?.videoFile
         values.imgMiniatura = values?.imgMiniatura?.imageFile
         values.imgBanner = values?.imgBanner?.imageFile
         values.imgLogo = values?.imgLogo?.imageFile
         values.icon = values?.icon?.imageFile
-        const data = await fetchApi({
-          query: options?.createEntry?.query,
-          variables: { ...values, development: development, authorUid: user?.uid, userUid: user?.uid, authorUsername: user?.displayName },
-          type: "formData"
-        });
+        let data
+        !["links", "whitelabel/setup"].includes(slug)
+          ? data = await fetchApi({
+            query: options?.createEntry?.query,
+            variables: { ...values, development: development, authorUid: user?.uid, userUid: user?.uid, authorUsername: user?.displayName },
+            type: "formData"
+          })
+          : data = await fetchApi({
+            query: options?.createEntry?.query,
+            variables: { args: { ...values, userUid: user?.uid, authorUsername: user?.displayName } },
+            development,
+            type: "json"
+          })
+        console.log(545454, data)
         if (data) {
           toast({
             status: "success",
@@ -64,7 +78,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
         console.log(8003, error);
       }
     },
-    [slug]
+    [slug, user]
   );
 
   /* Fetch para actualizar */
@@ -104,7 +118,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       console.log(8002, error);
     }
   },
-    [slug]
+    [slug, user]
   );
 
   const handleSubmit = (values) => {
