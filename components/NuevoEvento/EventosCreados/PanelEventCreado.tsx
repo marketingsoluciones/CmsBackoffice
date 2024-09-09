@@ -15,6 +15,8 @@ import ResumenDePrecios from "./ResumenDePrecios";
 import EntradasInformes from "./EntradasInformes";
 import PreguntasFrecu from "./PreguntasFrecu";
 import ClientesInforme from "./ClientesInforme";
+import CapacityControl from "./ComponentesE.C/ControlDeAforoComp";
+import ControlAforoComp from "./ComponentesE.C/ControlDeAforoComp";
 interface propsDescripcionEvento {
   componentState: any;
   setComponentState: any;
@@ -32,7 +34,7 @@ const DescripcionEvento: FC<propsDescripcionEvento> = ({ componentState, setComp
     },
     {
       page: 2,
-      component: <EntradaRecepcion componentState={optionSelect} setComponentState={setSelectedOption} />
+      component: <EntradaRecepcion componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
     },
     {
       page: 3,
@@ -85,23 +87,17 @@ const DescripcionEvento: FC<propsDescripcionEvento> = ({ componentState, setComp
       
       {
         page: 13,
-        component: <Comision1 componentState={optionSelect} setComponentState={setOptionSelect} />
+        component: <Comision1 componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
       },
               
       {
         page: 14,
-        component: <Comision2 componentState={optionSelect} setComponentState={setOptionSelect} />
+        component: <Comision2 componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
       },
 
       {
         page: 15,
-        component: <Liquidaciones componentState={optionSelect} setComponentState={setOptionSelect} />
-      },
-      
-
-      {
-        page: 15,
-        component: <Liquidaciones componentState={optionSelect} setComponentState={setOptionSelect} />
+        component: <Liquidaciones componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
       },
 
       {
@@ -119,6 +115,10 @@ const DescripcionEvento: FC<propsDescripcionEvento> = ({ componentState, setComp
       {
         page: 19,
         component: <ClientesInforme componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+      },
+      {
+        page: 20,
+        component: <ControlAforoComp componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
       },
       
 

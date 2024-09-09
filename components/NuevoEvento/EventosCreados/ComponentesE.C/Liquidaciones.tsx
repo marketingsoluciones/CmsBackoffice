@@ -1,11 +1,13 @@
 import { FC } from "react";
 interface propsLiquidaciones {
-    componentState: any;
-    setComponentState: any;
+  componentState?: any;
+  setComponentState?: any;
+  selectedOption?: any;
+  setSelectedOption?: any;
   
   }
 
-const Liquidaciones: FC<propsLiquidaciones> = ({componentState, setComponentState}) => {
+const Liquidaciones: FC<propsLiquidaciones> = ({componentState, setComponentState, selectedOption, setSelectedOption}) => {
   return (
     <div className="w-[100%] py-6 px-6 flex flex-col items-center justify-center gap-[140px] leading-[normal] tracking-[normal] text-left mq450:gap-[35px] mq600:gap-[70px]">
       
@@ -13,7 +15,7 @@ const Liquidaciones: FC<propsLiquidaciones> = ({componentState, setComponentStat
           
           <div className="flex flex-col items-start justify-start">
             <div onClick={()=>{ 
-        setComponentState(7)
+        setSelectedOption(12)
       }} 
              className="cursor-pointer flex flex-row items-center justify-center ">
                   <img

@@ -1,10 +1,13 @@
 import { FC } from "react";
 interface propsComision2 {
-    componentState: any;
-    setComponentState: any;
-}
+  componentState?: any;
+  setComponentState?: any;
+  selectedOption?: any;
+  setSelectedOption?: any;
+  
+  }
 
-const Comision2: FC<propsComision2> = ({componentState, setComponentState}) => {
+const Comision2: FC<propsComision2> = ({componentState, setComponentState, selectedOption, setSelectedOption}) => {
   return (
     <div className="w-[100%] max-w-full flex flex-col items-start justify-start gap-[25px] leading-[normal] tracking-[normal] text-left px-6 py-6">
       <div className="self-stretch flex flex-row items-center justify-between gap-[20px] mq500:flex-wrap">
@@ -13,7 +16,7 @@ const Comision2: FC<propsComision2> = ({componentState, setComponentState}) => {
           
           <div className="flex flex-col items-start justify-start">
             <div onClick={()=>{ 
-        setComponentState(7)
+        setSelectedOption(13)
       }} 
              className="cursor-pointer flex flex-row items-center justify-center ">
                   <img
