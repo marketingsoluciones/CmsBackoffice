@@ -629,7 +629,7 @@ export const BodyStaticAPP = [
             type: "urlLg",
           },
           {
-            Header: "Color pirncipal",
+            Header: "Color principal",
             accessor: "primaryColor",
             type: "color",
           },

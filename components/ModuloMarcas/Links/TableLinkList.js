@@ -8,7 +8,7 @@ import { fetchApi, queries } from "../../../utils/Fetching"
 import { PanelEditAndCreate } from "../../PanelEditAndCreate"
 
 
-export const TableLinkList = ({ setComponentState, dimensions }) => {
+export const TableLinkList = ({ setComponentState }) => {
     const router = useRouter()
     const { state, dispatch } = AuthContextProvider()
     const [global, setGlobal] = useState()
@@ -49,7 +49,7 @@ export const TableLinkList = ({ setComponentState, dimensions }) => {
                             />
                         </div>
                     </div>
-                    {!!dimensions.width && <>
+                    {/* {!!dimensions.width && <>
                         <div style={{ width: dimensions.width - 40, height: dimensions.height - 182 }} className="bg-white rounded-xl top-[222px] absolute" />
                         <div style={{ width: dimensions.width - 44, height: dimensions.height - 190 }} className="overflow-y-scroll overflow-x-scroll translate-x-1 top-[230px] absolute">
                             <div className="bg-white rounded-xl h-full space-y-5 py-2 px-4 min-w-[800px] overflow-x-hidden overflow-y-hidden flex flex-col">
@@ -57,7 +57,7 @@ export const TableLinkList = ({ setComponentState, dimensions }) => {
                             </div>
                         </div>
                     </>
-                    }
+                    } */}
                 </div>
             }
             {
