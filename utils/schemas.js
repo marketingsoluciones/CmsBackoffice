@@ -583,6 +583,74 @@ export const BodyStaticAPP = [
           },
         ],
       },
+      {
+        title: null,
+        roles: ["all"],
+        route: "whitelabel/setup",
+        api: "eventos",
+        getData: { query: queries.getWhiteLabel },
+        getByID: "",
+        createEntry: { query: queries.createWhiteLabel },
+        updateEntry: { query: queries.updateWhiteLabels },
+        deleteEntry: "",
+        schema: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Nombre",
+            accessor: "name",
+            type: "stringM",
+          },
+          {
+            Header: "Dominio",
+            accessor: "whiteLabelDomain",
+            type: "stringM",
+          },
+          {
+            Header: "Página web",
+            accessor: "pathDirectory",
+            type: "urlLg",
+          },
+          {
+            Header: "Titulo del navegador",
+            accessor: "headTitle",
+            type: "stringL",
+          },
+          {
+            Header: "Favicon",
+            accessor: "logoDirectory",
+            type: "urlLg",
+          },
+          {
+            Header: "Logotipo",
+            accessor: "logoDirectory",
+            type: "urlLg",
+          },
+          {
+            Header: "Color principal",
+            accessor: "primaryColor",
+            type: "color",
+          },
+          {
+            Header: "Color secundario",
+            accessor: "secondaryColor",
+            type: "color",
+          },
+          {
+            Header: "Color terciario",
+            accessor: "tertiaryColor",
+            type: "color",
+          },
+          {
+            Header: "Color para fondos y rellenos",
+            accessor: "baseColor",
+            type: "color",
+          },
+
+        ],
+      }
 
     ],
   },
@@ -1092,7 +1160,7 @@ export const BodyStaticAPP = [
       },
     ]
   },
-  {
+  /* {
     title: "Marca Blanca",
     roles: ["empresa"],
     children: [
@@ -1124,44 +1192,49 @@ export const BodyStaticAPP = [
           {
             Header: "Página web",
             accessor: "pathDirectory",
-            type: "stringM",
+            type: "urlLg",
           },
           {
             Header: "Titulo del navegador",
             accessor: "headTitle",
-            type: "stringM",
+            type: "stringL",
+          },
+          {
+            Header: "Favicon",
+            accessor: "logoDirectory",
+            type: "urlLg",
           },
           {
             Header: "Logotipo",
             accessor: "logoDirectory",
-            type: "textareaSizable",
+            type: "urlLg",
           },
           {
             Header: "Color pirncipal",
             accessor: "primaryColor",
-            type: "string",
+            type: "color",
           },
           {
             Header: "Color secundario",
             accessor: "secondaryColor",
-            type: "string",
+            type: "color",
           },
           {
             Header: "Color terciario",
             accessor: "tertiaryColor",
-            type: "string",
+            type: "color",
           },
           {
             Header: "Color para fondos y rellenos",
             accessor: "baseColor",
-            type: "string",
+            type: "color",
           },
-          
+
         ],
       },
     ]
   },
-
+ */
   {
     title: "Marketplace",
     roles: ["empresa"],

@@ -11,6 +11,12 @@ import AsisUsuRecepcion from "./ComponentesE.C/AsisUsuRecepcion";
 import ControlAforoRecepcion from "./ComponentesE.C/ControlAforoRecepcion";
 import UsuariosEquipos from "./ComponentesE.C/UsuariosEquipos";
 import DatosNegocios from "./AjustesComponents/DatosNegocio";
+import ResumenDePrecios from "./ResumenDePrecios";
+import EntradasInformes from "./EntradasInformes";
+import PreguntasFrecu from "./PreguntasFrecu";
+import ClientesInforme from "./ClientesInforme";
+import CapacityControl from "./ComponentesE.C/ControlDeAforoComp";
+import ControlAforoComp from "./ComponentesE.C/ControlDeAforoComp";
 interface propsDescripcionEvento {
   componentState: any;
   setComponentState: any;
@@ -28,7 +34,7 @@ const DescripcionEvento: FC<propsDescripcionEvento> = ({ componentState, setComp
     },
     {
       page: 2,
-      component: <EntradaRecepcion componentState={optionSelect} setComponentState={setSelectedOption} />
+      component: <EntradaRecepcion componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
     },
     {
       page: 3,
@@ -81,17 +87,38 @@ const DescripcionEvento: FC<propsDescripcionEvento> = ({ componentState, setComp
       
       {
         page: 13,
-        component: <Comision1 componentState={optionSelect} setComponentState={setOptionSelect} />
+        component: <Comision1 componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
       },
-               /* 19 */
+              
       {
         page: 14,
-        component: <Comision2 componentState={optionSelect} setComponentState={setOptionSelect} />
+        component: <Comision2 componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
       },
-                /* 20 */
+
       {
         page: 15,
-        component: <Liquidaciones componentState={optionSelect} setComponentState={setOptionSelect} />
+        component: <Liquidaciones componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+      },
+
+      {
+        page: 16,
+        component: <ResumenDePrecios componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+      },
+      {
+        page: 17,
+        component: <EntradasInformes componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+      },
+      {
+        page: 18,
+        component: <PreguntasFrecu componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+      },
+      {
+        page: 19,
+        component: <ClientesInforme componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
+      },
+      {
+        page: 20,
+        component: <ControlAforoComp componentState={optionSelect} setComponentState={setOptionSelect} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />
       },
       
 

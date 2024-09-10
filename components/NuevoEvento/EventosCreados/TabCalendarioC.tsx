@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import EventosProximos from './EventosProximos';
 import EventosPasados from './EventosPasados';
 interface propsTabCalendarioC {
@@ -7,7 +7,7 @@ interface propsTabCalendarioC {
 
 }
 
-const TabCalendarioC: React.FC <propsTabCalendarioC> = ({componentState,setComponentState}) => {
+const TabCalendarioC: FC <propsTabCalendarioC> = ({componentState, setComponentState}) => {
   // Estado para controlar la opción seleccionada
   const [selectedTab, setSelectedTab] = useState<string>('Próximos eventos');
 
@@ -22,6 +22,34 @@ const TabCalendarioC: React.FC <propsTabCalendarioC> = ({componentState,setCompo
       <div className='w-full flex md:flex-row flex-col items-center md:justify-between justify-center gap-3    '>
       <div className=" flex flex-row items-start justify-start py-0 pr-px pl-0 gap-[6.99px] text-rosa font-pro-fourvenues-com-beach-aguilas-calendar-1318x573-default-2-font-awesome-5-free-regular-105">
             
+
+      <div onClick={() => {
+              setComponentState(2)
+            }}
+
+            className="cursor-pointer flex flex-col items-start justify-start text-white font-semibold">
+              
+              <div className="rounded-md bg-rosa box-border flex flex-row items-center justify-center py-[9.75px] px-[17px] gap-[10.43px] border-[1px] border-solid border-rosa">
+                
+                <div className="flex flex-col items-center justify-start pt-0.5 px-0 pb-[2.5px]">
+                  <div className="flex flex-row items-start justify-start">
+                    <img
+                      className="h-[13px] w-[10.7px] relative overflow-hidden shrink-0"
+                      alt=""
+                      src="ModuloEvento/icon-42.svg"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col items-center justify-center">
+                  <div className="w-auto relative leading-[17.5px] inline-block">
+                    Crear evento
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
             <div className="flex flex-col items-start justify-start">
               <div className="rounded-md box-border flex flex-row items-center justify-center py-[9.75px] px-[17px] gap-[8.77px] border-[1px] border-solid border-slate-200">
                 <div className="flex flex-col items-center justify-start pt-0.5 px-0 pb-[2.5px]">
@@ -39,27 +67,8 @@ const TabCalendarioC: React.FC <propsTabCalendarioC> = ({componentState,setCompo
               </div>
             </div>
 
-            <div onClick={()=>{ 
-        setComponentState(2)
-      }} 
-            className="cursor-pointer flex flex-col items-start justify-start text-white font-semibold">
-              <div className="rounded-md bg-rosa box-border flex flex-row items-center justify-center py-[9.75px] px-[17px] gap-[10.43px] border-[1px] border-solid border-rosa">
-                <div className="flex flex-col items-center justify-start pt-0.5 px-0 pb-[2.5px]">
-                  <div className="flex flex-row items-start justify-start">
-                    <img
-                      className="h-[13px] w-[10.7px] relative overflow-hidden shrink-0"
-                      alt=""
-                      src="ModuloEvento/icon-42.svg"
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col items-center justify-center">
-                  <div className="w-auto relative leading-[17.5px] inline-block">
-                    Crear evento
-                  </div>
-                </div>
-              </div>
-            </div>
+
+
           </div>
       <div className="flex space-x-2 border-b-[1.3px] border-solid border-slate-300">
             <button

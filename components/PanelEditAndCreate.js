@@ -16,20 +16,48 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const refButton = useRef();
   const toast = useToast();
   const options = FindOption(slug);
-  const { user, development, changedForm, setChangedForm } = AuthContextProvider();
+  const { user, development, changedForm, setChangedForm, dispatch } = AuthContextProvider();
   const [showModal, setShowModal] = useState(false)
   const [handle, setHandle] = useState()
-
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    if (state.type === "edit") {
+    if (!isMounted) {
+      setIsMounted(true)
+    }
+    return () => {
+      setIsMounted(false)
+      dispatch({ type: "VIEW", payload: {} });
+
+    }
+  }, [])
+
+  useEffect(() => {
+    if (state.type === "edit" && options?.getByID) {
       setQueryValues({
         ...options?.getByID,
         variables: { id: state.data._id },
         type: "json",
       });
     }
+    if (["whitelabel/setup"].includes(slug) && state.type === "view") {
+      setQueryValues({
+        ...options?.getData,
+        variables: { userUid: user.uid, development },
+        type: "json",
+      });
+    }
   }, [state]);
+
+  useEffect(() => {
+    if (["whitelabel/setup"].includes(slug)) {
+      if (valuesEdit?._id) {
+        dispatch({ type: "EDIT", payload: valuesEdit });
+      } else {
+        dispatch({ type: "CREATE", payload: {} });
+      }
+    }
+  }, [valuesEdit]);
 
   /* Fetch para crear */
   const fetchCreate = useCallback(
@@ -40,11 +68,19 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
         values.imgBanner = values?.imgBanner?.imageFile
         values.imgLogo = values?.imgLogo?.imageFile
         values.icon = values?.icon?.imageFile
-        const data = await fetchApi({
-          query: options?.createEntry?.query,
-          variables: { ...values, development: development, authorUid: user?.uid, userUid: user?.uid, authorUsername: user?.displayName },
-          type: "formData"
-        });
+        let data
+        !["links", "whitelabel/setup"].includes(slug)
+          ? data = await fetchApi({
+            query: options?.createEntry?.query,
+            variables: { ...values, development: development, authorUid: user?.uid, userUid: user?.uid, authorUsername: user?.displayName },
+            type: "formData"
+          })
+          : data = await fetchApi({
+            query: options?.createEntry?.query,
+            variables: { args: { ...values, userUid: user?.uid, authorUsername: user?.displayName } },
+            development,
+            type: "json"
+          })
         if (data) {
           toast({
             status: "success",
@@ -64,7 +100,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
         console.log(8003, error);
       }
     },
-    [slug]
+    [slug, user]
   );
 
   /* Fetch para actualizar */
@@ -78,11 +114,21 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       values.icon = values?.icon?.imageFile
       delete values.createdAt;
       delete values.updatedAt;
-      const data = await fetchApi({
-        query: options?.updateEntry?.query,
-        variables: { id: _id, args: { ...values } },
-        type: "formData"
-      });
+      let data
+      if (!["links", "whitelabel/setup"].includes(slug)) {
+        data = await fetchApi({
+          query: options?.updateEntry?.query,
+          variables: { id: _id, args: { ...values } },
+          type: "formData"
+        });
+      } else {
+        data = await fetchApi({
+          query: options?.updateEntry?.query,
+          variables: { args: { ...values, _id } },
+          development,
+          type: "json"
+        });
+      }
       if (data) {
         toast({
           status: "success",
@@ -104,7 +150,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       console.log(8002, error);
     }
   },
-    [slug]
+    [slug, user]
   );
 
   const handleSubmit = (values) => {
@@ -229,4 +275,3 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
     </Flex>
   );
 };
-

@@ -1,10 +1,13 @@
 import { FC } from "react";
 interface propsComision1 {
-    componentState: any;
-    setComponentState: any;
-}
+  componentState?: any;
+  setComponentState?: any;
+  selectedOption?: any;
+  setSelectedOption?: any;
+  
+  }
 
-const Comision1: FC<propsComision1> = ({componentState, setComponentState}) => {
+const Comision1: FC<propsComision1> = ({componentState, setComponentState, selectedOption, setSelectedOption}) => {
   return (
     <div className="w-[100%] max-w-full flex flex-col items-center justify-start py-5 px-0 box-border tracking-[normal] leading-[normal] text-left text-7xl-3 text-profourvenuescom-ebony font-profourvenuescom-inter-bold-14">
       <div className="self-stretch flex flex-row items-center justify-between py-0 px-5 gap-[20px] mq450:flex-wrap">
@@ -13,7 +16,7 @@ const Comision1: FC<propsComision1> = ({componentState, setComponentState}) => {
           
           <div className="flex flex-col items-start justify-start">
             <div onClick={()=>{ 
-        setComponentState(7)
+        setSelectedOption(12)
       }} 
              className="cursor-pointer flex flex-row items-center justify-center ">
                   <img
@@ -59,7 +62,7 @@ const Comision1: FC<propsComision1> = ({componentState, setComponentState}) => {
             </b>
           </div>
           <button onClick={()=>{ 
-        setComponentState(19)
+        setSelectedOption(14)
       }} 
            className="cursor-pointer py-2 px-[17px] bg-slate-100 rounded-md box-border flex flex-row items-center justify-center gap-[10.5px] max-w-[155.86000061035156px] border-[1px] border-solid border-slate-200 hover:bg-slate-50">
             <div className="w-auto flex flex-col items-center justify-start pt-[2.4px] px-0 pb-[2.9px] box-border">

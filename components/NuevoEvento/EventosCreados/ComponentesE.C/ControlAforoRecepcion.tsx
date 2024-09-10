@@ -58,7 +58,9 @@ const ControlAforoRecepcion: FC<propsControlAforoRecepcion> = ({componentState, 
                 +
               </div>
             </div>
-            <div className="relative leading-[36px] font-medium">
+            <div onClick={() => {
+            setComponentState(20)
+          }} className="relative leading-[36px] font-medium">
               Añadir Nuevo Recinto
             </div>
           </div>

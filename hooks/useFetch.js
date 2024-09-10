@@ -1,6 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import { useCallback, useEffect, useState } from "react";
 import { api } from "../utils/api";
+import { AuthContextProvider } from "../context";
 
 //query : {query, variables, type, api}
 export const useFetch = (toast = false) => {
@@ -8,6 +9,7 @@ export const useFetch = (toast = false) => {
   const [query, setQuery] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const { development } = AuthContextProvider();
 
   const Toast = useToast();
 
@@ -24,7 +26,7 @@ export const useFetch = (toast = false) => {
         if (query.type === "json") {
           const {
             data: { data },
-          } = query?.api === "eventos" ? await api.ApiApp(query) : await api.ApiBodas(query)
+          } = query?.api === "eventos" ? await api.ApiApp(query) : await api.ApiBodas(query, development)
           setData(Object.values(data)[0]);
 
           //Form data

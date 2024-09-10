@@ -17,7 +17,7 @@ import { BreadCumbs } from "./ToolsComponents/BreadCumbs";
 
 export const Navigation = ({ set, state, }) => {
   const { _signOut } = useAuthentication()
-  const { user } = AuthContextProvider()
+  const { user, setVerificationDone } = AuthContextProvider()
   const [show, setShow] = useState(false)
   const [showValir, setShowValir] = useState(false)
   const cookieContent = JSON.parse(Cookies.get("guestbodas") ?? "{}")
@@ -74,7 +74,11 @@ export const Navigation = ({ set, state, }) => {
         {
           icon: <SalirIcon />,
           title: "Cerrar Sesión", function: async () => {
+            setVerificationDone(false)
             _signOut()
+            const path = `${window.origin.includes("://test.") ? process.env.NEXT_PUBLIC_DIRECTORY?.replace("//", "//test") : process.env.NEXT_PUBLIC_DIRECTORY}`
+            const pathEnd = `${window.origin.includes("://test.") ? process.env.NEXT_PUBLIC_CMS?.replace("//", "//test") : process.env.NEXT_PUBLIC_CMS}`
+            router.push(`${path}/login?d=cms&end=${pathEnd}${router?.asPath.slice(1)}`)
           }
         },
       ]
@@ -86,11 +90,11 @@ export const Navigation = ({ set, state, }) => {
     <Flex bg={"white"} shadow={"sm"} w={"100%"} padding={"0.5rem"} className="z-50" >
       <Flex alignItems={"center"} justifyContent={"space-between"} w={"100%"} gap={{ base: "1", md: "4" }} >
         <div className="flex items-center justify-center gap-2">
-        <IconButton onClick={() => set(!state)}>
-          <HamburgerIcon w={"1.5rem"} h={"1.5rem"} color={"gray.500"} />
-        </IconButton>
-        
-        <BreadCumbs/>
+          <IconButton onClick={() => set(!state)}>
+            <HamburgerIcon w={"1.5rem"} h={"1.5rem"} color={"gray.500"} />
+          </IconButton>
+
+          <BreadCumbs />
 
         </div>
         <Center w={{ base: `${show ? "100%" : "50%"}`, md: "50%" }}>

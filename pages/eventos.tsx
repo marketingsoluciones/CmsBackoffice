@@ -26,6 +26,7 @@ import DatosNegocios from "../components/NuevoEvento/EventosCreados/AjustesCompo
 import AjustesGeneralesTabs from "../components/NuevoEvento/EventosCreados/AjustesComponents/AjustesGeneralesTabs";
 import AjustesGenePrin from "../components/NuevoEvento/EventosCreados/AjustesComponents/AjustesGenePrin";
 import Usuarios from "../components/NuevoEvento/EventosCreados/AjustesComponents/Usuarios";
+import UserEdit from "../components/NuevoEvento/EventosCreados/ReservaCompo/ModalUsuarios1";
 
 const EventosOri = () => {
   const { pathArray, setPathArray } = AuthContextProvider();

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import CalendarioTabs from './Canlendariotabs';
 import CrmComponent from './CrmComponent';
 import InformesTabs from './InformesTabs';
@@ -16,7 +16,7 @@ interface propsTabsGeneral {
   
   }
 
-const TabButton1: React.FC<TabButtonProps> = ({ selected, onClick, iconSrc, label }) => {
+const TabButton1: FC <TabButtonProps> = ({ selected, onClick, iconSrc, label }) => {
   return (
     <button
       onClick={onClick}
@@ -40,7 +40,7 @@ const TabButton1: React.FC<TabButtonProps> = ({ selected, onClick, iconSrc, labe
   );
 };
 
-const TabsGeneral: React.FC<propsTabsGeneral> = (componentState, setComponentState) => {
+const TabsGeneral: FC <propsTabsGeneral> = ({componentState, setComponentState}) => {
   const [selectedTab, setSelectedTab] = React.useState('Calendario');
 
   const handleTabChange = (tab: string) => {

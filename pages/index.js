@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { IndexPage } from "../components/IndexPage";
 
 function HomePage() {
-  const { user, verificandoCookie, config } = AuthContextProvider();
+  const { user, verificationDone, config } = AuthContextProvider();
   const r = useRouter()
 
   useEffect(() => {
@@ -31,17 +31,11 @@ function HomePage() {
     }
   }, [user])
 
-  if (verificandoCookie) {
-
-    if (!user) {
-      return <Login />
-    }
-    return (
-      <>
-        <IndexPage />
-      </>
-    )
-  }
-  return <></>
+  return (
+    <>
+      {verificationDone ? <IndexPage /> : <></>}
+    </>
+  )
 }
+
 export default HomePage

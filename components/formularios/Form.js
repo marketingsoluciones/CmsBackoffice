@@ -29,6 +29,7 @@ import { Seudonimo } from "../Seudonimo/Seudonimo";
 import { EditSeudonimo } from "../modals/EditSeudonimo";
 import { InfoForm } from "./InfoForm";
 import { TextareaFieldSizable } from "./Inputs/TextareaFieldSizable";
+import { InputColor } from "./Inputs/InputColor";
 
 export const FormDinamical = forwardRef(
   ({ schema: state, initialValues, onSubmit, Information, options, estado, slug }, ref) => {
@@ -171,6 +172,16 @@ export const FormDinamical = forwardRef(
                                 return (
                                   <GridItem colSpan={[1, , , , 2]} key={idx}>
                                     <InputField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "color":
+                                return (
+                                  <GridItem colSpan={[1, , , , 2]} key={idx}>
+                                    <InputColor
                                       name={item.accessor}
                                       label={item.Header}
                                     />
@@ -377,8 +388,8 @@ export const FormDinamical = forwardRef(
                     </div>
 
                     {/* columna derecha */}
-                    <div bg={colorBaground} shadow={"sm"} rounded={"xl"} className="col-span-2 px-[1rem] rounded-xl bg-white   " >
-                      {!["links"].includes(slug)
+                    <div bg={colorBaground} shadow={"sm"} rounded={"xl"} className="col-span-2 px-[1rem] rounded-xl bg-white" >
+                      {!["links", "whitelabel/setup"].includes(slug)
                         ? <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
                         : <FormLabel width={"45%"} pt={8}>
                           <Button
@@ -447,4 +458,3 @@ export const FormDinamical = forwardRef(
     );
   }
 );
-

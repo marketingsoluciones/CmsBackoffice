@@ -1,5 +1,8 @@
 import { FC } from "react";
 import ComponentR from "./ComponentR";
+import ReservationSystem from "../ReservaCompo/Reservas1";
+import UserEdit2 from "../ReservaCompo/ModalUsuarios1";
+import { Avatar } from "@chakra-ui/react";
 interface propsReservasRecepcion {
     componentState: any;
     setComponentState: any;
@@ -7,9 +10,10 @@ interface propsReservasRecepcion {
   }
 
 const ReservasRecepcion: FC<propsReservasRecepcion> = ({componentState, setComponentState}) => {
+
   return (
     <div className="w-full relative flex flex-col items-start justify-start py-6 px-6 box-border gap-[20px] min-h-[493px] tracking-[normal] leading-[normal] text-left text-7xl-3 text-black font-semibold">
-           <div className="flex flex-row items-center justify-start py-0 pr-5 pl-0 gap-3">
+    <div className="flex flex-row items-center justify-start py-0 pr-5 pl-0 gap-3">
         
 
         <div onClick={() => {
@@ -24,10 +28,15 @@ const ReservasRecepcion: FC<propsReservasRecepcion> = ({componentState, setCompo
            
       </div>
           <div className="relative leading-[32px] font-semibold inline-block min-w-[76px] mq450:text-2xl mq450:leading-[25px]">
-            Reservas de Zona
+            Reservas
           </div>
     </div>
-      
+    <ReservationSystem/>
+
+
+
+
+{/*       
       <div className="self-stretch flex flex-col items-start justify-start max-w-full text-center text-sm text-profourvenuescom-royal-blue">
         <div className="self-stretch h-[50px] rounded-t-2xl rounded-b-none bg-profourvenuescom-nero flex flex-row items-start justify-between pt-0 pb-1.5 pr-[7px] pl-0 box-border max-w-full gap-[20px] sticky top-[0] z-[99] mq725:h-auto">
           <div className="w-[634.6px] flex flex-row flex-wrap items-start justify-start gap-[7px] max-w-full">
@@ -445,7 +454,7 @@ const ReservasRecepcion: FC<propsReservasRecepcion> = ({componentState, setCompo
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
