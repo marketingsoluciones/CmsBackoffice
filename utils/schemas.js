@@ -588,10 +588,10 @@ export const BodyStaticAPP = [
         roles: ["all"],
         route: "whitelabel/setup",
         api: "eventos",
-        getData: "",
+        getData: { query: queries.getWhiteLabel },
         getByID: "",
-        createEntry: "",
-        updateEntry: "",
+        createEntry: { query: queries.createWhiteLabel },
+        updateEntry: { query: queries.updateWhiteLabels },
         deleteEntry: "",
         schema: [
           {
@@ -605,7 +605,7 @@ export const BodyStaticAPP = [
           },
           {
             Header: "Dominio",
-            accessor: "domain",
+            accessor: "whiteLabelDomain",
             type: "stringM",
           },
           {

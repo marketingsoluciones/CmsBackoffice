@@ -12,7 +12,7 @@ import { GoWorkflow } from "react-icons/go";
 import { TableLinkList } from "../../components/ModuloMarcas/Links/TableLinkList";
 import { IoLinkOutline } from "react-icons/io5";
 import { GoProjectSymlink } from "react-icons/go";
-import { MarcaBlanca } from "../../components/ModuloMarcas/MarcasBlancas";
+import { MarcaBlanca } from "../../components/ModuloMarcas/MarcasBlancas/index";
 import { useRouter } from "next/router";
 
 const BusinessSlug = ({ props }) => {
