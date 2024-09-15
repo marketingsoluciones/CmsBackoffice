@@ -7,7 +7,7 @@ import { AuthContextProvider } from "../context";
 export const useFetch = (toast = false) => {
   const [data, setData] = useState(null);
   const [query, setQuery] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const { development } = AuthContextProvider();
 
@@ -16,7 +16,6 @@ export const useFetch = (toast = false) => {
   const fetchData = useCallback(async () => {
     setData(null);
     setIsError(false);
-    setIsLoading(true);
     try {
       // Verificar que tenga la query del endpoint
       if (query) {
@@ -28,7 +27,9 @@ export const useFetch = (toast = false) => {
             data: { data },
           } = query?.api === "eventos" ? await api.ApiApp(query) : await api.ApiBodas(query, development)
           setData(Object.values(data)[0]);
-
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 150);
           //Form data
         } else if (query.type === "formData") {
           const formData = new FormData();
@@ -90,6 +91,9 @@ export const useFetch = (toast = false) => {
           if (data.errors) {
             throw new Error(JSON.stringify(data.errors));
           }
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 150);
         }
         toast &&
           Toast({
@@ -97,6 +101,8 @@ export const useFetch = (toast = false) => {
             title: "Operacion exitosa",
             isClosable: true,
           });
+      } else {
+
       }
     } catch (error) {
       setIsError(true);
@@ -108,7 +114,8 @@ export const useFetch = (toast = false) => {
           isClosable: true,
         });
     } finally {
-      setIsLoading(false);
+      console.log(10055)
+      // setIsLoading(false);
     }
   }, [query]);
 

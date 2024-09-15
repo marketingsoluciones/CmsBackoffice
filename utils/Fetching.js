@@ -157,6 +157,18 @@ export const queries = {
       }
     }
   }`,
+  getOneLink: `query($args:inputLink){
+    getOneLink(args:$args){
+      _id
+      development
+      ownerUid
+      title
+      socialMedia
+      link
+      createdAt
+      updatedAt
+    }
+  }`,
   getActivityLink: `query($link_id:ID){
     getActivityLink(link_id:$link_id){
       total

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { SubmenuComponent } from "../../components/CateringBodasComponents/SubmenuComponent";
 import { MarcasControl } from "../../components/ModuloMarcas/Marcas";
-import { TablePegesList } from "../../components/ModuloMarcas/WeddingCustomWebs";
+import { CustomWebsTable } from "../../components/ModuloMarcas/WeddingCustomWebs";
 import { PiCertificate } from "react-icons/pi";
 import { IframeMetricool } from "../../components/MarcaBlancaMetricool";
 import { IoAnalytics } from "react-icons/io5";
@@ -9,19 +9,24 @@ import { CiViewTable } from "react-icons/ci";
 import { AuthContextProvider } from "../../context";
 import { IframeWorkFlow } from "../../components/ModuloMarcas/IframeWorkFlow";
 import { GoWorkflow } from "react-icons/go";
-import { TableLinkList } from "../../components/ModuloMarcas/Links/TableLinkList";
 import { IoLinkOutline } from "react-icons/io5";
 import { GoProjectSymlink } from "react-icons/go";
-import { MarcaBlanca } from "../../components/ModuloMarcas/MarcasBlancas/index";
+import { Configuracion } from "../../components/ModuloMarcas/MarcasBlancas";
 import { useRouter } from "next/router";
+import { LinksControl } from "../../components/ModuloMarcas/Links";
 
 const BusinessSlug = ({ props }) => {
   const router = useRouter()
   const [optionSelect, setOptionSelect] = useState(0);
-  const { user, development, dispatch, state } = AuthContextProvider();
+  const { user, development, dispatch } = AuthContextProvider();
   const dataMetricool = user?.authDevelopments.find(
     (element) => element.title === development
   );
+
+  useEffect(() => {
+    console.log(optionSelect)
+  }, [optionSelect])
+
 
   useEffect(() => {
     const f1 = dataComponents.findIndex(elem => elem.slug === `/${router.query.slug[0]}`)
@@ -43,7 +48,7 @@ const BusinessSlug = ({ props }) => {
       icon: <CiViewTable className="h-6 w-auto" />,
       title: "MisWebs",
       slug: "/mywebsites",
-      component: <TablePegesList setComponentState={setOptionSelect} />,
+      component: <CustomWebsTable setComponentState={setOptionSelect} />,
     },
     {
       icon: <IoAnalytics className="h-6 w-auto" />,
@@ -61,18 +66,19 @@ const BusinessSlug = ({ props }) => {
       icon: <IoLinkOutline className="h-6 w-auto" />,
       title: "Links",
       slug: "/links",
-      component: <TableLinkList setComponentState={setOptionSelect} />,
+      component: <LinksControl setComponentState={setOptionSelect} optionSelect={optionSelect} />,
     },
     {
       icon: <GoProjectSymlink className="h-6 w-auto" />,
       title: "MarcaBlanca",
       slug: "/whitelabel",
-      component: <MarcaBlanca setComponentState={setOptionSelect} optionSelect={optionSelect} />,
+      component: <Configuracion setComponentState={setOptionSelect} optionSelect={optionSelect} />,
     },
   ];
   const handleClickOption = (idx) => {
 
-    dispatch({ type: "VIEW", payload: {} });
+    console.log(1003, `/${router.route.split("/")[1]}${dataComponents[idx].slug}`)
+    dispatch({ type: "VIEW", payload: `/${router.route.split("/")[1]}${dataComponents[idx].slug}` });
     router.push(`/${router.route.split("/")[1]}${dataComponents[idx].slug}`)
     // setOptionSelect(idx);
   };

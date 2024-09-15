@@ -14,35 +14,21 @@ export const CustomWebsControl = ({ setPage, page, type }) => {
         if (page === "principal") {
           if (type === "novios") {
             return (
-              <Section1
-                setPage={setPage}
-                page={page}
-                setFindData={setFindData}
-              />
+              <Section1 setPage={setPage} page={page} setFindData={setFindData} />
             )
           }
           if (type === "empresa") {
             return (
-              <SectionEmpresas
-                setPage={setPage}
-                page={page}
-                setFindData={setFindData}
-              />
+              <SectionEmpresas setPage={setPage} page={page} setFindData={setFindData} />
             )
           }
         }
       })()}
       {page === "demo" &&
-        <DescripcionCardEmpresas
-          setPage={setPage}
-          page={page}
-          findData={findData}
-        />
+        <DescripcionCardEmpresas setPage={setPage} page={page} findData={findData} />
       }
       {page === "WebBuilder" &&
-        <WebBuilder
-          setCommponent={setPage}
-        />
+        <WebBuilder setCommponent={setPage} />
       }
 
     </div>
