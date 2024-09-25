@@ -72,7 +72,7 @@ const TabsGeneral: FC <propsTabsGeneral> = ({componentState, setComponentState})
                   <TabButton1
         selected={selectedTab === 'Ajustes'}
         onClick={() => handleTabChange('Ajustes')}
-        iconSrc="ModuloEvento/icon123.svg"
+        iconSrc="ModuloEvento/Icon123.svg"
         label="Ajustes"
       />
     </div>

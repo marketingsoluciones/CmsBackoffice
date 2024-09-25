@@ -61,7 +61,7 @@ const Component2: FunctionComponent = () => {
                     <img
                       className="h-3.5 w-3.5 relative overflow-hidden shrink-0 "
                       alt=""
-                      src="ModuloEvento/icon123.svg"
+                      src="ModuloEvento/Icon123.svg"
                     />
                   </div>
                 </div>
