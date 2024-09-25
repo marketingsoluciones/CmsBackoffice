@@ -1,7 +1,7 @@
 import { useState } from "react"
 import GlobalFilter from "../../Datatable/GlobalFilter"
 import { ArrowLeft, SearchIcon } from "../../Icons/index"
-import { OnlyViewTable } from "../../PanelViewTable"
+import { OnlyViewTable } from "../../OnlyViewTable"
 import { AuthContextProvider } from "../../../context/AuthContext"
 
 export const ListaInvitadosTable = ({ setActionButton, setComponentState }) => {

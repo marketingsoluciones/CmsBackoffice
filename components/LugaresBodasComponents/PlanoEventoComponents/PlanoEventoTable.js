@@ -2,7 +2,7 @@ import { useState } from "react"
 import { AuthContextProvider } from "../../../context/AuthContext"
 import { ArrowLeft, SearchIcon } from "../../Icons/index"
 import GlobalFilter from "../../Datatable/GlobalFilter"
-import { OnlyViewTable } from "../../PanelViewTable"
+import { OnlyViewTable } from "../../OnlyViewTable"
 
 
 export const PlanoEventoTable = ({ setComponentState }) => {

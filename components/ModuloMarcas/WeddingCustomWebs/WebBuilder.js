@@ -563,11 +563,11 @@ export const WebBuilder = ({ setCommponent, id, type = "title", isUpdated = fals
               <ArrowLeft
                 className="w-4 h-4 mr-1 text-white cursor-pointer"
                 onClick={() => {
-                  if (router.pathname == "/business") {
+                  console.log(10058, router.asPath)
+                  if (router.asPath == "/business/mywebsites") {
                     dispatch({ type: "VIEW", payload: {} });
                   }
-
-                  if (router.pathname == "/marketplace") {
+                  if (router.asPath == "/marketplace") {
                     setCommponent("principal");
                   }
                 }}

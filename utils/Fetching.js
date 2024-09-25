@@ -90,6 +90,49 @@ export const fetchApiEventos = async ({ query, variables, domain }) => {
 };
 
 export const queries = {
+  getWhiteLabel: `query($userUid:String){
+    getWhiteLabel(userUid:$userUid){
+      _id
+      name
+      whiteLabelDomain
+      pathDirectory
+      favicon
+      logoDirectory
+      headTitle
+      primaryColor
+      secondaryColor
+      tertiaryColor
+      baseColor
+      status
+      userUid
+      authorUsername
+      createdAt
+      updatedAt
+    }
+  }`,
+  createWhiteLabel: `mutation($args:inputWhiteLabel){
+    createWhiteLabel(args:$args){
+      _id
+      name
+      whiteLabelDomain
+      pathDirectory
+      favicon
+      logoDirectory
+      headTitle
+      primaryColor
+      secondaryColor
+      tertiaryColor
+      baseColor
+      status
+      userUid
+      authorUsername
+      createdAt
+      updatedAt
+    }
+  }`,
+  updateWhiteLabels: `mutation($args:inputWhiteLabel){
+    updateWhiteLabels(args:$args)
+  }`,
   createLink: `mutation($args:inputLink){
     createLink(args:$args){
       _id
@@ -112,6 +155,18 @@ export const queries = {
         createdAt
         updatedAt
       }
+    }
+  }`,
+  getOneLink: `query($args:inputLink){
+    getOneLink(args:$args){
+      _id
+      development
+      ownerUid
+      title
+      socialMedia
+      link
+      createdAt
+      updatedAt
     }
   }`,
   getActivityLink: `query($link_id:ID){

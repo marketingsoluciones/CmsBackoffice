@@ -18,6 +18,8 @@ export const InfoForm = ({ Information, values, options, estado }) => {
     resolve(result)
   });
 
+
+
   return (
     <>
       <Box >
@@ -52,7 +54,7 @@ export const InfoForm = ({ Information, values, options, estado }) => {
         <ButtonDeleteEntry
           title={"Eliminar entrada"}
           handleRemove={handleRemove}
-          isLoading={isLoading}
+        //isLoading={isLoading}
         />
       )}
     </>

@@ -2,7 +2,7 @@ import { useState } from "react"
 import { AuthContextProvider } from "../../context/AuthContext"
 import { SearchIcon } from "../Icons/index"
 import GlobalFilter from "../Datatable/GlobalFilter"
-import { OnlyViewTable } from "../PanelViewTable"
+import { OnlyViewTable } from "../OnlyViewTable"
 import { ArrowLeft } from "lucide-react"
 
 

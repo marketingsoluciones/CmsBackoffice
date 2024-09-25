@@ -14,7 +14,8 @@ import { AuthContextProvider } from "../../context/AuthContext";
 
 
 
-export const Datatable = ({ isLoading, initialState, columns, data = [], total, handleRemoveItem, setAction, setSeteador, skip, setSkip, limit, setLimit, setSortCriteria, setSort, slug, setSlug, ...props }) => {
+export const Datatable = ({ isLoading, initialState, columns, data = [], total, handleRemoveItem, setAction, setSeteador, skip, setSkip, limit, setLimit, setSortCriteria, setSort, slug, setSlug, selected, ...props }) => {
+  console.log(10087, selected)
   const { user, setUser, config } = AuthContextProvider()
   const [modal, setModal] = useState(false)
   const [modalMasivo, setModalMasivo] = useState(false)
@@ -88,33 +89,35 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
     usePagination,
     useRowSelect,
     (hooks) => {
-      !["links"].includes(slug) && hooks.visibleColumns.push((columns) => [
-        // Let's make a column for selection
-        {
-          id: "selection",
-          // The header can use the table's getToggleAllRowsSelectedProps method
-          // to render a checkbox
-          Header: ({ getToggleAllPageRowsSelectedProps, column, ...rest }) => {
-            return (
-              <Tooltip label={"Seleccionar todos"}>
-                <div>
-                  <IndeterminateCheckbox
-                    {...getToggleAllPageRowsSelectedProps()}
-                  />
-                </div>
-              </Tooltip>
-            );
+      if (selected?.deleteEntry) {
+        !["links"].includes(slug) && hooks.visibleColumns.push((columns) => [
+          // Let's make a column for selection
+          {
+            id: "selection",
+            // The header can use the table's getToggleAllRowsSelectedProps method
+            // to render a checkbox
+            Header: ({ getToggleAllPageRowsSelectedProps, column, ...rest }) => {
+              return (
+                <Tooltip label={"Seleccionar todos"}>
+                  <div>
+                    <IndeterminateCheckbox
+                      {...getToggleAllPageRowsSelectedProps()}
+                    />
+                  </div>
+                </Tooltip>
+              );
+            },
+            // The cell can use the individual row's getToggleRowSelectedProps method
+            // to the render a checkbox
+            Cell: ({ row }) => (
+              <div>
+                <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+              </div>
+            ),
           },
-          // The cell can use the individual row's getToggleRowSelectedProps method
-          // to the render a checkbox
-          Cell: ({ row }) => (
-            <div>
-              <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-            </div>
-          ),
-        },
-        ...columns,
-      ]);
+          ...columns,
+        ]);
+      }
     }
   );
 
@@ -328,7 +331,7 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                                 return
                               }
                               ["title", "businessName", "_id"].includes(cell.column.id) &&
-                                setAction({ type: "EDIT", payload: { _id: row.original._id } })
+                                setAction({ type: selected?.updateEntry ? "EDIT" : "VIEW_DATAILS", payload: { _id: row.original._id } })
                             }}>
                             {
                               cell.column.id === "imgMiniatura" ?
@@ -368,17 +371,20 @@ export const Datatable = ({ isLoading, initialState, columns, data = [], total, 
                           </Td>
                         );
                       })}
-                      <Td
-                        className="mt-[-0.5rem] mb-[-0.5rem] 2xl:mt-[0rem] 2xl:mb-[0rem]"
-                        w={"16"}
-                      >
-                        {modal ? (
-                          <ModalAlert id={saveId} handleRemoveItem={handleRemoveItem} setModal={setModal} modal={modal} />
-                        ) : null}
-                        {!["links"].includes(slug) && <Center onClick={() => [setModal(!modal), setSaveId(row.original._id)]} className="cursor-pointer" >
-                          <IconButton size={`${screen.width < 640 ? "xs" : "sm"}`} icon={<DeleteIcon />} />
-                        </Center>}
-                      </Td>
+                      {/*PAPELERA*/
+                        selected?.deleteEntry &&
+                        <Td
+                          className="mt-[-0.5rem] mb-[-0.5rem] 2xl:mt-[0rem] 2xl:mb-[0rem]"
+                          w={"16"}
+                        >
+                          {modal ? (
+                            <ModalAlert id={saveId} handleRemoveItem={handleRemoveItem} setModal={setModal} modal={modal} />
+                          ) : null}
+                          {!["links"].includes(slug) && <Center onClick={() => [setModal(!modal), setSaveId(row.original._id)]} className="cursor-pointer" >
+                            <IconButton size={`${screen.width < 640 ? "xs" : "sm"}`} icon={<DeleteIcon />} />
+                          </Center>}
+                        </Td>
+                      }
                     </Tr>
                   );
                 })}

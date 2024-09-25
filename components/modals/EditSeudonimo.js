@@ -223,7 +223,7 @@ export const EditSeudonimo = ({ modal, setModal, user, nickName, setNickName }) 
                     fontFamily={""}
                     textColor={"white"}
                     rounded={"lg"}
-                    isLoading={isLoading}
+                  //isLoading={isLoading}
                   >
                     Guardar
                   </Button>

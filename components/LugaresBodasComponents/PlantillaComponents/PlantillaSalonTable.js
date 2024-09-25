@@ -2,7 +2,7 @@ import { useState } from "react"
 import GlobalFilter from "../../Datatable/GlobalFilter"
 import { ArrowLeft, SearchIcon } from "../../Icons/index"
 import { AuthContextProvider } from "../../../context/AuthContext"
-import { OnlyViewTable } from "../../PanelViewTable"
+import { OnlyViewTable } from "../../OnlyViewTable"
 
 export const PlantillaSalonTable = ({componentState, setComponentState}) => {
     const [global, setGlobal] = useState()

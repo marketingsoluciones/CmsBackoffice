@@ -1,28 +1,27 @@
 import { AuthContextProvider } from "../../../context"
+import { LinksTabla } from "./LinksTabla"
 import { PanelEditAndCreate } from "../../PanelEditAndCreate"
-import { FormDinamicalNEW } from "../../Resumen"
-import { MarcasTable } from "./MarcasTable"
-import { Marcas } from "../../Marcas"
-import { useEffect } from "react"
 
-export const MarcasControl = () => {
+export const LinksControl = () => {
     const { state, dispatch } = AuthContextProvider()
+    console.log(1006, state)
+
     if (true) {
         return (
             <div className="w-full h-full px-5 py-2" >
                 {
                     state?.type === "view" && (
-                        <MarcasTable dispatch={dispatch} />
+                        <LinksTabla dispatch={dispatch} />
                     )
                 }
                 {
                     state?.type === "vieww" && (
-                        <FormDinamicalNEW setAction={dispatch} slug={"business"} state={state} />
+                        <FormDinamicalNEW setAction={dispatch} state={state} />
                     )
                 }
                 {
                     ["edit", "create"].includes(state?.type) && (
-                        <PanelEditAndCreate setAction={dispatch} state={state} />
+                        <></>// <PanelEditAndCreate setAction={dispatch} state={state} />
                     )
                 }
             </div >
@@ -33,4 +32,3 @@ export const MarcasControl = () => {
         )
     }
 }
-

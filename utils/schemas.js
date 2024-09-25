@@ -47,7 +47,7 @@ export const BodyStaticAPP = [
         subTitle: "Gestiona, crea y publica tus marcas para promocionar tus servicios a la comunidad de novios de Bodas de Hoy. ",
         resumenRout: "InfoPage/marcas",
         roles: ["admin", "empresa"],
-        route: "business",
+        route: "business/brands",
         getData: FetchGraphQL.business.getBusinessAll,
         getByID: FetchGraphQL.business.getOneBusiness,
         createEntry: FetchGraphQL.business.createBusiness,
@@ -225,12 +225,10 @@ export const BodyStaticAPP = [
       {
         title: null,
         roles: ["admin", "empresa"],
-        route: "customWebBuilder",
+        route: "business/mywebsites",
         getData: { query: queries.getCodePage },
         getByID: { query: queries.getCodePage },
         createEntry: { query: queries.createCodePage },
-        updateEntry: { query: queries.updateCodePage },
-        deleteEntry: { query: queries.updateCodePage },
         schema: [
           {
             Header: "ID",
@@ -255,11 +253,13 @@ export const BodyStaticAPP = [
       {
         title: null,
         roles: ["admin", "empresa"],
-        route: "links",
+        route: "business/links",
         api: "eventos",
         getData: { query: queries.getLinks },
-        getByID: { query: queries.getLinks },
+        getByID: { query: queries.getOneLink },
         createEntry: { query: queries.createLink },
+        updateEntry: null,
+        deleteEntry: null,
         schema: [
           {
             Header: "ID",
@@ -588,10 +588,10 @@ export const BodyStaticAPP = [
         roles: ["all"],
         route: "whitelabel/setup",
         api: "eventos",
-        getData: "",
+        getData: { query: queries.getWhiteLabel },
         getByID: "",
-        createEntry: "",
-        updateEntry: "",
+        createEntry: { query: queries.createWhiteLabel },
+        updateEntry: { query: queries.updateWhiteLabels },
         deleteEntry: "",
         schema: [
           {
@@ -605,7 +605,7 @@ export const BodyStaticAPP = [
           },
           {
             Header: "Dominio",
-            accessor: "domain",
+            accessor: "whiteLabelDomain",
             type: "stringM",
           },
           {
@@ -629,7 +629,7 @@ export const BodyStaticAPP = [
             type: "urlLg",
           },
           {
-            Header: "Color pirncipal",
+            Header: "Color principal",
             accessor: "primaryColor",
             type: "color",
           },

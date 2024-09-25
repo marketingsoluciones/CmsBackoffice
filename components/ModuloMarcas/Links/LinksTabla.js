@@ -1,11 +1,23 @@
-import { useState } from "react"
-import GlobalFilter from "../../Datatable/GlobalFilter"
+import { useEffect, useState } from "react"
+import { AuthContextProvider } from "../../../context"
 import { ArrowLeft, SearchIcon } from "../../Icons/index"
 import { OnlyViewTable } from "../../OnlyViewTable"
+import GlobalFilter from "../../Datatable/GlobalFilter"
+import { useRouter } from "next/router"
+import { fetchApi, queries } from "../../../utils/Fetching"
+import { PanelEditAndCreate } from "../../PanelEditAndCreate"
 
-export const MarcasTable = ({ dispatch }) => {
+
+export const LinksTabla = ({ setComponentState }) => {
+    const router = useRouter()
+    const { state, dispatch } = AuthContextProvider()
+    console.log(1002, "links", state?.type)
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
+    const [showClicks, setShowClick] = useState(false)
+    const [slug, setSlug] = useState("links")
+
+
 
     return (
         <div className="space-y-4 w-full h-[calc(100vh-70px)] overflow-auto ">
@@ -14,13 +26,13 @@ export const MarcasTable = ({ dispatch }) => {
                     <ArrowLeft />
                 </div>
                 <p className=" mt-1 text-3xl text-rosa font-semibold">
-                    Marcas
+                    Links
                 </p>
                 <p className=" text-sm bg-white p-2 rounded-lg">Crea tu marca.  </p>
             </div>
             <div className=" md:relative">
                 <button className="bg-rosa rounded-lg px-4 py-1 text-white text-base " onClick={() => dispatch({ type: "CREATE", payload: {} })}>
-                    Añadir Marca
+                    Añadir Link
                 </button>
                 <div className=" absolute h-8  rounded-md px-2 flex items-center border-gray-400 border-2 bottom-0 right-0 w-1/3 ">
                     <SearchIcon />

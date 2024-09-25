@@ -1,5 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { useState } from "react";
+import { StrictMode, useState } from "react";
 import dynamic from 'next/dynamic'
 import { useEffect } from "react";
 import ClickAwayListener from "react-click-away-listener";
