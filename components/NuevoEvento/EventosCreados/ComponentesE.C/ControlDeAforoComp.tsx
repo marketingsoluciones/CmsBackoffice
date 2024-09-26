@@ -38,7 +38,7 @@ const ControlAforoComp: FC <Props> = ({componentState, setComponentState, setSel
           </div>
     </div>
             
-            <CapacityControl title='hola' totalPeople={25} zones={DataZone}/>
+            <CapacityControl title='Noche de divas' totalPeople={25} zones={DataZone}/>
         </div>
 
     );
