@@ -4,6 +4,8 @@ import { HomeScreen } from "../../components/Events/HomeScreen";
 
 const Business = () => {
   const router = useRouter()
+  const pathNames = window.location.pathname.split("/").filter(item => item !== '')
+  console.log(100420, pathNames)
 
   useEffect(() => {
     // if (!router.query?.slug) {

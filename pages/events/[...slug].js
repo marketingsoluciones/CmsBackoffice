@@ -3,8 +3,10 @@ import { AuthContextProvider } from "../../context";
 import { useRouter } from "next/router";
 import { HomeScreen } from "../../components/Events/HomeScreen";
 import EventosCreados from "../../components/NuevoEvento/EventosCreados/EventosCreados"
+import { IframeApp } from "../../layouts/IframeApp"
 
 const BusinessSlug = ({ props }) => {
+  console.log(100410)
   const router = useRouter()
   const [optionSelect, setOptionSelect] = useState(0);
   const { user, development, dispatch } = AuthContextProvider();
@@ -14,6 +16,8 @@ const BusinessSlug = ({ props }) => {
   }, [optionSelect])
 
   useEffect(() => {
+    const pathNames = window.location.pathname.split("/").filter(item => item !== '')
+    console.log(100420, pathNames)
     console.log(1004, router.query.slug)
     const f1 = dataComponents.findIndex(elem => elem.slug === `/${router.query.slug[0]}`)
     if (f1 > -1) {
@@ -26,14 +30,14 @@ const BusinessSlug = ({ props }) => {
   const dataComponents = [
     {
       icon: "",
-      title: "Inicio",
-      slug: "",
+      title: "Eventos",
+      slug: "/events",
       component: <HomeScreen componentState={optionSelect} />
     },
     {
       icon: "",
-      title: "Eventos Creados",
-      slug: "/events-created",
+      title: "Eventos Tiketing",
+      slug: "/tiketing",
       component: <EventosCreados componentState={optionSelect} />
     },
     // {
@@ -120,12 +124,12 @@ const BusinessSlug = ({ props }) => {
     //   slug: "",
     //   component: <ModalPrecio componentState={optionSelect} setComponentState={setOptionSelect} />
     // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <IframeApp route={"/"} />
-    // },
+    {
+      icon: "",
+      title: "Eventos Sociales",
+      slug: "/social",
+      component: <IframeApp route={"/"} />
+    },
     // {
     //   icon: "",
     //   title: "",
@@ -176,7 +180,7 @@ const BusinessSlug = ({ props }) => {
   ]
 
   return (
-    <div className="w-full h-full flex">
+    <div >
       <div
         className={`flex-1 flex z-10`}>
         {

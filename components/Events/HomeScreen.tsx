@@ -72,7 +72,7 @@ export const HomeScreen: FC = () => {
                 </p>
               </span>
             </div>
-            <ButtonEvents text="¡Comienza Ahora!" onClick={() => { console.log("aquiiiiii") }} />
+            <ButtonEvents text="¡Comienza Ahora!" onClick={() => { router.push("/events/social") }} />
           </div>
           <div className="flex md:flex-row flex-wrap  items-start justify-center gap-[12px] text-sm text-white ">
             {
@@ -114,7 +114,7 @@ export const HomeScreen: FC = () => {
                 </p>
               </span>
             </div>
-            <ButtonEvents text="¡Comienza Ahora!" onClick={() => { router.push("/events/events-created") }} />
+            <ButtonEvents text="¡Comienza Ahora!" onClick={() => { router.push("/events/tiketing") }} />
           </div>
           <div className="h-auto flex md:flex-row flex-col  items-center justify-start gap-[20px] text-left text-base">
             <div className="flex flex-col items-end justify-start gap-[16px]">
