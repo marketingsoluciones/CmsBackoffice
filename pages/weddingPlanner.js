@@ -36,7 +36,7 @@ const weddingPlannerPage = () => {
     },
     {
       icon: <Webs />,
-      title: "MisWebs",
+      title: "Mis Webs",
       component: <CustomWebsTable setComponentState={setOptionSelect} />,
     },
     {

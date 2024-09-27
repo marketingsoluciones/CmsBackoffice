@@ -46,7 +46,7 @@ const BusinessSlug = ({ props }) => {
     },
     {
       icon: <CiViewTable className="h-6 w-auto" />,
-      title: "MisWebs",
+      title: "Mis Webs",
       slug: "/mywebsites",
       component: <CustomWebsTable setComponentState={setOptionSelect} />,
     },
@@ -70,7 +70,7 @@ const BusinessSlug = ({ props }) => {
     },
     {
       icon: <GoProjectSymlink className="h-6 w-auto" />,
-      title: "MarcaBlanca",
+      title: "Marca Blanca",
       slug: "/whitelabel",
       component: <Configuracion setComponentState={setOptionSelect} optionSelect={optionSelect} />,
     },

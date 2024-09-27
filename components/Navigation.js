@@ -88,16 +88,16 @@ export const Navigation = ({ set, state, }) => {
 
   return (
     <Flex bg={"white"} shadow={"sm"} w={"100%"} padding={"0.5rem"} className="z-50" >
-      <Flex alignItems={"center"} justifyContent={"space-between"} w={"100%"} gap={{ base: "1", md: "4" }} >
-        <div className="flex items-center justify-center gap-2">
+      <Flex alignItems={"center"} w={"100%"} gap={{ base: "1", md: "4" }} >
+        <div className="flex flex-1 items-center justify-center gap-2">
           <IconButton onClick={() => set(!state)}>
             <HamburgerIcon w={"1.5rem"} h={"1.5rem"} color={"gray.500"} />
           </IconButton>
-
-          <BreadCumbs />
-
+          <div className="flex-1">
+            <BreadCumbs />
+          </div>
         </div>
-        <Center w={{ base: `${show ? "100%" : "50%"}`, md: "50%" }}>
+        <Center w={{ base: `${show ? "100%" : "50%"}`, md: "40%" }}>
           <SearchNavigation show={show} setShow={setShow} showValir={showValir} setShowValir={setShowValir} />
         </Center>
         <Center gap={"2"} >

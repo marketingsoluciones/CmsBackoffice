@@ -1,85 +1,28 @@
-import Link from "next/link";
-import { useState } from "react";
-import { useEffect } from "react";
 import { FC } from "react";
 import { useRouter } from 'next/router';
-import { AuthContextProvider } from "../../context/AuthContext"
 
-interface propsBreadCumbs {
-  className?: string;
-}
-
-type crumb = {
-  crumb: string;
-  href: string;
-};
-
-export const BreadCumbs: FC<propsBreadCumbs> = ({ className }) => {
-  const { pathArray, setPathArray } = AuthContextProvider();
-  const [levels, setLevels] = useState<crumb[]>([]);
-  const [path, setpath]  = useState(null)
+export const BreadCumbs: FC = () => {
   const router = useRouter()
 
-  useEffect(() => {
+  const pathNames = window.location.pathname.split("/").filter(item => item !== '')
 
-    const pathsWithoutSelector = router.asPath.split("#");
-
-
-    const arr = pathsWithoutSelector[0]
-      .split("/")
-      .filter((item) => item.length > 0);
-      setpath(arr)
-
-      const position: crumb[] = pathArray.map((path, i) => {
-        return { crumb: path, href: "/" + path};
-      } )
-    setLevels(position);
-  }, [router, pathArray]);
-
-  
+  const handleOnClick = (idx: number) => {
+    const path = `/${pathNames.slice(0, idx + 1).join("/")}`
+    router.push(path)
+  }
 
   return (
-    <>
-      <div
-        className={`lg:max-w-screen-lg mx-auto inset-x-0 flex items-center text-sm text-gray-500 capitalize font-light py-4 w-full sm:flex`}
-      >
-        <nav className="flex w-full" aria-label="Breadcrumb">
-          <ol className="inline-flex items-center space-x-1 md:space-x-3">
-            <li className="inline-flex items-center">
-              <Link href={"/" + path}>
-                <span className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 cursor-pointer ">
-                {path}
-                </span>
-              </Link>
+    <div className="flex-1">
+      <nav className="flex w-full" aria-label="Breadcrumb">
+        <ol className="inline-flex list-none">
+          {pathNames?.map((item, idx) =>
+            <li key={idx} className="inline-flex items-center text-gray-800">
+              <span className="mr-2 text-xl">{">"}</span>
+              <span onClick={() => { handleOnClick(idx) }} className="mr-2 cursor-pointer text-sm">{item}</span>
             </li>
-            {levels.filter(item => !["categoria", "empresa"].includes(item.crumb)).map((item: crumb, idx: number) => (
-              <li key={idx}>
-                <div className="flex items-center">
-                  <svg
-                    className="w-6 h-6 text-gray-500"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                    
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
-                  <Link href={item.href} passHref>
-                    <span className="ml-1 text-sm font-medium text-gray-500 hover:text-gray-900 md:ml-2 cursor-pointer ">
-                      {item.crumb && decodeURI(item.crumb) /* item.crumb.replaceAll("-", " ") */}
-                     
-                    </span>
-                  </Link>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </nav>
-      </div>
-    </>
+          )}
+        </ol>
+      </nav>
+    </div>
   );
 };

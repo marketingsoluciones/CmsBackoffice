@@ -47,7 +47,7 @@ export const BodyStaticAPP = [
         subTitle: "Gestiona, crea y publica tus marcas para promocionar tus servicios a la comunidad de novios de Bodas de Hoy. ",
         resumenRout: "InfoPage/marcas",
         roles: ["admin", "empresa"],
-        route: "business/brands",
+        route: "brands/brands",
         getData: FetchGraphQL.business.getBusinessAll,
         getByID: FetchGraphQL.business.getOneBusiness,
         createEntry: FetchGraphQL.business.createBusiness,
@@ -225,7 +225,7 @@ export const BodyStaticAPP = [
       {
         title: null,
         roles: ["admin", "empresa"],
-        route: "business/mywebsites",
+        route: "brands/mywebsites",
         getData: { query: queries.getCodePage },
         getByID: { query: queries.getCodePage },
         createEntry: { query: queries.createCodePage },
@@ -253,7 +253,7 @@ export const BodyStaticAPP = [
       {
         title: null,
         roles: ["admin", "empresa"],
-        route: "business/links",
+        route: "brands/links",
         api: "eventos",
         getData: { query: queries.getLinks },
         getByID: { query: queries.getOneLink },
