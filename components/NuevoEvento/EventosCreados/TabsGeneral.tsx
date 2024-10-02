@@ -1,8 +1,4 @@
 import React, { FC, useEffect, useState } from 'react';
-import CalendarioTabs from './Canlendariotabs';
-import CrmComponent from './CrmComponent';
-import InformesTabs from './InformesTabs';
-import AjustesTabs from './AjustesTabs';
 import { ButtonUnroll } from '../../Events/ButtonUnroll';
 import { DataComponents } from '../../../utils/Interfaces';
 import { useRouter } from 'next/router';

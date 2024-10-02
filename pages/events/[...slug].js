@@ -3,6 +3,10 @@ import { AuthContextProvider } from "../../context";
 import { useRouter } from "next/router";
 import { HomeScreen } from "../../components/Events/HomeScreen";
 import EventosCreados from "../../components/NuevoEvento/EventosCreados/EventosCreados"
+import ConfigurarEvento from "../../components/NuevoEvento/CrearEvento/ConfigurarEvento";
+import Asistencia from "../../components/NuevoEvento/CrearEvento/Asistencia";
+import DatoEvento from "../../components/NuevoEvento/CrearEvento/DatosEvento";
+import InicioCE from "../../components/NuevoEvento/CrearEvento/InicioCE"
 import { IframeApp } from "../../layouts/IframeApp"
 
 const BusinessSlug = ({ props }) => {
@@ -40,30 +44,30 @@ const BusinessSlug = ({ props }) => {
       slug: "/tiketing",
       component: <EventosCreados componentState={optionSelect} />
     },
-    // {
-    //   icon: "",
-    //   title: "Crear Evento",
-    //   slug: "/create-event",
-    //   component: <InicioCE componentState={optionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "Configurar Evento",
-    //   slug: "/configure-event",
-    //   component: <ConfigurarEvento componentState={optionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <DatoEvento componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <Asistencia componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
+    {
+      icon: "",
+      title: "Crear Evento",
+      slug: "/create-event",
+      component: <InicioCE componentState={optionSelect} />
+    },
+    {
+      icon: "",
+      title: "Configurar Evento",
+      slug: "/configure-event",
+      component: <ConfigurarEvento componentState={optionSelect} />
+    },
+    {
+      icon: "",
+      title: "Datos Evento",
+      slug: "/data-event",
+      component: <DatoEvento componentState={optionSelect} />
+    },
+    {
+      icon: "",
+      title: "Asistencia",
+      slug: "/attendance",
+      component: <Asistencia componentState={optionSelect}/>
+    },
     // {
     //   icon: "",
     //   title: "",
