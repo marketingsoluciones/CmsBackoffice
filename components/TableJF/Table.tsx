@@ -19,6 +19,7 @@ interface PropsTable {
 
 
 export const TableJF: FC<PropsTable> = ({ Filter, showTable, targetRef, table, TableForward, typeFilter, setTableMaster, setSearch, search, flexRender, setSelectRow, selectRow }) => {
+    console.log(">>>>>",table)
     return (
         <div>
             {

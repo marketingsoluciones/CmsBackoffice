@@ -1,19 +1,20 @@
 "use client"
 import "react-datepicker/dist/react-datepicker.css";
 import es from 'date-fns/locale/es';
-/* registerLocale('es', es) */
-/* import { generateXLSX, getDataTreeFacturaWispHup, getDataTreeTransaction } from "../utils/funciones.js" */
 import { usePDF } from 'react-to-pdf';
-import React, { ChangeEventHandler, InputHTMLAttributes, useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { FetchGraphQL, /* fetchApiJaihom, */ queries } from "../../utils/Fetching.js";
-import { Factura, /* FetchFacturas, FetchTransaction */ } from "../../utils/Interfaces.js";
+import React, { ChangeEventHandler, FC, InputHTMLAttributes, useEffect, useMemo, useReducer, useRef, useState } from "react";
+import { FetchGraphQL, queries } from "../../utils/Fetching.js";
+import { Factura, Prospectos } from "../../utils/Interfaces.js";
 import { Column, ColumnDef, ColumnFiltersState, FilterFn, SortingFn, Table, createColumnHelper, flexRender, getCoreRowModel, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, sortingFns, useReactTable } from "@tanstack/react-table";
 import { RankingInfo, rankItem, compareItems } from '@tanstack/match-sorter-utils'
 import { TableJF, Herramientas, FiltroFactura, FiltroTime, getDate, getDateTime, obtenerPrimerYUltimoDiaSemana } from "./index";
 import ClickAwayListener from "react-click-away-listener";
 import { IndeterminateCheckbox } from "../Datatable/IndeterminateCheckbox.js";
-
-const columnHelperFactura = createColumnHelper<Factura>()
+import { visibleColumns } from "../../utils/schemas.js";
+import { AuthContextProvider } from "../../context/AuthContext.js";
+import { hasRole } from "../../utils/auth";
+import { useRouter } from "next/router";
+import { columnsDataTable } from "../Datatable/Columns";
 
 declare module '@tanstack/table-core' {
     interface FilterFns {
@@ -37,23 +38,15 @@ const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
     return itemRank.passed
 }
 
-const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
-    let dir = 0
-
-    // Only sort by rank if the column has ranking information
-    if (rowA.columnFiltersMeta[columnId]) {
-        dir = compareItems(
-            rowA.columnFiltersMeta[columnId]?.itemRank!,
-            rowB.columnFiltersMeta[columnId]?.itemRank!
-        )
-    }
-
-    // Provide an alphanumeric fallback for when the item ranks are equal
-    return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir
+interface props {
+    columnsDef: ColumnDef< any>[]
 }
 
-
-export default function TableCompleto() {
+export const TableCompleto: FC<props> = ({ columnsDef }) => {
+    const router = useRouter()
+    const { development, user, domain, state } = AuthContextProvider()
+    const slug = "business/links" /* router.asPath.slice(1) */
+    const [selected, setSelected] = useState(columnsDataTable({ slug, user }));
     const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' })
     const [file, setFile] = useState<any>()
     const [showPreviewPdf, setShowPreviewPdf] = useState<any>({ state: false, title: "", payload: {} })
@@ -69,7 +62,6 @@ export default function TableCompleto() {
         []
     )
     const [globalFilter, setGlobalFilter] = useState('')
-
     const [typeFilter, setTypeFilter] = useState("factura")//transaccion
     const [dateFilter, setDateFilter] = useState("month")
     const [stateFilter, setStateFilter] = useState("conciliated")
@@ -83,7 +75,6 @@ export default function TableCompleto() {
     const [showSpinner, setShowSpinner] = useState<boolean>(false)
     const [columnVisibility, setColumnVisibility] = React.useState({ recargado: false, forma_pago: false, cajeroID: false, cajero: false, banco: false, conciliado: false, updatedAt: false })
     const [tableMaster, setTableMaster] = useState<any>()
-
 
     const handleChange = (event) => {
         if (event.key === 'Enter') {
@@ -129,85 +120,25 @@ export default function TableCompleto() {
         }) */
     }
 
-    const columnsFactura = useMemo<ColumnDef<Factura>[]>(() => [
-
-
-        columnHelperFactura.accessor('id_factura', {
-            id: 'id_factura',
-            header: () => <span>id_factura</span>,
-            cell: info => <div /* onClick={() => handleGetFactura(info.getValue())} */ className="text-center">{/* {info.getValue()} */}</div>,
-            footer: info => info.column.id,
-            filterFn: 'fuzzy',
-            sortingFn: fuzzySort,
-            enableHiding: false,
-        }),
-        columnHelperFactura.accessor('criterio', {
-            header: () => <span>Colum1</span>,
-            cell: info => info.getValue(),
-            footer: info => info.column.id,
-            enableColumnFilter: false,
-        }),
-        columnHelperFactura.accessor('recargado', {
-            header: () => <span>recargado</span>,
-            cell: info => <span>{info.getValue() ? "recargado" : null}</span>,
-            footer: info => info.column.id,
-            enableColumnFilter: false,
-        }),
-        columnHelperFactura.accessor('forma_pago', {
-            header: () => <span>forma_pago</span>,
-            cell: info => info.getValue(),
-            footer: info => info.column.id,
-            enableColumnFilter: false,
-        }),
-        columnHelperFactura.accessor('total_cobrado', {
-            header: () => <span>total_cobrado</span>,
-            cell: info => <div className="text-right">{info.getValue().toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>,
-            footer: info => info.column.id,
-            enableHiding: false,
-        }),
-        columnHelperFactura.accessor('fecha_pago', {
-            header: () => <span>fecha_pago</span>,
-            cell: info => <div className="text-center">{getDate(info.getValue())}</div>,
-            footer: info => info.column.id,
-            enableColumnFilter: false,
-            enableHiding: false,
-        }),
-        columnHelperFactura.accessor('fecha_pago_ref', {
-            header: () => <span>fecha_pago_ref</span>,
-            cell: info => <div className="text-center">{info.getValue()}</div>,
-            footer: info => info.column.id,
-            enableColumnFilter: false,
-            enableHiding: false,
-        }),
-        columnHelperFactura.accessor('referencia', {
-            header: () => <span>referencia</span>,
-            cell: info => <div className="text-right" >{info.getValue()}</div>,
-            footer: info => info.column.id,
-        }),
-        columnHelperFactura.accessor('cajeroID', {
-            header: () => <span>cajeroID</span>,
-            cell: info => <div className="text-right" >{info.getValue()}</div>,
-            footer: info => info.column.id,
-        }),
-        columnHelperFactura.accessor('cajero', {
-            header: () => <span>cajero</span>,
-            cell: info => <div className="text-right" >{info.getValue()}</div>,
-            footer: info => info.column.id,
-        }),
-        columnHelperFactura.accessor('updatedAt', {
-            header: () => <span>updatedAt</span>,
-            cell: info => { return <div className="text-center">{getDateTime(info.getValue())}</div> },
-            footer: info => info.column.id,
-            enableColumnFilter: false
-        }),
-    ], [typeFilter])
-
+    const columns = useMemo(() => {
+        let avalibleShowColumns = visibleColumns.map(elem => {
+            const item = user?.visibleColumns?.find(el => el.accessor === elem.accessor)
+            return item ? item?.accessor : elem?.accessor
+        })
+        return selected?.schema?.reduce((acc, item) => {
+            if (avalibleShowColumns?.includes(item?.accessor) && !item?.roles)
+                acc.push(item)
+            if (item?.roles && hasRole(development, user, item?.roles))
+                acc.push(item)
+            return acc
+        }, [])
+    }, [selected]);
 
 
     const table = useReactTable({
         data,
         columns:
-            useMemo(() => columnsFactura, [typeFilter]),
+            useMemo(() => columnsDef, [typeFilter]),
         filterFns: {
             fuzzy: fuzzyFilter,
         },
@@ -588,8 +519,6 @@ function DebouncedInput({ value: initialValue, onChange, debounce = 500, ...prop
         <input className="text-xs" {...props} value={value} onChange={e => setValue(e.target.value)} />
     )
 }
-
-
 
 const TableForward = ({ table, typeFilter, setTableMaster }) => {
     useEffect(() => {

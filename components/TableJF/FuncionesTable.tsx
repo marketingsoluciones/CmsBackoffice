@@ -1,3 +1,6 @@
+import { Column, ColumnDef, ColumnFiltersState, FilterFn, SortingFn, Table, createColumnHelper, flexRender, getCoreRowModel, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, sortingFns, useReactTable } from "@tanstack/react-table";
+import { RankingInfo, rankItem, compareItems } from '@tanstack/match-sorter-utils'
+
 export const getDate = (date: Date): string => {
     const d = new Date(date)
     return new Intl.DateTimeFormat("es-ES", {
@@ -31,3 +34,18 @@ export const getDate = (date: Date): string => {
     const ultimo = day === 0 ? dF : new Date((dateEpoch + (7 - day) * 86400000) + 86399000)
     return { primero, ultimo }
   }
+
+  export const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
+    let dir = 0
+
+    // Only sort by rank if the column has ranking information
+    if (rowA.columnFiltersMeta[columnId]) {
+        dir = compareItems(
+            rowA.columnFiltersMeta[columnId]?.itemRank!,
+            rowB.columnFiltersMeta[columnId]?.itemRank!
+        )
+    }
+
+    // Provide an alphanumeric fallback for when the item ranks are equal
+    return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir
+}

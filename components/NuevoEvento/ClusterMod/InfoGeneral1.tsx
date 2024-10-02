@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 import ClusterC1 from "./ClusterC1";
 interface propsInfoGeneral1 {
-  componentState: any;
-  setComponentState: any;
+  componentState?: any;
+  setComponentState?: any;
 
 }
 

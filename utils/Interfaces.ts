@@ -18,7 +18,15 @@ export interface Factura {
     diferencia: number
     createdAt: Date
     updatedAt: Date
-  }
+}
+
+export interface Prospectos {
+    _id: string
+    prospecto: string
+    fecha: Date
+    createdAt: Date
+    updatedAt: Date
+}
 
 export interface Event {
     _id: string

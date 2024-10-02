@@ -893,7 +893,59 @@ export const BodyStaticAPP = [
         icon: <ClusterIcon />,
         title: "Cluster",
         roles: ["all"],
-        route: "Cluster",
+        route: "cluster",
+      },
+      {
+        title: null,
+        roles: ["all"],
+        route: "Cluster/BuzonProspectos",
+        getData: { query: queries.getLinks },
+        getByID: { query: queries.getOneLink },
+        createEntry: { query: queries.createLink },
+        updateEntry: null,
+        deleteEntry: null,
+        schema: [
+          {
+            Header: "ID",
+            accessor: "_id",
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+            type: "stringL",
+            required: true,
+          },
+          {
+            Header: "Red social",
+            accessor: "socialMedia",
+            type: "string",
+            required: true,
+          },
+          {
+            Header: "Link",
+            accessor: "link",
+          },
+          {
+            Header: "Creado el",
+            accessor: "createdAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+          {
+            Header: "Actualizado el",
+            accessor: "updatedAt",
+            Cell: (props) => formatTime(props.value, "es"),
+          },
+        ]
+      },
+      {
+        title: null,
+        roles: ["all"],
+        route: "Cluster/Leads",
+      },
+      {
+        title: null,
+        roles: ["all"],
+        route: "Cluster/Invitados",
       },
     ]
   },
