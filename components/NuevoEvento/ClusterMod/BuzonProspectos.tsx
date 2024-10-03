@@ -9,17 +9,28 @@ import { BodyStaticAPP } from "../../../utils/schemas.js";
 
 interface propsBuzonProspectos { }
 
+interface Child {
+  route: string;
+  schema: any; // Ajusta el tipo según sea necesario
+  // otras propiedades
+}
+
+interface Parent {
+  title: string;
+  children?: Child[];
+  // otras propiedades
+}
 
 
 export const BuzonProspectos: FC<propsBuzonProspectos> = ({ }) => {
   const { openModalRight, setOpenModalRight } = AuthContextProvider()
   const columnHelperFactura = createColumnHelper()
-  const f1 = BodyStaticAPP.find((elem) => elem.title === "Formacion Enterprice")
-  const f2 = f1.children.find((elem) => elem.route === "Cluster/BuzonProspectos")
-  const f3 = f2.schema
+  const f1 = BodyStaticAPP?.find((elem) => elem.title === "Formacion Enterprice") as Parent | undefined;
+  const f2 = f1?.children?.find((elem) => elem.route === "Cluster/BuzonProspectos") as Child | undefined;
+  const f3 = f2?.schema;
 
   const columnsDef = useMemo(
-    () => f3.map((item: any) => {
+    () => f3?.map((item: any) => {
       const colum = columnHelperFactura.accessor(item.accessor, {
         id: item.accessor,
         header: () => <span>{item.Header}</span>,
