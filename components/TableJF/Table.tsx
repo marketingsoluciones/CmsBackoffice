@@ -19,7 +19,6 @@ interface PropsTable {
 
 
 export const TableJF: FC<PropsTable> = ({ Filter, showTable, targetRef, table, TableForward, typeFilter, setTableMaster, setSearch, search, flexRender, setSelectRow, selectRow }) => {
-    console.log(">>>>>",table)
     return (
         <div>
             {
@@ -27,7 +26,7 @@ export const TableJF: FC<PropsTable> = ({ Filter, showTable, targetRef, table, T
                 <div ref={targetRef} className="flex flex-col flex-1 border-[1px] border-gray-300 !rounded-xl">
                     <table className="">
                         <thead className=" w-full ">
-                            {table.getHeaderGroups().map(headerGroup => {
+                            {table?.getHeaderGroups().map(headerGroup => {
                                 return (
                                     <tr key={headerGroup.id} className="border-b-[1px] border-gray-300  ">
                                         <TableForward table={table} typeFilter={typeFilter} setTableMaster={setTableMaster} />

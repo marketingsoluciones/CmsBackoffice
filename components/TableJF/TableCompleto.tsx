@@ -39,7 +39,7 @@ const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
 }
 
 interface props {
-    columnsDef: ColumnDef< any>[]
+    columnsDef: ColumnDef<any>[]
 }
 
 export const TableCompleto: FC<props> = ({ columnsDef }) => {
