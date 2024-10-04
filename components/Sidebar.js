@@ -124,7 +124,11 @@ export const Sidebar = ({ state, setState }) => {
                                       w={"95%"}
                                       fontSize={"sm"}
                                       className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
-                                      style={"/" + item.route === asPath ? { backgroundColor: '#F3F3F3', color: "#FF5887" } : { backgroundColor: '' } && item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }}
+                                      style={item.route === asPath.split("/")[1]
+                                        ? { backgroundColor: '#F3F3F3', color: "#FF5887" }
+                                        : { backgroundColor: '' } && item.route === asPath
+                                          ? { backgroundColor: '#F3F3F3' }
+                                          : { backgroundColor: '' }}
                                       onClick={() => {
                                         if (changedForm) {
                                           setHandle(() => () => {

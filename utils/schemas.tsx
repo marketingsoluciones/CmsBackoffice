@@ -92,6 +92,11 @@ export const BodyStaticAPP: Schema[] = [
       {
         icon: <MaletaIcon className="h-6 w-6" />,
         title: "Marcas",
+        roles: ["admin", "empresa"],
+        route: "brands"
+      },
+      {
+        title: null,
         subTitle: "Gestiona, crea y publica tus marcas para promocionar tus servicios a la comunidad de novios de Bodas de Hoy. ",
         resumenRout: "InfoPage/marcas",
         roles: ["admin", "empresa"],
