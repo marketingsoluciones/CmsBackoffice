@@ -4,7 +4,7 @@ import es from 'date-fns/locale/es';
 import { usePDF } from 'react-to-pdf';
 import React, { ChangeEventHandler, FC, InputHTMLAttributes, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { FetchGraphQL, queries } from "../../utils/Fetching.js";
-import { Factura, Prospectos } from "../../utils/Interfaces.js";
+import { Factura } from "../../utils/Interfaces.js";
 import { Column, ColumnDef, ColumnFiltersState, FilterFn, SortingFn, Table, createColumnHelper, flexRender, getCoreRowModel, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, sortingFns, useReactTable } from "@tanstack/react-table";
 import { RankingInfo, rankItem, compareItems } from '@tanstack/match-sorter-utils'
 import { TableJF, Herramientas, FiltroFactura, FiltroTime, getDate, getDateTime, obtenerPrimerYUltimoDiaSemana } from "./index";

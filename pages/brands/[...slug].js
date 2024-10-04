@@ -15,7 +15,7 @@ import { Configuracion } from "../../components/ModuloMarcas/MarcasBlancas";
 import { useRouter } from "next/router";
 import { LinksControl } from "../../components/ModuloMarcas/Links";
 
-const BusinessSlug = ({ props }) => {
+const Slug = ({ props }) => {
   const router = useRouter()
   const [optionSelect, setOptionSelect] = useState(0);
   const { user, development, dispatch } = AuthContextProvider();
@@ -97,7 +97,7 @@ const BusinessSlug = ({ props }) => {
   );
 };
 
-export default BusinessSlug;
+export default Slug;
 
 export async function getServerSideProps({ params }) {
   return {

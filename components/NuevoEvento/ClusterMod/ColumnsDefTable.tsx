@@ -3,34 +3,25 @@ import { AuthContextProvider } from "../../../context";
 import { ModalRight } from "../../modals/ModalRight";
 import { FormDataProspecto } from "../../formularios/FormDataProspecto"
 import { TableCompleto } from "../../TableJF/TableCompleto";
-import { fuzzySort } from "../../TableJF";
-import { AccessorFn, AccessorFnColumnDefBase, ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import { Prospectos } from "../../../utils/Interfaces";
-import { BodyStaticAPP, childrenSchema } from "../../../utils/schemas";
+import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { BodyStaticAPP, childrenSchema, SchemaChildren } from "../../../utils/schemas";
 import { useRouter } from "next/router";
 
-// export interface childrenSchema {
-//   Header: string
-//   accessor: string
-//   enableHiding: string
-//   filterFn: AccessorFn<any>
-// }
+interface props {
+  schemaChildren: SchemaChildren[]
+}
 
-
-export const BuzonProspectos: FC = () => {
+export const ColumnsDefTable: FC<props> = ({ schemaChildren }) => {
   const router = useRouter()
-
   const { openModalRight, setOpenModalRight } = AuthContextProvider()
   const columnHelperFactura = createColumnHelper<any>()
-  const f1 = BodyStaticAPP?.findIndex((elem) => elem.route === router.asPath.split("/")[1])
-  const f2 = BodyStaticAPP[f1].children?.findIndex((elem) => elem.route === `${router.asPath.split("/")[1]}/${router.query.slug[0]}`)
-  const schemaArr = [...BodyStaticAPP[f1]?.children[f2]?.schema]
-  console.log(1002, schemaArr)
-  schemaArr?.map((item: childrenSchema) => { console.log(1004, item.accessor) })
+
+  const f1 = schemaChildren?.findIndex((elem) => elem.route === `${router.asPath.split("/")[1]}/${router.query.slug[0]}`)
+  const schemaArr = schemaChildren[f1]?.schema ? [...schemaChildren[f1]?.schema] : []
+
 
   const columnsDef = useMemo<ColumnDef<any>[]>(
     () => schemaArr?.map((item: childrenSchema) => {
-      console.log(1001, router.asPath, router.query.slug, schemaArr.length)
       const colum = columnHelperFactura.accessor(item?.accessor, {
         id: item?.accessor,
         header: () => <span>{item?.Header}</span>,
@@ -39,11 +30,9 @@ export const BuzonProspectos: FC = () => {
         filterFn: item?.filterFn,
         sortingFn: item?.sortingFn,
       })
-      console.log(1005, colum)
       return colum
     }), [router?.asPath])
 
-  console.log(1001, columnsDef)
 
   /* const columnsDef = useMemo<ColumnDef<Prospectos>[]>(() => [
     columnHelperFactura.accessor('_id', {
@@ -84,7 +73,7 @@ export const BuzonProspectos: FC = () => {
 
   return (
     <>
-      <h1 className="text-[20px] pb-2 ">Tus Prospectos</h1>
+      <h1 className="text-[20px] pb-2">{schemaChildren[f1]?.title}</h1>
       <TableCompleto columnsDef={columnsDef} />
       {openModalRight?.state ?
         <ModalRight state={openModalRight} set={setOpenModalRight} styles={"px-3 py-[10px]"}>

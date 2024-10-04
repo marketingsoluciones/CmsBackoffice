@@ -5,12 +5,12 @@ import ClickAwayListener from "react-click-away-listener";
 import { useRouter } from "next/router";
 
 interface PropsSlideBar1 {
-  dataComponents?:any
-  optionSelect?:any
-  onClick?:any
+  dataComponents?: any
+  optionSelect?: any
+  onClick?: any
 }
 
-export const SlideBar1: FC <PropsSlideBar1> = ({ dataComponents, optionSelect, onClick }) => {
+export const SlideBar1: FC<PropsSlideBar1> = ({ dataComponents, optionSelect, onClick }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [stateSubOptions, setStateSubOptions] = useState(false);
   const router = useRouter();
@@ -25,7 +25,7 @@ export const SlideBar1: FC <PropsSlideBar1> = ({ dataComponents, optionSelect, o
         if (screen.width > 640) {
           return (
             <div className=" hidden md:block bg-gray-100 px-2 py-5 space-y-5 w-[190px] z-10 ">
-              {dataComponents?.map((item:any, idx:any) => {
+              {dataComponents?.map((item: any, idx: any) => {
                 return (
                   <div
                     key={idx}

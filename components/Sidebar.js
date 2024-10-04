@@ -113,7 +113,7 @@ export const Sidebar = ({ state, setState }) => {
                           <MenuGroup key={idx} title={item.title} fontSize={"sm"} className={` ${state ? "block" : "hidden"} text-tituloPrimario`}>
                             {item.children.map((item, idx) => {
                               if (hasRole(development, user, item.roles)) {
-                                if (item.title != null) {
+                                if (!item.hidden) {
                                   return (
                                     <MenuItem
                                       _hover={{ bg: "#F3F3F3" }}

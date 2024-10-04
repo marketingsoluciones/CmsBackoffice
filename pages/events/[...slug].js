@@ -9,7 +9,7 @@ import DatoEvento from "../../components/NuevoEvento/CrearEvento/DatosEvento";
 import InicioCE from "../../components/NuevoEvento/CrearEvento/InicioCE"
 import { IframeApp } from "../../layouts/IframeApp"
 
-const BusinessSlug = ({ props }) => {
+const Slug = ({ props }) => {
   console.log(100410)
   const router = useRouter()
   const [optionSelect, setOptionSelect] = useState(0);
@@ -66,7 +66,7 @@ const BusinessSlug = ({ props }) => {
       icon: "",
       title: "Asistencia",
       slug: "/attendance",
-      component: <Asistencia componentState={optionSelect}/>
+      component: <Asistencia componentState={optionSelect} />
     },
     // {
     //   icon: "",
@@ -197,7 +197,7 @@ const BusinessSlug = ({ props }) => {
   );
 };
 
-export default BusinessSlug;
+export default Slug;
 
 export async function getServerSideProps({ params }) {
   return {

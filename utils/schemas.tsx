@@ -1,11 +1,12 @@
 import { FetchGraphQL, queries } from "./Fetching";
 import { formatTime } from "./formatTime";
-import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, DemoEnterprice, RpIcon, ClusterIcon } from "../components/Icons/index";
+import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, DemoEnterprice, RpIcon, ClusterIcon, BuzonProsIcon, Leads1Icon, Invitados1Icon, ChatEnVivoIcon, FormulariosWebIcon, ChatBotIcon, VisitasWebIcon, Mensajes1Icon } from "../components/Icons/index";
 import { ClubIcon } from "lucide-react";
 import { IoSettingsOutline } from "react-icons/io5";
 import { ComponentProps, FC } from "react";
 import { AccessorFn, FilterFn, FilterFnOption, SortingFnOption } from "@tanstack/react-table";
 import { fuzzySort } from "../components/TableJF";
+import { CompVisitasWebs, InfoGeneral1 } from "../components/NuevoEvento/ClusterMod";
 
 
 
@@ -35,9 +36,9 @@ interface Query {
 interface Schema {
   title: string
   roles: string[]
-  children?: Children[]
+  children?: SchemaChildren[]
   icon?: JSX.Element
-  route?: string
+  hidden?: boolean
 }
 
 export interface childrenSchema {
@@ -60,7 +61,8 @@ export interface childrenSchema {
   schema?: string //revisar
 }
 
-interface Children extends Schema {
+export interface SchemaChildren extends Schema {
+  route?: string
   subTitle?: string
   resumenRout?: string
   getData?: Query
@@ -70,6 +72,7 @@ interface Children extends Schema {
   deleteEntry?: Query
   schema?: childrenSchema[]
   api?: string
+  component?: JSX.Element
 }
 
 export const BodyStaticAPP: Schema[] = [
@@ -97,6 +100,7 @@ export const BodyStaticAPP: Schema[] = [
       },
       {
         title: null,
+        hidden: true,
         subTitle: "Gestiona, crea y publica tus marcas para promocionar tus servicios a la comunidad de novios de Bodas de Hoy. ",
         resumenRout: "InfoPage/marcas",
         roles: ["admin", "empresa"],
@@ -277,6 +281,7 @@ export const BodyStaticAPP: Schema[] = [
       },
       {
         title: null,
+        hidden: true,
         roles: ["admin", "empresa"],
         route: "brands/mywebsites",
         getData: { query: queries.getCodePage },
@@ -305,6 +310,7 @@ export const BodyStaticAPP: Schema[] = [
       },
       {
         title: null,
+        hidden: true,
         roles: ["admin", "empresa"],
         route: "brands/links",
         api: "eventos",
@@ -670,6 +676,7 @@ export const BodyStaticAPP: Schema[] = [
       },
       {
         title: null,
+        hidden: true,
         roles: ["all"],
         route: "whitelabel/setup",
         api: "eventos",
@@ -750,6 +757,7 @@ export const BodyStaticAPP: Schema[] = [
       },
       {
         title: null,
+        hidden: true,
         roles: ["admin", "empresa"],
         route: "itinerario",
         getData: { query: queries.getItinerario },
@@ -779,6 +787,7 @@ export const BodyStaticAPP: Schema[] = [
       },
       {
         title: null,
+        hidden: true,
         roles: ["admin", "empresa"],
         route: "CartaProducto",
         getData: null,//sda{query: queries.getItinerario},
@@ -855,6 +864,7 @@ export const BodyStaticAPP: Schema[] = [
       },
       {
         title: null,
+        hidden: true,
         roles: ["admin", "empresa"],
         route: "contactosPersonas",
         getData: null,
@@ -885,6 +895,7 @@ export const BodyStaticAPP: Schema[] = [
       },
       {
         title: null,
+        hidden: true,
         roles: ["admin", "empresa"],
         route: "contactosEmpresas",
         getData: null,
@@ -933,7 +944,6 @@ export const BodyStaticAPP: Schema[] = [
   {
     title: "Formacion Enterprice",
     roles: ["all"],
-    route: "cluster",
     children: [
       {
         icon: <RpIcon />,
@@ -954,7 +964,9 @@ export const BodyStaticAPP: Schema[] = [
         route: "cluster",
       },
       {
-        title: null,
+        icon: <BuzonProsIcon />,
+        title: "Buzon de Prospectos",
+        hidden: true,
         roles: ["all"],
         route: "cluster/buzonProspectos",
         getData: { query: queries.getLinks },
@@ -1006,7 +1018,34 @@ export const BodyStaticAPP: Schema[] = [
         ]
       },
       {
-        title: null,
+        icon: <ChatEnVivoIcon />,
+        title: "Chat en vivo",
+        hidden: true,
+        roles: ["all"],
+        route: "cluster/chatVivo",
+        component: <InfoGeneral1 />
+      },
+      {
+        icon: <ChatBotIcon />,
+        title: "Chatbot",
+        hidden: true,
+        roles: ["all"],
+        route: "cluster/chatbot",
+        component: <InfoGeneral1 />
+      },
+
+      {
+        icon: <FormulariosWebIcon />,
+        title: "Formularios Web",
+        hidden: true,
+        roles: ["all"],
+        route: "cluster/formulariosWeb",
+        component: <InfoGeneral1 />
+      },
+      {
+        icon: <Leads1Icon />,
+        title: "Leads",
+        hidden: true,
         roles: ["all"],
         route: "cluster/leads",
         schema: [
@@ -1057,7 +1096,9 @@ export const BodyStaticAPP: Schema[] = [
         ]
       },
       {
-        title: null,
+        icon: <Invitados1Icon />,
+        title: "Invitados",
+        hidden: true,
         roles: ["all"],
         route: "cluster/invitados",
         schema: [
@@ -1106,6 +1147,20 @@ export const BodyStaticAPP: Schema[] = [
             filterFn: 'fuzzy',
           },
         ]
+      },
+      {
+        icon: <VisitasWebIcon />,
+        title: "Visitas Web",
+        hidden: true,
+        roles: ["all"],
+        route: "cluster/visitasWeb",
+      },
+      {
+        icon: <Mensajes1Icon />,
+        title: "Mensajes",
+        hidden: true,
+        roles: ["all"],
+        route: "cluster/mensajes",
       },
     ]
   },

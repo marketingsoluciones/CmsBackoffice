@@ -37,8 +37,11 @@
     "components/formularios/FormCrearMenu.js",
     "components/formularios/FormEditarInvitado.js",
     "components/NuevoEvento/Principal/ModoDemo.tsx",
-    "layouts/IframeApp.js"
-, "components/CateringBodasComponents/CartaProductosComponents/AlergenosInput.js", "components/NuevoEvento/ClusterMod/BuzonProspectosjsx", "components/NuevoEvento/ClusterMod/ClusterComp.js"  ],
+    "layouts/IframeApp.js",
+    "components/CateringBodasComponents/CartaProductosComponents/AlergenosInput.js",
+    "components/NuevoEvento/ClusterMod/BuzonProspectosjsx",
+    "components/NuevoEvento/ClusterMod/ClusterComp1.js"
+  ],
   "exclude": [
     "node_modules"
   ]
