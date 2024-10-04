@@ -4,8 +4,6 @@ import { PanelEditAndCreate } from "../../PanelEditAndCreate"
 
 export const LinksControl = () => {
     const { state, dispatch } = AuthContextProvider()
-    console.log(1006, state)
-
     if (true) {
         return (
             <div className="w-full h-full px-5 py-2" >
@@ -27,8 +25,6 @@ export const LinksControl = () => {
             </div >
         )
     } else {
-        return (
-            <Marcas />
-        )
+        /* establecer codigo para cuando la condicion es false */
     }
 }

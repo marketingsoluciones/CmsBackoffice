@@ -27,6 +27,14 @@ export interface Factura {
     updatedAt: Date
 }
 
+export interface Prospectos {
+    _id: string
+    prospecto: string
+    fecha: Date
+    createdAt: Date
+    updatedAt: Date
+}
+
 export interface Event {
     _id: string
     fecha_creacion: string

@@ -17,8 +17,6 @@ export const LinksTabla = ({ setComponentState }) => {
     const [showClicks, setShowClick] = useState(false)
     const [slug, setSlug] = useState("links")
 
-
-
     return (
         <div className="space-y-4 w-full h-[calc(100vh-70px)] overflow-auto ">
             <div>
@@ -28,7 +26,7 @@ export const LinksTabla = ({ setComponentState }) => {
                 <p className=" mt-1 text-3xl text-rosa font-semibold">
                     Links
                 </p>
-                <p className=" text-sm bg-white p-2 rounded-lg">Crea tu marca.  </p>
+                <p className=" text-sm bg-white p-2 rounded-lg">Crea tus Links.  </p>
             </div>
             <div className=" md:relative">
                 <button className="bg-rosa rounded-lg px-4 py-1 text-white text-base " onClick={() => dispatch({ type: "CREATE", payload: {} })}>

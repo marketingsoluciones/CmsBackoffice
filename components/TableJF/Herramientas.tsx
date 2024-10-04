@@ -131,7 +131,7 @@ export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, tabl
                             {table.getAllLeafColumns().map(column => {
                                 return (
                                     <div className="flex justify-between pr-2">
-                                        <div key={column.id} className="px-1 py-1 flex items-center justify-center space-x-1">
+                                        <div key={column.id+1} className="px-1 py-1 flex items-center justify-center space-x-1">
                                             <input
                                                 {...{
                                                     type: 'checkbox',

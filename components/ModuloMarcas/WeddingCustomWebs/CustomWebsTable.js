@@ -45,7 +45,7 @@ export const CustomWebsTable = ({ setComponentState }) => {
                 </div>
             }
             {
-                state?.type === "edit" && (
+                state?.type === "view_details" && (
                     <WebBuilder id={state.data._id} />
                 )
             }

@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 import ClusterC1 from "./ClusterC1";
 interface propsInfoGeneral1 {
-  componentState: any;
-  setComponentState: any;
+  componentState?: any;
+  setComponentState?: any;
 
 }
 
@@ -34,7 +34,7 @@ export const InfoGeneral1: FC<propsInfoGeneral1> = ({ componentState, setCompone
                   className="w-[123px] flex-1 relative max-h-full overflow-hidden"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/chatenvivo.svg"
+                  src="/ModuloEvento/chatenvivo.svg"
                 />
                 <div className="self-stretch flex flex-col items-start justify-start gap-[8px]">
                   <div className="self-stretch flex flex-col items-center justify-start py-0 px-5">
@@ -56,7 +56,7 @@ export const InfoGeneral1: FC<propsInfoGeneral1> = ({ componentState, setCompone
                     className="h-20 flex-1 relative max-w-full overflow-hidden object-cover"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/leads2.svg"
+                    src="/ModuloEvento/leads2.svg"
                   />
                 </div>
                 <div className="self-stretch flex flex-col items-start justify-start gap-[8px]">
@@ -76,7 +76,7 @@ export const InfoGeneral1: FC<propsInfoGeneral1> = ({ componentState, setCompone
                   className="w-60 h-20 relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/chatbot2.svg"
+                  src="/ModuloEvento/chatbot2.svg"
                 />
                 <div className="self-stretch flex flex-col items-start justify-start gap-[8px]">
                   <div className="self-stretch flex flex-col items-center justify-start py-0 px-5">
@@ -86,9 +86,9 @@ export const InfoGeneral1: FC<propsInfoGeneral1> = ({ componentState, setCompone
                   </div>
                   <div className="self-stretch flex flex-col items-center justify-start py-0 pr-12 pl-[48.5px] text-sm-9 text-carbonaphrd-pipedrive-com-leads-chatbot-1318x573-default-pale-sky">
                     <div className="self-stretch h-[84px] relative leading-[21px] font-medium inline-block">
-                      <p className="m-0">{`Mantén activa tu atención 24/7 `}</p>
+                      <p className="m-0">Mantén activa tu atención 24/7</p>
                       <p className="m-0">con tus prospectos. Personaliza</p>
-                      <p className="m-0">{` tus mensajes, genera citas y `}</p>
+                      <p className="m-0">tus mensajes, genera citas y</p>
                       <p className="m-0">responde a preguntas frecuentes.</p>
                     </div>
                   </div>
@@ -100,7 +100,7 @@ export const InfoGeneral1: FC<propsInfoGeneral1> = ({ componentState, setCompone
                     className="w-60 h-20 relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/formulariosweb.svg"
+                    src="/ModuloEvento/formulariosweb.svg"
                   />
                   <div className="self-stretch flex flex-col items-start justify-start pt-4 px-0 pb-0">
                     <div className="self-stretch flex flex-col items-start justify-start gap-[8px]">
@@ -153,7 +153,7 @@ export const InfoGeneral1: FC<propsInfoGeneral1> = ({ componentState, setCompone
 
           <div className="h-[299px] w-full flex-1 grid md:grid-cols-2 items-center justify-items-center md:px-60 gap-5 ">
             <div>
-              <ClusterC1 group3338="ModuloEvento/capacitacion.svg" />
+              <ClusterC1 group3338="/ModuloEvento/capacitacion.svg" />
             </div>
 
             <div className="  flex flex-col items-start justify-start gap-[10px]">
@@ -162,7 +162,7 @@ export const InfoGeneral1: FC<propsInfoGeneral1> = ({ componentState, setCompone
                   className="h-[37.8px] w-10 relative"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/publicidad.svg"
+                  src="/ModuloEvento/publicidad.svg"
                 />
                 <div className="h-[49.8px] flex-1 relative leading-[25px] text-xs font-semibold inline-block">
                   Clúster de inversión en publicidad
@@ -175,9 +175,7 @@ export const InfoGeneral1: FC<propsInfoGeneral1> = ({ componentState, setCompone
             </div>
 
             <div>
-              <ClusterC1
-                group3338="ModuloEvento/capleads.svg"
-              />
+              <ClusterC1 group3338="/ModuloEvento/capleads.svg" />
             </div>
 
             <div className=" flex flex-col items-start justify-start gap-[10px]">
@@ -186,7 +184,7 @@ export const InfoGeneral1: FC<propsInfoGeneral1> = ({ componentState, setCompone
                   className="h-[35.1px] w-10 relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/plataforma.svg"
+                  src="/ModuloEvento/plataforma.svg"
                 />
                 <div className="h-[49.8px] flex-1 relative leading-[25px] text-xs font-semibold inline-block">
                   Plataforma SaaS innovadora
@@ -204,7 +202,7 @@ export const InfoGeneral1: FC<propsInfoGeneral1> = ({ componentState, setCompone
                   className="h-[45.8px] w-10 relative"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/ahorro.svg"
+                  src="/ModuloEvento/ahorro.svg"
                 />
                 <div className="h-[49.8px] w-[212px] relative leading-[25px] text-xs font-semibold flex items-center">
                   Ahorro de tiempo y dinero
@@ -221,7 +219,7 @@ export const InfoGeneral1: FC<propsInfoGeneral1> = ({ componentState, setCompone
                   className="h-[46.3px] w-10 relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/colaboracion.svg"
+                  src="/ModuloEvento/colaboracion.svg"
                 />
                 <div className=" flex-1 relative leading-[25px] text-xs font-semibold ">
                   Colaboración y aprendizaje

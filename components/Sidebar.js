@@ -106,55 +106,55 @@ export const Sidebar = ({ state, setState }) => {
             <>
               {
                 BodyStaticAPP.map((item, idx) => {
-                                    if (hasRole(development, user, item.roles)) {
+                  if (hasRole(development, user, item.roles)) {
                     return (
                       <Box key={idx} >
                         <Menu autoSelect={false}>
                           <MenuGroup key={idx} title={item.title} fontSize={"sm"} className={` ${state ? "block" : "hidden"} text-tituloPrimario`}>
                             {item.children.map((item, idx) => {
                               if (hasRole(development, user, item.roles)) {
-                                if(item.title!=null){
-                                return (
-                                  <MenuItem
-                                    _hover={{ bg: "#F3F3F3" }}
-                                    key={idx}
-                                    color={"#637381"}
-                                    padding={`${state ? "2" : ""}`}
-                                    marginLeft={"2"}
-                                    w={"95%"}
-                                    fontSize={"sm"}
-                                    className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
-                                    style={"/" + item.route === asPath ? { backgroundColor: '#F3F3F3', color:"#FF5887" } : { backgroundColor: '' } && item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }}
-                                    onClick={() => {
-                                      if (changedForm) {
-                                        setHandle(() => () => {
+                                if (item.title != null) {
+                                  return (
+                                    <MenuItem
+                                      _hover={{ bg: "#F3F3F3" }}
+                                      key={idx}
+                                      color={"#637381"}
+                                      padding={`${state ? "2" : ""}`}
+                                      marginLeft={"2"}
+                                      w={"95%"}
+                                      fontSize={"sm"}
+                                      className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
+                                      style={"/" + item.route === asPath ? { backgroundColor: '#F3F3F3', color: "#FF5887" } : { backgroundColor: '' } && item.route === asPath ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }}
+                                      onClick={() => {
+                                        if (changedForm) {
+                                          setHandle(() => () => {
+                                            screen.width < 640 ? setState(!state) : null
+                                            dispatch({ type: "VIEW", payload: {} });
+                                            router.push("/" + item.route)
+                                            setChangedForm(false)
+                                          }
+                                          )
+                                          setShowModal(true)
+                                        } else {
                                           screen.width < 640 ? setState(!state) : null
                                           dispatch({ type: "VIEW", payload: {} });
                                           router.push("/" + item.route)
-                                          setChangedForm(false)
                                         }
-                                        )
-                                        setShowModal(true)
-                                      } else {
-                                        screen.width < 640 ? setState(!state) : null
-                                        dispatch({ type: "VIEW", payload: {} });
-                                        router.push("/" + item.route)
-                                      }
-                                    }}
-                                  >
-                                    <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
-                                      <div className={`flex justify-estar items-center  ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
-                                        <div className={` pr-2 `}>
-                                          {item.icon}
+                                      }}
+                                    >
+                                      <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
+                                        <div className={`flex justify-estar items-center  ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
+                                          <div className={` pr-2 `}>
+                                            {item.icon}
+                                          </div>
+                                          <div className={`${state ? "block " : "hidden"}`}>
+                                            {item.title}
+                                          </div>
                                         </div>
-                                        <div className={`${state ? "block " : "hidden"}`}>
-                                          {item.title}
-                                        </div>
-                                      </div>
-                                    </Tooltip>
-                                  </MenuItem>
-                                )
-                              }
+                                      </Tooltip>
+                                    </MenuItem>
+                                  )
+                                }
                               }
                             })}
                           </MenuGroup>

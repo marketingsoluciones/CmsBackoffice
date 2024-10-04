@@ -1,5 +1,4 @@
 import { BodyStaticAPP } from "../../utils/schemas";
-import MenuFilter from "../MenuFilter";
 
 //componente para visualizar las columnas deacuerdo al esquema 
 

@@ -2,6 +2,7 @@ import { ModalLeft } from "../../../modals/ModalLeft";
 import { FormCrearEvento } from "../../../EventosComponents/FormCrearEvento";
 import { FC, useState } from "react";
 import ClickAwayListener from "react-click-away-listener";
+import { useRouter } from "next/router";
 
 interface PropsSlideBar1 {
   dataComponents?:any
@@ -12,6 +13,8 @@ interface PropsSlideBar1 {
 export const SlideBar1: FC <PropsSlideBar1> = ({ dataComponents, optionSelect, onClick }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [stateSubOptions, setStateSubOptions] = useState(false);
+  const router = useRouter();
+
 
   return (
     <>
@@ -26,7 +29,7 @@ export const SlideBar1: FC <PropsSlideBar1> = ({ dataComponents, optionSelect, o
                 return (
                   <div
                     key={idx}
-                    onClick={() => onClick(idx)}
+                    onClick={() => item.url != undefined ? router.push(item?.url) : onClick(idx)}
                     className={`${optionSelect === idx ? " text-rosa bg-[#F6E2E9] rounded-md px-1 py-1 font-medium " : " text-azulCorporativo hover:bg-[#E3E5E8] rounded-md px-1 py-1 hover:font-medium "
                       } flex items-center space-x-3 cursor-pointer`}
                   >
@@ -57,7 +60,7 @@ export const SlideBar1: FC <PropsSlideBar1> = ({ dataComponents, optionSelect, o
                     return (
                       <div
                         key={idx}
-                        onClick={() => onClick(idx)}
+                        onClick={() => item.url != undefined ? router.push(item?.url) : onClick(idx)}
                         className={`${optionSelect === idx ? " text-rosa " : ""
                           } flex  items-center  space-x-3 cursor-pointer`}
                       >

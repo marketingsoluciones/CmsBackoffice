@@ -22,12 +22,9 @@ const BusinessSlug = ({ props }) => {
   const dataMetricool = user?.authDevelopments.find(
     (element) => element.title === development
   );
-
   useEffect(() => {
-    console.log(optionSelect)
+    /* console.log(optionSelect) */
   }, [optionSelect])
-
-
   useEffect(() => {
     const f1 = dataComponents.findIndex(elem => elem.slug === `/${router.query.slug[0]}`)
     if (f1 > -1) {
@@ -36,7 +33,6 @@ const BusinessSlug = ({ props }) => {
       router.push(`/${router.route.split("/")[1]}/${dataComponents[0].slug}`)
     }
   }, [router])
-
   const dataComponents = [
     {
       icon: <PiCertificate className="h-6 w-auto" />,
@@ -76,12 +72,12 @@ const BusinessSlug = ({ props }) => {
     },
   ];
   const handleClickOption = (idx) => {
-
-    console.log(1003, `/${router.route.split("/")[1]}${dataComponents[idx].slug}`)
+   /*  console.log(1003, `/${router.route.split("/")[1]}${dataComponents[idx].slug}`) */
     dispatch({ type: "VIEW", payload: `/${router.route.split("/")[1]}${dataComponents[idx].slug}` });
     router.push(`/${router.route.split("/")[1]}${dataComponents[idx].slug}`)
     // setOptionSelect(idx);
   };
+
   return (
     <div className="w-full h-full flex">
       <SubmenuComponent
