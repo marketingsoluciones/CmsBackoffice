@@ -1,3 +1,7 @@
+import { AccessorFn, AccessorFnColumnDefBase, ColumnDef, createColumnHelper, FilterFnOption } from "@tanstack/react-table";
+
+type asd = "_id" | "createdAt" | "updatedAt" | "prospecto" | "fecha" | AccessorFn<any>
+
 export interface Factura {
     _id: string
     id_factura: string

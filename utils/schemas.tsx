@@ -1,8 +1,12 @@
-import { FetchGraphQL, queries } from "../utils/Fetching";
-import { formatTime } from "../utils/formatTime";
+import { FetchGraphQL, queries } from "./Fetching";
+import { formatTime } from "./formatTime";
 import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, DemoEnterprice, RpIcon, ClusterIcon } from "../components/Icons/index";
 import { ClubIcon } from "lucide-react";
 import { IoSettingsOutline } from "react-icons/io5";
+import { ComponentProps, FC } from "react";
+import { AccessorFn, FilterFn, FilterFnOption, SortingFnOption } from "@tanstack/react-table";
+import { fuzzySort } from "../components/TableJF";
+
 
 
 // componentes que definen la estructura del menu, fetchs,columnas visibles en la tabla y los inputs que componen el formulario
@@ -24,7 +28,51 @@ export const visibleColumns = [
   { accessor: "link", show: false },
 ]
 
-export const BodyStaticAPP = [
+interface Query {
+  query: string
+}
+
+interface Schema {
+  title: string
+  roles: string[]
+  children?: Children[]
+  icon?: JSX.Element
+  route?: string
+}
+
+export interface childrenSchema {
+  Header?: string
+  accessor?: string
+  type?: string
+  required?: boolean
+  roles?: string[]
+  enableHiding?: boolean
+  typeFile?: string
+  filterFn?: FilterFnOption<any>
+  sortingFn?: SortingFnOption<any>
+  Cell?: any
+  api?: string
+  getData?: Query
+  getByID?: Query
+  createEntry?: Query
+  updateEntry?: Query
+  deleteEntry?: Query
+  schema?: string //revisar
+}
+
+interface Children extends Schema {
+  subTitle?: string
+  resumenRout?: string
+  getData?: Query
+  getByID?: Query
+  createEntry?: Query
+  updateEntry?: Query
+  deleteEntry?: Query
+  schema?: childrenSchema[]
+  api?: string
+}
+
+export const BodyStaticAPP: Schema[] = [
   {
     title: "",
     roles: ["all"],
@@ -344,7 +392,6 @@ export const BodyStaticAPP = [
             Header: "Icono",
             accessor: "icon",
             type: "image",
-            typeFile: "image",
             typeFile: "svg",
             required: true,
           },
@@ -352,7 +399,7 @@ export const BodyStaticAPP = [
             Header: "Sub Categorias",
             accessor: "subCategories",
             type: "relationship",
-            tabList: FetchGraphQL.subCatBusiness.getSubCategoryBusiness,
+            getData: FetchGraphQL.subCatBusiness.getSubCategoryBusiness,
             required: true,
           },
           {
@@ -428,7 +475,6 @@ export const BodyStaticAPP = [
             Header: "Icono",
             accessor: "icon",
             type: "image",
-            typeFile: "image",
             typeFile: "svg",
             required: true,
           },
@@ -442,14 +488,14 @@ export const BodyStaticAPP = [
             Header: "Caracteristicas",
             accessor: "characteristics",
             type: "relationship",
-            tabList: FetchGraphQL.characteristics.getAllCharacteristics,
+            getData: FetchGraphQL.characteristics.getAllCharacteristics,
             required: true,
           },
           {
             Header: "Preguntas Frecuentes",
             accessor: "questions",
             type: "relationship",
-            tabList: FetchGraphQL.questions.getAllQuestions,
+            getData: FetchGraphQL.questions.getAllQuestions,
             required: true,
           },
         ],
@@ -543,11 +589,6 @@ export const BodyStaticAPP = [
         title: "Calendario",
         roles: ["admin", "empresa"],
         route: "calendario",
-        getData: "",
-        getByID: "",
-        createEntry: "",
-        updateEntry: "",
-        deleteEntry: "",
         schema: [],
       },
       {
@@ -589,10 +630,8 @@ export const BodyStaticAPP = [
         route: "whitelabel/setup",
         api: "eventos",
         getData: { query: queries.getWhiteLabel },
-        getByID: "",
         createEntry: { query: queries.createWhiteLabel },
         updateEntry: { query: queries.updateWhiteLabels },
-        deleteEntry: "",
         schema: [
           {
             Header: "ID",
@@ -663,11 +702,6 @@ export const BodyStaticAPP = [
         title: "Lugares para bodas",
         roles: ["admin", "empresa"],
         route: "lugaresBodas",
-        getData: "",
-        getByID: "",
-        createEntry: "",
-        updateEntry: "",
-        deleteEntry: "",
         schema: [],
       },
       {
@@ -677,7 +711,6 @@ export const BodyStaticAPP = [
         getData: { query: queries.getItinerario },
         getByID: { query: queries.getItinerario },
         createEntry: FetchGraphQL.business.createBusiness,
-        updateEntry: queries.updateCodePage,
         deleteEntry: FetchGraphQL.business.deleteBusiness,
         schema: [
           {
@@ -735,11 +768,6 @@ export const BodyStaticAPP = [
         title: "Catering de bodas",
         roles: ["empresa"],
         route: "cateringBodas",
-        getData: "",
-        getByID: "",
-        createEntry: "",
-        deleteEntry: "",
-        updateEntry: "",
         schema: [],
       },
       {
@@ -747,11 +775,6 @@ export const BodyStaticAPP = [
         title: "Wedding Planner",
         roles: ["empresa"],
         route: "weddingPlanner",
-        getData: "",
-        getByID: "",
-        createEntry: "",
-        deleteEntry: "",
-        updateEntry: "",
         schema: [],
       },
       {
@@ -759,11 +782,6 @@ export const BodyStaticAPP = [
         title: "Fotografos",
         roles: ["empresa"],
         route: "fotografo",
-        getData: "",
-        getByID: "",
-        createEntry: "",
-        deleteEntry: "",
-        updateEntry: "",
         schema: [],
       },
     ],
@@ -777,11 +795,6 @@ export const BodyStaticAPP = [
         title: "Chat",
         roles: ["admin", "empresa"],
         route: "chat",
-        getData: "",
-        getByID: "",
-        createEntry: "",
-        updateEntry: "",
-        deleteEntry: "",
         schema: [],
       },
       {
@@ -876,6 +889,7 @@ export const BodyStaticAPP = [
   {
     title: "Formacion Enterprice",
     roles: ["all"],
+    route: "cluster",
     children: [
       {
         icon: <RpIcon />,
@@ -898,7 +912,7 @@ export const BodyStaticAPP = [
       {
         title: null,
         roles: ["all"],
-        route: "Cluster/BuzonProspectos",
+        route: "cluster/buzonProspectos",
         getData: { query: queries.getLinks },
         getByID: { query: queries.getOneLink },
         createEntry: { query: queries.createLink },
@@ -910,6 +924,7 @@ export const BodyStaticAPP = [
             accessor: "_id",
             enableHiding: false,
             filterFn: 'fuzzy',
+            sortingFn: fuzzySort,
           },
           {
             Header: "Prospecto",
@@ -937,12 +952,19 @@ export const BodyStaticAPP = [
             enableHiding: false,
             filterFn: 'fuzzy',
           },
+          {
+            Header: "otro",
+            accessor: "otro",
+            Cell: (props) => formatTime(props.value, "es"),
+            enableHiding: false,
+            filterFn: 'fuzzy',
+          },
         ]
       },
       {
         title: null,
         roles: ["all"],
-        route: "Cluster/Leads",
+        route: "cluster/leads",
         schema: [
           {
             Header: "ID",
@@ -993,7 +1015,7 @@ export const BodyStaticAPP = [
       {
         title: null,
         roles: ["all"],
-        route: "Cluster/Invitados",
+        route: "cluster/invitados",
         schema: [
           {
             Header: "ID",
@@ -1108,7 +1130,7 @@ export const BodyStaticAPP = [
             Header: "Categorias",
             accessor: "subCategories",
             type: "relationship",
-            tabList: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
+            getData: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
           },
           {
             Header: "Etiquetas",
@@ -1210,7 +1232,7 @@ export const BodyStaticAPP = [
             Header: "Sub Categorias",
             accessor: "subCategories",
             type: "relationship",
-            tabList: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
+            getData: FetchGraphQL.subCategoryPost.getAllSubCategoryPost,
           },
           {
             Header: "Creado el",
@@ -1297,11 +1319,6 @@ export const BodyStaticAPP = [
         title: "Web builder",
         roles: ["all"],
         route: "webbuilder",
-        getData: "",
-        getByID: "",
-        createEntry: "",
-        updateEntry: "",
-        deleteEntry: "",
         schema: [],
       },
     ]
@@ -1390,11 +1407,6 @@ export const BodyStaticAPP = [
         title: "Tienda",
         roles: ["all"],
         route: "marketplace",
-        getData: "",
-        getByID: "",
-        createEntry: "",
-        updateEntry: "",
-        deleteEntry: "",
         schema: [],
       },
     ]

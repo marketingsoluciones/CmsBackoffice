@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { SlideBar1 } from "../../components/NuevoEvento/ClusterMod/utilidades/SlideBar1";
 import { BuzonProspectos, ClusterInfo1, CompMensajes, CompVisitasWebs, InfoGeneral1, InvitadosCloster, Leads } from "../../components/NuevoEvento/ClusterMod/indx";
 
-const ClusterSlug = ({props}) => {
+const ClusterSlug = ({ props }) => {
     const router = useRouter()
     const [optionSelect, setOptionSelect] = useState(0)
     useEffect(() => {
@@ -30,50 +30,50 @@ const ClusterSlug = ({props}) => {
         {
             icon: <BuzonProsIcon />,
             title: "Buzon de Prospectos",
-            slug: "/BuzonProspectos",
+            slug: "/buzonProspectos",
             component: <BuzonProspectos />
         },
         {
             icon: <ChatEnVivoIcon />,
             title: "Chat en vivo",
-            slug: "/ChatVivo",
+            slug: "/chatVivo",
             component: <InfoGeneral1 />
         },
         {
             icon: <ChatBotIcon />,
             title: "Chatbot",
-            slug: "/Chatbot",
+            slug: "/chatbot",
             component: <InfoGeneral1 />
         },
 
         {
             icon: <FormulariosWebIcon />,
             title: "Formularios Web",
-            slug: "/FormulariosWeb",
-            component: <InfoGeneral1  />
+            slug: "/formulariosWeb",
+            component: <InfoGeneral1 />
         },
         {
             icon: <Leads1Icon />,
             title: "Leads",
-            slug: "/Leads",
-            component: <Leads /> 
+            slug: "/leads",
+            component: <BuzonProspectos />
         },
         {
             icon: <Invitados1Icon />,
             title: "Invitados",
-            slug: "/Invitados",
-            component: <InvitadosCloster /> 
+            slug: "/invitados",
+            component: <BuzonProspectos />
         },
         {
             icon: <VisitasWebIcon />,
             title: "Visitas Web",
-            slug: "/VisitasWeb",
+            slug: "/visitasWeb",
             component: <CompVisitasWebs />
         },
         {
             icon: <Mensajes1Icon />,
             title: "Mensajes",
-            slug: "/Mensajes",
+            slug: "/mensajes",
             component: <CompMensajes componentState={optionSelect} setComponentState={setOptionSelect} />
         },
         {

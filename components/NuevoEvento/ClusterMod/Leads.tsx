@@ -7,13 +7,13 @@ interface Child {
     route: string;
     schema: any; // Ajusta el tipo según sea necesario
     // otras propiedades
-  }
-  
-  interface Parent {
+}
+
+interface Parent {
     title: string;
     children?: Child[];
     // otras propiedades
-  }
+}
 
 export const Leads = () => {
     const columnHelperFactura = createColumnHelper()

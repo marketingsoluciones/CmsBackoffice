@@ -6,7 +6,7 @@ const FormacionInterprice = () => {
 
   useEffect(() => {
     if (!router.query?.slug) {
-      router.push(`/${router.route.split("/")[1]}/BuzonProspectos`)
+      router.push(`/${router.route.split("/")[1]}/buzonProspectos`)
     }
   }, [router])
 

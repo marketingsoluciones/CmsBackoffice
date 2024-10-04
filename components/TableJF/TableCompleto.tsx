@@ -10,7 +10,7 @@ import { RankingInfo, rankItem, compareItems } from '@tanstack/match-sorter-util
 import { TableJF, Herramientas, FiltroFactura, FiltroTime, getDate, getDateTime, obtenerPrimerYUltimoDiaSemana } from "./index";
 import ClickAwayListener from "react-click-away-listener";
 import { IndeterminateCheckbox } from "../Datatable/IndeterminateCheckbox.js";
-import { visibleColumns } from "../../utils/schemas.js";
+import { visibleColumns } from "../../utils/schemas";
 import { AuthContextProvider } from "../../context/AuthContext.js";
 import { hasRole } from "../../utils/auth";
 import { useRouter } from "next/router";
@@ -138,7 +138,7 @@ export const TableCompleto: FC<props> = ({ columnsDef }) => {
     const table = useReactTable({
         data,
         columns:
-            useMemo(() => columnsDef, [typeFilter]),
+            useMemo(() => columnsDef, [typeFilter, columnsDef]),
         filterFns: {
             fuzzy: fuzzyFilter,
         },
