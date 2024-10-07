@@ -3,18 +3,17 @@ import "react-datepicker/dist/react-datepicker.css";
 import es from 'date-fns/locale/es';
 import { usePDF } from 'react-to-pdf';
 import React, { ChangeEventHandler, FC, InputHTMLAttributes, useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { FetchGraphQL, queries } from "../../utils/Fetching.js";
+import { fetchApi, FetchGraphQL, queries } from "../../utils/Fetching.js";
 import { Factura } from "../../utils/Interfaces.js";
 import { Column, ColumnDef, ColumnFiltersState, FilterFn, SortingFn, Table, createColumnHelper, flexRender, getCoreRowModel, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, sortingFns, useReactTable } from "@tanstack/react-table";
 import { RankingInfo, rankItem, compareItems } from '@tanstack/match-sorter-utils'
-import { TableJF, Herramientas, FiltroFactura, FiltroTime, getDate, getDateTime, obtenerPrimerYUltimoDiaSemana } from "./index";
+import { TableJF, Herramientas, FiltroTime, obtenerPrimerYUltimoDiaSemana, fuzzyFilter } from "./index";
 import ClickAwayListener from "react-click-away-listener";
-import { IndeterminateCheckbox } from "../Datatable/IndeterminateCheckbox.js";
 import { visibleColumns } from "../../utils/schemas";
 import { AuthContextProvider } from "../../context/AuthContext.js";
 import { hasRole } from "../../utils/auth";
-import { useRouter } from "next/router";
 import { columnsDataTable } from "../Datatable/Columns";
+import { developments } from "../../firebase.js";
 
 declare module '@tanstack/table-core' {
     interface FilterFns {
@@ -25,28 +24,11 @@ declare module '@tanstack/table-core' {
     }
 }
 
-const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
-    // Rank the item
-    const itemRank = rankItem(row.getValue(columnId), value)
-
-    // Store the itemRank info
-    addMeta({
-        itemRank,
-    })
-
-    // Return if the item should be filtered in/out
-    return itemRank.passed
-}
-
 interface props {
     columnsDef: ColumnDef<any>[]
 }
 
 export const TableCompleto: FC<props> = ({ columnsDef }) => {
-    const router = useRouter()
-    const { development, user, domain, state } = AuthContextProvider()
-    const slug = "business/links" /* router.asPath.slice(1) */
-    const [selected, setSelected] = useState(columnsDataTable({ slug, user }));
     const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' })
     const [file, setFile] = useState<any>()
     const [showPreviewPdf, setShowPreviewPdf] = useState<any>({ state: false, title: "", payload: {} })
@@ -56,13 +38,12 @@ export const TableCompleto: FC<props> = ({ columnsDef }) => {
     const [columnsView, setColumnsView] = useState<boolean>(false)
     const [inputView, setInputView] = useState<boolean>(false)
     const [showTable, setShowTable] = useState<boolean>(true)
-    const [data, setData] = useState<Factura[]>([])
+    const [data, setData] = useState<any>([])
     const rerender = useReducer(() => ({}), {})[1]
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
         []
     )
     const [globalFilter, setGlobalFilter] = useState('')
-    const [typeFilter, setTypeFilter] = useState("factura")//transaccion
     const [dateFilter, setDateFilter] = useState("month")
     const [stateFilter, setStateFilter] = useState("conciliated")
     const [rangeFilter, setRangeFilter] = useState(null)
@@ -76,19 +57,25 @@ export const TableCompleto: FC<props> = ({ columnsDef }) => {
     const [columnVisibility, setColumnVisibility] = React.useState({ recargado: false, forma_pago: false, cajeroID: false, cajero: false, banco: false, conciliado: false, updatedAt: false })
     const [tableMaster, setTableMaster] = useState<any>()
 
+    useEffect(() => {
+        try {
+            fetchApi({
+                query: queries.getAllUsers,
+                development: developments,
+            }).then((result) => {
+                const data = result.results
+                setData(data)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }, [])
+
     const handleChange = (event) => {
         if (event.key === 'Enter') {
             console.log(inputRef.current.ref)
             setUpdated(inputRef.current.value);
         }
-    }
-    const onOptionChangeType: ChangeEventHandler<HTMLInputElement> = (e) => {
-        console.log(e.target.value)
-        setShowTable(false)
-        setTimeout(() => {
-            setShowTable(true)
-        }, 3000);
-        setTypeFilter(e.target.value)
     }
     const onOptionChangeDate: ChangeEventHandler<HTMLInputElement> = (e) => {
         console.log(e.target.value)
@@ -120,25 +107,12 @@ export const TableCompleto: FC<props> = ({ columnsDef }) => {
         }) */
     }
 
-    const columns = useMemo(() => {
-        let avalibleShowColumns = visibleColumns.map(elem => {
-            const item = user?.visibleColumns?.find(el => el.accessor === elem.accessor)
-            return item ? item?.accessor : elem?.accessor
-        })
-        return selected?.schema?.reduce((acc, item) => {
-            if (avalibleShowColumns?.includes(item?.accessor) && !item?.roles)
-                acc.push(item)
-            if (item?.roles && hasRole(development, user, item?.roles))
-                acc.push(item)
-            return acc
-        }, [])
-    }, [selected]);
-
+    /* console.log(">>>>>>>",data.results) */
 
     const table = useReactTable({
         data,
         columns:
-            useMemo(() => columnsDef, [typeFilter, columnsDef]),
+            useMemo(() => columnsDef, [columnsDef]),
         filterFns: {
             fuzzy: fuzzyFilter,
         },
@@ -159,6 +133,7 @@ export const TableCompleto: FC<props> = ({ columnsDef }) => {
         getFacetedUniqueValues: getFacetedUniqueValues(),
         getFacetedMinMaxValues: getFacetedMinMaxValues(),
     })
+   
 
     useEffect(() => {
         table?.setPageSize(250)
@@ -226,48 +201,24 @@ export const TableCompleto: FC<props> = ({ columnsDef }) => {
             }
         }
         if (stateFilter === "all") { }
-        if (typeFilter === "factura") {
-            if (stateFilter === "noConciliated") { { args = { ...args, pagado: false } } }
-            if (stateFilter === "conciliated") { args = { ...args, pagado: true } }
-            /* fetchApiJaihom({
-                query: queries.getFacturas,
-                variables: {
-                    args,
-                    skip: 0,
-                    limit: 0
-                },
-            }).then((resp: FetchFacturas) => {
-                console.log(resp)
-                setData(resp?.results)
-            }) */
-        }
-        if (typeFilter === "transaccion") {
-            if (stateFilter === "noConciliated") { args = { ...args, conciliado: false } }
-            if (stateFilter === "conciliated") { args = { ...args, conciliado: true } }
-            delete args.pagado
-            /*  fetchApiJaihom({
-                 query: queries.getTransacciones,
-                 variables: {
-                     args,
-                     skip: 0,
-                     limit: 0
-                 },
-             }).then((resp: FetchTransaction) => {
-                 const results: Transaction[] = resp.results.map((elem: Transaction) => {
-                     const monto_facturas = elem.facturas.reduce((acc, item) => {
-                         return acc + item.total_cobrado
-                     }, 0)
-                     const diferencia = elem.monto - monto_facturas
-                     return {
-                         ...elem,
-                         monto_facturas,
-                         diferencia
-                     }
-                 })
-                 setData(results)
-             }) */
-        }
-    }, [typeFilter, dateFilter, stateFilter, rangeFilter])
+        /*   if (columnsDef) {
+              if (stateFilter === "noConciliated") { { args = { ...args, pagado: false } } }
+              if (stateFilter === "conciliated") { args = { ...args, pagado: true } }
+              fetchApi({
+                  query: queries.getAllUsers,
+                  variables: {
+                      args,
+                      skip: 0,
+                      limit: 0
+                  },
+                  development:""
+              }).then((resp: FetchFacturas) => {
+                  console.log(resp)
+                  setData(resp?.results)
+              })
+          }
+   */
+    }, [columnsDef, dateFilter, stateFilter, rangeFilter])
 
     useEffect(() => {
         if (table.getState().columnFilters[0]?.id === 'fullName') {
@@ -371,7 +322,7 @@ export const TableCompleto: FC<props> = ({ columnsDef }) => {
                             <Herramientas setShowPreviewPdf={setShowPreviewPdf} setColumnsView={setColumnsView} columnsView={columnsView} table={table} />
                         </div>
                     </div>
-                    <TableJF showTable={showTable} targetRef={targetRef} table={table} TableForward={TableForward} typeFilter={typeFilter} setTableMaster={setTableMaster} setSearch={setSearch} search={search} flexRender={flexRender} setSelectRow={setSelectRow} selectRow={selectRow} Filter={Filter} />
+                    <TableJF showTable={showTable} targetRef={targetRef} table={table} TableForward={TableForward} typeFilter={columnsDef} setTableMaster={setTableMaster} setSearch={setSearch} search={search} flexRender={flexRender} setSelectRow={setSelectRow} selectRow={selectRow} Filter={Filter} />
                 </div>
             </div>
             <style>{`

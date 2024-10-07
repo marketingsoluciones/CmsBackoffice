@@ -969,9 +969,9 @@ export const BodyStaticAPP: Schema[] = [
         hidden: true,
         roles: ["all"],
         route: "cluster/buzonProspectos",
-        getData: { query: queries.getLinks },
-        getByID: { query: queries.getOneLink },
-        createEntry: { query: queries.createLink },
+        getData: { query: queries.getAllUsers },
+        getByID: null,
+        createEntry: null,
         updateEntry: null,
         deleteEntry: null,
         schema: [
@@ -1033,7 +1033,6 @@ export const BodyStaticAPP: Schema[] = [
         route: "cluster/chatbot",
         component: <InfoGeneral1 />
       },
-
       {
         icon: <FormulariosWebIcon />,
         title: "Formularios Web",

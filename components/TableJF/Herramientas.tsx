@@ -23,7 +23,6 @@ export const Herramientas = ({ setShowPreviewPdf, setColumnsView, columnsView, t
     )
 }
 
-
 export const Tools = ({ setToolsView, ToolsViw, table, setShowPreviewPdf }) => {
     return (
         <div className="relative">

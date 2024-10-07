@@ -90,6 +90,37 @@ export const fetchApiEventos = async ({ query, variables, domain }) => {
 };
 
 export const queries = {
+  getAllUsers: `query{
+    getAllUsers{
+        total
+    results{
+      email
+      emailVerified
+      displayName
+      disabled
+      providerData{
+        uid
+        displayName
+        email
+        photoURL
+        providerId
+        phoneNumber
+      }
+      authDevelopments{
+        title
+        role
+        typeRole
+        status
+        eventSelected
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+      }
+    }
+  }`,
+
   getWhiteLabel: `query($userUid:String){
     getWhiteLabel(userUid:$userUid){
       _id
