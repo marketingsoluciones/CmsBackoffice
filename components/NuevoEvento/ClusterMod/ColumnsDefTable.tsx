@@ -4,7 +4,7 @@ import { ModalRight } from "../../modals/ModalRight";
 import { FormDataProspecto } from "../../formularios/FormDataProspecto"
 import { TableCompleto } from "../../TableJF/TableCompleto";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
-import {childrenSchema, SchemaChildren } from "../../../utils/schemas";
+import { childrenSchema, SchemaChildren } from "../../../utils/schemas";
 import { useRouter } from "next/router";
 
 interface props {
@@ -12,12 +12,14 @@ interface props {
 }
 
 export const ColumnsDefTable: FC<props> = ({ schemaChildren }) => {
+  console.log(10008, schemaChildren)
   const router = useRouter()
   const { openModalRight, setOpenModalRight } = AuthContextProvider()
   const columnHelperFactura = createColumnHelper<any>()
 
   const f1 = schemaChildren?.findIndex((elem) => elem.route === `${router.asPath.split("/")[1]}/${router.query.slug[0]}`)
-  const schemaArr = schemaChildren[f1]?.schema ? [...schemaChildren[f1]?.schema] : []
+  const itemSchema = schemaChildren[f1]
+  const schemaArr = itemSchema?.schema ? [...itemSchema?.schema] : []
 
 
   const columnsDef = useMemo<ColumnDef<any>[]>(
@@ -25,7 +27,12 @@ export const ColumnsDefTable: FC<props> = ({ schemaChildren }) => {
       const colum = columnHelperFactura.accessor(item?.accessor, {
         id: item?.accessor,
         header: () => <span>{item?.Header}</span>,
-        cell: info => <div /* onClick={() => handleGetFactura(info.getValue())} */ className="text-center">{/* {info.getValue()} */}</div>,
+        cell: info => <div
+          onClick={(e: any) => { console.log(10009, e.target.value) }}
+          onDoubleClick={(e: any) => {
+            console.log(10002, e.target)
+            e.stopPropagation()
+          }} className="text-left">{info.getValue()}</div>,
         footer: info => info.column.id,
         filterFn: item?.filterFn,
         sortingFn: item?.sortingFn,
@@ -37,7 +44,7 @@ export const ColumnsDefTable: FC<props> = ({ schemaChildren }) => {
   return (
     <>
       <h1 className="text-[20px] pb-2">{schemaChildren[f1]?.title}</h1>
-      <TableCompleto columnsDef={columnsDef} />
+      <TableCompleto columnsDef={columnsDef} itemSchema={itemSchema} />
     </>
   )
 }

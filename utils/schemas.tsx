@@ -52,6 +52,7 @@ export interface childrenSchema {
   filterFn?: FilterFnOption<any>
   sortingFn?: SortingFnOption<any>
   Cell?: any
+  CellComponent?: JSX.Element
   api?: string
   getData?: Query
   getByID?: Query
@@ -334,6 +335,7 @@ export const BodyStaticAPP: Schema[] = [
             Header: "Red social",
             accessor: "socialMedia",
             type: "string",
+            CellComponent: <></>,
             required: true,
           },
           {
@@ -975,22 +977,23 @@ export const BodyStaticAPP: Schema[] = [
         updateEntry: null,
         deleteEntry: null,
         schema: [
-          {
-            Header: "ID",
-            accessor: "_id",
-            enableHiding: false,
-            filterFn: 'fuzzy',
-            sortingFn: fuzzySort,
-          },
+          // {
+          //   Header: "ID",
+          //   accessor: "_id",
+          //   enableHiding: false,
+          //   filterFn: 'fuzzy',
+          //   sortingFn: fuzzySort,
+          // },
           {
             Header: "Prospecto",
-            accessor: "prospecto",
+            accessor: "displayName",
             enableHiding: false,
+            CellComponent: <></>,
             filterFn: 'fuzzy',
           },
           {
-            Header: "Fecha",
-            accessor: "fecha",
+            Header: "Correo",
+            accessor: "email",
             enableHiding: false,
             filterFn: 'fuzzy',
           },

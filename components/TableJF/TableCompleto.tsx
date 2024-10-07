@@ -9,7 +9,7 @@ import { Column, ColumnDef, ColumnFiltersState, FilterFn, SortingFn, Table, crea
 import { RankingInfo, rankItem, compareItems } from '@tanstack/match-sorter-utils'
 import { TableJF, Herramientas, FiltroTime, obtenerPrimerYUltimoDiaSemana, fuzzyFilter } from "./index";
 import ClickAwayListener from "react-click-away-listener";
-import { visibleColumns } from "../../utils/schemas";
+import { SchemaChildren, visibleColumns } from "../../utils/schemas";
 import { AuthContextProvider } from "../../context/AuthContext.js";
 import { hasRole } from "../../utils/auth";
 import { columnsDataTable } from "../Datatable/Columns";
@@ -26,11 +26,11 @@ declare module '@tanstack/table-core' {
 
 interface props {
     columnsDef: ColumnDef<any>[]
+    itemSchema: SchemaChildren
 }
 
-export const TableCompleto: FC<props> = ({ columnsDef }) => {
+export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
     const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' })
-    const [file, setFile] = useState<any>()
     const [showPreviewPdf, setShowPreviewPdf] = useState<any>({ state: false, title: "", payload: {} })
     const [selectRow, setSelectRow] = useState<string | null>(null)
     const [searchColumn, setSearchColumn] = useState<string | null>(null)
@@ -60,10 +60,11 @@ export const TableCompleto: FC<props> = ({ columnsDef }) => {
     useEffect(() => {
         try {
             fetchApi({
-                query: queries.getAllUsers,
+                query: itemSchema?.getData.query,
                 development: developments,
             }).then((result) => {
                 const data = result.results
+                console.log(10000, data)
                 setData(data)
             })
         } catch (error) {
@@ -85,29 +86,7 @@ export const TableCompleto: FC<props> = ({ columnsDef }) => {
         console.log(e.target.value)
         setStateFilter(e.target.value)
     }
-    const handleGetFactura = (id_factura: string) => {
-        /*   fetchApiJaihom({
-              query: queries.getFacturaWispHup,
-              variables: {
-                  id_factura
-              },
-          }).then((resp: string) => {
-              console.log(JSON.parse(resp))
-          }) */
-    }
-    const handleGetReferencia = (id_referencia: string) => {
-        /* console.log(id_referencia) */
-        /* fetchApiJaihom({
-            query: queries.getTransacciones,
-            variables: {
-                args: { referencia: id_referencia }
-            },
-        }).then((resp: FetchTransaction) => {
-            console.log(1005, resp.results[0])
-        }) */
-    }
 
-    /* console.log(">>>>>>>",data.results) */
 
     const table = useReactTable({
         data,
@@ -133,7 +112,7 @@ export const TableCompleto: FC<props> = ({ columnsDef }) => {
         getFacetedUniqueValues: getFacetedUniqueValues(),
         getFacetedMinMaxValues: getFacetedMinMaxValues(),
     })
-   
+
 
     useEffect(() => {
         table?.setPageSize(250)
@@ -228,56 +207,6 @@ export const TableCompleto: FC<props> = ({ columnsDef }) => {
         }
     }, [table.getState().columnFilters[0]?.id])
 
-    const handleChangeFile = (e, banco) => {
-        e.preventDefault();
-        setShowSpinner(true)
-        setUploading(true)
-        let reader = new FileReader();
-        let file = e.target.files[0];
-        setFile(file)
-        /* fetchApiJaihom({
-            query: queries.uploadBanco,
-            variables: { file, banco },
-            type: "formData"
-        }).then((result) => {
-            if (result === "ok") {
-                setUploading(false)
-            }
-            setShowSpinner(false)
-        }) */
-    };
-
-    const handleConciliar = (e) => {
-        e.preventDefault();
-        setShowSpinner(true)
-        setUploading(true)
-        setFile(file)
-        /* fetchApiJaihom({
-            query: queries.runConciliation,
-            variables: {},
-        }).then((result) => {
-            if (result === "ok") {
-                setUploading(false)
-            }
-            setShowSpinner(false)
-        }) */
-    };
-
-    const handleRecargar = (e) => {
-        e.preventDefault();
-    };
-
-    const handleRecargarAll = (e) => {
-        e.preventDefault()
-        const ids_factura = data.map(elem => elem.id_factura)
-        /* fetchApiJaihom({
-            query: queries.refreshFacturaWispHup,
-            variables: { ids_factura },
-        }).then((result) => {
-            console.log(result)
-        }) */
-    };
-
     return (
         <div className="flex w-full text-xs capitalize">
             {showPreviewPdf.state &&
@@ -322,47 +251,25 @@ export const TableCompleto: FC<props> = ({ columnsDef }) => {
                             <Herramientas setShowPreviewPdf={setShowPreviewPdf} setColumnsView={setColumnsView} columnsView={columnsView} table={table} />
                         </div>
                     </div>
-                    <TableJF showTable={showTable} targetRef={targetRef} table={table} TableForward={TableForward} typeFilter={columnsDef} setTableMaster={setTableMaster} setSearch={setSearch} search={search} flexRender={flexRender} setSelectRow={setSelectRow} selectRow={selectRow} Filter={Filter} />
+                    <TableJF targetRef={targetRef} table={table} TableForward={TableForward} typeFilter={columnsDef} setTableMaster={setTableMaster} setSearch={setSearch} search={search} flexRender={flexRender} setSelectRow={setSelectRow} selectRow={selectRow} Filter={Filter} />
                 </div>
             </div>
             <style>{`
-      #loader {
-        border: 16px solid #f3f3f3;
-        border-top: 16px solid #3498db;
-        border-radius: 50%;
-        width: 120px;
-        height: 120px;
-        animation: spin 2s linear infinite;
-        display: block; /* El spinner debe estar oculto por defecto */
-      }
+                #loader {
+                    border: 16px solid #f3f3f3;
+                    border-top: 16px solid #3498db;
+                    border-radius: 50%;
+                    width: 120px;
+                    height: 120px;
+                    animation: spin 2s linear infinite;
+                    display: block; /* El spinner debe estar oculto por defecto */
+                }
 
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-
-      tfoot {
-        color: gray;
-      }
-
-      tfoot th {
-        font-weight: normal;
-      }
-
-      table *tbody {
-        display: block;
-        max-height: calc(100vh - 340px);
-        width: calc(100% + 8px);
-        overflow-y: scroll;
-      }
-
-      thead, tbody tr, tfoot {
-        display: table;
-        
-        table-layout: fixed;
-      }
-
-      `}</style>
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `}</style>
         </div >
     )
 }
