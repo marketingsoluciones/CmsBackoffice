@@ -6,7 +6,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { ComponentProps, FC } from "react";
 import { AccessorFn, FilterFn, FilterFnOption, SortingFnOption } from "@tanstack/react-table";
 import { fuzzySort } from "../components/TableJF";
-import { CompVisitasWebs, InfoGeneral1 } from "../components/NuevoEvento/ClusterMod";
+import { ClusterInfo1, CompVisitasWebs, InfoGeneral1 } from "../components/NuevoEvento/ClusterMod";
 
 
 
@@ -1153,6 +1153,7 @@ export const BodyStaticAPP: Schema[] = [
         hidden: true,
         roles: ["all"],
         route: "cluster/visitasWeb",
+        component: <CompVisitasWebs />
       },
       {
         icon: <Mensajes1Icon />,
@@ -1160,6 +1161,7 @@ export const BodyStaticAPP: Schema[] = [
         hidden: true,
         roles: ["all"],
         route: "cluster/mensajes",
+        component: <ClusterInfo1 />
       },
     ]
   },
