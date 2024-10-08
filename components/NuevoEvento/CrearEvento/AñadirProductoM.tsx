@@ -22,7 +22,7 @@ export const AñadirProductoM: FC <propsAñadirProductoM> = ({addProucto,setAddP
             className="w-auto h-auto relative"
             loading="lazy"
             alt=""
-            src="ModuloEvento/equis.svg"
+            src="/ModuloEvento/equis.svg"
           />
         </div>
       </div>

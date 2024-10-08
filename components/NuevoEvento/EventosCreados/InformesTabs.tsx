@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useRouter } from 'next/router';
 interface propsInformesTabs {
     componentState: any;
     setComponentState: any;
@@ -6,19 +7,18 @@ interface propsInformesTabs {
   }
 
 const InformesTabs: FC <propsInformesTabs> = ({componentState, setComponentState}) => {
-  
+  const router = useRouter()
 
   return (
-        <div className="w-full max-w-full flex flex-col items-start justify-start pt-[6.299999999999272px] px-[35px] pb-[49px] box-border gap-[6.200000000000728px] leading-[normal] tracking-[normal] text-left text-base-8 text-profourvenuescom-ebony font-profourvenuescom-inter-semi-bold-158">
+        <div className="w-full max-w-full flex flex-col items-start justify-start pt-[6.299999999999272px] px-[35px] pb-[49px] box-border gap-[6.200000000000728px] leading-[normal] tracking-[normal] text-left text-base-8 ">
         <div className="h-[24.5px] overflow-hidden shrink-0 flex flex-row items-end justify-start pt-0 px-0 pb-[0.7999999999992724px] box-border">
           <div className="relative leading-[24.5px] font-semibold inline-block min-w-[67.8px] shrink-0 [debug_commit:f6aba90]">
-            Informes
+            Disponibles
           </div>
         </div>
         
-        <div onClick={()=>{ 
-        setComponentState(17)
-      }} className="cursor-pointer w-[354px] flex flex-col items-start justify-center max-w-full text-sm">
+        <div onClick={() => { router.push("/events/reports-tap") }}
+        className="cursor-pointer w-[354px] flex flex-col items-start justify-center max-w-full text-sm">
           <div className="self-stretch flex flex-col items-start justify-start max-w-full">
 
             <div className="self-stretch rounded-md bg-white shadow-[0px_3px_6px_-1px_rgba(0,_0,_0,_0.1),_0px_2px_4px_-1px_rgba(0,_0,_0,_0.06)] overflow-hidden flex flex-col items-start justify-start max-w-full">
@@ -28,7 +28,7 @@ const InformesTabs: FC <propsInformesTabs> = ({componentState, setComponentState
                   <img
                     className="h-3.5 w-3.5 relative overflow-hidden shrink-0"
                     alt=""
-                    src="ModuloEvento/recuento.svg"
+                    src="/ModuloEvento/recuento.svg"
                   />
                 </div>
                 <div className="flex flex-col items-start justify-start">

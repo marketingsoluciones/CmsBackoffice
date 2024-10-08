@@ -19,7 +19,7 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
                   className="h-6 w-6 relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/equis1.svg"
+                  src="/ModuloEvento/equis1.svg"
                 />
               
             </div>
@@ -367,7 +367,7 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
             <img
               className="w-5 h-5 relative overflow-hidden shrink-0"
               alt=""
-              src="ModuloEvento/imprimir.svg"
+              src="/ModuloEvento/imprimir.svg"
             />
           </div>
           <div className="relative text-base-8 leading-[36px] font-medium text-white text-center inline-block min-w-[62px]">

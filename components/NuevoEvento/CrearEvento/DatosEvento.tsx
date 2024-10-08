@@ -65,7 +65,7 @@ const DatoEvento: FC <propsDatoEvento> = ({componentState,setComponentState}) =>
                   className="h-[16.3px] w-[15.8px] relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/trespuntos.svg"
+                  src="/ModuloEvento/trespuntos.svg"
                 />
               </div>
             </div>

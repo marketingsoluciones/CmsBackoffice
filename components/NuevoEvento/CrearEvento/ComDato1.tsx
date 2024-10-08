@@ -101,7 +101,7 @@ const ComDato1: FC <propsComDato1> = memo(({componentState,setComponentState}) =
                         <img
                           className="h-[11.3px] w-[10.4px] relative overflow-hidden shrink-0"
                           alt=""
-                          src="ModuloEvento/span.icon.svg"
+                          src="/ModuloEvento/span.icon.svg"
                         />
                       </div>
                     </div>
@@ -117,7 +117,7 @@ const ComDato1: FC <propsComDato1> = memo(({componentState,setComponentState}) =
                         className="h-[11.3px] w-[10.4px] relative overflow-hidden shrink-0 text-slate-500"
                         loading="lazy"
                         alt=""
-                        src="ModuloEvento/span.icon.svg"
+                        src="/ModuloEvento/span.icon.svg"
                       />
                     </div>
                   </div>
@@ -136,7 +136,7 @@ const ComDato1: FC <propsComDato1> = memo(({componentState,setComponentState}) =
               <img
                 className="w-[12.3px] h-[13.8px] relative overflow-hidden shrink-0"
                 alt=""
-                src="ModuloEvento/calvectrs.svg"
+                src="/ModuloEvento/calvectrs.svg"
               />
             </div>
             <div className="h-9 w-auto] relative leading-[36px] font-medium inline-block">
@@ -158,7 +158,7 @@ const ComDato1: FC <propsComDato1> = memo(({componentState,setComponentState}) =
                   <img
                   className="h-[21px] w-[21px] relative overflow-hidden shrink-0"
                   alt=""
-                  src="ModuloEvento/relog2.svg"
+                  src="/ModuloEvento/relog2.svg"
                 />
                   </div>
                 </div>
@@ -170,7 +170,7 @@ const ComDato1: FC <propsComDato1> = memo(({componentState,setComponentState}) =
                 <img
                   className="h-[21px] w-[21px] relative overflow-hidden shrink-0"
                   alt=""
-                  src="ModuloEvento/arrow.svg"
+                  src="/ModuloEvento/arrow.svg"
                 />
               </button>
             </div>
@@ -185,7 +185,7 @@ const ComDato1: FC <propsComDato1> = memo(({componentState,setComponentState}) =
                   <img
                   className="h-[21px] w-[21px] relative overflow-hidden shrink-0"
                   alt=""
-                  src="ModuloEvento/relog2.svg"
+                  src="/ModuloEvento/relog2.svg"
                 />
                   </div>
                 </div>
@@ -197,7 +197,7 @@ const ComDato1: FC <propsComDato1> = memo(({componentState,setComponentState}) =
                 <img
                   className="h-[21px] w-[21px] relative overflow-hidden shrink-0"
                   alt=""
-                  src="ModuloEvento/arrow.svg"
+                  src="/ModuloEvento/arrow.svg"
                 />
               </button>
             </div>
@@ -266,7 +266,7 @@ const ComDato1: FC <propsComDato1> = memo(({componentState,setComponentState}) =
                   <img
                     className="w-[12.3px] h-[13.8px] relative overflow-hidden text-gray-400 shrink-0"
                     alt=""
-                    src="ModuloEvento/relog2.svg"
+                    src="/ModuloEvento/relog2.svg"
                   />
                 </div>
                 <div className="h-9 w-auto relative leading-[36px] font-medium inline-block">
@@ -282,7 +282,7 @@ const ComDato1: FC <propsComDato1> = memo(({componentState,setComponentState}) =
                   <img
                     className="w-[12.3px] h-[13.8px] relative overflow-hidden text-gray-400 shrink-0"
                     alt=""
-                    src="ModuloEvento/relog2.svg"
+                    src="/ModuloEvento/relog2.svg"
                   />
                   </div>
                 </div>
@@ -294,7 +294,7 @@ const ComDato1: FC <propsComDato1> = memo(({componentState,setComponentState}) =
                 <img
                   className="h-[21px] w-[21px] relative overflow-hidden shrink-0"
                   alt=""
-                  src="ModuloEvento/arrow.svg"
+                  src="/ModuloEvento/arrow.svg"
                 />
               </button>
             </div>
@@ -324,7 +324,7 @@ const ComDato1: FC <propsComDato1> = memo(({componentState,setComponentState}) =
               <img
                 className="w-[12.3px] h-[13.8px] relative overflow-hidden shrink-0"
                 alt=""
-                src="ModuloEvento/igicon.svg"
+                src="/ModuloEvento/igicon.svg"
               />
               </div>
               <div className="h-6 w-auto relative leading-[24px] font-pro-fourvenues-com-beach-aguilas-dlsj9ud510272017c1tbi7y1lvzlroll-settings-data-16475x71625-default-inter-semi-bold-123 inline-block">
@@ -360,7 +360,7 @@ const ComDato1: FC <propsComDato1> = memo(({componentState,setComponentState}) =
               <img
                 className="w-[12.3px] h-[13.8px] relative overflow-hidden shrink-0"
                 alt=""
-                src="ModuloEvento/igicon.svg"
+                src="/ModuloEvento/igicon.svg"
               />
               </div>
             </div>
@@ -379,7 +379,7 @@ const ComDato1: FC <propsComDato1> = memo(({componentState,setComponentState}) =
               <img
                 className="h-[21px] w-[21px] relative overflow-hidden shrink-0"
                 alt=""
-                src="ModuloEvento/arrow.svg"
+                src="/ModuloEvento/arrow.svg"
               />
             </button>
             <div className="rounded-md bg-slate-100 flex flex-row items-center justify-start py-0 pr-[9px] pl-[11px]">
@@ -388,7 +388,7 @@ const ComDato1: FC <propsComDato1> = memo(({componentState,setComponentState}) =
                 <img
                 className="h-[21px] w-[21px] relative overflow-hidden shrink-0"
                 alt=""
-                src="ModuloEvento/check1.svg"
+                src="/ModuloEvento/check1.svg"
               />
                 </div>
               </div>

@@ -5,9 +5,23 @@ import { HomeScreen } from "../../components/Events/HomeScreen";
 import EventosCreados from "../../components/NuevoEvento/EventosCreados/EventosCreados"
 import ConfigurarEvento from "../../components/NuevoEvento/CrearEvento/ConfigurarEvento";
 import Asistencia from "../../components/NuevoEvento/CrearEvento/Asistencia";
+import Permisos from "../../components/NuevoEvento/CrearEvento/Permisos";
 import DatoEvento from "../../components/NuevoEvento/CrearEvento/DatosEvento";
 import InicioCE from "../../components/NuevoEvento/CrearEvento/InicioCE"
+import DescuentosEvento from "../../components/NuevoEvento/CrearEvento/DescuentosEvento";
+import CartaQrEvento from "../../components/NuevoEvento/CrearEvento/CartaQrEvento";
 import { IframeApp } from "../../layouts/IframeApp"
+import TarifaListas from "../../components/NuevoEvento/CrearEvento/TarifaListas";
+import CrearTarifaListas from "../../components/NuevoEvento/CrearEvento/CrearTarifaListas";
+import DatosLimiteTL from "../../components/NuevoEvento/CrearEvento/DatosLimitesTL";
+import EntradasTarifa from "../../components/NuevoEvento/CrearEvento/EntradasTarifa/EntradasTarifas";
+import EntradasOpciones from "../../components/NuevoEvento/CrearEvento/EntradasTarifa/EntradasOpciones";
+import ModalPrecio from "../../components/NuevoEvento/CrearEvento/EntradasTarifa/Sub-Componentes/ModalPrecio";
+import DescripcionEvento from "../../components/NuevoEvento/EventosCreados/PanelEventCreado";
+import InformesPage from "../../components/NuevoEvento/EventosCreados/InformesPage";
+import DatosNegocios from "../../components/NuevoEvento/EventosCreados/AjustesComponents/DatosNegocio";
+import AjustesGenePrin from "../../components/NuevoEvento/EventosCreados/AjustesComponents/AjustesGenePrin";
+import Usuarios from "../../components/NuevoEvento/EventosCreados/AjustesComponents/Usuarios";
 
 const BusinessSlug = ({ props }) => {
   console.log(100410)
@@ -68,125 +82,103 @@ const BusinessSlug = ({ props }) => {
       slug: "/attendance",
       component: <Asistencia componentState={optionSelect}/>
     },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <Permisos componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <DescripcionEvento componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <DescuentosEvento componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <CartaQrEvento componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <TarifaListas componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <CrearTarifaListas componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <DatosLimiteTL componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <EntradasTarifa componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <EntradasOpciones componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <ModalPrecio componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
+    {
+      icon: "",
+      title: "Permisos del Evento",
+      slug: "/permissions",
+      component: <Permisos componentState={optionSelect}/>
+    },
+    {
+      icon: "",
+      title: "Descripcion de Evento",
+      slug: "/events-description",
+      component: <DescripcionEvento componentState={optionSelect}/>
+    },
+    {
+      icon: "",
+      title: "Descuentos",
+      slug: "/discounts",
+      component: <DescuentosEvento componentState={optionSelect}/>
+    },
+    {
+      icon: "",
+      title: "Carta QR",
+      slug: "/letter-qr",
+      component: <CartaQrEvento componentState={optionSelect}/>
+    },
+    {
+      icon: "",
+      title: "Listas",
+      slug: "/list",
+      component: <TarifaListas componentState={optionSelect}/>
+    },
+    {
+      icon: "",
+      title: "Crear Lista",
+      slug: "/create-list",
+      component: <CrearTarifaListas componentState={optionSelect}/>
+    },
+    {
+      icon: "",
+      title: "Datos Lista",
+      slug: "/date-list",
+      component: <DatosLimiteTL componentState={optionSelect} />
+    },
+    {
+      icon: "",
+      title: "Entradas",
+      slug: "/entrance-fees",
+      component: <EntradasTarifa componentState={optionSelect}/>
+    },
+    {
+      icon: "",
+      title: "Entradas Opciones",
+      slug: "/ticket-options",
+      component: <EntradasOpciones componentState={optionSelect}/>
+    },
+    {
+      icon: "",
+      title: "",
+      slug: "",
+      component: <ModalPrecio componentState={optionSelect}/>
+    },
     {
       icon: "",
       title: "Eventos Sociales",
       slug: "/social",
       component: <IframeApp route={"/"} />
     },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <InformesPage componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <Comision1 componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <Comision2 componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <Liquidaciones componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <DatosNegocios componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <AjustesGenePrin componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    // {
-    //   icon: "",
-    //   title: "",
-    //   slug: "",
-    //   component: <Usuarios componentState={optionSelect} setComponentState={setOptionSelect} />
-    // },
-    /*     {
-          component: <DataGeneral componentState={optionSelect} setComponentState={setOptionSelect} />
-        }, */
+    {
+      icon: "",
+      title: "Informes",
+      slug: "/reports-tap",
+      component: <InformesPage componentState={optionSelect}/>
+    },
+    {
+      icon: "",
+      title: "Datos del Negocio",
+      slug: "/date-bussines",
+      component: <DatosNegocios componentState={optionSelect}/>
+    },    
+    {
+      icon: "",
+      title: "Ajuste Generales",
+      slug: "/general-settings",
+      component: <AjustesGenePrin componentState={optionSelect}/>
+    },
+    {
+      icon: "",
+      title: "Usuarios",
+      slug: "/users",
+      component: <Usuarios componentState={optionSelect}/>
+    },
 
   ]
 
   return (
     <div >
       <div
-        className={`flex-1 flex z-10`}>
+        className={`w-[100%] flex z-10`}>
         {
           dataComponents[optionSelect].component != undefined
             ? dataComponents[optionSelect].component

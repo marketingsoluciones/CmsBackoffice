@@ -15,7 +15,7 @@ export const Alerta1: FC <propsAlerta> = ({addAlerta,setAddAlerta}) => {
         </div>
         
         <div className="self-stretch flex items-start justify-center text-gray-400 font-medium">
-            <img src="ModuloEvento/.svg" alt="" />
+            <img src="/ModuloEvento/.svg" alt="" />
             <p>
                 Actualmente se encuenta en modo demo, esta seccion no esta habilitada, si desea activarla, contrate el plan premiun.
             </p>

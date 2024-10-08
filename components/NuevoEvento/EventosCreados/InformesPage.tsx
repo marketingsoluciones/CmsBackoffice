@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useRouter } from 'next/router';
 interface propsInformePage {
     componentState: any;
     setComponentState: any;
@@ -6,19 +7,19 @@ interface propsInformePage {
   }
 
 const InformesPage: FC<propsInformePage> = ({componentState, setComponentState}) => {
+const router = useRouter()
   return (
     <div className="w-[100%] bg-whitesmoke max-w-[1271px] flex flex-col items-start justify-start pt-[30.5px] px-0 pb-0 box-border gap-[29.25px] max-h-[573px] tracking-[normal] leading-[normal] text-left text-sm text-profourvenuescom-ebony font-profourvenuescom-inter-semi-bold-158 mq450:max-w-full mq750:max-w-full mq1100:max-w-full mq1275:max-w-full">
       <div className="flex flex-row items-start justify-start py-0 px-5 text-7xl-3">
         <div className="flex flex-row items-end justify-start gap-[10px]">
           
-          <div onClick={()=>{ 
-        setComponentState(1)
-      }}  className="cursor-pointer flex flex-col items-start justify-end pt-0 px-0 pb-[2.7999999999992724px]">
+          <div onClick={() => { router.push("/events/tiketing") }}
+            className="cursor-pointer flex flex-col items-start justify-end pt-0 px-0 pb-[2.7999999999992724px]">
             <img
               className="w-[30px] h-[30px] relative"
               loading="lazy"
               alt=""
-              src="ModuloEvento/FlechaIzquerda.svg"
+              src="/ModuloEvento/FlechaIzquerda.svg"
             />
           </div>
           <div className="relative leading-[32px] font-semibold inline-block text-[16px] min-w-[122px] mq450:text-2xl mq450:leading-[25px]">
@@ -36,7 +37,7 @@ const InformesPage: FC<propsInformePage> = ({componentState, setComponentState})
                     className="h-3.5 w-[12.3px] relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/calcal.svg"
+                    src="/ModuloEvento/calcal.svg"
                   />
                 </div>
                 <div className="relative leading-[36px] font-medium text-[10px] ">
@@ -49,7 +50,7 @@ const InformesPage: FC<propsInformePage> = ({componentState, setComponentState})
                 className="h-[15px] w-[8.8px] relative overflow-hidden shrink-0"
                 loading="lazy"
                 alt=""
-                src="ModuloEvento/asdf.svg"
+                src="/ModuloEvento/asdf.svg"
               />
             </div>
             <div className="flex flex-col items-start justify-start">
@@ -59,7 +60,7 @@ const InformesPage: FC<propsInformePage> = ({componentState, setComponentState})
                     className="h-3.5 w-[12.3px] relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/calcal.svg"
+                    src="/ModuloEvento/calcal.svg"
                   />
                 </div>
                 <div className="relative leading-[36px] font-medium inline-block text-[10px] ">
@@ -73,7 +74,7 @@ const InformesPage: FC<propsInformePage> = ({componentState, setComponentState})
                   <img
                     className="h-3.5 w-[17.5px] relative overflow-hidden shrink-0"
                     alt=""
-                    src="ModuloEvento/copa.svg"
+                    src="/ModuloEvento/copa.svg"
                   />
                 </div>
                 <div className="flex-1 relative text-[10px] leading-[36px] font-semibold text-blue-700 text-right">
@@ -88,7 +89,7 @@ const InformesPage: FC<propsInformePage> = ({componentState, setComponentState})
                   <img
                     className="h-3.5 w-[12.3px] relative overflow-hidden shrink-0"
                     alt=""
-                    src="ModuloEvento/calcal.svg"
+                    src="/ModuloEvento/calcal.svg"
                   />
                 </div>
                 <div className="flex-1 relative text-[10px] leading-[36px] text-right">
@@ -105,7 +106,7 @@ const InformesPage: FC<propsInformePage> = ({componentState, setComponentState})
                   <img
                     className="w-3.5 h-3.5 relative overflow-hidden shrink-0"
                     alt=""
-                    src="ModuloEvento/buscar.svg"
+                    src="/ModuloEvento/buscar.svg"
                   />
                 </div>
                 <input
@@ -124,7 +125,7 @@ const InformesPage: FC<propsInformePage> = ({componentState, setComponentState})
                       className="h-4 w-[16px] relative overflow-hidden shrink-0"
                       loading="lazy"
                       alt=""
-                      src="ModuloEvento/trespuntos.svg"
+                      src="/ModuloEvento/trespuntos.svg"
                     />
                   </div>
                 </div>
@@ -139,7 +140,7 @@ const InformesPage: FC<propsInformePage> = ({componentState, setComponentState})
             className="h-[125px] w-[120px] relative overflow-hidden shrink-0"
             loading="lazy"
             alt=""
-            src="ModuloEvento/icono1.svg"
+            src="/ModuloEvento/icono1.svg"
           />
         </div>
         <div className="w-[500px] relative leading-[21px] flex items-center max-w-full">

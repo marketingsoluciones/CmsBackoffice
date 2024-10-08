@@ -15,7 +15,7 @@ const ReciboEntradas: FC <propsReciboEntradas> = ({componentState, setComponentS
             <img
               className="h-28 w-28 relative overflow-hidden shrink-0"
               alt=""
-              src="ModuloEvento/checkgrande.svg"
+              src="/ModuloEvento/checkgrande.svg"
             />
           </div>
         </div>
@@ -30,12 +30,12 @@ const ReciboEntradas: FC <propsReciboEntradas> = ({componentState, setComponentS
           <DatosUsurariosR
             nombre="yoe stener"
             correo="azulprofile@gmail.com"
-            icon="ModuloEvento/descarga.svg"
+            icon="/ModuloEvento/descarga.svg"
           />
           <DatosUsurariosR
             nombre="juan carlos carrillo"
             correo="carlos.carrillo@recargaexpress.com"
-            icon="ModuloEvento/descarga.svg"
+            icon="/ModuloEvento/descarga.svg"
             propMinWidth="unset"
             propBackgroundColor="#e4e4e7"
             propColor="#18181b"
@@ -43,7 +43,7 @@ const ReciboEntradas: FC <propsReciboEntradas> = ({componentState, setComponentS
           <DatosUsurariosR
             nombre="christian lanza"
             correo="christian.lanza95@gmail.com"
-            icon="ModuloEvento/descarga.svg"
+            icon="/ModuloEvento/descarga.svg"
             propMinWidth="124px"
             propBackgroundColor="#e4e4e7"
             propColor="#18181b"
@@ -51,7 +51,7 @@ const ReciboEntradas: FC <propsReciboEntradas> = ({componentState, setComponentS
           <DatosUsurariosR
             nombre="jhuliana delgado"
             correo="crisyelit@gmail.com"
-            icon="ModuloEvento/descarga.svg"
+            icon="/ModuloEvento/descarga.svg"
             propMinWidth="unset"
             propBackgroundColor="#e4e4e7"
             propColor="#18181b"
@@ -81,7 +81,7 @@ const ReciboEntradas: FC <propsReciboEntradas> = ({componentState, setComponentS
                 <img
                   className="h-3.5 w-[12.3px] relative overflow-hidden shrink-0"
                   alt=""
-                  src="ModuloEvento/flechade.svg"
+                  src="/ModuloEvento/flechade.svg"
                 />
               </div>
             </div>

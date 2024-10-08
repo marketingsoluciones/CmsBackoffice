@@ -24,7 +24,7 @@ const CrmComponent: FC<propsCrmComponent> = ({componentState, setComponentState}
                 <img
                   className="h-4 w-4 relative overflow-hidden shrink-0"
                   alt=""
-                  src="ModuloEvento/arrow-down2.svg"
+                  src="/ModuloEvento/arrow-down2.svg"
                 />
               </div>
             </div>
@@ -39,7 +39,7 @@ const CrmComponent: FC<propsCrmComponent> = ({componentState, setComponentState}
                       className="h-[13px] w-[13.8px] relative overflow-hidden shrink-0"
                       loading="lazy"
                       alt=""
-                      src="ModuloEvento/megaphone.svg"
+                      src="/ModuloEvento/megaphone.svg"
                     />
                   </div>
                 </div>
@@ -73,7 +73,7 @@ const CrmComponent: FC<propsCrmComponent> = ({componentState, setComponentState}
                 className="h-4 w-4 relative"
                 loading="lazy"
                 alt=""
-                src="ModuloEvento/ic_round-people-outline.svg"
+                src="/ModuloEvento/ic_round-people-outline.svg"
               />
               <div className="relative leading-[18px] inline-block min-w-[30px] font-medium">
                 Edad
@@ -89,7 +89,7 @@ const CrmComponent: FC<propsCrmComponent> = ({componentState, setComponentState}
                 className="h-4 w-4 relative"
                 loading="lazy"
                 alt=""
-                src="ModuloEvento/ph_money-fill.svg"
+                src="/ModuloEvento/ph_money-fill.svg"
               />
               <div className="relative leading-[18px] inline-block min-w-[74px] font-medium">
                 Gasto medio
@@ -105,7 +105,7 @@ const CrmComponent: FC<propsCrmComponent> = ({componentState, setComponentState}
                 className="h-4 w-4 relative"
                 loading="lazy"
                 alt=""
-                src="ModuloEvento/mdi_clipboard-account-outline.svg"
+                src="/ModuloEvento/mdi_clipboard-account-outline.svg"
               />
               <div className="relative leading-[18px] inline-block min-w-[60px] font-medium">
                 Asistencia
@@ -178,7 +178,7 @@ const CrmComponent: FC<propsCrmComponent> = ({componentState, setComponentState}
                     className="h-[22px] w-[18.4px] relative overflow-hidden shrink-0 opacity-50 "
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/f7_person.svg"
+                    src="/ModuloEvento/f7_person.svg"
                   />
                   <div className="relative leading-[35px] font-semibold inline-block min-w-[22px] mq450:text-lgi mq450:leading-[21px] mq975:text-6xl mq975:leading-[28px]">
                     0
@@ -214,7 +214,7 @@ const CrmComponent: FC<propsCrmComponent> = ({componentState, setComponentState}
                     className="h-5 w-5 relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/prime_sort-amount-up-alt.svg"
+                    src="/ModuloEvento/prime_sort-amount-up-alt.svg"
                   />
               </div>
               <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0 mq450:ml-0">
@@ -283,7 +283,7 @@ const CrmComponent: FC<propsCrmComponent> = ({componentState, setComponentState}
                       className="h-[18px] w-[19.7px] relative overflow-hidden shrink-0"
                       loading="lazy"
                       alt=""
-                      src="ModuloEvento/solar_cup-star-linear.svg"
+                      src="/ModuloEvento/solar_cup-star-linear.svg"
                     />
                   </div>
                 </div>
@@ -304,7 +304,7 @@ const CrmComponent: FC<propsCrmComponent> = ({componentState, setComponentState}
                     <img
                       className="h-[13px] w-[13.8px] relative overflow-hidden shrink-0"
                       alt=""
-                      src="ModuloEvento/ojito.svg"
+                      src="/ModuloEvento/ojito.svg"
                     />
                   
                 </div>
@@ -329,7 +329,7 @@ const CrmComponent: FC<propsCrmComponent> = ({componentState, setComponentState}
             <div className="self-stretch flex flex-row items-center justify-start py-[4.5px] pl-0 mq450:pr-5 mq450:box-border mq725:box-border">
               
               <div className="flex flex-col items-start justify-start pt-[1.3px] pb-[1.7px] pr-[10.5px] pl-0">
-                <img src="ModuloEvento/lucide_file-check.svg" className="flex flex-row items-start justify-start" />
+                <img src="/ModuloEvento/lucide_file-check.svg" className="flex flex-row items-start justify-start" />
               </div>
               <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
                     Suscripciones
@@ -357,7 +357,7 @@ const CrmComponent: FC<propsCrmComponent> = ({componentState, setComponentState}
                       className="h-[18px] w-[19.7px] relative overflow-hidden shrink-0"
                       loading="lazy"
                       alt=""
-                      src="ModuloEvento/fluent_people-team-16-regular.svg"
+                      src="/ModuloEvento/fluent_people-team-16-regular.svg"
                     />
                   </div>
                 </div>
@@ -385,7 +385,7 @@ const CrmComponent: FC<propsCrmComponent> = ({componentState, setComponentState}
             <div className="self-stretch flex flex-row items-center justify-start py-[4.5px] pl-0 mq450:pr-5 mq450:box-border mq725:box-border">
               
               <div className="flex flex-col items-start justify-start pt-[1.3px] pb-[1.7px] pr-[10.5px] pl-0">
-                <img src="ModuloEvento/ion_card-outline.svg" className="flex flex-row w-5 h-5 items-start justify-start" />
+                <img src="/ModuloEvento/ion_card-outline.svg" className="flex flex-row w-5 h-5 items-start justify-start" />
               </div>
               <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
               Métodos de pago

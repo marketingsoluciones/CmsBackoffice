@@ -36,7 +36,7 @@ const TarifasDatosC: FC <propsTarifasDatosC> = ({componentState, setComponentSta
                 <div className="rounded-md bg-green-600 flex flex-row items-start justify-start w-[100%] py-0 px-[10.5px] box-border gap-[9.5px] min-w-[141px]">
                   <div className="w-[11px] flex flex-col items-start justify-start pt-[9px] px-0 pb-0 box-border">
                     <div className="self-stretch h-3.5 relative leading-[14px] pt-[2px] inline-block">
-                      <img src="ModuloEvento/mundo.svg" alt="" />
+                      <img src="/ModuloEvento/mundo.svg" alt="" />
                     </div>
                   </div>
                   <div className="h-9 w-auto relative leading-[36px] font-medium text-white inline-block min-w-[49px]">
@@ -66,7 +66,7 @@ const TarifasDatosC: FC <propsTarifasDatosC> = ({componentState, setComponentSta
               <img
                   className="h-[16px] w-[16px]"
                   alt=""
-                  src="ModuloEvento/calendarioIcon2.svg"
+                  src="/ModuloEvento/calendarioIcon2.svg"
                 />
                   <div className="w-auto h-auto flex flex-row ">
                
@@ -93,7 +93,7 @@ const TarifasDatosC: FC <propsTarifasDatosC> = ({componentState, setComponentSta
                 <img
                   className="h-[16px] w-[16px]"
                   alt=""
-                  src="ModuloEvento/fAB.svg"
+                  src="/ModuloEvento/fAB.svg"
                 />
               </div>
             </div>
@@ -116,7 +116,7 @@ const TarifasDatosC: FC <propsTarifasDatosC> = ({componentState, setComponentSta
                         className="w-[12.3px] h-[12.5px] relative overflow-hidden shrink-0"
                         loading="lazy"
                         alt=""
-                        src="ModuloEvento/relog3.svg"
+                        src="/ModuloEvento/relog3.svg"
                       />
                     </div>
                     <div className="flex flex-col items-start justify-start py-0 pr-[9.599999999998545px] pl-0">
@@ -124,7 +124,7 @@ const TarifasDatosC: FC <propsTarifasDatosC> = ({componentState, setComponentSta
                     </div>
                     <div className="flex flex-col items-start justify-start pt-[1.2999999999992724px] px-0 pb-0 text-mediumslateblue font-pro-fourvenues-com-beach-aguilas-dlsj9ud510272017c1tbi7y1lvzlroll-settings-rates-guest-list-create-16475x71625-default-1-font-awesome-5-free-regular-14">
                       <div className="w-[11px] h-[13px] relative leading-[12.25px] inline-block min-w-[11px] whitespace-nowrap">
-                      <img src="ModuloEvento/generos.svg" alt="" />
+                      <img src="/ModuloEvento/generos.svg" alt="" />
                       </div>
                     </div>
                   </div>
@@ -150,7 +150,7 @@ const TarifasDatosC: FC <propsTarifasDatosC> = ({componentState, setComponentSta
                             className="h-[13.8px] w-[8.8px] relative overflow-hidden shrink-0"
                             loading="lazy"
                             alt=""
-                            src="ModuloEvento/equis1.svg"
+                            src="/ModuloEvento/equis1.svg"
                           />
                         </div>
                   </div>
@@ -165,7 +165,7 @@ const TarifasDatosC: FC <propsTarifasDatosC> = ({componentState, setComponentSta
                   className="w-[10.5px] h-[14.4px] relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/mas1.svg"
+                  src="/ModuloEvento/mas1.svg"
                 />
               </div>
               <div className="h-[21px] w-[92px] relative leading-[21px] inline-block min-w-[92px] font-medium text-gray-400">

@@ -22,7 +22,7 @@ const ModalTarifasListas: FC <propsModalTarifasListas> = ({addAñaO, setAddAñaO
             className="w-[13.8px] h-[13.7px]"
             loading="lazy"
             alt=""
-            src="ModuloEvento/flechAb.svg"
+            src="/ModuloEvento/flechAb.svg"
           />
         </div>
         <div className="h-[25px] w-auto relative leading-[25px] font-semibold text-[14px] inline-block min-w-[101px]">
@@ -75,7 +75,7 @@ const ModalTarifasListas: FC <propsModalTarifasListas> = ({addAñaO, setAddAñaO
                   
                   <div className="w-auto h-auto flex flex-row ">
                   <div className="w-[14.2px] h-[13.8px] leading-[14px] pt-3 inline-block ">
-                    <img src="ModuloEvento/relog3.svg" alt="" />
+                    <img src="/ModuloEvento/relog3.svg" alt="" />
                   </div>
                
                   <div className="w-auto h-auto leading-[36px] inline-block min-w-[47px]">
@@ -86,7 +86,7 @@ const ModalTarifasListas: FC <propsModalTarifasListas> = ({addAñaO, setAddAñaO
                 <img
                   className="h-[16px] w-[16px]"
                   alt=""
-                  src="ModuloEvento/fAB.svg"
+                  src="/ModuloEvento/fAB.svg"
                 />
               </div>
             </div>
@@ -100,7 +100,7 @@ const ModalTarifasListas: FC <propsModalTarifasListas> = ({addAñaO, setAddAñaO
                   
                   <div className="w-auto h-auto flex flex-row ">
                   <div className="w-[14.2px] h-[13.8px] leading-[14px] pt-3 inline-block ">
-                    <img src="ModuloEvento/relog3.svg" alt="" />
+                    <img src="/ModuloEvento/relog3.svg" alt="" />
                   </div>
                
                   <div className="w-auto h-auto leading-[36px] inline-block min-w-[47px]">
@@ -111,7 +111,7 @@ const ModalTarifasListas: FC <propsModalTarifasListas> = ({addAñaO, setAddAñaO
                 <img
                   className="h-[16px] w-[16px]"
                   alt=""
-                  src="ModuloEvento/fAB.svg"
+                  src="/ModuloEvento/fAB.svg"
                 />
               </div>
             </div>
@@ -139,7 +139,7 @@ const ModalTarifasListas: FC <propsModalTarifasListas> = ({addAñaO, setAddAñaO
                 <img
                   className="h-[16px] w-[16px]"
                   alt=""
-                  src="ModuloEvento/fAB.svg"
+                  src="/ModuloEvento/fAB.svg"
                 />
               </div>
             </div>
@@ -152,7 +152,7 @@ const ModalTarifasListas: FC <propsModalTarifasListas> = ({addAñaO, setAddAñaO
               <img
                   className="h-[16px] w-[16px]"
                   alt=""
-                  src="ModuloEvento/humanoB.svg"
+                  src="/ModuloEvento/humanoB.svg"
                 />
                   <div className="w-auto h-auto leading-[36px] inline-block min-w-[47px]">
                     Chicos
@@ -169,7 +169,7 @@ const ModalTarifasListas: FC <propsModalTarifasListas> = ({addAñaO, setAddAñaO
               <img
                   className="h-[16px] w-[16px]"
                   alt=""
-                  src="ModuloEvento/humanoB.svg"
+                  src="/ModuloEvento/humanoB.svg"
                 />
                   <div className="w-auto h-auto leading-[36px] inline-block min-w-[47px]">
                     Chicas

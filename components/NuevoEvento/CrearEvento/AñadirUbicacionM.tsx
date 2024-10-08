@@ -18,7 +18,7 @@ export const AñadirUbicacionM: FC <propsAñadirUbicacionM> = ({addUbicacion,set
           Añadir Ubicación
         </div>
         <button onClick={() => {setAddUbicacion(!addUbicacion)}} className="cursor-pointer [border:none] p-0 bg-[transparent] w-4 flex flex-col items-center justify-center">
-          <img className="w-3.5 h-3.5 relative" alt="" src="ModuloEvento/fv-button.svg" />
+          <img className="w-3.5 h-3.5 relative" alt="" src="/ModuloEvento/fv-button.svg" />
         </button>
       </div>
 

@@ -21,9 +21,9 @@ const C2: FC <C2Type> = ({title, text, color}) => {
       <div className="relative leading-[21px] font-semibold">
         {title}
       </div>
-      <div className="flex flex-row items-end justify-start text-xs text-black font-medium">
+      <div className="flex flex-row items-center justify-start text-xs text-black font-medium">
         <div className="relative  inline-block min-w-[11.799999999999272px] leading-[11px] ">
-          <img src="ModuloEvento/dan.svg" alt="" />
+          <img src="/ModuloEvento/dan.svg" alt="" />
         </div>
         <div className="relative leading-[14px] ">
           {text}

@@ -85,7 +85,7 @@ const LimiteC: FC <propsLimiteC> = ({componentState, setComponentState}) => {
                   className="w-auto h-auto py-[10px] px-[10px] overflow-hidden"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/icon.svg"
+                  src="/ModuloEvento/icon.svg"
                 />
               </div>
               <div className="flex flex-col items-start justify-start pt-[5.5px] px-0 pb-0">

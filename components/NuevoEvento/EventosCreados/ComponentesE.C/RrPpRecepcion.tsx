@@ -18,7 +18,7 @@ const RrPpRecepcion: FC<propsRrPpRecepcion> = ({componentState, setComponentStat
                 className="h-[27px] w-[23px] relative overflow-hidden shrink-0"
                 loading="lazy"
                 alt=""
-                src="ModuloEvento/vectorF.svg"
+                src="/ModuloEvento/vectorF.svg"
               />
            
       </div>
@@ -33,7 +33,7 @@ const RrPpRecepcion: FC<propsRrPpRecepcion> = ({componentState, setComponentStat
               className="h-[120.7px] w-[90.5px] relative"
               loading="lazy"
               alt=""
-              src="ModuloEvento/rrpp.svg"
+              src="/ModuloEvento/rrpp.svg"
             />
           </div>
           <div className="self-stretch flex flex-row items-start justify-center py-0 px-5">
