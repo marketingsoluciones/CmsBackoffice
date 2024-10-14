@@ -20,25 +20,25 @@ const OpcionesC: FC <propsOpcionesC> = ({componentState, setComponentState}) => 
             </div>
             <div className="self-stretch flex flex-col items-start justify-start gap-[10.5px] text-rosa font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-settings-rates-tickets-mlruscyfl014j01bne3ezei4j2izzbrh-1318x573-default-1-font-awesome-5-free-regular-14">
               <C1
-                icon="ModuloEvento/e.svg"
+                icon="/ModuloEvento/e.svg"
                 title="Efectivo"
                 text="Autoriza a los usuarios profesionales y colaboradores externos la venta física, y registra el importe recaudado en efectivo por cada uno de ellos."
               />
               <C1
-                icon="ModuloEvento/m.svg"
+                icon="/ModuloEvento/m.svg"
                 title="Venta por microsite"
                 text="Activa la venta online en los links oficiales y canales de
                 venta."
               />
               <C1
-                icon="ModuloEvento/l.svg"
+                icon="/ModuloEvento/l.svg"
                 title="Pago por link"
                 text="Permite a los usuarios profesionales y colaboradores externos crear enlaces de activación y enviarlos a sus clientes para completar el proceso de compra"
                 autorizaALosWidth="14px"
                 propWidth="415.8px"
               />
               <C1
-                icon="ModuloEvento/i.svg"
+                icon="/ModuloEvento/i.svg"
                 title="Impreso"
                 text="Autoriza a los usuarios profesionales y colaboradores externos la venta en papel, y registra el importe recaudado en efectivo por cada uno de ellos."
                 autorizaALosWidth="14px"
@@ -60,7 +60,7 @@ const OpcionesC: FC <propsOpcionesC> = ({componentState, setComponentState}) => 
                       <img
                         className="h-3.5 w-[12.3px] relative overflow-hidden shrink-0"
                         alt=""
-                        src="ModuloEvento/calcal.svg"
+                        src="/ModuloEvento/calcal.svg"
                       />
                     </div>
                     <div className="relative leading-[36px] font-medium">
@@ -110,7 +110,7 @@ const OpcionesC: FC <propsOpcionesC> = ({componentState, setComponentState}) => 
               <div className="flex flex-row items-start justify-start gap-[4.30000000000291px]">
                 <div className="flex flex-col items-start justify-start pt-2.5 px-0 pb-0">
                   <div className="relative leading-[14px] inline-block min-w-[14.2px] shrink-0 [debug_commit:f6aba90] ">
-                    <img src="ModuloEvento/relog1.svg" alt="" />
+                    <img src="/ModuloEvento/relog1.svg" alt="" />
                   </div>
                 </div>
                 <div className="relative leading-[36px] font-medium inline-block min-w-[35px] shrink-0 [debug_commit:f6aba90]">
@@ -122,7 +122,7 @@ const OpcionesC: FC <propsOpcionesC> = ({componentState, setComponentState}) => 
                   className="w-[16px] h-[16px] relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/fff.svg"
+                  src="/ModuloEvento/fff.svg"
                 />
               </div>
             </div>
@@ -142,7 +142,7 @@ const OpcionesC: FC <propsOpcionesC> = ({componentState, setComponentState}) => 
                     <img
                       className="w-[16px] h-[16px] relative overflow-hidden shrink-0"
                       alt=""
-                      src="ModuloEvento/fff.svg"
+                      src="/ModuloEvento/fff.svg"
                     />
                   </div>
                 </div>

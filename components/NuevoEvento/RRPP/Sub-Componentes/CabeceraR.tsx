@@ -20,7 +20,7 @@ export const CabeceraR: FC <propsCabeceraR> =({componentState, setComponentState
                   className="relative w-auto h-auto overflow-hidden shrink-0"
                   loading="eager"
                   alt=""
-                  src="ModuloEvento/FlechaIzquerda2.svg"
+                  src="/ModuloEvento/FlechaIzquerda2.svg"
                 />
               </div>
             </div>
@@ -32,7 +32,7 @@ export const CabeceraR: FC <propsCabeceraR> =({componentState, setComponentState
                   className="relative w-[13.2px] h-[13px] overflow-hidden shrink-0"
                   loading="eager"
                   alt=""
-                  src="ModuloEventos/FlechaIzquierda.svg"
+                  src="/ModuloEventos/FlechaIzquierda.svg"
                 />
               </div>
               <div className="relative tracking-[2.45px] leading-[17.5px] uppercase">

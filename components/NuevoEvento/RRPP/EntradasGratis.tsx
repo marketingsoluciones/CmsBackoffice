@@ -22,7 +22,7 @@ const EntradasGratis: FC <propsEntradasGratis> = memo(({componentState,setCompon
                   className="h-3.5 w-[12.3px] relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/flechablanca.svg"
+                  src="/ModuloEvento/flechablanca.svg"
                 />
               </div>
             </div>
@@ -35,7 +35,7 @@ const EntradasGratis: FC <propsEntradasGratis> = memo(({componentState,setCompon
                   className="h-[13px] w-[13.2px] relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/vre.svg"
+                  src="/ModuloEvento/vre.svg"
                 />
               </div>
               <div className="h-[18px] w-[217px] relative tracking-[2.45px] leading-[17.5px] uppercase font-medium inline-block">
@@ -51,7 +51,7 @@ const EntradasGratis: FC <propsEntradasGratis> = memo(({componentState,setCompon
                   className="h-[13px] w-[14.7px] relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/relog3.svg"
+                  src="/ModuloEvento/relog3.svg"
                 />
               </div>
               <div className="h-[18px] flex-1 relative tracking-[2.45px] leading-[18px] uppercase font-medium inline-block whitespace-nowrap">
@@ -101,7 +101,7 @@ const EntradasGratis: FC <propsEntradasGratis> = memo(({componentState,setCompon
                   <img
                     className="h-3.5 w-3.5 relative overflow-hidden shrink-0"
                     alt=""
-                    src="ModuloEvento/info2.svg"
+                    src="/ModuloEvento/info2.svg"
                   />
                 </div>
               </div>

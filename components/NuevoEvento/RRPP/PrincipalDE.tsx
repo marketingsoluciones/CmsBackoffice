@@ -16,7 +16,7 @@ const PrincipalDE: FC <propsPrincipalDE> = memo(({componentState,setComponentSta
           className="h-[] w-[126px] relative overflow-hidden shrink-0 object-cover"
           loading="lazy"
           alt=""
-          src="ModuloEvento/evento1.jpg"
+          src="/ModuloEvento/evento1.jpg"
         />
         <div className="w-full flex flex-col items-start justify-start pt-[10.5px] px-0 pb-0 box-border min-w-[238.1999999999971px]">
           <div className="self-stretch flex flex-col items-start justify-start gap-[50.5px]">
@@ -45,7 +45,7 @@ const PrincipalDE: FC <propsPrincipalDE> = memo(({componentState,setComponentSta
                   </div>
                   <div className="w-auto flex flex-col items-start justify-start pt-[5.5px] px-0 pb-0 box-border font-www-fourvenues-com-es-christian-lanza1-events-playa-y-rumba-29-02-2024-81y9-tickets-clrusb7w7018g01aeancrb2z0sg4m98f-1358x573-default-font-awesome-5-free-regular-123-upper">
                     <div className="self-stretch h-[13px] relative tracking-[2.45px] leading-[12.25px] uppercase inline-block whitespace-nowrap">
-                      <img className="text-gray-400" src="ModuloEvento/Symbol123.svg" alt="" />
+                      <img className="text-gray-400" src="/ModuloEvento/Symbol123.svg" alt="" />
                     </div>
                   </div>
                 </div>
@@ -64,7 +64,7 @@ const PrincipalDE: FC <propsPrincipalDE> = memo(({componentState,setComponentSta
                 <img
                   className="w-[9.2px] h-[13px] relative overflow-hidden shrink-0"
                   alt=""
-                  src="ModuloEvento/ubi1.svg"
+                  src="/ModuloEvento/ubi1.svg"
                 />
               </div>
               <div className="h-[18px] w-auto relative text-smi-3 leading-[18px] font-medium text-white text-left inline-block min-w-[82px]">
@@ -82,7 +82,7 @@ const PrincipalDE: FC <propsPrincipalDE> = memo(({componentState,setComponentSta
                 className="w-[35px] h-[35px] relative overflow-hidden shrink-0"
                 loading="lazy"
                 alt=""
-                src="ModuloEvento/check123.svg"
+                src="/ModuloEvento/check123.svg"
               />
             </div>
             <div className="self-stretch flex flex-col items-start justify-start pt-[10.5px] px-0 pb-0">

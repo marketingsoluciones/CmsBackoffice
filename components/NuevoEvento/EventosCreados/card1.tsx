@@ -5,14 +5,13 @@ interface propsCard1 {
   icon?: any;
   title?: any;
   content?: any;
-  urls?: any;
+  onClick?: any;
 }
 
-const Card1: FC<propsCard1> = ({ icon, title, content, urls, componentState, setComponentState }) => {
+const Card1: FC<propsCard1> = ({ icon, title, content, onClick, componentState, setComponentState }) => {
   return (
-    <div onClick={() => {
-      setComponentState(urls)
-    }} className="cursor-pointer w-[50%] rounded-lg bg-white overflow-hidden flex flex-row items-center justify-start py-0 pr-2.5 pl-0 box-border gap-[5px] min-w-[237px] max-w-full mq1100:flex-wrap mq1100:pl-2.5 mq1100:pt-2.5 mq1100:pb-2.5 mq1100:box-border">
+    <div onClick={() => onClick()}
+     className="cursor-pointer w-[50%] rounded-lg bg-white overflow-hidden flex flex-row items-center justify-start py-0 pr-2.5 pl-0 box-border gap-[5px] min-w-[237px] max-w-full mq1100:flex-wrap mq1100:pl-2.5 mq1100:pt-2.5 mq1100:pb-2.5 mq1100:box-border">
       <div className="bg-rosa h-full w-auto flex flex-row items-start justify-end pt-[13px] pb-[43.900000000001455px] px-2">
         <img
           className="h-[30px] w-[60px] relative"

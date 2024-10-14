@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import Card1 from "./CardEvento"
 import { Modal } from "../../modals/Modal";
 import { Alerta1 } from "../CrearEvento/Modales/AlertaMoDe";
+import { useRouter } from 'next/router';
 interface propsEventosProximos {
     componentState: any;
     setComponentState: any;
@@ -9,6 +10,7 @@ interface propsEventosProximos {
   }
 
 const EventosProximos: FC <propsEventosProximos> = ({componentState,setComponentState}) => {
+const router = useRouter()
   const [addAlerta, setAddAlerta] = useState(false);
 
 
@@ -29,7 +31,7 @@ const EventosProximos: FC <propsEventosProximos> = ({componentState,setComponent
       fecha3:"NV",
       hora: "20:00 - 02:30",
       image: "https://imagedelivery.net/EfbdVs7eFECYhyroHhep9w/3ac78aef-a237-4dd3-b02a-880d095c6d00/public",
-      component: ()=>{setComponentState(7)},
+      component: () => { router.push("/events/events-description") },
       
     },
     {

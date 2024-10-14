@@ -37,7 +37,7 @@ const ReservaCantidad: FC <propsReservaCantidad> = ({componentState, setComponen
                   className="w-[9.2px] h-2.5 relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/calendar1.svg"
+                  src="/ModuloEvento/calendar1.svg"
                 />
               </div>
               <div className="flex flex-col items-start justify-center">
@@ -61,7 +61,7 @@ const ReservaCantidad: FC <propsReservaCantidad> = ({componentState, setComponen
                     className="h-3.5 w-[8.8px] relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/equis2.svg"
+                    src="/ModuloEvento/equis2.svg"
                   />
                 </div>
               </div>
@@ -113,7 +113,7 @@ const ReservaCantidad: FC <propsReservaCantidad> = ({componentState, setComponen
                       <img
                         className="h-3.5 w-3.5 relative overflow-hidden shrink-0"
                         alt=""
-                        src="ModuloEvento/info4.svg"
+                        src="/ModuloEvento/info4.svg"
                       />
                     </div>
                   </div>
@@ -189,7 +189,7 @@ const ReservaCantidad: FC <propsReservaCantidad> = ({componentState, setComponen
                     className="w-[10.5px] h-2.5 relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/cb1.svg"
+                    src="/ModuloEvento/cb1.svg"
                   />
                     </div>
                   </div>
@@ -200,7 +200,7 @@ const ReservaCantidad: FC <propsReservaCantidad> = ({componentState, setComponen
                     className="w-[10.5px] h-2.5 relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/cb2.svg"
+                    src="/ModuloEvento/cb2.svg"
                   />
                 </div>
               </div>

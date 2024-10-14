@@ -113,7 +113,7 @@ const GenericaComp: FC<propsGenericaComp> = ({componentState, setComponentState}
                       <img
                         className="h-[13px] w-[12.3px] relative overflow-hidden shrink-0"
                         alt=""
-                        src="ModuloEvento/ph_upload-bold.svg"
+                        src="/ModuloEvento/ph_upload-bold.svg"
                       />
                     </div>
                     <div className="flex-1 relative text-smi-3 leading-[18px] font-profourvenuescom-inter-bold-14 text-profourvenuescom-black text-center inline-block min-w-[34px]">

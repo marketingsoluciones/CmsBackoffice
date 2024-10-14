@@ -20,7 +20,7 @@ const ModalListasRecepcion: FC<propsModalListaRecepcion> = ({addInforme, setAddI
           className="cursor-pointer h-[15.6px] w-[11.7px] relative"
           loading="lazy"
           alt=""
-          src="ModuloEvento/equis2.svg"
+          src="/ModuloEvento/equis2.svg"
         />
       </div>
       <div className="self-stretch flex flex-col items-center justify-center gap-[14px] max-w-full text-sm text-profourvenuescom-black">

@@ -33,7 +33,7 @@ const ClientesInforme: FC <Props> = ({componentState, setComponentState, setSele
                 className="h-4 w-4 relative overflow-hidden shrink-0"
                 loading="lazy"
                 alt=""
-                src="ModuloEvento/vectorF.svg"
+                src="/ModuloEvento/vectorF.svg"
                 />
 
                 </div>

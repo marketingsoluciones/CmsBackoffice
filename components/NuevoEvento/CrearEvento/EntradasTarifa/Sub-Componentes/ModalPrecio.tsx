@@ -23,7 +23,7 @@ const ModalPrecio: FC <propsModalPrecio> = ({addAñadirPrecio, setAddAñadirPrec
                     className="h-auto w-auto overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/fle.svg"
+                    src="/ModuloEvento/fle.svg"
                   />
 
           </div>
@@ -100,7 +100,7 @@ const ModalPrecio: FC <propsModalPrecio> = ({addAñadirPrecio, setAddAñadirPrec
                 </div>
                 <div className="flex flex-col items-start justify-start">
                   <div className="relative leading-[14px] inline-block min-w-[13px]">
-                   <img src="ModuloEvento/dd.svg" alt="" />
+                   <img src="/ModuloEvento/dd.svg" alt="" />
                   </div>
                 </div>
               </div>
@@ -220,7 +220,7 @@ const ModalPrecio: FC <propsModalPrecio> = ({addAñadirPrecio, setAddAñadirPrec
                 <img
                   className="h-3.5 w-[12.3px] relative overflow-hidden shrink-0"
                   alt=""
-                  src="ModuloEvento/calcal.svg"
+                  src="/ModuloEvento/calcal.svg"
                 />
               </div>
               <div className="relative leading-[36px] font-medium inline-block min-w-[123px]">
@@ -235,7 +235,7 @@ const ModalPrecio: FC <propsModalPrecio> = ({addAñadirPrecio, setAddAñadirPrec
           <div className="flex flex-row">
           <div className="flex flex-col items-start justify-start">
             <div className="relative leading-[14px] inline-block min-w-[14.2px]">
-              <img src="ModuloEvento/lulu.svg" alt="" />
+              <img src="/ModuloEvento/lulu.svg" alt="" />
             </div>
           </div>
           <div className="flex flex-col items-center justify-center">
@@ -245,7 +245,7 @@ const ModalPrecio: FC <propsModalPrecio> = ({addAñadirPrecio, setAddAñadirPrec
           <img
             className="h-[14px] w-[14px] shrink-0 items-center justify-center "
             alt=""
-            src="ModuloEvento/lolo.svg"
+            src="/ModuloEvento/lolo.svg"
           />
         </div>
 
@@ -257,7 +257,7 @@ const ModalPrecio: FC <propsModalPrecio> = ({addAñadirPrecio, setAddAñadirPrec
                 className="h-4 w-[15.8px] relative overflow-hidden shrink-0"
                 loading="lazy"
                 alt=""
-                src="ModuloEvento/lele.svg"
+                src="/ModuloEvento/lele.svg"
               />
             </div>
           </div>

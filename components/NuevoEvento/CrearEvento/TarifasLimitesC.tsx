@@ -7,7 +7,7 @@ interface propsTarifasLimites {
 
 const TarifasLimites: FC <propsTarifasLimites> = (componentState, setComponentState) => {
   return (
-    <div className="w-full rounded-2xs-5 bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] flex flex-row flex-wrap items-start justify-start pt-[19.100000000000364px] px-[18px] pb-[21px] box-border gap-[7.5px] tracking-[normal] text-left text-sm text-black font-semibold">
+    <div className="w-full rounded-md bg-white shadow-[0px_1px_2px_rgba(0,_0,_0,_0.05)] flex flex-row flex-wrap items-start justify-start pt-[19.100000000000364px] px-[18px] pb-[21px] box-border gap-[7.5px] tracking-[normal] text-left text-sm text-black font-semibold">
     <div className="w-auto flex flex-row items-start justify-start gap-[10px] tracking-[normal] text-left text-sm text-pro-fourvenues-com-beach-aguilas-create-event-1318x573-default-black font-pro-fourvenues-com-beach-aguilas-dlsj9ud510272017c1tbi7y1lvzlroll-settings-rates-guest-list-ulsjai0cq0204017r0lkre3nvo72mao7-14644444580078125x6366666870117188-default-1-inter-regular-14 mq650:flex-wrap">
       
       <div className="flex-1 flex flex-col items-start justify-start gap-[4px] min-w-[307px] max-w-full">
@@ -26,7 +26,7 @@ const TarifasLimites: FC <propsTarifasLimites> = (componentState, setComponentSt
                 <div className="self-stretch w-auto flex flex-col items-start justify-start">
                   <div className="self-stretch bg-slate-200 flex-row items-start justify-start pt-2.5 px-2.5 pb-3">
                     <div className="self-stretch relative leading-[14px] flex items-center justify-center">
-                     <img src="ModuloEvento/arrowIZ.svg" alt="" />
+                     <img src="/ModuloEvento/arrowIZ.svg" alt="" />
                     </div>
                   </div>
                 </div>
@@ -46,7 +46,7 @@ const TarifasLimites: FC <propsTarifasLimites> = (componentState, setComponentSt
                 <div className="self-stretch w-auto flex flex-col items-start justify-start ">
                   <div className="self-stretch bg-slate-200 flex flex-row items-start justify-start pt-2.5 px-2.5 pb-3">
                     <div className="self-stretch relative leading-[14px] flex items-center justify-center">
-                      <img src="ModuloEvento/arrowDE.svg" alt="" />
+                      <img src="/ModuloEvento/arrowDE.svg" alt="" />
                     </div>
                   </div>
                 </div>
@@ -69,7 +69,7 @@ const TarifasLimites: FC <propsTarifasLimites> = (componentState, setComponentSt
                 <div className="self-stretch w-auto flex flex-col items-start justify-start">
                   <div className="self-stretch bg-slate-200 flex-row items-start justify-start pt-2.5 px-2.5 pb-3">
                     <div className="self-stretch relative leading-[14px] flex items-center justify-center">
-                     <img src="ModuloEvento/arrowIZ.svg" alt="" />
+                     <img src="/ModuloEvento/arrowIZ.svg" alt="" />
                     </div>
                   </div>
                 </div>
@@ -89,7 +89,7 @@ const TarifasLimites: FC <propsTarifasLimites> = (componentState, setComponentSt
                 <div className="self-stretch w-auto flex flex-col items-start justify-start ">
                   <div className="self-stretch bg-slate-200 flex flex-row items-start justify-start pt-2.5 px-2.5 pb-3">
                     <div className="self-stretch relative leading-[14px] flex items-center justify-center">
-                      <img src="ModuloEvento/arrowDE.svg" alt="" />
+                      <img src="/ModuloEvento/arrowDE.svg" alt="" />
                     </div>
                   </div>
                 </div>
@@ -113,7 +113,7 @@ const TarifasLimites: FC <propsTarifasLimites> = (componentState, setComponentSt
                 
                 <div className="self-stretch w-8 rounded-full bg-slate-200 shadow-[0px_2px_4px_rgba(0,_0,_0,_0.06)_inset] overflow-hidden shrink-0 flex flex-row items-center justify-center py[9px] px-[9px] box-border relative">
 
-                    <img src="ModuloEvento/perfil.svg" 
+                    <img src="/ModuloEvento/perfil.svg" 
                     alt="" />
 
                 </div>
@@ -130,7 +130,7 @@ const TarifasLimites: FC <propsTarifasLimites> = (componentState, setComponentSt
             <div className="self-stretch w-auto  flex flex-col items-start justify-start">
                 <div className="self-stretch bg-slate-200 h-full flex flex-row items-start justify-start pt-2.5 px-2.5 pb-3">
                   <div className="self-stretch relative leading-[14px] flex items-center justify-center">
-                  <img src="ModuloEvento/arrowIZ.svg" className="w-4 h-4" alt="" />
+                  <img src="/ModuloEvento/arrowIZ.svg" className="w-4 h-4" alt="" />
                   </div>
                 </div>
               </div>
@@ -146,7 +146,7 @@ const TarifasLimites: FC <propsTarifasLimites> = (componentState, setComponentSt
               <div className="self-stretch w-auto flex flex-col items-start justify-start">
                 <div className="self-stretch bg-slate-200 h-full flex flex-row items-start justify-start pt-2.5 px-2.5 pb-3">
                   <div className="self-stretch relative leading-[14px] flex items-center justify-center">
-                  <img src="ModuloEvento/arrowDE.svg" className="w-4 h-4" alt="" />
+                  <img src="/ModuloEvento/arrowDE.svg" className="w-4 h-4" alt="" />
                   </div>
                 </div>
               </div>
@@ -162,7 +162,7 @@ const TarifasLimites: FC <propsTarifasLimites> = (componentState, setComponentSt
                 
                 <div className="self-stretch w-8 rounded-full bg-slate-200 shadow-[0px_2px_4px_rgba(0,_0,_0,_0.06)_inset] overflow-hidden shrink-0 flex flex-row items-center justify-center py[9px] px-[9px] box-border relative">
 
-                    <img src="ModuloEvento/profesional.svg" 
+                    <img src="/ModuloEvento/profesional.svg" 
                     alt="" />
 
                 </div>
@@ -179,7 +179,7 @@ const TarifasLimites: FC <propsTarifasLimites> = (componentState, setComponentSt
             <div className="self-stretch w-auto  flex flex-col items-start justify-start">
                 <div className="self-stretch bg-slate-200 h-full flex flex-row items-start justify-start pt-2.5 px-2.5 pb-3">
                   <div className="self-stretch relative leading-[14px] flex items-center justify-center">
-                  <img src="ModuloEvento/arrowIZ.svg" className="w-4 h-4" alt="" />
+                  <img src="/ModuloEvento/arrowIZ.svg" className="w-4 h-4" alt="" />
                   </div>
                 </div>
               </div>
@@ -195,7 +195,7 @@ const TarifasLimites: FC <propsTarifasLimites> = (componentState, setComponentSt
               <div className="self-stretch w-auto flex flex-col items-start justify-start">
                 <div className="self-stretch bg-slate-200 h-full flex flex-row items-start justify-start pt-2.5 px-2.5 pb-3">
                   <div className="self-stretch relative leading-[14px] flex items-center justify-center">
-                  <img src="ModuloEvento/arrowDE.svg" className="w-4 h-4" alt="" />
+                  <img src="/ModuloEvento/arrowDE.svg" className="w-4 h-4" alt="" />
                   </div>
                 </div>
               </div>
@@ -212,7 +212,7 @@ const TarifasLimites: FC <propsTarifasLimites> = (componentState, setComponentSt
           </div>
           <div className="flex flex-row items-end justify-start text-3xs text-chocolate font-pro-fourvenues-com-beach-aguilas-dlsj9ud510272017c1tbi7y1lvzlroll-settings-rates-guest-list-create-16475x71625-default-1-font-awesome-5-free-regular-14">
             <div className="h-[11px] w-[11.8px] relative leading-[11px] inline-block min-w-[11.799999999999272px]">
-              <img src="ModuloEvento/peligro.svg" alt="" />
+              <img src="/ModuloEvento/peligro.svg" alt="" />
             </div>
             <div className="h-3.5 w-auto relative text-xs leading-[14px] font-medium text-black inline-block">
               {" "}
@@ -227,7 +227,7 @@ const TarifasLimites: FC <propsTarifasLimites> = (componentState, setComponentSt
           </div>
           <div className="flex flex-row items-end justify-start py-0 pr-5 pl-0 text-3xs text-chocolate font-pro-fourvenues-com-beach-aguilas-dlsj9ud510272017c1tbi7y1lvzlroll-settings-rates-guest-list-create-16475x71625-default-1-font-awesome-5-free-regular-14">
             <div className="h-[11px] w-[11.8px] relative leading-[11px] inline-block min-w-[11.799999999999272px]">
-              <img src="ModuloEvento/peligro.svg" alt="" />
+              <img src="/ModuloEvento/peligro.svg" alt="" />
             </div>
             <div className="h-3.5 w-auto relative text-xs leading-[14px] font-medium text-black inline-block">
               {" "}

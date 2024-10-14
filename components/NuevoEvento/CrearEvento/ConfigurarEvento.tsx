@@ -43,7 +43,7 @@ const ConfigurarEvento: FC <propsConfigurarEvento> = ({componentState,setCompone
       bg:"bg-orange-100",
       textbg:"text-orange-600",
       content:"Otorga a trabajadores permisos que solo afectan a este evento.",
-      component: ()=>{router.push("/events")},
+      component: ()=>{router.push("/events/permissions")},
     },
     {
       title:"Canales de venta",
@@ -63,7 +63,7 @@ const ConfigurarEvento: FC <propsConfigurarEvento> = ({componentState,setCompone
       bg:"bg-pink-100",
       textbg:"text-pink-600",
       content:"Configura los códigos de descuento y aplicalos a tantas tarifas como quieras.",
-      component: ()=>{router.push("/events")},
+      component: ()=>{router.push("/events/discounts")},
     },
     {
       title:"Evento carta QR",
@@ -75,7 +75,7 @@ const ConfigurarEvento: FC <propsConfigurarEvento> = ({componentState,setCompone
       bg:"bg-pink-100",
       textbg:"text-pink-600",
       content:"Configura la carta QR para este evento, de la manera que deseeas.",
-      component: ()=>{router.push("/events")},
+      component: ()=>{router.push("/events/letter-qr")},
     },
   ]
   const DataButton =
@@ -86,7 +86,7 @@ const ConfigurarEvento: FC <propsConfigurarEvento> = ({componentState,setCompone
       img: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
       <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
     </svg>,
-      component: ()=>{router.push("/events")},
+      component: ()=>{router.push("/events/list")},
     },
     {
       title:"Entradas",
@@ -94,7 +94,7 @@ const ConfigurarEvento: FC <propsConfigurarEvento> = ({componentState,setCompone
       img: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
       <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z" />
     </svg>,
-      component: ()=>{router.push("/events")},
+      component: ()=>{router.push("/events/entrance-fees")},
     },
     {
       title:"Pases",
@@ -134,7 +134,7 @@ const ConfigurarEvento: FC <propsConfigurarEvento> = ({componentState,setCompone
        
        {/* seccion 3 */}
 
-      <div className="self-stretch rounded-t-2xl rounded-b-none overflow-hidden flex flex-row items-start justify-center py-3.5 px-7 gap-[20px] mq750:flex-wrap">
+      <div className="self-stretch rounded-t-2xl rounded-b-none overflow-hidden flex flex-row items-start justify-center py-3.5 px-7 gap-[20px]">
       {DataButton.map((items,idx) => (
         <div key={idx} >
         <ButtonConfigEvents items={items} componentState={componentState} setComponentState={setComponentState}/>

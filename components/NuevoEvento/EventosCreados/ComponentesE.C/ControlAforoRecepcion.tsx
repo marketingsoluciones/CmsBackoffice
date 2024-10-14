@@ -19,7 +19,7 @@ const ControlAforoRecepcion: FC<propsControlAforoRecepcion> = ({componentState, 
                   className="h-[27px] w-[23px] relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/vectorF.svg"
+                  src="/ModuloEvento/vectorF.svg"
                 />
              
         </div>
@@ -34,7 +34,7 @@ const ControlAforoRecepcion: FC<propsControlAforoRecepcion> = ({componentState, 
             className="h-[125px] flex-1 relative max-w-full overflow-hidden"
             loading="lazy"
             alt=""
-            src="ModuloEvento/011.svg"
+            src="/ModuloEvento/011.svg"
           />
         </div>
         <div className="flex flex-col items-center justify-start pt-0 px-0 pb-[0.8px]">

@@ -15,7 +15,7 @@ export const CompMensajes: FC<propsMensajesC> = ({ componentState, setComponentS
 
           <div className="w-auto flex flex-col items-start justify-start gap-[15.666666666666666px] max-w-full">
             <div className="self-stretch h-20 flex flex-row items-start justify-center py-0 px-5 box-border">
-              <img className="h-20 w-20 relative" loading="lazy" alt="" src="ModuloEvento/ms.svg" />
+              <img className="h-20 w-20 relative" loading="lazy" alt="" src="/ModuloEvento/ms.svg" />
             </div>
             <div className="w-full flex flex-row items-center justify-center py-0 px-5 box-border max-w-full">
               <div className="w-auto flex flex-col items-end justify-start gap-[1px]">
@@ -68,21 +68,21 @@ export const CompMensajes: FC<propsMensajesC> = ({ componentState, setComponentS
           <div className="self-stretch flex flex-col items-start justify-start max-w-full">
             <div className="self-stretch flex flex-row flex-wrap items-start justify-center py-6 px-0 gap-[56px] mq975:gap-[28px]">
               <MensajesC
-                sVG="ModuloEvento/concentrate.svg"
+                sVG="/ModuloEvento/concentrate.svg"
                 cntrateEnLasVentas="Céntrate en las ventas"
                 organizaTodasLas="Organiza todas las"
                 comunicacionesConLos="comunicaciones con los"
                 clientesEnUnSoloLugar="clientes en un solo lugar"
               />
               <MensajesC
-                sVG="ModuloEvento/contexto.svg"
+                sVG="/ModuloEvento/contexto.svg"
                 cntrateEnLasVentas="Contexto compartido"
                 organizaTodasLas="Gestiona los mensajes como"
                 comunicacionesConLos="equipo para obtener mejores"
                 clientesEnUnSoloLugar="resultados"
               />
               <MensajesC
-                sVG="ModuloEvento/sincro.svg"
+                sVG="/ModuloEvento/sincro.svg"
                 cntrateEnLasVentas="Sincronización perfecta"
                 organizaTodasLas="Vincula conversaciones a"
                 comunicacionesConLos="contactos, prospectos y"
@@ -101,13 +101,13 @@ export const CompMensajes: FC<propsMensajesC> = ({ componentState, setComponentS
                   <img
                     className="w-full h-full absolute !m-[0] top-[0px] right-[0px] bottom-[0px] left-[0px] max-w-full overflow-hidden max-h-full object-cover"
                     alt=""
-                    src="ModuloEvento/img4.svg"
+                    src="/ModuloEvento/img4.svg"
                   />
                   <div className="w-full h-full absolute !m-[0] top-[0px] right-[0px] bottom-[0px] left-[0px] [background:linear-gradient(180deg,_rgba(25,_36,_53,_0),_rgba(25,_36,_53,_0.16)_66.67%,_rgba(25,_36,_53,_0.2))] z-[1]" />
                 </div>
                 <div className="self-stretch flex flex-row items-start justify-center py-0 px-5">
                   <div className="h-10 w-10 relative rounded-xl bg-rosa items-center justify-center shadow-[0px_0px_2px_rgba(0,_0,_0,_0.24),_0px_16px_24px_2px_rgba(0,_0,_0,_0.05),_0px_6px_30px_5px_rgba(0,_0,_0,_0.06),_0px_8px_10px_-5px_rgba(0,_0,_0,_0.1)] overflow-hidden shrink-0 z-[2]">
-                    <img src="ModuloEvento/play.svg" alt="" className="py-2 px-2" />
+                    <img src="/ModuloEvento/play.svg" alt="" className="py-2 px-2" />
                   </div>
                 </div>
                 <div className="rounded-sm bg-[#F8F8F8] flex flex-row items-start justify-start py-0 pr-[3.599999999998545px] pl-[3.600000000002183px] box-border min-w-[16px] max-w-[222px] z-[2]">
@@ -154,7 +154,7 @@ export const CompMensajes: FC<propsMensajesC> = ({ componentState, setComponentS
                     className="w-2 h-2 relative overflow-hidden shrink-0 [debug_commit:f6aba90]"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/f1.svg"
+                    src="/ModuloEvento/f1.svg"
                   />
                 </div>
               </div>
@@ -167,7 +167,7 @@ export const CompMensajes: FC<propsMensajesC> = ({ componentState, setComponentS
               Explora más canales de mensajería en el Marketplace
             </div>
             <div className="h-auto flex flex-col items-start justify-start pt-[2.5px] px-0 pb-0 box-border">
-              <img className="w-3 h-3 relative" loading="lazy" alt="" src="ModuloEvento/f1.svg" />
+              <img className="w-3 h-3 relative" loading="lazy" alt="" src="/ModuloEvento/f1.svg" />
             </div>
         </div>
       </div>

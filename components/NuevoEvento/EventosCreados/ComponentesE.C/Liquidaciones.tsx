@@ -22,7 +22,7 @@ const Liquidaciones: FC<propsLiquidaciones> = ({componentState, setComponentStat
                     className="h-[18px] w-[18px] relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/vectorF.svg"
+                    src="/ModuloEvento/vectorF.svg"
                   />
             </div>
           </div>
@@ -45,7 +45,7 @@ const Liquidaciones: FC<propsLiquidaciones> = ({componentState, setComponentStat
                 className="h-[54px] w-[45.9px] relative overflow-hidden shrink-0"
                 loading="lazy"
                 alt=""
-                src="ModuloEvento/Liquidaciones2.svg"
+                src="/ModuloEvento/Liquidaciones2.svg"
               />
             </div>
           </div>

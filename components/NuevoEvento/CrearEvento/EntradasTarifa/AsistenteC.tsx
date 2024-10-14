@@ -38,7 +38,7 @@ const AsistenteC: FC <propsAsistenteC> = ({componentState, setComponentState}) =
                 <img
                   className="w-[10.5px] h-3.5 relative overflow-hidden shrink-0"
                   alt=""
-                  src="ModuloEvento/mas1.svg"
+                  src="/ModuloEvento/mas1.svg"
                 />
               </div>
               <div className="relative leading-[21px] inline-block min-w-[107px]">
@@ -84,14 +84,14 @@ const AsistenteC: FC <propsAsistenteC> = ({componentState, setComponentState}) =
               <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                    <img src="ModuloEvento/cc.svg" alt="" />
+                    <img src="/ModuloEvento/cc.svg" alt="" />
                   </div>
                 </div>
               </div>
               <div className="flex flex-col items-start justify-start">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                  <img src="ModuloEvento/cc.svg" alt="" />
+                  <img src="/ModuloEvento/cc.svg" alt="" />
                   </div>
                 </div>
               </div>
@@ -108,14 +108,14 @@ const AsistenteC: FC <propsAsistenteC> = ({componentState, setComponentState}) =
               <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px] opacity-[0.5]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                  <img src="ModuloEvento/cc1.svg" alt="" />
+                  <img src="/ModuloEvento/cc1.svg" alt="" />
                   </div>
                 </div>
               </div>
               <div className="flex flex-col items-start justify-start">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px] opacity-[0.5]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                  <img src="ModuloEvento/cc1.svg" alt="" />
+                  <img src="/ModuloEvento/cc1.svg" alt="" />
                   </div>
                 </div>
               </div>
@@ -132,14 +132,14 @@ const AsistenteC: FC <propsAsistenteC> = ({componentState, setComponentState}) =
               <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                  <img src="ModuloEvento/cc.svg" alt="" />
+                  <img src="/ModuloEvento/cc.svg" alt="" />
                   </div>
                 </div>
               </div>
               <div className="flex flex-col items-start justify-start">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                  <img src="ModuloEvento/cc.svg" alt="" />
+                  <img src="/ModuloEvento/cc.svg" alt="" />
                   </div>
                 </div>
               </div>
@@ -156,14 +156,14 @@ const AsistenteC: FC <propsAsistenteC> = ({componentState, setComponentState}) =
               <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                  <img src="ModuloEvento/cc2.svg" alt="" />
+                  <img src="/ModuloEvento/cc2.svg" alt="" />
                   </div>
                 </div>
               </div>
               <div className="flex flex-col items-start justify-start">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                  <img src="ModuloEvento/cc2.svg" alt="" />
+                  <img src="/ModuloEvento/cc2.svg" alt="" />
                   </div>
                 </div>
               </div>
@@ -180,14 +180,14 @@ const AsistenteC: FC <propsAsistenteC> = ({componentState, setComponentState}) =
               <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                    <img src="ModuloEvento/cc2.svg" alt="" />
+                    <img src="/ModuloEvento/cc2.svg" alt="" />
                   </div>
                 </div>
               </div>
               <div className="flex flex-col items-start justify-start">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                  <img src="ModuloEvento/cc2.svg" alt="" />
+                  <img src="/ModuloEvento/cc2.svg" alt="" />
                   </div>
                 </div>
               </div>
@@ -204,14 +204,14 @@ const AsistenteC: FC <propsAsistenteC> = ({componentState, setComponentState}) =
               <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                    <img src="ModuloEvento/cc2.svg" alt="" />
+                    <img src="/ModuloEvento/cc2.svg" alt="" />
                   </div>
                 </div>
               </div>
               <div className="flex flex-col items-start justify-start">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                  <img src="ModuloEvento/cc2.svg" alt="" />
+                  <img src="/ModuloEvento/cc2.svg" alt="" />
                   </div>
                 </div>
               </div>
@@ -228,14 +228,14 @@ const AsistenteC: FC <propsAsistenteC> = ({componentState, setComponentState}) =
               <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                    <img src="ModuloEvento/cc2.svg" alt="" />
+                    <img src="/ModuloEvento/cc2.svg" alt="" />
                   </div>
                 </div>
               </div>
               <div className="flex flex-col items-start justify-start">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                  <img src="ModuloEvento/cc2.svg" alt="" />
+                  <img src="/ModuloEvento/cc2.svg" alt="" />
                   </div>
                 </div>
               </div>
@@ -259,14 +259,14 @@ const AsistenteC: FC <propsAsistenteC> = ({componentState, setComponentState}) =
               <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px] opacity-[0.5]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                    <img src="ModuloEvento/cc2.svg" alt="" />
+                    <img src="/ModuloEvento/cc2.svg" alt="" />
                   </div>
                 </div>
               </div>
               <div className="flex flex-col items-start justify-start">
                 <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px] opacity-[0.5]">
                   <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                  <img src="ModuloEvento/cc2.svg" alt="" />
+                  <img src="/ModuloEvento/cc2.svg" alt="" />
                   </div>
                 </div>
               </div>
@@ -282,7 +282,7 @@ const AsistenteC: FC <propsAsistenteC> = ({componentState, setComponentState}) =
             <div className="flex flex-col items-start justify-start text-center text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-settings-rates-tickets-mlruscyfl014j01bne3ezei4j2izzbrh-1318x573-default-3-gull-gray font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-settings-rates-tickets-mlruscyfl014j01bne3ezei4j2izzbrh-1318x573-default-1-font-awesome-5-free-regular-14">
               <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                 <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                  <img src="ModuloEvento/cc2.svg" alt="" />
+                  <img src="/ModuloEvento/cc2.svg" alt="" />
                 </div>
               </div>
             </div>
@@ -297,7 +297,7 @@ const AsistenteC: FC <propsAsistenteC> = ({componentState, setComponentState}) =
             <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0 text-center text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-settings-rates-tickets-mlruscyfl014j01bne3ezei4j2izzbrh-1318x573-default-3-gull-gray font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-settings-rates-tickets-mlruscyfl014j01bne3ezei4j2izzbrh-1318x573-default-1-font-awesome-5-free-regular-14">
               <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                 <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                <img src="ModuloEvento/cc2.svg" alt="" />
+                <img src="/ModuloEvento/cc2.svg" alt="" />
                 </div>
               </div>
             </div>
@@ -312,7 +312,7 @@ const AsistenteC: FC <propsAsistenteC> = ({componentState, setComponentState}) =
             <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0 text-center text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-settings-rates-tickets-mlruscyfl014j01bne3ezei4j2izzbrh-1318x573-default-3-gull-gray font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-settings-rates-tickets-mlruscyfl014j01bne3ezei4j2izzbrh-1318x573-default-1-font-awesome-5-free-regular-14">
               <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                 <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                <img src="ModuloEvento/cc2.svg" alt="" />
+                <img src="/ModuloEvento/cc2.svg" alt="" />
                 </div>
               </div>
             </div>
@@ -327,7 +327,7 @@ const AsistenteC: FC <propsAsistenteC> = ({componentState, setComponentState}) =
             <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0 text-center text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-settings-rates-tickets-mlruscyfl014j01bne3ezei4j2izzbrh-1318x573-default-3-gull-gray font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-settings-rates-tickets-mlruscyfl014j01bne3ezei4j2izzbrh-1318x573-default-1-font-awesome-5-free-regular-14">
               <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                 <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                <img src="ModuloEvento/cc2.svg" alt="" />
+                <img src="/ModuloEvento/cc2.svg" alt="" />
                 </div>
               </div>
             </div>
@@ -342,7 +342,7 @@ const AsistenteC: FC <propsAsistenteC> = ({componentState, setComponentState}) =
             <div className="flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0 text-center text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-settings-rates-tickets-mlruscyfl014j01bne3ezei4j2izzbrh-1318x573-default-3-gull-gray font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-settings-rates-tickets-mlruscyfl014j01bne3ezei4j2izzbrh-1318x573-default-1-font-awesome-5-free-regular-14">
               <div className="rounded-6xs flex flex-row items-start justify-start py-[11px] pr-[32.900000000001455px] pl-[33.099999999998545px]">
                 <div className="w-3.5 relative leading-[14px] flex items-center justify-center min-w-[14px] max-w-[59px]">
-                <img src="ModuloEvento/cc2.svg" alt="" />
+                <img src="/ModuloEvento/cc2.svg" alt="" />
                 </div>
               </div>
             </div>

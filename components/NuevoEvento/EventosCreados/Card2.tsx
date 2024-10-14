@@ -16,7 +16,7 @@ const Card2: FC <propsCardEventos2> = memo(({componentState,setComponentState}) 
           className="h-full w-full absolute overflow-hidden object-cover"
           loading="lazy"
           alt=""
-          src="ModuloEvento/ConciertoPlayero.jpg"
+          src="/ModuloEvento/ConciertoPlayero.jpg"
         />
         <div className="flex flex-col bg-black items-center justify-center py-[7px] pr-[13px] pl-3.5 text-white">
           <b className="w-7 h-[18px] relative leading-[17.5px] uppercase inline-block">
@@ -36,7 +36,7 @@ const Card2: FC <propsCardEventos2> = memo(({componentState,setComponentState}) 
             <div className="self-stretch flex flex-row items-center justify-between gap-[20px]">
               <div className="flex flex-row items-center justify-start py-px px-0 gap-[10px]">
                 <div className="h-auto w-auto  relative inline-block ">
-                  <img className="items-center justify-center " src="ModuloEvento/relog1.svg" alt="" />
+                  <img className="items-center justify-center " src="/ModuloEvento/relog1.svg" alt="" />
                 </div>
                 <div className="h-auto w-auto relative leading-[14px] font-extralight inline-block whitespace-nowrap">
                   <span>{` 00:00 - 07:30 `}</span>
@@ -51,7 +51,7 @@ const Card2: FC <propsCardEventos2> = memo(({componentState,setComponentState}) 
                     className="h-3.5 w-[3.5px] relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/icon-52.svg"
+                    src="/ModuloEvento/icon-52.svg"
                   />
                 </div>
               </div>
@@ -74,7 +74,7 @@ const Card2: FC <propsCardEventos2> = memo(({componentState,setComponentState}) 
                     className="h-2.5 w-[5.3px] relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/icon-62.svg"
+                    src="/ModuloEvento/icon-62.svg"
                   />
                 </div>
               </div>
@@ -89,7 +89,7 @@ const Card2: FC <propsCardEventos2> = memo(({componentState,setComponentState}) 
                       className="w-[11.8px] h-2.5 relative overflow-hidden shrink-0"
                       loading="lazy"
                       alt=""
-                      src="ModuloEvento/icon-72.svg"
+                      src="/ModuloEvento/icon-72.svg"
                     />
                   </div>
                 </div>
@@ -110,7 +110,7 @@ const Card2: FC <propsCardEventos2> = memo(({componentState,setComponentState}) 
                       className="h-2.5 w-[7.9px] relative overflow-hidden shrink-0"
                       loading="lazy"
                       alt=""
-                      src="ModuloEvento/icon-81.svg"
+                      src="/ModuloEvento/icon-81.svg"
                     />
                   </div>
                 </div>
@@ -127,7 +127,7 @@ const Card2: FC <propsCardEventos2> = memo(({componentState,setComponentState}) 
                     className="h-2.5 w-[5.3px] relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/icon-91.svg"
+                    src="/ModuloEvento/icon-91.svg"
                   />
                 </div>
               </div>

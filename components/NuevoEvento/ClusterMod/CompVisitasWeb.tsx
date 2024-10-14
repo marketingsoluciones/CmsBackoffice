@@ -33,7 +33,7 @@ export const CompVisitasWebs: FC<propsCompVisitasWeb> = ({ }) => {
                   className="w-3 h-3 relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/f1.svg"
+                  src="/ModuloEvento/f1.svg"
                 />
               </div>
             </div>
@@ -52,7 +52,7 @@ export const CompVisitasWebs: FC<propsCompVisitasWeb> = ({ }) => {
           <div className="self-stretch flex flex-row flex-wrap items-center justify-center [row-gap:20px]">
             <div className="flex flex-col items-start justify-center py-0 pr-2 pl-0">
               <div className="h-6 overflow-hidden shrink-0 flex flex-col items-center justify-center">
-                <img className="w-6 h-6 relative" loading="lazy" alt="" src="ModuloEvento/c1.svg" />
+                <img className="w-6 h-6 relative" loading="lazy" alt="" src="/ModuloEvento/c1.svg" />
               </div>
             </div>
             <div className="flex-1 relative leading-[21px] font-medium inline-block min-w-[254px] text-[#21232C]">
@@ -68,14 +68,14 @@ export const CompVisitasWebs: FC<propsCompVisitasWeb> = ({ }) => {
               <img
                 className="self-stretch flex-1 relative max-w-full overflow-hidden max-h-full object-cover"
                 alt=""
-                src="ModuloEvento/1,1.svg"
+                src="/ModuloEvento/1,1.svg"
               />
             </div>
           </div>
         </div>
         <div className="absolute h-[calc(100%_-_197px)] w-[calc(100%_-_701px)] top-[98.5px] right-[701px] bottom-[98.5px] left-[0px] flex flex-row items-start justify-start p-2 box-border min-w-[48px] z-[1]">
           <div className="h-10 w-10 rounded-xl bg-carbonaphrd-pipedrive-com-leads-web-visitors-1318x573-default-nero shadow-[0px_3px_5px_rgba(0,_0,_0,_0.08),_0px_0px_4px_rgba(0,_0,_0,_0.12)] box-border flex flex-row items-center justify-center py-2 px-[7px] min-w-[32px] border-[1px] border-solid border-carbonaphrd-pipedrive-com-leads-web-visitors-1318x573-default-shark-24">
-            <img className="h-6 w-6 relative overflow-hidden shrink-0" alt="" src="ModuloEvento/iz.svg" />
+            <img className="h-6 w-6 relative overflow-hidden shrink-0" alt="" src="/ModuloEvento/iz.svg" />
           </div>
         </div>
         <div className="absolute h-[calc(100%_-_197px)] w-[calc(100%_-_701px)] top-[98.5px] right-[0px] bottom-[98.5px] left-[701px] flex flex-row items-start justify-start p-2 box-border min-w-[48px] z-[1]">
@@ -84,7 +84,7 @@ export const CompVisitasWebs: FC<propsCompVisitasWeb> = ({ }) => {
               className="h-6 w-6 relative overflow-hidden shrink-0"
               loading="lazy"
               alt=""
-              src="ModuloEvento/de.svg"
+              src="/ModuloEvento/de.svg"
             />
           </div>
         </div>

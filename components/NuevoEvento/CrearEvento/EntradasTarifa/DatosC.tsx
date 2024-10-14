@@ -35,7 +35,7 @@ const DatosC: FC <propsDatosC> = ({componentState, setComponentState}) => {
                     <img
                       className="h-3.5 w-[13.6px] relative overflow-hidden shrink-0"
                       alt=""
-                      src="ModuloEvento/mundo2.svg"
+                      src="/ModuloEvento/mundo2.svg"
                     />
                   </div>
                   <div className="relative leading-[36px] font-medium inline-block min-w-[49px] text-white">
@@ -48,7 +48,7 @@ const DatosC: FC <propsDatosC> = ({componentState, setComponentState}) => {
             <div className="flex flex-col w-full items-start justify-start text-gray-600">
               <div className="self-stretch rounded-md bg-slate-200 flex flex-row items-center justify-start py-0 pl-[10.5px] gap-[10px]">
                 <div className="h-3.5 w-[11px] relative leading-[14px] flex items-center">
-                  <img src="ModuloEvento/libro.svg" alt="" />
+                  <img src="/ModuloEvento/libro.svg" alt="" />
                 </div>
                 <div className="relative leading-[36px] font-medium font-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-inter-semi-bold-263 text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-settings-rates-tickets-mlruscyfl014j01bne3ezei4j2izzbrh-1318x573-default-3-ebony inline-block min-w-[58px]">
                   Limitada
@@ -89,7 +89,7 @@ const DatosC: FC <propsDatosC> = ({componentState, setComponentState}) => {
                           className="h-3.5 w-[8.8px] relative overflow-hidden shrink-0"
                           loading="lazy"
                           alt=""
-                          src="ModuloEvento/equis1.svg"
+                          src="/ModuloEvento/equis1.svg"
                         />
                       </div>
                     </div>
@@ -128,7 +128,7 @@ const DatosC: FC <propsDatosC> = ({componentState, setComponentState}) => {
                           className="h-3.5 w-[8.8px] relative overflow-hidden shrink-0"
                           loading="lazy"
                           alt=""
-                          src="ModuloEvento/equis1.svg"
+                          src="/ModuloEvento/equis1.svg"
                         />
                       </div>
                     </div>
@@ -143,7 +143,7 @@ const DatosC: FC <propsDatosC> = ({componentState, setComponentState}) => {
                   <img
                     className="w-[10.5px] h-3.5 relative overflow-hidden shrink-0"
                     alt=""
-                    src="ModuloEvento/mas1.svg"
+                    src="/ModuloEvento/mas1.svg"
                   />
                 </div>
                 <div className="relative leading-[21px] inline-block min-w-[88px]">
@@ -161,7 +161,7 @@ const DatosC: FC <propsDatosC> = ({componentState, setComponentState}) => {
               <img
                 className="w-[10.5px] h-3.5 relative overflow-hidden shrink-0"
                 alt=""
-                src="ModuloEvento/mas1.svg"
+                src="/ModuloEvento/mas1.svg"
               />
             </div>
             <div className="relative leading-[21px]">Añadir complemento</div>

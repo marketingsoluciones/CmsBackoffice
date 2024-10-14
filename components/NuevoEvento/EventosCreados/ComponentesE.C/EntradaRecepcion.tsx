@@ -24,7 +24,7 @@ const EntradaRecepcion: FC<propsEntradaRecepcion> = ({componentState, setCompone
                   className="h-[27px] w-[23px] relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/vectorF.svg"
+                  src="/ModuloEvento/vectorF.svg"
                 />
              
         </div>
@@ -45,7 +45,7 @@ const EntradaRecepcion: FC<propsEntradaRecepcion> = ({componentState, setCompone
                     className="h-4 w-4 relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/search.svg"
+                    src="/ModuloEvento/search.svg"
                   />
                
               </div>
@@ -65,7 +65,7 @@ const EntradaRecepcion: FC<propsEntradaRecepcion> = ({componentState, setCompone
                  className="h-4 w-4 relative overflow-hidden shrink-0"
                  loading="lazy"
                  alt=""
-                 src="ModuloEvento/user.svg"
+                 src="/ModuloEvento/user.svg"
                />
             
            </div>
@@ -83,7 +83,7 @@ const EntradaRecepcion: FC<propsEntradaRecepcion> = ({componentState, setCompone
                 <img
                   className="w-4 h-4 relative overflow-hidden shrink-0"
                   alt=""
-                  src="ModuloEvento/scan.svg"
+                  src="/ModuloEvento/scan.svg"
                 />
               </div>
               <div className="relative text-sm leading-[36px] font-medium text-left text-white inline-block">
@@ -102,7 +102,7 @@ const EntradaRecepcion: FC<propsEntradaRecepcion> = ({componentState, setCompone
               className="w-10 h-4 relative overflow-hidden shrink-0"
               loading="lazy"
               alt=""
-              src="ModuloEvento/stop.svg"
+              src="/ModuloEvento/stop.svg"
             />
           </div>
 
@@ -125,7 +125,7 @@ const EntradaRecepcion: FC<propsEntradaRecepcion> = ({componentState, setCompone
                   className="absolute top-[5px] left-[7px] w-[11.9px] h-[13px] overflow-hidden"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/info2.svg"
+                  src="/ModuloEvento/info2.svg"
                 />
               </div>
             </div>
@@ -170,7 +170,7 @@ const EntradaRecepcion: FC<propsEntradaRecepcion> = ({componentState, setCompone
                         className="h-3.5 w-3.5 relative overflow-hidden shrink-0"
                         loading="lazy"
                         alt=""
-                        src="ModuloEvento/foto4.svg"
+                        src="/ModuloEvento/foto4.svg"
                       />
                     </div>
                   </div>
@@ -211,7 +211,7 @@ const EntradaRecepcion: FC<propsEntradaRecepcion> = ({componentState, setCompone
                         className="h-3.5 w-3.5 relative overflow-hidden shrink-0"
                         loading="lazy"
                         alt=""
-                        src="ModuloEvento/foto4.svg"
+                        src="/ModuloEvento/foto4.svg"
                       />
                     </div>
                   </div>
@@ -252,7 +252,7 @@ const EntradaRecepcion: FC<propsEntradaRecepcion> = ({componentState, setCompone
                         className="h-3.5 w-3.5 relative overflow-hidden shrink-0"
                         loading="lazy"
                         alt=""
-                        src="ModuloEvento/foto4.svg"
+                        src="/ModuloEvento/foto4.svg"
                       />
                     </div>
                   </div>
@@ -293,7 +293,7 @@ const EntradaRecepcion: FC<propsEntradaRecepcion> = ({componentState, setCompone
                         className="h-3.5 w-3.5 relative overflow-hidden shrink-0"
                         loading="lazy"
                         alt=""
-                        src="ModuloEvento/foto4.svg"
+                        src="/ModuloEvento/foto4.svg"
                       />
                     </div>
                   </div>
