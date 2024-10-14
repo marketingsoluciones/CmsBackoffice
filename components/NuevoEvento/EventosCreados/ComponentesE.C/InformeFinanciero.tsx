@@ -31,10 +31,10 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
         <div className="flex-1 bg-white shadow-[1px_1px_3px_rgba(0,_0,_0,_0.15)] flex flex-col items-start justify-start pt-[26.5px] pb-[115.7px] pr-[25.5px] pl-7 box-border gap-[5.5px] max-w-full mq625:pt-5 mq625:pb-[49px] mq625:box-border">
           <div className="flex flex-col items-start justify-start pt-0 px-0 pb-[23.5px] gap-[0.5px]">
             <div className="relative leading-[21px] inline-block max-w-[655.8800048828125px] mq675:max-w-full">
-              Sábado, 28 de diciembre de 2024
+              Viernes, 29 de Noviembre de 2024
             </div>
             <h2 className="m-0 relative text-[24px] leading-[36px] font-bold font-inherit inline-block max-w-[655.8800048828125px] mq450:text-[19px] mq450:leading-[29px] mq675:max-w-full">
-              Playa y rumba
+              Noche de Divas
             </h2>
           </div>
           <div className="w-4 h-[45.3px] relative hidden max-w-[16px]" />
@@ -82,42 +82,42 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
             <div className="w-[98.3px] flex flex-col items-end justify-start py-0 pr-0 pl-px box-border gap-[10.1px] text-center">
               <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
                 <div className="relative leading-[18px] inline-block min-w-[9px]">
-                  0
+                120
                 </div>
                 <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                  0,00 €
+                6000,00 €
                 </div>
               </div>
               <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
                 <div className="relative leading-[18px] inline-block min-w-[9px]">
-                  0
+                  50
                 </div>
                 <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                  0,00 €
+                  2500,00 €
                 </div>
               </div>
               <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
                 <div className="relative leading-[18px] inline-block min-w-[9px]">
-                  0
+                  10
                 </div>
                 <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                  0,00 €
+                  500,00 €
                 </div>
               </div>
               <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
                 <div className="relative leading-[18px] inline-block min-w-[9px]">
-                  0
+                  5
                 </div>
                 <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                  0,00 €
+                  25,00 €
                 </div>
               </div>
               <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
                 <div className="relative leading-[18px] inline-block min-w-[9px]">
-                  0
+                  20
                 </div>
                 <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                  0,00 €
+                  1000,00 €
                 </div>
               </div>
               <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
@@ -183,34 +183,34 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
               </div>
               <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
                 <div className="relative leading-[18px] inline-block min-w-[9px]">
-                  0
+                  3
                 </div>
                 <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                  0,00 €
+                150,00 €
                 </div>
               </div>
               <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
                 <div className="relative leading-[18px] inline-block min-w-[9px]">
-                  0
+                  2
                 </div>
                 <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                  0,00 €
+                  100,00 €
                 </div>
               </div>
               <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
                 <div className="relative leading-[18px] inline-block min-w-[9px]">
-                  0
+                  1
                 </div>
                 <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                  0,00 €
+                  50,00 €
                 </div>
               </div>
               <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
                 <div className="relative leading-[18px] inline-block min-w-[9px]">
-                  0
+                  1
                 </div>
                 <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                  0,00 €
+                  50,00 €
                 </div>
               </div>
             </div>
@@ -220,7 +220,7 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
               <div className="self-stretch flex flex-row items-start justify-end pt-0.5 px-0 pb-[1.5px] gap-[64.8px] border-t-[2px] border-solid border-profourvenuescom-mercury mq450:flex-wrap mq450:gap-[32px]">
                 <b className="relative leading-[21px]">TOTAL INGRESOS ONLINE</b>
                 <b className="relative leading-[21px] inline-block min-w-[46px]">
-                  0,00 €
+                9800,00 €
                 </b>
               </div>
               <div className="relative text-2xs-5 leading-[14px] z-[1] mt-[-1px]">
@@ -262,10 +262,10 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
                 <div className="w-[98px] flex flex-col items-end justify-start gap-[10.1px] text-center">
                   <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
                     <div className="relative leading-[18px] inline-block min-w-[9px]">
-                      0
+                    0
                     </div>
                     <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                      0,00 €
+                    150,00 €
                     </div>
                   </div>
                   <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
@@ -273,7 +273,7 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
                       0
                     </div>
                     <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                      0,00 €
+                      50,00 €
                     </div>
                   </div>
                   <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
@@ -281,7 +281,7 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
                       0
                     </div>
                     <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                      0,00 €
+                      20,00 €
                     </div>
                   </div>
                   <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
@@ -289,7 +289,7 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
                       0
                     </div>
                     <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                      0,00 €
+                      10,00 €
                     </div>
                   </div>
                   <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
@@ -297,7 +297,7 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
                       0
                     </div>
                     <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                      0,00 €
+                      50,00 €
                     </div>
                   </div>
                 </div>
@@ -321,7 +321,7 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
                       0
                     </div>
                     <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                      0,00 €
+                      30,00 €
                     </div>
                   </div>
                   <div className="self-stretch flex flex-row items-start justify-between gap-[20px]">
@@ -329,7 +329,7 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
                       0
                     </div>
                     <div className="relative leading-[18px] text-right inline-block min-w-[43px]">
-                      0,00 €
+                      20,00 €
                     </div>
                   </div>
                 </div>
@@ -339,7 +339,7 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
                   TOTAL GASTOS
                 </b>
                 <b className="relative leading-[21px] inline-block min-w-[46px]">
-                  0,00 €
+                  330,00 €
                 </b>
               </div>
             </div>
@@ -350,7 +350,7 @@ const InformeFinanciero: FC<propsInformeFinanciero> = ({addInforme, setAddInform
                     Importe total a liquidar
                   </b>
                   <b className="relative leading-[21px] inline-block text-profourvenuescom-royal-blue min-w-[46px]">
-                    0,00 €
+                    10.130,00 €
                   </b>
                 </div>
               </div>

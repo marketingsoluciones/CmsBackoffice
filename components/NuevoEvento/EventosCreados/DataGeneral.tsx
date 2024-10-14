@@ -764,12 +764,6 @@ interface propsDataGeneral {
                     </div>
                   </div>
                   <div className="self-stretch flex-1 relative box-border max-w-full border-t-[1px] border-solid border-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-catskill-white" />
-  
-                  <div className="self-stretch flex flex-row items-start justify-center text-xs text-gray-800">
-                    <div className="h-6 w-auto relative leading-[24px] flex items-center justify-center">
-                      iFrame de venta
-                    </div>
-                  </div>
                 </div>
   
                 <div className="self-stretch flex flex-row items-start justify-start py-0 pr-[3px] pl-[3.5px] box-border max-w-full text-[31.5px] text-black font-normal">
@@ -804,11 +798,13 @@ interface propsDataGeneral {
                         </div>
   
                       </div>
-                      <div className="self-stretch flex flex-col items-end justify-start text-center text-xs-9 text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-ebony">
-                        <div className="self-stretch h-px relative box-border border-t-[1px] border-solid border-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-catskill-white" />
+                      <div onClick={() => {
+                      setSelectedOption(7)
+                    }} className="cursor-pointer self-stretch flex flex-col hover:bg-pink-100 items-end justify-start text-center text-xs-9 ">
+                        <div className="self-stretch h-px relative box-border border-t-[1px] border-solid " />
                         <div className="self-stretch flex flex-row items-start justify-center py-0 px-5">
-                          <div className="h-6 w-auto relative leading-[24px] flex items-center justify-center text-xs">
-                            Ver recuento completo
+                          <div  className="h-6 w-auto relative leading-[24px] flex items-center justify-center text-xs">
+                            Ver usuarios destacados
                           </div>
                         </div>
                       </div>

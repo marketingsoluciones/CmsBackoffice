@@ -547,48 +547,9 @@ export const BodyStaticAPP: Schema[] = [
       },
       {
         icon: <CampañasIcon className="" />,
-        title: "Eventos New",
-        roles: ["empresa"],
-        route: "events",
-        getData: FetchGraphQL.questions.getAllQuestions,
-        getByID: FetchGraphQL.questions.getOneQuestion,
-        createEntry: FetchGraphQL.questions.createQuestions,
-        deleteEntry: FetchGraphQL.questions.deleteQuestions,
-        updateEntry: FetchGraphQL.questions.updateQuestions,
-        schema: [
-          {
-            Header: "ID",
-            accessor: "_id",
-          },
-          {
-            Header: "Titulo",
-            accessor: "title",
-            type: "textareaSizable",
-            required: true,
-          },
-          {
-            Header: "Slug",
-            accessor: "slug",
-            type: "textareaSizable",
-            required: true,
-          },
-          {
-            Header: "Creado el",
-            accessor: "createdAt",
-            Cell: (props) => formatTime(props.value, "es"),
-          },
-          {
-            Header: "Actualizado el",
-            accessor: "updatedAt",
-            Cell: (props) => formatTime(props.value, "es"),
-          },
-        ],
-      },
-      {
-        icon: <CampañasIcon className="" />,
         title: "Eventos",
         roles: ["empresa"],
-        route: "eventos",
+        route: "events",
         getData: FetchGraphQL.questions.getAllQuestions,
         getByID: FetchGraphQL.questions.getOneQuestion,
         createEntry: FetchGraphQL.questions.createQuestions,
@@ -938,9 +899,9 @@ export const BodyStaticAPP: Schema[] = [
       },
       {
         icon: <CampañasIcon />,
-        title: "Eventos",
+        title: "Ticketing New",
         roles: ["all"],
-        route: "eventos",
+        route: "events",
       },
       {
         icon: <ClusterIcon />,
