@@ -20,7 +20,7 @@ export const ColumnsDefTable: FC<props> = ({ schemaChildren }) => {
   const f1 = schemaChildren?.findIndex((elem) => elem.route === `${router.asPath.split("/")[1]}/${router.query.slug[0]}`)
   const itemSchema = schemaChildren[f1]
   const schemaArr = itemSchema?.schema ? [...itemSchema?.schema] : []
-
+  console.log(111, schemaArr)
 
   const columnsDef = useMemo<ColumnDef<any>[]>(
     () => schemaArr?.map((item: childrenSchema) => {
@@ -28,7 +28,7 @@ export const ColumnsDefTable: FC<props> = ({ schemaChildren }) => {
         id: item?.accessor,
         header: () => <span>{item?.Header}</span>,
         cell: info => <div
-          onClick={(e: any) => { console.log(10009, e.target.value) }}
+          onClick={(e: any) => {item.Cell }}
           onDoubleClick={(e: any) => {
             console.log(10002, e.target)
             e.stopPropagation()

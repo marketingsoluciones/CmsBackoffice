@@ -74,6 +74,8 @@ export interface SchemaChildren extends Schema {
   schema?: childrenSchema[]
   api?: string
   component?: JSX.Element
+  handleRowClick?: any
+  handleRowDobleClick?: any
 }
 
 export const BodyStaticAPP: Schema[] = [
@@ -933,23 +935,20 @@ export const BodyStaticAPP: Schema[] = [
         roles: ["all"],
         route: "cluster/buzonProspectos",
         getData: { query: queries.getAllUsers },
-        getByID: null,
-        createEntry: null,
-        updateEntry: null,
-        deleteEntry: null,
+        handleRowClick: "",
+        handleRowDobleClick: "",
         schema: [
-          // {
-          //   Header: "ID",
-          //   accessor: "_id",
-          //   enableHiding: false,
-          //   filterFn: 'fuzzy',
-          //   sortingFn: fuzzySort,
-          // },
+          {
+            Header: "ID",
+            accessor: "uid",
+            enableHiding: false,
+            filterFn: 'fuzzy',
+          },
           {
             Header: "Prospecto",
             accessor: "displayName",
+            Cell: (props) => console.log(101010, "click de la celda"),
             enableHiding: false,
-            CellComponent: <></>,
             filterFn: 'fuzzy',
           },
           {
@@ -968,13 +967,6 @@ export const BodyStaticAPP: Schema[] = [
           {
             Header: "Actualizado el",
             accessor: "updatedAt",
-            Cell: (props) => formatTime(props.value, "es"),
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "otro",
-            accessor: "otro",
             Cell: (props) => formatTime(props.value, "es"),
             enableHiding: false,
             filterFn: 'fuzzy',
@@ -1011,6 +1003,7 @@ export const BodyStaticAPP: Schema[] = [
         hidden: true,
         roles: ["all"],
         route: "cluster/leads",
+        getData: null,
         schema: [
           {
             Header: "ID",

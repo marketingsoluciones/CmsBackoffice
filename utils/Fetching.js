@@ -94,6 +94,7 @@ export const queries = {
     getAllUsers{
         total
     results{
+      uid
       email
       emailVerified
       displayName

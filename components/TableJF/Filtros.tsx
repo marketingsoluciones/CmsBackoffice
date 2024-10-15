@@ -74,10 +74,13 @@ export const FiltroTime: FC<PropsFiltroTime> = ({ onOptionChangeDate, dateFilter
 export const Time: FC<PropsFiltroTime> = ({ showModal, setShowModal, onOptionChangeDate, dateFilter, startDateFilter, setStartDateFilter, endDateFilter, setEndDateFilter }) => {
     return (
         <div className="relative">
-            <GoClock onClick={() => setShowModal(!showModal)} className="w-6 h-6 cursor-pointer" />
-            {showModal &&
+            <div className={`${showModal ? "bg-slate-200 rounded-full h-7 w-7 " : ""} h-7 w-7 flex items-center justify-center `}>
+                <GoClock onClick={() => setShowModal(!showModal)} className="w-5 h-5 cursor-pointer" />
+            </div>
+            {
+                showModal &&
                 <ClickAwayListener onClickAway={() => showModal && setShowModal(!showModal)}>
-                    <div className="border-[1px] border-gray-300  rounded-md px-2 py-3 absolute w-[408px] bg-white -left-[390px] m-3  grid grid-cols-4 gap-2 justify-items-center  " >
+                    <div className="border-[1px] border-gray-300  rounded-md px-2 py-3 absolute w-[408px] bg-white -left-[390px] m-3  grid grid-cols-4 gap-2 justify-items-center z-50  " >
                         <div className="inline-flex items-center space-x-1">
                             <input type="radio" name="date" value="lastmonth" id="lastmonth" onChange={onOptionChangeDate} checked={"lastmonth" === dateFilter} />
                             <label htmlFor="lastmonth">mes anterior</label>

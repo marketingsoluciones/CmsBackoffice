@@ -41,14 +41,6 @@ export const TableJF: FC<PropsTable> = ({ Filter, targetRef, table, TableForward
                                                     ? null
                                                     : (<div className={`${header.id === "checkbox" ? "!w-10" : ""} flex flex-col justify-start h-full  `}>
                                                         <div className="flex items-start ">
-                                                            {/* {idx === 0 && <BiSearchAlt2
-                                                                onClick={() => {
-                                                                    setSearch(!search)
-                                                                    //setSearchColumn(searchColumn === header.id ? null : header.id)
-                                                                    //searchColumn === header.id && header.column.setFilterValue(null)
-                                                                }}
-                                                                className="w-3.5 h-3.5 ml-1 cursor-pointer" />
-                                                                 } */}
                                                             <div
                                                                 {...{
                                                                     className: header.column.getCanSort()
@@ -68,14 +60,6 @@ export const TableJF: FC<PropsTable> = ({ Filter, targetRef, table, TableForward
                                                                 }[header.column.getIsSorted() as string] ?? <span className="w-3" />}
                                                             </div>
                                                         </div>
-                                                        {/* { search
-                                                            ?  header.column.getCanFilter() ? (
-                                                                <div className={`${search ? " translate-x-0" : " "} flex-1 px-1 flex items-center mt-1 transition-all delay-150  `}>
-                                                                    <Filter column={header.column} table={table} />
-                                                                </div>
-                                                            ) : null
-                                                            : null
-                                                        } */}
                                                     </div>
                                                     )}
                                             </th>
@@ -85,20 +69,30 @@ export const TableJF: FC<PropsTable> = ({ Filter, targetRef, table, TableForward
                             )
                         })}
                     </thead>
-                    <tbody className={` block overflow-y-scroll w-[calc(100%+8px)] h-[calc(100vh-265px)] `}>
-                        {table.getRowModel().rows.map(row => {
-                            return (
-                                <tr key={row.id} onClick={() => setSelectRow(row.id === selectRow ? null : row.id)} className={`${row.id === selectRow && "bg-gray-300"} hover:bg-gray-200 select-none`}>
-                                    {row.getVisibleCells().map(cell => {
-                                        return (
-                                            <td key={cell.id} onClick={(e: any) => { console.log(10009, e) }}>
-                                                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                            </td>
-                                        )
-                                    })}
-                                </tr>
-                            )
-                        })}
+                    <tbody className={` block overflow-y-scroll w-[calc(100%+8px)] h-[calc(100vh-265px)] relative `}>
+                        {
+                            table.getRowModel().rows.length > 0 &&
+                            table.getRowModel().rows.map(row => {
+                                return (
+                                    <tr key={row.id} onClick={() => setSelectRow(row.id === selectRow ? null : row.id)} className={`${row.id === selectRow && "bg-gray-300"} hover:bg-gray-200 select-none border-b`}>
+                                        {row.getVisibleCells().map(cell => {
+                                            return (
+                                                <td key={cell.id} onClick={(e: any) => { console.log(10009, "hola") }} className="py-2 pl-2">
+                                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                                </td>
+                                            )
+                                        })}
+                                    </tr>
+                                )
+
+                            })
+                        }
+                        {
+                            table.getRowModel().rows.length <= 0 &&
+                            <div className="flex  items-center justify-center w-full h-full">
+                                <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4" />
+                            </div>
+                        }
                     </tbody>
                     <tfoot className="hidden">
                         {table.getFooterGroups().map(footerGroup => (
@@ -193,6 +187,30 @@ export const TableJF: FC<PropsTable> = ({ Filter, targetRef, table, TableForward
                     width: 100%;
                     table-layout: fixed;
                 }
+
+               .loader {
+                        border-top-color:  #3498db;
+                        -webkit-animation: spinner 1.5s linear infinite;
+                        animation: spinner 1.5s linear infinite;
+                    }
+
+                    @-webkit-keyframes spinner {
+                        0% {
+                        -webkit-transform: rotate(0deg);
+                        }
+                        100% {
+                        -webkit-transform: rotate(360deg);
+                        }
+                    }
+
+                    @keyframes spinner {
+                        0% {
+                        transform: rotate(0deg);
+                        }
+                        100% {
+                        transform: rotate(360deg);
+                        }
+                    }
             `}</style>
         </div>
 

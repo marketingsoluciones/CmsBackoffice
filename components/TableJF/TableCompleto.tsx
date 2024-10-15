@@ -30,6 +30,7 @@ interface props {
 }
 
 export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
+    console.log(">>>>>>>>>>>>>>>>>>>",itemSchema)
     const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' })
     const [showPreviewPdf, setShowPreviewPdf] = useState<any>({ state: false, title: "", payload: {} })
     const [selectRow, setSelectRow] = useState<string | null>(null)
@@ -70,7 +71,7 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
         } catch (error) {
             console.log(error)
         }
-    }, [])
+    }, [itemSchema.route])
 
     const handleChange = (event) => {
         if (event.key === 'Enter') {
@@ -115,7 +116,7 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
 
 
     useEffect(() => {
-        table?.setPageSize(250)
+        table?.setPageSize(50)
     }, [])
 
     useEffect(() => {
@@ -209,7 +210,8 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
 
     return (
         <div className="flex w-full text-xs capitalize">
-            {showPreviewPdf.state &&
+            {
+                showPreviewPdf.state &&
                 <div className="absolute w-full h-[calc(100%-100px)] z-50 justify-center flex">
                     <ClickAwayListener onClickAway={() => setShowPreviewPdf({ state: false })}>
                         <div className="bg-gray-200 flex flex-col w-[764px] h-[615px] translate-y-[46px] rounded-xl shadow-lg border-[1px] border-gray-300">
@@ -234,8 +236,6 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
                     <div id="loader" className="absolute" />
                 </div>
             }
-
-            {/* <input id="child" type="number" onKeyDown={handleChange} className={`${!inputView && "hidden"} h-4 text-right text-xs font-medium`} /> */}
             <div className="w-full h-[calc(100vh-120px)] overflow-auto">
                 <div className="bg-white flex flex-col w-[calc(1280px-40px)] xl:w-[calc(100%)] h-[calc(100vh-135px)] border border-gray-300 rounded-xl p-2 ">
                     <div className="flex justify-end  space-x-4 items-center">

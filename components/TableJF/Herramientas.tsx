@@ -15,7 +15,7 @@ export const Herramientas = ({ setShowPreviewPdf, setColumnsView, columnsView, t
 
 
     return (
-        <div className="space-x-3 flex px-2">
+        <div className="space-x-1 flex pr-2 pl-1">
             < FavoriteFilter setFavoriteFilterView={setFavoriteFilterView} favoriteFilterView={favoriteFilterView} table={table} />
             < Filter setColumnsView={setColumnsView} columnsView={columnsView} table={table} />
             < Tools setToolsView={setToolsView} ToolsViw={ToolsViw} table={table} setShowPreviewPdf={setShowPreviewPdf} />
@@ -26,10 +26,12 @@ export const Herramientas = ({ setShowPreviewPdf, setColumnsView, columnsView, t
 export const Tools = ({ setToolsView, ToolsViw, table, setShowPreviewPdf }) => {
     return (
         <div className="relative">
-            <BsThreeDotsVertical onClick={() => setToolsView(!ToolsViw)} className="w-6 h-6 cursor-pointer" />
+            <div className={`${ToolsViw ? "bg-slate-200 rounded-full h-7 w-7 " : ""} h-7 w-7 flex items-center justify-center `}>
+                <BsThreeDotsVertical onClick={() => setToolsView(!ToolsViw)} className="w-5 h-5 cursor-pointer" />
+            </div>
             {ToolsViw &&
                 <ClickAwayListener onClickAway={() => ToolsViw && setToolsView(!ToolsViw)}>
-                    <div className="bg-white w-max h-max border border-gray-300 shadow rounded-md absolute translate-y-2 p-3 -left-7 space-y-3 " >
+                    <div className="bg-white w-max h-max border border-gray-300 shadow rounded-md absolute translate-y-2 p-3 -left-7 space-y-3 z-50 " >
                         <div /* onClick={() => generateXLSX({ data, tableMaster })} */ className="w-6 h-6 hover:scale-120 transform  flex flex-col items-center justify-center gap-1 cursor-pointer relative" >
                             <RiFileExcel2Fill className="w-6 h-6 text-green-700" />
                         </div>
@@ -46,10 +48,13 @@ export const Tools = ({ setToolsView, ToolsViw, table, setShowPreviewPdf }) => {
 export const Filter = ({ setColumnsView, columnsView, table }) => {
     return (
         <div className="relative">
-            <HiOutlineFilter onClick={() => setColumnsView(!columnsView)} className="w-6 h-6 cursor-pointer" />
+            <div className={`${columnsView ? "bg-slate-200 rounded-full h-7 w-7 " : ""} h-7 w-7 flex items-center justify-center `} >
+
+                <HiOutlineFilter onClick={() => setColumnsView(!columnsView)} className="w-5 h-5 cursor-pointer" />
+            </div>
             {columnsView &&
                 <ClickAwayListener onClickAway={() => columnsView && setColumnsView(!setColumnsView)}>
-                    <div className="bg-white w-[250px] h-max border border-gray-300 shadow rounded-md absolute -translate-x-[200px] translate-y-2 " >
+                    <div className="bg-white w-[250px] h-max border border-gray-300 shadow rounded-md absolute -translate-x-[200px] translate-y-2 z-50 " >
                         <div className="px-3 pt-3">
                             <label className="font-semibold text-[14px]">
                                 Customise Columns
@@ -117,10 +122,12 @@ export const Filter = ({ setColumnsView, columnsView, table }) => {
 export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, table }) => {
     return (
         <div className="relative ">
-            <TbFilterHeart onClick={() => setFavoriteFilterView(!favoriteFilterView)} className="w-6 h-6 cursor-pointer" />
+            <div className={`${favoriteFilterView ? "bg-slate-200 rounded-full h-7 w-7 " : ""} h-7 w-7 flex items-center justify-center `}>
+                <TbFilterHeart onClick={() => setFavoriteFilterView(!favoriteFilterView)} className={` w-5 h-5 cursor-pointer`} />
+            </div>
             {favoriteFilterView &&
                 <ClickAwayListener onClickAway={() => favoriteFilterView && setFavoriteFilterView(!favoriteFilterView)}>
-                    <div className=" bg-white w-[250px] h-max border border-gray-300 shadow rounded-md absolute -translate-x-[200px] translate-y-2 " >
+                    <div className=" bg-white w-[250px] h-max border border-gray-300 shadow rounded-md absolute -translate-x-[200px] translate-y-2 z-50 " >
                         <div className="px-3 pt-3">
                             <label className="font-semibold text-[14px]">
                                 Vistas
@@ -130,7 +137,7 @@ export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, tabl
                             {table.getAllLeafColumns().map(column => {
                                 return (
                                     <div className="flex justify-between pr-2">
-                                        <div key={column.id+1} className="px-1 py-1 flex items-center justify-center space-x-1">
+                                        <div key={column.id + 1} className="px-1 py-1 flex items-center justify-center space-x-1">
                                             <input
                                                 {...{
                                                     type: 'checkbox',
