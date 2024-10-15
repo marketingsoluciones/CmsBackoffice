@@ -37,7 +37,7 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
     const [searchColumn, setSearchColumn] = useState<string | null>(null)
     const [search, setSearch] = useState<boolean>(false)
     const [columnsView, setColumnsView] = useState<boolean>(false)
-    const [inputView, setInputView] = useState<boolean>(false)
+    /* const [inputView, setInputView] = useState<boolean>(false) */
     const [showTable, setShowTable] = useState<boolean>(true)
     const [data, setData] = useState<any>([])
     const rerender = useReducer(() => ({}), {})[1]
