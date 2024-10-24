@@ -2,8 +2,8 @@ import { FC } from "react"
 
 interface propsModal {
     children: any
-    setOpenIcon: any
-    openIcon: any
+    setOpenIcon?: any
+    openIcon?: any
     classe: any
    
 }

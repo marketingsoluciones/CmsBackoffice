@@ -3,6 +3,7 @@ import { useField } from "formik";
 import { memo } from "react";
 import { Popup } from "../../Popup";
 
+
 export const InputFieldGlobal = memo(({ className, placeholder,...props }) => {
   const [field, meta, helpers] = useField({ name: props.name });
   return (

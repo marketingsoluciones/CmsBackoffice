@@ -1,22 +1,28 @@
 import ClickAwayListener from "react-click-away-listener"
 import { GrDocumentPdf } from "react-icons/gr"
 import { RiFileExcel2Fill } from "react-icons/ri"
-import { HiOutlineFilter } from "react-icons/hi";
-import { TbFilterHeart } from "react-icons/tb";
-import { TbFilterPlus } from "react-icons/tb";
-import { TbFilterX } from "react-icons/tb";
 import { useState } from "react";
 import { MdOutlineEdit } from "react-icons/md";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { GoGear } from "react-icons/go";
+import { GoFilter } from "react-icons/go";
+import { GoPlus } from "react-icons/go";
+import { IoIosStarOutline } from "react-icons/io";
+import { Modal } from "../modals/Modal";
+import { Form, Formik } from "formik";
+import InputFieldTSX from "../formularios/Inputs/InputFieldTSX";
+import { ArrowDownIcon } from "lucide-react";
+import { SelectFieldTSX } from "../formularios/Inputs/SelectFieldTSX";
 
-export const Herramientas = ({ setShowPreviewPdf, setColumnsView, columnsView, table }) => {
+
+
+export const Herramientas = ({ setShowPreviewPdf, setColumnsView, columnsView, table, columns }) => {
     const [favoriteFilterView, setFavoriteFilterView] = useState(false)
     const [ToolsViw, setToolsView] = useState(false)
 
-
     return (
         <div className="space-x-1 flex pr-2 pl-1">
-            < FavoriteFilter setFavoriteFilterView={setFavoriteFilterView} favoriteFilterView={favoriteFilterView} table={table} />
+            < FavoriteFilter setFavoriteFilterView={setFavoriteFilterView} favoriteFilterView={favoriteFilterView} columns={columns} />
             < Filter setColumnsView={setColumnsView} columnsView={columnsView} table={table} />
             < Tools setToolsView={setToolsView} ToolsViw={ToolsViw} table={table} setShowPreviewPdf={setShowPreviewPdf} />
         </div>
@@ -50,7 +56,7 @@ export const Filter = ({ setColumnsView, columnsView, table }) => {
         <div className="relative">
             <div className={`${columnsView ? "bg-slate-200 rounded-full h-7 w-7 " : ""} h-7 w-7 flex items-center justify-center `} >
 
-                <HiOutlineFilter onClick={() => setColumnsView(!columnsView)} className="w-5 h-5 cursor-pointer" />
+                <GoGear onClick={() => setColumnsView(!columnsView)} className="w-5 h-5 cursor-pointer" />
             </div>
             {columnsView &&
                 <ClickAwayListener onClickAway={() => columnsView && setColumnsView(!setColumnsView)}>
@@ -98,7 +104,7 @@ export const Filter = ({ setColumnsView, columnsView, table }) => {
                                 )
                             })}
                         </div>
-                        <div className="flex items-center justify-between p-3 bg-gray-100">
+                        {/* <div className="flex items-center justify-between p-3 bg-gray-100">
                             <div className="flex items-center space-x-2 font-semibold">
                                 <TbFilterPlus className="h-5 w-5" />
                                 <label >
@@ -110,7 +116,7 @@ export const Filter = ({ setColumnsView, columnsView, table }) => {
                                     Guardar
                                 </button>
                             </div>
-                        </div>
+                        </div> */}
 
                     </div>
                 </ClickAwayListener>
@@ -119,22 +125,82 @@ export const Filter = ({ setColumnsView, columnsView, table }) => {
     )
 }
 
-export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, table }) => {
+
+export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, columns }) => {
+    const [openModalCrearFilter, setOpenModalCrearFilter] = useState({ state: false, type: "crear" })
+    const [isHovered, setIsHovered] = useState(false);
+    console.log(isHovered)
+    const handleMouseOver = () => {
+        setIsHovered(true);
+    };
+
+    const handleMouseOut = () => {
+        setIsHovered(false);
+    };
+    const columnsTableArray = columns.map(objeto => objeto.id);
+    const optionsEjemplo = [
+        "estatus",
+        "fecha",
+        "babyshower",
+        "graduación",
+        "bautizo",
+        "comunión",
+        "desdepida de soltero",
+        "otro",
+    ]
+    const Visibilidad = [
+        "Privada",
+        "Publica",
+    ]
+
+    const initialValues = {
+        name: "",
+    }
+
+    const handelsumbit = () => {
+        setOpenModalCrearFilter({state:!openModalCrearFilter.state, type:null})
+    }
+
+
+
     return (
         <div className="relative ">
             <div className={`${favoriteFilterView ? "bg-slate-200 rounded-full h-7 w-7 " : ""} h-7 w-7 flex items-center justify-center `}>
-                <TbFilterHeart onClick={() => setFavoriteFilterView(!favoriteFilterView)} className={` w-5 h-5 cursor-pointer`} />
+                <GoFilter onClick={() => setFavoriteFilterView(!favoriteFilterView)} className={` w-5 h-5 cursor-pointer`} />
             </div>
             {favoriteFilterView &&
                 <ClickAwayListener onClickAway={() => favoriteFilterView && setFavoriteFilterView(!favoriteFilterView)}>
                     <div className=" bg-white w-[250px] h-max border border-gray-300 shadow rounded-md absolute -translate-x-[200px] translate-y-2 z-50 " >
                         <div className="px-3 pt-3">
                             <label className="font-semibold text-[14px]">
-                                Vistas
+                                Filtros
                             </label>
                         </div>
-                        <div className="p-3 ">
-                            {table.getAllLeafColumns().map(column => {
+                        <div className="py-4 ">
+                            <div className={`flex justify-between pr-2 hover:bg-gray-100 px-3`} onMouseOver={handleMouseOver} onMouseLeave={handleMouseOut}>
+                                <div className="px-1 py-1 flex items-center justify-center space-x-1">
+                                    <input
+                                        {...{
+                                            type: 'checkbox',
+                                        }}
+                                    />{' '}
+                                    <label>
+                                        filtro 1
+                                    </label>
+                                </div>
+                                <div className={`cursor-pointer flex space-x-2 ${isHovered ? "" : "hidden"}`}>
+                                    <IoIosStarOutline
+                                        className="h-6 w-4"
+                                    />
+                                    <MdOutlineEdit
+                                        onClick={() => setOpenModalCrearFilter({state:!openModalCrearFilter.state, type:"editar"})}
+                                        className="h-6 w-4"
+                                    />
+                                </div>
+                            </div>
+                            
+
+                            {/* {table.getAllLeafColumns().map(column => {
                                 return (
                                     <div className="flex justify-between pr-2">
                                         <div key={column.id + 1} className="px-1 py-1 flex items-center justify-center space-x-1">
@@ -154,25 +220,92 @@ export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, tabl
                                         </div>
                                     </div>
                                 )
-                            })}
+                            })} */}
                         </div>
-                        <div className="flex items-center justify-between p-3 bg-gray-100">
-                            <div className="flex items-center space-x-2 font-semibold">
-                                <TbFilterX className="h-5 w-5" />
-                                <label >
-                                    Eliminar Vistas
-                                </label>
-                            </div>
-                            <div>
-                                <button className="bg-gray-200 px-2 py-2 rounded-lg hover:bg-gray-300">
-                                    Borrar
-                                </button>
-                            </div>
+                        <div onClick={() => setOpenModalCrearFilter({state:!openModalCrearFilter.state, type:"crear"})} className="flex items-center font-semibold  justify-center p-3 bg-gray-100 hover:bg-gray-200 cursor-pointer">
+                            <GoPlus className="h-5 w-5 cursor-pointer" />
+                            <label className="cursor-pointer" >
+                                Agregar nuevo filtro
+                            </label>
                         </div>
                     </div>
                 </ClickAwayListener>
             }
-
+            {
+                openModalCrearFilter.state &&
+                <Modal classe={"md:w-[30%] h-max"}>
+                    <Formik initialValues={initialValues} onSubmit={handelsumbit}>
+                        <Form>
+                            <div className="space-y-5 flex flex-col justify-center">
+                                <div>
+                                    <span className="text-xl">
+                                        Personaliza Tu Filtro:
+                                    </span>
+                                </div>
+                                <div className="flex justify-center space-x-4 ">
+                                    <div className="flex flex-col space-y-1 mb-5 md:mb-0 ">
+                                        <label className="text-md">Nombre de la plantilla:</label>
+                                        <InputFieldTSX
+                                            name="name"
+                                            className="focus:outline-none border border-gray-300 rounded-md px-3 w-[100%] truncate mt-1"
+                                        />
+                                    </div>
+                                    <div className="flex flex-col space-y-1 mb-5 md:mb-0 ">
+                                        <label className="text-md">Visibilidad:</label>
+                                        <SelectFieldTSX
+                                            name="producto"
+                                            className=" capitalize cursor-pointer text-sm  border border-gray-300  transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
+                                            options={Visibilidad}
+                                            icon={<ArrowDownIcon className="h-4 w-4" />}
+                                            iconClassName="top-[9px] right-2 text-gray-600"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="flex flex-col justify-center items-center bg-gray-100 p-2 rounded-md space-y-2">
+                                    <label className="w-full text-md">Criterios para tu filtro:</label>
+                                    <div className="flex space-x-2 ">
+                                        <SelectFieldTSX
+                                            name="columns"
+                                            className=" capitalize cursor-pointer text-sm  border border-gray-300  transition w-full py-1 pl-2 pr-5 mt-1 rounded-lg focus:outline-none truncate "
+                                            options={columnsTableArray}
+                                            icon={<ArrowDownIcon className="h-4 w-4" />}
+                                            iconClassName="top-[9px] right-2 text-gray-600"
+                                        />
+                                        <SelectFieldTSX
+                                            name="type"
+                                            className=" capitalize cursor-pointer text-sm  border border-gray-300  transition w-full py-1 pl-2 pr-5 mt-1 rounded-lg focus:outline-none truncate "
+                                            options={optionsEjemplo}
+                                            icon={<ArrowDownIcon className="h-4 w-4" />}
+                                            iconClassName="top-[9px] right-2 text-gray-600"
+                                        />
+                                        <SelectFieldTSX
+                                            name="estado"
+                                            className=" capitalize cursor-pointer text-sm  border border-gray-300  transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
+                                            options={optionsEjemplo}
+                                            icon={<ArrowDownIcon className="h-4 w-4" />}
+                                            iconClassName="top-[9px] right-2 text-gray-600"
+                                        />
+                                    </div>
+                                    <button type="button" className="hover:text-gray-700">+ Agregar criterio </button>
+                                </div>
+                                <div className="space-x-4 flex justify-center ">
+                                    <button type="button" className={`${openModalCrearFilter.type == "editar"? "":"hidden"} px-3 py-1 bg-red-600 rounded-lg  text-white w-20`}>
+                                        Borrar
+                                    </button>
+                                    <button onClick={() => setOpenModalCrearFilter({state:!openModalCrearFilter.state, type:null})} type="button" className="px-3 py-1 bg-gray-400 rounded-lg  text-white w-20">
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" className="px-3 py-1 bg-acento rounded-lg  text-white w-20">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </div>
+                        </Form>
+                    </Formik>
+                </Modal>
+            }
         </div >
     )
 }
+
+

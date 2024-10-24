@@ -1,5 +1,5 @@
-import { Column, ColumnDef, ColumnFiltersState, FilterFn, SortingFn, Table, createColumnHelper, flexRender, getCoreRowModel, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, sortingFns, useReactTable } from "@tanstack/react-table";
-import { RankingInfo, rankItem, compareItems } from '@tanstack/match-sorter-utils'
+import { FilterFn, SortingFn, sortingFns } from "@tanstack/react-table";
+import {  rankItem, compareItems } from '@tanstack/match-sorter-utils'
 
 export const getDate = (date: Date): string => {
   const d = new Date(date)
@@ -18,9 +18,7 @@ export const getDateTime = (date: Date): string => {
     day: "2-digit",
     hour: "numeric",
     minute: "numeric",
-    //second: "numeric",
     hour12: false,
-    //timeZone: "America/Los_Angeles",
   }).format(d).replace(/\//g, '-')
 }
 
@@ -37,7 +35,6 @@ export function obtenerPrimerYUltimoDiaSemana() {
 
 export const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
   let dir = 0
-
   // Only sort by rank if the column has ranking information
   if (rowA.columnFiltersMeta[columnId]) {
     dir = compareItems(
@@ -45,7 +42,6 @@ export const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
       rowB.columnFiltersMeta[columnId]?.itemRank!
     )
   }
-
   // Provide an alphanumeric fallback for when the item ranks are equal
   return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir
 }

@@ -17,7 +17,7 @@ interface PropsTable {
 }
 
 
-export const TableJF: FC<PropsTable> = ({ Filter, targetRef, table, TableForward, typeFilter, setTableMaster, setSearch, search, flexRender, setSelectRow, selectRow }) => {
+export const TableJF: FC<PropsTable> = ({  targetRef, table, TableForward, typeFilter, setTableMaster, flexRender, setSelectRow, selectRow }) => {
 
     table.getRowModel().rows.slice(0, 1).map(row => {
         row.getVisibleCells().map(cell => {
@@ -26,7 +26,6 @@ export const TableJF: FC<PropsTable> = ({ Filter, targetRef, table, TableForward
     })
     return (
         <div>
-
             <div ref={targetRef} className="flex flex-col flex-1 border-[1px] border-gray-300 !rounded-xl">
                 <table className="">
                     <thead className=" w-full ">
@@ -44,7 +43,7 @@ export const TableJF: FC<PropsTable> = ({ Filter, targetRef, table, TableForward
                                                             <div
                                                                 {...{
                                                                     className: header.column.getCanSort()
-                                                                        ? 'cursor-pointer select-none flex flex-1* justify-start items-start px-1 space-x-1 capitalice'
+                                                                        ? 'cursor-pointer select-none flex flex-1 justify-start items-start px-1 space-x-1 capitalice'
                                                                         : '',
                                                                     onClick: header.column.getToggleSortingHandler(),
                                                                 }} >
@@ -54,10 +53,13 @@ export const TableJF: FC<PropsTable> = ({ Filter, targetRef, table, TableForward
                                                                         header.getContext()
                                                                     )}
                                                                 </div>
-                                                                {{
+                                                                {
+                                                                {
                                                                     asc: <TiArrowSortedDown />,
                                                                     desc: <TiArrowSortedUp />,
-                                                                }[header.column.getIsSorted() as string] ?? <span className="w-3" />}
+                                                                }
+                                                                [header.column.getIsSorted() as string] ?? <span className="w-3 h-full" />
+                                                                }
                                                             </div>
                                                         </div>
                                                     </div>
@@ -111,7 +113,6 @@ export const TableJF: FC<PropsTable> = ({ Filter, targetRef, table, TableForward
                         ))}
                     </tfoot>
                 </table>
-                <hr className="" />
                 <div className="flex flex-1 items-center gap-2 justify-between px-4 bg-gray-100 rounded-b-xl">
                     <select
                         value={table.getState().pagination.pageSize}
@@ -166,54 +167,55 @@ export const TableJF: FC<PropsTable> = ({ Filter, targetRef, table, TableForward
                     </div>
                 </div>
             </div>
-            <style>{`
-                tfoot {
-                    color: gray;
-                }
-
-                tfoot th {
-                    font-weight: normal;
-                }
-
-                table *tbody {
-                    display: block;
-                    max-height: calc(100vh - 340px);
-                    width: calc(100% + 8px);
-                    overflow-y: scroll;
-                }
-
-                thead, tbody tr, tfoot {
-                    display: table;
-                    width: 100%;
-                    table-layout: fixed;
-                }
-
-               .loader {
-                        border-top-color:  #3498db;
-                        -webkit-animation: spinner 1.5s linear infinite;
-                        animation: spinner 1.5s linear infinite;
+            <style>
+                {`
+                    tfoot {
+                        color: gray;
                     }
 
-                    @-webkit-keyframes spinner {
-                        0% {
-                        -webkit-transform: rotate(0deg);
-                        }
-                        100% {
-                        -webkit-transform: rotate(360deg);
-                        }
+                    tfoot th {
+                        font-weight: normal;
                     }
 
-                    @keyframes spinner {
-                        0% {
-                        transform: rotate(0deg);
-                        }
-                        100% {
-                        transform: rotate(360deg);
-                        }
+                    table *tbody {
+                        display: block;
+                        max-height: calc(100vh - 340px);
+                        width: calc(100% + 8px);
+                        overflow-y: scroll;
                     }
-            `}</style>
+
+                    thead, tbody tr, tfoot {
+                        display: table;
+                        width: 100%;
+                        table-layout: fixed;
+                        }
+
+                    .loader {
+                                border-top-color:  #3498db;
+                                -webkit-animation: spinner 1.5s linear infinite;
+                                animation: spinner 1.5s linear infinite;
+                            }
+
+                        @-webkit-keyframes spinner {
+                            0% {
+                            -webkit-transform: rotate(0deg);
+                            }
+                            100% {
+                            -webkit-transform: rotate(360deg);
+                            }
+                        }
+
+                        @keyframes spinner {
+                            0% {
+                            transform: rotate(0deg);
+                            }
+                            100% {
+                            transform: rotate(360deg);
+                            }
+                        }
+                `}
+            </style>
         </div>
 
     )
 }
-

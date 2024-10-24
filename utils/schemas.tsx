@@ -1,11 +1,7 @@
 import { FetchGraphQL, queries } from "./Fetching";
 import { formatTime } from "./formatTime";
-import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, InicioIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, DemoEnterprice, RpIcon, ClusterIcon, BuzonProsIcon, Leads1Icon, Invitados1Icon, ChatEnVivoIcon, FormulariosWebIcon, ChatBotIcon, VisitasWebIcon, Mensajes1Icon } from "../components/Icons/index";
-import { ClubIcon } from "lucide-react";
-import { IoSettingsOutline } from "react-icons/io5";
-import { ComponentProps, FC } from "react";
-import { AccessorFn, FilterFn, FilterFnOption, SortingFnOption } from "@tanstack/react-table";
-import { fuzzySort } from "../components/TableJF";
+import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, RpIcon, ClusterIcon, BuzonProsIcon, Leads1Icon, Invitados1Icon, ChatEnVivoIcon, FormulariosWebIcon, ChatBotIcon, VisitasWebIcon, Mensajes1Icon } from "../components/Icons/index";
+import { FilterFnOption, SortingFnOption } from "@tanstack/react-table";
 import { ClusterInfo1, CompVisitasWebs, InfoGeneral1 } from "../components/NuevoEvento/ClusterMod";
 
 

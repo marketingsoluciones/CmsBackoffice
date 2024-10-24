@@ -1,18 +1,13 @@
 "use client"
 import "react-datepicker/dist/react-datepicker.css";
-import es from 'date-fns/locale/es';
 import { usePDF } from 'react-to-pdf';
 import React, { ChangeEventHandler, FC, InputHTMLAttributes, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { fetchApi, FetchGraphQL, queries } from "../../utils/Fetching.js";
-import { Factura } from "../../utils/Interfaces.js";
 import { Column, ColumnDef, ColumnFiltersState, FilterFn, SortingFn, Table, createColumnHelper, flexRender, getCoreRowModel, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, sortingFns, useReactTable } from "@tanstack/react-table";
-import { RankingInfo, rankItem, compareItems } from '@tanstack/match-sorter-utils'
+import { RankingInfo,  } from '@tanstack/match-sorter-utils'
 import { TableJF, Herramientas, FiltroTime, obtenerPrimerYUltimoDiaSemana, fuzzyFilter } from "./index";
 import ClickAwayListener from "react-click-away-listener";
-import { SchemaChildren, visibleColumns } from "../../utils/schemas";
-import { AuthContextProvider } from "../../context/AuthContext.js";
-import { hasRole } from "../../utils/auth";
-import { columnsDataTable } from "../Datatable/Columns";
+import { SchemaChildren, } from "../../utils/schemas";
 import { developments } from "../../firebase.js";
 
 declare module '@tanstack/table-core' {
@@ -30,14 +25,13 @@ interface props {
 }
 
 export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
-    console.log(">>>>>>>>>>>>>>>>>>>",itemSchema)
     const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' })
     const [showPreviewPdf, setShowPreviewPdf] = useState<any>({ state: false, title: "", payload: {} })
     const [selectRow, setSelectRow] = useState<string | null>(null)
     const [searchColumn, setSearchColumn] = useState<string | null>(null)
     const [search, setSearch] = useState<boolean>(false)
     const [columnsView, setColumnsView] = useState<boolean>(false)
-    /* const [inputView, setInputView] = useState<boolean>(false) */
+    const [inputView, setInputView] = useState<boolean>(false)
     const [showTable, setShowTable] = useState<boolean>(true)
     const [data, setData] = useState<any>([])
     const rerender = useReducer(() => ({}), {})[1]
@@ -87,8 +81,6 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
         console.log(e.target.value)
         setStateFilter(e.target.value)
     }
-
-
     const table = useReactTable({
         data,
         columns:
@@ -113,12 +105,9 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
         getFacetedUniqueValues: getFacetedUniqueValues(),
         getFacetedMinMaxValues: getFacetedMinMaxValues(),
     })
-
-
     useEffect(() => {
         table?.setPageSize(50)
     }, [])
-
     useEffect(() => {
         if (startDateFilter && endDateFilter) {
             setRangeFilter({ startDateFilter, endDateFilter: new Date(endDateFilter.getTime() + 86399000) })
@@ -126,7 +115,6 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
             setRangeFilter(null)
         }
     }, [startDateFilter, endDateFilter])
-
     useEffect(() => {
         let args: any = {}
         if (dateFilter === "lastmonth") {
@@ -199,7 +187,6 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
           }
    */
     }, [columnsDef, dateFilter, stateFilter, rangeFilter])
-
     useEffect(() => {
         if (table.getState().columnFilters[0]?.id === 'fullName') {
             if (table.getState().sorting[0]?.id !== 'fullName') {
@@ -208,6 +195,7 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
         }
     }, [table.getState().columnFilters[0]?.id])
 
+    console.log(columnsDef)
     return (
         <div className="flex w-full text-xs capitalize">
             {
@@ -248,7 +236,7 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
                                 endDateFilter={endDateFilter}
                                 setEndDateFilter={setEndDateFilter}
                             />
-                            <Herramientas setShowPreviewPdf={setShowPreviewPdf} setColumnsView={setColumnsView} columnsView={columnsView} table={table} />
+                            <Herramientas setShowPreviewPdf={setShowPreviewPdf} setColumnsView={setColumnsView} columnsView={columnsView} table={table} columns={columnsDef} />
                         </div>
                     </div>
                     <TableJF targetRef={targetRef} table={table} TableForward={TableForward} typeFilter={columnsDef} setTableMaster={setTableMaster} setSearch={setSearch} search={search} flexRender={flexRender} setSelectRow={setSelectRow} selectRow={selectRow} Filter={Filter} />

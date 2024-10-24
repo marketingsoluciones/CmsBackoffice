@@ -15,7 +15,6 @@ export const OnlyViewTable = ({ slug, setSlug, dispatch, setbuscador }) => {
   const router = useRouter()
   const { development, user, domain, state } = AuthContextProvider()
   slug = router.asPath.slice(1)
-  console.log(">>>>",slug)
   const [skip, setSkip] = useState(0)
   const [limit, setLimit] = useState(10)
   const [sortCriteria, setSortCriteria] = useState()
