@@ -14,8 +14,6 @@ import { useRouter } from "next/router";
 export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const router = useRouter()
   slug = router.asPath.slice(1)
-
-  console.log(10088, slug)
   const [data_, isLoading, isError, setQuery] = useFetch();
   const refButton = useRef();
   const toast = useToast();

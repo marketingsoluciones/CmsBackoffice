@@ -2,13 +2,14 @@
 import "react-datepicker/dist/react-datepicker.css";
 import { usePDF } from 'react-to-pdf';
 import React, { ChangeEventHandler, FC, InputHTMLAttributes, useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { fetchApi, FetchGraphQL, queries } from "../../utils/Fetching.js";
+import { fetchApi, FetchGraphQL, queries, fetchApiEventos  } from "../../utils/Fetching";
 import { Column, ColumnDef, ColumnFiltersState, FilterFn, SortingFn, Table, createColumnHelper, flexRender, getCoreRowModel, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, sortingFns, useReactTable } from "@tanstack/react-table";
-import { RankingInfo,  } from '@tanstack/match-sorter-utils'
+import { RankingInfo, } from '@tanstack/match-sorter-utils'
 import { TableJF, Herramientas, FiltroTime, obtenerPrimerYUltimoDiaSemana, fuzzyFilter } from "./index";
 import ClickAwayListener from "react-click-away-listener";
 import { SchemaChildren, } from "../../utils/schemas";
 import { developments } from "../../firebase.js";
+import { AuthContextProvider } from "../../context/AuthContext.js";
 
 declare module '@tanstack/table-core' {
     interface FilterFns {
@@ -26,6 +27,7 @@ interface props {
 
 export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
     const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' })
+    const { domain } = AuthContextProvider()
     const [showPreviewPdf, setShowPreviewPdf] = useState<any>({ state: false, title: "", payload: {} })
     const [selectRow, setSelectRow] = useState<string | null>(null)
     const [searchColumn, setSearchColumn] = useState<string | null>(null)
@@ -52,7 +54,26 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
     const [columnVisibility, setColumnVisibility] = React.useState({ recargado: false, forma_pago: false, cajeroID: false, cajero: false, banco: false, conciliado: false, updatedAt: false })
     const [tableMaster, setTableMaster] = useState<any>()
 
+
     useEffect(() => {
+        try {
+            fetchApiEventos({
+                query: itemSchema?.getData.query,
+                variables: {
+                    development: "bodasdehoy",
+                },
+                domain
+            }).then((result) => {
+                const data = result.results
+                console.log(10000, data)
+                setData(data)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }, [itemSchema.route])
+    
+    /* useEffect(() => {
         try {
             fetchApi({
                 query: itemSchema?.getData.query,
@@ -65,7 +86,7 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
         } catch (error) {
             console.log(error)
         }
-    }, [itemSchema.route])
+    }, [itemSchema.route]) */
 
     const handleChange = (event) => {
         if (event.key === 'Enter') {
@@ -195,7 +216,7 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
         }
     }, [table.getState().columnFilters[0]?.id])
 
-    console.log(columnsDef)
+    
     return (
         <div className="flex w-full text-xs capitalize">
             {
@@ -236,7 +257,7 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
                                 endDateFilter={endDateFilter}
                                 setEndDateFilter={setEndDateFilter}
                             />
-                            <Herramientas setShowPreviewPdf={setShowPreviewPdf} setColumnsView={setColumnsView} columnsView={columnsView} table={table} columns={columnsDef} />
+                            <Herramientas setShowPreviewPdf={setShowPreviewPdf} setColumnsView={setColumnsView} columnsView={columnsView} table={table} columns={columnsDef} dataSchema={itemSchema.schema}/>
                         </div>
                     </div>
                     <TableJF targetRef={targetRef} table={table} TableForward={TableForward} typeFilter={columnsDef} setTableMaster={setTableMaster} setSearch={setSearch} search={search} flexRender={flexRender} setSelectRow={setSelectRow} selectRow={selectRow} Filter={Filter} />

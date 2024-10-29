@@ -16,13 +16,16 @@ import { SelectFieldTSX } from "../formularios/Inputs/SelectFieldTSX";
 
 
 
-export const Herramientas = ({ setShowPreviewPdf, setColumnsView, columnsView, table, columns }) => {
+export const Herramientas = ({ setShowPreviewPdf, setColumnsView, columnsView, table, columns, dataSchema }) => {
     const [favoriteFilterView, setFavoriteFilterView] = useState(false)
     const [ToolsViw, setToolsView] = useState(false)
+    console.log(">>>2",dataSchema)
+    
+
 
     return (
         <div className="space-x-1 flex pr-2 pl-1">
-            < FavoriteFilter setFavoriteFilterView={setFavoriteFilterView} favoriteFilterView={favoriteFilterView} columns={columns} />
+            < FavoriteFilter setFavoriteFilterView={setFavoriteFilterView} favoriteFilterView={favoriteFilterView} columns={columns} dataSchema={dataSchema}  />
             < Filter setColumnsView={setColumnsView} columnsView={columnsView} table={table} />
             < Tools setToolsView={setToolsView} ToolsViw={ToolsViw} table={table} setShowPreviewPdf={setShowPreviewPdf} />
         </div>
@@ -85,7 +88,7 @@ export const Filter = ({ setColumnsView, columnsView, table }) => {
                                 Columnas Disponibles
                             </label>
                         </div>
-                        <div className="p-3 ">
+                        <div className="p-3 overflow-y-auto h-[200px]">
                             {table.getAllLeafColumns().map(column => {
                                 return (
                                     <div key={column.id} className="px-1 py-1 flex space-x-1">
@@ -126,18 +129,16 @@ export const Filter = ({ setColumnsView, columnsView, table }) => {
 }
 
 
-export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, columns }) => {
+export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, columns, dataSchema }) => {
     const [openModalCrearFilter, setOpenModalCrearFilter] = useState({ state: false, type: "crear" })
     const [isHovered, setIsHovered] = useState(false);
-    console.log(isHovered)
+    const columnsTableArray = columns.map(objeto => objeto.id);
     const handleMouseOver = () => {
         setIsHovered(true);
     };
-
     const handleMouseOut = () => {
         setIsHovered(false);
     };
-    const columnsTableArray = columns.map(objeto => objeto.id);
     const optionsEjemplo = [
         "estatus",
         "fecha",
@@ -152,13 +153,11 @@ export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, colu
         "Privada",
         "Publica",
     ]
-
     const initialValues = {
         name: "",
     }
-
     const handelsumbit = () => {
-        setOpenModalCrearFilter({state:!openModalCrearFilter.state, type:null})
+        setOpenModalCrearFilter({ state: !openModalCrearFilter.state, type: null })
     }
 
 
@@ -193,36 +192,13 @@ export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, colu
                                         className="h-6 w-4"
                                     />
                                     <MdOutlineEdit
-                                        onClick={() => setOpenModalCrearFilter({state:!openModalCrearFilter.state, type:"editar"})}
+                                        onClick={() => setOpenModalCrearFilter({ state: !openModalCrearFilter.state, type: "editar" })}
                                         className="h-6 w-4"
                                     />
                                 </div>
                             </div>
-                            
-
-                            {/* {table.getAllLeafColumns().map(column => {
-                                return (
-                                    <div className="flex justify-between pr-2">
-                                        <div key={column.id + 1} className="px-1 py-1 flex items-center justify-center space-x-1">
-                                            <input
-                                                {...{
-                                                    type: 'checkbox',
-                                                    checked: column.getIsVisible(),
-                                                    onChange: column.getToggleVisibilityHandler(),
-                                                }}
-                                            />{' '}
-                                            <label>
-                                                {column.id}
-                                            </label>
-                                        </div>
-                                        <div className="cursor-pointer">
-                                            <MdOutlineEdit className="h-6 w-4" />
-                                        </div>
-                                    </div>
-                                )
-                            })} */}
                         </div>
-                        <div onClick={() => setOpenModalCrearFilter({state:!openModalCrearFilter.state, type:"crear"})} className="flex items-center font-semibold  justify-center p-3 bg-gray-100 hover:bg-gray-200 cursor-pointer">
+                        <div onClick={() => setOpenModalCrearFilter({ state: !openModalCrearFilter.state, type: "crear" })} className="flex items-center font-semibold  justify-center p-3 bg-gray-100 hover:bg-gray-200 cursor-pointer">
                             <GoPlus className="h-5 w-5 cursor-pointer" />
                             <label className="cursor-pointer" >
                                 Agregar nuevo filtro
@@ -280,7 +256,7 @@ export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, colu
                                         />
                                         <SelectFieldTSX
                                             name="estado"
-                                            className=" capitalize cursor-pointer text-sm  border border-gray-300  transition w-full py-1 px-2 mt-1 rounded-lg focus:outline-none "
+                                            className=" capitalize cursor-pointer text-sm  border border-gray-300  transition w-full py-1 pl-2 pr-5 mt-1 rounded-lg focus:outline-none truncate "
                                             options={optionsEjemplo}
                                             icon={<ArrowDownIcon className="h-4 w-4" />}
                                             iconClassName="top-[9px] right-2 text-gray-600"
@@ -289,10 +265,10 @@ export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, colu
                                     <button type="button" className="hover:text-gray-700">+ Agregar criterio </button>
                                 </div>
                                 <div className="space-x-4 flex justify-center ">
-                                    <button type="button" className={`${openModalCrearFilter.type == "editar"? "":"hidden"} px-3 py-1 bg-red-600 rounded-lg  text-white w-20`}>
+                                    <button type="button" className={`${openModalCrearFilter.type == "editar" ? "" : "hidden"} px-3 py-1 bg-red-600 rounded-lg  text-white w-20`}>
                                         Borrar
                                     </button>
-                                    <button onClick={() => setOpenModalCrearFilter({state:!openModalCrearFilter.state, type:null})} type="button" className="px-3 py-1 bg-gray-400 rounded-lg  text-white w-20">
+                                    <button onClick={() => setOpenModalCrearFilter({ state: !openModalCrearFilter.state, type: null })} type="button" className="px-3 py-1 bg-gray-400 rounded-lg  text-white w-20">
                                         Cancelar
                                     </button>
                                     <button type="submit" className="px-3 py-1 bg-acento rounded-lg  text-white w-20">

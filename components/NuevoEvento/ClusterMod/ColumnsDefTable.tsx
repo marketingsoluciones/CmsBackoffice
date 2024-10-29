@@ -9,18 +9,18 @@ import { useRouter } from "next/router";
 
 interface props {
   schemaChildren: SchemaChildren[]
+  ButtonActive: any
+  title: any
 }
 
-export const ColumnsDefTable: FC<props> = ({ schemaChildren }) => {
-  console.log(10008, schemaChildren)
+export const ColumnsDefTable: FC<props> = ({ schemaChildren, ButtonActive, title }) => {
   const router = useRouter()
-  const { openModalRight, setOpenModalRight } = AuthContextProvider()
+  const { dispatch } = AuthContextProvider()
   const columnHelperFactura = createColumnHelper<any>()
-
   const f1 = schemaChildren?.findIndex((elem) => elem.route === `${router.asPath.split("/")[1]}/${router.query.slug[0]}`)
   const itemSchema = schemaChildren[f1]
   const schemaArr = itemSchema?.schema ? [...itemSchema?.schema] : []
-  console.log(111, schemaArr)
+
 
   const columnsDef = useMemo<ColumnDef<any>[]>(
     () => schemaArr?.map((item: childrenSchema) => {
@@ -28,11 +28,10 @@ export const ColumnsDefTable: FC<props> = ({ schemaChildren }) => {
         id: item?.accessor,
         header: () => <span>{item?.Header}</span>,
         cell: info => <div
-          onClick={(e: any) => {item.Cell }}
+          onClick={(e: any) => { item.Cell }}
           onDoubleClick={(e: any) => {
-            console.log(10002, e.target)
             e.stopPropagation()
-          }} className="text-left">{info.getValue()}</div>,
+          }} className="text-left truncate pr-10">{info.getValue()}</div>,
         footer: info => info.column.id,
         filterFn: item?.filterFn,
         sortingFn: item?.sortingFn,
@@ -43,7 +42,15 @@ export const ColumnsDefTable: FC<props> = ({ schemaChildren }) => {
 
   return (
     <>
-      <h1 className="text-[20px] pb-2">{schemaChildren[f1]?.title}</h1>
+      <div className="flex items-center justify-between py-2 ">
+        <h1 className="text-[20px] ">{schemaChildren[f1]?.title}</h1>
+        {
+          ButtonActive &&
+          <button className="bg-rosa rounded-lg px-4 py-1 text-white text-base " onClick={() => dispatch({ type: "CREATE", payload: {} })}>
+            {title? title: "sin titulo" }
+          </button>
+        }
+      </div>
       <TableCompleto columnsDef={columnsDef} itemSchema={itemSchema} />
     </>
   )

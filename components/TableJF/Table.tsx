@@ -79,7 +79,7 @@ export const TableJF: FC<PropsTable> = ({  targetRef, table, TableForward, typeF
                                     <tr key={row.id} onClick={() => setSelectRow(row.id === selectRow ? null : row.id)} className={`${row.id === selectRow && "bg-gray-300"} hover:bg-gray-200 select-none border-b`}>
                                         {row.getVisibleCells().map(cell => {
                                             return (
-                                                <td key={cell.id} onClick={(e: any) => { console.log(10009, "hola") }} className="py-2 pl-2">
+                                                <td key={cell.id} onClick={(e: any) => { console.log(10009, "hola") }} className="py-2 pl-2 truncate overflow-hidden ">
                                                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                                 </td>
                                             )

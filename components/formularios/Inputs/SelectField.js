@@ -2,12 +2,12 @@ import { useField } from "formik"
 import { number } from "yup"
 
 
-export const SelectField = ({ label,  options, colSpan, className, icon, iconClassName, ...props }) => {
+export const SelectField = ({ label, options, colSpan, className, titleClassName,divClassName , icon, iconClassName, ...props }) => {
     const [field, meta] = useField({ name: props.name })
     return (
         <>
-            <div className={`relative* w-full h-full *col-span${colSpan && `-${colSpan}`} *content-between`}>
-                <label className="font-display text-sm text-primary w-full">{label}</label>
+            <div className={`${divClassName != null & titleClassName != undefined ? divClassName :""}  w-full h-full ${colSpan && `-${colSpan}`}`}>
+                <label className={` ${titleClassName != null & titleClassName != undefined ? titleClassName : "font-display text-sm text-primary w-full"}`}>{label}</label>
                 <div className="relative">
                     <select className={className} {...field} {...props} >
                         <option disabled value="" >

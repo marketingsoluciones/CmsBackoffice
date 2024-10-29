@@ -1,15 +1,20 @@
 import { AuthContextProvider } from "../../../context"
 import { LinksTabla } from "./LinksTabla"
 import { PanelEditAndCreate } from "../../PanelEditAndCreate"
+import { ColumnsDefTable } from "../../NuevoEvento/ClusterMod"
+import {CreateLink } from "../../formularios/CreateLink"
 
-export const LinksControl = () => {
+export const LinksControl = ({ schemaChildren }) => {
     const { state, dispatch } = AuthContextProvider()
+    console.log(schemaChildren)
     if (true) {
         return (
             <div className="w-full h-full px-5 py-2" >
                 {
-                    state?.type === "view" && (
-                        <LinksTabla dispatch={dispatch} />
+                    state?.type === "view" && (<>
+                        {/* <LinksTabla dispatch={dispatch} /> */}
+                        <ColumnsDefTable schemaChildren={schemaChildren} ButtonActive={true} title={"Crear un nuevo Link"}  />
+                    </>
                     )
                 }
                 {
@@ -19,7 +24,9 @@ export const LinksControl = () => {
                 }
                 {
                     ["edit", "create"].includes(state?.type) && (
-                        <></>// <PanelEditAndCreate setAction={dispatch} state={state} />
+                        <PanelEditAndCreate setAction={dispatch} state={state} />
+                        /* <CreateLink/> */
+                        
                     )
                 }
             </div >

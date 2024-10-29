@@ -30,6 +30,7 @@ import { EditSeudonimo } from "../modals/EditSeudonimo";
 import { InfoForm } from "./InfoForm";
 import { TextareaFieldSizable } from "./Inputs/TextareaFieldSizable";
 import { InputColor } from "./Inputs/InputColor";
+import { SelectField } from "./Inputs/SelectField";
 
 export const FormDinamical = forwardRef(
   ({ schema: state, initialValues, onSubmit, Information, options, estado, slug }, ref) => {
@@ -168,6 +169,34 @@ export const FormDinamical = forwardRef(
                                   </GridItem>
                                 );
                                 break;
+                              case "select":
+                                return (
+                                  <GridItem colSpan={[1, , , , 2]} key={idx}>
+                                    <SelectField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                      options={item.filterOne}
+                                      divClassName="mt-1"
+                                      titleClassName="font-semibold mt-2 text-sm text-primary w-full "
+                                      className="capitalize cursor-pointer text-sm  border border-gray-300  transition w-full py-2 px-2 mt-1 rounded-lg focus:outline-none  "
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                                case "selectM":
+                                return (
+                                  <GridItem colSpan={[1, , , , 3]} key={idx}>
+                                    <SelectField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                      options={item.filterOne}
+                                      divClassName="mt-1"
+                                      titleClassName="font-semibold mt-2 text-sm text-primary w-full "
+                                      className="capitalize cursor-pointer text-sm  border border-gray-300  transition w-full py-2 px-2 mt-1 rounded-lg focus:outline-none "
+                                    />
+                                  </GridItem>
+                                );
+                                break;
                               case "string":
                                 return (
                                   <GridItem colSpan={[1, , , , 2]} key={idx}>
@@ -225,6 +254,17 @@ export const FormDinamical = forwardRef(
                               case "number":
                                 return (
                                   <GridItem colSpan={[1, , , , 5]} key={idx}>
+                                    <InputNumberField
+                                      key={idx}
+                                      name={item.accessor}
+                                      label={item.Header}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                                case "numberM":
+                                return (
+                                  <GridItem colSpan={[1, , , , 3]} key={idx}>
                                     <InputNumberField
                                       key={idx}
                                       name={item.accessor}

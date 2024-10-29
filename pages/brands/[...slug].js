@@ -14,6 +14,8 @@ import { GoProjectSymlink } from "react-icons/go";
 import { Configuracion } from "../../components/ModuloMarcas/MarcasBlancas";
 import { useRouter } from "next/router";
 import { LinksControl } from "../../components/ModuloMarcas/Links";
+import { BodyStaticAPP } from "../../utils/schemas";
+
 
 const Slug = ({ props }) => {
   const router = useRouter()
@@ -22,6 +24,10 @@ const Slug = ({ props }) => {
   const dataMetricool = user?.authDevelopments.find(
     (element) => element.title === development
   );
+  const schemaChildren = BodyStaticAPP.find(elem => elem.title === "Mis Empresas")?.children.filter(elem => elem.hidden)
+
+
+
   useEffect(() => {
     /* console.log(optionSelect) */
   }, [optionSelect])
@@ -62,7 +68,7 @@ const Slug = ({ props }) => {
       icon: <IoLinkOutline className="h-6 w-auto" />,
       title: "Links",
       slug: "/links",
-      component: <LinksControl setComponentState={setOptionSelect} optionSelect={optionSelect} />,
+      component: <LinksControl  schemaChildren={schemaChildren} />,
     },
     {
       icon: <GoProjectSymlink className="h-6 w-auto" />,
@@ -72,7 +78,7 @@ const Slug = ({ props }) => {
     },
   ];
   const handleClickOption = (idx) => {
-   /*  console.log(1003, `/${router.route.split("/")[1]}${dataComponents[idx].slug}`) */
+    /*  console.log(1003, `/${router.route.split("/")[1]}${dataComponents[idx].slug}`) */
     dispatch({ type: "VIEW", payload: `/${router.route.split("/")[1]}${dataComponents[idx].slug}` });
     router.push(`/${router.route.split("/")[1]}${dataComponents[idx].slug}`)
     // setOptionSelect(idx);
@@ -90,7 +96,9 @@ const Slug = ({ props }) => {
         {
           dataComponents[optionSelect].component != undefined
             ? dataComponents[optionSelect].component
-            : null
+            : dataComponents[optionSelect]
+              ? <ColumnsDefTable schemaChildren={schemaChildren} />
+              : null
         }
       </div>
     </div>

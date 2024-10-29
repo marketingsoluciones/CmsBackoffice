@@ -56,6 +56,7 @@ export interface childrenSchema {
   updateEntry?: Query
   deleteEntry?: Query
   schema?: string //revisar
+  filterOne?: string[]
 }
 
 export interface SchemaChildren extends Schema {
@@ -72,6 +73,8 @@ export interface SchemaChildren extends Schema {
   component?: JSX.Element
   handleRowClick?: any
   handleRowDobleClick?: any
+
+
 }
 
 export const BodyStaticAPP: Schema[] = [
@@ -308,7 +311,7 @@ export const BodyStaticAPP: Schema[] = [
         ]
       },
       {
-        title: null,
+        title: "Links",
         hidden: true,
         roles: ["admin", "empresa"],
         route: "brands/links",
@@ -324,21 +327,85 @@ export const BodyStaticAPP: Schema[] = [
             accessor: "_id",
           },
           {
-            Header: "Titulo",
-            accessor: "title",
-            type: "stringL",
-            required: true,
-          },
-          {
             Header: "Red social",
             accessor: "socialMedia",
-            type: "string",
-            CellComponent: <></>,
+            type: "selectM",
+            required: true,
+            filterOne: ["Youtube", "X", "Web", "Whatsapp", "Facebook", "Instagram", "TikTok", "Email", "SMS"],
+          },
+          {
+            Header: "Titulo",
+            accessor: "title",
+            type: "stringM",
             required: true,
           },
           {
             Header: "Link",
             accessor: "link",
+            type: "urlLg",
+          },
+          {
+            Header: "Descripcion",
+            accessor: "descripcion",
+            type: "stringL",
+          },
+          {
+            Header: "PixelType",
+            accessor: "pixelType",
+            type: "selectM",
+            required: true,
+            filterOne: ["Facebook", "LinkedIn", "X", "Google Analytics", "Google Analytics 4", "Google Ads", "Google Tag Manager", "Quora", "SsapChat", "Pinterest","Bing", "Adroll", "Nexus" , "TikTok", "VK"],
+          },
+          {
+            Header: "Pixel",
+            accessor: "pixel",
+            type: "stringM",
+          },
+          {
+            Header: "Campaña UTM",
+            accessor: "campañaUTM",
+            type: "string",
+          },
+          {
+            Header: "Fuente UTM",
+            accessor: "fuenteUTM",
+            type: "string",
+          },
+          {
+            Header: "UTM Medio",
+            accessor: "medioUTM",
+            type: "string",
+          },
+          {
+            Header: "Termino UTM",
+            accessor: "terminoUTM",
+            type: "string",
+          },
+          {
+            Header: "Contenido UTM",
+            accessor: "contenidoUTM",
+            type: "string",
+          },
+          {
+            Header: "Imagen",
+            accessor: "image",
+            type: "image",
+            typeFile: "image",
+          },
+          {
+            Header: "Favicon",
+            accessor: "logoDirectory",
+            type: "urlLg",
+          },
+          {
+            Header: "Limite de clicks",
+            accessor: "clicksLimit",
+            type: "numberM",
+          },
+          {
+            Header: "Tiempo de expiracion",
+            accessor: "Expiration",
+            type: "numberM",
           },
           {
             Header: "Creado el",
