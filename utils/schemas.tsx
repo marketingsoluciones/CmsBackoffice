@@ -58,6 +58,8 @@ export interface childrenSchema {
   schema?: string //revisar
   filterOne?: string[]
   visibility?: boolean
+  divide?:boolean
+  availableInput?:boolean
 }
 
 export interface SchemaChildren extends Schema {
@@ -339,8 +341,8 @@ export const BodyStaticAPP: Schema[] = [
             accessor: "title",
             type: "stringM",
             required: true,
-            visibility: true
-
+            visibility: true,
+            divide: false
           },
           {
             Header: "Link",
@@ -359,59 +361,72 @@ export const BodyStaticAPP: Schema[] = [
             accessor: "pixelType",
             type: "selectM",
             required: true,
-            filterOne: ["Facebook", "LinkedIn", "X", "Google Analytics", "Google Analytics 4", "Google Ads", "Google Tag Manager", "Quora", "SsapChat", "Pinterest","Bing", "Adroll", "Nexus" , "TikTok", "VK"],
-            visibility: true
+            filterOne: ["Facebook", "LinkedIn", "X", "Google Analytics", "Google Analytics 4", "Google Ads", "Google Tag Manager", "Quora", "SsapChat", "Pinterest", "Bing", "Adroll", "Nexus", "TikTok", "VK"],
+            visibility: true,
+            availableInput:false 
           },
           {
             Header: "Pixel",
             accessor: "pixel",
             type: "stringM",
+            availableInput:false 
           },
           {
             Header: "Campaña UTM",
             accessor: "campañaUTM",
             type: "string",
+            availableInput:false 
           },
           {
             Header: "Fuente UTM",
             accessor: "fuenteUTM",
             type: "string",
+            availableInput:false 
           },
           {
             Header: "UTM Medio",
             accessor: "medioUTM",
             type: "string",
+            availableInput:false 
           },
           {
             Header: "Termino UTM",
             accessor: "terminoUTM",
             type: "string",
+            availableInput:false 
           },
           {
             Header: "Contenido UTM",
             accessor: "contenidoUTM",
             type: "string",
+            availableInput:false 
           },
           {
             Header: "Imagen",
             accessor: "image",
             type: "image",
             typeFile: "image",
+            availableInput:false
           },
           {
             Header: "Favicon",
             accessor: "logoDirectory",
             type: "urlLg",
+            availableInput:false 
           },
           {
             Header: "Limite de clicks",
             accessor: "clicksLimit",
             type: "numberM",
+            availableInput:false
+
           },
           {
             Header: "Tiempo de expiracion",
             accessor: "Expiration",
             type: "numberM",
+            availableInput:false 
+
           },
           {
             Header: "Creado el",

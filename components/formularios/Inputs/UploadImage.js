@@ -7,14 +7,18 @@ import { useEffect, useState } from "react";
 import { GreenEditIcon } from "../../Icons/index";
 import { FormLabelMod } from "./FormLabelMod";
 import { Popup } from "../../Popup";
+import { useToast } from "../../../hooks/useToast";
+import { LuAlertCircle } from "react-icons/lu";
 
-export const UploadImage = ({ label, typeFile = "all", ...props }) => {
+export const UploadImage = ({ label, typeFile = "all", availableInput, ...props }) => {
   const [field, meta, helpers] = useField(props);
   const [image, setImage] = useState(null)
   const [video, setVideo] = useState(null)
   const [imageFile, setImageFile] = useState(null)
   const [videoFile, setVideoFile] = useState(null)
   const [valirCanvas, setValirCanvas] = useState(false)
+  const toast = useToast();
+
 
   const handleChange = async (e) => {
     try {
@@ -82,9 +86,14 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
       <Divider />
       <FormLabelMod>
         <Flex gap={"0.3rem"} alignItems={"center"} justify={"space-between"}  >
-          {label} {" "}
-          <EditIcon w={"6"} h={"6"} className="cursor-pointer" />
-        
+          {label}
+          {
+            availableInput ?
+              <EditIcon w={"6"} h={"6"} className="cursor-pointer" />
+              :
+              <label onClick={() => toast("error", "Este campo no esta disponible en tu plan")} className='cursor-pointer'>     {!availableInput && <LuAlertCircle />}
+              </label>
+          }
         </Flex>
         <Flex
           alignItems={"center"}
@@ -127,13 +136,18 @@ export const UploadImage = ({ label, typeFile = "all", ...props }) => {
             (<video id="video" style={{ maxHeight: "120px" }} width={"214px"} height={"120px"} src={`${process.env.NEXT_PUBLIC_BASE_URL}${field.value.videoUrl}`} controls />)
           }
         </Flex>
-        <Input
-          type="file"
-          display={"none"}
-          accept={typesFile[typeFile]}
-          onChange={handleChange}
-          bg={"red"}
-        />
+
+
+        {
+          availableInput && <Input
+            type="file"
+            display={"none"}
+            accept={typesFile[typeFile]}
+            onChange={handleChange}
+            bg={"red"}
+          />
+        }
+
         {meta.touched && meta.error && <Popup title={`${label} ${meta.error} `} arrow={"top"} />}
 
 
