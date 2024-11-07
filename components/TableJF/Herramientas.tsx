@@ -19,9 +19,6 @@ import { SelectFieldTSX } from "../formularios/Inputs/SelectFieldTSX";
 export const Herramientas = ({ setShowPreviewPdf, setColumnsView, columnsView, table, columns, dataSchema }) => {
     const [favoriteFilterView, setFavoriteFilterView] = useState(false)
     const [ToolsViw, setToolsView] = useState(false)
-    console.log(">>>2",dataSchema)
-    
-
 
     return (
         <div className="space-x-1 flex pr-2 pl-1">
@@ -156,11 +153,15 @@ export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, colu
     const initialValues = {
         name: "",
     }
-    const handelsumbit = () => {
+    const handelsumbit = (e) => {
         setOpenModalCrearFilter({ state: !openModalCrearFilter.state, type: null })
+
+        console.log("4444",e)
     }
 
-
+    const handleChange = (e) => {
+console.log(">>>>>>>>>",e)
+    }
 
     return (
         <div className="relative ">
@@ -234,6 +235,7 @@ export const FavoriteFilter = ({ setFavoriteFilterView, favoriteFilterView, colu
                                             options={Visibilidad}
                                             icon={<ArrowDownIcon className="h-4 w-4" />}
                                             iconClassName="top-[9px] right-2 text-gray-600"
+                                            onChange={handleChange}
                                         />
                                     </div>
                                 </div>

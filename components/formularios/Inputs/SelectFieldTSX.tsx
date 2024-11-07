@@ -10,16 +10,17 @@ interface propsSelectField {
     icon: any
     iconClassName: any
     name: any
+    onChange?:any
 }
 
-export const SelectFieldTSX: FC<propsSelectField> = ({ label, options, colSpan, className, icon, iconClassName, ...props }) => {
+export const SelectFieldTSX: FC<propsSelectField> = ({ label, options, colSpan, className, icon, iconClassName, onChange, ...props }) => {
     const [field, meta] = useField({ name: props.name })
     return (
         <>
             <div className={`relative w-full h-full *col-span${colSpan && `-${colSpan}`} *content-between`}>
                 <label className="font-display text-sm text-primary w-full">{label}</label>
                 <div className="relative ">
-                    <select className={className} {...field} {...props} >
+                    <select onChange={ onchange && onChange()} className={className} {...field} {...props} >
                         <option disabled value="" >
                             Seleccionar
                         </option>

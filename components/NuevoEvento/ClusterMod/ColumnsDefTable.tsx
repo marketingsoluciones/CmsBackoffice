@@ -21,6 +21,14 @@ export const ColumnsDefTable: FC<props> = ({ schemaChildren, ButtonActive, title
   const itemSchema = schemaChildren[f1]
   const schemaArr = itemSchema?.schema ? [...itemSchema?.schema] : []
 
+  function transformColumnArray(columnArray) {
+    return columnArray.reduce((acc, column) => {
+      acc[column.accessor] = column.visibility != undefined ? column.visibility : false
+      return acc;
+    }, {});
+  }
+
+  const transformedObject = transformColumnArray(schemaArr);
 
   const columnsDef = useMemo<ColumnDef<any>[]>(
     () => schemaArr?.map((item: childrenSchema) => {
@@ -47,11 +55,11 @@ export const ColumnsDefTable: FC<props> = ({ schemaChildren, ButtonActive, title
         {
           ButtonActive &&
           <button className="bg-rosa rounded-lg px-4 py-1 text-white text-base " onClick={() => dispatch({ type: "CREATE", payload: {} })}>
-            {title? title: "sin titulo" }
+            {title ? title : "sin titulo"}
           </button>
         }
       </div>
-      <TableCompleto columnsDef={columnsDef} itemSchema={itemSchema} />
+      <TableCompleto columnsDef={columnsDef} itemSchema={itemSchema} transformedObject={transformedObject} />
     </>
   )
 }

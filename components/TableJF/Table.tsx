@@ -39,15 +39,15 @@ export const TableJF: FC<PropsTable> = ({  targetRef, table, TableForward, typeF
                                                 {header.isPlaceholder
                                                     ? null
                                                     : (<div className={`${header.id === "checkbox" ? "!w-10" : ""} flex flex-col justify-start h-full  `}>
-                                                        <div className="flex items-start ">
+                                                        <div className="flex items-start  ">
                                                             <div
                                                                 {...{
                                                                     className: header.column.getCanSort()
-                                                                        ? 'cursor-pointer select-none flex flex-1 justify-start items-start px-1 space-x-1 capitalice'
+                                                                        ? 'cursor-pointer select-none flex flex-1 justify-start items-start px-1 space-x-1 capitalice truncate w-max'
                                                                         : '',
                                                                     onClick: header.column.getToggleSortingHandler(),
                                                                 }} >
-                                                                <div className="pl-1">
+                                                                <div className="">
                                                                     {flexRender(
                                                                         header.column.columnDef.header,
                                                                         header.getContext()

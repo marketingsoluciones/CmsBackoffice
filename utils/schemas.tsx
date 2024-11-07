@@ -57,6 +57,7 @@ export interface childrenSchema {
   deleteEntry?: Query
   schema?: string //revisar
   filterOne?: string[]
+  visibility?: boolean
 }
 
 export interface SchemaChildren extends Schema {
@@ -73,8 +74,6 @@ export interface SchemaChildren extends Schema {
   component?: JSX.Element
   handleRowClick?: any
   handleRowDobleClick?: any
-
-
 }
 
 export const BodyStaticAPP: Schema[] = [
@@ -325,6 +324,7 @@ export const BodyStaticAPP: Schema[] = [
           {
             Header: "ID",
             accessor: "_id",
+            visibility: true
           },
           {
             Header: "Red social",
@@ -332,17 +332,22 @@ export const BodyStaticAPP: Schema[] = [
             type: "selectM",
             required: true,
             filterOne: ["Youtube", "X", "Web", "Whatsapp", "Facebook", "Instagram", "TikTok", "Email", "SMS"],
+            visibility: true
           },
           {
             Header: "Titulo",
             accessor: "title",
             type: "stringM",
             required: true,
+            visibility: true
+
           },
           {
             Header: "Link",
             accessor: "link",
             type: "urlLg",
+            visibility: true
+
           },
           {
             Header: "Descripcion",
@@ -355,6 +360,7 @@ export const BodyStaticAPP: Schema[] = [
             type: "selectM",
             required: true,
             filterOne: ["Facebook", "LinkedIn", "X", "Google Analytics", "Google Analytics 4", "Google Ads", "Google Tag Manager", "Quora", "SsapChat", "Pinterest","Bing", "Adroll", "Nexus" , "TikTok", "VK"],
+            visibility: true
           },
           {
             Header: "Pixel",
@@ -966,9 +972,6 @@ export const BodyStaticAPP: Schema[] = [
       },
     ]
   },
-
-  /*  Para realizar pruebas esta este menu aparte */
-
   {
     title: "Formacion Enterprice",
     roles: ["all"],
@@ -1185,7 +1188,6 @@ export const BodyStaticAPP: Schema[] = [
       },
     ]
   },
-
   {
     title: "Blog",
     roles: ["all"],
@@ -1579,7 +1581,6 @@ export const BodyStaticAPP: Schema[] = [
       },
     ]
   },
-
   {
     title: "Configuracion",
     roles: ["dev"],

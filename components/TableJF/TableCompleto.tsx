@@ -2,7 +2,7 @@
 import "react-datepicker/dist/react-datepicker.css";
 import { usePDF } from 'react-to-pdf';
 import React, { ChangeEventHandler, FC, InputHTMLAttributes, useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { fetchApi, FetchGraphQL, queries, fetchApiEventos  } from "../../utils/Fetching";
+import { fetchApi, FetchGraphQL, queries, fetchApiEventos } from "../../utils/Fetching";
 import { Column, ColumnDef, ColumnFiltersState, FilterFn, SortingFn, Table, createColumnHelper, flexRender, getCoreRowModel, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, sortingFns, useReactTable } from "@tanstack/react-table";
 import { RankingInfo, } from '@tanstack/match-sorter-utils'
 import { TableJF, Herramientas, FiltroTime, obtenerPrimerYUltimoDiaSemana, fuzzyFilter } from "./index";
@@ -23,9 +23,10 @@ declare module '@tanstack/table-core' {
 interface props {
     columnsDef: ColumnDef<any>[]
     itemSchema: SchemaChildren
+    transformedObject?: any
 }
 
-export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
+export const TableCompleto: FC<props> = ({ columnsDef, itemSchema , transformedObject }) => {
     const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' })
     const { domain } = AuthContextProvider()
     const [showPreviewPdf, setShowPreviewPdf] = useState<any>({ state: false, title: "", payload: {} })
@@ -37,9 +38,7 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
     const [showTable, setShowTable] = useState<boolean>(true)
     const [data, setData] = useState<any>([])
     const rerender = useReducer(() => ({}), {})[1]
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-        []
-    )
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [globalFilter, setGlobalFilter] = useState('')
     const [dateFilter, setDateFilter] = useState("month")
     const [stateFilter, setStateFilter] = useState("conciliated")
@@ -51,9 +50,8 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
     const [updated, setUpdated] = useState('');
     const [uploading, setUploading] = useState<boolean>(false)
     const [showSpinner, setShowSpinner] = useState<boolean>(false)
-    const [columnVisibility, setColumnVisibility] = React.useState({ recargado: false, forma_pago: false, cajeroID: false, cajero: false, banco: false, conciliado: false, updatedAt: false })
+    const [columnVisibility, setColumnVisibility] = React.useState(transformedObject)
     const [tableMaster, setTableMaster] = useState<any>()
-
 
     useEffect(() => {
         try {
@@ -72,7 +70,7 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
             console.log(error)
         }
     }, [itemSchema.route])
-    
+
     /* useEffect(() => {
         try {
             fetchApi({
@@ -88,20 +86,23 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
         }
     }, [itemSchema.route]) */
 
-    const handleChange = (event) => {
+    /* const handleChange = (event) => {
         if (event.key === 'Enter') {
             console.log(inputRef.current.ref)
             setUpdated(inputRef.current.value);
         }
-    }
+    } */
+
     const onOptionChangeDate: ChangeEventHandler<HTMLInputElement> = (e) => {
         console.log(e.target.value)
         setDateFilter(e.target.value)
     }
-    const onOptionChangeState: ChangeEventHandler<HTMLInputElement> = (e) => {
+
+    /* const onOptionChangeState: ChangeEventHandler<HTMLInputElement> = (e) => {
         console.log(e.target.value)
         setStateFilter(e.target.value)
-    }
+    } */
+
     const table = useReactTable({
         data,
         columns:
@@ -110,8 +111,8 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
             fuzzy: fuzzyFilter,
         },
         state: {
-            columnFilters,
-            globalFilter,
+            /* columnFilters,
+            globalFilter, */
             columnVisibility,
         },
         onColumnVisibilityChange: setColumnVisibility,
@@ -216,7 +217,7 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
         }
     }, [table.getState().columnFilters[0]?.id])
 
-    
+
     return (
         <div className="flex w-full text-xs capitalize">
             {
@@ -257,10 +258,29 @@ export const TableCompleto: FC<props> = ({ columnsDef, itemSchema }) => {
                                 endDateFilter={endDateFilter}
                                 setEndDateFilter={setEndDateFilter}
                             />
-                            <Herramientas setShowPreviewPdf={setShowPreviewPdf} setColumnsView={setColumnsView} columnsView={columnsView} table={table} columns={columnsDef} dataSchema={itemSchema.schema}/>
+                            <Herramientas
+                                setShowPreviewPdf={setShowPreviewPdf}
+                                setColumnsView={setColumnsView}
+                                columnsView={columnsView}
+                                table={table}
+                                columns={columnsDef}
+                                dataSchema={itemSchema.schema}
+                            />
                         </div>
                     </div>
-                    <TableJF targetRef={targetRef} table={table} TableForward={TableForward} typeFilter={columnsDef} setTableMaster={setTableMaster} setSearch={setSearch} search={search} flexRender={flexRender} setSelectRow={setSelectRow} selectRow={selectRow} Filter={Filter} />
+                    <TableJF
+                        targetRef={targetRef}
+                        table={table}
+                        TableForward={TableForward}
+                        typeFilter={columnsDef}
+                        setTableMaster={setTableMaster}
+                        setSearch={setSearch}
+                        search={search}
+                        flexRender={flexRender}
+                        setSelectRow={setSelectRow}
+                        selectRow={selectRow}
+                        Filter={Filter}
+                    />
                 </div>
             </div>
             <style>{`
