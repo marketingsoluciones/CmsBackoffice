@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import Card1 from "./CardEvento"
 import { Modal } from "../../modals/Modal";
 import { Alerta1 } from "../CrearEvento/Modales/AlertaMoDe";
+import { useRouter } from 'next/router';
 interface propsEventosProximos {
     componentState: any;
     setComponentState: any;
@@ -9,6 +10,7 @@ interface propsEventosProximos {
   }
 
 const EventosProximos: FC <propsEventosProximos> = ({componentState,setComponentState}) => {
+const router = useRouter()
   const [addAlerta, setAddAlerta] = useState(false);
 
 
@@ -19,7 +21,7 @@ const EventosProximos: FC <propsEventosProximos> = ({componentState,setComponent
       fecha2:"29",
       fecha3:"C/M",
       hora: "00:00 - 07:30",
-      image: "ModuloEvento/evento1.jpg",
+      image: "https://imagedelivery.net/EfbdVs7eFECYhyroHhep9w/056eb590-a8cd-430a-e2a7-a86733134d00/public",
       component: ()=>{setAddAlerta(!addAlerta)},
     },
     {
@@ -28,8 +30,8 @@ const EventosProximos: FC <propsEventosProximos> = ({componentState,setComponent
       fecha2:"29",
       fecha3:"NV",
       hora: "20:00 - 02:30",
-      image: "ModuloEvento/banner3.svg",
-      component: ()=>{setComponentState(7)},
+      image: "https://imagedelivery.net/EfbdVs7eFECYhyroHhep9w/3ac78aef-a237-4dd3-b02a-880d095c6d00/public",
+      component: () => { router.push("/events/events-description") },
       
     },
     {
@@ -38,7 +40,7 @@ const EventosProximos: FC <propsEventosProximos> = ({componentState,setComponent
       fecha2:"29",
       fecha3:"SEP",
       hora: "16:00 - 02:30",
-      image: "ModuloEvento/banner1.svg",
+      image: "https://imagedelivery.net/EfbdVs7eFECYhyroHhep9w/074ede13-1071-4f5d-006a-5c18b952fd00/public",
       component: ()=>{setAddAlerta(!addAlerta)},
       
     },
@@ -48,7 +50,7 @@ const EventosProximos: FC <propsEventosProximos> = ({componentState,setComponent
       fecha2:"29",
       fecha3:"OCT",
       hora: "09:00 - 18:30",
-      image: "ModuloEvento/banner2.svg",
+      image: "https://imagedelivery.net/EfbdVs7eFECYhyroHhep9w/6b33d438-f3de-4fb3-6220-b881068d1700/public",
       component: ()=>{setAddAlerta(!addAlerta)},
       
     },
@@ -59,7 +61,7 @@ const EventosProximos: FC <propsEventosProximos> = ({componentState,setComponent
       fecha2:"09",
       fecha3:"JUN",
       hora: "08:00 - 18:30",
-      image: "ModuloEvento/banner4.svg",
+      image: "https://imagedelivery.net/EfbdVs7eFECYhyroHhep9w/ec047645-30ce-415e-df39-de39173d7500/public",
       component: ()=>{setAddAlerta(!addAlerta)},
       
     },

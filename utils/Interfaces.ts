@@ -1,3 +1,10 @@
+export interface DataComponents {
+    title: string
+    slug: string
+    icon: JSX.Element
+    component: JSX.Element
+}
+
 export interface Factura {
     _id: string
     id_factura: string
@@ -18,7 +25,8 @@ export interface Factura {
     diferencia: number
     createdAt: Date
     updatedAt: Date
-  }
+}
+
 
 export interface Event {
     _id: string

@@ -1,15 +1,21 @@
 import { useField } from "formik"
 import { number } from "yup"
+import { LuAlertCircle } from "react-icons/lu";
+import { useToast } from "../../../hooks/useToast";
 
 
-export const SelectField = ({ label,  options, colSpan, className, icon, iconClassName, ...props }) => {
+export const SelectField = ({ label, options, colSpan, className, titleClassName, divClassName, icon, iconClassName, availableInput, ...props }) => {
     const [field, meta] = useField({ name: props.name })
+    const toast = useToast();
     return (
         <>
-            <div className={`relative* w-full h-full *col-span${colSpan && `-${colSpan}`} *content-between`}>
-                <label className="font-display text-sm text-primary w-full">{label}</label>
+            <div className={`${divClassName != null & titleClassName != undefined ? divClassName : ""}  w-full h-full ${colSpan && `-${colSpan}`}`}>
+                <div className=" flex items-center space-x-1 h-max mt-2 ">
+                    <label className={` ${titleClassName != null & titleClassName != undefined ? titleClassName : "font-display text-sm text-primary w-full"}`}>{label}</label>
+                    <label onClick={() => toast("error", "Este campo no esta disponible en tu plan")} className="cursor-pointer"> {!availableInput && <LuAlertCircle />}</label>
+                </div>
                 <div className="relative">
-                    <select className={className} {...field} {...props} >
+                    <select disabled={!availableInput} className={`${className} ${!availableInput ? "cursor-not-allowed" : "cursor-pointer"}`} {...field} {...props} >
                         <option disabled value="" >
                             Seleccionar
                         </option>

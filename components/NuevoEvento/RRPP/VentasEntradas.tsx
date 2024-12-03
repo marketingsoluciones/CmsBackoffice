@@ -16,7 +16,7 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
           className="self-stretch h-[366.6px] relative rounded-md max-w-full overflow-hidden shrink-0 object-cover [debug_commit:1cbd860]"
           loading="lazy"
           alt=""
-          src="ModuloEvento/evento1.jpg"
+          src="/ModuloEvento/evento1.jpg"
         />
         <div className="flex flex-col items-start justify-start gap-[10.5px] shrink-0 [debug_commit:1cbd860]">
           <div className="w-full h-7 relative leading-[28px] font-semibold inline-block min-w-[102px] max-w-[313.3299865722656px] mq416:text-mid mq416:leading-[22px]">
@@ -35,7 +35,7 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
               <img
                 className="w-[9.2px] h-[13px] relative overflow-hidden shrink-0"
                 alt=""
-                src="ModuloEvento/ubi1.svg"
+                src="/ModuloEvento/ubi1.svg"
               />
             </div>
             <b className="h-[18px] w-full relative text-smi-3 leading-[18px] inline-block font-medium text-white text-left min-w-[57px]">
@@ -60,7 +60,7 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
                       className="h-3.5 w-[12.3px] relative overflow-hidden shrink-0"
                       loading="lazy"
                       alt=""
-                      src="ModuloEvento/flechablanca.svg"
+                      src="/ModuloEvento/flechablanca.svg"
                     />
                   </div>
                 </div>
@@ -76,7 +76,7 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
                     className="h-4 w-[16.9px] relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/dereflecha.svg"
+                    src="/ModuloEvento/dereflecha.svg"
                   />
                 </div>
                 <div className="h-[25px] w-full] relative tracking-[3.15px] leading-[25px] uppercase inline-block min-w-[63px] whitespace-nowrap">
@@ -96,7 +96,7 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
                     <img
                       className="w-[9.2px] h-[13px] relative overflow-hidden shrink-0"
                       alt=""
-                      src="ModuloEvento/mas.svg"
+                      src="/ModuloEvento/mas.svg"
                     />
                   </div>
                   <b className="h-[18px] w-full relative text-xs leading-[18px] inline-block min-w-[17px]">
@@ -109,7 +109,7 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
                     <img
                       className="w-[15.3px] h-[13px] relative overflow-hidden shrink-0"
                       alt=""
-                      src="ModuloEvento/camisa.svg"
+                      src="/ModuloEvento/camisa.svg"
                     />
                   </div>
                   <b className="h-[18px] w-full text-xs relative leading-[18px] inline-block min-w-[45px]">
@@ -163,7 +163,7 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
                             <img
                               className="h-[17px] w-[15.3px] relative overflow-hidden shrink-0"
                               alt=""
-                              src="ModuloEvento/flesh.svg"
+                              src="/ModuloEvento/flesh.svg"
                             />
                           </div>
                         </div>
@@ -205,7 +205,7 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
                             <img
                               className="h-[17px] w-[15.3px] relative overflow-hidden shrink-0"
                               alt=""
-                              src="ModuloEvento/flesh.svg"
+                              src="/ModuloEvento/flesh.svg"
                             />
                           </div>
                         </div>
@@ -244,7 +244,7 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
                           <img
                             className="h-[17px] w-[15.3px] relative overflow-hidden shrink-0"
                             alt=""
-                            src="ModuloEvento/flesh.svg"
+                            src="/ModuloEvento/flesh.svg"
                           />
                         </div>
                       </div>
@@ -270,14 +270,14 @@ const VentasEntradas: FC <propsVentasEntradas> = memo(({componentState,setCompon
           <div className="self-stretch flex flex-col items-start justify-start gap-[10.5px] max-w-full">
             <CompVentas1
               lolo="Zona Vip"
-              icon="ModuloEvento/flesh.svg"
+              icon="/ModuloEvento/flesh.svg"
               propMinWidth="28px"
               link="5"
               componentState={componentState} setComponentState={setComponentState}
             />
             <CompVentas1
               lolo="invitados generales"
-              icon="ModuloEvento/flesh.svg"
+              icon="/ModuloEvento/flesh.svg"
               propMinWidth="unset"
               link="0"
               componentState={componentState} setComponentState={setComponentState}

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { getDateTime } from "./Time";
+import { getDateTime } from "./FuncionesTable";
 
 interface props {
   data: any

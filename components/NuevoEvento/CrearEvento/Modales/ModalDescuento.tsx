@@ -117,7 +117,7 @@ const ModalDescuentos: FC <propsModalDescuentos> = ({addDescuento, setAddDescuen
                     </div>
                     <div className="my-0 mx-[!important] h-[37.84%] top-[28.38%] right-[16.8px] bottom-[33.78%] flex flex-col items-start justify-end text-gray-600">
                       <div className="w-auto h-auto leading-[21px] inline-block min-w-[13px]">
-                        <img src="ModuloEvento/arrowbajo.svg" alt="" />
+                        <img src="/ModuloEvento/arrowbajo.svg" alt="" />
                       </div>
                     </div>
                   

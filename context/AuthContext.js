@@ -20,6 +20,7 @@ class Action {
 }
 
 const reducer = (state, action) => {
+  console.log(10011, action)
   switch (action.type) {
     case "VIEW":
       return new Action("view", action.payload);
@@ -31,6 +32,8 @@ const reducer = (state, action) => {
       return new Action("create", action.payload);
     case "DELETE":
       return new Action("delete", action.payload);
+    case "VIEW_DATAILS":
+      return new Action("view_details", action.payload);
     default:
       break;
   }

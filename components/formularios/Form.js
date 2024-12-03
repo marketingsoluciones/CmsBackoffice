@@ -30,6 +30,7 @@ import { EditSeudonimo } from "../modals/EditSeudonimo";
 import { InfoForm } from "./InfoForm";
 import { TextareaFieldSizable } from "./Inputs/TextareaFieldSizable";
 import { InputColor } from "./Inputs/InputColor";
+import { SelectField } from "./Inputs/SelectField";
 
 export const FormDinamical = forwardRef(
   ({ schema: state, initialValues, onSubmit, Information, options, estado, slug }, ref) => {
@@ -155,7 +156,7 @@ export const FormDinamical = forwardRef(
                   <Grid className="grid grid-cols-1 md:grid-cols-5 gap-[1rem] " gap={"1rem"} >
 
                     {/* columna izquierda */}
-                    <div bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} className="col-span-3 px-[1rem]  rounded-xl  bg-white " >
+                    <div bg={colorBaground} px={"1rem"} shadow={"sm"} rounded={"xl"} className="col-span-3 px-[1rem] py-[1rem]  rounded-xl  bg-white " >
                       <Grid templateColumns={["repeat(1, 1fr)", , , , "repeat(6, 1fr)"]} gap={"1rem"} >
                         {schema &&
                           schema?.map((item, idx) => {
@@ -168,12 +169,42 @@ export const FormDinamical = forwardRef(
                                   </GridItem>
                                 );
                                 break;
+                              case "select":
+                                return (
+                                  <GridItem colSpan={[1, , , , 2]} key={idx}>
+                                    <SelectField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                      options={item.filterOne}
+                                      divClassName="mt-1"
+                                      titleClassName="font-semibold mt-2 text-sm text-primary w-full "
+                                      className="capitalize cursor-pointer text-sm  border border-gray-300  transition w-full py-2 px-2 mt-1 rounded-lg focus:outline-none relative  "
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "selectM":
+                                return (
+                                  <GridItem colSpan={[1, , , , 3]} key={idx}>
+                                    <SelectField
+                                      name={item.accessor}
+                                      label={item.Header}
+                                      options={item.filterOne}
+                                      titleClassName="font-semibold text-sm text-primary w-full* "
+                                      className="capitalize  text-sm  border border-gray-300  transition w-full py-2 px-2 mt-1 rounded-lg focus:outline-none "
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
                               case "string":
                                 return (
                                   <GridItem colSpan={[1, , , , 2]} key={idx}>
                                     <InputField
                                       name={item.accessor}
                                       label={item.Header}
+                                      divide={item.divide != undefined ? true : item.divide}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                     />
                                   </GridItem>
                                 );
@@ -184,6 +215,7 @@ export const FormDinamical = forwardRef(
                                     <InputColor
                                       name={item.accessor}
                                       label={item.Header}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                     />
                                   </GridItem>
                                 );
@@ -194,6 +226,9 @@ export const FormDinamical = forwardRef(
                                     <InputField
                                       name={item.accessor}
                                       label={item.Header}
+                                      divide={item.divide != undefined ? true : item.divide}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
+
                                     />
                                   </GridItem>
                                 );
@@ -204,6 +239,8 @@ export const FormDinamical = forwardRef(
                                     <InputField
                                       name={item.accessor}
                                       label={item.Header}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
+                                      divide={item.divide != undefined ? true : item.divide}
                                     />
                                   </GridItem>
                                 );
@@ -215,6 +252,7 @@ export const FormDinamical = forwardRef(
                                       <InputField
                                         name={item.accessor}
                                         label={item.Header}
+                                        availableInput={item.availableInput != undefined ? item.availableInput : true}
                                         disabled={true}
                                       />
                                     </GridItem>
@@ -228,7 +266,20 @@ export const FormDinamical = forwardRef(
                                     <InputNumberField
                                       key={idx}
                                       name={item.accessor}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                       label={item.Header}
+                                    />
+                                  </GridItem>
+                                );
+                                break;
+                              case "numberM":
+                                return (
+                                  <GridItem colSpan={[1, , , , 3]} key={idx}>
+                                    <InputNumberField
+                                      key={idx}
+                                      name={item.accessor}
+                                      label={item.Header}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                     />
                                   </GridItem>
                                 );
@@ -240,6 +291,7 @@ export const FormDinamical = forwardRef(
                                       key={idx}
                                       name={item.accessor}
                                       label={item.Header}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                     />
                                   </GridItem>
                                 );
@@ -251,6 +303,7 @@ export const FormDinamical = forwardRef(
                                       name={item.accessor}
                                       label={item.Header}
                                       type={"email"}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                     />
                                   </GridItem>
                                 );
@@ -262,6 +315,7 @@ export const FormDinamical = forwardRef(
                                       name={item.accessor}
                                       label={item.Header}
                                       type={"email"}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                     />
                                   </GridItem>
                                 );
@@ -272,6 +326,7 @@ export const FormDinamical = forwardRef(
                                     key={idx}
                                     name={item.accessor}
                                     label={item.Header}
+                                    availableInput={item.availableInput != undefined ? item.availableInput : true}
                                   />
                                 );
                                 break;
@@ -281,6 +336,7 @@ export const FormDinamical = forwardRef(
                                     <TextareaField
                                       name={item.accessor}
                                       label={item.Header}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                     />
                                   </GridItem>
                                 );
@@ -291,6 +347,7 @@ export const FormDinamical = forwardRef(
                                     <TextareaFieldSizable
                                       name={item.accessor}
                                       label={item.Header}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                     />
                                   </GridItem>
                                 );
@@ -315,6 +372,7 @@ export const FormDinamical = forwardRef(
                                     <URLInputField
                                       name={item.accessor}
                                       label={item.Header}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                     />
                                   </GridItem>
                                 );
@@ -325,6 +383,7 @@ export const FormDinamical = forwardRef(
                                     <URLInputField
                                       name={item.accessor}
                                       label={item.Header}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                     />
                                   </GridItem>
                                 );
@@ -336,6 +395,7 @@ export const FormDinamical = forwardRef(
                                       name={item.accessor}
                                       label={item.Header}
                                       tabList={item.tabList}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                     />
                                   </GridItem>
                                 );
@@ -348,6 +408,7 @@ export const FormDinamical = forwardRef(
                                       label={item.Header}
                                       values={values}
                                       setValues={setValues}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                     />
                                   </GridItem>
                                 );
@@ -358,6 +419,7 @@ export const FormDinamical = forwardRef(
                                     <GoogleMapsField
                                       name={item.accessor}
                                       label={item.Header}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                     />
                                   </GridItem>
                                 );
@@ -368,6 +430,7 @@ export const FormDinamical = forwardRef(
                                     <CounstriesSelectField
                                       name={item.accessor}
                                       label={item.Header}
+                                      availableInput={item.availableInput != undefined ? item.availableInput : true}
                                     />
                                   </GridItem>
                                 );
@@ -389,7 +452,7 @@ export const FormDinamical = forwardRef(
 
                     {/* columna derecha */}
                     <div bg={colorBaground} shadow={"sm"} rounded={"xl"} className="col-span-2 px-[1rem] rounded-xl bg-white" >
-                      {!["links", "whitelabel/setup"].includes(slug)
+                      {!["business/links", "whitelabel/setup"].includes(slug)
                         ? <OptionsForm alertDev={alertDev} setAlertDev={setAlertDev} schema={schema} user={user} />
                         : <FormLabel width={"45%"} pt={8}>
                           <Button
@@ -416,6 +479,7 @@ export const FormDinamical = forwardRef(
                                   name={item.accessor}
                                   label={item.Header}
                                   typeFile={item.typeFile}
+                                  availableInput={item.availableInput != undefined ? item.availableInput : true}
                                 />
                               );
                               break

@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { Modal } from "../../../modals/Modal";
 import Comp5 from "./ComponentesUsers/Comp5";
 import AddUserModal from "./ComponentesUsers/ModalInvUsuario";
+import { useRouter } from 'next/router';
 interface propsUsuarios {
     componentState: any;
     setComponentState: any;
@@ -27,6 +28,7 @@ interface propsUsuarios {
   }
 
 const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
+const router = useRouter()
   const [addUsers, setAddUsers] = useState(false);
   
   const users: User[] = [
@@ -34,7 +36,7 @@ const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
       title:"Eduardo Hernandez",
       subtitle:"Rd",
       tags:"#Directores",
-      img:"ModuloEvento/imgE.svg",
+      img:"/ModuloEvento/imgE.svg",
 
       myUser: { 
         name: 'Eduardo RD',
@@ -44,14 +46,14 @@ const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
         label2: 'Relaciones Publicas',
         label3: 'Control de Aforo',
         label4: 'Reservaciones',  
-        Avatar: "ModuloEvento/Perfil2.png", 
+        Avatar: "/ModuloEvento/Perfil2.png", 
       },
     },
     {
        title:"Christian Lanza",
        subtitle:"",
        tags:"#ControlDeAforo", 
-       img:"ModuloEvento/imgC.svg",
+       img:"/ModuloEvento/imgC.svg",
 
       myUser: { 
         name: 'Christian Lanza',
@@ -61,14 +63,14 @@ const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
         label2: 'Relaciones Publicas',
         label3: 'Control de Aforo',
         label4: 'Reservaciones',  
-        Avatar: "ModuloEvento/Perfil2.png", 
+        Avatar: "/ModuloEvento/Perfil2.png", 
       },
     },
     {
       title:"Juan C. Carrillo", 
       subtitle:"", 
       tags:"#Directores", 
-      img:"ModuloEvento/imgJ.svg",
+      img:"/ModuloEvento/imgJ.svg",
 
       myUser: { 
         name: 'Juan C. Carrillo',
@@ -78,14 +80,14 @@ const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
         label2: 'Relaciones Publicas',
         label3: 'Control de Aforo',
         label4: 'Reservaciones',  
-        Avatar: "ModuloEvento/Perfil2.png", 
+        Avatar: "/ModuloEvento/Perfil2.png", 
       },
     },
     {
       title:"Maria Perez", 
       subtitle:"", 
       tags:"#RelacionesPublicas", 
-      img: "ModuloEvento/imgM.svg",
+      img: "/ModuloEvento/imgM.svg",
 
       myUser: { 
         name: 'Maria Perez',
@@ -95,7 +97,7 @@ const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
         label2: 'Relaciones Publicas',
         label3: 'Control de Aforo',
         label4: 'Reservaciones',  
-        Avatar: "ModuloEvento/Perfil1.png", 
+        Avatar: "/ModuloEvento/Perfil1.png", 
       },
     },
     // ... otros usuarios
@@ -108,13 +110,13 @@ const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
       <div className="self-stretch flex flex-row flex-wrap items-start justify-between max-w-full [row-gap:20px]">
 
         <div className="self-stretch overflow-hidden flex flex-row items-center justify-center gap-4">
-                    <div onClick={() => { setComponentState(1) }}
+                    <div onClick={() => { router.push("/events/tiketing") }}
                     className=" cursor-pointer flex flex-row items-start justify-start">
                       <img
                         className="h-7 w-[23px] relative overflow-hidden shrink-0"
                         loading="lazy"
                         alt=""
-                        src="ModuloEvento/Vectorflecha.svg"
+                        src="/ModuloEvento/Vectorflecha.svg"
                       />
                     </div>
               <div className="flex flex-col items-start justify-start text-black text-[18px] ">
@@ -130,7 +132,7 @@ const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
               <img
                 className="h-[15px] w-3.5 relative overflow-hidden shrink-0 z-[2]"
                 alt=""
-                src="ModuloEvento/Vectorbuscar.svg"
+                src="/ModuloEvento/Vectorbuscar.svg"
               />
               <input
                 className="w-[calc(100%_-_35px)] [border:none] [outline:none] bg-[transparent] h-[17px] flex-1 flex flex-row items-start justify-start font-profourvenuescom-inter-regular-123 text-sm text-profourvenuescom-gull-gray min-w-[109px] z-[1]"
@@ -150,7 +152,7 @@ const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
                     className="h-4 w-[3.9px] relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/Vectortrespuntos.svg"
+                    src="/ModuloEvento/Vectortrespuntos.svg"
                   />
                 </div>
               </div>
@@ -166,7 +168,7 @@ const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
                 <img
                   className="h-4 w-[15.3px] relative overflow-hidden shrink-0"
                   alt=""
-                  src="ModuloEvento/Vectorflechapabajo.svg"
+                  src="/ModuloEvento/Vectorflechapabajo.svg"
                 />
               </div>
             
@@ -207,7 +209,7 @@ const Usuarios: FC<propsUsuarios> = ({componentState, setComponentState}) => {
                 <img
                   className="h-[13px] w-[13.8px] relative overflow-hidden shrink-0"
                   alt=""
-                  src="ModuloEvento/Vectorestrella.svg"
+                  src="/ModuloEvento/Vectorestrella.svg"
                 />
               </div>
               <div className="relative leading-[18px] font-medium inline-block min-w-[117px]">

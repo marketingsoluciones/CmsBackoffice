@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import TarifasDatosC from './DatosTarifasC';
 import TarifasLimites from './TarifasLimitesC';
+import { ButtonEvents } from '../../Events/ButtonEvents';
+import { useRouter } from 'next/router';
 
 interface propsTabsTarifas {
   componentState: any;
@@ -11,6 +13,7 @@ interface propsTabsTarifas {
 }
 
 const TabTarifas: React.FC <propsTabsTarifas> = ({componentState,setComponentState}) => {
+  const router = useRouter()
   // Estado para controlar la opción seleccionada
   const [selectedTab, setSelectedTab] = useState<string>('Datos');
 
@@ -49,17 +52,18 @@ const TabTarifas: React.FC <propsTabsTarifas> = ({componentState,setComponentSta
               <div className="rounded-md flex flex-row items-start justify-start py-0 pr-[10.299999999999272px] pl-[10.400000000001455px] box-border border-solid border-[1px] border-slate-300 gap-[6.8px] min-w-[73px] mq450:flex-1">
                 <div className="w-auto flex flex-col items-start justify-start pt-2.5 px-0 pb-0 box-border">
                   <div className="self-stretch h-3.5 relative leading-[14px] inline-block min-w-[14px]">
-                    <img src="ModuloEvento/checksito.svg" alt="" />
+                    <img src="/ModuloEvento/checksito.svg" alt="" />
                   </div>
                 </div>
                 <div className="h-9 leading-[36px] font-medium text-black inline-block min-w-[71px]">
                   Disponible
                 </div>
               </div>
+
               <div className="rounded-md flex flex-row items-start justify-start py-0 pr-[10.299999999999272px] pl-[10.400000000001455px] box-border border-solid border-[1px] border-slate-300 gap-[6.8px] min-w-[73px] mq450:flex-1">
                 <div className="w-auto flex flex-col items-start justify-start pt-2.5 px-0 pb-0 box-border">
                   <div className="self-stretch h-3.5 relative leading-[14px] inline-block min-w-[14px]">
-                    <img src="ModuloEvento/ojo.svg" alt="" />
+                    <img src="/ModuloEvento/ojo.svg" alt="" />
                   </div>
                 </div>
                 <div className="h-9 leading-[36px] font-medium text-black inline-block min-w-[71px]">
@@ -68,19 +72,15 @@ const TabTarifas: React.FC <propsTabsTarifas> = ({componentState,setComponentSta
               </div>
 
 
-              <div className="flex flex-row items-start justify-start gap-[8px] text-center text-white ">
-                <div className="rounded-md bg-rosa flex flex-row items-start justify-start py-0 px-2.5">
-                  <div className="h-9 w-auto relative leading-[36px] font-medium inline-block ">
-                    Guardar
-                  </div>
-                </div>
+              <div className="flex flex-row items-center justify-start gap-[8px] text-center text-white ">
+<ButtonEvents text='Guardar' onClick={() => { router.push("/events/configure-event")}}/>
 
                     <div className="rounded-md bg-slate-200 flex flex-row items-start justify-end pt-2.5 px-[10.5px] pb-[11.600000000000364px]">
                       <div className="h-[14.4px] flex flex-row items-start justify-start">
                         <img
                           className="h-[14.4px] w-3.5 relative overflow-hidden shrink-0"
                           alt=""
-                          src="ModuloEvento/trespuntos.svg"
+                          src="/ModuloEvento/trespuntos.svg"
                         />
                   </div>
                 </div>

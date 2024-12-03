@@ -12,9 +12,6 @@ import { IoLocationOutline } from "react-icons/io5";
 import { FiUser } from "react-icons/fi";
 
 
-
-
-
 export const FormDataProspecto = ({ data }) => {
     const initialValue = {
         etiquetas:"",

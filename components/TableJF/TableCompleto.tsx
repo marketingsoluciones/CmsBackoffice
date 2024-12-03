@@ -1,19 +1,15 @@
 "use client"
 import "react-datepicker/dist/react-datepicker.css";
-import es from 'date-fns/locale/es';
-/* registerLocale('es', es) */
-/* import { generateXLSX, getDataTreeFacturaWispHup, getDataTreeTransaction } from "../utils/funciones.js" */
 import { usePDF } from 'react-to-pdf';
-import React, { ChangeEventHandler, InputHTMLAttributes, useEffect, useMemo, useReducer, useRef, useState } from "react";
-import { FetchGraphQL, /* fetchApiJaihom, */ queries } from "../../utils/Fetching.js";
-import { Factura, /* FetchFacturas, FetchTransaction */ } from "../../utils/Interfaces.js";
+import React, { ChangeEventHandler, FC, InputHTMLAttributes, useEffect, useMemo, useReducer, useRef, useState } from "react";
+import { fetchApi, FetchGraphQL, queries, fetchApiEventos } from "../../utils/Fetching";
 import { Column, ColumnDef, ColumnFiltersState, FilterFn, SortingFn, Table, createColumnHelper, flexRender, getCoreRowModel, getFacetedMinMaxValues, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, sortingFns, useReactTable } from "@tanstack/react-table";
-import { RankingInfo, rankItem, compareItems } from '@tanstack/match-sorter-utils'
-import { TableJF, Herramientas, FiltroFactura, FiltroTime, getDate, getDateTime, obtenerPrimerYUltimoDiaSemana } from "./index";
+import { RankingInfo, } from '@tanstack/match-sorter-utils'
+import { TableJF, Herramientas, FiltroTime, obtenerPrimerYUltimoDiaSemana, fuzzyFilter } from "./index";
 import ClickAwayListener from "react-click-away-listener";
-import { IndeterminateCheckbox } from "../Datatable/IndeterminateCheckbox.js";
-
-const columnHelperFactura = createColumnHelper<Factura>()
+import { SchemaChildren, } from "../../utils/schemas";
+import { developments } from "../../firebase.js";
+import { AuthContextProvider } from "../../context/AuthContext.js";
 
 declare module '@tanstack/table-core' {
     interface FilterFns {
@@ -24,38 +20,15 @@ declare module '@tanstack/table-core' {
     }
 }
 
-const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
-    // Rank the item
-    const itemRank = rankItem(row.getValue(columnId), value)
-
-    // Store the itemRank info
-    addMeta({
-        itemRank,
-    })
-
-    // Return if the item should be filtered in/out
-    return itemRank.passed
+interface props {
+    columnsDef: ColumnDef<any>[]
+    itemSchema: SchemaChildren
+    transformedObject?: any
 }
 
-const fuzzySort: SortingFn<any> = (rowA, rowB, columnId) => {
-    let dir = 0
-
-    // Only sort by rank if the column has ranking information
-    if (rowA.columnFiltersMeta[columnId]) {
-        dir = compareItems(
-            rowA.columnFiltersMeta[columnId]?.itemRank!,
-            rowB.columnFiltersMeta[columnId]?.itemRank!
-        )
-    }
-
-    // Provide an alphanumeric fallback for when the item ranks are equal
-    return dir === 0 ? sortingFns.alphanumeric(rowA, rowB, columnId) : dir
-}
-
-
-export default function TableCompleto() {
+export const TableCompleto: FC<props> = ({ columnsDef, itemSchema , transformedObject }) => {
     const { toPDF, targetRef } = usePDF({ filename: 'page.pdf' })
-    const [file, setFile] = useState<any>()
+    const { domain } = AuthContextProvider()
     const [showPreviewPdf, setShowPreviewPdf] = useState<any>({ state: false, title: "", payload: {} })
     const [selectRow, setSelectRow] = useState<string | null>(null)
     const [searchColumn, setSearchColumn] = useState<string | null>(null)
@@ -63,14 +36,10 @@ export default function TableCompleto() {
     const [columnsView, setColumnsView] = useState<boolean>(false)
     const [inputView, setInputView] = useState<boolean>(false)
     const [showTable, setShowTable] = useState<boolean>(true)
-    const [data, setData] = useState<Factura[]>([])
+    const [data, setData] = useState<any>([])
     const rerender = useReducer(() => ({}), {})[1]
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-        []
-    )
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
     const [globalFilter, setGlobalFilter] = useState('')
-
-    const [typeFilter, setTypeFilter] = useState("factura")//transaccion
     const [dateFilter, setDateFilter] = useState("month")
     const [stateFilter, setStateFilter] = useState("conciliated")
     const [rangeFilter, setRangeFilter] = useState(null)
@@ -81,139 +50,69 @@ export default function TableCompleto() {
     const [updated, setUpdated] = useState('');
     const [uploading, setUploading] = useState<boolean>(false)
     const [showSpinner, setShowSpinner] = useState<boolean>(false)
-    const [columnVisibility, setColumnVisibility] = React.useState({ recargado: false, forma_pago: false, cajeroID: false, cajero: false, banco: false, conciliado: false, updatedAt: false })
+    const [columnVisibility, setColumnVisibility] = React.useState(transformedObject)
     const [tableMaster, setTableMaster] = useState<any>()
 
+    useEffect(() => {
+        try {
+            fetchApiEventos({
+                query: itemSchema?.getData.query,
+                variables: {
+                    development: "bodasdehoy",
+                },
+                domain
+            }).then((result) => {
+                const data = result.results
+                console.log(10000, data)
+                setData(data)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }, [itemSchema.route])
 
-    const handleChange = (event) => {
+    /* useEffect(() => {
+        try {
+            fetchApi({
+                query: itemSchema?.getData.query,
+                development: developments,
+            }).then((result) => {
+                const data = result.results
+                console.log(10000, data)
+                setData(data)
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }, [itemSchema.route]) */
+
+    /* const handleChange = (event) => {
         if (event.key === 'Enter') {
             console.log(inputRef.current.ref)
             setUpdated(inputRef.current.value);
         }
-    }
-    const onOptionChangeType: ChangeEventHandler<HTMLInputElement> = (e) => {
-        console.log(e.target.value)
-        setShowTable(false)
-        setTimeout(() => {
-            setShowTable(true)
-        }, 3000);
-        setTypeFilter(e.target.value)
-    }
+    } */
+
     const onOptionChangeDate: ChangeEventHandler<HTMLInputElement> = (e) => {
         console.log(e.target.value)
         setDateFilter(e.target.value)
     }
-    const onOptionChangeState: ChangeEventHandler<HTMLInputElement> = (e) => {
+
+    /* const onOptionChangeState: ChangeEventHandler<HTMLInputElement> = (e) => {
         console.log(e.target.value)
         setStateFilter(e.target.value)
-    }
-    const handleGetFactura = (id_factura: string) => {
-        /*   fetchApiJaihom({
-              query: queries.getFacturaWispHup,
-              variables: {
-                  id_factura
-              },
-          }).then((resp: string) => {
-              console.log(JSON.parse(resp))
-          }) */
-    }
-    const handleGetReferencia = (id_referencia: string) => {
-        /* console.log(id_referencia) */
-        /* fetchApiJaihom({
-            query: queries.getTransacciones,
-            variables: {
-                args: { referencia: id_referencia }
-            },
-        }).then((resp: FetchTransaction) => {
-            console.log(1005, resp.results[0])
-        }) */
-    }
-
-    const columnsFactura = useMemo<ColumnDef<Factura>[]>(() => [
-
-
-        columnHelperFactura.accessor('id_factura', {
-            id: 'id_factura',
-            header: () => <span>id_factura</span>,
-            cell: info => <div /* onClick={() => handleGetFactura(info.getValue())} */ className="text-center">{/* {info.getValue()} */}</div>,
-            footer: info => info.column.id,
-            filterFn: 'fuzzy',
-            sortingFn: fuzzySort,
-            enableHiding: false,
-        }),
-        columnHelperFactura.accessor('criterio', {
-            header: () => <span>Colum1</span>,
-            cell: info => info.getValue(),
-            footer: info => info.column.id,
-            enableColumnFilter: false,
-        }),
-        columnHelperFactura.accessor('recargado', {
-            header: () => <span>recargado</span>,
-            cell: info => <span>{info.getValue() ? "recargado" : null}</span>,
-            footer: info => info.column.id,
-            enableColumnFilter: false,
-        }),
-        columnHelperFactura.accessor('forma_pago', {
-            header: () => <span>forma_pago</span>,
-            cell: info => info.getValue(),
-            footer: info => info.column.id,
-            enableColumnFilter: false,
-        }),
-        columnHelperFactura.accessor('total_cobrado', {
-            header: () => <span>total_cobrado</span>,
-            cell: info => <div className="text-right">{info.getValue().toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>,
-            footer: info => info.column.id,
-            enableHiding: false,
-        }),
-        columnHelperFactura.accessor('fecha_pago', {
-            header: () => <span>fecha_pago</span>,
-            cell: info => <div className="text-center">{getDate(info.getValue())}</div>,
-            footer: info => info.column.id,
-            enableColumnFilter: false,
-            enableHiding: false,
-        }),
-        columnHelperFactura.accessor('fecha_pago_ref', {
-            header: () => <span>fecha_pago_ref</span>,
-            cell: info => <div className="text-center">{info.getValue()}</div>,
-            footer: info => info.column.id,
-            enableColumnFilter: false,
-            enableHiding: false,
-        }),
-        columnHelperFactura.accessor('referencia', {
-            header: () => <span>referencia</span>,
-            cell: info => <div className="text-right" >{info.getValue()}</div>,
-            footer: info => info.column.id,
-        }),
-        columnHelperFactura.accessor('cajeroID', {
-            header: () => <span>cajeroID</span>,
-            cell: info => <div className="text-right" >{info.getValue()}</div>,
-            footer: info => info.column.id,
-        }),
-        columnHelperFactura.accessor('cajero', {
-            header: () => <span>cajero</span>,
-            cell: info => <div className="text-right" >{info.getValue()}</div>,
-            footer: info => info.column.id,
-        }),
-        columnHelperFactura.accessor('updatedAt', {
-            header: () => <span>updatedAt</span>,
-            cell: info => { return <div className="text-center">{getDateTime(info.getValue())}</div> },
-            footer: info => info.column.id,
-            enableColumnFilter: false
-        }),
-    ], [typeFilter])
-
-
+    } */
 
     const table = useReactTable({
         data,
         columns:
-            useMemo(() => columnsFactura, [typeFilter]),
+            useMemo(() => columnsDef, [columnsDef]),
         filterFns: {
             fuzzy: fuzzyFilter,
         },
         state: {
-            columnFilters,
-            globalFilter,
+            /* columnFilters,
+            globalFilter, */
             columnVisibility,
         },
         onColumnVisibilityChange: setColumnVisibility,
@@ -228,11 +127,9 @@ export default function TableCompleto() {
         getFacetedUniqueValues: getFacetedUniqueValues(),
         getFacetedMinMaxValues: getFacetedMinMaxValues(),
     })
-
     useEffect(() => {
-        table?.setPageSize(250)
+        table?.setPageSize(50)
     }, [])
-
     useEffect(() => {
         if (startDateFilter && endDateFilter) {
             setRangeFilter({ startDateFilter, endDateFilter: new Date(endDateFilter.getTime() + 86399000) })
@@ -240,7 +137,6 @@ export default function TableCompleto() {
             setRangeFilter(null)
         }
     }, [startDateFilter, endDateFilter])
-
     useEffect(() => {
         let args: any = {}
         if (dateFilter === "lastmonth") {
@@ -295,49 +191,24 @@ export default function TableCompleto() {
             }
         }
         if (stateFilter === "all") { }
-        if (typeFilter === "factura") {
-            if (stateFilter === "noConciliated") { { args = { ...args, pagado: false } } }
-            if (stateFilter === "conciliated") { args = { ...args, pagado: true } }
-            /* fetchApiJaihom({
-                query: queries.getFacturas,
-                variables: {
-                    args,
-                    skip: 0,
-                    limit: 0
-                },
-            }).then((resp: FetchFacturas) => {
-                console.log(resp)
-                setData(resp?.results)
-            }) */
-        }
-        if (typeFilter === "transaccion") {
-            if (stateFilter === "noConciliated") { args = { ...args, conciliado: false } }
-            if (stateFilter === "conciliated") { args = { ...args, conciliado: true } }
-            delete args.pagado
-            /*  fetchApiJaihom({
-                 query: queries.getTransacciones,
-                 variables: {
-                     args,
-                     skip: 0,
-                     limit: 0
-                 },
-             }).then((resp: FetchTransaction) => {
-                 const results: Transaction[] = resp.results.map((elem: Transaction) => {
-                     const monto_facturas = elem.facturas.reduce((acc, item) => {
-                         return acc + item.total_cobrado
-                     }, 0)
-                     const diferencia = elem.monto - monto_facturas
-                     return {
-                         ...elem,
-                         monto_facturas,
-                         diferencia
-                     }
-                 })
-                 setData(results)
-             }) */
-        }
-    }, [typeFilter, dateFilter, stateFilter, rangeFilter])
-
+        /*   if (columnsDef) {
+              if (stateFilter === "noConciliated") { { args = { ...args, pagado: false } } }
+              if (stateFilter === "conciliated") { args = { ...args, pagado: true } }
+              fetchApi({
+                  query: queries.getAllUsers,
+                  variables: {
+                      args,
+                      skip: 0,
+                      limit: 0
+                  },
+                  development:""
+              }).then((resp: FetchFacturas) => {
+                  console.log(resp)
+                  setData(resp?.results)
+              })
+          }
+   */
+    }, [columnsDef, dateFilter, stateFilter, rangeFilter])
     useEffect(() => {
         if (table.getState().columnFilters[0]?.id === 'fullName') {
             if (table.getState().sorting[0]?.id !== 'fullName') {
@@ -346,59 +217,11 @@ export default function TableCompleto() {
         }
     }, [table.getState().columnFilters[0]?.id])
 
-    const handleChangeFile = (e, banco) => {
-        e.preventDefault();
-        setShowSpinner(true)
-        setUploading(true)
-        let reader = new FileReader();
-        let file = e.target.files[0];
-        setFile(file)
-        /* fetchApiJaihom({
-            query: queries.uploadBanco,
-            variables: { file, banco },
-            type: "formData"
-        }).then((result) => {
-            if (result === "ok") {
-                setUploading(false)
-            }
-            setShowSpinner(false)
-        }) */
-    };
-
-    const handleConciliar = (e) => {
-        e.preventDefault();
-        setShowSpinner(true)
-        setUploading(true)
-        setFile(file)
-        /* fetchApiJaihom({
-            query: queries.runConciliation,
-            variables: {},
-        }).then((result) => {
-            if (result === "ok") {
-                setUploading(false)
-            }
-            setShowSpinner(false)
-        }) */
-    };
-
-    const handleRecargar = (e) => {
-        e.preventDefault();
-    };
-
-    const handleRecargarAll = (e) => {
-        e.preventDefault()
-        const ids_factura = data.map(elem => elem.id_factura)
-        /* fetchApiJaihom({
-            query: queries.refreshFacturaWispHup,
-            variables: { ids_factura },
-        }).then((result) => {
-            console.log(result)
-        }) */
-    };
 
     return (
         <div className="flex w-full text-xs capitalize">
-            {showPreviewPdf.state &&
+            {
+                showPreviewPdf.state &&
                 <div className="absolute w-full h-[calc(100%-100px)] z-50 justify-center flex">
                     <ClickAwayListener onClickAway={() => setShowPreviewPdf({ state: false })}>
                         <div className="bg-gray-200 flex flex-col w-[764px] h-[615px] translate-y-[46px] rounded-xl shadow-lg border-[1px] border-gray-300">
@@ -423,8 +246,6 @@ export default function TableCompleto() {
                     <div id="loader" className="absolute" />
                 </div>
             }
-
-            {/* <input id="child" type="number" onKeyDown={handleChange} className={`${!inputView && "hidden"} h-4 text-right text-xs font-medium`} /> */}
             <div className="w-full h-[calc(100vh-120px)] overflow-auto">
                 <div className="bg-white flex flex-col w-[calc(1280px-40px)] xl:w-[calc(100%)] h-[calc(100vh-135px)] border border-gray-300 rounded-xl p-2 ">
                     <div className="flex justify-end  space-x-4 items-center">
@@ -437,50 +258,47 @@ export default function TableCompleto() {
                                 endDateFilter={endDateFilter}
                                 setEndDateFilter={setEndDateFilter}
                             />
-                            <Herramientas setShowPreviewPdf={setShowPreviewPdf} setColumnsView={setColumnsView} columnsView={columnsView} table={table} />
+                            <Herramientas
+                                setShowPreviewPdf={setShowPreviewPdf}
+                                setColumnsView={setColumnsView}
+                                columnsView={columnsView}
+                                table={table}
+                                columns={columnsDef}
+                                dataSchema={itemSchema.schema}
+                            />
                         </div>
                     </div>
-                    <TableJF showTable={showTable} targetRef={targetRef} table={table} TableForward={TableForward} typeFilter={typeFilter} setTableMaster={setTableMaster} setSearch={setSearch} search={search} flexRender={flexRender} setSelectRow={setSelectRow} selectRow={selectRow} Filter={Filter} />
+                    <TableJF
+                        targetRef={targetRef}
+                        table={table}
+                        TableForward={TableForward}
+                        typeFilter={columnsDef}
+                        setTableMaster={setTableMaster}
+                        setSearch={setSearch}
+                        search={search}
+                        flexRender={flexRender}
+                        setSelectRow={setSelectRow}
+                        selectRow={selectRow}
+                        Filter={Filter}
+                    />
                 </div>
             </div>
             <style>{`
-      #loader {
-        border: 16px solid #f3f3f3;
-        border-top: 16px solid #3498db;
-        border-radius: 50%;
-        width: 120px;
-        height: 120px;
-        animation: spin 2s linear infinite;
-        display: block; /* El spinner debe estar oculto por defecto */
-      }
+                #loader {
+                    border: 16px solid #f3f3f3;
+                    border-top: 16px solid #3498db;
+                    border-radius: 50%;
+                    width: 120px;
+                    height: 120px;
+                    animation: spin 2s linear infinite;
+                    display: block; /* El spinner debe estar oculto por defecto */
+                }
 
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-
-      tfoot {
-        color: gray;
-      }
-
-      tfoot th {
-        font-weight: normal;
-      }
-
-      table *tbody {
-        display: block;
-        max-height: calc(100vh - 340px);
-        width: calc(100% + 8px);
-        overflow-y: scroll;
-      }
-
-      thead, tbody tr, tfoot {
-        display: table;
-        
-        table-layout: fixed;
-      }
-
-      `}</style>
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `}</style>
         </div >
     )
 }
@@ -588,8 +406,6 @@ function DebouncedInput({ value: initialValue, onChange, debounce = 500, ...prop
         <input className="text-xs" {...props} value={value} onChange={e => setValue(e.target.value)} />
     )
 }
-
-
 
 const TableForward = ({ table, typeFilter, setTableMaster }) => {
     useEffect(() => {

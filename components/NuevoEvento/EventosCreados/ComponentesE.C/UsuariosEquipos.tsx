@@ -19,7 +19,7 @@ const UsuariosEquipos: FC<propsUsuariosEquipos> = ({componentState, setComponent
                   className="h-[27px] w-[23px] relative overflow-hidden shrink-0"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/vectorF.svg"
+                  src="/ModuloEvento/vectorF.svg"
                 />
              
         </div>
@@ -84,7 +84,7 @@ const UsuariosEquipos: FC<propsUsuariosEquipos> = ({componentState, setComponent
                   <img
                     className="h-3.5 w-3.5 relative overflow-hidden shrink-0"
                     alt=""
-                    src="ModuloEvento/013.svg"
+                    src="/ModuloEvento/013.svg"
                   />
                 </div>
               </div>
@@ -101,7 +101,7 @@ const UsuariosEquipos: FC<propsUsuariosEquipos> = ({componentState, setComponent
                   <img
                     className="h-3.5 w-3.5 relative overflow-hidden shrink-0"
                     alt=""
-                    src="ModuloEvento/014.svg"
+                    src="/ModuloEvento/014.svg"
                   />
                 </div>
               </div>
@@ -116,7 +116,7 @@ const UsuariosEquipos: FC<propsUsuariosEquipos> = ({componentState, setComponent
               <img
                 className="h-4 w-4 relative overflow-hidden shrink-0"
                 alt=""
-                src="ModuloEvento/06.svg"
+                src="/ModuloEvento/06.svg"
               />
             </div>
           </div>
@@ -206,7 +206,7 @@ const UsuariosEquipos: FC<propsUsuariosEquipos> = ({componentState, setComponent
                 className="w-7 h-7 relative rounded-9xl object-cover max-w-[28px]"
                 loading="lazy"
                 alt=""
-                src="ModuloEvento/015.svg"
+                src="/ModuloEvento/015.svg"
               />
               <div className="w-full h-full absolute !m-[0] top-[0%] right-[0%] bottom-[0%] left-[0%] shadow-[0px_2px_4px_rgba(0,_0,_0,_0.06)_inset] rounded-9980xl bg-profourvenuescom-nero-02 z-[1]" />
             </div>

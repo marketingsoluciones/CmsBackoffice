@@ -35,7 +35,7 @@ export const PantallaInformativaCrearAPP = () => {
                             <img
                                 className="self-stretch flex-1 relative max-w-full overflow-hidden max-h-full object-cover"
                                 alt=""
-                                src="ModuloEvento/1,1.svg"
+                                src="/ModuloEvento/1,1.svg"
                             />
                         </div>
                     </div>
@@ -51,7 +51,7 @@ export const PantallaInformativaCrearAPP = () => {
                             className="h-6 w-6 relative overflow-hidden shrink-0"
                             loading="lazy"
                             alt=""
-                            src="ModuloEvento/de.svg"
+                            src="/ModuloEvento/de.svg"
                         />
                     </div>
                 </div>

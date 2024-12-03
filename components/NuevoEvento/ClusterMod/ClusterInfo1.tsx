@@ -40,7 +40,7 @@ export const ClusterInfo1 = ({}) => {
                     className="w-[123px] flex-1 relative max-h-full overflow-hidden"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/chatenvivo.svg"
+                    src="/ModuloEvento/chatenvivo.svg"
                   />
                   <div className="self-stretch flex flex-col items-start justify-start gap-[8px]">
                     <div className="self-stretch flex flex-col items-center justify-start py-0 px-5">
@@ -62,7 +62,7 @@ export const ClusterInfo1 = ({}) => {
                       className="h-20 flex-1 relative max-w-full overflow-hidden object-cover"
                       loading="lazy"
                       alt=""
-                      src="ModuloEvento/leads2.svg"
+                      src="/ModuloEvento/leads2.svg"
                     />
                   </div>
                   <div className="self-stretch flex flex-col items-start justify-start gap-[8px]">
@@ -82,7 +82,7 @@ export const ClusterInfo1 = ({}) => {
                     className="w-60 h-20 relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/chatbot2.svg"
+                    src="/ModuloEvento/chatbot2.svg"
                   />
                   <div className="self-stretch flex flex-col items-start justify-start gap-[8px]">
                     <div className="self-stretch flex flex-col items-center justify-start py-0 px-5">
@@ -106,7 +106,7 @@ export const ClusterInfo1 = ({}) => {
                       className="w-60 h-20 relative overflow-hidden shrink-0"
                       loading="lazy"
                       alt=""
-                      src="ModuloEvento/formulariosweb.svg"
+                      src="/ModuloEvento/formulariosweb.svg"
                     />
                     <div className="self-stretch flex flex-col items-start justify-start pt-4 px-0 pb-0">
                       <div className="self-stretch flex flex-col items-start justify-start gap-[8px]">
@@ -166,14 +166,14 @@ export const ClusterInfo1 = ({}) => {
           </div>
           <div className="self-stretch flex flex-row items-start justify-start py-0 pr-[17px] pl-[17.5px] box-border max-w-full text-left text-rosa">
             <div className="h-[299px] flex-1 flex flex-row flex-wrap items-center justify-center relative gap-[10px] max-w-full">
-              <ClusterC1 group3338="ModuloEvento/capacitacion.svg" propLeft="8px" />
+              <ClusterC1 group3338="/ModuloEvento/capacitacion.svg" propLeft="8px" />
               <div className="w-[263px] my-0 mx-[!important] absolute top-[10.5px] left-[281px] flex flex-col items-start justify-start pt-0 px-0 pb-[0.0999999999985448px] box-border gap-[10px]">
                 <div className="self-stretch h-[49.8px] flex flex-row items-start justify-start py-0 pr-px pl-0 box-border gap-[10px]">
                   <img
                     className="h-[37.8px] w-10 relative"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/publicidad.svg"
+                    src="/ModuloEvento/publicidad.svg"
                   />
                   <div className="h-[49.8px] flex-1 relative leading-[25px] text-xs font-semibold inline-block">
                     Clúster de inversión en publicidad
@@ -187,7 +187,7 @@ export const ClusterInfo1 = ({}) => {
                 </div>
               </div>
               <ClusterC1
-                group3338="ModuloEvento/capleads.svg"
+                group3338="/ModuloEvento/capleads.svg"
                 propLeft="554px"
               />
               <div className="w-[263px] my-0 mx-[!important] absolute top-[169.5px] left-[8px] flex flex-col items-start justify-start gap-[10px]">
@@ -196,7 +196,7 @@ export const ClusterInfo1 = ({}) => {
                     className="h-[35.1px] w-10 relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/plataforma.svg"
+                    src="/ModuloEvento/plataforma.svg"
                   />
                   <div className="h-[49.8px] flex-1 relative leading-[25px] text-xs font-semibold inline-block">
                     Plataforma SaaS innovadora
@@ -215,7 +215,7 @@ export const ClusterInfo1 = ({}) => {
                     className="h-[45.8px] w-10 relative"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/ahorro.svg"
+                    src="/ModuloEvento/ahorro.svg"
                   />
                   <div className="h-[49.8px] w-[212px] relative leading-[25px] text-xs font-semibold flex items-center">
                     Ahorro de tiempo y dinero
@@ -234,7 +234,7 @@ export const ClusterInfo1 = ({}) => {
                     className="h-[46.3px] w-10 relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/colaboracion.svg"
+                    src="/ModuloEvento/colaboracion.svg"
                   />
                   <div className="h-[49.8px] flex-1 relative leading-[25px] text-xs font-semibold inline-block">
                     Colaboración y aprendizaje

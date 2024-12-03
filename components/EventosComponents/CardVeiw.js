@@ -3,7 +3,7 @@ import { SwiperEventAsignados } from "./SwiperEventAsignados";
 import { CardVeiwIcon, SearchIcon, TableVeiwIcon } from "../Icons/index";
 import { OptionsButtons } from "./OptionsButtons";
 import { useState } from "react";
-import { OnlyViewTable, PanelViewTable } from "../PanelViewTable";
+import { OnlyViewTable } from "../OnlyViewTable";
 import { AuthContextProvider } from "../../context/AuthContext";
 import GlobalFilter from "../Datatable/GlobalFilter";
 
@@ -16,7 +16,7 @@ export const CardVeiw = ({ setOpenModal, openModal, viewResumen, setViewResumen 
     const optionsArry = [
         {
             icon: <CardVeiwIcon />,
-            component: <ViewCard setOpenModal={setOpenModal} openModal={openModal} viewResumen={viewResumen} setViewResumen={setViewResumen}  />,
+            component: <ViewCard setOpenModal={setOpenModal} openModal={openModal} viewResumen={viewResumen} setViewResumen={setViewResumen} />,
             state: false
         },
         {
@@ -65,7 +65,7 @@ export const CardVeiw = ({ setOpenModal, openModal, viewResumen, setViewResumen 
 
                     {/* cuarpo de los componentes Swiper and table */}
 
-                    <div className={`${optionSelect==0? "w-[75%]*":"w-full"}`}>
+                    <div className={`${optionSelect == 0 ? "w-[75%]*" : "w-full"}`}>
                         {optionsArry[optionSelect]?.component}
                     </div>
 
@@ -78,7 +78,7 @@ export const CardVeiw = ({ setOpenModal, openModal, viewResumen, setViewResumen 
 export const ViewCard = ({ setOpenModal, openModal, viewResumen, setViewResumen }) => {
     return (
         <div>
-            <SwiperEventCreados setOpenModal={setOpenModal} openModal={openModal}  viewResumen={viewResumen} setViewResumen={setViewResumen} />
+            <SwiperEventCreados setOpenModal={setOpenModal} openModal={openModal} viewResumen={viewResumen} setViewResumen={setViewResumen} />
             {/* <SwiperEventAsignados /> */}
         </div>
     )

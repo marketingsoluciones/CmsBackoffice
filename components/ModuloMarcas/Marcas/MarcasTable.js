@@ -1,7 +1,7 @@
 import { useState } from "react"
 import GlobalFilter from "../../Datatable/GlobalFilter"
 import { ArrowLeft, SearchIcon } from "../../Icons/index"
-import { OnlyViewTable } from "../../PanelViewTable"
+import { OnlyViewTable } from "../../OnlyViewTable"
 
 export const MarcasTable = ({ dispatch }) => {
     const [global, setGlobal] = useState()
@@ -31,7 +31,7 @@ export const MarcasTable = ({ dispatch }) => {
                 </div>
             </div>
             <div className="bg-white space-y-5 rounded-xl flex flex-col py-2 px-4   ">
-                <OnlyViewTable slug={"business"} dispatch={dispatch} setbuscador={setSeteador} />
+                <OnlyViewTable dispatch={dispatch} setbuscador={setSeteador} />
             </div>
         </div>
     )

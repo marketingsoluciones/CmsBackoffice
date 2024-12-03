@@ -23,7 +23,7 @@ const Comision2: FC<propsComision2> = ({componentState, setComponentState, selec
                     className="h-[18px] w-[18px] relative overflow-hidden shrink-0"
                     loading="lazy"
                     alt=""
-                    src="ModuloEvento/vectorF.svg"
+                    src="/ModuloEvento/vectorF.svg"
                   />
             </div>
           </div>
@@ -43,7 +43,7 @@ const Comision2: FC<propsComision2> = ({componentState, setComponentState, selec
           <button className="cursor-pointer py-2 px-[17px] bg-slate-100 w-[96.5px] rounded-md box-border flex flex-row items-center justify-center gap-[7.5px] max-w-[100.94999694824219px] border-[1px] border-solid border-slate-200 mq450:w-[calc(100%_-_40px)] hover:bg-white">
             <div className="w-[50px] flex flex-col items-center justify-start pt-[2.4px] px-0 pb-[2.9px] box-border">
               <div className="self-stretch w-4 h-4 relative leading-[12.25px] text-center flex items-center justify-center">
-                <img src="ModuloEvento/buscarRosa.svg" alt="" />
+                <img src="/ModuloEvento/buscarRosa.svg" alt="" />
               </div>
             </div>
             <div className="flex flex-col items-center justify-start">
@@ -55,7 +55,7 @@ const Comision2: FC<propsComision2> = ({componentState, setComponentState, selec
 
           <button className="cursor-pointer py-2 px-[17px] bg-slate-100 w-auto rounded-md box-border flex flex-row items-center justify-center gap-[10.5px] border-[1px] border-solid border-slate-200 hover:bg-white mq450:w-[calc(100%_-_40px)]">
             <div className="w-auto flex flex-col items-center justify-start box-border">
-                <img src="ModuloEvento/ojito.svg" alt="" />
+                <img src="/ModuloEvento/ojito.svg" alt="" />
             </div>
             <div className="flex flex-col items-center justify-start">
               <div className="relative text-xs leading-[18px] font-semibold text-center inline-block">
@@ -121,7 +121,7 @@ const Comision2: FC<propsComision2> = ({componentState, setComponentState, selec
                   className="w-7 h-7 relative rounded-9xl object-cover max-w-[28px]"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/foto1.svg"
+                  src="/ModuloEvento/foto1.svg"
                 />
                 <div className="w-full h-full absolute !m-[0] top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-9980xl bg-profourvenuescom-nero-02 shadow-[0px_2px_4px_rgba(0,_0,_0,_0.06)_inset] z-[1]" />
               </div>
@@ -185,7 +185,7 @@ const Comision2: FC<propsComision2> = ({componentState, setComponentState, selec
                   className="w-7 h-7 relative rounded-9xl object-cover max-w-[28px]"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/foto2.svg"
+                  src="/ModuloEvento/foto2.svg"
                 />
                 <div className="w-full h-full absolute !m-[0] top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-9980xl bg-profourvenuescom-nero-02 shadow-[0px_2px_4px_rgba(0,_0,_0,_0.06)_inset] z-[1]" />
               </div>
@@ -249,7 +249,7 @@ const Comision2: FC<propsComision2> = ({componentState, setComponentState, selec
                   className="w-7 h-7 relative rounded-9xl object-cover max-w-[28px]"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/foto3.svg"
+                  src="/ModuloEvento/foto3.svg"
                 />
                 <div className="w-full h-full absolute !m-[0] top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-9980xl bg-profourvenuescom-nero-02 shadow-[0px_2px_4px_rgba(0,_0,_0,_0.06)_inset] z-[1]" />
               </div>
@@ -313,7 +313,7 @@ const Comision2: FC<propsComision2> = ({componentState, setComponentState, selec
                   className="w-7 h-7 relative rounded-9xl object-cover max-w-[28px]"
                   loading="lazy"
                   alt=""
-                  src="ModuloEvento/foto4.svg"
+                  src="/ModuloEvento/foto4.svg"
                 />
                 <div className="w-full h-full absolute !m-[0] top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-9980xl bg-profourvenuescom-nero-02 shadow-[0px_2px_4px_rgba(0,_0,_0,_0.06)_inset] z-[1]" />
               </div>

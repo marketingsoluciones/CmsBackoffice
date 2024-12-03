@@ -37,7 +37,7 @@ const CardData1: FC <Props> = ({componentState, setComponentState, title, Subtit
                           <div className="leading-[14px] text-gray-400">{NSubtitle1}</div>
                           <div className="flex flex-row items-start justify-end">
                             <div className="relative leading-[10.5px] uppercase inline-block ">
-                              <img src="ModuloEvento/humano2.svg" alt="" />
+                              <img src="/ModuloEvento/humano2.svg" alt="" />
                             </div>
                           </div>
                         </div>
@@ -50,7 +50,7 @@ const CardData1: FC <Props> = ({componentState, setComponentState, title, Subtit
                             <div className="rounded-full bg-slate-200 py-[1px] px-[8px] flex flex-row items-center justify-start box-border gap-[3.1px]">
                           <b className="relative leading-[24px] uppercase">{NSubtitle2}</b>
                             <div className="relative leading-[12.25px] uppercase inline-block max-h-[12.25px]">
-                              <img src="ModuloEvento/humano1.svg" alt="" />
+                              <img src="/ModuloEvento/humano1.svg" alt="" />
                             </div>
                           
 
@@ -78,7 +78,7 @@ const CardData1: FC <Props> = ({componentState, setComponentState, title, Subtit
                             {SubTFechaNumber1}
                             </b>
                             <div className="flex flex-col items-center justify-center leading-[10.5px]">
-                              <img src="ModuloEvento/humano1.svg" alt="" />
+                              <img src="/ModuloEvento/humano1.svg" alt="" />
                             </div>
                         </div>
                         <div className="w-auto flex flex-col items-start justify-start">
@@ -107,7 +107,7 @@ const CardData1: FC <Props> = ({componentState, setComponentState, title, Subtit
   
                             <div className="leading-[14px]">{SubTFechaNumber2}</div>
                             <div className=" leading-[10.5px] inline-block">
-                              <img src="ModuloEvento/humano2.svg" alt="" />
+                              <img src="/ModuloEvento/humano2.svg" alt="" />
                             </div>
   
                           </div>

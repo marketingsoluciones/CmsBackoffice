@@ -29,7 +29,7 @@ const ControlAforoComp: FC <Props> = ({componentState, setComponentState, setSel
                 className="h-[27px] w-[23px] relative overflow-hidden shrink-0"
                 loading="lazy"
                 alt=""
-                src="ModuloEvento/vectorF.svg"
+                src="/ModuloEvento/vectorF.svg"
               />
            
       </div>
@@ -38,7 +38,7 @@ const ControlAforoComp: FC <Props> = ({componentState, setComponentState, setSel
           </div>
     </div>
             
-            <CapacityControl title='hola' totalPeople={25} zones={DataZone}/>
+            <CapacityControl title='Noche de divas' totalPeople={25} zones={DataZone}/>
         </div>
 
     );

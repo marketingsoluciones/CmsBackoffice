@@ -7,7 +7,6 @@ import { useEffect } from "react"
 
 export const MarcasControl = () => {
     const { state, dispatch } = AuthContextProvider()
-
     if (true) {
         return (
             <div className="w-full h-full px-5 py-2" >
@@ -23,7 +22,7 @@ export const MarcasControl = () => {
                 }
                 {
                     ["edit", "create"].includes(state?.type) && (
-                        <PanelEditAndCreate setAction={dispatch} slug={"business"} state={state} />
+                        <PanelEditAndCreate setAction={dispatch} state={state} />
                     )
                 }
             </div >

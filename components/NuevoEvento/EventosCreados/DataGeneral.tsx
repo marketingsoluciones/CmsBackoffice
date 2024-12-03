@@ -4,6 +4,8 @@ import Dropdown2 from "./Dropdown2";
 import InformeFinanciero from "./ComponentesE.C/InformeFinanciero";
 import { Modal } from "../../modals/Modal";
 import CardData1 from "./CardDataGeneral";
+import { ButtonEvents } from "../../Events/ButtonEvents";
+import { useRouter } from 'next/router';
 interface propsDataGeneral {
     componentState?: any;
     setComponentState?: any;
@@ -13,6 +15,7 @@ interface propsDataGeneral {
   
   }
   export  const DataGeneral: FC<propsDataGeneral> = ({ componentState, setComponentState, selectedOption, setSelectedOption}) => {
+    const router = useRouter()
     const [addInforme, setAddInforme] = useState(false);
   
     /*   const [optionSelect, setOptionSelect] = useState(); */
@@ -120,15 +123,13 @@ interface propsDataGeneral {
   
           <div className="flex flex-row items-center justify-start box-border [row-gap:20px] ">
   
-            <div onClick={() => {
-              setComponentState(1)
-            }}
+            <div onClick={() => { router.push("/events/tiketing") }}
               className=" cursor-pointer flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
               <img
                 className="h-[26px] w-[23px] relative overflow-hidden shrink-0"
                 loading="lazy"
                 alt=""
-                src="ModuloEvento/vectorF.svg"
+                src="/ModuloEvento/vectorF.svg"
               />
   
             </div>
@@ -147,7 +148,7 @@ interface propsDataGeneral {
             <button className="cursor-pointer bg-slate-50 rounded-md w-auto flex flex-row gap-[9.77px] py-[10px] px-4 items-center justify-center border-[1px] border-solid border-slate-200">
   
               <div className="self-stretch h-full pt-[3px] leading-[12.25px] text-center inline-block">
-                <img src="ModuloEvento/Symbol1.svg" alt="" />
+                <img src="/ModuloEvento/Symbol1.svg" alt="" />
               </div>
               <div className="self-stretch w-auto relative text-xs leading-[17.5px] font-medium text-black text-center inline-block">
                 Ver tus ventas
@@ -161,26 +162,7 @@ interface propsDataGeneral {
   
             <Dropdown2 items={dataComponents2} title={"Informes"} selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
   
-            <button onClick={() => {
-              setComponentState(3)
-            }}
-            className="cursor-pointer [border:none] bg-[transparent] flex flex-col items-start justify-start text-sm text-white">
-              <div className="w-auto rounded-md bg-rosa box-border flex flex-row items-center justify-center py-[9.75px] px-[17px] gap-[10.41px] border-[1px] border-solid border-rosa">
-                <div className="flex flex-col items-center justify-start ">
-                  <img
-                    className="h-[16px] w-[16px] relative overflow-hidden shrink-0"
-                    loading="lazy"
-                    alt=""
-                    src="ModuloEvento/config.svg"
-                  />
-                </div>
-                <div className="flex-1 flex flex-col items-center justify-start">
-                  <div className="self-stretch h-[17.5px] relative text-smi-3 leading-[17.5px] font-semibold text-center inline-block ">
-                    Configurar evento
-                  </div>
-                </div>
-              </div>
-            </button>
+<ButtonEvents text="Configurar Evento" onClick={() => { router.push("/events/configure-event") }}/>
   
           </div>
   
@@ -196,14 +178,14 @@ interface propsDataGeneral {
               className="h-[98.3px] w-[84px] relative rounded-md overflow-hidden shrink-0 object-cover"
               loading="lazy"
               alt=""
-              src="ModuloEvento/banner3.svg"
+              src="/ModuloEvento/banner3.svg"
             />
             <div className="flex flex-col items-start justify-start gap-[5px]">
   
   <div className="flex flex-row items-center justify-start gap-[1px] text-lg text-black font-medium">
     <div className="flex flex-col items-start justify-start font-semibold">
       <div className="w-3.5 h-[15.8px] relative leading-[15.75px] inline-block max-h-[15.75px]">
-        <img src="ModuloEvento/icon.svg" alt="" />
+        <img src="/ModuloEvento/icon.svg" alt="" />
       </div>
     </div>
     <div className="flex flex-col items-start justify-start pt-[2.5px] pb-1 pr-[2.479999542236328px] pl-0">
@@ -230,7 +212,7 @@ interface propsDataGeneral {
 
   <div className="overflow-hidden flex flex-row items-center justify-start py-0 pr-5 pl-0 text-smi-3 text-gray-400">
     <div className="h-[13px] w-[13px] relative leading-[12.25px] inline-block">
-      <img src="ModuloEvento/reg.svg" alt="" />
+      <img src="/ModuloEvento/reg.svg" alt="" />
     </div>
     <div className="w-auto relative leading-[17.5px] font-medium inline-block whitespace-nowrap">
       20:00 - 02:30
@@ -338,7 +320,7 @@ interface propsDataGeneral {
                             className="h-[26px] w-[26.3px] relative overflow-hidden shrink-0"
                             loading="lazy"
                             alt=""
-                            src="ModuloEvento/uyq.svg"
+                            src="/ModuloEvento/uyq.svg"
                           />
                         </div>
   
@@ -431,7 +413,7 @@ interface propsDataGeneral {
                           <img
                             className="relative w-[26.3px] h-[26px] overflow-hidden shrink-0"
                             alt=""
-                            src="ModuloEvento/dolar.svg"
+                            src="/ModuloEvento/dolar.svg"
                           />
                         </div>
                       </div>
@@ -463,7 +445,7 @@ interface propsDataGeneral {
                           <img
                             className="relative w-auto h-[26px] overflow-hidden shrink-0 [transform:_rotate(-180deg)]"
                             alt=""
-                            src="ModuloEvento/entrada1.svg"
+                            src="/ModuloEvento/entrada1.svg"
                           />
                         </div>
                       </div>
@@ -496,7 +478,7 @@ interface propsDataGeneral {
                           <img
                             className="relative w-[23px] h-[26px] overflow-hidden shrink-0"
                             alt=""
-                            src="ModuloEvento/preguntas.svg"
+                            src="/ModuloEvento/preguntas.svg"
                           />
                         </div>
                       </div>
@@ -614,7 +596,7 @@ interface propsDataGeneral {
                               className="h-auto w-[10.5px] relative overflow-hidden shrink-0"
                               loading="lazy"
                               alt=""
-                              src="ModuloEvento/info1.svg"
+                              src="/ModuloEvento/info1.svg"
                             />
                           </div>
                         </div>
@@ -637,7 +619,7 @@ interface propsDataGeneral {
                               className="h-3.5 w-[12.3px] relative overflow-hidden shrink-0"
                               loading="lazy"
                               alt=""
-                              src="ModuloEvento/liqui1.svg"
+                              src="/ModuloEvento/liqui1.svg"
                             />
                           </div>
                         </div>
@@ -662,7 +644,7 @@ interface propsDataGeneral {
                               className="h-3.5 w-[15.8px] relative overflow-hidden shrink-0"
                               loading="lazy"
                               alt=""
-                              src="ModuloEvento/comi1.svg"
+                              src="/ModuloEvento/comi1.svg"
                             />
                           </div>
                         </div>
@@ -702,7 +684,7 @@ interface propsDataGeneral {
                               <img
                                 className="h-3 w-[12px] relative overflow-hidden shrink-0"
                                 alt=""
-                                src="ModuloEvento/copiar.svg"
+                                src="/ModuloEvento/copiar.svg"
                               />
                             </div>
                           </div>
@@ -731,7 +713,7 @@ interface propsDataGeneral {
                               <img
                                 className="h-3 w-3 relative overflow-hidden shrink-0"
                                 alt=""
-                                src="ModuloEvento/copiar.svg"
+                                src="/ModuloEvento/copiar.svg"
                               />
                             </div>
                           </div>
@@ -782,12 +764,6 @@ interface propsDataGeneral {
                     </div>
                   </div>
                   <div className="self-stretch flex-1 relative box-border max-w-full border-t-[1px] border-solid border-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-catskill-white" />
-  
-                  <div className="self-stretch flex flex-row items-start justify-center text-xs text-gray-800">
-                    <div className="h-6 w-auto relative leading-[24px] flex items-center justify-center">
-                      iFrame de venta
-                    </div>
-                  </div>
                 </div>
   
                 <div className="self-stretch flex flex-row items-start justify-start py-0 pr-[3px] pl-[3.5px] box-border max-w-full text-[31.5px] text-black font-normal">
@@ -803,7 +779,7 @@ interface propsDataGeneral {
                             </b>
                           </div>
                           <div className="w-8 h-8 rounded-full">
-                            <img src="ModuloEvento/img2.svg" alt="" />
+                            <img src="/ModuloEvento/img2.svg" alt="" />
                           </div>
   
                           <div className="flex-1 flex flex-col items-start justify-start pt-[5.5px] px-0 pb-0 text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-black">
@@ -817,16 +793,18 @@ interface propsDataGeneral {
                         </div>
                         <div className="flex flex-col items-center justify-center pb-1 pt-1 text-sm">
                           <div className="w-3.5 h-3.5 relative leading-[14px] inline-block">
-                            <img src="ModuloEvento/insignia.svg" alt="" />
+                            <img src="/ModuloEvento/insignia.svg" alt="" />
                           </div>
                         </div>
   
                       </div>
-                      <div className="self-stretch flex flex-col items-end justify-start text-center text-xs-9 text-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-ebony">
-                        <div className="self-stretch h-px relative box-border border-t-[1px] border-solid border-pro-fourvenues-com-beach-aguilas-ulrusb7uo018901aehsqqgeimfewd8b6-1318x573-default-catskill-white" />
+                      <div onClick={() => {
+                      setSelectedOption(7)
+                    }} className="cursor-pointer self-stretch flex flex-col hover:bg-pink-100 items-end justify-start text-center text-xs-9 ">
+                        <div className="self-stretch h-px relative box-border border-t-[1px] border-solid " />
                         <div className="self-stretch flex flex-row items-start justify-center py-0 px-5">
-                          <div className="h-6 w-auto relative leading-[24px] flex items-center justify-center text-xs">
-                            Ver recuento completo
+                          <div  className="h-6 w-auto relative leading-[24px] flex items-center justify-center text-xs">
+                            Ver usuarios destacados
                           </div>
                         </div>
                       </div>

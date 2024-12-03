@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { IframeApp } from "../layouts/IframeApp";
 import { InfoWeddinPlannrePage, ItinerarioWeddingPlanner } from "../components/WeddingPlannerComponents";
-import { TablePegesList } from "../components/ModuloMarcas/WeddingCustomWebs";
+import { CustomWebsTable } from "../components/ModuloMarcas/WeddingCustomWebs";
 import { CorreoIcon, InvitadosCatering, ItinerarioCatering, PresupuestoIcon, Webs } from "../components/Icons/index";
 import { SubmenuComponent } from "../components/CateringBodasComponents/SubmenuComponent";
 import { Modal } from "../components/modals/Modal";
@@ -36,8 +36,8 @@ const weddingPlannerPage = () => {
     },
     {
       icon: <Webs />,
-      title: "MisWebs",
-      component: <TablePegesList setComponentState={setOptionSelect} />,
+      title: "Mis Webs",
+      component: <CustomWebsTable setComponentState={setOptionSelect} />,
     },
     {
       component: <InfoWeddinPlannrePage

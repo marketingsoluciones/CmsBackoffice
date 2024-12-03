@@ -18,9 +18,7 @@ const InputFieldTSX: FC<Partial<propsInputField>> = ({ label, className, ...prop
       (document.getElementsByClassName("react-international-phone-input")[0] as HTMLElement)
         .focus()
       const input = document.getElementsByClassName("react-international-phone-input")[0]
-      input.setAttribute("class", `ml-2 font-display text-sm text-gray-500 border border-gray-100 focus:border-primary w-full py-2 px-4 rounded-xl focus:outline-none transition ${className}`)
-      // const select = document.getElementsByClassName("react-international-phone-country-selector-button")[0]
-      // select.setAttribute("class", `ml-2 font-display text-sm text-gray-500 border border-gray-100 focus:border-primary w-full py-2 px-4 rounded-xl focus:outline-none transition ${className}`)
+      input.setAttribute("class", `ml-2 font-display text-sm text-gray-500 border border-gray-100 focus:border-primary w-full py-1 px-4 rounded-xl focus:outline-none transition ${className}`)
     }
   }, [])
 
@@ -28,16 +26,7 @@ const InputFieldTSX: FC<Partial<propsInputField>> = ({ label, className, ...prop
     <div className="w-full h-max relative">
       <label className="font-display text-primary text-sm w-full">{label}</label>
       <div className="w-full">
-        {/* props?.type !== "tel"
-          ? */ <input className={`font-display text-sm text-gray-500 border border-gray-100 focus:border-primary w-full py-2 px-4 rounded-xl focus:outline-none transition ${className}`} {...field} {...props}></input>
-          /* : <div onBlur={() => helpers.setTouched(true)} >
-            <PhoneInput
-              defaultCountry={geoInfo?.ipcountry.toLowerCase()}
-              value={field?.value}
-              onChange={(value) => { helpers.setValue(value) }}
-            />
-          </div> */
-        }
+           <input className={`font-display text-sm text-gray-500 border border-gray-100 focus:border-primary w-full py-1 px-4 rounded-xl* focus:outline-none transition ${className}`} {...field} {...props}></input>
       </div>
       {meta.touched && meta.error && <p className="font-display absolute rounded-xl text-xs left-0 bottom-0 transform translate-y-full text-red flex gap-1"><WarningIcon className="w-4 h-4" />{meta.error}</p>}
       <style jsx>

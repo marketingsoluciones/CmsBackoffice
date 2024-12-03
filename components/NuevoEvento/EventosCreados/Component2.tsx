@@ -14,7 +14,7 @@ const Component2: FunctionComponent = () => {
                       <img
                         className="h-3.5 w-[12.3px] relative overflow-hidden shrink-0"
                         alt=""
-                        src="ModuloEvento/icon-15.svg"
+                        src="/ModuloEvento/icon-15.svg"
                       />
                     </div>
                   </div>
@@ -38,7 +38,7 @@ const Component2: FunctionComponent = () => {
                       <img
                         className="h-3.5 w-3.5 relative overflow-hidden shrink-0"
                         alt=""
-                        src="ModuloEvento/icon-22.svg"
+                        src="/ModuloEvento/icon-22.svg"
                       />
                     </div>
                   </div>
@@ -61,7 +61,7 @@ const Component2: FunctionComponent = () => {
                     <img
                       className="h-3.5 w-3.5 relative overflow-hidden shrink-0 "
                       alt=""
-                      src="ModuloEvento/icon123.svg"
+                      src="/ModuloEvento/Icon123.svg"
                     />
                   </div>
                 </div>

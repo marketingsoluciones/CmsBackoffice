@@ -11,27 +11,27 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
 
   const DataEventos = [
     {
-      img: "ModuloEvento/frame-481889@2x.png",
+      img: "/ModuloEvento/frame-481889@2x.png",
       title: "Bodas"
     },
     {
-      img: "ModuloEvento/frame-4818891@2x.png",
+      img: "/ModuloEvento/frame-4818891@2x.png",
       title: "Cumpleaños"
     },
     {
-      img: "ModuloEvento/frame-4818892@2x.png",
+      img: "/ModuloEvento/frame-4818892@2x.png",
       title: "Baby Shower"
     },
     {
-      img: "ModuloEvento/frame-4818893@2x.png",
+      img: "/ModuloEvento/frame-4818893@2x.png",
       title: "Despedidas"
     },
     {
-      img: "ModuloEvento/frame-4818894@2x.png",
+      img: "/ModuloEvento/frame-4818894@2x.png",
       title: "Bautizos"
     },
     {
-      img: "ModuloEvento/frame-4818895@2x.png",
+      img: "/ModuloEvento/frame-4818895@2x.png",
       title: "Comunión"
     },
   ]
@@ -62,7 +62,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
             <img
               className="relative w-[65.1px] h-[61.3px]"
               alt=""
-              src="ModuloEvento/group-2336.svg"
+              src="/ModuloEvento/group-2336.svg"
             />
             <div className="relative flex items-center w-[206px]">
               <span className="w-full">
@@ -108,7 +108,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
             <img
               className="relative w-[77px] h-[77px] overflow-hidden shrink-0"
               alt=""
-              src="ModuloEvento/heroiconsticket.svg"
+              src="/ModuloEvento/heroiconsticket.svg"
             />
             <div className="relative flex items-center w-[206px]">
               <span className="w-full">
@@ -134,7 +134,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
                 <img
                   className="relative w-6 h-6 overflow-hidden shrink-0 object-cover"
                   alt=""
-                  src="ModuloEvento/banquete@2x.png"
+                  src="/ModuloEvento/banquete@2x.png"
                 />
                 <div className="flex flex-col items-start justify-start">
                   <div className="relative leading-[30px] font-semibold flex items-center w-[195px] h-[29px] shrink-0">
@@ -150,7 +150,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
                 <img
                   className="relative w-[29px] h-[29px] overflow-hidden shrink-0 object-cover"
                   alt=""
-                  src="ModuloEvento/charmwififair@2x.png"
+                  src="/ModuloEvento/charmwififair@2x.png"
                 />
                 <div className="flex flex-col items-start justify-start">
                   <div className="relative leading-[30px] font-semibold flex items-center w-[195px] h-[29px] shrink-0">
@@ -168,7 +168,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
                 <img
                   className="relative w-[29px] h-[29px] overflow-hidden shrink-0 object-cover"
                   alt=""
-                  src="ModuloEvento/materialsymbolslightfestivalrounded@2x.png"
+                  src="/ModuloEvento/materialsymbolslightfestivalrounded@2x.png"
                 />
                 <div className="flex flex-col items-start justify-start">
                   <div className="relative leading-[30px] font-semibold flex items-center w-[195px] h-[29px] shrink-0">
@@ -184,7 +184,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
                 <img
                   className="relative w-[31px] h-[31px] overflow-hidden shrink-0 object-cover"
                   alt=""
-                  src="ModuloEvento/materialsymbolslightbeachaccessoutlinerounded@2x.png"
+                  src="/ModuloEvento/materialsymbolslightbeachaccessoutlinerounded@2x.png"
                 />
                 <div className="relative w-[195px] h-[88px]">
                   <div className="absolute top-[calc(50%_-_44px)] left-[calc(50%_-_97.5px)] leading-[30px] font-semibold flex items-center w-[195px] h-[29px]">
@@ -202,7 +202,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
                 <img
                   className="relative w-[25px] h-[25px] overflow-hidden shrink-0 object-cover"
                   alt=""
-                  src="ModuloEvento/mynauimusic@2x.png"
+                  src="/ModuloEvento/mynauimusic@2x.png"
                 />
                 <div className="flex flex-col items-start justify-start">
                   <div className="relative leading-[30px] font-semibold flex items-center w-[195px] h-[29px] shrink-0">
@@ -226,7 +226,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
             <img
               className="relative w-[105px] h-[93px] object-cover"
               alt=""
-              src="ModuloEvento/suscripcion-1-1@2x.png"
+              src="/ModuloEvento/suscripcion-1-1@2x.png"
             />
             <div className="relative flex items-center w-[290.3px]">
               <span className="w-full">
@@ -253,7 +253,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
             <img
               className="relative w-[93px] h-[93px] object-cover"
               alt=""
-              src="ModuloEvento/ebook-1@2x.png"
+              src="/ModuloEvento/ebook-1@2x.png"
             />
             <div className="relative flex items-center w-[290.3px]">
               <span className="w-full">
@@ -276,7 +276,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
             <img
               className="relative w-[103px] h-[103px] object-cover"
               alt=""
-              src="ModuloEvento/reunionenlinea-1@2x.png"
+              src="/ModuloEvento/reunionenlinea-1@2x.png"
             />
             <div className="relative flex items-center w-[290.3px]">
               <span className="w-full">
@@ -307,7 +307,7 @@ const PantallaPrincipal: FC<propsPantallaPrincipal> = ({ componentState, setComp
           <img
             className="w-3.5 h-4"
             alt=""
-            src="ModuloEvento/img@2x.png"
+            src="/ModuloEvento/img@2x.png"
           />
 
         </button>

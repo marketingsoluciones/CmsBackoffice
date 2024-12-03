@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useRouter } from 'next/router';
 interface propsDatosNegocios {
     componentState: any;
     setComponentState: any;
@@ -6,16 +7,16 @@ interface propsDatosNegocios {
   }
 
 const DatosNegocios: FC<propsDatosNegocios> = ({componentState, setComponentState}) => {
+  const router = useRouter()
   return (
-    <div className="w-[100%] max-w-full flex flex-col items-start justify-start pt-7 px-7 pb-[49px] box-border gap-[28px] tracking-[normal] leading-[normal] text-left text-7xl-3 text-black font-semibold">
+    <div className="w-[100%] h-[90vh] max-w-full flex flex-col items-start justify-start overflow-auto pt-7 px-7 pb-[49px] box-border gap-[28px] tracking-[normal] leading-[normal] text-left text-7xl-3 text-black font-semibold">
      
       <div className="self-stretch flex flex-row items-start justify-start max-w-full">
         <div className=" overflow-hidden flex flex-col items-start justify-start max-w-full">
           <div className="self-stretch flex flex-row flex-wrap items-center justify-start py-0 pr-[928px] pl-0 [row-gap:20px] lg:pr-[464px] lg:box-border mq450:pr-5 mq450:box-border mq750:pr-[232px] mq750:box-border">
             
-            <div onClick={() => {
-            setComponentState(1)
-          }} className="cursor-pointer flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
+            <div onClick={() => { router.push("/events/tiketing") }}
+            className="cursor-pointer flex flex-col items-start justify-start py-0 pr-[10.5px] pl-0">
               <div className="w-[37px] h-[37px] rounded-md flex flex-row items-center justify-center pt-[4.5px] px-[7px] pb-[5.5px] box-border">
                 <div className="flex flex-col items-start justify-start">
                   <div className="flex flex-row items-start justify-start">
@@ -23,7 +24,7 @@ const DatosNegocios: FC<propsDatosNegocios> = ({componentState, setComponentStat
                       className="h-[27px] w-[23px] relative overflow-hidden shrink-0"
                       loading="lazy"
                       alt=""
-                      src="ModuloEvento/FlechaIzquerda.svg"
+                      src="/ModuloEvento/FlechaIzquerda.svg"
                     />
                   </div>
                 </div>
@@ -161,7 +162,7 @@ const DatosNegocios: FC<propsDatosNegocios> = ({componentState, setComponentStat
                             className="h-4 w-4 relative overflow-hidden shrink-0 opacity-50"
                             loading="lazy"
                             alt=""
-                            src="ModuloEvento/akar-icons_copy.svg"
+                            src="/ModuloEvento/akar-icons_copy.svg"
                           />
                         </div>
                       </div>
@@ -175,7 +176,7 @@ const DatosNegocios: FC<propsDatosNegocios> = ({componentState, setComponentStat
                             className="h-4 w-[15.8px] relative overflow-hidden shrink-0 opacity-50"
                             loading="lazy"
                             alt=""
-                            src="ModuloEvento/akar-icons_link-out.svg"
+                            src="/ModuloEvento/akar-icons_link-out.svg"
                           />
                         </div>
                       </div>
@@ -202,7 +203,7 @@ const DatosNegocios: FC<propsDatosNegocios> = ({componentState, setComponentStat
                             className="h-4 w-[13.8px] relative overflow-hidden shrink-0 opacity-50"
                             loading="lazy"
                             alt=""
-                            src="ModuloEvento/akar-icons_copy.svg"
+                            src="/ModuloEvento/akar-icons_copy.svg"
                           />
                         </div>
                       </div>
@@ -216,7 +217,7 @@ const DatosNegocios: FC<propsDatosNegocios> = ({componentState, setComponentStat
                             className="h-4 w-[15.8px] relative overflow-hidden shrink-0 opacity-50"
                             loading="lazy"
                             alt=""
-                            src="ModuloEvento/akar-icons_link-out.svg"
+                            src="/ModuloEvento/akar-icons_link-out.svg"
                           />
                         </div>
                       </div>
@@ -243,7 +244,7 @@ const DatosNegocios: FC<propsDatosNegocios> = ({componentState, setComponentStat
                             className="h-4 w-[13.8px] relative overflow-hidden shrink-0 opacity-50"
                             loading="lazy"
                             alt=""
-                            src="ModuloEvento/akar-icons_copy.svg"
+                            src="/ModuloEvento/akar-icons_copy.svg"
                           />
                         </div>
                       </div>
@@ -257,7 +258,7 @@ const DatosNegocios: FC<propsDatosNegocios> = ({componentState, setComponentStat
                             className="h-4 w-[15.8px] relative overflow-hidden shrink-0 opacity-50"
                             loading="lazy"
                             alt=""
-                            src="ModuloEvento/akar-icons_link-out.svg"
+                            src="/ModuloEvento/akar-icons_link-out.svg"
                           />
                         </div>
                       </div>
