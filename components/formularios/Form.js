@@ -89,7 +89,7 @@ export const FormDinamical = forwardRef(
         /^[a-zA-Z0-9][a-zA-Z0-9-_:/?#=]{0,61}[a-zA-Z0-9]{0,1}\.([a-zA-Z]{2,6}|[a-zA-Z0-9-]{1,30}\.[a-zA-Z]{2,3})/,
         "URL invalida"
       ).nullable(),
-      country: Yup.string().nullable(),
+      /* country: Yup.string().nullable(), */
       number: Yup.number().nullable(),
       relationship: Yup.array().of(Yup.string()).nullable(),
       questions: Yup.array().of(Yup.object().shape({
