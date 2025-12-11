@@ -1,0 +1,180 @@
+import Cookies from "js-cookie";
+import { getAuth } from "firebase/auth";
+import { parseJwt } from "./Authentication";
+
+const CRM_ENDPOINT = (process.env.NEXT_PUBLIC_CRM_GRAPHQL || "https://api2.eventosorganizador.com/graphql").replace(/\/$/, "");
+const DEFAULT_DEVELOPMENT = process.env.NEXT_PUBLIC_DEVELOPMENT || "bodasdehoy";
+
+const readDocumentCookie = (key: string) => {
+  if (typeof document === "undefined") return undefined;
+  const match = document.cookie.split("; ").find(row => row.startsWith(`${key}=`));
+  return match ? decodeURIComponent(match.split("=")[1]) : undefined;
+};
+
+const resolveDevelopment = () => {
+  if (typeof window === "undefined") return DEFAULT_DEVELOPMENT;
+  return (
+    Cookies.get("development") ||
+    readDocumentCookie("development") ||
+    localStorage.getItem("development") ||
+    DEFAULT_DEVELOPMENT
+  );
+};
+
+const ensureFirebaseToken = async (): Promise<string | undefined> => {
+  if (typeof window === "undefined") return undefined;
+  let idToken = Cookies.get("idTokenV0.1.0");
+  if (!idToken) {
+    const auth = getAuth();
+    if (auth?.currentUser) {
+      idToken = await auth.currentUser.getIdToken(true);
+      try {
+        const exp = parseJwt(idToken ?? "")?.exp;
+        const expires = exp ? new Date(exp * 1000) : undefined;
+        Cookies.set("idTokenV0.1.0", idToken ?? "", expires ? { expires } : undefined);
+      } catch {
+        // ignore parse failures
+      }
+    }
+  }
+  return idToken;
+};
+
+export const fetchApiCRM = async ({
+  query = ``,
+  variables = {},
+}: {
+  query: string;
+  variables?: Record<string, any>;
+}) => {
+  // Petición directa al endpoint del backend
+  const endpoint = CRM_ENDPOINT;
+  
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+  };
+
+  const dev = resolveDevelopment();
+  if (dev) {
+    headers["X-Development"] = dev;
+  }
+
+  const token = await ensureFirebaseToken();
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
+  // Agregar header IsProduction si está definido
+  if (process.env.NEXT_PUBLIC_PRODUCTION) {
+    headers["IsProduction"] = String(process.env.NEXT_PUBLIC_PRODUCTION);
+  }
+
+  const res = await fetch(endpoint, {
+    method: "POST",
+    headers,
+    mode: "cors", // Permitir CORS
+    credentials: "omit", // No enviar cookies en peticiones cross-origin
+    body: JSON.stringify({ query, variables })
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    let errorMessage = `HTTP ${res.status}: ${res.statusText}`;
+    let errorDetails: any = null;
+    try {
+      const json = JSON.parse(text);
+      if (json?.errors?.length) {
+        // Extraer el mensaje de error más descriptivo
+        const firstError = json.errors[0];
+        errorMessage = firstError?.message || errorMessage;
+        errorDetails = firstError;
+        // Si el error menciona un tipo desconocido, agregar contexto
+        if (errorMessage.includes("Unknown type") || errorMessage.includes("Cannot query field")) {
+          const typeName = errorMessage.match(/Unknown type "([^"]+)"/)?.[1] || 
+                          errorMessage.match(/Cannot query field "([^"]+)"/)?.[1] || "";
+          errorMessage = `${errorMessage}\n\n🚨 PROBLEMA DEL BACKEND: El schema GraphQL no incluye este tipo o mutación.\n\n📋 El backend necesita implementar:\n${typeName ? `- Tipo: "${typeName}"\n` : ""}- La mutación/query correspondiente\n\n💡 Acciones:\n1. Usa la sección "🔍 Diagnóstico del Schema" para verificar qué está disponible\n2. Contacta al equipo de backend con el documento: docs/crm-backend-schema-errors-complete.md\n3. Verifica que el backend esté desplegado y el servidor reiniciado`;
+          if (typeName) {
+            errorMessage += `\n\n🔍 Tipo/Mutación buscada: "${typeName}"`;
+            if (typeName.includes("Input")) {
+              errorMessage += `\n\n💡 Este es un tipo de INPUT. El backend debe definirlo en su schema GraphQL.`;
+            } else if (typeName.includes("CRM_")) {
+              errorMessage += `\n\n💡 Este es un tipo del módulo CRM. Verifica que el módulo esté completamente implementado en el backend.`;
+            }
+          }
+        }
+      } else if (json?.message) {
+        errorMessage = json.message;
+      }
+    } catch {
+      errorMessage = text || errorMessage;
+    }
+    const error = new Error(errorMessage);
+    (error as any).details = errorDetails;
+    throw error;
+  }
+
+  const json = await res.json();
+  
+  // Verificar errores de GraphQL primero (aunque el status sea 200)
+  if (json?.errors?.length) {
+    const firstError = json.errors[0];
+    let errorMessage = firstError?.message || "Error en la API CRM";
+    // Si el error menciona un tipo desconocido, agregar contexto
+    if (errorMessage.includes("Unknown type") || errorMessage.includes("Cannot query field")) {
+      const typeName = errorMessage.match(/Unknown type "([^"]+)"/)?.[1] || 
+                      errorMessage.match(/Cannot query field "([^"]+)"/)?.[1] || "";
+      errorMessage = `${errorMessage}\n\n🚨 PROBLEMA DEL BACKEND: El schema GraphQL no incluye este tipo o mutación.\n\n📋 El backend necesita implementar:\n${typeName ? `- Tipo: "${typeName}"\n` : ""}- La mutación/query correspondiente\n\n💡 Acciones:\n1. Usa la sección "🔍 Diagnóstico del Schema" para verificar qué está disponible\n2. Contacta al equipo de backend con el documento: docs/crm-backend-schema-errors-complete.md\n3. Verifica que el backend esté desplegado y el servidor reiniciado`;
+      if (typeName) {
+        errorMessage += `\n\n🔍 Tipo/Mutación buscada: "${typeName}"`;
+        if (typeName.includes("Input")) {
+          errorMessage += `\n\n💡 Este es un tipo de INPUT. El backend debe definirlo en su schema GraphQL.`;
+        } else if (typeName.includes("CRM_")) {
+          errorMessage += `\n\n💡 Este es un tipo del módulo CRM. Verifica que el módulo esté completamente implementado en el backend.`;
+        }
+      }
+    }
+    const error = new Error(errorMessage);
+    (error as any).details = firstError;
+    throw error;
+  }
+  
+  // Si hay datos exitosos, devolverlos aunque haya errores (el backend puede tener errores secundarios)
+  if (json?.data) {
+    const dataValues = Object.values(json.data);
+    // Verificar si hay algún valor válido en los datos
+    for (const val of dataValues) {
+      if (val !== null && val !== undefined) {
+        // Si es un objeto, verificar si tiene propiedades válidas (no es un error)
+        if (typeof val === "object" && !Array.isArray(val)) {
+          const objKeys = Object.keys(val);
+          // Si tiene al menos una propiedad que no sea "errors" o "error", considerarlo válido
+          if (objKeys.length > 0 && !objKeys.every(k => k === "errors" || k === "error")) {
+            return json.data;
+          }
+        } else if (Array.isArray(val) && val.length > 0) {
+          return json.data;
+        } else if (typeof val !== "object") {
+          return json.data;
+        }
+      }
+    }
+    
+    // Verificación adicional: buscar específicamente campos comunes de éxito en mutaciones
+    const mutationKeys = ["lead", "contact", "entity", "campaign", "whitelabel", "label", "savedFilter", "file", "email", "success"];
+    for (const key of mutationKeys) {
+      const mutationData = json.data[`createCRM${key.charAt(0).toUpperCase() + key.slice(1)}`] || 
+                          json.data[`updateCRM${key.charAt(0).toUpperCase() + key.slice(1)}`] ||
+                          json.data[`deleteCRM${key.charAt(0).toUpperCase() + key.slice(1)}`] ||
+                          json.data[`create${key.charAt(0).toUpperCase() + key.slice(1)}`] ||
+                          json.data[`update${key.charAt(0).toUpperCase() + key.slice(1)}`] ||
+                          json.data[`delete${key.charAt(0).toUpperCase() + key.slice(1)}`];
+      if (mutationData && (mutationData[key] || mutationData.success !== undefined)) {
+        return json.data;
+      }
+    }
+  }
+
+  return json;
+};
+

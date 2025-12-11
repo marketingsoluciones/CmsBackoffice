@@ -18,10 +18,10 @@ export const Sidebar = ({ state, setState }) => {
   return (
     <Flex
       pos={"relative"}
-      w={"14rem"}
+      w={"220px"}
       h={"100vh"}
-      shadow={"md"}
-      bg={"white"}
+      shadow={"sm"}
+      bg={"#F9FAFB"}
       justifyContent={"start"}
       flexDir={"column"}
       /* marginLeft={`${state ? "" : "-9.5rem"}`} */
@@ -29,11 +29,12 @@ export const Sidebar = ({ state, setState }) => {
       transitionTimingFunction={"cubic-bezier(0.4, 0, 0.2, 1)"}
       transitionDuration={"150ms"}
       className={`${state ? "" : "ml-[-15rem] md:ml-[-9.5rem]"}`}
+      style={{ borderRight: '1px solid #E5E7EB' }}
     >
       {showModal && <Modal setShowModal={setShowModal} showModal={showModal} title={"Al salir perdera los cambios"} handle={handle} />}
-      <Flex alignItems={"center"} gap={"0.5rem"} p={"0.5rem"}>
+      <Flex alignItems={"center"} gap={"0.5rem"} p={"12px"} style={{ borderBottom: '1px solid #E5E7EB', backgroundColor: '#FFFFFF', borderRadius: '0' }}>
         <Tooltip label={`${state ? "" : development}`} ml="14" top="-10">
-          <div className={`flex  ${state ? "justify-star" : " justify-end "} items-center gap-2 w-full bg-gray-100 py-2 px-2 rounded-xl`}>
+          <div className={`flex  ${state ? "justify-star" : " justify-end "} items-center gap-2 w-full py-2 px-2`}>
 
             <div className={`${state ? "hidden" : "block"}`} >
               <Menu autoSelect={false}  >
@@ -110,58 +111,87 @@ export const Sidebar = ({ state, setState }) => {
                     return (
                       <Box key={idx} >
                         <Menu autoSelect={false}>
-                          <MenuGroup key={idx} title={item.title} fontSize={"sm"} className={` ${state ? "block" : "hidden"} text-tituloPrimario`}>
-                            {item.children.map((item, idx) => {
-                              if (hasRole(development, user, item.roles)) {
-                                if (!item.hidden) {
-                                  return (
-                                    <MenuItem
-                                      _hover={{ bg: "#F3F3F3" }}
-                                      key={idx}
-                                      color={"#637381"}
-                                      padding={`${state ? "2" : ""}`}
-                                      marginLeft={"2"}
-                                      w={"95%"}
-                                      fontSize={"sm"}
-                                      className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
-                                      style={item.route === asPath.split("/")[1]
-                                        ? { backgroundColor: '#F3F3F3', color: "#FF5887" }
-                                        : { backgroundColor: '' } && item.route === asPath
-                                          ? { backgroundColor: '#F3F3F3' }
-                                          : { backgroundColor: '' }}
-                                      onClick={() => {
-                                        if (changedForm) {
-                                          setHandle(() => () => {
-                                            screen.width < 640 ? setState(!state) : null
-                                            dispatch({ type: "VIEW", payload: {} });
-                                            router.push("/" + item.route)
-                                            setChangedForm(false)
-                                          }
-                                          )
-                                          setShowModal(true)
-                                        } else {
+                          {item.title && (
+                            <div className={`${state ? "block" : "hidden"} px-3 py-2.5`}>
+                              <Text 
+                                fontSize={"10px"} 
+                                fontWeight={"600"} 
+                                letterSpacing={"0.05em"}
+                                textTransform={"uppercase"}
+                                color={"#6B7280"}
+                                className="text-tituloPrimario"
+                                style={{ marginBottom: '4px' }}
+                              >
+                                {item.title}
+                              </Text>
+                            </div>
+                          )}
+                          {item.children.map((item, idx) => {
+                            if (hasRole(development, user, item.roles)) {
+                              if (!item.hidden) {
+                                const isActive = item.route === asPath.split("/")[1] || item.route === asPath;
+                                return (
+                                  <MenuItem
+                                    key={idx}
+                                    padding={`${state ? "8px 12px" : "8px"}`}
+                                    marginLeft={"0"}
+                                    marginRight={"0"}
+                                    w={"100%"}
+                                    fontSize={"14px"}
+                                    className={`flex ${state ? "justify-start" : "justify-end"} items-center w-full`}
+                                    style={{
+                                      backgroundColor: isActive ? '#3B82F6' : 'transparent',
+                                      color: isActive ? '#FFFFFF' : '#374151',
+                                      borderRadius: '2px',
+                                      margin: '2px 8px',
+                                      minHeight: '36px',
+                                      transition: 'all 0.15s ease',
+                                      paddingLeft: state ? '12px' : '8px',
+                                      paddingRight: state ? '12px' : '8px'
+                                    }}
+                                    _hover={{ 
+                                      bg: isActive ? '#2563EB' : '#F3F4F6',
+                                      color: isActive ? '#FFFFFF' : '#111827'
+                                    }}
+                                    onClick={() => {
+                                      if (changedForm) {
+                                        setHandle(() => () => {
                                           screen.width < 640 ? setState(!state) : null
                                           dispatch({ type: "VIEW", payload: {} });
                                           router.push("/" + item.route)
+                                          setChangedForm(false)
                                         }
-                                      }}
-                                    >
-                                      <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
-                                        <div className={`flex justify-estar items-center  ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
-                                          <div className={` pr-2 `}>
-                                            {item.icon}
-                                          </div>
-                                          <div className={`${state ? "block " : "hidden"}`}>
-                                            {item.title}
-                                          </div>
+                                        )
+                                        setShowModal(true)
+                                      } else {
+                                        screen.width < 640 ? setState(!state) : null
+                                        dispatch({ type: "VIEW", payload: {} });
+                                        router.push("/" + item.route)
+                                      }
+                                    }}
+                                  >
+                                    <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
+                                      <div className={`flex justify-start items-center gap-2 ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
+                                        <div style={{ 
+                                          display: 'flex', 
+                                          alignItems: 'center', 
+                                          justifyContent: 'center',
+                                          width: '20px',
+                                          height: '20px',
+                                          flexShrink: 0
+                                        }}>
+                                          {item.icon}
                                         </div>
-                                      </Tooltip>
-                                    </MenuItem>
-                                  )
-                                }
+                                        <div className={`${state ? "block " : "hidden"} font-medium`} style={{ fontSize: '14px' }}>
+                                          {item.title}
+                                        </div>
+                                      </div>
+                                    </Tooltip>
+                                  </MenuItem>
+                                )
                               }
-                            })}
-                          </MenuGroup>
+                            }
+                          })}
                         </Menu>
                       </Box>
                     )

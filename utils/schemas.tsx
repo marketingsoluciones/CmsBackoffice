@@ -1,6 +1,7 @@
 import { FetchGraphQL, queries } from "./Fetching";
 import { formatTime } from "./formatTime";
-import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, RpIcon, ClusterIcon, BuzonProsIcon, Leads1Icon, Invitados1Icon, ChatEnVivoIcon, FormulariosWebIcon, ChatBotIcon, VisitasWebIcon, Mensajes1Icon } from "../components/Icons/index";
+import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, RpIcon, 
+ClusterIcon, BuzonProsIcon, Leads1Icon, Invitados1Icon, ChatEnVivoIcon, FormulariosWebIcon, ChatBotIcon, VisitasWebIcon, Mensajes1Icon } from "../components/Icons/index.tsx";
 import { FilterFnOption, SortingFnOption } from "@tanstack/react-table";
 import { ClusterInfo1, CompVisitasWebs, InfoGeneral1 } from "../components/NuevoEvento/ClusterMod";
 
@@ -77,6 +78,14 @@ export interface SchemaChildren extends Schema {
   handleRowClick?: any
   handleRowDobleClick?: any
 }
+
+import LeadsCRM from "../components/ClusterModule/LeadsCRM";
+import ContactsCRM from "../components/ClusterModule/ContactsCRM";
+import EntitiesCRM from "../components/ClusterModule/EntitiesCRM";
+import CampaignsCRM from "../components/ClusterModule/CampaignsCRM";
+import ChatBotCRM from "../components/ClusterModule/ChatBotCRM";
+import WhatsAppChatCRM from "../components/ClusterModule/WhatsAppChatCRM";
+import { LeadsIcon, ContactsIcon, EntitiesIcon, CampaignsIcon, ERPIcon } from "../components/Icons/index";
 
 export const BodyStaticAPP: Schema[] = [
   {
@@ -1007,60 +1016,63 @@ export const BodyStaticAPP: Schema[] = [
         icon: <ClusterIcon />,
         title: "Cluster",
         roles: ["all"],
-        route: "cluster",
+        route: "cluster"
       },
       {
-        icon: <BuzonProsIcon />,
-        title: "Buzon de Prospectos",
-        hidden: true,
+        icon: <ClusterIcon />,
+        title: "Whitelabel",
         roles: ["all"],
-        route: "cluster/buzonProspectos",
-        getData: { query: queries.getAllUsers },
-        handleRowClick: "",
-        handleRowDobleClick: "",
-        schema: [
-          {
-            Header: "ID",
-            accessor: "uid",
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Prospecto",
-            accessor: "displayName",
-            Cell: (props) => console.log(101010, "click de la celda"),
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Correo",
-            accessor: "email",
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Creado el",
-            accessor: "createdAt",
-            Cell: (props) => formatTime(props.value, "es"),
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Actualizado el",
-            accessor: "updatedAt",
-            Cell: (props) => formatTime(props.value, "es"),
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-        ]
+        route: "whitelabel"
       },
       {
-        icon: <ChatEnVivoIcon />,
-        title: "Chat en vivo",
+        icon: <ERPIcon className="h-5 w-5" />,
+        title: "ERP",
+        roles: ["all"],
+        route: "erp"
+      },
+      // {  // Buzon de Prospectos (antiguo, oculto para nuevo Cluster)
+      //   icon: <BuzonProsIcon />,
+      //   title: "Buzon de Prospectos",
+      //   hidden: true,
+      //   roles: ["all"],
+      //   route: "cluster/buzonProspectos",
+      //   getData: { query: queries.getAllUsers },
+      //   handleRowClick: "",
+      //   handleRowDobleClick: "",
+      //   schema: [ ... ]
+      // },
+      // CRM - Cluster submódulos (pantallas principales)
+      {
+        icon: <LeadsIcon className="h-5 w-5" />,
+        title: "Leads",
         hidden: true,
         roles: ["all"],
-        route: "cluster/chatVivo",
-        component: <InfoGeneral1 />
+        route: "cluster/leads",
+        component: <LeadsCRM />
+      },
+      {
+        icon: <ContactsIcon className="h-5 w-5" />,
+        title: "Contactos",
+        hidden: true,
+        roles: ["all"],
+        route: "cluster/contacts",
+        component: <ContactsCRM />
+      },
+      {
+        icon: <EntitiesIcon className="h-5 w-5" />,
+        title: "Entidades",
+        hidden: true,
+        roles: ["all"],
+        route: "cluster/entities",
+        component: <EntitiesCRM />
+      },
+      {
+        icon: <CampaignsIcon className="h-5 w-5" />,
+        title: "Campañas",
+        hidden: true,
+        roles: ["all"],
+        route: "cluster/campaigns",
+        component: <CampaignsCRM />
       },
       {
         icon: <ChatBotIcon />,
@@ -1068,139 +1080,83 @@ export const BodyStaticAPP: Schema[] = [
         hidden: true,
         roles: ["all"],
         route: "cluster/chatbot",
-        component: <InfoGeneral1 />
+        component: <ChatBotCRM />
       },
       {
-        icon: <FormulariosWebIcon />,
-        title: "Formularios Web",
+        icon: <ChatEnVivoIcon />,
+        title: "Mensajería",
         hidden: true,
         roles: ["all"],
-        route: "cluster/formulariosWeb",
-        component: <InfoGeneral1 />
+        route: "cluster/messaging",
+        component: <WhatsAppChatCRM />
       },
-      {
-        icon: <Leads1Icon />,
-        title: "Leads",
-        hidden: true,
-        roles: ["all"],
-        route: "cluster/leads",
-        getData: null,
-        schema: [
-          {
-            Header: "ID",
-            accessor: "_id",
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Nombre",
-            accessor: "nombre",
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Evento",
-            accessor: "Evento",
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Tipo",
-            accessor: "tipo",
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Fecha",
-            accessor: "fecha",
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Creado el",
-            accessor: "createdAt",
-            Cell: (props) => formatTime(props.value, "es"),
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Actualizado el",
-            accessor: "updatedAt",
-            Cell: (props) => formatTime(props.value, "es"),
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-        ]
-      },
-      {
-        icon: <Invitados1Icon />,
-        title: "Invitados",
-        hidden: true,
-        roles: ["all"],
-        route: "cluster/invitados",
-        schema: [
-          {
-            Header: "ID",
-            accessor: "_id",
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Nombre",
-            accessor: "nombre",
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Evento",
-            accessor: "Evento",
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Tipo",
-            accessor: "tipo",
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Fecha",
-            accessor: "fecha",
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Creado el",
-            accessor: "createdAt",
-            Cell: (props) => formatTime(props.value, "es"),
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-          {
-            Header: "Actualizado el",
-            accessor: "updatedAt",
-            Cell: (props) => formatTime(props.value, "es"),
-            enableHiding: false,
-            filterFn: 'fuzzy',
-          },
-        ]
-      },
-      {
-        icon: <VisitasWebIcon />,
-        title: "Visitas Web",
-        hidden: true,
-        roles: ["all"],
-        route: "cluster/visitasWeb",
-        component: <CompVisitasWebs />
-      },
-      {
-        icon: <Mensajes1Icon />,
-        title: "Mensajes",
-        hidden: true,
-        roles: ["all"],
-        route: "cluster/mensajes",
-        component: <ClusterInfo1 />
-      },
+      // ERP - submódulos (pantallas principales)
+      // TODO: Importar ERPMainPage cuando esté disponible
+      // {
+      //   icon: <ERPIcon className="h-5 w-5" />,
+      //   title: "Dashboard",
+      //   hidden: true,
+      //   roles: ["all"],
+      //   route: "erp/dashboard",
+      //   component: <ERPMainPage />
+      // },
+      // { // Chat en vivo antiguo
+      //   icon: <ChatEnVivoIcon />,
+      //   title: "Chat en vivo",
+      //   hidden: true,
+      //   roles: ["all"],
+      //   route: "cluster/chatVivo",
+      //   component: <InfoGeneral1 />
+      // },
+      // { // Chatbot antiguo
+      //   icon: <ChatBotIcon />,
+      //   title: "Chatbot",
+      //   hidden: true,
+      //   roles: ["all"],
+      //   route: "cluster/chatbot",
+      //   component: <InfoGeneral1 />
+      // },
+      // { // Formularios Web antiguo
+      //   icon: <FormulariosWebIcon />,
+      //   title: "Formularios Web",
+      //   hidden: true,
+      //   roles: ["all"],
+      //   route: "cluster/formulariosWeb",
+      //   component: <InfoGeneral1 />
+      // },
+      // { // Leads antiguo
+      //   icon: <Leads1Icon />,
+      //   title: "Leads",
+      //   hidden: true,
+      //   roles: ["all"],
+      //   route: "cluster/leads",
+      //   getData: null,
+      //   schema: [ ... ]
+      // },
+      // { // Invitados antiguo (oculto para nuevo Cluster)
+      //   icon: <Invitados1Icon />,
+      //   title: "Invitados",
+      //   hidden: true,
+      //   roles: ["all"],
+      //   route: "cluster/invitados",
+      //   schema: [ ... ]
+      // },
+      // { // Visitas Web antiguo (oculto para nuevo Cluster)
+      //   icon: <VisitasWebIcon />,
+      //   title: "Visitas Web",
+      //   hidden: true,
+      //   roles: ["all"],
+      //   route: "cluster/visitasWeb",
+      //   component: <CompVisitasWebs />
+      // },
+      // { // Mensajes antiguo
+      //   icon: <Mensajes1Icon />,
+      //   title: "Mensajes",
+      //   hidden: true,
+      //   roles: ["all"],
+      //   route: "cluster/mensajes",
+      //   component: <ClusterInfo1 />
+      // },
     ]
   },
   {
