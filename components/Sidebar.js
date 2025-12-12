@@ -17,6 +17,7 @@ export const Sidebar = ({ state, setState }) => {
   const [showModal, setShowModal] = useState(false)
   const [handle, setHandle] = useState()
   const [expandedGroups, setExpandedGroups] = useState(new Set(['Mis Empresas', 'Módulos', 'Chat en línea', 'Formacion Enterprice']))
+  const [expandedSubComponents, setExpandedSubComponents] = useState(new Set())
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -28,17 +29,31 @@ export const Sidebar = ({ state, setState }) => {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Expandir automáticamente los grupos que contienen el item activo
+  // Expandir automáticamente los grupos y subComponents que contienen el item activo
   useEffect(() => {
     if (!user || !development) return;
     
     setExpandedGroups(prev => {
       const newExpanded = new Set(prev);
-      BodyStaticAPP.forEach((group) => {
+      BodyStaticAPP.forEach((group, groupIdx) => {
         if (group.children && group.title) {
-          const hasActiveChild = group.children.some(child => {
+          const hasActiveChild = group.children.some((child, childIdx) => {
             if (!hasRole(development, user, child.roles) || child.hidden) return false;
             const isActive = child.route === asPath.split("/")[1] || asPath === "/" + child.route || asPath.startsWith("/" + child.route + "/");
+            
+            // Si el child tiene subComponents, verificar si alguno está activo
+            if (child.subComponents && child.subComponents.length > 0) {
+              const hasActiveSubComponent = child.subComponents.some(sub => {
+                if (sub.hidden || !sub.route) return false;
+                return sub.route === asPath.split("/")[1] || asPath === "/" + sub.route || asPath.startsWith("/" + sub.route + "/");
+              });
+              if (hasActiveSubComponent) {
+                const childKey = `${groupIdx}-${childIdx}`;
+                setExpandedSubComponents(prev => new Set([...prev, childKey]));
+                return true;
+              }
+            }
+            
             return isActive;
           });
           if (hasActiveChild) {
@@ -58,6 +73,21 @@ export const Sidebar = ({ state, setState }) => {
       newExpanded.add(groupName);
     }
     setExpandedGroups(newExpanded);
+  };
+
+  const toggleSubComponent = (childKey) => {
+    const newExpanded = new Set(expandedSubComponents);
+    if (newExpanded.has(childKey)) {
+      newExpanded.delete(childKey);
+    } else {
+      newExpanded.add(childKey);
+    }
+    setExpandedSubComponents(newExpanded);
+  };
+
+  const isSubComponentActive = (subComponent) => {
+    if (!subComponent.route) return false;
+    return subComponent.route === asPath.split("/")[1] || asPath === "/" + subComponent.route || asPath.startsWith("/" + subComponent.route + "/");
   };
 
   const isGroupActive = (group) => {
@@ -271,7 +301,132 @@ export const Sidebar = ({ state, setState }) => {
                           if (!hasRole(development, user, child.roles) || child.hidden) return null;
                           
                           const childIsActive = isItemActive(child);
+                          const hasSubComponents = child.subComponents && child.subComponents.length > 0;
+                          const childKey = `${groupIdx}-${childIdx}`;
+                          const isSubComponentOpen = expandedSubComponents.has(childKey);
+                          const visibleSubComponents = hasSubComponents 
+                            ? child.subComponents.filter(sub => !sub.hidden)
+                            : [];
+
+                          // Si tiene subComponents, renderizar como expandible
+                          if (hasSubComponents && visibleSubComponents.length > 0) {
+                            const isSubComponentGroupActive = visibleSubComponents.some(sub => isSubComponentActive(sub));
+                            
+                            return (
+                              <div key={childIdx}>
+                                <button
+                                  onClick={() => {
+                                    // Si ya estoy en la ruta, solo expando/colapso
+                                    if (childIsActive && child.route) {
+                                      toggleSubComponent(childKey);
+                                    } 
+                                    // Si no estoy en la ruta y tiene route, redirijo y luego expando
+                                    else if (child.route) {
+                                      if (changedForm) {
+                                        setHandle(() => () => {
+                                          isMobile ? setState(!state) : null
+                                          dispatch({ type: "VIEW", payload: {} });
+                                          router.push("/" + child.route).then(() => {
+                                            // Después de navegar, expandir los subComponents
+                                            setTimeout(() => {
+                                              if (!isSubComponentOpen) {
+                                                toggleSubComponent(childKey);
+                                              }
+                                            }, 100);
+                                          })
+                                          setChangedForm(false)
+                                        })
+                                        setShowModal(true)
+                                      } else {
+                                        isMobile ? setState(!state) : null
+                                        dispatch({ type: "VIEW", payload: {} });
+                                        router.push("/" + child.route).then(() => {
+                                          // Después de navegar, expandir los subComponents
+                                          setTimeout(() => {
+                                            if (!isSubComponentOpen) {
+                                              toggleSubComponent(childKey);
+                                            }
+                                          }, 100);
+                                        })
+                                      }
+                                    } 
+                                    // Si no tiene route, solo expando/colapso
+                                    else {
+                                      toggleSubComponent(childKey);
+                                    }
+                                  }}
+                                  className={clsx(
+                                    childIsActive || isSubComponentGroupActive
+                                      ? 'bg-blue-50 text-blue-700'
+                                      : 'text-gray-600 hover:text-blue-700 hover:bg-gray-50',
+                                    'group flex items-center w-full px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 justify-between'
+                                  )}
+                                >
+                                  <div className="flex items-center">
+                                    <div className="h-4 w-4 shrink-0 mr-2 flex items-center justify-center">
+                                      {child.icon}
+                                    </div>
+                                    <span className="truncate">{child.title}</span>
+                                  </div>
+                                  <ChevronDownIcon
+                                    className={clsx(
+                                      'h-4 w-4 text-gray-400 transition-transform duration-200',
+                                      isSubComponentOpen ? 'transform rotate-180' : ''
+                                    )}
+                                  />
+                                </button>
+                                
+                                {/* SubComponents */}
+                                {isSubComponentOpen && (
+                                  <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-2">
+                                    {visibleSubComponents.map((subComponent, subIdx) => {
+                                      const subIsActive = isSubComponentActive(subComponent);
+                                      
+                                      return (
+                                        <button
+                                          key={subIdx}
+                                          onClick={() => {
+                                            if (changedForm) {
+                                              setHandle(() => () => {
+                                                isMobile ? setState(!state) : null
+                                                dispatch({ type: "VIEW", payload: {} });
+                                                if (subComponent.route) {
+                                                  router.push("/" + subComponent.route)
+                                                }
+                                                setChangedForm(false)
+                                              })
+                                              setShowModal(true)
+                                            } else {
+                                              isMobile ? setState(!state) : null
+                                              dispatch({ type: "VIEW", payload: {} });
+                                              if (subComponent.route) {
+                                                router.push("/" + subComponent.route)
+                                              }
+                                            }
+                                          }}
+                                          className={clsx(
+                                            subIsActive
+                                              ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
+                                              : 'text-gray-600 hover:text-blue-700 hover:bg-gray-50',
+                                            'group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer w-full'
+                                          )}
+                                        >
+                                          {subComponent.icon && (
+                                            <div className="h-4 w-4 shrink-0 mr-2 flex items-center justify-center">
+                                              {subComponent.icon}
+                                            </div>
+                                          )}
+                                          <span className="truncate">{subComponent.title}</span>
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          }
                           
+                          // Si no tiene subComponents, renderizar como item normal
                           return (
                             <button
                               key={childIdx}
@@ -314,7 +469,132 @@ export const Sidebar = ({ state, setState }) => {
                       if (!hasRole(development, user, child.roles) || child.hidden) return null;
                       
                       const childIsActive = isItemActive(child);
+                      const hasSubComponents = child.subComponents && child.subComponents.length > 0;
+                      const childKey = `no-title-${groupIdx}-${childIdx}`;
+                      const isSubComponentOpen = expandedSubComponents.has(childKey);
+                      const visibleSubComponents = hasSubComponents 
+                        ? child.subComponents.filter(sub => !sub.hidden)
+                        : [];
+
+                      // Si tiene subComponents, renderizar como expandible
+                      if (hasSubComponents && visibleSubComponents.length > 0) {
+                        const isSubComponentGroupActive = visibleSubComponents.some(sub => isSubComponentActive(sub));
+                        
+                        return (
+                          <div key={childIdx}>
+                            <button
+                              onClick={() => {
+                                // Si ya estoy en la ruta, solo expando/colapso
+                                if (childIsActive && child.route) {
+                                  toggleSubComponent(childKey);
+                                } 
+                                // Si no estoy en la ruta y tiene route, redirijo y luego expando
+                                else if (child.route) {
+                                  if (changedForm) {
+                                    setHandle(() => () => {
+                                      isMobile ? setState(!state) : null
+                                      dispatch({ type: "VIEW", payload: {} });
+                                      router.push("/" + child.route).then(() => {
+                                        // Después de navegar, expandir los subComponents
+                                        setTimeout(() => {
+                                          if (!isSubComponentOpen) {
+                                            toggleSubComponent(childKey);
+                                          }
+                                        }, 100);
+                                      })
+                                      setChangedForm(false)
+                                    })
+                                    setShowModal(true)
+                                  } else {
+                                    isMobile ? setState(!state) : null
+                                    dispatch({ type: "VIEW", payload: {} });
+                                    router.push("/" + child.route).then(() => {
+                                      // Después de navegar, expandir los subComponents
+                                      setTimeout(() => {
+                                        if (!isSubComponentOpen) {
+                                          toggleSubComponent(childKey);
+                                        }
+                                      }, 100);
+                                    })
+                                  }
+                                } 
+                                // Si no tiene route, solo expando/colapso
+                                else {
+                                  toggleSubComponent(childKey);
+                                }
+                              }}
+                              className={clsx(
+                                childIsActive || isSubComponentGroupActive
+                                  ? 'bg-blue-50 text-blue-700'
+                                  : 'text-gray-600 hover:text-blue-700 hover:bg-gray-50',
+                                'group flex items-center w-full px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 justify-between'
+                              )}
+                            >
+                              <div className="flex items-center">
+                                <div className="h-4 w-4 shrink-0 mr-2 flex items-center justify-center">
+                                  {child.icon}
+                                </div>
+                                <span className="truncate">{child.title}</span>
+                              </div>
+                              <ChevronDownIcon
+                                className={clsx(
+                                  'h-4 w-4 text-gray-400 transition-transform duration-200',
+                                  isSubComponentOpen ? 'transform rotate-180' : ''
+                                )}
+                              />
+                            </button>
+                            
+                            {/* SubComponents */}
+                            {isSubComponentOpen && (
+                              <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-2">
+                                {visibleSubComponents.map((subComponent, subIdx) => {
+                                  const subIsActive = isSubComponentActive(subComponent);
+                                  
+                                  return (
+                                    <button
+                                      key={subIdx}
+                                      onClick={() => {
+                                        if (changedForm) {
+                                          setHandle(() => () => {
+                                            isMobile ? setState(!state) : null
+                                            dispatch({ type: "VIEW", payload: {} });
+                                            if (subComponent.route) {
+                                              router.push("/" + subComponent.route)
+                                            }
+                                            setChangedForm(false)
+                                          })
+                                          setShowModal(true)
+                                        } else {
+                                          isMobile ? setState(!state) : null
+                                          dispatch({ type: "VIEW", payload: {} });
+                                          if (subComponent.route) {
+                                            router.push("/" + subComponent.route)
+                                          }
+                                        }
+                                      }}
+                                      className={clsx(
+                                        subIsActive
+                                          ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
+                                          : 'text-gray-600 hover:text-blue-700 hover:bg-gray-50',
+                                        'group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer w-full'
+                                      )}
+                                    >
+                                      {subComponent.icon && (
+                                        <div className="h-4 w-4 shrink-0 mr-2 flex items-center justify-center">
+                                          {subComponent.icon}
+                                        </div>
+                                      )}
+                                      <span className="truncate">{subComponent.title}</span>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      }
                       
+                      // Si no tiene subComponents, renderizar como item normal
                       return (
                         <button
                           key={childIdx}
