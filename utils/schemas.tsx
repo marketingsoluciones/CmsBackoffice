@@ -1,7 +1,7 @@
 import { FetchGraphQL, queries } from "./Fetching";
 import { formatTime } from "./formatTime";
 import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, RpIcon, 
-ClusterIcon, BuzonProsIcon, Leads1Icon, Invitados1Icon, ChatEnVivoIcon, FormulariosWebIcon, ChatBotIcon, VisitasWebIcon, Mensajes1Icon } from "../components/Icons/index.tsx";
+ClusterIcon, BuzonProsIcon, Leads1Icon, Invitados1Icon, ChatEnVivoIcon, FormulariosWebIcon, ChatBotIcon, VisitasWebIcon, Mensajes1Icon, MesasICon, PlanoEventoIcon, InvitadosCatering, ItinerarioCatering } from "../components/Icons/index";
 import { FilterFnOption, SortingFnOption } from "@tanstack/react-table";
 import { ClusterInfo1, CompVisitasWebs, InfoGeneral1 } from "../components/NuevoEvento/ClusterMod";
 
@@ -63,6 +63,15 @@ export interface childrenSchema {
   availableInput?:boolean
 }
 
+export interface SubComponent {
+  icon?: JSX.Element
+  title?: string
+  type?: string
+  route?: string
+  componentName?: string // Nombre del componente a renderizar
+  hidden?: boolean // Para componentes que no aparecen en el submenu pero se renderizan
+}
+
 export interface SchemaChildren extends Schema {
   route?: string
   subTitle?: string
@@ -77,6 +86,7 @@ export interface SchemaChildren extends Schema {
   component?: JSX.Element
   handleRowClick?: any
   handleRowDobleClick?: any
+  subComponents?: SubComponent[] // Array de subcomponentes para submenus
 }
 
 import LeadsCRM from "../components/ClusterModule/LeadsCRM";
@@ -812,6 +822,36 @@ export const BodyStaticAPP: Schema[] = [
         roles: ["admin", "empresa"],
         route: "lugaresBodas",
         schema: [],
+        subComponents: [
+          {
+            icon: <MesasICon />,
+            title: "Plantillas del salón",
+            componentName: "PlantillaSalon",
+          },
+          {
+            icon: <PlanoEventoIcon />,
+            title: "Plano del evento",
+            componentName: "IframeApp",
+            type: "iframe",
+            route: "mesas",
+          },
+          {
+            icon: <InvitadosCatering />,
+            title: "Lista de invitados",
+            componentName: "IframeApp",
+            type: "iframe",
+            route: "invitados",
+          },
+          {
+            icon: <ItinerarioCatering />,
+            title: "Intinerarios",
+            componentName: "ItinerarioLugaresBodas",
+          },
+          {
+            componentName: "InfoLugaresBodas",
+            hidden: true,
+          },
+        ],
       },
       {
         title: null,
