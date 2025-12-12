@@ -44,8 +44,7 @@ export const Sidebar = ({ state, setState }) => {
             // Si el child tiene subComponents, verificar si alguno está activo
             if (child.subComponents && child.subComponents.length > 0) {
               const hasActiveSubComponent = child.subComponents.some(sub => {
-                if (sub.hidden || !sub.route) return false;
-                return sub.route === asPath.split("/")[1] || asPath === "/" + sub.route || asPath.startsWith("/" + sub.route + "/");
+                return isSubComponentActive(sub, child.route);
               });
               if (hasActiveSubComponent) {
                 const childKey = `${groupIdx}-${childIdx}`;
@@ -63,7 +62,7 @@ export const Sidebar = ({ state, setState }) => {
       });
       return newExpanded;
     });
-  }, [asPath, development, user])
+  }, [asPath, development, user, router.query])
 
   const toggleGroup = (groupName) => {
     const newExpanded = new Set(expandedGroups);
@@ -85,9 +84,65 @@ export const Sidebar = ({ state, setState }) => {
     setExpandedSubComponents(newExpanded);
   };
 
-  const isSubComponentActive = (subComponent) => {
-    if (!subComponent.route) return false;
-    return subComponent.route === asPath.split("/")[1] || asPath === "/" + subComponent.route || asPath.startsWith("/" + subComponent.route + "/");
+  /**
+   * Determina si un subComponent usa navegación con query params.
+   * 
+   * Lógica:
+   * - Si tiene `componentName`, es un componente interno que se renderiza dentro de la página del parent
+   * - Si además no tiene `route` o tiene un `route` relativo (sin /), usa query params
+   * - Si tiene `route` absoluto (con /), es una ruta independiente
+   * 
+   * Ejemplo:
+   * - { componentName: "PlantillaSalon", route: "mesas" } → usa query params
+   * - { componentName: "IframeApp", route: "/mesas" } → ruta independiente
+   * - { route: "/mesas" } → ruta independiente
+   */
+  const usesQueryParamNavigation = (subComponent, parentRoute) => {
+    // Si tiene componentName, probablemente es un componente interno que usa query params
+    if (subComponent.componentName) {
+      // Si no tiene route o el route es relativo (no empieza con /), usar query params
+      return !subComponent.route || !subComponent.route.startsWith("/");
+    }
+    // Si no tiene componentName pero tiene route, es una ruta independiente
+    return false;
+  };
+
+  /**
+   * Determina si un subComponent está activo basado en la ruta actual y query params.
+   * 
+   * Para subComponents con query params:
+   * - Verifica si estamos en la ruta del parent
+   * - Compara el query param `subComponent` con el `route` o `componentName` del subComponent
+   * 
+   * Para subComponents con rutas independientes:
+   * - Verifica directamente la ruta del subComponent
+   */
+  const isSubComponentActive = (subComponent, parentRoute) => {
+    const query = router.query;
+    
+    // Si usa navegación con query params (tiene componentName)
+    if (usesQueryParamNavigation(subComponent, parentRoute) && parentRoute) {
+      // Verificar si estamos en la ruta del parent
+      const isOnParentRoute = asPath === "/" + parentRoute || asPath.startsWith("/" + parentRoute + "/");
+      
+      if (isOnParentRoute) {
+        // Verificar query param por route o componentName
+        if (subComponent.route && query.subComponent === subComponent.route) return true;
+        if (subComponent.componentName && query.subComponent === subComponent.componentName) return true;
+        // Si no hay query param y estamos en la ruta del parent, 
+        // el componente por defecto (normalmente el hidden) podría estar activo
+        // Esto se maneja en cada página individualmente
+      }
+    }
+    
+    // Para subComponents con rutas independientes, verificar la ruta directamente
+    if (subComponent.route && !usesQueryParamNavigation(subComponent, parentRoute)) {
+      return subComponent.route === asPath.split("/")[1] || 
+             asPath === "/" + subComponent.route || 
+             asPath.startsWith("/" + subComponent.route + "/");
+    }
+    
+    return false;
   };
 
   const isGroupActive = (group) => {
@@ -310,7 +365,7 @@ export const Sidebar = ({ state, setState }) => {
 
                           // Si tiene subComponents, renderizar como expandible
                           if (hasSubComponents && visibleSubComponents.length > 0) {
-                            const isSubComponentGroupActive = visibleSubComponents.some(sub => isSubComponentActive(sub));
+                            const isSubComponentGroupActive = visibleSubComponents.some(sub => isSubComponentActive(sub, child.route));
                             
                             return (
                               <div key={childIdx}>
@@ -380,28 +435,56 @@ export const Sidebar = ({ state, setState }) => {
                                 {isSubComponentOpen && (
                                   <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-2">
                                     {visibleSubComponents.map((subComponent, subIdx) => {
-                                      const subIsActive = isSubComponentActive(subComponent);
+                                      const subIsActive = isSubComponentActive(subComponent, child.route);
+                                      
+                                      /**
+                                       * Función helper genérica para determinar la ruta de navegación.
+                                       * 
+                                       * Funciona para cualquier módulo que tenga subComponents:
+                                       * - Si el subComponent usa query params → navega a /parentRoute?subComponent=...
+                                       * - Si el subComponent tiene ruta independiente → navega directamente a esa ruta
+                                       * 
+                                       * Ejemplos:
+                                       * - { componentName: "PlantillaSalon", route: "mesas" } → /lugaresBodas?subComponent=mesas
+                                       * - { route: "/cluster/leads" } → /cluster/leads
+                                       */
+                                      const getNavigationPath = () => {
+                                        // Si usa navegación con query params (tiene componentName)
+                                        if (usesQueryParamNavigation(subComponent, child.route) && child.route) {
+                                          // Navegar a la página principal del parent con query param
+                                          if (subComponent.route) {
+                                            return { pathname: "/" + child.route, query: { subComponent: subComponent.route } }
+                                          } else if (subComponent.componentName) {
+                                            return { pathname: "/" + child.route, query: { subComponent: subComponent.componentName } }
+                                          }
+                                          return { pathname: "/" + child.route }
+                                        }
+                                        // Para subComponents con rutas independientes, usar la ruta directamente
+                                        if (subComponent.route) {
+                                          return { pathname: "/" + subComponent.route }
+                                        }
+                                        return null
+                                      }
                                       
                                       return (
                                         <button
                                           key={subIdx}
                                           onClick={() => {
+                                            const navPath = getNavigationPath()
+                                            if (!navPath) return
+                                            
                                             if (changedForm) {
                                               setHandle(() => () => {
                                                 isMobile ? setState(!state) : null
                                                 dispatch({ type: "VIEW", payload: {} });
-                                                if (subComponent.route) {
-                                                  router.push("/" + subComponent.route)
-                                                }
+                                                router.push(navPath)
                                                 setChangedForm(false)
                                               })
                                               setShowModal(true)
                                             } else {
                                               isMobile ? setState(!state) : null
                                               dispatch({ type: "VIEW", payload: {} });
-                                              if (subComponent.route) {
-                                                router.push("/" + subComponent.route)
-                                              }
+                                              router.push(navPath)
                                             }
                                           }}
                                           className={clsx(
@@ -478,7 +561,7 @@ export const Sidebar = ({ state, setState }) => {
 
                       // Si tiene subComponents, renderizar como expandible
                       if (hasSubComponents && visibleSubComponents.length > 0) {
-                        const isSubComponentGroupActive = visibleSubComponents.some(sub => isSubComponentActive(sub));
+                        const isSubComponentGroupActive = visibleSubComponents.some(sub => isSubComponentActive(sub, child.route));
                         
                         return (
                           <div key={childIdx}>
@@ -548,28 +631,56 @@ export const Sidebar = ({ state, setState }) => {
                             {isSubComponentOpen && (
                               <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-2">
                                 {visibleSubComponents.map((subComponent, subIdx) => {
-                                  const subIsActive = isSubComponentActive(subComponent);
+                                  const subIsActive = isSubComponentActive(subComponent, child.route);
+                                  
+                                  /**
+                                   * Función helper genérica para determinar la ruta de navegación.
+                                   * 
+                                   * Funciona para cualquier módulo que tenga subComponents:
+                                   * - Si el subComponent usa query params → navega a /parentRoute?subComponent=...
+                                   * - Si el subComponent tiene ruta independiente → navega directamente a esa ruta
+                                   * 
+                                   * Ejemplos:
+                                   * - { componentName: "PlantillaSalon", route: "mesas" } → /lugaresBodas?subComponent=mesas
+                                   * - { route: "/cluster/leads" } → /cluster/leads
+                                   */
+                                  const getNavigationPath = () => {
+                                    // Si usa navegación con query params (tiene componentName)
+                                    if (usesQueryParamNavigation(subComponent, child.route) && child.route) {
+                                      // Navegar a la página principal del parent con query param
+                                      if (subComponent.route) {
+                                        return { pathname: "/" + child.route, query: { subComponent: subComponent.route } }
+                                      } else if (subComponent.componentName) {
+                                        return { pathname: "/" + child.route, query: { subComponent: subComponent.componentName } }
+                                      }
+                                      return { pathname: "/" + child.route }
+                                    }
+                                    // Para subComponents con rutas independientes, usar la ruta directamente
+                                    if (subComponent.route) {
+                                      return { pathname: "/" + subComponent.route }
+                                    }
+                                    return null
+                                  }
                                   
                                   return (
                                     <button
                                       key={subIdx}
                                       onClick={() => {
+                                        const navPath = getNavigationPath()
+                                        if (!navPath) return
+                                        
                                         if (changedForm) {
                                           setHandle(() => () => {
                                             isMobile ? setState(!state) : null
                                             dispatch({ type: "VIEW", payload: {} });
-                                            if (subComponent.route) {
-                                              router.push("/" + subComponent.route)
-                                            }
+                                            router.push(navPath)
                                             setChangedForm(false)
                                           })
                                           setShowModal(true)
                                         } else {
                                           isMobile ? setState(!state) : null
                                           dispatch({ type: "VIEW", payload: {} });
-                                          if (subComponent.route) {
-                                            router.push("/" + subComponent.route)
-                                          }
+                                          router.push(navPath)
                                         }
                                       }}
                                       className={clsx(
