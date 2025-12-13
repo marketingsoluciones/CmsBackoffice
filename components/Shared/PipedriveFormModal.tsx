@@ -22,7 +22,7 @@ interface PipedriveFormModalProps {
   fields: FieldConfig[];
   initial?: Record<string, any>;
   mutation: string;
-  variablesBuilder: (values: Record<string, any>) => any;
+  variablesBuilder: (values: Record<string, any>) => any | Promise<any>;
   onSuccess: () => void;
   fetcher?: (args: { query: string; variables?: Record<string, any> }) => Promise<any>;
   alertMessage?: {
@@ -178,13 +178,14 @@ export default function PipedriveFormModal({
           }}
           onSubmit={async (vals, { setSubmitting }) => {
             try {
+              const variables = await Promise.resolve(variablesBuilder(vals));
               if (fetcher) {
-                await fetcher({ query: mutation, variables: variablesBuilder(vals) });
+                await fetcher({ query: mutation, variables });
               } else {
                 const { fetchApi } = await import("../../utils/Fetching");
                 await fetchApi({
                   query: mutation,
-                  variables: variablesBuilder(vals),
+                  variables,
                   type: "json",
                   development: undefined as any,
                 });

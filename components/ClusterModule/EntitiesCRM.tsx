@@ -151,21 +151,23 @@ export default function EntitiesCRM() {
         ]}
         mutation={CRM_MUTATIONS.CREATE_ENTITY}
         fetcher={fetchApiCRM}
-        variablesBuilder={(v) => ({ input: {
-          name: v.name?.trim() || "",
-          type: v.type || "COMPANY",
-          website: v.website?.trim() || undefined,
-          industry: v.industry?.trim() || undefined,
-          size: v.size || undefined,
-          description: v.description?.trim() || undefined,
-          address: (v.address_street || v.address_city || v.address_state || v.address_zipCode || v.address_country) ? {
-            street: v.address_street?.trim() || undefined,
-            city: v.address_city?.trim() || undefined,
-            state: v.address_state?.trim() || undefined,
-            zipCode: v.address_zipCode?.trim() || undefined,
-            country: v.address_country?.trim() || undefined
-          } : undefined
-        } })}
+        variablesBuilder={(v) => ({
+          input: {
+            name: v.name?.trim() || "",
+            type: v.type || "COMPANY",
+            website: v.website?.trim() || undefined,
+            industry: v.industry?.trim() || undefined,
+            size: v.size || undefined,
+            description: v.description?.trim() || undefined,
+            address: (v.address_street || v.address_city || v.address_state || v.address_zipCode || v.address_country) ? {
+              street: v.address_street?.trim() || undefined,
+              city: v.address_city?.trim() || undefined,
+              state: v.address_state?.trim() || undefined,
+              zipCode: v.address_zipCode?.trim() || undefined,
+              country: v.address_country?.trim() || undefined
+            } : undefined
+          }
+        })}
         onSuccess={() => {
           setOpenCreate(false);
         }}
@@ -222,7 +224,7 @@ export default function EntitiesCRM() {
         ]}
         editMutation={CRM_MUTATIONS.UPDATE_ENTITY}
         editFetcher={fetchApiCRM}
-        editVariablesBuilder={(v, id) => ({ 
+        editVariablesBuilder={(v, id) => ({
           id,
           input: {
             name: v.name?.trim() || "",
@@ -238,7 +240,7 @@ export default function EntitiesCRM() {
               zipCode: v.address_zipCode?.trim() || undefined,
               country: v.address_country?.trim() || undefined
             } : undefined
-          } 
+          }
         })}
         editInitialData={selectedRow ? {
           ...selectedRow,

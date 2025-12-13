@@ -56,7 +56,7 @@ interface PipedriveDetailModalProps {
   // Props para formulario de edición
   editFields?: FieldConfig[];
   editMutation?: string;
-  editVariablesBuilder?: (values: Record<string, any>, entityId: string) => any;
+  editVariablesBuilder?: (values: Record<string, any>, entityId: string) => any | Promise<any>;
   editFetcher?: (args: { query: string; variables?: Record<string, any> }) => Promise<any>;
   editInitialData?: Record<string, any>;
   onEditSuccess?: () => void;
@@ -464,7 +464,7 @@ export default function PipedriveDetailModal({
                     if (!editMutation || !editVariablesBuilder || !editInitialData?.id) {
                       throw new Error("Configuración de edición incompleta");
                     }
-                    const variables = editVariablesBuilder(vals, editInitialData.id);
+                    const variables = await Promise.resolve(editVariablesBuilder(vals, editInitialData.id));
                     if (editFetcher) {
                       await editFetcher({ query: editMutation, variables });
                     } else {

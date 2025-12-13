@@ -216,18 +216,20 @@ export default function LeadsCRM() {
         ]}
         mutation={CRM_MUTATIONS.CREATE_LEAD}
         fetcher={fetchApiCRM}
-        variablesBuilder={(v) => ({ input: {
-          name: v.name?.trim() || "",
-          email: v.email?.trim() || undefined,
-          phone: v.phone?.trim() || undefined,
-          company: v.company?.trim() || undefined,
-          position: v.position?.trim() || undefined,
-          source: v.source || undefined,
-          status: v.status || "NEW",
-          priority: v.priority || "MEDIUM",
-          value: v.value ? Number(v.value) : undefined,
-          notes: v.notes?.trim() || undefined
-        } })}
+        variablesBuilder={(v) => ({
+          input: {
+            name: v.name?.trim() || "",
+            email: v.email?.trim() || undefined,
+            phone: v.phone?.trim() || undefined,
+            company: v.company?.trim() || undefined,
+            position: v.position?.trim() || undefined,
+            source: v.source || undefined,
+            status: v.status || "NEW",
+            priority: v.priority || "MEDIUM",
+            value: v.value ? Number(v.value) : undefined,
+            notes: v.notes?.trim() || undefined
+          }
+        })}
         onSuccess={() => {
           setOpenCreate(false);
         }}
@@ -335,7 +337,7 @@ export default function LeadsCRM() {
         ]}
         editMutation={CRM_MUTATIONS.UPDATE_LEAD}
         editFetcher={fetchApiCRM}
-        editVariablesBuilder={(v, id) => ({ 
+        editVariablesBuilder={(v, id) => ({
           id,
           input: {
             name: v.name?.trim() || "",
@@ -348,7 +350,7 @@ export default function LeadsCRM() {
             priority: v.priority || "MEDIUM",
             value: v.value ? Number(v.value) : undefined,
             notes: v.notes?.trim() || undefined
-          } 
+          }
         })}
         editInitialData={selectedRow || undefined}
         onEditSuccess={() => {

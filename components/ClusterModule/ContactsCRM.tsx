@@ -160,19 +160,21 @@ export default function ContactsCRM() {
         ]}
         mutation={CRM_MUTATIONS.CREATE_CONTACT}
         fetcher={fetchApiCRM}
-        variablesBuilder={(v) => ({ input: {
-          firstName: v.firstName?.trim() || "",
-          lastName: v.lastName?.trim() || "",
-          email: v.email?.trim() || undefined,
-          phone: v.phone?.trim() || undefined,
-          company: v.company?.trim() || undefined,
-          position: v.position?.trim() || undefined,
-          relationship: v.relationship || undefined,
-          status: v.status || undefined,
-          type: v.type || "INDIVIDUAL",
-          country: v.country?.trim() || undefined,
-          city: v.city?.trim() || undefined
-        } })}
+        variablesBuilder={(v) => ({
+          input: {
+            firstName: v.firstName?.trim() || "",
+            lastName: v.lastName?.trim() || "",
+            email: v.email?.trim() || undefined,
+            phone: v.phone?.trim() || undefined,
+            company: v.company?.trim() || undefined,
+            position: v.position?.trim() || undefined,
+            relationship: v.relationship || undefined,
+            status: v.status || undefined,
+            type: v.type || "INDIVIDUAL",
+            country: v.country?.trim() || undefined,
+            city: v.city?.trim() || undefined
+          }
+        })}
         onSuccess={() => {
           setOpenCreate(false);
         }}
@@ -219,7 +221,7 @@ export default function ContactsCRM() {
         ]}
         editMutation={CRM_MUTATIONS.UPDATE_CONTACT}
         editFetcher={fetchApiCRM}
-        editVariablesBuilder={(v, id) => ({ 
+        editVariablesBuilder={(v, id) => ({
           id,
           input: {
             firstName: v.firstName?.trim() || "",
@@ -233,7 +235,7 @@ export default function ContactsCRM() {
             type: v.type || "INDIVIDUAL",
             country: v.country?.trim() || undefined,
             city: v.city?.trim() || undefined
-          } 
+          }
         })}
         editInitialData={selectedRow || undefined}
         onEditSuccess={() => {

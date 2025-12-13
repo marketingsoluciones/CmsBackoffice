@@ -5,6 +5,45 @@ import { parseJwt } from "./Authentication";
 const CRM_ENDPOINT = (process.env.NEXT_PUBLIC_CRM_GRAPHQL || "https://api2.eventosorganizador.com/graphql").replace(/\/$/, "");
 const DEFAULT_DEVELOPMENT = process.env.NEXT_PUBLIC_DEVELOPMENT || "bodasdehoy";
 
+// Usar proxy de Next.js para evitar problemas CORS
+// El proxy hace las peticiones desde el servidor, evitando restricciones CORS del navegador
+const USE_PROXY = process.env.NEXT_PUBLIC_USE_CRM_PROXY !== 'false'; // Por defecto usar proxy
+const PROXY_ENDPOINT = '/api/crm/graphql';
+
+// Helper para obtener development y userId para las mutations CRM
+export const getCRMContext = async (): Promise<{ development: string; userId: string }> => {
+  const development = resolveDevelopment() || DEFAULT_DEVELOPMENT;
+  const token = await ensureFirebaseToken();
+  let userId = "";
+  
+  if (token) {
+    try {
+      const decoded = parseJwt(token);
+      userId = decoded?.user_id || decoded?.uid || "";
+    } catch (e) {
+      console.error("Error parsing token for userId:", e);
+    }
+  }
+  
+  if (!userId) {
+    // Intentar obtener desde Firebase Auth como fallback
+    try {
+      const auth = getAuth();
+      if (auth?.currentUser?.uid) {
+        userId = auth.currentUser.uid;
+      }
+    } catch (e) {
+      console.error("Error getting userId from Firebase Auth:", e);
+    }
+  }
+  
+  if (!userId) {
+    throw new Error("No se pudo obtener el userId. Por favor, inicia sesión nuevamente.");
+  }
+  
+  return { development, userId };
+};
+
 const readDocumentCookie = (key: string) => {
   if (typeof document === "undefined") return undefined;
   const match = document.cookie.split("; ").find(row => row.startsWith(`${key}=`));
@@ -47,8 +86,9 @@ export const fetchApiCRM = async ({
   query: string;
   variables?: Record<string, any>;
 }) => {
-  // Petición directa al endpoint del backend
-  const endpoint = CRM_ENDPOINT;
+  // Usar proxy de Next.js si está disponible (evita problemas CORS)
+  const useProxy = USE_PROXY && typeof window !== 'undefined';
+  const endpoint = useProxy ? PROXY_ENDPOINT : CRM_ENDPOINT;
   
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
@@ -70,13 +110,20 @@ export const fetchApiCRM = async ({
     headers["IsProduction"] = String(process.env.NEXT_PUBLIC_PRODUCTION);
   }
 
-  const res = await fetch(endpoint, {
+  // Si usamos el proxy, no necesitamos mode: "cors" porque es same-origin
+  const fetchOptions: RequestInit = {
     method: "POST",
     headers,
-    mode: "cors", // Permitir CORS
-    credentials: "omit", // No enviar cookies en peticiones cross-origin
     body: JSON.stringify({ query, variables })
-  });
+  };
+
+  if (!useProxy) {
+    // Solo para peticiones directas al backend
+    fetchOptions.mode = "cors";
+    fetchOptions.credentials = "omit";
+  }
+
+  const res = await fetch(endpoint, fetchOptions);
 
   if (!res.ok) {
     const text = await res.text();

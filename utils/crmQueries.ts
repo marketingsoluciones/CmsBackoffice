@@ -672,6 +672,12 @@ export const CRM_MUTATIONS = {
   CREATE_LEAD: `
     mutation CreateLead($input: CRM_LeadInput!) {
       createCRMLead(input: $input) {
+        success
+        errors {
+          field
+          message
+          code
+        }
         lead { id name email phone company position source status priority value notes createdAt updatedAt }
       }
     }
@@ -694,6 +700,12 @@ export const CRM_MUTATIONS = {
   CREATE_CONTACT: `
     mutation CreateContact($input: CRM_ContactInput!) {
       createCRMContact(input: $input) {
+        success
+        errors {
+          field
+          message
+          code
+        }
         contact { id firstName lastName fullName email phone company position relationship status type starred sentiment country city createdAt }
       }
     }
@@ -716,6 +728,12 @@ export const CRM_MUTATIONS = {
   CREATE_ENTITY: `
     mutation CreateEntity($input: CRM_EntityInput!) {
       createCRMEntity(input: $input) {
+        success
+        errors {
+          field
+          message
+          code
+        }
         entity { id name type website industry size description sentiment tags createdAt updatedAt }
       }
     }
@@ -739,8 +757,12 @@ export const CRM_MUTATIONS = {
     mutation CreateCampaign($input: CRM_CampaignInput!) {
       createCRMCampaign(input: $input) {
         success
+        errors {
+          field
+          message
+          code
+        }
         campaign { id name type templateId status scheduledAt notes tags createdAt updatedAt }
-        errors { message code }
       }
     }
   `,

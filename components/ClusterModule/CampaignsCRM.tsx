@@ -139,15 +139,17 @@ export default function CampaignsCRM() {
         ]}
         mutation={CRM_MUTATIONS.CREATE_CAMPAIGN}
         fetcher={fetchApiCRM}
-        variablesBuilder={(v) => ({ input: {
-          name: v.name?.trim() || "",
-          type: v.type || "EMAIL",
-          templateId: v.templateId?.trim() || undefined,
-          settings: {}, // Requerido según backend
-          scheduledAt: v.scheduledAt ? new Date(v.scheduledAt).toISOString() : undefined,
-          notes: v.notes?.trim() || undefined,
-          tags: v.tags ? v.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t.length > 0) : undefined
-        } })}
+        variablesBuilder={(v) => ({
+          input: {
+            name: v.name?.trim() || "",
+            type: v.type || "EMAIL",
+            templateId: v.templateId?.trim() || undefined,
+            settings: {}, // Requerido según backend
+            scheduledAt: v.scheduledAt ? new Date(v.scheduledAt).toISOString() : undefined,
+            notes: v.notes?.trim() || undefined,
+            tags: v.tags ? v.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t.length > 0) : undefined
+          }
+        })}
         onSuccess={() => {
           setOpenCreate(false);
         }}
@@ -187,7 +189,7 @@ export default function CampaignsCRM() {
         ]}
         editMutation={CRM_MUTATIONS.UPDATE_CAMPAIGN}
         editFetcher={fetchApiCRM}
-        editVariablesBuilder={(v, id) => ({ 
+        editVariablesBuilder={(v, id) => ({
           id,
           input: {
             name: v.name?.trim() || "",
@@ -197,7 +199,7 @@ export default function CampaignsCRM() {
             scheduledAt: v.scheduledAt ? new Date(v.scheduledAt).toISOString() : undefined,
             notes: v.notes?.trim() || undefined,
             tags: v.tags ? v.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t.length > 0) : undefined
-          } 
+          }
         })}
         editInitialData={selectedRow || undefined}
         onEditSuccess={() => {
