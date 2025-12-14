@@ -1,5 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useSavedFilters } from "../../hooks/useSavedFilters";
+import CreateFilterModal from "./CreateFilterModal";
+import { ToastContextProvider } from "../../context/ToastContext";
 
 interface Filter {
   id: string;
@@ -10,12 +13,13 @@ interface Filter {
 interface FilterDropdownProps {
   isOpen: boolean;
   onClose: () => void;
-  filters: Filter[];
+  filters: Filter[]; // Filtros de propietarios (owners)
   selectedFilterId?: string;
   onSelectFilter: (filterId: string | undefined) => void;
-  onCreateFilter: () => void;
+  onCreateFilter?: () => void;
   activeTab?: "favorites" | "owners" | "filters";
   buttonRef?: React.RefObject<HTMLButtonElement>;
+  entityType?: "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN"; // Tipo de entidad para los filtros guardados
 }
 
 export default function FilterDropdown({
@@ -27,12 +31,25 @@ export default function FilterDropdown({
   onCreateFilter,
   activeTab: initialTab = "owners",
   buttonRef,
+  entityType = "LEAD",
 }: FilterDropdownProps) {
   const [activeTab, setActiveTab] = useState<"favorites" | "owners" | "filters">(initialTab);
   const [searchText, setSearchText] = useState("");
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  
+  // Cargar filtros guardados del backend
+  const { filters: savedFilters, isLoading: isLoadingFilters, createFilter } = useSavedFilters(entityType);
+  
+  const { dispatch } = ToastContextProvider();
+  const pushToast = (type: string, message: string) => {
+    dispatch({
+      type: "ADD_TOAST",
+      payload: { id: `${Date.now()}-${Math.random()}`, type, message }
+    } as any);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -96,15 +113,88 @@ export default function FilterDropdown({
     };
   }, [isOpen, buttonRef]);
 
-  if (!isOpen) return null;
+  // Transformar savedFilters del backend al formato del dropdown
+  const savedFilterItems: Filter[] = savedFilters.map(f => ({
+    id: f.id,
+    name: f.name,
+    type: "filter" as const
+  }));
+
+  // Combinar filtros de propietarios con filtros guardados
+  const allFilterItems = [...filters, ...savedFilterItems];
+
+  if (!isOpen && !showCreateModal) return null;
 
   const owners = filters.filter((f) => f.type === "owner");
-  const filterItems = filters.filter((f) => f.type === "filter");
-  const favorites = filters.filter((f) => f.type === "owner" || f.type === "filter"); // Simplified
+  const filterItems = allFilterItems.filter((f) => f.type === "filter");
+  const favorites = allFilterItems.filter((f) => {
+    if (f.type === "filter") {
+      const savedFilter = savedFilters.find(sf => sf.id === f.id);
+      return savedFilter?.isFavorite || false;
+    }
+    return false;
+  });
 
   const filteredItems = (activeTab === "owners" ? owners : activeTab === "filters" ? filterItems : favorites).filter(
     (item) => item.name.toLowerCase().includes(searchText.toLowerCase())
   );
+
+  const handleCreateFilter = async (filterData: {
+    name: string;
+    conditions: Array<{
+      entity: string;
+      field: string;
+      operator: string;
+      value: string;
+    }>;
+    visibility: "private" | "shared";
+    saveColumns: boolean;
+  }) => {
+    // Mapeo de entidades del modal al formato del backend
+    const entityMapping: Record<string, string> = {
+      "lead": "LEAD",
+      "contact": "CONTACT",
+      "entity": "ENTITY",
+      "campaign": "CAMPAIGN",
+      "activity": "CAMPAIGN",
+      "organization": "ENTITY",
+      "person": "CONTACT",
+    };
+
+    // Transformar condiciones al formato del backend
+    const transformedConditions = filterData.conditions
+      .filter(c => c.entity && c.field && c.operator && c.value)
+      .map(cond => {
+        const mappedEntity = entityMapping[cond.entity.toLowerCase()] || cond.entity.toUpperCase();
+        return {
+          entity: mappedEntity,
+          field: cond.field,
+          operator: cond.operator,
+          value: cond.value,
+          group: "all" as const
+        };
+      });
+
+    if (transformedConditions.length === 0) {
+      pushToast("error", "Debe agregar al menos una condición válida");
+      return;
+    }
+
+    const newFilter = await createFilter(
+      filterData.name,
+      transformedConditions,
+      filterData.visibility.toUpperCase() as "PRIVATE" | "SHARED",
+      false,
+      filterData.saveColumns
+    );
+
+    if (newFilter) {
+      setShowCreateModal(false);
+      onClose();
+      // Opcional: seleccionar el filtro recién creado
+      // onSelectFilter(newFilter.id);
+    }
+  };
 
   const dropdownContent = (
     <div
@@ -264,7 +354,14 @@ export default function FilterDropdown({
               <div
                 key={item.id}
                 className="flex items-center justify-between p-2 rounded cursor-pointer hover:bg-gray-50"
-                onClick={() => onSelectFilter(item.id)}
+                onClick={() => {
+                  // Si el propietario ya está seleccionado, deseleccionarlo
+                  if (selectedFilterId === item.id) {
+                    onSelectFilter(undefined);
+                  } else {
+                    onSelectFilter(item.id);
+                  }
+                }}
               >
                 <div className="flex items-center gap-2">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -302,7 +399,14 @@ export default function FilterDropdown({
               <div
                 key={item.id}
                 className="flex items-center justify-between p-2 rounded cursor-pointer hover:bg-gray-50"
-                onClick={() => onSelectFilter(item.id)}
+                onClick={() => {
+                  // Si el filtro ya está seleccionado, deseleccionarlo
+                  if (selectedFilterId === item.id) {
+                    onSelectFilter(undefined);
+                  } else {
+                    onSelectFilter(item.id);
+                  }
+                }}
               >
                 <span className="text-sm" style={{ color: "#111827" }}>
                   {item.name}
@@ -341,7 +445,10 @@ export default function FilterDropdown({
             e.preventDefault();
             e.stopPropagation();
             console.log("[FilterDropdown] Add new filter button clicked");
-            onCreateFilter();
+            setShowCreateModal(true);
+            if (onCreateFilter) {
+              onCreateFilter();
+            }
           }}
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -358,6 +465,22 @@ export default function FilterDropdown({
     </div>
   );
 
-  return mounted && typeof window !== "undefined" ? createPortal(dropdownContent, document.body) : null;
+  return (
+    <>
+      {mounted && typeof window !== "undefined" && isOpen && createPortal(dropdownContent, document.body)}
+      
+      {/* Modal para crear filtro */}
+      {showCreateModal && (
+        <CreateFilterModal
+          isOpen={showCreateModal}
+          onClose={() => {
+            setShowCreateModal(false);
+            onClose();
+          }}
+          onCreate={handleCreateFilter}
+        />
+      )}
+    </>
+  );
 }
 

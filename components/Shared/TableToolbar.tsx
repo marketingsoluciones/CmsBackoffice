@@ -286,6 +286,7 @@ export default function TableToolbar({
                   }
                 }}
                 buttonRef={filterButtonRef}
+                entityType={entityType}
               />
             </div>
           )}

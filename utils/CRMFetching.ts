@@ -208,15 +208,18 @@ export const fetchApiCRM = async ({
     }
     
     // Verificación adicional: buscar específicamente campos comunes de éxito en mutaciones
-    const mutationKeys = ["lead", "contact", "entity", "campaign", "whitelabel", "label", "savedFilter", "file", "email", "success"];
+    const mutationKeys = ["lead", "contact", "entity", "campaign", "whitelabel", "label", "filter", "savedFilter", "file", "email", "success"];
     for (const key of mutationKeys) {
       const mutationData = json.data[`createCRM${key.charAt(0).toUpperCase() + key.slice(1)}`] || 
                           json.data[`updateCRM${key.charAt(0).toUpperCase() + key.slice(1)}`] ||
                           json.data[`deleteCRM${key.charAt(0).toUpperCase() + key.slice(1)}`] ||
+                          json.data[`toggleCRM${key.charAt(0).toUpperCase() + key.slice(1)}`] ||
                           json.data[`create${key.charAt(0).toUpperCase() + key.slice(1)}`] ||
                           json.data[`update${key.charAt(0).toUpperCase() + key.slice(1)}`] ||
                           json.data[`delete${key.charAt(0).toUpperCase() + key.slice(1)}`];
-      if (mutationData && (mutationData[key] || mutationData.success !== undefined)) {
+      // Para savedFilter, también buscar "filter" (nuevo nombre del campo)
+      const dataKey = key === "savedFilter" ? "filter" : key;
+      if (mutationData && (mutationData[dataKey] || mutationData[key] || mutationData.success !== undefined)) {
         return json.data;
       }
     }

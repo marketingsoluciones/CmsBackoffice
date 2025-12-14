@@ -481,13 +481,41 @@ const testSections = [
           input: {
             name: "Filtro Demo",
             entityType: "LEAD",
-            conditions: {
-              status: { operator: "equals", value: CRM_LeadStatus.NEW }
-            },
+            conditions: [
+              {
+                entity: "LEAD",
+                field: "status",
+                operator: "equals",
+                value: CRM_LeadStatus.NEW,
+                group: "all"
+              }
+            ],
             visibility: "PRIVATE",
             isFavorite: false,
             saveColumns: true,
-            columns: ["name", "email", "status"]
+            columns: [
+              {
+                field: "name",
+                visible: true,
+                order: 0,
+                width: 200,
+                pinned: false
+              },
+              {
+                field: "email",
+                visible: true,
+                order: 1,
+                width: 250,
+                pinned: false
+              },
+              {
+                field: "status",
+                visible: true,
+                order: 2,
+                width: 150,
+                pinned: false
+              }
+            ]
           }
         }
       },

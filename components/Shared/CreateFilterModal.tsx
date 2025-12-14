@@ -15,11 +15,23 @@ interface CreateFilterModalProps {
 }
 
 const entities = [
-  { value: "lead", label: "Lead", icon: "👁️" },
-  { value: "activity", label: "Actividad", icon: "📅" },
-  { value: "organization", label: "Organización", icon: "🏢" },
-  { value: "person", label: "Persona", icon: "👤" },
+  { value: "lead", label: "Lead", icon: "👁️", backendValue: "LEAD" },
+  { value: "contact", label: "Contacto", icon: "👤", backendValue: "CONTACT" },
+  { value: "entity", label: "Entidad", icon: "🏢", backendValue: "ENTITY" },
+  { value: "campaign", label: "Campaña", icon: "📅", backendValue: "CAMPAIGN" },
 ];
+
+// Mapeo de entidades del modal al formato del backend
+const entityMapping: Record<string, string> = {
+  "lead": "LEAD",
+  "contact": "CONTACT",
+  "entity": "ENTITY",
+  "campaign": "CAMPAIGN",
+  // Mantener compatibilidad con valores antiguos
+  "activity": "CAMPAIGN",
+  "organization": "ENTITY",
+  "person": "CONTACT",
+};
 
 const fieldOptions: Record<string, Array<{ value: string; label: string }>> = {
   lead: [

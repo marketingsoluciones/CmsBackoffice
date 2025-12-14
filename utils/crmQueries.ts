@@ -292,18 +292,30 @@ export const CRM_QUERIES = {
 
   // ========== FASE 2.1: FILTROS PERSONALIZADOS (SAVED FILTERS) ==========
   GET_MY_SAVED_FILTERS: `
-    query GetMySavedFilters($entityType: CRM_EntityType!) {
-      getMySavedFilters(entityType: $entityType) {
+    query GetCRMSavedFilters($entityType: CRM_LabelEntityType!) {
+      getCRMSavedFilters(entityType: $entityType) {
         success
-        savedFilters {
+        filters {
           id
           name
           entityType
-          conditions
+          conditions {
+            entity
+            field
+            operator
+            value
+            group
+          }
           visibility
           isFavorite
           saveColumns
-          columns
+          columns {
+            field
+            visible
+            order
+            width
+            pinned
+          }
           usageCount
           createdAt
           updatedAt
@@ -313,18 +325,30 @@ export const CRM_QUERIES = {
     }
   `,
   GET_SAVED_FILTER_BY_ID: `
-    query GetSavedFilterById($id: ID!) {
-      getSavedFilterById(id: $id) {
+    query GetCRMSavedFilter($id: ID!) {
+      getCRMSavedFilter(id: $id) {
         success
-        savedFilter {
+        filter {
           id
           name
           entityType
-          conditions
+          conditions {
+            entity
+            field
+            operator
+            value
+            group
+          }
           visibility
           isFavorite
           saveColumns
-          columns
+          columns {
+            field
+            visible
+            order
+            width
+            pinned
+          }
           usageCount
           createdAt
           updatedAt
@@ -334,14 +358,20 @@ export const CRM_QUERIES = {
     }
   `,
   GET_SHARED_SAVED_FILTERS: `
-    query GetSharedSavedFilters($entityType: CRM_EntityType!) {
-      getSharedSavedFilters(entityType: $entityType) {
+    query GetSharedCRMSavedFilters($entityType: CRM_LabelEntityType!) {
+      getSharedCRMSavedFilters(entityType: $entityType) {
         success
-        savedFilters {
+        filters {
           id
           name
           entityType
-          conditions
+          conditions {
+            entity
+            field
+            operator
+            value
+            group
+          }
           visibility
           isFavorite
           usageCount
@@ -901,35 +931,64 @@ export const CRM_MUTATIONS = {
 
   // ========== FASE 2.1: FILTROS PERSONALIZADOS (SAVED FILTERS) - MUTATIONS ==========
   CREATE_SAVED_FILTER: `
-    mutation CreateSavedFilter($input: CRM_CreateSavedFilterInput!) {
-      createSavedFilter(input: $input) {
+    mutation CreateCRMSavedFilter($input: CRM_CreateSavedFilterInput!) {
+      createCRMSavedFilter(input: $input) {
         success
-        savedFilter {
+        filter {
           id
           name
           entityType
-          conditions
+          conditions {
+            entity
+            field
+            operator
+            value
+            group
+          }
           visibility
           isFavorite
           saveColumns
-          columns
+          columns {
+            field
+            visible
+            order
+            width
+            pinned
+          }
+          usageCount
           createdAt
+          updatedAt
         }
         errors { field message code }
       }
     }
   `,
   UPDATE_SAVED_FILTER: `
-    mutation UpdateSavedFilter($id: ID!, $input: CRM_UpdateSavedFilterInput!) {
-      updateSavedFilter(id: $id, input: $input) {
+    mutation UpdateCRMSavedFilter($id: ID!, $input: CRM_UpdateSavedFilterInput!) {
+      updateCRMSavedFilter(id: $id, input: $input) {
         success
-        savedFilter {
+        filter {
           id
           name
-          conditions
+          entityType
+          conditions {
+            entity
+            field
+            operator
+            value
+            group
+          }
           visibility
           isFavorite
-          columns
+          saveColumns
+          columns {
+            field
+            visible
+            order
+            width
+            pinned
+          }
+          usageCount
           updatedAt
         }
         errors { field message code }
@@ -937,8 +996,8 @@ export const CRM_MUTATIONS = {
     }
   `,
   DELETE_SAVED_FILTER: `
-    mutation DeleteSavedFilter($id: ID!) {
-      deleteSavedFilter(id: $id) {
+    mutation DeleteCRMSavedFilter($id: ID!) {
+      deleteCRMSavedFilter(id: $id) {
         success
         message
         errors { field message code }
@@ -946,10 +1005,10 @@ export const CRM_MUTATIONS = {
     }
   `,
   TOGGLE_SAVED_FILTER_FAVORITE: `
-    mutation ToggleSavedFilterFavorite($id: ID!) {
-      toggleSavedFilterFavorite(id: $id) {
+    mutation ToggleCRMSavedFilterFavorite($id: ID!) {
+      toggleCRMSavedFilterFavorite(id: $id) {
         success
-        savedFilter {
+        filter {
           id
           isFavorite
         }
