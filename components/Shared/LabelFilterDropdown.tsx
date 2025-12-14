@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useCRMLabels } from "../../hooks/useCRMLabels";
+import EditLabelModal from "./EditLabelModal";
 
 interface Label {
   id: string;
@@ -30,9 +31,10 @@ export default function LabelFilterDropdown({
   labels: externalLabels,
   onCreateLabel: externalOnCreateLabel,
 }: LabelFilterDropdownProps) {
-  const { labels: backendLabels, createLabel: createLabelBackend, isLoading } = useCRMLabels(entityType);
+  const { labels: backendLabels, createLabel: createLabelBackend, deleteLabel: deleteLabelBackend, updateLabel: updateLabelBackend, isLoading } = useCRMLabels(entityType);
   const [searchText, setSearchText] = useState("");
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [editingLabel, setEditingLabel] = useState<{ id: string; name: string; color: string } | null>(null);
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
@@ -114,7 +116,7 @@ export default function LabelFilterDropdown({
   );
 
   // No retornar null si el modal está abierto, para que el modal siga visible
-  if (!isOpen && !showCreateModal) return null;
+  if (!isOpen && !showCreateModal && !editingLabel) return null;
 
   const handleLabelToggle = (labelId: string) => {
     if (selectedLabels.includes(labelId)) {
@@ -196,34 +198,93 @@ export default function LabelFilterDropdown({
         {/* Labels list */}
         <div className="max-h-64 overflow-y-auto">
           {filteredLabels.length > 0 ? (
-            filteredLabels.map((label) => (
-              <div
-                key={label.id}
-                className="flex items-center justify-between p-2 mx-2 rounded cursor-pointer hover:bg-gray-50"
-                onClick={() => handleLabelToggle(label.id)}
-              >
-                <div className="flex items-center gap-2">
-                  <div
-                    className="w-4 h-4 rounded"
-                    style={{ backgroundColor: label.color }}
-                  />
-                  <span className="text-sm" style={{ color: "#111827" }}>
-                    {label.name}
-                  </span>
-                </div>
-                {selectedLabels.includes(label.id) && (
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path
-                      d="M13 4L6 11L3 8"
-                      stroke="#1D4ED8"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+            filteredLabels.map((label) => {
+              // Verificar si es una etiqueta del backend
+              const isBackendLabel = backendLabels.some(bl => bl.id === label.id);
+              
+              return (
+                <div
+                  key={label.id}
+                  className="flex items-center justify-between p-2 mx-2 rounded cursor-pointer hover:bg-gray-50 group"
+                  onClick={() => handleLabelToggle(label.id)}
+                >
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="w-4 h-4 rounded"
+                      style={{ backgroundColor: label.color }}
                     />
-                  </svg>
-                )}
-              </div>
-            ))
+                    <span className="text-sm" style={{ color: "#111827" }}>
+                      {label.name}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {selectedLabels.includes(label.id) && (
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path
+                          d="M13 4L6 11L3 8"
+                          stroke="#1D4ED8"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                    {isBackendLabel && (
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onClose(); // Cerrar el desplegable primero
+                            setEditingLabel({
+                              id: label.id,
+                              name: label.name,
+                              color: label.color
+                            });
+                          }}
+                          className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-blue-50"
+                          style={{ color: "#3B82F6" }}
+                          title="Editar etiqueta"
+                        >
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <path
+                              d="M11.333 2.667a2.667 2.667 0 0 1 3.334 3.334L5.333 14.667H2v-3.333l9.333-9.333z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (confirm(`¿Estás seguro de que quieres eliminar la etiqueta "${label.name}"?`)) {
+                              deleteLabelBackend(label.id);
+                              // Si la etiqueta eliminada estaba seleccionada, quitarla de la selección
+                              if (selectedLabels.includes(label.id)) {
+                                onSelectLabels(selectedLabels.filter(id => id !== label.id));
+                              }
+                            }
+                          }}
+                          className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-red-50"
+                          style={{ color: "#EF4444" }}
+                          title="Eliminar etiqueta"
+                        >
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <path
+                              d="M4 4L12 12M12 4L4 12"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })
           ) : (
             <div className="p-4 text-center text-sm" style={{ color: "#6B7280" }}>
               No se encontraron etiquetas
@@ -264,7 +325,8 @@ export default function LabelFilterDropdown({
 
   return (
     <>
-      {mounted && typeof window !== "undefined" && isOpen && createPortal(dropdownContent, document.body)}
+      {/* Solo mostrar el desplegable si está abierto y no hay modales abiertos */}
+      {mounted && typeof window !== "undefined" && isOpen && !showCreateModal && !editingLabel && createPortal(dropdownContent, document.body)}
 
       {/* Create Label Modal */}
       {showCreateModal && (
@@ -277,6 +339,23 @@ export default function LabelFilterDropdown({
           onCreate={async (name, color) => {
             await handleCreateLabel(name, color);
             setShowCreateModal(false);
+          }}
+        />
+      )}
+
+      {/* Edit Label Modal */}
+      {editingLabel && (
+        <EditLabelModal
+          isOpen={!!editingLabel}
+          onClose={() => {
+            setEditingLabel(null);
+          }}
+          label={editingLabel}
+          onUpdate={async (id, name, color) => {
+            const updated = await updateLabelBackend(id, { name, color });
+            if (updated) {
+              setEditingLabel(null);
+            }
           }}
         />
       )}

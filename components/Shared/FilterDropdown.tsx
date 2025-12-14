@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useSavedFilters } from "../../hooks/useSavedFilters";
 import CreateFilterModal from "./CreateFilterModal";
+import EditFilterModal from "./EditFilterModal";
 import { ToastContextProvider } from "../../context/ToastContext";
 
 interface Filter {
@@ -39,9 +40,10 @@ export default function FilterDropdown({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [editingFilter, setEditingFilter] = useState<{ id: string; name: string; conditions: any[]; visibility: "PRIVATE" | "SHARED"; saveColumns?: boolean } | null>(null);
   
   // Cargar filtros guardados del backend
-  const { filters: savedFilters, isLoading: isLoadingFilters, createFilter } = useSavedFilters(entityType);
+  const { filters: savedFilters, isLoading: isLoadingFilters, createFilter, deleteFilter, updateFilter } = useSavedFilters(entityType);
   
   const { dispatch } = ToastContextProvider();
   const pushToast = (type: string, message: string) => {
@@ -123,7 +125,7 @@ export default function FilterDropdown({
   // Combinar filtros de propietarios con filtros guardados
   const allFilterItems = [...filters, ...savedFilterItems];
 
-  if (!isOpen && !showCreateModal) return null;
+  if (!isOpen && !showCreateModal && !editingFilter) return null;
 
   const owners = filters.filter((f) => f.type === "owner");
   const filterItems = allFilterItems.filter((f) => f.type === "filter");
@@ -395,35 +397,99 @@ export default function FilterDropdown({
 
         {activeTab === "filters" && (
           <div className="p-2">
-            {filteredItems.map((item) => (
-              <div
-                key={item.id}
-                className="flex items-center justify-between p-2 rounded cursor-pointer hover:bg-gray-50"
-                onClick={() => {
-                  // Si el filtro ya está seleccionado, deseleccionarlo
-                  if (selectedFilterId === item.id) {
-                    onSelectFilter(undefined);
-                  } else {
-                    onSelectFilter(item.id);
-                  }
-                }}
-              >
-                <span className="text-sm" style={{ color: "#111827" }}>
-                  {item.name}
-                </span>
-                {selectedFilterId === item.id && (
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path
-                      d="M13 4L6 11L3 8"
-                      stroke="#1D4ED8"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                )}
-              </div>
-            ))}
+            {filteredItems.map((item) => {
+              // Verificar si es un filtro guardado (tiene id en savedFilters)
+              const isSavedFilter = savedFilters.some(sf => sf.id === item.id);
+              
+              return (
+                <div
+                  key={item.id}
+                  className="flex items-center justify-between p-2 rounded cursor-pointer hover:bg-gray-50 group"
+                  onClick={() => {
+                    // Si el filtro ya está seleccionado, deseleccionarlo
+                    if (selectedFilterId === item.id) {
+                      onSelectFilter(undefined);
+                    } else {
+                      onSelectFilter(item.id);
+                    }
+                  }}
+                >
+                  <span className="text-sm" style={{ color: "#111827" }}>
+                    {item.name}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    {selectedFilterId === item.id && (
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path
+                          d="M13 4L6 11L3 8"
+                          stroke="#1D4ED8"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    )}
+                    {isSavedFilter && (
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            const filter = savedFilters.find(sf => sf.id === item.id);
+                            if (filter) {
+                              onClose(); // Cerrar el desplegable primero
+                              setEditingFilter({
+                                id: filter.id,
+                                name: filter.name,
+                                conditions: filter.conditions,
+                                visibility: filter.visibility,
+                                saveColumns: filter.saveColumns
+                              });
+                            }
+                          }}
+                          className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-blue-50"
+                          style={{ color: "#3B82F6" }}
+                          title="Editar filtro"
+                        >
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <path
+                              d="M11.333 2.667a2.667 2.667 0 0 1 3.334 3.334L5.333 14.667H2v-3.333l9.333-9.333z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (confirm(`¿Estás seguro de que quieres eliminar el filtro "${item.name}"?`)) {
+                              deleteFilter(item.id);
+                              // Si el filtro eliminado estaba seleccionado, deseleccionarlo
+                              if (selectedFilterId === item.id) {
+                                onSelectFilter(undefined);
+                              }
+                            }
+                          }}
+                          className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-red-50"
+                          style={{ color: "#EF4444" }}
+                          title="Eliminar filtro"
+                        >
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <path
+                              d="M4 4L12 12M12 4L4 12"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
@@ -445,6 +511,7 @@ export default function FilterDropdown({
             e.preventDefault();
             e.stopPropagation();
             console.log("[FilterDropdown] Add new filter button clicked");
+            onClose(); // Cerrar el desplegable primero
             setShowCreateModal(true);
             if (onCreateFilter) {
               onCreateFilter();
@@ -467,7 +534,8 @@ export default function FilterDropdown({
 
   return (
     <>
-      {mounted && typeof window !== "undefined" && isOpen && createPortal(dropdownContent, document.body)}
+      {/* Solo mostrar el desplegable si está abierto y no hay modales abiertos */}
+      {mounted && typeof window !== "undefined" && isOpen && !showCreateModal && !editingFilter && createPortal(dropdownContent, document.body)}
       
       {/* Modal para crear filtro */}
       {showCreateModal && (
@@ -475,9 +543,31 @@ export default function FilterDropdown({
           isOpen={showCreateModal}
           onClose={() => {
             setShowCreateModal(false);
-            onClose();
+            // No llamar onClose() aquí para evitar que se vuelva a abrir el desplegable
           }}
           onCreate={handleCreateFilter}
+        />
+      )}
+
+      {/* Modal para editar filtro */}
+      {editingFilter && (
+        <EditFilterModal
+          isOpen={!!editingFilter}
+          onClose={() => {
+            setEditingFilter(null);
+          }}
+          filter={editingFilter}
+          onUpdate={async (filterData) => {
+            const updated = await updateFilter(filterData.id, {
+              name: filterData.name,
+              conditions: filterData.conditions,
+              visibility: filterData.visibility,
+              saveColumns: filterData.saveColumns
+            });
+            if (updated) {
+              setEditingFilter(null);
+            }
+          }}
         />
       )}
     </>
