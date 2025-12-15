@@ -215,7 +215,36 @@ export const useSavedFilters = (entityType: "LEAD" | "CONTACT" | "ENTITY" | "CAM
       });
       if (response?.toggleCRMSavedFilterFavorite?.success) {
         const updatedFilter = response.toggleCRMSavedFilterFavorite.filter;
-        setFilters(prev => prev.map(f => f.id === id ? updatedFilter : f));
+        
+        // Debug: verificar que el filtro actualizado tenga isFavorite
+        console.log("[useSavedFilters] toggleFavorite - updatedFilter:", updatedFilter);
+        console.log("[useSavedFilters] toggleFavorite - isFavorite:", updatedFilter.isFavorite);
+        
+        // Asegurar que el estado se actualice correctamente creando una nueva referencia del array
+        // y asegurando que el objeto actualizado tenga todos los campos necesarios
+        setFilters(prev => {
+          console.log("[useSavedFilters] toggleFavorite - prev filters:", prev);
+          const newFilters = prev.map(f => {
+            if (f.id === id) {
+              // Crear un nuevo objeto completo para asegurar que React detecte el cambio
+              // Asegurar que isFavorite esté presente y sea un booleano
+              const merged = {
+                ...f,
+                ...updatedFilter,
+                isFavorite: updatedFilter.isFavorite === true || updatedFilter.isFavorite === false 
+                  ? updatedFilter.isFavorite 
+                  : f.isFavorite
+              };
+              console.log("[useSavedFilters] toggleFavorite - merged filter:", merged);
+              return merged;
+            }
+            return f;
+          });
+          // Devolver un nuevo array para asegurar que React detecte el cambio
+          console.log("[useSavedFilters] toggleFavorite - new filters:", newFilters);
+          return [...newFilters];
+        });
+        
         updateSavedFilter(id, updatedFilter);
         pushToast("success", updatedFilter.isFavorite ? "Filtro marcado como favorito" : "Filtro desmarcado como favorito");
         return updatedFilter;

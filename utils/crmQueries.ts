@@ -859,6 +859,16 @@ export const CRM_MUTATIONS = {
     mutation DeleteCRMLabel($id: ID!) {
       deleteCRMLabel(id: $id) {
         success
+        label {
+          id
+          name
+          color
+          description
+          entityType
+          usageCount
+          createdAt
+          updatedAt
+        }
         errors { field message code }
       }
     }
@@ -999,7 +1009,22 @@ export const CRM_MUTATIONS = {
     mutation DeleteCRMSavedFilter($id: ID!) {
       deleteCRMSavedFilter(id: $id) {
         success
-        message
+        filter {
+          id
+          name
+          entityType
+          conditions {
+            entity
+            field
+            operator
+            value
+            group
+          }
+          visibility
+          isFavorite
+          createdAt
+          updatedAt
+        }
         errors { field message code }
       }
     }
