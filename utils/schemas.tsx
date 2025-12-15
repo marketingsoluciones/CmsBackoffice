@@ -1,7 +1,18 @@
 import { FetchGraphQL, queries } from "./Fetching";
 import { formatTime } from "./formatTime";
-import { PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, RpIcon, 
-ClusterIcon, BuzonProsIcon, Leads1Icon, Invitados1Icon, ChatEnVivoIcon, FormulariosWebIcon, ChatBotIcon, VisitasWebIcon, Mensajes1Icon, MesasICon, PlanoEventoIcon, InvitadosCatering, ItinerarioCatering } from "../components/Icons/index";
+import {
+  PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, RpIcon,
+  ClusterIcon, BuzonProsIcon, Leads1Icon, Invitados1Icon, ChatEnVivoIcon, FormulariosWebIcon, ChatBotIcon, VisitasWebIcon, Mensajes1Icon, MesasICon, PlanoEventoIcon, InvitadosCatering, ItinerarioCatering,
+  PlatillOpenCatering,
+  MenuCatering,
+  PlatilloCloseCatering,
+  Webs,
+  CorreoIcon,
+  PresupuestoIcon,
+  FotoIcon,
+  BusinessIcon,
+  InvitadosContactos
+} from "../components/Icons/index";
 import { FilterFnOption, SortingFnOption } from "@tanstack/react-table";
 import { ClusterInfo1, CompVisitasWebs, InfoGeneral1 } from "../components/NuevoEvento/ClusterMod";
 
@@ -59,8 +70,8 @@ export interface childrenSchema {
   schema?: string //revisar
   filterOne?: string[]
   visibility?: boolean
-  divide?:boolean
-  availableInput?:boolean
+  divide?: boolean
+  availableInput?: boolean
 }
 
 export interface SubComponent {
@@ -70,6 +81,7 @@ export interface SubComponent {
   route?: string
   componentName?: string // Nombre del componente a renderizar
   hidden?: boolean // Para componentes que no aparecen en el submenu pero se renderizan
+  roles?: string[]
 }
 
 export interface SchemaChildren extends Schema {
@@ -96,6 +108,10 @@ import CampaignsCRM from "../components/ClusterModule/CampaignsCRM";
 import ChatBotCRM from "../components/ClusterModule/ChatBotCRM";
 import WhatsAppChatCRM from "../components/ClusterModule/WhatsAppChatCRM";
 import { LeadsIcon, ContactsIcon, EntitiesIcon, CampaignsIcon, ERPIcon } from "../components/Icons/index";
+import { CiViewTable } from "react-icons/ci";
+import { PiCertificate } from "react-icons/pi";
+import { IoAnalytics, IoLinkOutline } from "react-icons/io5";
+import { GoProjectSymlink, GoWorkflow } from "react-icons/go";
 
 export const BodyStaticAPP: Schema[] = [
   {
@@ -118,7 +134,45 @@ export const BodyStaticAPP: Schema[] = [
         icon: <MaletaIcon className="h-6 w-6" />,
         title: "Marcas",
         roles: ["admin", "empresa"],
-        route: "brands"
+        route: "brands",
+        subComponents: [
+          {
+            icon: <PiCertificate className="h-6 w-auto" />,
+            title: "Marcas",
+            route: "/brands",
+            componentName: "1",
+          },
+          {
+            icon: <CiViewTable className="h-6 w-auto" />,
+            title: "Mis Webs",
+            route: "/mywebsites",
+            componentName: "2",
+          },
+          {
+            icon: <IoAnalytics className="h-6 w-auto" />,
+            title: "Métricas",
+            route: "/metrics",
+            componentName: "3",
+          },
+          {
+            icon: <GoWorkflow className="h-6 w-auto" />,
+            title: "WorkFlow",
+            route: "/workflow",
+            componentName: "4",
+          },
+          {
+            icon: <IoLinkOutline className="h-6 w-auto" />,
+            title: "Links",
+            route: "/links",
+            componentName: "5",
+          },
+          {
+            icon: <GoProjectSymlink className="h-6 w-auto" />,
+            title: "Marca Blanca",
+            route: "/whitelabel",
+            componentName: "6",
+          },
+        ]
       },
       {
         title: null,
@@ -382,69 +436,69 @@ export const BodyStaticAPP: Schema[] = [
             required: true,
             filterOne: ["Facebook", "LinkedIn", "X", "Google Analytics", "Google Analytics 4", "Google Ads", "Google Tag Manager", "Quora", "SsapChat", "Pinterest", "Bing", "Adroll", "Nexus", "TikTok", "VK"],
             visibility: true,
-            availableInput:false 
+            availableInput: false
           },
           {
             Header: "Pixel",
             accessor: "pixel",
             type: "stringM",
-            availableInput:false 
+            availableInput: false
           },
           {
             Header: "Campaña UTM",
             accessor: "campañaUTM",
             type: "string",
-            availableInput:false 
+            availableInput: false
           },
           {
             Header: "Fuente UTM",
             accessor: "fuenteUTM",
             type: "string",
-            availableInput:false 
+            availableInput: false
           },
           {
             Header: "UTM Medio",
             accessor: "medioUTM",
             type: "string",
-            availableInput:false 
+            availableInput: false
           },
           {
             Header: "Termino UTM",
             accessor: "terminoUTM",
             type: "string",
-            availableInput:false 
+            availableInput: false
           },
           {
             Header: "Contenido UTM",
             accessor: "contenidoUTM",
             type: "string",
-            availableInput:false 
+            availableInput: false
           },
           {
             Header: "Imagen",
             accessor: "image",
             type: "image",
             typeFile: "image",
-            availableInput:false
+            availableInput: false
           },
           {
             Header: "Favicon",
             accessor: "logoDirectory",
             type: "urlLg",
-            availableInput:false 
+            availableInput: false
           },
           {
             Header: "Limite de clicks",
             accessor: "clicksLimit",
             type: "numberM",
-            availableInput:false
+            availableInput: false
 
           },
           {
             Header: "Tiempo de expiracion",
             accessor: "Expiration",
             type: "numberM",
-            availableInput:false 
+            availableInput: false
 
           },
           {
@@ -920,6 +974,34 @@ export const BodyStaticAPP: Schema[] = [
         roles: ["empresa"],
         route: "cateringBodas",
         schema: [],
+        subComponents: [
+          {
+            icon: <PlatillOpenCatering />,
+            title: "Carta de productos",
+            componentName: "1"
+          },
+          {
+            icon: <MenuCatering />,
+            title: "Plantillas de menú",
+            componentName: "1"
+          },
+          {
+            icon: <PlatilloCloseCatering />,
+            title: "Menú",
+            componentName: "1"
+          },
+          {
+            icon: <InvitadosCatering />,
+            title: "Lista de Invitados",
+            componentName: "1",
+            type: "iframe",
+          },
+          {
+            icon: <ItinerarioCatering />,
+            title: "Itinerarios",
+            componentName: "1"
+          },
+        ],
       },
       {
         icon: <WeddingPlanner className="h-6 w-6" />,
@@ -927,6 +1009,36 @@ export const BodyStaticAPP: Schema[] = [
         roles: ["empresa"],
         route: "weddingPlanner",
         schema: [],
+        subComponents: [
+          {
+            icon: <InvitadosCatering />,
+            title: "Lista de invitados",
+            componentName: "<IframeApp ",
+            type: "iframe",
+          },
+          {
+            icon: <PresupuestoIcon />,
+            title: "Presupuesto",
+            componentName: "",
+            type: "iframe",
+          },
+          {
+            icon: <CorreoIcon />,
+            title: "Invitaciones",
+            componentName: "",
+            type: "iframe",
+          },
+          {
+            icon: <ItinerarioCatering />,
+            title: "Intinerarios",
+            componentName: "",
+          },
+          {
+            icon: <Webs />,
+            title: "Mis Webs",
+            componentName: "",
+          },
+        ],
       },
       {
         icon: <FotografoMenu className="h-6 w-6" />,
@@ -934,6 +1046,18 @@ export const BodyStaticAPP: Schema[] = [
         roles: ["empresa"],
         route: "fotografo",
         schema: [],
+        subComponents: [
+          {
+            icon: <FotoIcon />,
+            title: "Colecciones",
+            componentName: ""
+          },
+          {
+            icon: <FotografoMenu />,
+            title: "Proyectos",
+            componentName: ""
+          },
+        ],
       },
     ],
   },
@@ -959,6 +1083,18 @@ export const BodyStaticAPP: Schema[] = [
         deleteEntry: null,
         updateEntry: null,
         schema: [],
+        subComponents: [
+          {
+            icon: <InvitadosContactos />,
+            title: "Personas",
+            componentName: ""
+        },
+        {
+            icon: <BusinessIcon />,
+            title: "Empresas",
+            componentName: ""
+        },
+        ],
       },
       {
         title: null,
@@ -1056,7 +1192,52 @@ export const BodyStaticAPP: Schema[] = [
         icon: <ClusterIcon />,
         title: "Cluster",
         roles: ["all"],
-        route: "cluster"
+        route: "cluster",
+        subComponents: [
+          {
+            icon: <LeadsIcon className="h-5 w-5" />,
+            title: "Leads",
+            roles: ["all"],
+            route: "cluster/leads",
+            componentName: ""
+          },
+          {
+            icon: <ContactsIcon className="h-5 w-5" />,
+            title: "Contactos",
+            roles: ["all"],
+            route: "cluster/contacts",
+            componentName: ""
+          },
+          {
+            icon: <EntitiesIcon className="h-5 w-5" />,
+            title: "Entidades",
+            roles: ["all"],
+            route: "cluster/entities",
+            componentName: ""
+          },
+          {
+            icon: <CampaignsIcon className="h-5 w-5" />,
+            title: "Campañas",
+            roles: ["all"],
+            route: "cluster/campaigns",
+            componentName: ""
+          },
+          {
+            icon: <ChatBotIcon />,
+            title: "Chatbot",
+            roles: ["all"],
+            route: "cluster/chatbot",
+            componentName: ""
+          },
+          {
+            icon: <ChatEnVivoIcon />,
+            title: "Mensajería",
+      
+            roles: ["all"],
+            route: "cluster/messaging",
+            componentName: ""
+          },
+        ],
       },
       {
         icon: <ClusterIcon />,
@@ -1070,18 +1251,6 @@ export const BodyStaticAPP: Schema[] = [
         roles: ["all"],
         route: "erp"
       },
-      // {  // Buzon de Prospectos (antiguo, oculto para nuevo Cluster)
-      //   icon: <BuzonProsIcon />,
-      //   title: "Buzon de Prospectos",
-      //   hidden: true,
-      //   roles: ["all"],
-      //   route: "cluster/buzonProspectos",
-      //   getData: { query: queries.getAllUsers },
-      //   handleRowClick: "",
-      //   handleRowDobleClick: "",
-      //   schema: [ ... ]
-      // },
-      // CRM - Cluster submódulos (pantallas principales)
       {
         icon: <LeadsIcon className="h-5 w-5" />,
         title: "Leads",
@@ -1130,73 +1299,6 @@ export const BodyStaticAPP: Schema[] = [
         route: "cluster/messaging",
         component: <WhatsAppChatCRM />
       },
-      // ERP - submódulos (pantallas principales)
-      // TODO: Importar ERPMainPage cuando esté disponible
-      // {
-      //   icon: <ERPIcon className="h-5 w-5" />,
-      //   title: "Dashboard",
-      //   hidden: true,
-      //   roles: ["all"],
-      //   route: "erp/dashboard",
-      //   component: <ERPMainPage />
-      // },
-      // { // Chat en vivo antiguo
-      //   icon: <ChatEnVivoIcon />,
-      //   title: "Chat en vivo",
-      //   hidden: true,
-      //   roles: ["all"],
-      //   route: "cluster/chatVivo",
-      //   component: <InfoGeneral1 />
-      // },
-      // { // Chatbot antiguo
-      //   icon: <ChatBotIcon />,
-      //   title: "Chatbot",
-      //   hidden: true,
-      //   roles: ["all"],
-      //   route: "cluster/chatbot",
-      //   component: <InfoGeneral1 />
-      // },
-      // { // Formularios Web antiguo
-      //   icon: <FormulariosWebIcon />,
-      //   title: "Formularios Web",
-      //   hidden: true,
-      //   roles: ["all"],
-      //   route: "cluster/formulariosWeb",
-      //   component: <InfoGeneral1 />
-      // },
-      // { // Leads antiguo
-      //   icon: <Leads1Icon />,
-      //   title: "Leads",
-      //   hidden: true,
-      //   roles: ["all"],
-      //   route: "cluster/leads",
-      //   getData: null,
-      //   schema: [ ... ]
-      // },
-      // { // Invitados antiguo (oculto para nuevo Cluster)
-      //   icon: <Invitados1Icon />,
-      //   title: "Invitados",
-      //   hidden: true,
-      //   roles: ["all"],
-      //   route: "cluster/invitados",
-      //   schema: [ ... ]
-      // },
-      // { // Visitas Web antiguo (oculto para nuevo Cluster)
-      //   icon: <VisitasWebIcon />,
-      //   title: "Visitas Web",
-      //   hidden: true,
-      //   roles: ["all"],
-      //   route: "cluster/visitasWeb",
-      //   component: <CompVisitasWebs />
-      // },
-      // { // Mensajes antiguo
-      //   icon: <Mensajes1Icon />,
-      //   title: "Mensajes",
-      //   hidden: true,
-      //   roles: ["all"],
-      //   route: "cluster/mensajes",
-      //   component: <ClusterInfo1 />
-      // },
     ]
   },
   {
@@ -1456,81 +1558,6 @@ export const BodyStaticAPP: Schema[] = [
       },
     ]
   },
-  /* {
-    title: "Marca Blanca",
-    roles: ["empresa"],
-    children: [
-      {
-        icon: <IoSettingsOutline className="w-5 h-5" />,
-        title: "Configuración",
-        roles: ["all"],
-        route: "whitelabel/setup",
-        getData: "",
-        getByID: "",
-        createEntry: "",
-        updateEntry: "",
-        deleteEntry: "",
-        schema: [
-          {
-            Header: "ID",
-            accessor: "_id",
-          },
-          {
-            Header: "Nombre",
-            accessor: "name",
-            type: "stringM",
-          },
-          {
-            Header: "Dominio",
-            accessor: "domain",
-            type: "stringM",
-          },
-          {
-            Header: "Página web",
-            accessor: "pathDirectory",
-            type: "urlLg",
-          },
-          {
-            Header: "Titulo del navegador",
-            accessor: "headTitle",
-            type: "stringL",
-          },
-          {
-            Header: "Favicon",
-            accessor: "logoDirectory",
-            type: "urlLg",
-          },
-          {
-            Header: "Logotipo",
-            accessor: "logoDirectory",
-            type: "urlLg",
-          },
-          {
-            Header: "Color pirncipal",
-            accessor: "primaryColor",
-            type: "color",
-          },
-          {
-            Header: "Color secundario",
-            accessor: "secondaryColor",
-            type: "color",
-          },
-          {
-            Header: "Color terciario",
-            accessor: "tertiaryColor",
-            type: "color",
-          },
-          {
-            Header: "Color para fondos y rellenos",
-            accessor: "baseColor",
-            type: "color",
-          },
-
-        ],
-      },
-    ]
-  },
- */
   {
     title: "Marketplace",
     roles: ["empresa"],
