@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { useSavedFilters } from "../../hooks/useSavedFilters";
 import CreateFilterModal from "./CreateFilterModal";
@@ -43,7 +43,7 @@ export default function FilterDropdown({
   const [editingFilter, setEditingFilter] = useState<{ id: string; name: string; conditions: any[]; visibility: "PRIVATE" | "SHARED"; saveColumns?: boolean } | null>(null);
   
   // Cargar filtros guardados del backend
-  const { filters: savedFilters, isLoading: isLoadingFilters, createFilter, deleteFilter, updateFilter } = useSavedFilters(entityType);
+  const { filters: savedFilters, isLoading: isLoadingFilters, createFilter, deleteFilter, updateFilter, toggleFavorite } = useSavedFilters(entityType);
   
   const { dispatch } = ToastContextProvider();
   const pushToast = (type: string, message: string) => {
@@ -116,29 +116,70 @@ export default function FilterDropdown({
   }, [isOpen, buttonRef]);
 
   // Transformar savedFilters del backend al formato del dropdown
-  const savedFilterItems: Filter[] = savedFilters.map(f => ({
-    id: f.id,
-    name: f.name,
-    type: "filter" as const
-  }));
+  // Asegurar que todos los filtros tengan name válido
+  // IMPORTANTE: Todos los filtros guardados deben aparecer SIEMPRE en la lista de "Filtros"
+  // independientemente de si son favoritos o no
+  // Usar useMemo para recalcular cuando savedFilters cambie
+  // IMPORTANTE: Todos los hooks deben estar ANTES de cualquier return condicional
+  const savedFilterItems: Filter[] = useMemo(() => {
+    return savedFilters
+      .filter(f => f && f.id && f.name) // Filtrar solo filtros válidos
+      .map(f => ({
+        id: f.id,
+        name: f.name || "Sin nombre", // Fallback si name es undefined
+        type: "filter" as const
+      }));
+  }, [savedFilters]);
 
   // Combinar filtros de propietarios con filtros guardados
-  const allFilterItems = [...filters, ...savedFilterItems];
+  // Los filtros de propietarios vienen de la prop 'filters'
+  // Los filtros guardados vienen de savedFilters (hook useSavedFilters)
+  const allFilterItems = useMemo(() => [...filters, ...savedFilterItems], [filters, savedFilterItems]);
 
+  const owners = useMemo(() => filters.filter((f) => f.type === "owner"), [filters]);
+  
+  // En la pestaña "Filtros" deben aparecer TODOS los filtros guardados
+  // (favoritos Y no favoritos) - NO filtrar por isFavorite
+  const filterItems = useMemo(() => allFilterItems.filter((f) => f.type === "filter"), [allFilterItems]);
+  
+  // En la pestaña "Favoritos" solo aparecen los favoritos
+  // Crear la lista de favoritos directamente desde savedFilters con isFavorite === true
+  // Esto es independiente de filterItems - un filtro puede estar en ambas listas
+  // Usar useMemo para recalcular cuando savedFilters cambie
+  const favorites = useMemo(() => {
+    const favs = savedFilters
+      .filter(f => {
+        const isFav = f && f.id && f.name && f.isFavorite === true;
+        // Debug temporal para ver qué está pasando
+        if (f && f.id) {
+          console.log(`[FilterDropdown] Filter ${f.id} (${f.name}): isFavorite = ${f.isFavorite}, type = ${typeof f.isFavorite}, will include: ${isFav}`);
+        }
+        return isFav;
+      })
+      .map(f => ({
+        id: f.id,
+        name: f.name || "Sin nombre",
+        type: "filter" as const
+      }));
+    console.log("[FilterDropdown] favorites list updated:", favs, "from savedFilters:", savedFilters);
+    return favs;
+  }, [savedFilters]);
+
+  // Verificar si hay favoritos
+  const hasFavorites = favorites.length > 0;
+
+  // IMPORTANTE: Todos los hooks deben ejecutarse ANTES de cualquier return condicional
+  // Esto es una regla de React Hooks
   if (!isOpen && !showCreateModal && !editingFilter) return null;
 
-  const owners = filters.filter((f) => f.type === "owner");
-  const filterItems = allFilterItems.filter((f) => f.type === "filter");
-  const favorites = allFilterItems.filter((f) => {
-    if (f.type === "filter") {
-      const savedFilter = savedFilters.find(sf => sf.id === f.id);
-      return savedFilter?.isFavorite || false;
-    }
-    return false;
-  });
-
   const filteredItems = (activeTab === "owners" ? owners : activeTab === "filters" ? filterItems : favorites).filter(
-    (item) => item.name.toLowerCase().includes(searchText.toLowerCase())
+    (item) => {
+      // Validación defensiva: asegurar que name existe y es string
+      if (!item || !item.name || typeof item.name !== 'string') {
+        return false;
+      }
+      return item.name.toLowerCase().includes(searchText.toLowerCase());
+    }
   );
 
   const handleCreateFilter = async (filterData: {
@@ -306,17 +347,139 @@ export default function FilterDropdown({
       {/* Content */}
       <div className="max-h-64 overflow-y-auto">
         {activeTab === "favorites" && (
-          <div className="p-4">
-            <div
-              className="p-4 rounded text-sm text-center"
-              style={{
-                backgroundColor: "#EFF6FF",
-                border: "1px solid #BFDBFE",
-                color: "#1E40AF",
-              }}
-            >
-              Marca un propietario o filtro como favorito para que aparezca aquí.
-            </div>
+          <div className="p-2">
+            {hasFavorites ? (
+              favorites.map((item) => {
+                const filter = savedFilters.find(sf => sf.id === item.id);
+                // Asegurar que el nombre siempre esté disponible desde el savedFilter
+                const displayName = filter?.name || item.name || "Sin nombre";
+                
+                return (
+                  <div
+                    key={item.id}
+                    className="flex items-center justify-between p-2 rounded cursor-pointer hover:bg-gray-50 group"
+                    onClick={() => {
+                      if (selectedFilterId === item.id) {
+                        onSelectFilter(undefined);
+                      } else {
+                        onSelectFilter(item.id);
+                      }
+                    }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path
+                          d="M8 2L9.5 6L14 6.5L10.5 9.5L11.5 14L8 11.5L4.5 14L5.5 9.5L2 6.5L6.5 6L8 2Z"
+                          stroke="#F59E0B"
+                          strokeWidth="1.5"
+                          fill="#F59E0B"
+                        />
+                      </svg>
+                      <span className="text-sm" style={{ color: "#111827" }}>
+                        {displayName}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {selectedFilterId === item.id && (
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                          <path
+                            d="M13 4L6 11L3 8"
+                            stroke="#1D4ED8"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      )}
+                      {filter && (
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleFavorite(item.id);
+                            }}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-yellow-50"
+                            style={{ color: "#F59E0B" }}
+                            title="Quitar de favoritos"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                              <path
+                                d="M8 2L9.5 6L14 6.5L10.5 9.5L11.5 14L8 11.5L4.5 14L5.5 9.5L2 6.5L6.5 6L8 2Z"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                fill="currentColor"
+                              />
+                            </svg>
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onClose();
+                              setEditingFilter({
+                                id: filter.id,
+                                name: filter.name || "Sin nombre",
+                                conditions: filter.conditions,
+                                visibility: filter.visibility,
+                                saveColumns: filter.saveColumns
+                              });
+                            }}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-blue-50"
+                            style={{ color: "#3B82F6" }}
+                            title="Editar filtro"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                              <path
+                                d="M11.333 2.667a2.667 2.667 0 0 1 3.334 3.334L5.333 14.667H2v-3.333l9.333-9.333z"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (confirm(`¿Estás seguro de que quieres eliminar el filtro "${displayName}"?`)) {
+                                deleteFilter(item.id);
+                                if (selectedFilterId === item.id) {
+                                  onSelectFilter(undefined);
+                                }
+                              }
+                            }}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-red-50"
+                            style={{ color: "#EF4444" }}
+                            title="Eliminar filtro"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                              <path
+                                d="M4 4L12 12M12 4L4 12"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <div className="p-4">
+                <div
+                  className="p-4 rounded text-sm text-center"
+                  style={{
+                    backgroundColor: "#EFF6FF",
+                    border: "1px solid #BFDBFE",
+                    color: "#1E40AF",
+                  }}
+                >
+                  Marca un filtro como favorito para que aparezca aquí.
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -399,7 +562,10 @@ export default function FilterDropdown({
           <div className="p-2">
             {filteredItems.map((item) => {
               // Verificar si es un filtro guardado (tiene id en savedFilters)
-              const isSavedFilter = savedFilters.some(sf => sf.id === item.id);
+              const filter = savedFilters.find(sf => sf.id === item.id);
+              const isSavedFilter = !!filter;
+              // Asegurar que el nombre siempre esté disponible
+              const displayName = filter?.name || item.name || "Sin nombre";
               
               return (
                 <div
@@ -415,7 +581,7 @@ export default function FilterDropdown({
                   }}
                 >
                   <span className="text-sm" style={{ color: "#111827" }}>
-                    {item.name}
+                    {displayName}
                   </span>
                   <div className="flex items-center gap-2">
                     {selectedFilterId === item.id && (
@@ -429,63 +595,96 @@ export default function FilterDropdown({
                         />
                       </svg>
                     )}
-                    {isSavedFilter && (
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            const filter = savedFilters.find(sf => sf.id === item.id);
-                            if (filter) {
-                              onClose(); // Cerrar el desplegable primero
-                              setEditingFilter({
-                                id: filter.id,
-                                name: filter.name,
-                                conditions: filter.conditions,
-                                visibility: filter.visibility,
-                                saveColumns: filter.saveColumns
-                              });
-                            }
-                          }}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-blue-50"
-                          style={{ color: "#3B82F6" }}
-                          title="Editar filtro"
-                        >
-                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                            <path
-                              d="M11.333 2.667a2.667 2.667 0 0 1 3.334 3.334L5.333 14.667H2v-3.333l9.333-9.333z"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            if (confirm(`¿Estás seguro de que quieres eliminar el filtro "${item.name}"?`)) {
-                              deleteFilter(item.id);
-                              // Si el filtro eliminado estaba seleccionado, deseleccionarlo
-                              if (selectedFilterId === item.id) {
-                                onSelectFilter(undefined);
+                    {isSavedFilter && (() => {
+                      const filter = savedFilters.find(sf => sf.id === item.id);
+                      // Usar comparación estricta para isFavorite
+                      const isFavorite = filter?.isFavorite === true;
+                      
+                      return (
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={async (e) => {
+                              e.stopPropagation();
+                              // No cerrar el dropdown ni cambiar la selección, solo toggle favorite
+                              try {
+                                const result = await toggleFavorite(item.id);
+                                // El estado se actualizará automáticamente a través del hook
+                                // El componente se re-renderizará cuando savedFilters cambie
+                                if (result) {
+                                  // El estado ya se actualizó en el hook, no necesitamos hacer nada más
+                                }
+                              } catch (error) {
+                                console.error("Error al actualizar favorito:", error);
                               }
-                            }
-                          }}
-                          className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-red-50"
-                          style={{ color: "#EF4444" }}
-                          title="Eliminar filtro"
-                        >
-                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                            <path
-                              d="M4 4L12 12M12 4L4 12"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                    )}
+                            }}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-yellow-50"
+                            style={{ color: isFavorite ? "#F59E0B" : "#9CA3AF" }}
+                            title={isFavorite ? "Quitar de favoritos" : "Agregar a favoritos"}
+                          >
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                              <path
+                                d="M8 2L9.5 6L14 6.5L10.5 9.5L11.5 14L8 11.5L4.5 14L5.5 9.5L2 6.5L6.5 6L8 2Z"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                fill={isFavorite ? "currentColor" : "none"}
+                              />
+                            </svg>
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (filter) {
+                                onClose(); // Cerrar el desplegable primero
+                                setEditingFilter({
+                                  id: filter.id,
+                                  name: filter.name,
+                                  conditions: filter.conditions,
+                                  visibility: filter.visibility,
+                                  saveColumns: filter.saveColumns
+                                });
+                              }
+                            }}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-blue-50"
+                            style={{ color: "#3B82F6" }}
+                            title="Editar filtro"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                              <path
+                                d="M11.333 2.667a2.667 2.667 0 0 1 3.334 3.334L5.333 14.667H2v-3.333l9.333-9.333z"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (confirm(`¿Estás seguro de que quieres eliminar el filtro "${item.name}"?`)) {
+                                deleteFilter(item.id);
+                                // Si el filtro eliminado estaba seleccionado, deseleccionarlo
+                                if (selectedFilterId === item.id) {
+                                  onSelectFilter(undefined);
+                                }
+                              }
+                            }}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-red-50"
+                            style={{ color: "#EF4444" }}
+                            title="Eliminar filtro"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                              <path
+                                d="M4 4L12 12M12 4L4 12"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      );
+                    })()}
                   </div>
                 </div>
               );
