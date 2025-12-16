@@ -4,6 +4,7 @@ import PipedriveFormModal from "../Shared/PipedriveFormModal";
 import PipedriveDetailModal from "../Shared/PipedriveDetailModal";
 import EditableField from "../Shared/EditableField";
 import NotesEditor from "../Shared/NotesEditor";
+import ShareModal from "./ShareModal";
 import { CRM_MUTATIONS, CRM_QUERIES } from "../../utils/crmQueries";
 import { fetchApiCRM } from "../../utils/CRMFetching";
 import { LeadsIcon } from "../Icons/index";
@@ -23,6 +24,7 @@ const GET_CRM_LEADS = CRM_QUERIES.GET_LEADS;
 export default function LeadsCRM() {
   const [openCreate, setOpenCreate] = useState(false);
   const [selectedRow, setSelectedRow] = useState<any | null>(null);
+  const [shareRow, setShareRow] = useState<any | null>(null);
   const [editRow, setEditRow] = useState<any | null>(null);
   const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
   const [selectedOwnerId, setSelectedOwnerId] = useState<string | undefined>(undefined);
@@ -234,11 +236,37 @@ export default function LeadsCRM() {
           setOpenCreate(false);
         }}
       />
+      <ShareModal
+        isOpen={!!shareRow}
+        onClose={() => setShareRow(null)}
+        entityLabel="lead"
+        onSubmit={async (payload) => {
+          if (!shareRow?.id) return;
+          await fetchApiCRM({ 
+            query: CRM_MUTATIONS.SHARE_CRM_ENTITY, 
+            variables: { 
+              input: {
+                entityType: "LEAD",
+                entityId: shareRow.id,
+                shareWith: payload.userIds?.map((uid: string) => ({
+                  userId: uid,
+                  userName: uid, // TODO: Obtener nombre real del usuario
+                  permissionLevel: payload.permissions
+                })) || []
+              }
+            } 
+          });
+        }}
+      />
       <PipedriveDetailModal
         isOpen={!!selectedRow}
         onClose={() => setSelectedRow(null)}
         title={selectedRow?.name || "Detalle del Lead"}
         entityType="LEAD"
+        onShare={() => {
+          setShareRow(selectedRow);
+          setSelectedRow(null);
+        }}
         editFields={[
           { 
             name: "name", 

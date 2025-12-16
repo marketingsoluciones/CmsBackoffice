@@ -42,6 +42,8 @@ interface TableToolbarProps {
   owners?: Array<{ id: string; name: string }>;
   selectedOwnerId?: string;
   onSelectOwner?: (ownerId: string | undefined) => void;
+  selectedFilterId?: string;
+  onSelectFilter?: (filterId: string | undefined) => void;
   onCreateFilter?: () => void;
 }
 
@@ -74,6 +76,8 @@ export default function TableToolbar({
   owners = [],
   selectedOwnerId,
   onSelectOwner,
+  selectedFilterId,
+  onSelectFilter,
   onCreateFilter,
 }: TableToolbarProps) {
   const [isLabelsOpen, setIsLabelsOpen] = useState(false);
@@ -274,8 +278,17 @@ export default function TableToolbar({
                   ...owners.map(o => ({ id: o.id, name: o.name, type: "owner" as const })),
                   ...(filtersCount && filtersCount > 0 ? [{ id: "custom", name: "Custom filters", type: "filter" as const }] : [])
                 ]}
-                selectedFilterId={selectedOwnerId}
-                onSelectFilter={onSelectOwner}
+                selectedFilterId={selectedFilterId || selectedOwnerId}
+                onSelectFilter={(filterId) => {
+                  // Si es un filtro guardado (no owner), usar onSelectFilter
+                  // Si es un owner, usar onSelectOwner
+                  const isOwner = owners.some(o => o.id === filterId);
+                  if (isOwner && onSelectOwner) {
+                    onSelectOwner(filterId);
+                  } else if (onSelectFilter) {
+                    onSelectFilter(filterId);
+                  }
+                }}
                 onCreateFilter={() => {
                   console.log("[TableToolbar] onCreateFilter called");
                   setIsFilterOpen(false);

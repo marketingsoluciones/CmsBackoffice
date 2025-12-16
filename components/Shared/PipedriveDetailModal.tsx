@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Formik, Form, Field } from "formik";
 import { ToastContextProvider } from "../../context/ToastContext";
 import { getFieldIcon } from "../Icons/ProfessionalIcons";
@@ -245,9 +246,17 @@ export default function PipedriveDetailModal({
                 <button
                   onClick={() => {
                     if (onShare) {
+                      // Ejecutar onShare primero (esto establecerá el estado del modal de compartir)
+                      // onShare debe manejar el cierre del modal de detalles internamente
                       onShare();
                     } else if (entityType && editInitialData?.id) {
-                      setShowShareModal(true);
+                      // Si no hay onShare prop, usar el estado interno
+                      // Cerrar el modal de detalles primero
+                      onClose();
+                      // Luego abrir el modal de compartir (se renderizará fuera del modal de detalles usando Portal)
+                      setTimeout(() => {
+                        setShowShareModal(true);
+                      }, 100);
                     }
                   }}
                       className="flex items-center justify-center rounded-sm transition-all duration-200"
@@ -1119,12 +1128,15 @@ export default function PipedriveDetailModal({
         </div>
       </div>
 
-      {/* Share Modal */}
-      {showShareModal && entityType && editInitialData?.id && (
+      {/* Share Modal - Renderizado fuera del modal de detalles usando Portal */}
+      {/* Solo se renderiza si NO hay prop onShare (para casos donde el componente padre no maneja el estado) */}
+      {!onShare && showShareModal && entityType && editInitialData?.id && typeof window !== "undefined" && createPortal(
         entityType === "BUSINESS" ? (
           <ShareEntityModalERP
             isOpen={showShareModal}
-            onClose={() => setShowShareModal(false)}
+            onClose={() => {
+              setShowShareModal(false);
+            }}
             entityType={entityType}
             entityId={editInitialData.id}
             entityName={title}
@@ -1135,7 +1147,9 @@ export default function PipedriveDetailModal({
         ) : (
           <ShareEntityModal
             isOpen={showShareModal}
-            onClose={() => setShowShareModal(false)}
+            onClose={() => {
+              setShowShareModal(false);
+            }}
             entityType={entityType}
             entityId={editInitialData.id}
             entityName={title}
@@ -1143,7 +1157,8 @@ export default function PipedriveDetailModal({
               // Recargar datos si es necesario
             }}
           />
-        )
+        ),
+        document.body
       )}
     </>
   );

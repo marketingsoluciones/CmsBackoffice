@@ -17,7 +17,7 @@ export default function ShareModal({ isOpen, onClose, onSubmit, entityLabel }: S
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50" style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}>
+    <div className="fixed inset-0 flex items-center justify-center" style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)', zIndex: 10000 }}>
       <div className="w-full max-w-lg rounded-xl shadow-lg p-5" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F3F4F6' }}>
         <div className="flex items-center justify-between mb-4 pb-2" style={{ borderBottom: '1px solid #F3F4F6' }}>
           <h3 className="text-base font-semibold" style={{ color: '#3B82F6' }}>Compartir {entityLabel}</h3>

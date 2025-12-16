@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   XMarkIcon,
   ClipboardDocumentListIcon,
@@ -27,19 +27,21 @@ export default function ColumnsConfigModal({
   onReset,
   onSave
 }: ColumnsConfigModalProps) {
+  const [draggedField, setDraggedField] = useState<string | null>(null);
+  const [dragOverField, setDragOverField] = useState<string | null>(null);
+
   if (!isOpen) return null;
+
   const handleToggle = (field: string) => {
     const next = columns.map(c => c.field === field ? { ...c, visible: !c.visible } : c);
     onChangeColumns(next);
   };
-  const handleWidth = (field: string, width: number) => {
-    const next = columns.map(c => c.field === field ? { ...c, width } : c);
-    onChangeColumns(next);
-  };
+
   const handlePinned = (field: string) => {
     const next = columns.map(c => c.field === field ? { ...c, pinned: !c.pinned } : c);
     onChangeColumns(next);
   };
+
   const move = (from: number, to: number) => {
     const arr = [...columns].sort((a, b) => a.order - b.order);
     const [item] = arr.splice(from, 1);
@@ -47,6 +49,58 @@ export default function ColumnsConfigModal({
     const normalized = arr.map((c, idx) => ({ ...c, order: idx }));
     onChangeColumns(normalized);
   };
+
+  // Drag and Drop handlers
+  const handleDragStart = (e: React.DragEvent, field: string) => {
+    setDraggedField(field);
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', field);
+  };
+
+  const handleDragOver = (e: React.DragEvent, field: string) => {
+    if (!draggedField || draggedField === field) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    setDragOverField(field);
+  };
+
+  const handleDragLeave = () => {
+    setDragOverField(null);
+  };
+
+  const handleDrop = (e: React.DragEvent, targetField: string) => {
+    e.preventDefault();
+    if (!draggedField || draggedField === targetField) {
+      setDraggedField(null);
+      setDragOverField(null);
+      return;
+    }
+
+    const ordered = [...columns].sort((a, b) => a.order - b.order);
+    const draggedIndex = ordered.findIndex(c => c.field === draggedField);
+    const targetIndex = ordered.findIndex(c => c.field === targetField);
+
+    if (draggedIndex === -1 || targetIndex === -1) {
+      setDraggedField(null);
+      setDragOverField(null);
+      return;
+    }
+
+    const [removed] = ordered.splice(draggedIndex, 1);
+    ordered.splice(targetIndex, 0, removed);
+
+    const normalized = ordered.map((c, idx) => ({ ...c, order: idx }));
+    onChangeColumns(normalized);
+
+    setDraggedField(null);
+    setDragOverField(null);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedField(null);
+    setDragOverField(null);
+  };
+
   const ordered = [...columns].sort((a, b) => a.order - b.order);
   const visible = ordered.filter(c => c.visible);
   const hidden = ordered.filter(c => !c.visible);
@@ -74,14 +128,31 @@ export default function ColumnsConfigModal({
             </h4>
             <div className="flex flex-col gap-2">
               {visible.map((c, idx) => (
-                <div key={c.field} className="flex items-center gap-2 rounded-sm px-2 py-1" style={{ border: '1px solid #E5E7EB', backgroundColor: '#F9FAFB', borderRadius: '2px' }}>
-                  <span className="cursor-grab" style={{ color: '#9CA3AF' }}>
+                <div
+                  key={c.field}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, c.field)}
+                  onDragOver={(e) => handleDragOver(e, c.field)}
+                  onDragLeave={handleDragLeave}
+                  onDrop={(e) => handleDrop(e, c.field)}
+                  onDragEnd={handleDragEnd}
+                  className="flex items-center gap-2 rounded-sm px-2 py-1 transition-colors"
+                  style={{
+                    border: dragOverField === c.field ? '2px solid #3B82F6' : '1px solid #E5E7EB',
+                    backgroundColor: draggedField === c.field ? '#E0E7FF' : dragOverField === c.field ? '#DBEAFE' : '#F9FAFB',
+                    borderRadius: '2px',
+                    opacity: draggedField === c.field ? 0.5 : 1,
+                    cursor: 'move'
+                  }}
+                >
+                  <span className="cursor-grab active:cursor-grabbing" style={{ color: '#9CA3AF' }}>
                     <Bars3Icon width={16} height={16} />
                   </span>
                   <input
                     type="checkbox"
                     checked={c.visible}
                     onChange={() => handleToggle(c.field)}
+                    onClick={(e) => e.stopPropagation()}
                   />
                   <span className="text-xs truncate min-w-[120px]" style={{ color: '#374151' }} title={c.label}>
                     {c.label}
@@ -91,7 +162,10 @@ export default function ColumnsConfigModal({
                     style={{ border: '1px solid #D1D5DB', backgroundColor: '#FFFFFF', color: '#4B5563', borderRadius: '2px' }}
                     onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F3F4F6'}
                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FFFFFF'}
-                    onClick={() => handlePinned(c.field)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handlePinned(c.field);
+                    }}
                   >
                     <MapPinIcon width={12} height={12} style={{ color: c.pinned ? '#3B82F6' : '#4B5563' }} />
                     {c.pinned ? "Fijada" : "Fijar"}
@@ -103,7 +177,10 @@ export default function ColumnsConfigModal({
                       onMouseEnter={(e) => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#F3F4F6')}
                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FFFFFF'}
                       disabled={idx === 0}
-                      onClick={() => move(idx, idx - 1)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        move(idx, idx - 1);
+                      }}
                       title="Mover arriba"
                     >
                       <ChevronUpIcon width={12} height={12} />
@@ -114,21 +191,14 @@ export default function ColumnsConfigModal({
                       onMouseEnter={(e) => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#F3F4F6')}
                       onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FFFFFF'}
                       disabled={idx === visible.length - 1}
-                      onClick={() => move(idx, idx + 1)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        move(idx, idx + 1);
+                      }}
                       title="Mover abajo"
                     >
                       <ChevronDownIcon width={12} height={12} />
                     </button>
-                    <input
-                      type="number"
-                      className="w-20 rounded-sm px-2 py-1 text-xs transition-colors"
-                      style={{ border: '1px solid #E5E7EB', borderRadius: '2px' }}
-                      onFocus={(e) => e.currentTarget.style.borderColor = '#3B82F6'}
-                      onBlur={(e) => e.currentTarget.style.borderColor = '#E5E7EB'}
-                      placeholder="Ancho"
-                      value={c.width || ""}
-                      onChange={(e) => handleWidth(c.field, parseInt(e.target.value || "0"))}
-                    />
                   </div>
                 </div>
               ))}
