@@ -112,6 +112,8 @@ import { CiViewTable } from "react-icons/ci";
 import { PiCertificate } from "react-icons/pi";
 import { IoAnalytics, IoLinkOutline } from "react-icons/io5";
 import { GoProjectSymlink, GoWorkflow } from "react-icons/go";
+import { BsPeople } from "react-icons/bs";
+import { MdOutlineAddBusiness } from "react-icons/md";
 
 export const BodyStaticAPP: Schema[] = [
   {
@@ -139,37 +141,37 @@ export const BodyStaticAPP: Schema[] = [
           {
             icon: <PiCertificate className="h-6 w-auto" />,
             title: "Marcas",
-            route: "/brands",
+            route: "brands/brands",
             componentName: "1",
           },
           {
             icon: <CiViewTable className="h-6 w-auto" />,
             title: "Mis Webs",
-            route: "/mywebsites",
+            route: "brands/mywebsites",
             componentName: "2",
           },
           {
             icon: <IoAnalytics className="h-6 w-auto" />,
             title: "Métricas",
-            route: "/metrics",
+            route: "brands/metrics",
             componentName: "3",
           },
           {
             icon: <GoWorkflow className="h-6 w-auto" />,
             title: "WorkFlow",
-            route: "/workflow",
+            route: "brands/workflow",
             componentName: "4",
           },
           {
             icon: <IoLinkOutline className="h-6 w-auto" />,
             title: "Links",
-            route: "/links",
+            route: "brands/links",
             componentName: "5",
           },
           {
             icon: <GoProjectSymlink className="h-6 w-auto" />,
             title: "Marca Blanca",
-            route: "/whitelabel",
+            route: "brands/whitelabel",
             componentName: "6",
           },
         ]
@@ -1088,12 +1090,12 @@ export const BodyStaticAPP: Schema[] = [
             icon: <InvitadosContactos />,
             title: "Personas",
             componentName: ""
-        },
-        {
+          },
+          {
             icon: <BusinessIcon />,
             title: "Empresas",
             componentName: ""
-        },
+          },
         ],
       },
       {
@@ -1232,7 +1234,6 @@ export const BodyStaticAPP: Schema[] = [
           {
             icon: <ChatEnVivoIcon />,
             title: "Mensajería",
-      
             roles: ["all"],
             route: "cluster/messaging",
             componentName: ""
@@ -1568,6 +1569,18 @@ export const BodyStaticAPP: Schema[] = [
         roles: ["all"],
         route: "marketplace",
         schema: [],
+        subComponents: [
+          {
+            icon: <BsPeople className="h-6 w-auto " />,
+            title: "Novios",
+            componentName: ""
+          },
+          {
+            icon: <MdOutlineAddBusiness className="h-6 w-auto " />,
+            title: "empresa",
+            componentName: ""
+          },
+        ],
       },
     ]
   },
