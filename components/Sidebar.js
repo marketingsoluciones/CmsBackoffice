@@ -29,6 +29,43 @@ export const Sidebar = ({ state, setState }) => {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
+  const usesQueryParamNavigation = (subComponent, parentRoute) => {
+    if (subComponent.componentName) {
+      if (!subComponent.route) {
+        return true;
+      }
+      if (subComponent.route.includes("/")) {
+        return false;
+      }
+      if (subComponent.route.startsWith("/")) {
+        return false;
+      }
+      return true;
+    }
+    return false;
+  };
+
+  const isSubComponentActive = (subComponent, parentRoute) => {
+    const query = router.query;
+    
+    if (usesQueryParamNavigation(subComponent, parentRoute) && parentRoute) {
+      const isOnParentRoute = asPath === "/" + parentRoute || asPath.startsWith("/" + parentRoute + "/");
+      
+      if (isOnParentRoute) {
+        if (subComponent.route && query.subComponent === subComponent.route) return true;
+        if (subComponent.componentName && query.subComponent === subComponent.componentName) return true;
+      }
+    }
+    
+    if (subComponent.route && !usesQueryParamNavigation(subComponent, parentRoute)) {
+      return subComponent.route === asPath.split("/")[1] || 
+             asPath === "/" + subComponent.route || 
+             asPath.startsWith("/" + subComponent.route + "/");
+    }
+    
+    return false;
+  };
+
   // Expandir automáticamente los grupos y subComponents que contienen el item activo
   useEffect(() => {
     if (!user || !development) return;
@@ -82,67 +119,6 @@ export const Sidebar = ({ state, setState }) => {
       newExpanded.add(childKey);
     }
     setExpandedSubComponents(newExpanded);
-  };
-
-  /**
-   * Determina si un subComponent usa navegación con query params.
-   * 
-   * Lógica:
-   * - Si tiene `componentName`, es un componente interno que se renderiza dentro de la página del parent
-   * - Si además no tiene `route` o tiene un `route` relativo (sin /), usa query params
-   * - Si tiene `route` absoluto (con /), es una ruta independiente
-   * 
-   * Ejemplo:
-   * - { componentName: "PlantillaSalon", route: "mesas" } → usa query params
-   * - { componentName: "IframeApp", route: "/mesas" } → ruta independiente
-   * - { route: "/mesas" } → ruta independiente
-   */
-  const usesQueryParamNavigation = (subComponent, parentRoute) => {
-    // Si tiene componentName, probablemente es un componente interno que usa query params
-    if (subComponent.componentName) {
-      // Si no tiene route o el route es relativo (no empieza con /), usar query params
-      return !subComponent.route || !subComponent.route.startsWith("/");
-    }
-    // Si no tiene componentName pero tiene route, es una ruta independiente
-    return false;
-  };
-
-  /**
-   * Determina si un subComponent está activo basado en la ruta actual y query params.
-   * 
-   * Para subComponents con query params:
-   * - Verifica si estamos en la ruta del parent
-   * - Compara el query param `subComponent` con el `route` o `componentName` del subComponent
-   * 
-   * Para subComponents con rutas independientes:
-   * - Verifica directamente la ruta del subComponent
-   */
-  const isSubComponentActive = (subComponent, parentRoute) => {
-    const query = router.query;
-    
-    // Si usa navegación con query params (tiene componentName)
-    if (usesQueryParamNavigation(subComponent, parentRoute) && parentRoute) {
-      // Verificar si estamos en la ruta del parent
-      const isOnParentRoute = asPath === "/" + parentRoute || asPath.startsWith("/" + parentRoute + "/");
-      
-      if (isOnParentRoute) {
-        // Verificar query param por route o componentName
-        if (subComponent.route && query.subComponent === subComponent.route) return true;
-        if (subComponent.componentName && query.subComponent === subComponent.componentName) return true;
-        // Si no hay query param y estamos en la ruta del parent, 
-        // el componente por defecto (normalmente el hidden) podría estar activo
-        // Esto se maneja en cada página individualmente
-      }
-    }
-    
-    // Para subComponents con rutas independientes, verificar la ruta directamente
-    if (subComponent.route && !usesQueryParamNavigation(subComponent, parentRoute)) {
-      return subComponent.route === asPath.split("/")[1] || 
-             asPath === "/" + subComponent.route || 
-             asPath.startsWith("/" + subComponent.route + "/");
-    }
-    
-    return false;
   };
 
   const isGroupActive = (group) => {
@@ -436,22 +412,8 @@ export const Sidebar = ({ state, setState }) => {
                                   <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-2">
                                     {visibleSubComponents.map((subComponent, subIdx) => {
                                       const subIsActive = isSubComponentActive(subComponent, child.route);
-                                      
-                                      /**
-                                       * Función helper genérica para determinar la ruta de navegación.
-                                       * 
-                                       * Funciona para cualquier módulo que tenga subComponents:
-                                       * - Si el subComponent usa query params → navega a /parentRoute?subComponent=...
-                                       * - Si el subComponent tiene ruta independiente → navega directamente a esa ruta
-                                       * 
-                                       * Ejemplos:
-                                       * - { componentName: "PlantillaSalon", route: "mesas" } → /lugaresBodas?subComponent=mesas
-                                       * - { route: "/cluster/leads" } → /cluster/leads
-                                       */
                                       const getNavigationPath = () => {
-                                        // Si usa navegación con query params (tiene componentName)
                                         if (usesQueryParamNavigation(subComponent, child.route) && child.route) {
-                                          // Navegar a la página principal del parent con query param
                                           if (subComponent.route) {
                                             return { pathname: "/" + child.route, query: { subComponent: subComponent.route } }
                                           } else if (subComponent.componentName) {
@@ -459,7 +421,6 @@ export const Sidebar = ({ state, setState }) => {
                                           }
                                           return { pathname: "/" + child.route }
                                         }
-                                        // Para subComponents con rutas independientes, usar la ruta directamente
                                         if (subComponent.route) {
                                           return { pathname: "/" + subComponent.route }
                                         }
@@ -509,7 +470,6 @@ export const Sidebar = ({ state, setState }) => {
                             );
                           }
                           
-                          // Si no tiene subComponents, renderizar como item normal
                           return (
                             <button
                               key={childIdx}
@@ -546,7 +506,6 @@ export const Sidebar = ({ state, setState }) => {
                     )}
                   </>
                 ) : (
-                  // Si no tiene título, mostrar los items directamente sin expandir/colapsar
                   <div className="space-y-1">
                     {group.children.map((child, childIdx) => {
                       if (!hasRole(development, user, child.roles) || child.hidden) return null;
@@ -559,7 +518,6 @@ export const Sidebar = ({ state, setState }) => {
                         ? child.subComponents.filter(sub => !sub.hidden)
                         : [];
 
-                      // Si tiene subComponents, renderizar como expandible
                       if (hasSubComponents && visibleSubComponents.length > 0) {
                         const isSubComponentGroupActive = visibleSubComponents.some(sub => isSubComponentActive(sub, child.route));
                         
@@ -567,18 +525,15 @@ export const Sidebar = ({ state, setState }) => {
                           <div key={childIdx}>
                             <button
                               onClick={() => {
-                                // Si ya estoy en la ruta, solo expando/colapso
                                 if (childIsActive && child.route) {
                                   toggleSubComponent(childKey);
                                 } 
-                                // Si no estoy en la ruta y tiene route, redirijo y luego expando
                                 else if (child.route) {
                                   if (changedForm) {
                                     setHandle(() => () => {
                                       isMobile ? setState(!state) : null
                                       dispatch({ type: "VIEW", payload: {} });
                                       router.push("/" + child.route).then(() => {
-                                        // Después de navegar, expandir los subComponents
                                         setTimeout(() => {
                                           if (!isSubComponentOpen) {
                                             toggleSubComponent(childKey);
@@ -632,22 +587,9 @@ export const Sidebar = ({ state, setState }) => {
                               <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-2">
                                 {visibleSubComponents.map((subComponent, subIdx) => {
                                   const subIsActive = isSubComponentActive(subComponent, child.route);
-                                  
-                                  /**
-                                   * Función helper genérica para determinar la ruta de navegación.
-                                   * 
-                                   * Funciona para cualquier módulo que tenga subComponents:
-                                   * - Si el subComponent usa query params → navega a /parentRoute?subComponent=...
-                                   * - Si el subComponent tiene ruta independiente → navega directamente a esa ruta
-                                   * 
-                                   * Ejemplos:
-                                   * - { componentName: "PlantillaSalon", route: "mesas" } → /lugaresBodas?subComponent=mesas
-                                   * - { route: "/cluster/leads" } → /cluster/leads
-                                   */
+                                 
                                   const getNavigationPath = () => {
-                                    // Si usa navegación con query params (tiene componentName)
                                     if (usesQueryParamNavigation(subComponent, child.route) && child.route) {
-                                      // Navegar a la página principal del parent con query param
                                       if (subComponent.route) {
                                         return { pathname: "/" + child.route, query: { subComponent: subComponent.route } }
                                       } else if (subComponent.componentName) {
@@ -655,7 +597,6 @@ export const Sidebar = ({ state, setState }) => {
                                       }
                                       return { pathname: "/" + child.route }
                                     }
-                                    // Para subComponents con rutas independientes, usar la ruta directamente
                                     if (subComponent.route) {
                                       return { pathname: "/" + subComponent.route }
                                     }

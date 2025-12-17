@@ -2,27 +2,11 @@ import { FetchGraphQL, queries } from "./Fetching";
 import { formatTime } from "./formatTime";
 import {
   PermisosIcon, CampañasIcon, MetricasSociales, MarcasEmIcon, PreguntasFrecuentes, ChatIcon, CategoriasIcon, SubCategoriaIcon, CaracteristicasIcon, PostIcon, Secciones2Icon, CorazonIcon, Calendario, LugaresBodas, Catering, WeddingPlanner, FotografoMenu, Contactos, MaletaIcon, RpIcon,
-  ClusterIcon, BuzonProsIcon, Leads1Icon, Invitados1Icon, ChatEnVivoIcon, FormulariosWebIcon, ChatBotIcon, VisitasWebIcon, Mensajes1Icon, MesasICon, PlanoEventoIcon, InvitadosCatering, ItinerarioCatering,
-  PlatillOpenCatering,
-  MenuCatering,
-  PlatilloCloseCatering,
-  Webs,
-  CorreoIcon,
-  PresupuestoIcon,
-  FotoIcon,
-  BusinessIcon,
-  InvitadosContactos
+  ClusterIcon, ChatEnVivoIcon, ChatBotIcon, MesasICon, PlanoEventoIcon, InvitadosCatering, ItinerarioCatering, PlatillOpenCatering, MenuCatering, PlatilloCloseCatering, Webs, CorreoIcon, PresupuestoIcon, FotoIcon, BusinessIcon, InvitadosContactos
 } from "../components/Icons/index";
 import { FilterFnOption, SortingFnOption } from "@tanstack/react-table";
-import { ClusterInfo1, CompVisitasWebs, InfoGeneral1 } from "../components/NuevoEvento/ClusterMod";
 
 
-
-// componentes que definen la estructura del menu, fetchs,columnas visibles en la tabla y los inputs que componen el formulario
-
-// Para agregar otro componente para definir una nueva estructura: 
-//  1- Crea el componente que define la estructura 
-//  2- Sigue los pasos en el componente ./components/Datatable/Columns.js
 
 export const visibleColumns = [
   { accessor: "_id", show: false },
@@ -156,12 +140,12 @@ export const BodyStaticAPP: Schema[] = [
             route: "brands/metrics",
             componentName: "3",
           },
-          {
+        /*   {
             icon: <GoWorkflow className="h-6 w-auto" />,
             title: "WorkFlow",
             route: "brands/workflow",
             componentName: "4",
-          },
+          }, */
           {
             icon: <IoLinkOutline className="h-6 w-auto" />,
             title: "Links",

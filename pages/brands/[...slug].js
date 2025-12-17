@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react";
-import { SubmenuComponent } from "../../components/CateringBodasComponents/SubmenuComponent";
+import { useEffect, useMemo } from "react";
 import { MarcasControl } from "../../components/ModuloMarcas/Marcas";
 import { CustomWebsTable } from "../../components/ModuloMarcas/WeddingCustomWebs";
-import { PiCertificate } from "react-icons/pi";
 import { IframeMetricool } from "../../components/MarcaBlancaMetricool";
-import { IoAnalytics } from "react-icons/io5";
-import { CiViewTable } from "react-icons/ci";
 import { AuthContextProvider } from "../../context";
 import { IframeWorkFlow } from "../../components/ModuloMarcas/IframeWorkFlow";
-import { GoWorkflow } from "react-icons/go";
-import { IoLinkOutline } from "react-icons/io5";
-import { GoProjectSymlink } from "react-icons/go";
 import { Configuracion } from "../../components/ModuloMarcas/MarcasBlancas";
 import { useRouter } from "next/router";
 import { LinksControl } from "../../components/ModuloMarcas/Links";
@@ -19,87 +12,58 @@ import { BodyStaticAPP } from "../../utils/schemas";
 
 const Slug = ({ props }) => {
   const router = useRouter()
-  const [optionSelect, setOptionSelect] = useState(0);
-  const { user, development, dispatch } = AuthContextProvider();
+  const { user, development } = AuthContextProvider();
   const dataMetricool = user?.authDevelopments.find(
     (element) => element.title === development
   );
   const schemaChildren = BodyStaticAPP.find(elem => elem.title === "Mis Empresas")?.children.filter(elem => elem.hidden)
 
+  // Mapeo de slugs a componentes
+  const componentsMap = useMemo(() => ({
+    "/brands": <MarcasControl />,
+    "/mywebsites": <CustomWebsTable />,
+    "/metrics": <IframeMetricool dataMetricool={dataMetricool?.metricol} />,
+    "/workflow": <IframeWorkFlow />,
+    "/links": <LinksControl schemaChildren={schemaChildren} />,
+    "/whitelabel": <Configuracion />,
+  }), [dataMetricool?.metricol, schemaChildren]);
 
+  // Obtener el slug actual de la URL
+  // El router.query.slug será un array, por ejemplo: ["brands"] para /brands/brands
+  const currentSlug = router.query.slug && router.query.slug[0] 
+    ? `/${router.query.slug[0]}` 
+    : null;
 
+  // Obtener el componente a renderizar basado en el slug
+  const currentComponent = currentSlug ? componentsMap[currentSlug] : null;
+
+  // Redirigir solo si el slug no es válido (una vez que el router esté listo)
   useEffect(() => {
-    /* console.log(optionSelect) */
-  }, [optionSelect])
-  useEffect(() => {
-    const f1 = dataComponents.findIndex(elem => elem.slug === `/${router.query.slug[0]}`)
-    if (f1 > -1) {
-      setOptionSelect(f1)
-    } else {
-      router.push(`/${router.route.split("/")[1]}/${dataComponents[0].slug}`)
+    if (!router.isReady) {
+      return;
     }
-  }, [router])
-  const dataComponents = [
-    {
-      icon: <PiCertificate className="h-6 w-auto" />,
-      title: "Marcas",
-      slug: "/brands",
-      component: <MarcasControl optionSelect={optionSelect} />,
-    },
-    {
-      icon: <CiViewTable className="h-6 w-auto" />,
-      title: "Mis Webs",
-      slug: "/mywebsites",
-      component: <CustomWebsTable setComponentState={setOptionSelect} />,
-    },
-    {
-      icon: <IoAnalytics className="h-6 w-auto" />,
-      title: "Métricas",
-      slug: "/metrics",
-      component: <IframeMetricool dataMetricool={dataMetricool?.metricol} />,
-    },
-    {
-      icon: <GoWorkflow className="h-6 w-auto" />,
-      title: "WorkFlow",
-      slug: "/workflow",
-      component: <IframeWorkFlow />,
-    },
-    {
-      icon: <IoLinkOutline className="h-6 w-auto" />,
-      title: "Links",
-      slug: "/links",
-      component: <LinksControl  schemaChildren={schemaChildren} />,
-    },
-    {
-      icon: <GoProjectSymlink className="h-6 w-auto" />,
-      title: "Marca Blanca",
-      slug: "/whitelabel",
-      component: <Configuracion setComponentState={setOptionSelect} optionSelect={optionSelect} />,
-    },
-  ];
-  const handleClickOption = (idx) => {
-    /*  console.log(1003, `/${router.route.split("/")[1]}${dataComponents[idx].slug}`) */
-    dispatch({ type: "VIEW", payload: `/${router.route.split("/")[1]}${dataComponents[idx].slug}` });
-    router.push(`/${router.route.split("/")[1]}${dataComponents[idx].slug}`)
-    // setOptionSelect(idx);
-  };
+
+    // Si no hay slug, redirigir al primero por defecto
+    if (!currentSlug) {
+      const basePath = router.route.split("/")[1];
+      const isBaseRoute = router.asPath === `/${basePath}` || router.asPath === `/${basePath}/`;
+      if (isBaseRoute) {
+        router.replace(`/${basePath}/brands`);
+      }
+      return;
+    }
+
+    // Si el slug no existe en el mapa, redirigir al primero
+    if (!componentsMap[currentSlug]) {
+      const basePath = router.route.split("/")[1];
+      router.replace(`/${basePath}/brands`);
+    }
+  }, [router.isReady, currentSlug, router.asPath, router.route, componentsMap])
 
   return (
     <div className="w-full h-full flex">
-      <SubmenuComponent
-        dataComponents={dataComponents}
-        onClick={handleClickOption}
-        optionSelect={optionSelect}
-      />
-      <div
-        className={`flex-1 flex z-10`}>
-        {
-          dataComponents[optionSelect].component != undefined
-            ? dataComponents[optionSelect].component
-            : dataComponents[optionSelect]
-              ? <ColumnsDefTable schemaChildren={schemaChildren} />
-              : null
-        }
+      <div className="flex-1 flex z-10">
+        {currentComponent || null}
       </div>
     </div>
   );
