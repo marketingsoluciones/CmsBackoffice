@@ -18,7 +18,6 @@ const Slug = ({ props }) => {
   );
   const schemaChildren = BodyStaticAPP.find(elem => elem.title === "Mis Empresas")?.children.filter(elem => elem.hidden)
 
-  // Mapeo de slugs a componentes
   const componentsMap = useMemo(() => ({
     "/brands": <MarcasControl />,
     "/mywebsites": <CustomWebsTable />,

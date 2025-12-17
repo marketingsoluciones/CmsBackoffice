@@ -2,7 +2,6 @@ import { Text, Flex, Box, Menu, MenuItem, MenuGroup, MenuButton, MenuList } from
 import { BodyStaticAPP } from "../utils/schemas";
 import { AuthContextProvider } from "../context/AuthContext";
 import { useRouter } from "next/router";
-import { Tooltip } from "@chakra-ui/react";
 import { ArrowDownIcon, ArrowLeft, IconFolderOpenOutline } from "./../components/Icons/index";
 import { hasRole } from "../utils/auth";
 import { useState, useEffect } from "react";
@@ -263,35 +262,33 @@ export const Sidebar = ({ state, setState }) => {
                     const childIsActive = isItemActive(child);
                     return (
                       <div key={childIdx} className="relative">
-                        <Tooltip label={child.title} ml="14" top="-10">
-                          <button
-                            className={clsx(
-                              childIsActive
-                                ? 'bg-blue-50 text-blue-700'
-                                : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50',
-                              'group flex items-center justify-center w-full px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200',
-                              'relative'
-                            )}
-                            title={child.title}
-                            onClick={() => {
-                              if (changedForm) {
-                                setHandle(() => () => {
-                                  dispatch({ type: "VIEW", payload: {} });
-                                  router.push("/" + child.route)
-                                  setChangedForm(false)
-                                })
-                                setShowModal(true)
-                              } else {
+                        <button
+                          className={clsx(
+                            childIsActive
+                              ? 'bg-blue-50 text-blue-700'
+                              : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50',
+                            'group flex items-center justify-center w-full px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200',
+                            'relative'
+                          )}
+                          title={child.title}
+                          onClick={() => {
+                            if (changedForm) {
+                              setHandle(() => () => {
                                 dispatch({ type: "VIEW", payload: {} });
                                 router.push("/" + child.route)
-                              }
-                            }}
-                          >
-                            <div className="h-5 w-5 flex items-center justify-center">
-                              {child.icon}
-                            </div>
-                          </button>
-                        </Tooltip>
+                                setChangedForm(false)
+                              })
+                              setShowModal(true)
+                            } else {
+                              dispatch({ type: "VIEW", payload: {} });
+                              router.push("/" + child.route)
+                            }
+                          }}
+                        >
+                          <div className="h-5 w-5 flex items-center justify-center">
+                            {child.icon}
+                          </div>
+                        </button>
                       </div>
                     );
                   })}
@@ -305,6 +302,7 @@ export const Sidebar = ({ state, setState }) => {
                   <>
                     <button
                       onClick={() => toggleGroup(group.title || `group-${groupIdx}`)}
+                      title={group.title && group.title.length > 20 ? group.title : undefined}
                       className={clsx(
                         isActive
                           ? 'bg-blue-50 text-blue-700'
@@ -312,14 +310,14 @@ export const Sidebar = ({ state, setState }) => {
                         'group flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 justify-between'
                       )}
                     >
-                      <div className="flex items-center">
+                      <div className="flex items-center min-w-0 flex-1">
                         <span className="truncate text-xs font-semibold uppercase tracking-wider text-gray-500">
                           {group.title}
                         </span>
                       </div>
                       <ChevronDownIcon
                         className={clsx(
-                          'h-4 w-4 text-gray-400 transition-transform duration-200',
+                          'h-4 w-4 text-gray-400 transition-transform duration-200 shrink-0 ml-2',
                           isGroupOpen ? 'transform rotate-180' : ''
                         )}
                       />
@@ -386,6 +384,7 @@ export const Sidebar = ({ state, setState }) => {
                                       toggleSubComponent(childKey);
                                     }
                                   }}
+                                  title={child.title && child.title.length > 20 ? child.title : undefined}
                                   className={clsx(
                                     childIsActive || isSubComponentGroupActive
                                       ? 'bg-blue-50 text-blue-700'
@@ -393,7 +392,7 @@ export const Sidebar = ({ state, setState }) => {
                                     'group flex items-center w-full px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 justify-between'
                                   )}
                                 >
-                                  <div className="flex items-center">
+                                  <div className="flex items-center min-w-0 flex-1">
                                     <div className="h-4 w-4 shrink-0 mr-2 flex items-center justify-center">
                                       {child.icon}
                                     </div>
@@ -401,7 +400,7 @@ export const Sidebar = ({ state, setState }) => {
                                   </div>
                                   <ChevronDownIcon
                                     className={clsx(
-                                      'h-4 w-4 text-gray-400 transition-transform duration-200',
+                                      'h-4 w-4 text-gray-400 transition-transform duration-200 shrink-0 ml-2',
                                       isSubComponentOpen ? 'transform rotate-180' : ''
                                     )}
                                   />
@@ -448,6 +447,7 @@ export const Sidebar = ({ state, setState }) => {
                                               router.push(navPath)
                                             }
                                           }}
+                                          title={subComponent.title && subComponent.title.length > 20 ? subComponent.title : undefined}
                                           className={clsx(
                                             subIsActive
                                               ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
@@ -488,6 +488,7 @@ export const Sidebar = ({ state, setState }) => {
                                   router.push("/" + child.route)
                                 }
                               }}
+                              title={child.title && child.title.length > 20 ? child.title : undefined}
                               className={clsx(
                                 childIsActive
                                   ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
@@ -561,6 +562,7 @@ export const Sidebar = ({ state, setState }) => {
                                   toggleSubComponent(childKey);
                                 }
                               }}
+                              title={child.title && child.title.length > 20 ? child.title : undefined}
                               className={clsx(
                                 childIsActive || isSubComponentGroupActive
                                   ? 'bg-blue-50 text-blue-700'
@@ -568,7 +570,7 @@ export const Sidebar = ({ state, setState }) => {
                                 'group flex items-center w-full px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 justify-between'
                               )}
                             >
-                              <div className="flex items-center">
+                              <div className="flex items-center min-w-0 flex-1">
                                 <div className="h-4 w-4 shrink-0 mr-2 flex items-center justify-center">
                                   {child.icon}
                                 </div>
@@ -576,7 +578,7 @@ export const Sidebar = ({ state, setState }) => {
                               </div>
                               <ChevronDownIcon
                                 className={clsx(
-                                  'h-4 w-4 text-gray-400 transition-transform duration-200',
+                                  'h-4 w-4 text-gray-400 transition-transform duration-200 shrink-0 ml-2',
                                   isSubComponentOpen ? 'transform rotate-180' : ''
                                 )}
                               />
@@ -624,6 +626,7 @@ export const Sidebar = ({ state, setState }) => {
                                           router.push(navPath)
                                         }
                                       }}
+                                      title={subComponent.title && subComponent.title.length > 20 ? subComponent.title : undefined}
                                       className={clsx(
                                         subIsActive
                                           ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
@@ -665,6 +668,7 @@ export const Sidebar = ({ state, setState }) => {
                               router.push("/" + child.route)
                             }
                           }}
+                          title={child.title && child.title.length > 20 ? child.title : undefined}
                           className={clsx(
                             childIsActive
                               ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'

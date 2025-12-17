@@ -134,12 +134,12 @@ export const BodyStaticAPP: Schema[] = [
             route: "brands/mywebsites",
             componentName: "2",
           },
-          {
+         /*  {
             icon: <IoAnalytics className="h-6 w-auto" />,
             title: "Métricas",
             route: "brands/metrics",
             componentName: "3",
-          },
+          }, */
         /*   {
             icon: <GoWorkflow className="h-6 w-auto" />,
             title: "WorkFlow",

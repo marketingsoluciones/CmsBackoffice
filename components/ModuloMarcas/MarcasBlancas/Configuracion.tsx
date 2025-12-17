@@ -7,7 +7,7 @@ export const Configuracion = () => {
     return (
         <div className="w-full px-5 py-2">
             {
-                <PanelEditAndCreate setAction={dispatch} slug={"whitelabel/setup"} state={state} />
+                <PanelEditAndCreate setAction={dispatch} slug={"whitelabel/setup"}  state={state} />
             }
         </div>
     )

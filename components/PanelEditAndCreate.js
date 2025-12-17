@@ -23,6 +23,8 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const [handle, setHandle] = useState()
   const [isMounted, setIsMounted] = useState(false)
 
+  console.log(10091, slug)
+
   useEffect(() => {
     if (!isMounted) {
       setIsMounted(true)
@@ -42,7 +44,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
         api: options?.api
       });
     }
-    if (["whitelabel/setup"].includes(slug) && state.type === "view") {
+    if (["brands/whitelabel"].includes(slug) && state.type === "view") {
       setQuery({
         ...options?.getData,
         variables: { userUid: user.uid, development },
@@ -52,7 +54,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   }, [state]);
 
   useEffect(() => {
-    if (["whitelabel/setup"].includes(slug)) {
+    if (["brands/whitelabel"].includes(slug)) {
       if (data_?._id) {
         dispatch({ type: "EDIT", payload: data_ });
       } else {
@@ -70,7 +72,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
         values.imgBanner = values?.imgBanner?.imageFile
         values.imgLogo = values?.imgLogo?.imageFile
         values.icon = values?.icon?.imageFile
-        let propsFetch = !["business/links", "whitelabel/setup"].includes(slug)
+        let propsFetch = !["business/links", "brands/whitelabel"].includes(slug)
           ? {
             query: options?.createEntry?.query,
             variables: { ...values, development: development, authorUid: user?.uid, userUid: user?.uid, authorUsername: user?.displayName },
@@ -117,7 +119,7 @@ export const PanelEditAndCreate = ({ slug, setAction, state }) => {
       values.icon = values?.icon?.imageFile
       delete values.createdAt;
       delete values.updatedAt;
-      let propsFetch = !["business/links", "whitelabel/setup"].includes(slug)
+      let propsFetch = !["business/links", "brands/whitelabel"].includes(slug)
         ? {
           query: options?.updateEntry?.query,
           variables: { id: _id, args: { ...values } },
