@@ -473,7 +473,57 @@ export default function PipedriveDetailModal({
                     if (!editMutation || !editVariablesBuilder || !editInitialData?.id) {
                       throw new Error("Configuración de edición incompleta");
                     }
-                    const variables = await Promise.resolve(editVariablesBuilder(vals, editInitialData.id));
+                    
+                    // Comparar valores iniciales con valores actuales para enviar solo campos modificados
+                    const initialValues: Record<string, any> = {};
+                    editFields?.forEach((f) => {
+                      const initialValue = editInitialData?.[f.name];
+                      if (f.type === "date" || f.type === "datetime-local") {
+                        if (initialValue) {
+                          try {
+                            const date = new Date(initialValue);
+                            if (!isNaN(date.getTime())) {
+                              if (f.type === "datetime-local") {
+                                const year = date.getFullYear();
+                                const month = String(date.getMonth() + 1).padStart(2, "0");
+                                const day = String(date.getDate()).padStart(2, "0");
+                                const hours = String(date.getHours()).padStart(2, "0");
+                                const minutes = String(date.getMinutes()).padStart(2, "0");
+                                initialValues[f.name] = `${year}-${month}-${day}T${hours}:${minutes}`;
+                              } else {
+                                initialValues[f.name] = date.toISOString().split("T")[0];
+                              }
+                            }
+                          } catch {}
+                        }
+                      } else {
+                        initialValues[f.name] = initialValue !== undefined && initialValue !== null ? String(initialValue) : "";
+                      }
+                    });
+                    
+                    // Filtrar solo los campos que cambiaron
+                    const changedFields: Record<string, any> = {};
+                    Object.keys(vals).forEach(key => {
+                      const currentValue = vals[key];
+                      const initialValue = initialValues[key];
+                      // Comparar valores (normalizar strings)
+                      const currentNormalized = currentValue?.toString().trim() || "";
+                      const initialNormalized = initialValue?.toString().trim() || "";
+                      if (currentNormalized !== initialNormalized) {
+                        changedFields[key] = currentValue;
+                      }
+                    });
+                    
+                    // Si no hay campos modificados, no hacer nada
+                    if (Object.keys(changedFields).length === 0) {
+                      pushToast("info", "No hay cambios para guardar");
+                      setIsEditing(false);
+                      return;
+                    }
+                    
+                    // Construir variables solo con campos modificados
+                    const variables = await Promise.resolve(editVariablesBuilder(changedFields, editInitialData.id));
+                    
                     if (editFetcher) {
                       await editFetcher({ query: editMutation, variables });
                     } else {

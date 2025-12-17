@@ -189,18 +189,23 @@ export default function CampaignsCRM() {
         ]}
         editMutation={CRM_MUTATIONS.UPDATE_CAMPAIGN}
         editFetcher={fetchApiCRM}
-        editVariablesBuilder={(v, id) => ({
-          id,
-          input: {
-            name: v.name?.trim() || "",
-            type: v.type || "EMAIL",
-            templateId: v.templateId?.trim() || undefined,
-            settings: {}, // Requerido según backend
-            scheduledAt: v.scheduledAt ? new Date(v.scheduledAt).toISOString() : undefined,
-            notes: v.notes?.trim() || undefined,
-            tags: v.tags ? v.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t.length > 0) : undefined
+        editVariablesBuilder={(v, id) => {
+          // Construir input solo con campos presentes (actualización parcial)
+          const input: Record<string, any> = {};
+          
+          if (v.name !== undefined) input.name = v.name?.trim() || "";
+          if (v.type !== undefined) input.type = v.type || "EMAIL";
+          if (v.templateId !== undefined) input.templateId = v.templateId?.trim() || undefined;
+          if (v.scheduledAt !== undefined) input.scheduledAt = v.scheduledAt ? new Date(v.scheduledAt).toISOString() : undefined;
+          if (v.notes !== undefined) input.notes = v.notes?.trim() || undefined;
+          if (v.tags !== undefined) {
+            input.tags = v.tags ? v.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t.length > 0) : undefined;
           }
-        })}
+          // settings solo se incluye si se está modificando explícitamente
+          // Si no se envía, el backend mantendrá el settings actual
+          
+          return { id, input };
+        }}
         editInitialData={selectedRow || undefined}
         onEditSuccess={() => {
           setSelectedRow(null);
