@@ -28,22 +28,17 @@ const Slug = ({ props }) => {
     "/whitelabel": <Configuracion />,
   }), [dataMetricool?.metricol, schemaChildren]);
 
-  // Obtener el slug actual de la URL
-  // El router.query.slug será un array, por ejemplo: ["brands"] para /brands/brands
   const currentSlug = router.query.slug && router.query.slug[0] 
     ? `/${router.query.slug[0]}` 
     : null;
-
-  // Obtener el componente a renderizar basado en el slug
+ 
   const currentComponent = currentSlug ? componentsMap[currentSlug] : null;
 
-  // Redirigir solo si el slug no es válido (una vez que el router esté listo)
   useEffect(() => {
     if (!router.isReady) {
       return;
     }
 
-    // Si no hay slug, redirigir al primero por defecto
     if (!currentSlug) {
       const basePath = router.route.split("/")[1];
       const isBaseRoute = router.asPath === `/${basePath}` || router.asPath === `/${basePath}/`;
@@ -53,7 +48,6 @@ const Slug = ({ props }) => {
       return;
     }
 
-    // Si el slug no existe en el mapa, redirigir al primero
     if (!componentsMap[currentSlug]) {
       const basePath = router.route.split("/")[1];
       router.replace(`/${basePath}/brands`);
