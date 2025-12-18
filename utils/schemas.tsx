@@ -1044,12 +1044,16 @@ export const BodyStaticAPP: Schema[] = [
           {
             icon: <FotoIcon />,
             title: "Colecciones",
-            componentName: ""
+            componentName: "Colecciones"
           },
           {
             icon: <FotografoMenu />,
             title: "Proyectos",
-            componentName: ""
+            componentName: "Proyectos"
+          },
+          {
+            componentName: "FotografoInfoPage",
+            hidden: true,
           },
         ],
       },
@@ -1081,12 +1085,16 @@ export const BodyStaticAPP: Schema[] = [
           {
             icon: <InvitadosContactos />,
             title: "Personas",
-            componentName: ""
+            componentName: "ContactosComponent"
           },
           {
             icon: <BusinessIcon />,
             title: "Empresas",
-            componentName: ""
+            componentName: "EmpresasComponent"
+          },
+          {
+            componentName: "InfoContactosPage",
+            hidden: true,
           },
         ],
       },
@@ -1565,12 +1573,16 @@ export const BodyStaticAPP: Schema[] = [
           {
             icon: <BsPeople className="h-6 w-auto " />,
             title: "Novios",
-            componentName: ""
+            componentName: "CustomWebsNovios"
           },
           {
             icon: <MdOutlineAddBusiness className="h-6 w-auto " />,
             title: "empresa",
-            componentName: ""
+            componentName: "CustomWebsEmpresa"
+          },
+          {
+            componentName: "MarketPlaceManager",
+            hidden: true,
           },
         ],
       },
