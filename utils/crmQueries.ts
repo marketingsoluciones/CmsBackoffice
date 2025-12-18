@@ -713,9 +713,11 @@ export const CRM_MUTATIONS = {
     }
   `,
   UPDATE_LEAD: `
-    mutation UpdateLead($id: ID!, $input: CRM_LeadInput!) {
+    mutation UpdateLead($id: ID!, $input: CRM_LeadUpdateInput!) {
       updateCRMLead(id: $id, input: $input) {
+        success
         lead { id name email phone company position source status priority value notes updatedAt }
+        errors { field message code }
       }
     }
   `,
@@ -741,9 +743,11 @@ export const CRM_MUTATIONS = {
     }
   `,
   UPDATE_CONTACT: `
-    mutation UpdateContact($id: ID!, $input: CRM_ContactInput!) {
+    mutation UpdateContact($id: ID!, $input: CRM_ContactUpdateInput!) {
       updateCRMContact(id: $id, input: $input) {
+        success
         contact { id firstName lastName fullName email phone company position relationship status type starred sentiment country city updatedAt }
+        errors { field message code }
       }
     }
   `,
@@ -769,9 +773,11 @@ export const CRM_MUTATIONS = {
     }
   `,
   UPDATE_ENTITY: `
-    mutation UpdateEntity($id: ID!, $input: CRM_EntityInput!) {
+    mutation UpdateEntity($id: ID!, $input: CRM_EntityUpdateInput!) {
       updateCRMEntity(id: $id, input: $input) {
+        success
         entity { id name type website industry size description sentiment tags updatedAt }
+        errors { field message code }
       }
     }
   `,
@@ -797,11 +803,11 @@ export const CRM_MUTATIONS = {
     }
   `,
   UPDATE_CAMPAIGN: `
-    mutation UpdateCampaign($id: ID!, $input: CRM_CampaignInput!) {
+    mutation UpdateCampaign($id: ID!, $input: CRM_CampaignUpdateInput!) {
       updateCRMCampaign(id: $id, input: $input) {
         success
         campaign { id name type templateId status scheduledAt notes tags updatedAt }
-        errors { message code }
+        errors { field message code }
       }
     }
   `,

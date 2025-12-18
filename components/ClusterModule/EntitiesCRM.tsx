@@ -224,24 +224,31 @@ export default function EntitiesCRM() {
         ]}
         editMutation={CRM_MUTATIONS.UPDATE_ENTITY}
         editFetcher={fetchApiCRM}
-        editVariablesBuilder={(v, id) => ({
-          id,
-          input: {
-            name: v.name?.trim() || "",
-            type: v.type || "COMPANY",
-            website: v.website?.trim() || undefined,
-            industry: v.industry?.trim() || undefined,
-            size: v.size || undefined,
-            description: v.description?.trim() || undefined,
-            address: (v.address_street || v.address_city || v.address_state || v.address_zipCode || v.address_country) ? {
-              street: v.address_street?.trim() || undefined,
-              city: v.address_city?.trim() || undefined,
-              state: v.address_state?.trim() || undefined,
-              zipCode: v.address_zipCode?.trim() || undefined,
-              country: v.address_country?.trim() || undefined
-            } : undefined
+        editVariablesBuilder={(v, id) => {
+          // Construir input solo con campos presentes (actualización parcial)
+          const input: Record<string, any> = {};
+          
+          if (v.name !== undefined) input.name = v.name?.trim() || "";
+          if (v.type !== undefined) input.type = v.type || "COMPANY";
+          if (v.website !== undefined) input.website = v.website?.trim() || undefined;
+          if (v.industry !== undefined) input.industry = v.industry?.trim() || undefined;
+          if (v.size !== undefined) input.size = v.size || undefined;
+          if (v.description !== undefined) input.description = v.description?.trim() || undefined;
+          
+          // Manejar address parcialmente - solo incluir si hay algún campo de address
+          if (v.address_street !== undefined || v.address_city !== undefined || 
+              v.address_state !== undefined || v.address_zipCode !== undefined || 
+              v.address_country !== undefined) {
+            input.address = {};
+            if (v.address_street !== undefined) input.address.street = v.address_street?.trim() || undefined;
+            if (v.address_city !== undefined) input.address.city = v.address_city?.trim() || undefined;
+            if (v.address_state !== undefined) input.address.state = v.address_state?.trim() || undefined;
+            if (v.address_zipCode !== undefined) input.address.zipCode = v.address_zipCode?.trim() || undefined;
+            if (v.address_country !== undefined) input.address.country = v.address_country?.trim() || undefined;
           }
-        })}
+          
+          return { id, input };
+        }}
         editInitialData={selectedRow ? {
           ...selectedRow,
           address_street: selectedRow.address?.street,

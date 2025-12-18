@@ -221,22 +221,24 @@ export default function ContactsCRM() {
         ]}
         editMutation={CRM_MUTATIONS.UPDATE_CONTACT}
         editFetcher={fetchApiCRM}
-        editVariablesBuilder={(v, id) => ({
-          id,
-          input: {
-            firstName: v.firstName?.trim() || "",
-            lastName: v.lastName?.trim() || "",
-            email: v.email?.trim() || undefined,
-            phone: v.phone?.trim() || undefined,
-            company: v.company?.trim() || undefined,
-            position: v.position?.trim() || undefined,
-            relationship: v.relationship || undefined,
-            status: v.status || undefined,
-            type: v.type || "INDIVIDUAL",
-            country: v.country?.trim() || undefined,
-            city: v.city?.trim() || undefined
-          }
-        })}
+        editVariablesBuilder={(v, id) => {
+          // Construir input solo con campos presentes (actualización parcial)
+          const input: Record<string, any> = {};
+          
+          if (v.firstName !== undefined) input.firstName = v.firstName?.trim() || "";
+          if (v.lastName !== undefined) input.lastName = v.lastName?.trim() || "";
+          if (v.email !== undefined) input.email = v.email?.trim() || undefined;
+          if (v.phone !== undefined) input.phone = v.phone?.trim() || undefined;
+          if (v.company !== undefined) input.company = v.company?.trim() || undefined;
+          if (v.position !== undefined) input.position = v.position?.trim() || undefined;
+          if (v.relationship !== undefined) input.relationship = v.relationship || undefined;
+          if (v.status !== undefined) input.status = v.status || undefined;
+          if (v.type !== undefined) input.type = v.type || "INDIVIDUAL";
+          if (v.country !== undefined) input.country = v.country?.trim() || undefined;
+          if (v.city !== undefined) input.city = v.city?.trim() || undefined;
+          
+          return { id, input };
+        }}
         editInitialData={selectedRow || undefined}
         onEditSuccess={() => {
           setSelectedRow(null);

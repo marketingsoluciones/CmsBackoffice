@@ -365,21 +365,23 @@ export default function LeadsCRM() {
         ]}
         editMutation={CRM_MUTATIONS.UPDATE_LEAD}
         editFetcher={fetchApiCRM}
-        editVariablesBuilder={(v, id) => ({
-          id,
-          input: {
-            name: v.name?.trim() || "",
-            email: v.email?.trim() || undefined,
-            phone: v.phone?.trim() || undefined,
-            company: v.company?.trim() || undefined,
-            position: v.position?.trim() || undefined,
-            source: v.source || undefined,
-            status: v.status || "NEW",
-            priority: v.priority || "MEDIUM",
-            value: v.value ? Number(v.value) : undefined,
-            notes: v.notes?.trim() || undefined
-          }
-        })}
+        editVariablesBuilder={(v, id) => {
+          // Construir input solo con campos presentes (actualización parcial)
+          const input: Record<string, any> = {};
+          
+          if (v.name !== undefined) input.name = v.name?.trim() || "";
+          if (v.email !== undefined) input.email = v.email?.trim() || undefined;
+          if (v.phone !== undefined) input.phone = v.phone?.trim() || undefined;
+          if (v.company !== undefined) input.company = v.company?.trim() || undefined;
+          if (v.position !== undefined) input.position = v.position?.trim() || undefined;
+          if (v.source !== undefined) input.source = v.source || undefined;
+          if (v.status !== undefined) input.status = v.status || "NEW";
+          if (v.priority !== undefined) input.priority = v.priority || "MEDIUM";
+          if (v.value !== undefined) input.value = v.value ? Number(v.value) : undefined;
+          if (v.notes !== undefined) input.notes = v.notes?.trim() || undefined;
+          
+          return { id, input };
+        }}
         editInitialData={selectedRow || undefined}
         onEditSuccess={() => {
           window.location.reload();
