@@ -3,7 +3,6 @@ import { InvitadosCatering, ItinerarioCatering, MesasICon, PlanoEventoIcon } fro
 import { useEffect, useState, useMemo } from "react"
 import { InfoLugaresBodas, ItinerarioLugaresBodas, PlantillaSalon } from "../components/LugaresBodasComponents"
 import { IframeApp } from "../layouts/IframeApp"
-import { SubmenuComponent } from "../components/CateringBodasComponents/SubmenuComponent"
 import { Modal } from "../components/modals/Modal"
 import { ContactarGold } from "../components/formularios/ContactarGold"
 import { BodyStaticAPP } from "../utils/schemas"
@@ -33,7 +32,6 @@ const LugaresBodasPage = () => {
     // Construir dataComponents dinámicamente desde el schema
     const dataComponents = useMemo(() => {
         if (!lugaresBodasSchema?.subComponents) {
-            // Fallback al array original si no hay schema
             return [
                 {
                     icon: <MesasICon />,
@@ -135,75 +133,12 @@ const LugaresBodasPage = () => {
         }
     }, [subComponent, stateOriginPath, dataComponents])
 
-    const handleClickOption = (idx) => {
-        setOptionSelect(idx)
-        // Actualizar la URL sin recargar la página
-        const selectedComponent = dataComponents[idx]
-        if (selectedComponent?.route) {
-            router.push({
-                pathname: router.pathname,
-                query: { ...router.query, subComponent: selectedComponent.route }
-            }, undefined, { shallow: true })
-        } else if (selectedComponent?.componentName) {
-            router.push({
-                pathname: router.pathname,
-                query: { ...router.query, subComponent: selectedComponent.componentName }
-            }, undefined, { shallow: true })
-        }
-    }
-
-    // Filtrar componentes para el submenu (excluir InfoLugaresBodas y hidden)
-    const newArryDataComponents = useMemo(() => {
-        return dataComponents.filter(item => 
-            item.componentName !== "InfoLugaresBodas" && !item.hidden
-        )
-    }, [dataComponents])
-    
-    // Ajustar optionSelect cuando se filtra el array para el submenu
-    const adjustedOptionSelect = useMemo(() => {
-        const selectedComponent = dataComponents[optionSelect]
-        if (!selectedComponent) return 0
-        
-        // Si el componente seleccionado está oculto o es InfoLugaresBodas, buscar el índice en el array filtrado
-        if (selectedComponent.hidden || selectedComponent.componentName === "InfoLugaresBodas") {
-            // Mantener el componente seleccionado pero ajustar el índice para el submenu
-            return optionSelect
-        }
-        
-        // Encontrar el índice en el array filtrado
-        const indexInFiltered = newArryDataComponents.findIndex(
-            item => item.componentName === selectedComponent.componentName || item.route === selectedComponent.route
-        )
-        return indexInFiltered !== -1 ? indexInFiltered : 0
-    }, [optionSelect, dataComponents, newArryDataComponents])
-
-    // Función para manejar clicks en el submenu que mapea índices correctamente
-    const handleSubmenuClick = (filteredIndex) => {
-        const selectedComponent = newArryDataComponents[filteredIndex]
-        if (!selectedComponent) return
-        
-        // Encontrar el índice real en dataComponents
-        const realIndex = dataComponents.findIndex(
-            item => item.componentName === selectedComponent.componentName || item.route === selectedComponent.route
-        )
-        if (realIndex !== -1) {
-            handleClickOption(realIndex)
-        }
-    }
-    
     const currentComponent = dataComponents[optionSelect]
     
     return (
         <>
-            <div className={`md:flex h-full ${!currentComponent?.type || currentComponent.type !== "iframe" ? "w-full" : ""}`}>
-                <SubmenuComponent 
-                    dataComponents={newArryDataComponents} 
-                    optionSelect={adjustedOptionSelect} 
-                    onClick={handleSubmenuClick} 
-                />
-                <div className="md:flex-1">
-                    {currentComponent?.component}
-                </div>
+            <div className={`h-full ${!currentComponent?.type || currentComponent.type !== "iframe" ? "w-full" : ""}`}>
+                {currentComponent?.component}
             </div>
             {
                 modalContacto ? (

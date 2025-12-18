@@ -22,7 +22,10 @@ export const OnlyViewTable = ({ slug, setSlug, dispatch, setbuscador }) => {
   const [data, setData] = useState()
   const [isMounted, setIsMounted] = useState(false)
   const [dataRemove, isLoadingRemove, isErrorRemove, setQueryRemove] = useFetch(true);
-  const [selected, setSelected] = useState(columnsDataTable({ slug, user }));
+  const [selected, setSelected] = useState(() => {
+    const result = columnsDataTable({ slug, user });
+    return result || { schema: [], getData: null };
+  });
   const [global, setGlobal] = useState()
   const [seteador, setSeteador] = useState(() => () => { })
 
@@ -44,18 +47,26 @@ export const OnlyViewTable = ({ slug, setSlug, dispatch, setbuscador }) => {
   }, [data_])
 
   const columns = useMemo(() => {
+    // Asegurar que columns siempre sea un array
+    if (!selected || !selected?.schema || !Array.isArray(selected.schema)) {
+      return []
+    }
+    
     let avalibleShowColumns = visibleColumns.map(elem => {
       const item = user?.visibleColumns?.find(el => el.accessor === elem.accessor)
       return item ? item?.accessor : elem?.accessor
     })
-    return selected?.schema?.reduce((acc, item) => {
+    
+    const result = selected.schema.reduce((acc, item) => {
       if (avalibleShowColumns?.includes(item?.accessor) && !item?.roles)
         acc.push(item)
       if (item?.roles && hasRole(development, user, item?.roles))
         acc.push(item)
       return acc
     }, [])
-  }, [selected]);
+    
+    return result || []
+  }, [selected, user, development]);
 
   useEffect(() => {
     if ((isMounted && typeof state.data === "object") || (isMounted && router.asPath === state.data)) {
@@ -80,8 +91,9 @@ export const OnlyViewTable = ({ slug, setSlug, dispatch, setbuscador }) => {
   }, [selected, isLoadingRemove, skip, limit, sortCriteria, sort]);
 
   useEffect(() => {
-    setSelected(columnsDataTable({ slug, user }));
-  }, [slug, development]);
+    const result = columnsDataTable({ slug, user });
+    setSelected(result || { schema: [], getData: null });
+  }, [slug, development, user]);
 
   const handleRemoveItem = (idSelected) => {
     setQueryRemove({

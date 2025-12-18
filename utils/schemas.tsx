@@ -964,28 +964,33 @@ export const BodyStaticAPP: Schema[] = [
           {
             icon: <PlatillOpenCatering />,
             title: "Carta de productos",
-            componentName: "1"
+            componentName: "CartaProducto"
           },
           {
             icon: <MenuCatering />,
             title: "Plantillas de menú",
-            componentName: "1"
+            componentName: "PlantillaMenu"
           },
           {
             icon: <PlatilloCloseCatering />,
             title: "Menú",
-            componentName: "1"
+            componentName: "MenuEmpresa"
           },
           {
             icon: <InvitadosCatering />,
             title: "Lista de Invitados",
-            componentName: "1",
+            componentName: "IframeApp",
             type: "iframe",
+            route: "invitados",
           },
           {
             icon: <ItinerarioCatering />,
             title: "Itinerarios",
-            componentName: "1"
+            componentName: "ItinerarioC"
+          },
+          {
+            componentName: "InfoCateringBodas",
+            hidden: true,
           },
         ],
       },
@@ -999,30 +1004,33 @@ export const BodyStaticAPP: Schema[] = [
           {
             icon: <InvitadosCatering />,
             title: "Lista de invitados",
-            componentName: "<IframeApp ",
+            componentName: "IframeApp",
             type: "iframe",
+            route: "invitados",
           },
           {
             icon: <PresupuestoIcon />,
             title: "Presupuesto",
-            componentName: "",
+            componentName: "IframeApp",
             type: "iframe",
+            route: "presupuesto",
           },
           {
             icon: <CorreoIcon />,
             title: "Invitaciones",
-            componentName: "",
+            componentName: "IframeApp",
             type: "iframe",
+            route: "invitaciones",
           },
           {
             icon: <ItinerarioCatering />,
             title: "Intinerarios",
-            componentName: "",
+            componentName: "ItinerarioWeddingPlanner",
           },
           {
             icon: <Webs />,
             title: "Mis Webs",
-            componentName: "",
+            componentName: "CustomWebsTable",
           },
         ],
       },
