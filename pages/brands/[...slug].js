@@ -1,8 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { MarcasControl } from "../../components/ModuloMarcas/Marcas";
 import { CustomWebsTable } from "../../components/ModuloMarcas/WeddingCustomWebs";
-import { IframeMetricool } from "../../components/MarcaBlancaMetricool";
-import { AuthContextProvider } from "../../context";
 import { IframeWorkFlow } from "../../components/ModuloMarcas/IframeWorkFlow";
 import { Configuracion } from "../../components/ModuloMarcas/MarcasBlancas";
 import { useRouter } from "next/router";
@@ -10,22 +8,26 @@ import { LinksControl } from "../../components/ModuloMarcas/Links";
 import { BodyStaticAPP } from "../../utils/schemas";
 
 
-const Slug = ({ props }) => {
+const Slug = () => {
   const router = useRouter()
-  const { user, development } = AuthContextProvider();
-  const dataMetricool = user?.authDevelopments.find(
-    (element) => element.title === development
-  );
+  const dataComponent = BodyStaticAPP.find(elem => elem.title === "Mis Empresas")?.children.find(elem => elem.route === router.asPath.split("/")[1])
+  const findSubComponent = dataComponent?.subComponents.find(elem => elem.route === router.asPath.slice(1))
+
+  
   const schemaChildren = BodyStaticAPP.find(elem => elem.title === "Mis Empresas")?.children.filter(elem => elem.hidden)
 
+  
+
+  console.log(222222,dataComponent,findSubComponent);
+  console.log(33333,schemaChildren);
+
   const componentsMap = useMemo(() => ({
-    "/brands": <MarcasControl />,
+    "/brands": <MarcasControl ComponentControl={findSubComponent} />,
     "/mywebsites": <CustomWebsTable />,
-    "/metrics": <IframeMetricool dataMetricool={dataMetricool?.metricol} />,
     "/workflow": <IframeWorkFlow />,
     "/links": <LinksControl schemaChildren={schemaChildren} />,
     "/whitelabel": <Configuracion />,
-  }), [dataMetricool?.metricol, schemaChildren]);
+  }), [ schemaChildren]);
 
   const currentSlug = router.query.slug && router.query.slug[0] 
     ? `/${router.query.slug[0]}` 

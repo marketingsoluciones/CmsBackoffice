@@ -5,14 +5,14 @@ import { MarcasTable } from "./MarcasTable"
 import { Marcas } from "../../Marcas"
 import { useEffect } from "react"
 
-export const MarcasControl = () => {
+export const MarcasControl = ({ ComponentControl }) => {
     const { state, dispatch } = AuthContextProvider()
     if (true) {
         return (
             <div className="w-full h-full px-5 py-2" >
                 {
                     state?.type === "view" && (
-                        <MarcasTable dispatch={dispatch} />
+                        <MarcasTable dispatch={dispatch} ComponentControl={ComponentControl} />
                     )
                 }
                 {
@@ -22,7 +22,7 @@ export const MarcasControl = () => {
                 }
                 {
                     ["edit", "create"].includes(state?.type) && (
-                        <PanelEditAndCreate setAction={dispatch} state={state} />
+                        <PanelEditAndCreate setAction={dispatch} state={state} ComponentControl={ComponentControl} />
                     )
                 }
             </div >

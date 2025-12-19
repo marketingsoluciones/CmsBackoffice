@@ -15,7 +15,7 @@ import { AuthContextProvider } from "../../context/AuthContext";
 
 
 export const Datatable = ({ isLoading, initialState, columns, data = [], total, handleRemoveItem, setAction, setSeteador, skip, setSkip, limit, setLimit, setSortCriteria, setSort, slug, setSlug, selected, ...props }) => {
-  console.log(10087, selected)
+  
   const { user, setUser, config } = AuthContextProvider()
   const [modal, setModal] = useState(false)
   const [modalMasivo, setModalMasivo] = useState(false)

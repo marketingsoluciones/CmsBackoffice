@@ -66,6 +66,14 @@ export interface SubComponent {
   componentName?: string // Nombre del componente a renderizar
   hidden?: boolean // Para componentes que no aparecen en el submenu pero se renderizan
   roles?: string[]
+  subTitle?: string
+  resumenRout?: string
+  getData?: Query
+  getByID?: Query
+  createEntry?: Query
+  updateEntry?: Query
+  deleteEntry?: Query
+  schema?: childrenSchema[]
 }
 
 export interface SchemaChildren extends Schema {
@@ -126,7 +134,182 @@ export const BodyStaticAPP: Schema[] = [
             icon: <PiCertificate className="h-6 w-auto" />,
             title: "Marcas",
             route: "brands/brands",
-            componentName: "1",
+            subTitle: "Gestiona, crea y publica tus marcas para promocionar tus servicios a la comunidad de novios de Bodas de Hoy. ",
+            resumenRout: "InfoPage/marcas",
+            roles: ["admin", "empresa"],
+            getData: FetchGraphQL.business.getBusinessAll,
+            getByID: FetchGraphQL.business.getOneBusiness,
+            createEntry: FetchGraphQL.business.createBusiness,
+            updateEntry: FetchGraphQL.business.updateBusiness,
+            deleteEntry: FetchGraphQL.business.deleteBusiness,
+            schema: [
+              {
+                Header: "ID",
+                accessor: "_id",
+              },
+              {
+                Header: "Nombre de empresa",
+                accessor: "businessName",
+                type: "textareaSizable",
+                required: true,
+              },
+              {
+                Header: "Slug",
+                accessor: "slug",
+                type: "slug",
+
+              },
+              {
+                Header: "¿Publicar?",
+                accessor: "status",
+                type: "switch",
+                roles: ["admin", "editor"]
+              },
+              {
+                Header: "Pagina web",
+                accessor: "webPage",
+                type: "urlLg",
+              },
+              {
+                Header: "Imagen Miniatura",
+                accessor: "imgMiniatura",
+                type: "image",
+                typeFile: "image",
+                required: true,
+              },
+              {
+                Header: "Logotipo",
+                accessor: "imgLogo",
+                type: "image",
+                typeFile: "image",
+                required: true,
+              },
+              {
+                Header: "Carrusel de imagenes",
+                accessor: "imgCarrusel",
+                type: "imageMultiple",
+              },
+              {
+                Header: "Contenido",
+                accessor: "content",
+                type: "ckeditor",
+                required: true,
+              },
+              {
+                Header: "Usuario UID",
+                accessor: "userUid",
+              },
+              {
+                Header: "Elegir categorias",
+                accessor: "subCategories",
+                type: "questions",
+                required: true,
+              },
+              {
+                Header: "Nombre de contacto",
+                accessor: "contactName",
+                type: "string",
+                required: true,
+              },
+              {
+                Header: "Email de contacto",
+                accessor: "contactEmail",
+                type: "email-4",
+                required: true,
+              },
+              {
+                Header: "Telefono fijo",
+                accessor: "landline",
+                type: "string",
+              },
+              {
+                Header: "Telefono movil",
+                accessor: "mobilePhone",
+                type: "string",
+              },
+              {
+                Header: "Whatsapp",
+                accessor: "whatsapp",
+                type: "string",
+              },
+              {
+                Header: "Twitter",
+                accessor: "twitter",
+                type: "url",
+              },
+              {
+                Header: "Facebook",
+                accessor: "facebook",
+                type: "url",
+              },
+              {
+                Header: "Linkedin",
+                accessor: "linkedin",
+                type: "url",
+              },
+              {
+                Header: "Youtube",
+                accessor: "youtube",
+                type: "url",
+              },
+              {
+                Header: "Instagram",
+                accessor: "instagram",
+                type: "url",
+              },
+              {
+                Header: "SEO",
+                type: "desarrollo"
+              },
+              {
+                type: "br-2",
+              },
+              {
+                Header: "País",//
+                accessor: "country",
+                type: "country",
+                required: true,
+              },
+              {
+                Header: "Ciudad",//
+                accessor: "city",
+                type: "string",
+                required: true,
+              },
+              {
+                Header: "Codigo Postal",
+                accessor: "zip",
+                type: "number-2",
+              },
+              {
+                Header: "Direccion",//
+                accessor: "address",
+                type: "stringL",
+                required: true,
+
+              },
+              {
+                Header: "Fase",
+                accessor: "fase",
+              },
+              {
+                Header: "Creado el",
+                accessor: "createdAt",
+                Cell: (props) => formatTime(props.value, "es"),
+              },
+              {
+                Header: "Actualizado el",
+                accessor: "updatedAt",
+                Cell: (props) => formatTime(props.value, "es"),
+              },
+              {
+                Header: "Ubicacion exacta",
+                accessor: "coordinates",
+                type: "maps",
+                required: true,
+              },
+
+            ],
           },
           {
             icon: <CiViewTable className="h-6 w-auto" />,
@@ -134,18 +317,18 @@ export const BodyStaticAPP: Schema[] = [
             route: "brands/mywebsites",
             componentName: "2",
           },
-         /*  {
-            icon: <IoAnalytics className="h-6 w-auto" />,
-            title: "Métricas",
-            route: "brands/metrics",
-            componentName: "3",
-          }, */
-        /*   {
-            icon: <GoWorkflow className="h-6 w-auto" />,
-            title: "WorkFlow",
-            route: "brands/workflow",
-            componentName: "4",
-          }, */
+          /*  {
+             icon: <IoAnalytics className="h-6 w-auto" />,
+             title: "Métricas",
+             route: "brands/metrics",
+             componentName: "3",
+           }, */
+          /*   {
+              icon: <GoWorkflow className="h-6 w-auto" />,
+              title: "WorkFlow",
+              route: "brands/workflow",
+              componentName: "4",
+            }, */
           {
             icon: <IoLinkOutline className="h-6 w-auto" />,
             title: "Links",
@@ -160,7 +343,7 @@ export const BodyStaticAPP: Schema[] = [
           },
         ]
       },
-      {
+     /*  {
         title: null,
         hidden: true,
         subTitle: "Gestiona, crea y publica tus marcas para promocionar tus servicios a la comunidad de novios de Bodas de Hoy. ",
@@ -340,7 +523,7 @@ export const BodyStaticAPP: Schema[] = [
           },
 
         ],
-      },
+      }, */
       {
         title: null,
         hidden: true,

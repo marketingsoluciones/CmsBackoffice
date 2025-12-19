@@ -2,7 +2,7 @@ import { Box, Button, Flex, Heading, Text, IconButton } from "@chakra-ui/react";
 import { columnsDataTable } from "./Datatable/Columns";
 import { Datatable } from "./Datatable/Datatable";
 import { useFetch } from "../hooks/useFetch";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { SearchIcon } from "./Icons/index"
 import GlobalFilter from "./Datatable/GlobalFilter";
 import { AuthContextProvider } from "../context/AuthContext";
@@ -11,7 +11,33 @@ import { hasRole } from "../utils/auth";
 import { api } from "../utils/api";
 import { visibleColumns } from "../utils/schemas";
 
-export const OnlyViewTable = ({ slug, setSlug, dispatch, setbuscador }) => {
+// Función helper para obtener la configuración de la tabla
+const getTableConfiguration = (ComponentControl, slug, user) => {
+  // Verificar si ComponentControl tiene la información necesaria
+  if (ComponentControl && ComponentControl.getData && ComponentControl.schema) {
+    // Aplicar la misma lógica de hiddenColumns que se hace en columnsDataTable
+    const newVisibleColumns = user?.visibleColumns?.reduce((acc, item) => {
+      item?.show && acc.push(item.accessor)
+      return acc
+    }, [])
+    const hiddenColumns = ComponentControl?.schema?.reduce((acc, item) => {
+      !newVisibleColumns?.includes(item?.accessor) &&
+        acc?.push(item?.accessor);
+      return acc;
+    }, []);
+    
+    return {
+      ...ComponentControl,
+      hiddenColumns
+    };
+  }
+  
+  // Fallback al schema si ComponentControl no tiene la información
+  const result = columnsDataTable({ slug, user });
+  return result || { schema: [], getData: null };
+};
+
+export const OnlyViewTable = ({ slug, setSlug, dispatch, setbuscador, ComponentControl }) => {
   const router = useRouter()
   const { development, user, domain, state } = AuthContextProvider()
   slug = router.asPath.slice(1)
@@ -22,9 +48,15 @@ export const OnlyViewTable = ({ slug, setSlug, dispatch, setbuscador }) => {
   const [data, setData] = useState()
   const [isMounted, setIsMounted] = useState(false)
   const [dataRemove, isLoadingRemove, isErrorRemove, setQueryRemove] = useFetch(true);
+  
+  // Función helper para obtener la configuración: primero ComponentControl, luego schema
+  const getTableConfig = useCallback(() => {
+    return getTableConfiguration(ComponentControl, slug, user);
+  }, [ComponentControl, slug, user]);
+  
+  // Inicializar selected con la configuración correcta
   const [selected, setSelected] = useState(() => {
-    const result = columnsDataTable({ slug, user });
-    return result || { schema: [], getData: null };
+    return getTableConfiguration(ComponentControl, slug, user);
   });
   const [global, setGlobal] = useState()
   const [seteador, setSeteador] = useState(() => () => { })
@@ -91,9 +123,9 @@ export const OnlyViewTable = ({ slug, setSlug, dispatch, setbuscador }) => {
   }, [selected, isLoadingRemove, skip, limit, sortCriteria, sort]);
 
   useEffect(() => {
-    const result = columnsDataTable({ slug, user });
-    setSelected(result || { schema: [], getData: null });
-  }, [slug, development, user]);
+    const config = getTableConfig();
+    setSelected(config);
+  }, [slug, development, user, ComponentControl, getTableConfig]);
 
   const handleRemoveItem = (idSelected) => {
     setQueryRemove({
