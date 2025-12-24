@@ -75,7 +75,6 @@ export default function LeadsCRM() {
         fetcher={fetchApiCRM}
         enableCRMFeatures={true}
         onRowClick={(row) => setSelectedRow(row)}
-        entityType="LEAD"
         selectedLabels={selectedLabels}
         onSelectLabels={setSelectedLabels}
         owners={owners}

@@ -1103,10 +1103,16 @@ export default function PipedriveDetailModal({
                           entityId={editInitialData.id}
                           entityType={entityType}
                         />
+                      ) : entityType === "WHITELABEL" ? (
+                        <div className="text-center py-12">
+                          <h3 className="font-semibold mb-2" style={{ color: "#111827" }}>
+                            Emails no disponibles para este tipo de entidad
+                          </h3>
+                        </div>
                       ) : (
                         <EmailList
                           entityId={editInitialData.id}
-                          entityType={entityType}
+                          entityType={entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN"}
                         />
                       )
                     ) : (
@@ -1135,15 +1141,21 @@ export default function PipedriveDetailModal({
                             entityType={entityType}
                           />
                         </div>
+                      ) : entityType === "WHITELABEL" ? (
+                        <div className="text-center py-12">
+                          <h3 className="font-semibold mb-2" style={{ color: "#111827" }}>
+                            Archivos no disponibles para este tipo de entidad
+                          </h3>
+                        </div>
                       ) : (
                         <div className="space-y-4">
                           <FileUploadZone
                             entityId={editInitialData.id}
-                            entityType={entityType}
+                            entityType={entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN"}
                           />
                           <FileGallery
                             entityId={editInitialData.id}
-                            entityType={entityType}
+                            entityType={entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN"}
                           />
                         </div>
                       )
@@ -1194,13 +1206,13 @@ export default function PipedriveDetailModal({
               // Recargar datos si es necesario
             }}
           />
-        ) : (
+        ) : entityType === "WHITELABEL" ? null : (
           <ShareEntityModal
             isOpen={showShareModal}
             onClose={() => {
               setShowShareModal(false);
             }}
-            entityType={entityType}
+            entityType={entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN"}
             entityId={editInitialData.id}
             entityName={title}
             onUpdate={() => {

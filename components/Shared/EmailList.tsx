@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, VStack, HStack, Text, Badge, Button, IconButton, useToast } from "@chakra-ui/react";
-import { ReplyIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { ArrowUturnLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { CRM_QUERIES } from "../../utils/crmQueries";
 import { fetchApiCRM } from "../../utils/CRMFetching";
 import { useCRM } from "../../context/CRMContext";
@@ -151,7 +151,7 @@ export default function EmailList({
                   {email.direction === "INBOUND" && (
                     <IconButton
                       aria-label="Responder"
-                      icon={<ReplyIcon />}
+                      icon={<ArrowUturnLeftIcon style={{ width: 16, height: 16 }} />}
                       size="sm"
                       variant="ghost"
                       onClick={(e) => {
@@ -163,7 +163,7 @@ export default function EmailList({
                   )}
                   <IconButton
                     aria-label="Reenviar"
-                    icon={<ArrowForwardIcon />}
+                    icon={<ArrowRightIcon style={{ width: 16, height: 16 }} />}
                     size="sm"
                     variant="ghost"
                     onClick={(e) => {

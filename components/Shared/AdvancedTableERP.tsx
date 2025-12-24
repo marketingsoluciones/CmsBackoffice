@@ -370,7 +370,7 @@ export function AdvancedTableERP<T>({
         onPageSizeChange={(n) => { setPageSize(n); setPage(1); }}
         isSaving={isSaving}
         searchInputRef={searchInputRef}
-        entityType={entityType}
+        entityType="ENTITY"
         labels={labels}
         selectedLabels={selectedLabels}
         onSelectLabels={onSelectLabels}
