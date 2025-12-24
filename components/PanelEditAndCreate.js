@@ -11,15 +11,13 @@ import { ArrowLeft } from "./Icons/index"
 import { Modal } from "./modals/Alert";
 import { useRouter } from "next/router";
 
-export const PanelEditAndCreate = ({ slug, setAction, state, ComponentControl }) => {
+export const PanelEditAndCreate = ({ slug, setAction, state }) => {
   const router = useRouter()
   slug = router.asPath.slice(1)
   const [data_, isLoading, isError, setQuery] = useFetch();
   const refButton = useRef();
   const toast = useToast();
-  // Usar ComponentControl si está disponible y tiene schema, sino usar FindOption como fallback
-  const schemaOptions = FindOption(slug);
-  const options = (ComponentControl && ComponentControl.schema) ? ComponentControl : schemaOptions;
+  const options = FindOption(slug);
   const { user, development, changedForm, setChangedForm, dispatch } = AuthContextProvider();
   const [showModal, setShowModal] = useState(false)
   const [handle, setHandle] = useState()

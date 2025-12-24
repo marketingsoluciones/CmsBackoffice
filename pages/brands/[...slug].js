@@ -12,14 +12,7 @@ const Slug = () => {
   const router = useRouter()
   const dataComponent = BodyStaticAPP.find(elem => elem.title === "Mis Empresas")?.children.find(elem => elem.route === router.asPath.split("/")[1])
   const findSubComponent = dataComponent?.subComponents.find(elem => elem.route === router.asPath.slice(1))
-
-  
   const schemaChildren = BodyStaticAPP.find(elem => elem.title === "Mis Empresas")?.children.filter(elem => elem.hidden)
-
-  
-
-  console.log(222222,dataComponent,findSubComponent);
-  console.log(33333,schemaChildren);
 
   const componentsMap = useMemo(() => ({
     "/brands": <MarcasControl ComponentControl={findSubComponent} />,

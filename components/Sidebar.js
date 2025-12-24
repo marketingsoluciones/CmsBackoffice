@@ -46,29 +46,29 @@ export const Sidebar = ({ state, setState }) => {
 
   const isSubComponentActive = (subComponent, parentRoute) => {
     const query = router.query;
-    
+
     if (usesQueryParamNavigation(subComponent, parentRoute) && parentRoute) {
       const isOnParentRoute = asPath === "/" + parentRoute || asPath.startsWith("/" + parentRoute + "/");
-      
+
       if (isOnParentRoute) {
         if (subComponent.route && query.subComponent === subComponent.route) return true;
         if (subComponent.componentName && query.subComponent === subComponent.componentName) return true;
       }
     }
-    
+
     if (subComponent.route && !usesQueryParamNavigation(subComponent, parentRoute)) {
-      return subComponent.route === asPath.split("/")[1] || 
-             asPath === "/" + subComponent.route || 
-             asPath.startsWith("/" + subComponent.route + "/");
+      return subComponent.route === asPath.split("/")[1] ||
+        asPath === "/" + subComponent.route ||
+        asPath.startsWith("/" + subComponent.route + "/");
     }
-    
+
     return false;
   };
 
   // Expandir automáticamente los grupos y subComponents que contienen el item activo
   useEffect(() => {
     if (!user || !development) return;
-    
+
     setExpandedGroups(prev => {
       const newExpanded = new Set(prev);
       BodyStaticAPP.forEach((group, groupIdx) => {
@@ -76,7 +76,7 @@ export const Sidebar = ({ state, setState }) => {
           const hasActiveChild = group.children.some((child, childIdx) => {
             if (!hasRole(development, user, child.roles) || child.hidden) return false;
             const isActive = child.route === asPath.split("/")[1] || asPath === "/" + child.route || asPath.startsWith("/" + child.route + "/");
-            
+
             // Si el child tiene subComponents, verificar si alguno está activo
             if (child.subComponents && child.subComponents.length > 0) {
               const hasActiveSubComponent = child.subComponents.some(sub => {
@@ -88,7 +88,7 @@ export const Sidebar = ({ state, setState }) => {
                 return true;
               }
             }
-            
+
             return isActive;
           });
           if (hasActiveChild) {
@@ -136,86 +136,71 @@ export const Sidebar = ({ state, setState }) => {
       "flex h-full w-full flex-col bg-white shadow-sm border-r border-gray-200",
       !state && "ml-[-15rem] md:ml-[-9.5rem]"
     )}
-    style={{
-      width: state ? '220px' : 'auto',
-      transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1)'
-    }}>
+      style={{
+        width: state ? '220px' : 'auto',
+        transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1)'
+      }}>
       {showModal && <Modal setShowModal={setShowModal} showModal={showModal} title={"Al salir perdera los cambios"} handle={handle} />}
-      
+
       {/* Header */}
-      <div className="flex h-16 shrink-0 items-center justify-between px-4 border-b border-gray-200">
-        {state && (
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <IconFolderOpenOutline className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h1 className="text-lg font-semibold text-gray-900">CMS Portal</h1>
-              <p className="text-xs text-gray-500">Sistema Completo</p>
-            </div>
-          </div>
-        )}
+      <div className="flex  h-20 items-center space-x-4 justify-center px-1 border-b border-gray-200">
+
+        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+          <IconFolderOpenOutline className="w-5 h-5 text-white" />
+        </div>
         
-        {!state && (
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center mx-auto">
-            <IconFolderOpenOutline className="w-5 h-5 text-white" />
-          </div>
-        )}
-        
-        {state && (
-          <div className="flex items-center gap-2">
-            {isMobile && (
-              <button
-                onClick={() => setState(!state)}
-                className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
-              >
-                <ArrowLeft className="h-5 w-5" />
-              </button>
-            )}
-            <Menu autoSelect={false}>
-              <MenuButton className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-semibold text-gray-500">{development?.toUpperCase()}</span>
-                  <ChevronDownIcon className="h-4 w-4" />
-                </div>
-              </MenuButton>
-              <MenuList p="0" fontSize="sm">
-                {user?.authDevelopments?.map((item, idx) => (
-                  <MenuItem 
-                    key={idx} 
-                    style={item.title === development ? { backgroundColor: '#F3F4F6' } : { backgroundColor: '' }} 
-                    color="gray.500"
-                    onClick={() => {
-                      if (changedForm) {
-                        setHandle(() => () => {
+        <div className="flex flex-col items-center justify-center">
+          {state && (
+            <div className="flex items-center space-x-3">
+
+              <div>
+                <h1 className="text-lg font-semibold text-gray-900">CMS Portal</h1>
+                <p className="text-xs text-gray-500">Sistema Completo</p>
+              </div>
+            </div>
+          )}
+          {state && (
+            <div className="flex items-center gap-2">
+              
+              <Menu autoSelect={false}>
+                <MenuButton className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-semibold text-gray-500">{development?.toUpperCase()}</span>
+                    <ChevronDownIcon className="h-4 w-4" />
+                  </div>
+                </MenuButton>
+                <MenuList p="0" fontSize="sm">
+                  {user?.authDevelopments?.map((item, idx) => (
+                    <MenuItem
+                      key={idx}
+                      style={item.title === development ? { backgroundColor: '#F3F4F6' } : { backgroundColor: '' }}
+                      color="gray.500"
+                      onClick={() => {
+                        if (changedForm) {
+                          setHandle(() => () => {
+                            router.push("/").then(() => {
+                              setDevelopment(item.title)
+                              setChangedForm(false)
+                            })
+                          })
+                          setShowModal(true)
+                        } else {
                           router.push("/").then(() => {
                             setDevelopment(item.title)
-                            setChangedForm(false)
                           })
-                        })
-                        setShowModal(true)
-                      } else {
-                        router.push("/").then(() => {
-                          setDevelopment(item.title)
-                        })
-                      }
-                    }}
-                  >
-                    {`${item.title}.com`}
-                  </MenuItem>
-                ))}
-              </MenuList>
-            </Menu>
-            {!isMobile && (
-              <button
-                onClick={() => setState(!state)}
-                className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
-              >
-                <ChevronLeftIcon className="h-5 w-5" />
-              </button>
-            )}
-          </div>
-        )}
+                        }
+                      }}
+                    >
+                      {`${item.title}.com`}
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </Menu>
+            </div>
+          )}
+
+        </div>
+
 
         {!state && (
           <Menu autoSelect={false}>
@@ -224,10 +209,10 @@ export const Sidebar = ({ state, setState }) => {
             </MenuButton>
             <MenuList p="0" fontSize="sm" ml="8">
               {user?.authDevelopments?.map((item, idx) => (
-                <MenuItem 
-                  key={idx} 
-                  style={item.title === development ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }} 
-                  color="gray.500" 
+                <MenuItem
+                  key={idx}
+                  style={item.title === development ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }}
+                  color="gray.500"
                   onClick={() => setDevelopment(item.title)}
                 >
                   {`${item.title}.com`}
@@ -250,10 +235,10 @@ export const Sidebar = ({ state, setState }) => {
 
             if (!state) {
               // Cuando está colapsado, mostrar todos los items visibles como iconos
-              const visibleChildren = group.children.filter(child => 
+              const visibleChildren = group.children.filter(child =>
                 hasRole(development, user, child.roles) && !child.hidden
               );
-              
+
               if (visibleChildren.length === 0) return null;
 
               return (
@@ -322,25 +307,25 @@ export const Sidebar = ({ state, setState }) => {
                         )}
                       />
                     </button>
-                    
+
                     {/* Subitems */}
                     {isGroupOpen && (
                       <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-2">
                         {group.children.map((child, childIdx) => {
                           if (!hasRole(development, user, child.roles) || child.hidden) return null;
-                          
+
                           const childIsActive = isItemActive(child);
                           const hasSubComponents = child.subComponents && child.subComponents.length > 0;
                           const childKey = `${groupIdx}-${childIdx}`;
                           const isSubComponentOpen = expandedSubComponents.has(childKey);
-                          const visibleSubComponents = hasSubComponents 
+                          const visibleSubComponents = hasSubComponents
                             ? child.subComponents.filter(sub => !sub.hidden)
                             : [];
 
                           // Si tiene subComponents, renderizar como expandible
                           if (hasSubComponents && visibleSubComponents.length > 0) {
                             const isSubComponentGroupActive = visibleSubComponents.some(sub => isSubComponentActive(sub, child.route));
-                            
+
                             return (
                               <div key={childIdx}>
                                 <button
@@ -348,7 +333,7 @@ export const Sidebar = ({ state, setState }) => {
                                     // Si ya estoy en la ruta, solo expando/colapso
                                     if (childIsActive && child.route) {
                                       toggleSubComponent(childKey);
-                                    } 
+                                    }
                                     // Si no estoy en la ruta y tiene route, redirijo y luego expando
                                     else if (child.route) {
                                       if (changedForm) {
@@ -378,7 +363,7 @@ export const Sidebar = ({ state, setState }) => {
                                           }, 100);
                                         })
                                       }
-                                    } 
+                                    }
                                     // Si no tiene route, solo expando/colapso
                                     else {
                                       toggleSubComponent(childKey);
@@ -405,7 +390,7 @@ export const Sidebar = ({ state, setState }) => {
                                     )}
                                   />
                                 </button>
-                                
+
                                 {/* SubComponents */}
                                 {isSubComponentOpen && (
                                   <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-2">
@@ -425,14 +410,14 @@ export const Sidebar = ({ state, setState }) => {
                                         }
                                         return null
                                       }
-                                      
+
                                       return (
                                         <button
                                           key={subIdx}
                                           onClick={() => {
                                             const navPath = getNavigationPath()
                                             if (!navPath) return
-                                            
+
                                             if (changedForm) {
                                               setHandle(() => () => {
                                                 isMobile ? setState(!state) : null
@@ -469,7 +454,7 @@ export const Sidebar = ({ state, setState }) => {
                               </div>
                             );
                           }
-                          
+
                           return (
                             <button
                               key={childIdx}
@@ -510,25 +495,25 @@ export const Sidebar = ({ state, setState }) => {
                   <div className="space-y-1">
                     {group.children.map((child, childIdx) => {
                       if (!hasRole(development, user, child.roles) || child.hidden) return null;
-                      
+
                       const childIsActive = isItemActive(child);
                       const hasSubComponents = child.subComponents && child.subComponents.length > 0;
                       const childKey = `no-title-${groupIdx}-${childIdx}`;
                       const isSubComponentOpen = expandedSubComponents.has(childKey);
-                      const visibleSubComponents = hasSubComponents 
+                      const visibleSubComponents = hasSubComponents
                         ? child.subComponents.filter(sub => !sub.hidden)
                         : [];
 
                       if (hasSubComponents && visibleSubComponents.length > 0) {
                         const isSubComponentGroupActive = visibleSubComponents.some(sub => isSubComponentActive(sub, child.route));
-                        
+
                         return (
                           <div key={childIdx}>
                             <button
                               onClick={() => {
                                 if (childIsActive && child.route) {
                                   toggleSubComponent(childKey);
-                                } 
+                                }
                                 else if (child.route) {
                                   if (changedForm) {
                                     setHandle(() => () => {
@@ -556,7 +541,7 @@ export const Sidebar = ({ state, setState }) => {
                                       }, 100);
                                     })
                                   }
-                                } 
+                                }
                                 // Si no tiene route, solo expando/colapso
                                 else {
                                   toggleSubComponent(childKey);
@@ -583,13 +568,13 @@ export const Sidebar = ({ state, setState }) => {
                                 )}
                               />
                             </button>
-                            
+
                             {/* SubComponents */}
                             {isSubComponentOpen && (
                               <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-2">
                                 {visibleSubComponents.map((subComponent, subIdx) => {
                                   const subIsActive = isSubComponentActive(subComponent, child.route);
-                                 
+
                                   const getNavigationPath = () => {
                                     if (usesQueryParamNavigation(subComponent, child.route) && child.route) {
                                       if (subComponent.route) {
@@ -604,14 +589,14 @@ export const Sidebar = ({ state, setState }) => {
                                     }
                                     return null
                                   }
-                                  
+
                                   return (
                                     <button
                                       key={subIdx}
                                       onClick={() => {
                                         const navPath = getNavigationPath()
                                         if (!navPath) return
-                                        
+
                                         if (changedForm) {
                                           setHandle(() => () => {
                                             isMobile ? setState(!state) : null
@@ -648,7 +633,7 @@ export const Sidebar = ({ state, setState }) => {
                           </div>
                         );
                       }
-                      
+
                       // Si no tiene subComponents, renderizar como item normal
                       return (
                         <button
@@ -693,7 +678,7 @@ export const Sidebar = ({ state, setState }) => {
           return null;
         })}
       </nav>
-      
+
       {/* User Profile */}
       {state && user && (
         <div className="p-4 border-t border-gray-200">

@@ -41,7 +41,7 @@ export const DefaultLayout = ({ children }) => {
                 <CRMProvider>
                 {valir && <Flex h={"100vh"} w={"100%"} overflow={"hidden"} position={"relative"} >
                   {screen.width < 640
-                    ? <div className="absolute z-[100]">
+                    ? <div className="fixed z-[100] h-screen top-0 left-0">
                       <Sidebar state={show} setState={setShow} />
                     </div>
 
