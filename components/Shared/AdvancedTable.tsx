@@ -114,7 +114,20 @@ export function AdvancedTable<T>({
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   
   // Hook para manejar filtros guardados (solo si enableCRMFeatures está activo)
-  const { filters: savedFilters, updateFilter, createFilter } = useSavedFilters(enableCRMFeatures ? entityType : "LEAD");
+  // Mapear tipos incompatibles: COMPANY y BUSINESS -> ENTITY
+  const getSavedFiltersEntityType = (): "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN" => {
+    if (!enableCRMFeatures) return "LEAD";
+    if (entityType === "COMPANY" || entityType === "BUSINESS") return "ENTITY";
+    return entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN";
+  };
+  const { filters: savedFilters, updateFilter, createFilter } = useSavedFilters(getSavedFiltersEntityType());
+  
+  // Función para mapear entityType a tipos compatibles con componentes que solo aceptan LEAD | CONTACT | ENTITY | CAMPAIGN
+  const getCompatibleEntityType = (): "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN" | undefined => {
+    if (!enableCRMFeatures) return undefined;
+    if (entityType === "COMPANY" || entityType === "BUSINESS") return "ENTITY";
+    return entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN";
+  };
   
   // Debug: Log cuando cambian los filtros guardados o el filtro seleccionado
   useEffect(() => {
@@ -766,7 +779,7 @@ export function AdvancedTable<T>({
         onPageSizeChange={(n) => { setPageSize(n); setPage(1); }}
         isSaving={isSaving}
         searchInputRef={searchInputRef}
-        entityType={entityType}
+        entityType={getCompatibleEntityType()}
         labels={labels}
         selectedLabels={selectedLabels}
         onSelectLabels={onSelectLabels}

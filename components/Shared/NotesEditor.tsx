@@ -33,6 +33,18 @@ export default function NotesEditor({
     }
   }, [isEditing]);
 
+  const handleSave = useCallback(async () => {
+    setIsSaving(true);
+    try {
+      await onSave(editValue);
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error saving notes:", error);
+    } finally {
+      setIsSaving(false);
+    }
+  }, [editValue, onSave]);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -58,18 +70,6 @@ export default function NotesEditor({
       setIsEditing(true);
     }
   };
-
-  const handleSave = useCallback(async () => {
-    setIsSaving(true);
-    try {
-      await onSave(editValue);
-      setIsEditing(false);
-    } catch (error) {
-      console.error("Error saving notes:", error);
-    } finally {
-      setIsSaving(false);
-    }
-  }, [editValue, onSave]);
 
   const handleCancel = () => {
     setEditValue(displayValue);

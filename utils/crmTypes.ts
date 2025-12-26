@@ -245,7 +245,7 @@ export function isValidPriority(value: string): value is CRMPriority {
 /**
  * Convierte un string a CRM_LeadSource (con validación)
  */
-export function toLeadSource(value: string): CRM_LeadSource {
+export function toLeadSource(value: string): CRMLeadSource {
   if (isValidLeadSource(value)) {
     return value;
   }

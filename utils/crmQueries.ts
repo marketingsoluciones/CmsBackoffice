@@ -917,6 +917,54 @@ export const CRM_MUTATIONS = {
       }
     }
   `,
+  // Mutaciones específicas de compartir (wrappers de SHARE_CRM_ENTITY)
+  // Nota: Estas mutaciones requieren que el código que las usa construya el input completo
+  // con entityType, entityId y shareWith (array de objetos con userId, userName, permissionLevel)
+  SHARE_ENTITY: `
+    mutation ShareEntity($entityId: ID!, $input: CRM_ShareEntityInput!) {
+      shareCRMEntity(input: $input) {
+        success
+        message
+        sharedWith {
+          userId
+          userName
+          permissionLevel
+          sharedAt
+        }
+        errors { field message code }
+      }
+    }
+  `,
+  SHARE_CONTACT: `
+    mutation ShareContact($contactId: ID!, $input: CRM_ShareEntityInput!) {
+      shareCRMEntity(input: $input) {
+        success
+        message
+        sharedWith {
+          userId
+          userName
+          permissionLevel
+          sharedAt
+        }
+        errors { field message code }
+      }
+    }
+  `,
+  SHARE_CAMPAIGN: `
+    mutation ShareCampaign($campaignId: ID!, $input: CRM_ShareEntityInput!) {
+      shareCRMEntity(input: $input) {
+        success
+        message
+        sharedWith {
+          userId
+          userName
+          permissionLevel
+          sharedAt
+        }
+        errors { field message code }
+      }
+    }
+  `,
   UNSHARE_CRM_ENTITY: `
     mutation UnshareCRMEntity($entityType: CRM_EntityType!, $entityId: ID!, $userId: ID!) {
       unshareCRMEntity(entityType: $entityType, entityId: $entityId, userId: $userId) {
