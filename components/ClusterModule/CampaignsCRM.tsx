@@ -4,6 +4,8 @@ import PipedriveFormModal from "../Shared/PipedriveFormModal";
 import PipedriveDetailModal from "../Shared/PipedriveDetailModal";
 import EditableField from "../Shared/EditableField";
 import NotesEditor from "../Shared/NotesEditor";
+import FileUploadZone from "../Shared/FileUploadZone";
+import FileGallery from "../Shared/FileGallery";
 import { CRM_MUTATIONS, CRM_QUERIES } from "../../utils/crmQueries";
 import ShareModal from "./ShareModal";
 import { ToastContextProvider } from "../../context/ToastContext";
@@ -375,22 +377,21 @@ export default function CampaignsCRM() {
           </div>
         }
         filesContent={
-          <div>
-            <div
-              className="w-full rounded-lg border-2 border-dashed p-8 text-center"
-              style={{ borderColor: "#D1D5DB", backgroundColor: "#F9FAFB" }}
-            >
-              <button
-                className="px-4 py-2 rounded-lg text-sm font-medium text-white mb-2"
-                style={{ backgroundColor: "#10B981" }}
-              >
-                Upload files
-              </button>
-              <p className="text-sm" style={{ color: "#6B7280" }}>
-                or drag files here
-              </p>
+          selectedRow ? (
+            <div className="space-y-4">
+              <FileUploadZone
+                entityId={selectedRow.id}
+                entityType="CAMPAIGN"
+                onUploadComplete={() => {
+                  window.location.reload();
+                }}
+              />
+              <FileGallery
+                entityId={selectedRow.id}
+                entityType="CAMPAIGN"
+              />
             </div>
-          </div>
+          ) : null
         }
       />
     </div>

@@ -79,6 +79,144 @@ const ensureFirebaseToken = async (): Promise<string | undefined> => {
   return idToken;
 };
 
+// Función helper para uploads de archivos via GraphQL
+// Usa el protocolo GraphQL multipart request specification
+export const fetchApiCRMUpload = async ({
+  query = ``,
+  variables = {},
+  file,
+  fileVariablePath = "input.file",
+}: {
+  query: string;
+  variables?: Record<string, any>;
+  file: File;
+  fileVariablePath?: string;
+}) => {
+  // Usar proxy para uploads para evitar problemas CORS
+  const useProxy = USE_PROXY && typeof window !== 'undefined';
+  const endpoint = useProxy ? '/api/crm/upload' : CRM_ENDPOINT;
+  
+  const token = await ensureFirebaseToken();
+  const dev = resolveDevelopment();
+  
+  // Crear FormData para multipart request según GraphQL multipart spec
+  const formData = new FormData();
+  
+  // Preparar variables (sin el archivo)
+  const variablesWithoutFile = { ...variables };
+  // Establecer el archivo como null en variables (se mapeará después)
+  const pathParts = fileVariablePath.split('.');
+  let current: any = variablesWithoutFile;
+  for (let i = 0; i < pathParts.length - 1; i++) {
+    if (!current[pathParts[i]]) {
+      current[pathParts[i]] = {};
+    }
+    current = current[pathParts[i]];
+  }
+  current[pathParts[pathParts.length - 1]] = null;
+  
+  // Operations (query + variables sin archivo)
+  const operations = {
+    query,
+    variables: variablesWithoutFile,
+  };
+  
+  // Map (mapeo del archivo a la variable)
+  // El formato es: { "0": ["variables.input.file"] }
+  const map: Record<string, string[]> = {
+    "0": [fileVariablePath],
+  };
+  
+  formData.append("operations", JSON.stringify(operations));
+  formData.append("map", JSON.stringify(map));
+  formData.append("0", file);
+  
+  // Headers (NO incluir Content-Type, el navegador lo establecerá automáticamente con el boundary)
+  const headers: Record<string, string> = {};
+  
+  // Header para Apollo Server v4 CSRF protection (si es necesario)
+  // Apollo Server v4 puede requerir este header para multipart requests
+  headers["Apollo-Require-Preflight"] = "true";
+  
+  if (dev) {
+    headers["X-Development"] = dev;
+  }
+  
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+  
+  if (process.env.NEXT_PUBLIC_PRODUCTION) {
+    headers["IsProduction"] = String(process.env.NEXT_PUBLIC_PRODUCTION);
+  }
+  
+  const fetchOptions: RequestInit = {
+    method: "POST",
+    headers,
+    body: formData,
+  };
+  
+  if (!useProxy) {
+    fetchOptions.mode = "cors";
+    fetchOptions.credentials = "omit";
+  }
+  
+  const res = await fetch(endpoint, fetchOptions);
+  
+  if (!res.ok) {
+    const text = await res.text();
+    let errorMessage = `HTTP ${res.status}: ${res.statusText}`;
+    let errorDetails: any = null;
+    try {
+      const json = JSON.parse(text);
+      
+      // Prioridad 1: Error directo del backend (ej: "Content-Type debe ser application/json")
+      if (json?.error) {
+        errorMessage = json.error;
+        if (json.received) {
+          errorMessage += ` (recibido: ${json.received})`;
+        }
+        errorDetails = json;
+      }
+      // Prioridad 2: Errores GraphQL
+      else if (json?.errors?.length) {
+        const firstError = json.errors[0];
+        errorMessage = firstError?.message || errorMessage;
+        errorDetails = firstError;
+      }
+      // Prioridad 3: Errores en la mutation
+      else if (json?.data?.uploadCRMEntityFile?.errors?.length) {
+        const firstError = json.data.uploadCRMEntityFile.errors[0];
+        errorMessage = firstError?.message || errorMessage;
+        errorDetails = firstError;
+      }
+    } catch {
+      // Si no es JSON, usar el texto como mensaje
+      errorMessage = text || errorMessage;
+    }
+    
+    // Mensaje más descriptivo para errores de Content-Type
+    if (errorMessage.includes("Content-Type debe ser application/json")) {
+      errorMessage = "El backend no está configurado para aceptar multipart/form-data. Contacta al administrador.";
+    }
+    
+    const error = new Error(errorMessage);
+    (error as any).details = errorDetails;
+    throw error;
+  }
+  
+  const json = await res.json();
+  
+  if (json.errors && json.errors.length > 0) {
+    const firstError = json.errors[0];
+    const error = new Error(firstError?.message || "Error en la petición GraphQL");
+    (error as any).details = firstError;
+    throw error;
+  }
+  
+  return json.data;
+};
+
 export const fetchApiCRM = async ({
   query = ``,
   variables = {},
