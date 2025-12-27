@@ -115,10 +115,18 @@ export default function FileUploadZone({
           if (onUploadComplete) onUploadComplete(uploadedFile);
         } else {
           const errorMessage = response?.uploadCRMEntityFile?.errors?.[0]?.message || "Error al subir archivo";
+          const errorCode = response?.uploadCRMEntityFile?.errors?.[0]?.code;
           
-          // Mensaje más específico para errores de development
-          if (errorMessage.includes("Development no especificado") || errorMessage.includes("development")) {
+          // Mensajes específicos para diferentes tipos de errores
+          if (errorMessage.includes("Development no especificado") || 
+              (errorMessage.toLowerCase().includes("development") && !errorMessage.includes("Storage"))) {
             throw new Error("Error de configuración: El sistema no pudo identificar el entorno. Por favor, recarga la página e intenta nuevamente.");
+          }
+          
+          if (errorMessage.includes("Storage no configurado") || 
+              errorCode === "STORAGE_NOT_CONFIGURED" ||
+              errorMessage.includes("storage no configurado")) {
+            throw new Error("El sistema de almacenamiento no está configurado para este entorno. Contacta al administrador del sistema.");
           }
           
           throw new Error(errorMessage);
@@ -130,8 +138,12 @@ export default function FileUploadZone({
         const errorMessage = error?.message || error?.details?.message || `Error al subir ${file.name}`;
         
         // Mensajes de error más descriptivos
-        if (errorMessage.includes("Storage no configurado") || error?.details?.code === "STORAGE_NOT_CONFIGURED") {
-          pushToast("error", "El sistema de almacenamiento no está configurado. Contacta al administrador.");
+        if (errorMessage.includes("Storage no configurado") || 
+            errorMessage.includes("storage no configurado") ||
+            error?.details?.code === "STORAGE_NOT_CONFIGURED") {
+          pushToast("error", "El sistema de almacenamiento no está configurado para este entorno. Contacta al administrador del sistema.");
+        } else if (errorMessage.includes("Error de configuración")) {
+          pushToast("error", errorMessage);
         } else {
           pushToast("error", errorMessage);
         }

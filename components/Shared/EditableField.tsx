@@ -55,7 +55,31 @@ export default function EditableField({
 
   const handleClick = () => {
     if (!isEditing) {
-      setEditValue(displayValue);
+      // Para campos de fecha, convertir el valor a formato yyyy-MM-dd si es necesario
+      let initialEditValue = displayValue;
+      if (type === "date" && value) {
+        try {
+          // Si el valor es una fecha ISO o un string de fecha, convertir a yyyy-MM-dd
+          if (typeof value === "string") {
+            // Si ya está en formato yyyy-MM-dd, usarlo directamente
+            if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+              initialEditValue = value;
+            } else {
+              // Intentar parsear como fecha ISO y convertir
+              const date = new Date(value);
+              if (!isNaN(date.getTime())) {
+                initialEditValue = date.toISOString().split('T')[0];
+              }
+            }
+          } else if (value instanceof Date) {
+            initialEditValue = value.toISOString().split('T')[0];
+          }
+        } catch (e) {
+          // Si falla la conversión, usar el displayValue
+          initialEditValue = displayValue;
+        }
+      }
+      setEditValue(initialEditValue);
       setIsEditing(true);
     }
   };
@@ -152,11 +176,29 @@ export default function EditableField({
         ? "date"
         : "text";
 
+    // Para inputs de tipo date, asegurar que el valor esté en formato yyyy-MM-dd
+    const inputValue = type === "date" && editValue ? (() => {
+      try {
+        // Si ya está en formato yyyy-MM-dd, usarlo directamente
+        if (/^\d{4}-\d{2}-\d{2}$/.test(editValue)) {
+          return editValue;
+        }
+        // Intentar convertir fecha ISO a yyyy-MM-dd
+        const date = new Date(editValue);
+        if (!isNaN(date.getTime())) {
+          return date.toISOString().split('T')[0];
+        }
+      } catch (e) {
+        // Si falla, usar el valor original
+      }
+      return editValue;
+    })() : editValue;
+
     return (
       <input
         ref={inputRef as React.RefObject<HTMLInputElement>}
         type={inputType}
-        value={editValue}
+        value={inputValue}
         onChange={(e) => setEditValue(e.target.value)}
         onKeyDown={handleKeyDown}
         onBlur={handleSave}
