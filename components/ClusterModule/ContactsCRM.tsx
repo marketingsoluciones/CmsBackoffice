@@ -184,10 +184,11 @@ export default function ContactsCRM() {
       <ShareModal
         isOpen={!!shareRow}
         onClose={() => setShareRow(null)}
+        entityId={shareRow?.id || ""}
+        entityType="CONTACT"
         entityLabel="contacto"
-        onSubmit={async (payload) => {
-          if (!shareRow?.id) return;
-          await fetchApiCRM({ query: CRM_MUTATIONS.SHARE_CONTACT, variables: { contactId: shareRow.id, input: payload } });
+        onSuccess={() => {
+          // Recargar datos si es necesario
         }}
       />
       <PipedriveDetailModal

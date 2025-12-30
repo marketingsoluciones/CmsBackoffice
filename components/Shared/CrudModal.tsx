@@ -41,19 +41,19 @@ export default function CrudModal({
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}>
-      <div className="w-full max-w-2xl max-h-[90vh] rounded-xl shadow-xl flex flex-col" style={{ backgroundColor: '#FFFFFF', border: '1px solid #F3F4F6' }}>
-        <div className="flex items-center justify-between px-6 py-4" style={{ borderBottom: '1px solid #F3F4F6' }}>
-          <h3 className="text-lg font-semibold" style={{ color: '#111827' }}>{title}</h3>
+    <div className="fixed inset-0 flex items-center justify-center z-50 p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }} onClick={onClose}>
+      <div className="w-full max-w-2xl max-h-[90vh] shadow-2xl flex flex-col" style={{ backgroundColor: '#FFFFFF', borderRadius: '2px' }} onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between px-4 py-2.5 flex-shrink-0" style={{ borderBottom: '1px solid #E5E7EB' }}>
+          <h3 className="text-sm font-semibold" style={{ color: '#111827' }}>{title}</h3>
           <button 
-            className="transition-colors p-1 rounded-full" 
-            style={{ color: '#9CA3AF' }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#4B5563'; e.currentTarget.style.backgroundColor = '#F3F4F6'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#9CA3AF'; e.currentTarget.style.backgroundColor = 'transparent'; }}
+            className="transition-colors p-1 rounded-sm" 
+            style={{ color: '#6B7280', borderRadius: '2px' }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#374151'; e.currentTarget.style.backgroundColor = '#F3F4F6'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#6B7280'; e.currentTarget.style.backgroundColor = 'transparent'; }}
             onClick={onClose}
             title="Cerrar"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -118,23 +118,32 @@ export default function CrudModal({
         >
           {({ isSubmitting, errors, touched, values, setFieldValue, handleSubmit }) => (
             <>
-              <div className="flex-1 overflow-y-auto px-6 py-5">
-                <Form className="space-y-4" onSubmit={handleSubmit}>
+              <div className="flex-1 overflow-y-auto px-4 py-3">
+                <Form className="space-y-2" onSubmit={handleSubmit}>
                   {fields.map(f => (
-                    <div key={f.name} className="flex flex-col gap-1.5">
-                      <label className="text-xs font-medium" style={{ color: '#374151' }} title={f.tooltip || ""}>
+                    <div key={f.name} className="flex flex-col gap-0.5">
+                      <label className="text-[11px] font-medium" style={{ color: '#6B7280' }} title={f.tooltip || ""}>
                         {f.label}{f.required ? <span className="ml-0.5" style={{ color: '#EF4444' }}>*</span> : ""}
                       </label>
                       {f.type === "select" && f.options ? (
                         <Field
                           name={f.name}
                           as="select"
-                          className="rounded-lg px-3 py-2 text-sm focus:outline-none transition-colors"
+                          className="rounded-sm px-2.5 py-1.5 text-xs focus:outline-none transition-all"
                           style={{ 
-                            border: `1px solid ${errors[f.name] && touched[f.name] ? '#EF4444' : '#E5E7EB'}` 
+                            border: `1px solid ${errors[f.name] && touched[f.name] ? '#EF4444' : '#E5E7EB'}`,
+                            backgroundColor: '#FFFFFF',
+                            minHeight: '32px',
+                            borderRadius: '2px'
                           }}
-                          onFocus={(e) => e.currentTarget.style.borderColor = '#3B82F6'}
-                          onBlur={(e) => e.currentTarget.style.borderColor = errors[f.name] && touched[f.name] ? '#EF4444' : '#E5E7EB'}
+                          onFocus={(e) => {
+                            e.currentTarget.style.borderColor = '#3B82F6';
+                            e.currentTarget.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.1)';
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.borderColor = errors[f.name] && touched[f.name] ? '#EF4444' : '#D1D5DB';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
                         >
                           <option value="">{f.placeholder || "Seleccionar..."}</option>
                           {f.options.map(opt => (
@@ -164,12 +173,21 @@ export default function CrudModal({
                           onChange={(e: any) => {
                             setFieldValue(f.name, e.target.value || "");
                           }}
-                          className="rounded-lg px-3 py-2 text-sm focus:outline-none transition-colors"
+                          className="rounded-sm px-2.5 py-1.5 text-xs focus:outline-none transition-all"
                           style={{ 
-                            border: `1px solid ${errors[f.name] && touched[f.name] ? '#EF4444' : '#E5E7EB'}` 
+                            border: `1px solid ${errors[f.name] && touched[f.name] ? '#EF4444' : '#E5E7EB'}`,
+                            backgroundColor: '#FFFFFF',
+                            minHeight: '32px',
+                            borderRadius: '2px'
                           }}
-                          onFocus={(e) => e.currentTarget.style.borderColor = '#3B82F6'}
-                          onBlur={(e) => e.currentTarget.style.borderColor = errors[f.name] && touched[f.name] ? '#EF4444' : '#E5E7EB'}
+                          onFocus={(e) => {
+                            e.currentTarget.style.borderColor = '#3B82F6';
+                            e.currentTarget.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.1)';
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.borderColor = errors[f.name] && touched[f.name] ? '#EF4444' : '#D1D5DB';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
                         />
                       ) : f.type === "textarea" ? (
                         <Field
@@ -177,65 +195,80 @@ export default function CrudModal({
                           as="textarea"
                           rows={4}
                           placeholder={f.placeholder}
-                          className="rounded-lg px-3 py-2 text-sm focus:outline-none transition-colors resize-none"
+                          className="rounded-sm px-2.5 py-1.5 text-xs focus:outline-none transition-all resize-none"
                           style={{ 
-                            border: `1px solid ${errors[f.name] && touched[f.name] ? '#EF4444' : '#E5E7EB'}` 
+                            border: `1px solid ${errors[f.name] && touched[f.name] ? '#EF4444' : '#E5E7EB'}`,
+                            backgroundColor: '#FFFFFF',
+                            borderRadius: '2px'
                           }}
-                          onFocus={(e) => e.currentTarget.style.borderColor = '#3B82F6'}
-                          onBlur={(e) => e.currentTarget.style.borderColor = errors[f.name] && touched[f.name] ? '#EF4444' : '#E5E7EB'}
+                          onFocus={(e) => {
+                            e.currentTarget.style.borderColor = '#3B82F6';
+                            e.currentTarget.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.1)';
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.borderColor = errors[f.name] && touched[f.name] ? '#EF4444' : '#D1D5DB';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
                         />
                       ) : (
                         <Field
                           name={f.name}
                           type={f.type === "number" ? "number" : "text"}
                           placeholder={f.placeholder}
-                          className="rounded-lg px-3 py-2 text-sm focus:outline-none transition-colors"
+                          className="rounded-sm px-2.5 py-1.5 text-xs focus:outline-none transition-all"
                           style={{ 
-                            border: `1px solid ${errors[f.name] && touched[f.name] ? '#EF4444' : '#E5E7EB'}` 
+                            border: `1px solid ${errors[f.name] && touched[f.name] ? '#EF4444' : '#E5E7EB'}`,
+                            backgroundColor: '#FFFFFF',
+                            minHeight: '32px',
+                            borderRadius: '2px'
                           }}
-                          onFocus={(e) => e.currentTarget.style.borderColor = '#3B82F6'}
-                          onBlur={(e) => e.currentTarget.style.borderColor = errors[f.name] && touched[f.name] ? '#EF4444' : '#E5E7EB'}
+                          onFocus={(e) => {
+                            e.currentTarget.style.borderColor = '#3B82F6';
+                            e.currentTarget.style.boxShadow = '0 0 0 2px rgba(59, 130, 246, 0.1)';
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.borderColor = errors[f.name] && touched[f.name] ? '#EF4444' : '#D1D5DB';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
                         />
                       )}
                       {touched[f.name] && typeof (errors as any)[f.name] === "string" ? (
-                        <span className="text-xs" style={{ color: '#DC2626' }}>{(errors as any)[f.name]}</span>
+                        <span className="text-[10px]" style={{ color: '#DC2626' }}>{(errors as any)[f.name]}</span>
                       ) : null}
                     </div>
                   ))}
                 </Form>
               </div>
-              <div className="px-6 py-4" style={{ borderTop: '1px solid #F3F4F6', backgroundColor: 'rgba(249, 250, 251, 0.5)' }}>
-                <div className="flex items-center justify-end gap-3">
-                  <button
-                    className="px-4 py-2 text-sm font-medium rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                    style={{ border: '1px solid #D1D5DB', color: '#374151', backgroundColor: '#FFFFFF' }}
-                    onMouseEnter={(e) => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#F9FAFB')}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FFFFFF'}
-                    type="button"
-                    onClick={onClose}
-                    disabled={isSubmitting}
-                  >
-                    Cancelar
-                  </button>
-                  <button
-                    className="px-4 py-2 text-sm font-medium rounded-lg text-white transition-colors disabled:opacity-60 disabled:cursor-not-allowed shadow-sm"
-                    style={{ backgroundColor: '#3B82F6' }}
-                    onMouseEnter={(e) => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#2563EB')}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#3B82F6'}
-                    type="button"
-                    disabled={isSubmitting}
-                    onClick={() => handleSubmit()}
-                  >
-                    {isSubmitting ? (
-                      <span className="flex items-center gap-2">
-                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                        Guardando...
-                      </span>
-                    ) : (
-                      "Guardar"
-                    )}
-                  </button>
-                </div>
+              <div className="px-4 py-2 flex items-center justify-end gap-2 flex-shrink-0" style={{ borderTop: '1px solid #E5E7EB', backgroundColor: '#F9FAFB' }}>
+                <button
+                  className="px-3 py-1.5 text-xs font-medium rounded-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  style={{ border: '1px solid #E5E7EB', color: '#374151', backgroundColor: '#FFFFFF', borderRadius: '2px' }}
+                  onMouseEnter={(e) => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#F3F4F6')}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#FFFFFF'}
+                  type="button"
+                  onClick={onClose}
+                  disabled={isSubmitting}
+                >
+                  Cancelar
+                </button>
+                <button
+                  className="px-3 py-1.5 text-xs font-semibold rounded-sm text-white transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                  style={{ backgroundColor: '#10B981', borderRadius: '2px' }}
+                  onMouseEnter={(e) => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#059669')}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#10B981'}
+                  type="button"
+                  disabled={isSubmitting}
+                  onClick={() => handleSubmit()}
+                >
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                      Guardando...
+                    </span>
+                  ) : (
+                    "Guardar"
+                  )}
+                </button>
               </div>
             </>
           )}

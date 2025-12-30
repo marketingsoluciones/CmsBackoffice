@@ -159,27 +159,11 @@ export default function CampaignsCRM() {
       <ShareModal
         isOpen={!!shareRow}
         onClose={() => setShareRow(null)}
+        entityId={shareRow?.id || ""}
+        entityType="CAMPAIGN"
         entityLabel="campaña"
-        onSubmit={async (payload) => {
-          if (!shareRow?.id) return;
-          await fetchApiCRM({ 
-            query: CRM_MUTATIONS.SHARE_CAMPAIGN, 
-            variables: { 
-              campaignId: shareRow.id,
-              input: {
-                entityType: "CAMPAIGN",
-                entityId: shareRow.id,
-                shareWith: payload.userIds?.map((uid: string) => ({
-                  userId: uid,
-                  userName: uid, // TODO: Obtener nombre real del usuario
-                  permissionLevel: payload.permissions
-                })) || [],
-                teamIds: payload.teamIds,
-                sendNotification: payload.sendNotification,
-                message: payload.message
-              }
-            } 
-          });
+        onSuccess={() => {
+          // Recargar datos si es necesario
         }}
       />
       <PipedriveDetailModal

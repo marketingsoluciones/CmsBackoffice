@@ -177,10 +177,11 @@ export default function EntitiesCRM() {
       <ShareModal
         isOpen={!!shareRow}
         onClose={() => setShareRow(null)}
+        entityId={shareRow?.id || ""}
+        entityType="ENTITY"
         entityLabel="entidad"
-        onSubmit={async (payload) => {
-          if (!shareRow?.id) return;
-          await fetchApiCRM({ query: CRM_MUTATIONS.SHARE_ENTITY, variables: { entityId: shareRow.id, input: payload } });
+        onSuccess={() => {
+          // Recargar datos si es necesario
         }}
       />
       <PipedriveDetailModal

@@ -223,6 +223,119 @@ export const CRM_QUERIES = {
   `,
 
   // ========== FASE 1.3: SISTEMA DE COMPARTIR (SHARING) ==========
+  CHECK_CRM_ENTITY_PERMISSION: `
+    query CheckPermission($entity_id: ID!, $entity_type: String!) {
+      checkCRMEntityPermission(entity_id: $entity_id, entity_type: $entity_type) {
+        has_permission
+        permission_level
+        is_owner
+      }
+    }
+  `,
+  GET_CRM_ENTITY_SHARED_USERS: `
+    query GetSharedUsers($entity_id: ID!, $entity_type: String!) {
+      getCRMEntitySharedUsers(entity_id: $entity_id, entity_type: $entity_type) {
+        user_id
+        name
+        permission
+        shared_at
+      }
+    }
+  `,
+  GET_CRM_ENTITY_SHARED_GROUPS: `
+    query GetSharedGroups($entity_id: ID!, $entity_type: String!) {
+      getCRMEntitySharedGroups(entity_id: $entity_id, entity_type: $entity_type) {
+        group_id
+        name
+        description
+        default_permission
+        shared_at
+        member_overrides {
+          user_id
+          name
+          permission
+        }
+      }
+    }
+  `,
+  SEARCH_CRM_USERS: `
+    query SearchCRMUsers($search: String, $limit: Int) {
+      searchCRMUsers(search: $search, limit: $limit) {
+        users {
+          user_id
+          name
+          email
+        }
+        total
+        errors { field message code }
+      }
+    }
+  `,
+  SEARCH_CRM_GROUPS: `
+    query SearchCRMGroups($search: String, $limit: Int) {
+      searchCRMGroups(search: $search, limit: $limit) {
+        groups {
+          group_id
+          name
+          description
+          default_permission
+          member_count
+          created_by {
+            user_id
+            name
+          }
+        }
+        total
+        errors { field message code }
+      }
+    }
+  `,
+  GET_CRM_GROUP: `
+    query GetCRMGroup($group_id: ID!) {
+      getCRMGroup(group_id: $group_id) {
+        success
+        group {
+          group_id
+          name
+          description
+          default_permission
+          members {
+            user_id
+            name
+            email
+            permission
+          }
+          member_count
+          created_by {
+            user_id
+            name
+          }
+          created_at
+          updated_at
+        }
+        errors { field message code }
+      }
+    }
+  `,
+  GET_CRM_GROUP_MEMBERS: `
+    query GetCRMGroupMembers($group_id: ID!) {
+      getCRMGroupMembers(group_id: $group_id) {
+        success
+        members {
+          user_id
+          name
+          email
+          permission
+          added_by {
+            user_id
+            name
+          }
+          added_at
+        }
+        errors { field message code }
+      }
+    }
+  `,
   GET_CRM_ENTITY_PERMISSIONS: `
     query GetCRMEntityPermissions($entityType: CRM_EntityType!, $entityId: ID!) {
       getCRMEntityPermissions(entityType: $entityType, entityId: $entityId) {
@@ -903,16 +1016,10 @@ export const CRM_MUTATIONS = {
 
   // ========== FASE 1.3: SISTEMA DE COMPARTIR (SHARING) - MUTATIONS ==========
   SHARE_CRM_ENTITY: `
-    mutation ShareCRMEntity($input: CRM_ShareEntityInput!) {
+    mutation ShareEntity($input: CRM_ShareEntityInput!) {
       shareCRMEntity(input: $input) {
         success
         message
-        sharedWith {
-          userId
-          userName
-          permissionLevel
-          sharedAt
-        }
         errors { field message code }
       }
     }
@@ -966,11 +1073,16 @@ export const CRM_MUTATIONS = {
     }
   `,
   UNSHARE_CRM_ENTITY: `
-    mutation UnshareCRMEntity($entityType: CRM_EntityType!, $entityId: ID!, $userId: ID!) {
-      unshareCRMEntity(entityType: $entityType, entityId: $entityId, userId: $userId) {
+    mutation UnshareEntity($entity_id: ID!, $entity_type: String!, $user_id: ID!) {
+      unshareCRMEntity(entity_id: $entity_id, entity_type: $entity_type, user_id: $user_id) {
         success
-        message
-        errors { field message code }
+      }
+    }
+  `,
+  UPDATE_CRM_ENTITY_PERMISSION: `
+    mutation UpdatePermission($input: CRM_UpdatePermissionInput!) {
+      updateCRMEntityPermission(input: $input) {
+        success
       }
     }
   `,
@@ -984,8 +1096,131 @@ export const CRM_MUTATIONS = {
     }
   `,
   TRANSFER_CRM_OWNERSHIP: `
-    mutation TransferCRMOwnership($entityType: CRM_EntityType!, $entityId: ID!, $newOwnerId: ID!) {
-      transferCRMOwnership(entityType: $entityType, entityId: $entityId, newOwnerId: $newOwnerId) {
+    mutation TransferOwnership($entity_id: ID!, $entity_type: String!, $new_owner_id: ID!, $new_owner_name: String!) {
+      transferCRMEntityOwnership(entity_id: $entity_id, entity_type: $entity_type, new_owner_id: $new_owner_id, new_owner_name: $new_owner_name) {
+        success
+      }
+    }
+  `,
+
+  // ========== FASE 1.4: SISTEMA DE GRUPOS (GROUPS) - MUTATIONS ==========
+  CREATE_CRM_GROUP: `
+    mutation CreateCRMGroup($input: CRM_CreateGroupInput!) {
+      createCRMGroup(input: $input) {
+        success
+        group {
+          group_id
+          name
+          description
+          default_permission
+          members {
+            user_id
+            name
+            email
+            permission
+          }
+          member_count
+          created_by {
+            user_id
+            name
+          }
+        }
+        errors { field message code }
+      }
+    }
+  `,
+  UPDATE_CRM_GROUP: `
+    mutation UpdateCRMGroup($input: CRM_UpdateGroupInput!) {
+      updateCRMGroup(input: $input) {
+        success
+        message
+        group {
+          group_id
+          name
+          description
+          default_permission
+        }
+        errors { field message code }
+      }
+    }
+  `,
+  DELETE_CRM_GROUP: `
+    mutation DeleteCRMGroup($group_id: ID!) {
+      deleteCRMGroup(group_id: $group_id) {
+        success
+        message
+        errors { field message code }
+      }
+    }
+  `,
+  ADD_CRM_GROUP_MEMBER: `
+    mutation AddCRMGroupMember($input: CRM_AddGroupMemberInput!) {
+      addCRMGroupMember(input: $input) {
+        success
+        message
+        member {
+          user_id
+          name
+          email
+          permission
+        }
+        errors { field message code }
+      }
+    }
+  `,
+  REMOVE_CRM_GROUP_MEMBER: `
+    mutation RemoveCRMGroupMember($group_id: ID!, $user_id: ID!) {
+      removeCRMGroupMember(group_id: $group_id, user_id: $user_id) {
+        success
+        message
+        errors { field message code }
+      }
+    }
+  `,
+  UPDATE_CRM_GROUP_MEMBER_PERMISSION: `
+    mutation UpdateCRMGroupMemberPermission($group_id: ID!, $user_id: ID!, $permission: CRM_PermissionLevel!) {
+      updateCRMGroupMemberPermission(group_id: $group_id, user_id: $user_id, permission: $permission) {
+        success
+        message
+        member {
+          user_id
+          name
+          permission
+        }
+        errors { field message code }
+      }
+    }
+  `,
+  SHARE_CRM_ENTITY_WITH_GROUP: `
+    mutation ShareCRMEntityWithGroup($input: CRM_ShareEntityWithGroupInput!) {
+      shareCRMEntityWithGroup(input: $input) {
+        success
+        message
+        errors { field message code }
+      }
+    }
+  `,
+  UPDATE_CRM_GROUP_MEMBER_OVERRIDE_IN_ENTITY: `
+    mutation UpdateGroupMemberOverrideInEntity($input: CRM_UpdateGroupMemberOverrideInput!) {
+      updateCRMGroupMemberOverrideInEntity(input: $input) {
+        success
+        message
+        errors { field message code }
+      }
+    }
+  `,
+  REMOVE_CRM_GROUP_MEMBER_OVERRIDE_IN_ENTITY: `
+    mutation RemoveGroupMemberOverrideInEntity($entity_id: ID!, $entity_type: String!, $group_id: ID!, $user_id: ID!) {
+      removeCRMGroupMemberOverrideInEntity(entity_id: $entity_id, entity_type: $entity_type, group_id: $group_id, user_id: $user_id) {
+        success
+        message
+        errors { field message code }
+      }
+    }
+  `,
+  UNSHARE_CRM_ENTITY_FROM_GROUP: `
+    mutation UnshareCRMEntityFromGroup($entity_id: ID!, $entity_type: String!, $group_id: ID!) {
+      unshareCRMEntityFromGroup(entity_id: $entity_id, entity_type: $entity_type, group_id: $group_id) {
         success
         message
         errors { field message code }

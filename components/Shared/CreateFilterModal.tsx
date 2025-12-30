@@ -175,17 +175,19 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
             setOpenEntityDropdown(isOpen ? null : index);
             setOpenFieldDropdown(null);
           }}
-          className="px-3 py-2 rounded text-sm flex items-center gap-2 min-w-[140px] justify-between"
+          className="px-2.5 py-1.5 rounded-sm text-xs flex items-center gap-2 min-w-[140px] justify-between"
           style={{
-            border: "1px solid #D1D5DB",
+            border: "1px solid #E5E7EB",
             backgroundColor: "#FFFFFF",
             color: "#111827",
+            minHeight: "32px",
+            borderRadius: "2px",
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = "#9CA3AF";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "#D1D5DB";
+            e.currentTarget.style.borderColor = "#E5E7EB";
           }}
         >
           <div className="flex items-center gap-2">
@@ -198,13 +200,14 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
         </button>
         {isOpen && (
           <div
-            className="absolute z-50 mt-1 rounded-lg shadow-lg"
+            className="absolute z-50 mt-1 rounded-sm shadow-lg"
             style={{
               backgroundColor: "#FFFFFF",
               border: "1px solid #E5E7EB",
               minWidth: "200px",
               maxHeight: "300px",
               overflow: "auto",
+              borderRadius: "2px",
             }}
           >
             {entities.map((entity) => (
@@ -219,10 +222,20 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
                   }
                   setOpenEntityDropdown(null);
                 }}
-                className="w-full px-3 py-2 text-sm text-left flex items-center gap-2 hover:bg-gray-50"
+                className="w-full px-2.5 py-2 text-xs text-left flex items-center gap-2"
                 style={{
                   color: condition.entity === entity.value ? "#1D4ED8" : "#111827",
                   backgroundColor: condition.entity === entity.value ? "#EFF6FF" : "transparent",
+                }}
+                onMouseEnter={(e) => {
+                  if (condition.entity !== entity.value) {
+                    e.currentTarget.style.backgroundColor = "#F3F4F6";
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (condition.entity !== entity.value) {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                  }
                 }}
               >
                 <span>{entity.icon}</span>
@@ -252,17 +265,19 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
             setOpenEntityDropdown(null);
             setFieldSearch("");
           }}
-          className="w-full px-3 py-2 rounded text-sm text-left flex items-center justify-between"
+          className="w-full px-2.5 py-1.5 rounded-sm text-xs text-left flex items-center justify-between"
           style={{
-            border: "1px solid #D1D5DB",
+            border: "1px solid #E5E7EB",
             backgroundColor: "#FFFFFF",
             color: condition.field ? "#111827" : "#9CA3AF",
+            minHeight: "32px",
+            borderRadius: "2px",
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = "#9CA3AF";
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = "#D1D5DB";
+            e.currentTarget.style.borderColor = "#E5E7EB";
           }}
         >
           <span>{condition.field ? fieldOptions[condition.entity]?.find(f => f.value === condition.field)?.label || "Seleccionar campo" : "Seleccionar campo"}</span>
@@ -272,7 +287,7 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
         </button>
         {isOpen && (
           <div
-            className="absolute z-50 mt-1 rounded-lg shadow-lg w-full"
+            className="absolute z-50 mt-1 rounded-sm shadow-lg w-full"
             style={{
               backgroundColor: "#FFFFFF",
               border: "1px solid #E5E7EB",
@@ -280,6 +295,7 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
               overflow: "hidden",
               display: "flex",
               flexDirection: "column",
+              borderRadius: "2px",
             }}
           >
             <div className="p-2 border-b" style={{ borderColor: "#E5E7EB" }}>
@@ -288,10 +304,20 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
                 value={fieldSearch}
                 onChange={(e) => setFieldSearch(e.target.value)}
                 placeholder="Buscar..."
-                className="w-full px-3 py-1.5 rounded text-sm"
+                className="w-full px-2.5 py-1.5 rounded-sm text-xs"
                 style={{
-                  border: "1px solid #D1D5DB",
+                  border: "1px solid #E5E7EB",
                   backgroundColor: "#FFFFFF",
+                  minHeight: "32px",
+                  borderRadius: "2px",
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = "#3B82F6";
+                  e.currentTarget.style.boxShadow = "0 0 0 2px rgba(59, 130, 246, 0.1)";
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = "#D1D5DB";
+                  e.currentTarget.style.boxShadow = "none";
                 }}
                 autoFocus
               />
@@ -311,10 +337,20 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
                       setOpenFieldDropdown(null);
                       setFieldSearch("");
                     }}
-                    className="w-full px-3 py-2 text-sm text-left hover:bg-gray-50"
+                    className="w-full px-2.5 py-2 text-xs text-left"
                     style={{
                       color: condition.field === field.value ? "#1D4ED8" : "#111827",
                       backgroundColor: condition.field === field.value ? "#EFF6FF" : "transparent",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (condition.field !== field.value) {
+                        e.currentTarget.style.backgroundColor = "#F3F4F6";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (condition.field !== field.value) {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                      }
                     }}
                   >
                     {field.label}
@@ -360,7 +396,7 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
       onClick={onClose}
     >
       <div
-        className="rounded-lg shadow-xl"
+        className="shadow-2xl"
         style={{
           backgroundColor: "#FFFFFF",
           width: "720px",
@@ -371,20 +407,21 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
           flexDirection: "column",
           position: "relative",
           zIndex: 10003,
+          borderRadius: "2px",
         }}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b flex-shrink-0" style={{ borderColor: "#E5E7EB", backgroundColor: "#F9FAFB" }}>
-          <h3 className="font-semibold text-lg" style={{ color: "#111827" }}>
+        <div className="flex items-center justify-between px-4 py-2.5 border-b flex-shrink-0" style={{ borderColor: "#E5E7EB" }}>
+          <h3 className="text-sm font-semibold" style={{ color: "#111827" }}>
             Crear nuevo filtro
           </h3>
           <button
             onClick={onClose}
-            className="p-1.5 rounded transition-colors"
-            style={{ color: "#6B7280" }}
-            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "#E5E7EB"}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "transparent"}
+            className="p-1 rounded-sm transition-colors"
+            style={{ color: "#6B7280", borderRadius: "2px" }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#F3F4F6"; e.currentTarget.style.color = "#374151"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#6B7280"; }}
           >
             <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
               <path
@@ -398,11 +435,11 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto px-6 py-5" style={{ backgroundColor: "#FFFFFF" }}>
+        <div className="flex-1 overflow-y-auto px-4 py-3" style={{ backgroundColor: "#FFFFFF" }}>
           {/* Match ALL conditions */}
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-4">
-              <h4 className="font-semibold text-sm" style={{ color: "#111827" }}>
+              <h4 className="text-xs font-semibold" style={{ color: "#111827" }}>
                 Coincidir TODAS estas condiciones
               </h4>
               <button
@@ -421,25 +458,35 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
               {allConditions.map((condition, index) => (
                 <div key={index} className="flex items-center gap-2">
                   {index === 0 ? (
-                    <span className="text-xs font-medium px-2 py-1.5 rounded" style={{ backgroundColor: "#F3F4F6", color: "#6B7280", minWidth: "60px", textAlign: "center" }}>
+                    <span className="text-[10px] font-medium px-2 py-1.5 rounded-sm" style={{ backgroundColor: "#F3F4F6", color: "#6B7280", minWidth: "60px", textAlign: "center", borderRadius: "2px" }}>
                       DONDE
                     </span>
                   ) : (
-                    <span className="text-xs font-medium px-2 py-1.5 rounded" style={{ backgroundColor: "#F3F4F6", color: "#6B7280", minWidth: "60px", textAlign: "center" }}>
+                    <span className="text-[10px] font-medium px-2 py-1.5 rounded-sm" style={{ backgroundColor: "#F3F4F6", color: "#6B7280", minWidth: "60px", textAlign: "center", borderRadius: "2px" }}>
                       Y
                     </span>
                   )}
                   {renderEntityDropdown(condition, index, true)}
                   {renderFieldDropdown(condition, index, true)}
                   <select
-                    className="flex-1 px-3 py-2 rounded text-sm"
+                    className="flex-1 px-2.5 py-1.5 rounded-sm text-xs"
                     style={{
-                      border: "1px solid #D1D5DB",
+                      border: "1px solid #E5E7EB",
                       backgroundColor: "#FFFFFF",
                       color: condition.operator ? "#111827" : "#9CA3AF",
+                      minHeight: "32px",
+                      borderRadius: "2px",
                     }}
                     value={condition.operator}
                     onChange={(e) => updateAllCondition(index, { operator: e.target.value })}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = "#3B82F6";
+                      e.currentTarget.style.boxShadow = "0 0 0 2px rgba(59, 130, 246, 0.1)";
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = "#D1D5DB";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
                   >
                     <option value="">Seleccionar operador</option>
                     {operators.map((op) => (
@@ -450,21 +497,31 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
                   </select>
                   <input
                     type="text"
-                    className="flex-1 px-3 py-2 rounded text-sm"
+                    className="flex-1 px-2.5 py-1.5 rounded-sm text-xs"
                     style={{
-                      border: "1px solid #D1D5DB",
+                      border: "1px solid #E5E7EB",
                       backgroundColor: "#FFFFFF",
                       color: "#111827",
+                      minHeight: "32px",
+                      borderRadius: "2px",
                     }}
                     placeholder="Valor"
                     value={condition.value}
                     onChange={(e) => updateAllCondition(index, { value: e.target.value })}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = "#3B82F6";
+                      e.currentTarget.style.boxShadow = "0 0 0 2px rgba(59, 130, 246, 0.1)";
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = "#D1D5DB";
+                      e.currentTarget.style.boxShadow = "none";
+                    }}
                   />
                   <button
                     type="button"
                     onClick={() => removeAllCondition(index)}
-                    className="p-2 rounded transition-colors"
-                    style={{ color: "#6B7280" }}
+                    className="p-2 rounded-sm transition-colors"
+                    style={{ color: "#6B7280", borderRadius: "2px" }}
                     onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#FEE2E2"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; }}
                     title="Eliminar condición"
@@ -484,10 +541,10 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
             <button
               type="button"
               onClick={addAllCondition}
-              className="text-sm font-medium mt-3 transition-colors flex items-center gap-1"
-              style={{ color: "#1D4ED8" }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = "#1E40AF"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = "#1D4ED8"; }}
+              className="text-xs font-medium mt-3 transition-colors flex items-center gap-1"
+              style={{ color: "#3B82F6" }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = "#2563EB"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = "#3B82F6"; }}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M8 3V13M3 8H13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -499,7 +556,7 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
           {/* Match ANY conditions */}
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-4">
-              <h4 className="font-semibold text-sm" style={{ color: "#111827" }}>
+              <h4 className="text-xs font-semibold" style={{ color: "#111827" }}>
                 Y coincidir CUALQUIERA de estas condiciones
               </h4>
               <button
@@ -518,10 +575,10 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
               <button
                 type="button"
                 onClick={addAnyCondition}
-                className="text-sm font-medium transition-colors flex items-center gap-1"
-                style={{ color: "#1D4ED8" }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = "#1E40AF"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.color = "#1D4ED8"; }}
+                className="text-xs font-medium transition-colors flex items-center gap-1"
+                style={{ color: "#3B82F6" }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = "#2563EB"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = "#3B82F6"; }}
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path d="M8 3V13M3 8H13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -534,25 +591,35 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
                   {anyConditions.map((condition, index) => (
                     <div key={index} className="flex items-center gap-2">
                       {index === 0 ? (
-                        <span className="text-xs font-medium px-2 py-1.5 rounded" style={{ backgroundColor: "#F3F4F6", color: "#6B7280", minWidth: "60px", textAlign: "center" }}>
+                        <span className="text-[10px] font-medium px-2 py-1.5 rounded-sm" style={{ backgroundColor: "#F3F4F6", color: "#6B7280", minWidth: "60px", textAlign: "center", borderRadius: "2px" }}>
                           DONDE
                         </span>
                       ) : (
-                        <span className="text-xs font-medium px-2 py-1.5 rounded" style={{ backgroundColor: "#F3F4F6", color: "#6B7280", minWidth: "60px", textAlign: "center" }}>
+                        <span className="text-[10px] font-medium px-2 py-1.5 rounded-sm" style={{ backgroundColor: "#F3F4F6", color: "#6B7280", minWidth: "60px", textAlign: "center", borderRadius: "2px" }}>
                           O
                         </span>
                       )}
                       {renderEntityDropdown(condition, index + 1000, false)}
                       {renderFieldDropdown(condition, index + 1000, false)}
                       <select
-                        className="flex-1 px-3 py-2 rounded text-sm"
+                        className="flex-1 px-2.5 py-1.5 rounded-sm text-xs"
                         style={{
-                          border: "1px solid #D1D5DB",
+                          border: "1px solid #E5E7EB",
                           backgroundColor: "#FFFFFF",
                           color: condition.operator ? "#111827" : "#9CA3AF",
+                          minHeight: "32px",
+                          borderRadius: "2px",
                         }}
                         value={condition.operator}
                         onChange={(e) => updateAnyCondition(index, { operator: e.target.value })}
+                        onFocus={(e) => {
+                          e.currentTarget.style.borderColor = "#3B82F6";
+                          e.currentTarget.style.boxShadow = "0 0 0 2px rgba(59, 130, 246, 0.1)";
+                        }}
+                        onBlur={(e) => {
+                          e.currentTarget.style.borderColor = "#D1D5DB";
+                          e.currentTarget.style.boxShadow = "none";
+                        }}
                       >
                         <option value="">Seleccionar operador</option>
                         {operators.map((op) => (
@@ -563,15 +630,25 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
                       </select>
                       <input
                         type="text"
-                        className="flex-1 px-3 py-2 rounded text-sm"
+                        className="flex-1 px-2.5 py-1.5 rounded-sm text-xs"
                         style={{
-                          border: "1px solid #D1D5DB",
+                          border: "1px solid #E5E7EB",
                           backgroundColor: "#FFFFFF",
                           color: "#111827",
+                          minHeight: "32px",
+                          borderRadius: "2px",
                         }}
                         placeholder="Valor"
                         value={condition.value}
                         onChange={(e) => updateAnyCondition(index, { value: e.target.value })}
+                        onFocus={(e) => {
+                          e.currentTarget.style.borderColor = "#3B82F6";
+                          e.currentTarget.style.boxShadow = "0 0 0 2px rgba(59, 130, 246, 0.1)";
+                        }}
+                        onBlur={(e) => {
+                          e.currentTarget.style.borderColor = "#D1D5DB";
+                          e.currentTarget.style.boxShadow = "none";
+                        }}
                       />
                       <button
                         type="button"
@@ -617,36 +694,56 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
           {/* Filter properties */}
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: "#374151" }}>
+              <label className="block text-[11px] font-medium mb-1" style={{ color: "#6B7280" }}>
                 Nombre del filtro
               </label>
               <input
                 type="text"
-                className="w-full px-3 py-2 rounded text-sm"
+                className="w-full px-2.5 py-1.5 rounded-sm text-xs"
                 style={{
-                  border: "1px solid #D1D5DB",
+                  border: "1px solid #E5E7EB",
                   backgroundColor: "#FFFFFF",
                   color: "#111827",
+                  minHeight: "32px",
+                  borderRadius: "2px",
                 }}
                 placeholder="Ej: Leads calientes"
                 value={filterName}
                 onChange={(e) => setFilterName(e.target.value)}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = "#3B82F6";
+                  e.currentTarget.style.boxShadow = "0 0 0 2px rgba(59, 130, 246, 0.1)";
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = "#D1D5DB";
+                  e.currentTarget.style.boxShadow = "none";
+                }}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: "#374151" }}>
+              <label className="block text-[11px] font-medium mb-1" style={{ color: "#6B7280" }}>
                 Visibilidad
               </label>
               <div className="relative">
                 <select
-                  className="w-full px-3 py-2 rounded text-sm appearance-none"
+                  className="w-full px-2.5 py-1.5 rounded-sm text-xs appearance-none"
                   style={{
-                    border: "1px solid #D1D5DB",
+                    border: "1px solid #E5E7EB",
                     backgroundColor: "#FFFFFF",
                     color: "#111827",
+                    minHeight: "32px",
+                    borderRadius: "2px",
                   }}
                   value={visibility}
                   onChange={(e) => setVisibility(e.target.value as "private" | "shared")}
+                  onFocus={(e) => {
+                    e.currentTarget.style.borderColor = "#3B82F6";
+                    e.currentTarget.style.boxShadow = "0 0 0 2px rgba(59, 130, 246, 0.1)";
+                  }}
+                  onBlur={(e) => {
+                    e.currentTarget.style.borderColor = "#D1D5DB";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
                 >
                   <option value="private">Privado</option>
                   <option value="shared">Compartido</option>
@@ -695,23 +792,24 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-end gap-3 px-6 py-4 border-t flex-shrink-0" style={{ borderColor: "#E5E7EB", backgroundColor: "#F9FAFB" }}>
+        <div className="flex items-center justify-end gap-2 px-4 py-2 border-t flex-shrink-0" style={{ borderColor: "#E5E7EB", backgroundColor: "#F9FAFB" }}>
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 rounded text-sm font-medium transition-colors"
+            className="px-3 py-1.5 rounded-sm text-xs font-medium transition-colors"
             style={{
               color: "#374151",
               backgroundColor: "#FFFFFF",
-              border: "1px solid #D1D5DB",
+              border: "1px solid #E5E7EB",
+              borderRadius: "2px",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "#F9FAFB";
+              e.currentTarget.style.backgroundColor = "#F3F4F6";
               e.currentTarget.style.borderColor = "#9CA3AF";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = "#FFFFFF";
-              e.currentTarget.style.borderColor = "#D1D5DB";
+              e.currentTarget.style.borderColor = "#E5E7EB";
             }}
           >
             Cancelar
@@ -719,13 +817,13 @@ export default function CreateFilterModal({ isOpen, onClose, onCreate }: CreateF
           <button
             type="button"
             onClick={handleSave}
-            className="px-5 py-2 rounded text-sm font-semibold text-white transition-colors shadow-sm"
-            style={{ backgroundColor: "#1D4ED8" }}
+            className="px-3 py-1.5 rounded-sm text-xs font-semibold text-white transition-colors"
+            style={{ backgroundColor: "#10B981", borderRadius: "2px" }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "#1E40AF";
+              e.currentTarget.style.backgroundColor = "#059669";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "#1D4ED8";
+              e.currentTarget.style.backgroundColor = "#10B981";
             }}
           >
             Guardar filtro

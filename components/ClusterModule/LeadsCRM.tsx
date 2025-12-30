@@ -240,23 +240,11 @@ export default function LeadsCRM() {
       <ShareModal
         isOpen={!!shareRow}
         onClose={() => setShareRow(null)}
+        entityId={shareRow?.id || ""}
+        entityType="LEAD"
         entityLabel="lead"
-        onSubmit={async (payload) => {
-          if (!shareRow?.id) return;
-          await fetchApiCRM({ 
-            query: CRM_MUTATIONS.SHARE_CRM_ENTITY, 
-            variables: { 
-              input: {
-                entityType: "LEAD",
-                entityId: shareRow.id,
-                shareWith: payload.userIds?.map((uid: string) => ({
-                  userId: uid,
-                  userName: uid, // TODO: Obtener nombre real del usuario
-                  permissionLevel: payload.permissions
-                })) || []
-              }
-            } 
-          });
+        onSuccess={() => {
+          // Recargar datos si es necesario
         }}
       />
       <PipedriveDetailModal
