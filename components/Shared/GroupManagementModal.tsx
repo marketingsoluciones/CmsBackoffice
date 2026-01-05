@@ -37,6 +37,7 @@ export default function GroupManagementModal({
   const [isLoading, setIsLoading] = useState(false);
   const [members, setMembers] = useState<GroupMember[]>([]);
   const [searchValue, setSearchValue] = useState("");
+  const [newMemberPermission, setNewMemberPermission] = useState<string>("READ");
 
   const pushToast = (type: string, message: string) => {
     dispatch({
@@ -95,6 +96,8 @@ export default function GroupManagementModal({
 
   const handleAddMember = async (user: User) => {
     if (!members.some((m) => m.user_id === user.user_id)) {
+      const permissionToUse = newMemberPermission || "READ";
+      
       // Si estamos editando, usar la mutation del backend
       if (isEditing && groupId) {
         try {
@@ -106,7 +109,7 @@ export default function GroupManagementModal({
                 user_id: user.user_id,
                 name: user.name,
                 email: user.email,
-                permission: "READ", // Permiso por defecto
+                permission: permissionToUse,
               },
             },
           });
@@ -119,10 +122,11 @@ export default function GroupManagementModal({
                 user_id: user.user_id,
                 name: user.name,
                 email: user.email,
-                permission: response.addCRMGroupMember.member?.permission || "READ",
+                permission: response.addCRMGroupMember.member?.permission || permissionToUse,
               },
             ]);
             setSearchValue("");
+            setNewMemberPermission("READ"); // Resetear a READ después de agregar
             pushToast("success", "Miembro agregado correctamente");
           } else {
             const errorMsg =
@@ -140,10 +144,11 @@ export default function GroupManagementModal({
             user_id: user.user_id,
             name: user.name,
             email: user.email,
-            permission: "READ",
+            permission: permissionToUse,
           },
         ]);
         setSearchValue("");
+        setNewMemberPermission("READ"); // Resetear a READ después de agregar
       }
     } else {
       pushToast("warning", "Este usuario ya está en el grupo");
@@ -454,36 +459,105 @@ export default function GroupManagementModal({
                   </div>
 
                   {/* Agregar miembros */}
-                  <div className="flex flex-col gap-1">
-                    <label className="text-[11px] font-medium" style={{ color: "#6B7280" }}>
-                      Agregar miembros
-                    </label>
-                    <UserAutocomplete
-                      value={searchValue}
-                      onChange={setSearchValue}
-                      onSelectUser={handleAddMember}
-                      selectedUsers={members.map((m) => ({
-                        user_id: m.user_id,
-                        name: m.name,
-                        email: m.email,
-                      }))}
-                      placeholder="Buscar usuario para agregar..."
-                    />
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[11px] font-medium" style={{ color: "#6B7280" }}>
+                        {isEditing ? "Agregar nuevos miembros al grupo" : "Agregar miembros"}
+                      </label>
+                      {isEditing && (
+                        <span className="text-[10px] px-2 py-0.5 rounded-sm" style={{ 
+                          backgroundColor: "#EFF6FF", 
+                          color: "#1D4ED8",
+                          borderRadius: "2px"
+                        }}>
+                          Puedes agregar más miembros
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex gap-2">
+                      <div className="flex-1">
+                        <UserAutocomplete
+                          value={searchValue}
+                          onChange={setSearchValue}
+                          onSelectUser={handleAddMember}
+                          selectedUsers={members.map((m) => ({
+                            user_id: m.user_id,
+                            name: m.name,
+                            email: m.email,
+                          }))}
+                          placeholder={isEditing ? "Buscar usuario para agregar al grupo..." : "Buscar usuario para agregar..."}
+                        />
+                      </div>
+                      <div className="w-36">
+                        <label className="text-[10px] font-medium block mb-1" style={{ color: "#6B7280" }}>
+                          Permiso:
+                        </label>
+                        <select
+                          value={newMemberPermission}
+                          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                            setNewMemberPermission(e.target.value)
+                          }
+                          className="rounded-sm px-2 py-1.5 text-[10px] focus:outline-none w-full font-medium"
+                          style={{
+                            border: "1px solid #E5E7EB",
+                            backgroundColor: "#FFFFFF",
+                            minHeight: "32px",
+                            borderRadius: "2px",
+                            cursor: "pointer",
+                          }}
+                          onFocus={(e) => {
+                            e.currentTarget.style.borderColor = "#3B82F6";
+                            e.currentTarget.style.boxShadow =
+                              "0 0 0 2px rgba(59, 130, 246, 0.1)";
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.borderColor = "#D1D5DB";
+                            e.currentTarget.style.boxShadow = "none";
+                          }}
+                          title="Selecciona el permiso que tendrá el nuevo miembro"
+                        >
+                          <option value="READ">READ - Solo lectura</option>
+                          <option value="WRITE">WRITE - Lectura y edición</option>
+                          <option value="ADMIN">ADMIN - Control total</option>
+                        </select>
+                      </div>
+                    </div>
+                    <p className="text-[10px]" style={{ color: "#9CA3AF" }}>
+                      {isEditing 
+                        ? "Busca un usuario y selecciona su permiso antes de agregarlo. El permiso se aplicará solo a este miembro."
+                        : "Selecciona el permiso que tendrá el nuevo miembro al agregarlo"}
+                    </p>
                   </div>
 
                   {/* Lista de miembros */}
                   {members.length > 0 && (
                     <div className="flex flex-col gap-2">
-                      <label className="text-[11px] font-medium" style={{ color: "#6B7280" }}>
-                        Miembros del grupo ({members.length})
-                      </label>
+                      <div className="flex items-center justify-between">
+                        <label className="text-[11px] font-medium" style={{ color: "#6B7280" }}>
+                          Miembros del grupo ({members.length})
+                        </label>
+                        <span className="text-[10px]" style={{ color: "#9CA3AF" }}>
+                          Puedes editar permisos individuales
+                        </span>
+                      </div>
                       <div className="space-y-1">
-                        {members.map((member) => (
+                        {members.map((member) => {
+                          const permissionColors: Record<string, { bg: string; text: string }> = {
+                            READ: { bg: "#EFF6FF", text: "#1D4ED8" },
+                            WRITE: { bg: "#FEF3C7", text: "#92400E" },
+                            ADMIN: { bg: "#FEE2E2", text: "#991B1B" },
+                          };
+                          const colors = permissionColors[member.permission || values.default_permission] || {
+                            bg: "#F3F4F6",
+                            text: "#374151",
+                          };
+                          
+                          return (
                           <div
                             key={member.user_id}
-                            className="flex items-center justify-between p-2 rounded-sm"
+                            className="flex items-center justify-between p-2.5 rounded-sm"
                             style={{
-                              backgroundColor: "#F3F4F6",
+                              backgroundColor: "#FFFFFF",
                               border: "1px solid #E5E7EB",
                               borderRadius: "2px",
                             }}
@@ -500,28 +574,56 @@ export default function GroupManagementModal({
                                   {member.email}
                                 </div>
                               )}
+                              <div className="mt-1">
+                                <span 
+                                  className="text-[10px] px-1.5 py-0.5 rounded-sm font-medium"
+                                  style={{
+                                    backgroundColor: colors.bg,
+                                    color: colors.text,
+                                    borderRadius: "2px",
+                                  }}
+                                >
+                                  Permiso actual: {member.permission || values.default_permission}
+                                </span>
+                              </div>
                             </div>
                             <div className="flex items-center gap-2">
-                              <Field
-                                as="select"
-                                value={member.permission || values.default_permission}
-                                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                                  handleUpdateMemberPermission(
-                                    member.user_id,
-                                    e.target.value
-                                  )
-                                }
-                                className="rounded-sm px-2 py-1 text-[10px] focus:outline-none"
-                                style={{
-                                  border: "1px solid #E5E7EB",
-                                  backgroundColor: "#FFFFFF",
-                                  borderRadius: "2px",
-                                }}
-                              >
-                                <option value="READ">READ</option>
-                                <option value="WRITE">WRITE</option>
-                                <option value="ADMIN">ADMIN</option>
-                              </Field>
+                              <div className="flex items-center gap-1">
+                                <span className="text-[10px] font-medium" style={{ color: "#6B7280" }}>
+                                  Permiso:
+                                </span>
+                                <select
+                                  value={member.permission || values.default_permission}
+                                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                                    handleUpdateMemberPermission(
+                                      member.user_id,
+                                      e.target.value
+                                    )
+                                  }
+                                  className="rounded-sm px-2 py-1 text-[10px] focus:outline-none font-medium"
+                                  style={{
+                                    border: "1px solid #E5E7EB",
+                                    backgroundColor: "#FFFFFF",
+                                    borderRadius: "2px",
+                                    minWidth: "90px",
+                                    cursor: "pointer",
+                                  }}
+                                  onFocus={(e) => {
+                                    e.currentTarget.style.borderColor = "#3B82F6";
+                                    e.currentTarget.style.boxShadow =
+                                      "0 0 0 2px rgba(59, 130, 246, 0.1)";
+                                  }}
+                                  onBlur={(e) => {
+                                    e.currentTarget.style.borderColor = "#D1D5DB";
+                                    e.currentTarget.style.boxShadow = "none";
+                                  }}
+                                  title="Click para cambiar el permiso de este miembro"
+                                >
+                                  <option value="READ">READ</option>
+                                  <option value="WRITE">WRITE</option>
+                                  <option value="ADMIN">ADMIN</option>
+                                </select>
+                              </div>
                               <button
                                 type="button"
                                 onClick={() => handleRemoveMember(member.user_id)}
@@ -537,12 +639,14 @@ export default function GroupManagementModal({
                                 onMouseLeave={(e) =>
                                   (e.currentTarget.style.backgroundColor = "transparent")
                                 }
+                                title="Remover miembro del grupo"
                               >
                                 ✕
                               </button>
                             </div>
                           </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                   )}

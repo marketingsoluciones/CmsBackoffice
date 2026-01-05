@@ -3,6 +3,7 @@ import { ToastContextProvider } from "../../context/ToastContext";
 import { CRM_MUTATIONS, CRM_QUERIES } from "../../utils/crmQueries";
 import { fetchApiCRM } from "../../utils/CRMFetching";
 import GroupManagementModal from "../Shared/GroupManagementModal";
+import GroupDetailsModal from "../Shared/GroupDetailsModal";
 import AdvancedTable from "../Shared/AdvancedTable";
 
 interface Group {
@@ -22,6 +23,7 @@ export default function GroupsCRM() {
   const { dispatch } = ToastContextProvider();
   const [openCreate, setOpenCreate] = useState(false);
   const [editGroup, setEditGroup] = useState<Group | null>(null);
+  const [viewingGroupId, setViewingGroupId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
 
@@ -32,8 +34,8 @@ export default function GroupsCRM() {
     } as any);
   };
 
-  const handleDelete = async (groupId: string) => {
-    if (!confirm("¿Estás seguro de que deseas eliminar este grupo?")) {
+  const handleDelete = async (groupId: string, groupName: string) => {
+    if (!confirm(`¿Estás seguro de que deseas eliminar el grupo "${groupName}"?\n\nEsta acción no se puede deshacer.`)) {
       return;
     }
 
@@ -165,6 +167,21 @@ export default function GroupsCRM() {
           renderActions={(row: any) => (
             <div className="flex items-center gap-2">
               <button
+                onClick={() => setViewingGroupId(row.group_id)}
+                className="px-2 py-1 text-xs rounded-sm transition-colors"
+                style={{
+                  border: "1px solid #3B82F6",
+                  color: "#3B82F6",
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: "2px",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#EFF6FF")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#FFFFFF")}
+                title="Ver detalles del grupo"
+              >
+                Ver Detalles
+              </button>
+              <button
                 onClick={() => {
                   setEditGroup(row);
                   setOpenCreate(true);
@@ -183,9 +200,9 @@ export default function GroupsCRM() {
                 Editar
               </button>
               <button
-                onClick={() => handleDelete(row.group_id)}
+                onClick={() => handleDelete(row.group_id, row.name)}
                 disabled={deletingId === row.group_id}
-                className="px-2 py-1 text-xs rounded-sm transition-colors disabled:opacity-40"
+                className="px-2 py-1 text-xs rounded-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 style={{
                   border: "1px solid #EF4444",
                   color: "#DC2626",
@@ -219,6 +236,18 @@ export default function GroupsCRM() {
           setEditGroup(null);
         }}
       />
+
+      {/* Modal de Detalles del Grupo */}
+      {viewingGroupId && (
+        <GroupDetailsModal
+          isOpen={!!viewingGroupId}
+          onClose={() => setViewingGroupId(null)}
+          groupId={viewingGroupId}
+          onSuccess={() => {
+            setRefreshKey((prev) => prev + 1);
+          }}
+        />
+      )}
     </div>
   );
 }

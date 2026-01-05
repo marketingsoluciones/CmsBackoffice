@@ -239,6 +239,13 @@ export const CRM_QUERIES = {
         name
         permission
         shared_at
+        shared_by {
+          user_id
+          name
+        }
+        access_origin
+        origin_group_name
+        is_owner
       }
     }
   `,
@@ -250,6 +257,11 @@ export const CRM_QUERIES = {
         description
         default_permission
         shared_at
+        shared_by {
+          user_id
+          name
+        }
+        member_count
         member_overrides {
           user_id
           name
