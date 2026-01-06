@@ -1159,16 +1159,10 @@ export const CRM_MUTATIONS = {
     }
   `,
   ADD_CRM_GROUP_MEMBER: `
-    mutation AddCRMGroupMember($input: CRM_AddGroupMemberInput!) {
-      addCRMGroupMember(input: $input) {
+    mutation AddCRMGroupMember($group_id: ID!, $input: CRM_AddGroupMemberInput!) {
+      addCRMGroupMember(group_id: $group_id, input: $input) {
         success
         message
-        member {
-          user_id
-          name
-          email
-          permission
-        }
         errors { field message code }
       }
     }
@@ -1183,15 +1177,10 @@ export const CRM_MUTATIONS = {
     }
   `,
   UPDATE_CRM_GROUP_MEMBER_PERMISSION: `
-    mutation UpdateCRMGroupMemberPermission($group_id: ID!, $user_id: ID!, $permission: CRM_PermissionLevel!) {
-      updateCRMGroupMemberPermission(group_id: $group_id, user_id: $user_id, permission: $permission) {
+    mutation UpdateCRMGroupMemberPermission($input: CRM_UpdateGroupMemberPermissionInput!) {
+      updateCRMGroupMemberPermission(input: $input) {
         success
         message
-        member {
-          user_id
-          name
-          permission
-        }
         errors { field message code }
       }
     }

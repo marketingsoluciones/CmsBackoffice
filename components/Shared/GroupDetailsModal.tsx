@@ -127,8 +127,8 @@ export default function GroupDetailsModal({
       const response = await fetchApiCRM({
         query: CRM_MUTATIONS.ADD_CRM_GROUP_MEMBER,
         variables: {
+          group_id: groupId,
           input: {
-            group_id: groupId,
             user_id: user.user_id,
             name: user.name,
             email: user.email,
@@ -138,7 +138,7 @@ export default function GroupDetailsModal({
       });
 
       if (response?.addCRMGroupMember?.success) {
-        pushToast("success", "Miembro agregado correctamente");
+        pushToast("success", response?.addCRMGroupMember?.message || "Miembro agregado correctamente");
         setSearchValue("");
         setShowAddMember(false);
         setNewMemberPermission("READ");
@@ -187,14 +187,16 @@ export default function GroupDetailsModal({
       const response = await fetchApiCRM({
         query: CRM_MUTATIONS.UPDATE_CRM_GROUP_MEMBER_PERMISSION,
         variables: {
-          group_id: groupId,
-          user_id: userId,
-          permission: permission,
+          input: {
+            group_id: groupId,
+            user_id: userId,
+            permission: permission,
+          },
         },
       });
 
       if (response?.updateCRMGroupMemberPermission?.success) {
-        pushToast("success", "Permiso actualizado correctamente");
+        pushToast("success", response?.updateCRMGroupMemberPermission?.message || "Permiso actualizado correctamente");
         setEditingPermission(null);
         await loadGroupDetails();
         if (onSuccess) onSuccess();

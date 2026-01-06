@@ -104,8 +104,8 @@ export default function GroupManagementModal({
           const response = await fetchApiCRM({
             query: CRM_MUTATIONS.ADD_CRM_GROUP_MEMBER,
             variables: {
+              group_id: groupId,
               input: {
-                group_id: groupId,
                 user_id: user.user_id,
                 name: user.name,
                 email: user.email,
@@ -122,12 +122,12 @@ export default function GroupManagementModal({
                 user_id: user.user_id,
                 name: user.name,
                 email: user.email,
-                permission: response.addCRMGroupMember.member?.permission || permissionToUse,
+                permission: permissionToUse,
               },
             ]);
             setSearchValue("");
             setNewMemberPermission("READ"); // Resetear a READ después de agregar
-            pushToast("success", "Miembro agregado correctamente");
+            pushToast("success", response?.addCRMGroupMember?.message || "Miembro agregado correctamente");
           } else {
             const errorMsg =
               response?.addCRMGroupMember?.errors?.[0]?.message || "Error al agregar miembro";
@@ -191,9 +191,11 @@ export default function GroupManagementModal({
         const response = await fetchApiCRM({
           query: CRM_MUTATIONS.UPDATE_CRM_GROUP_MEMBER_PERMISSION,
           variables: {
-            group_id: groupId,
-            user_id: userId,
-            permission: permission,
+            input: {
+              group_id: groupId,
+              user_id: userId,
+              permission: permission,
+            },
           },
         });
 
@@ -203,7 +205,7 @@ export default function GroupManagementModal({
               m.user_id === userId ? { ...m, permission } : m
             )
           );
-          pushToast("success", "Permiso actualizado correctamente");
+          pushToast("success", response?.updateCRMGroupMemberPermission?.message || "Permiso actualizado correctamente");
         } else {
           const errorMsg =
             response?.updateCRMGroupMemberPermission?.errors?.[0]?.message ||
