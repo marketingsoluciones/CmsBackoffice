@@ -239,13 +239,6 @@ export const CRM_QUERIES = {
         name
         permission
         shared_at
-        shared_by {
-          user_id
-          name
-        }
-        access_origin
-        origin_group_name
-        is_owner
       }
     }
   `,

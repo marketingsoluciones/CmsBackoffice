@@ -312,7 +312,7 @@ export default function GroupManagementModal({
                 });
 
                 if (response?.updateCRMGroup?.success) {
-                  pushToast("success", "Grupo actualizado correctamente");
+                  pushToast("success", response?.updateCRMGroup?.message || "Grupo actualizado correctamente");
                   if (onSuccess) onSuccess();
                   onClose();
                 } else {

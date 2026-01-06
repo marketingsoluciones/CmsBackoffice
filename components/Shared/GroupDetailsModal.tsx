@@ -224,7 +224,7 @@ export default function GroupDetailsModal({
       });
 
       if (response?.updateCRMGroup?.success) {
-        pushToast("success", "Grupo actualizado correctamente");
+        pushToast("success", response?.updateCRMGroup?.message || "Grupo actualizado correctamente");
         setIsEditingGroup(false);
         await loadGroupDetails();
         if (onSuccess) onSuccess();

@@ -326,7 +326,7 @@ export default function ShareModal({
     const user = sharedUsers.find(u => u.user_id === userId);
     if (!user) return;
 
-    // Verificar si es propietario
+    // Verificar si es propietario (si el campo existe)
     if (user.is_owner) {
       pushToast("error", "No puedes remover al propietario de la entidad");
       return;
@@ -408,19 +408,12 @@ export default function ShareModal({
 
   // Obtener badge de origen de acceso
   const getAccessOriginBadge = (user: SharedUser) => {
+    // Si el backend no proporciona estos campos, usar valores por defecto
     if (user.is_owner) {
       return { text: "Propietario", color: "#F59E0B", bgColor: "#FEF3C7" };
     }
-    switch (user.access_origin) {
-      case "DIRECT":
-        return { text: "Acceso directo", color: "#6B7280", bgColor: "#F3F4F6" };
-      case "GROUP":
-        return { text: `Por grupo: ${user.origin_group_name || "Grupo"}`, color: "#3B82F6", bgColor: "#EFF6FF" };
-      case "GROUP_OVERRIDE":
-        return { text: `Override en grupo`, color: "#F97316", bgColor: "#FFEDD5" };
-      default:
-        return { text: "Acceso directo", color: "#6B7280", bgColor: "#F3F4F6" };
-    }
+    // Por defecto, asumimos acceso directo si no hay información
+    return { text: "Acceso directo", color: "#6B7280", bgColor: "#F3F4F6" };
   };
 
   // Calcular permiso efectivo y razón
@@ -430,21 +423,9 @@ export default function ShareModal({
       return { permission: user.effective_permission, reason: user.permission_reason };
     }
 
-    // Lógica de resolución de conflictos
-    // ADMIN > WRITE > READ
-    // Directo > Override > Grupo
-    const permission = user.permission;
-    let reason = "";
-    
-    if (user.access_origin === "DIRECT") {
-      reason = `Acceso directo con permiso ${permission}`;
-    } else if (user.access_origin === "GROUP_OVERRIDE") {
-      reason = `Override en grupo "${user.origin_group_name || ""}" con permiso ${permission}`;
-    } else if (user.access_origin === "GROUP") {
-      reason = `Pertenece al grupo "${user.origin_group_name || ""}" con permiso ${permission}`;
-    } else {
-      reason = `Permiso ${permission}`;
-    }
+    // Usar el permiso que viene del backend
+    const permission = user.permission || "READ";
+    const reason = `Permiso ${permission}`;
 
     return { permission, reason };
   };
@@ -1177,9 +1158,9 @@ export default function ShareModal({
                                           >
                                             {badge.text}
                                           </span>
-                                          {sharedUser.shared_at && sharedUser.shared_by && (
+                                          {sharedUser.shared_at && (
                                             <span className="text-[10px]" style={{ color: '#9CA3AF' }}>
-                                              {new Date(sharedUser.shared_at).toLocaleDateString()} por {sharedUser.shared_by.name}
+                                              {new Date(sharedUser.shared_at).toLocaleDateString()}
                                             </span>
                                           )}
                                         </div>
@@ -1233,9 +1214,9 @@ export default function ShareModal({
                                         <span className="text-[10px]" style={{ color: '#6B7280' }}>
                                           Permiso por defecto: {sharedGroup.default_permission}
                                         </span>
-                                        {sharedGroup.shared_at && sharedGroup.shared_by && (
+                                        {sharedGroup.shared_at && (
                                           <span className="text-[10px]" style={{ color: '#9CA3AF' }}>
-                                            {new Date(sharedGroup.shared_at).toLocaleDateString()} por {sharedGroup.shared_by.name}
+                                            {new Date(sharedGroup.shared_at).toLocaleDateString()}
                                           </span>
                                         )}
                                       </div>
