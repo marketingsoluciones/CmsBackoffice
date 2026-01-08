@@ -33,6 +33,12 @@ export default function EntitiesCRM() {
   };
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [selectedRow, setSelectedRow] = useState<any | null>(null);
+  // Filtros generales (etiquetas y propietario)
+  const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
+  const [selectedOwnerId, setSelectedOwnerId] = useState<string | undefined>(undefined);
+  const [owners] = useState<Array<{ id: string; name: string }>>([
+    { id: "all", name: "Bodas de Hoy (you)" },
+  ]);
   return (
     <div className="flex flex-col h-full overflow-hidden" style={{ minHeight: 0, maxHeight: '100vh', padding: '16px', backgroundColor: '#F9FAFB' }}>
       {/* Header compacto estilo Pipedrive */}
@@ -76,6 +82,14 @@ export default function EntitiesCRM() {
         enableCRMFeatures={true}
         onRowClick={(row) => setSelectedRow(row)}
         getRowId={(r: any) => r.id}
+        selectedLabels={selectedLabels}
+        onSelectLabels={setSelectedLabels}
+        owners={owners}
+        selectedOwnerId={selectedOwnerId}
+        onSelectOwner={setSelectedOwnerId}
+        onCreateFilter={() => {
+          console.log("Create filter clicked");
+        }}
         renderCell={(row: any, col) => {
           if (col.field === "size") {
             const sizeColors: Record<string, { bg: string; text: string }> = {

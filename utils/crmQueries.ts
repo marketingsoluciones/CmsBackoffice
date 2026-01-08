@@ -107,6 +107,31 @@ export const CRM_QUERIES = {
           scheduledAt
           notes
           tags
+          objective
+          budget
+          targetAudience
+          startDate
+          endDate
+          recipient_selection {
+            events {
+              event_id
+              auto_create_contacts
+            }
+            lists {
+              list_id
+              include_all
+              included_statuses
+            }
+            tags {
+              include_tags
+              exclude_tags
+              match_all
+            }
+            exclusions {
+              events
+              lists
+            }
+          }
           createdAt
           updatedAt
         }
@@ -916,7 +941,43 @@ export const CRM_MUTATIONS = {
           message
           code
         }
-        campaign { id name type templateId status scheduledAt notes tags createdAt updatedAt }
+        campaign { 
+          id 
+          name 
+          type 
+          templateId 
+          status 
+          scheduledAt 
+          notes 
+          tags 
+          objective 
+          budget 
+          targetAudience 
+          startDate 
+          endDate 
+          recipient_selection {
+            events {
+              event_id
+              auto_create_contacts
+            }
+            lists {
+              list_id
+              include_all
+              included_statuses
+            }
+            tags {
+              include_tags
+              exclude_tags
+              match_all
+            }
+            exclusions {
+              events
+              lists
+            }
+          }
+          createdAt 
+          updatedAt 
+        }
       }
     }
   `,
@@ -924,7 +985,42 @@ export const CRM_MUTATIONS = {
     mutation UpdateCampaign($id: ID!, $input: CRM_CampaignUpdateInput!) {
       updateCRMCampaign(id: $id, input: $input) {
         success
-        campaign { id name type templateId status scheduledAt notes tags updatedAt }
+        campaign { 
+          id 
+          name 
+          type 
+          templateId 
+          status 
+          scheduledAt 
+          notes 
+          tags 
+          objective 
+          budget 
+          targetAudience 
+          startDate 
+          endDate 
+          recipient_selection {
+            events {
+              event_id
+              auto_create_contacts
+            }
+            lists {
+              list_id
+              include_all
+              included_statuses
+            }
+            tags {
+              include_tags
+              exclude_tags
+              match_all
+            }
+            exclusions {
+              events
+              lists
+            }
+          }
+          updatedAt 
+        }
         errors { field message code }
       }
     }

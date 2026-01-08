@@ -83,10 +83,28 @@ export const fetchApi = async ({
 }
 
 export const fetchApiEventos = async ({ query, variables, domain }) => {
-  const {
-    data: { data },
-  } = await api.ApiApp({ query, variables }, domain);
-  return Object.values(data)[0];
+  try {
+    const {
+      data: { data },
+    } = await api.ApiApp({ query, variables }, domain);
+    
+    // Verificar que data existe y no es null/undefined
+    if (!data || typeof data !== 'object') {
+      console.warn('fetchApiEventos: data is null, undefined, or not an object', data);
+      return null;
+    }
+    
+    const values = Object.values(data);
+    if (values.length === 0) {
+      console.warn('fetchApiEventos: data object is empty', data);
+      return null;
+    }
+    
+    return values[0];
+  } catch (error) {
+    console.error('fetchApiEventos error:', error);
+    throw error;
+  }
 };
 
 export const queries = {

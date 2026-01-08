@@ -38,11 +38,34 @@ export default function EditableField({
   const hasValue = value !== null && value !== undefined && value !== "";
 
   // Formatear valor para mostrar
-  const displayValue = formatValue
-    ? formatValue(value)
-    : value !== null && value !== undefined
-    ? String(value)
-    : "";
+  // Para campos de fecha, convertir ISO a formato legible si es necesario
+  const getDisplayValue = () => {
+    if (formatValue) {
+      return formatValue(value);
+    }
+    if (value === null || value === undefined) {
+      return "";
+    }
+    // Si es un campo de fecha y el valor es un string ISO, convertir a formato legible
+    if (type === "date" && typeof value === "string") {
+      try {
+        // Si ya está en formato yyyy-MM-dd, usarlo directamente
+        if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+          return value;
+        }
+        // Si es un string ISO, convertir a formato legible para mostrar
+        const date = new Date(value);
+        if (!isNaN(date.getTime())) {
+          return date.toLocaleDateString('es-ES');
+        }
+      } catch (e) {
+        // Si falla, usar el valor original
+      }
+    }
+    return String(value);
+  };
+  
+  const displayValue = getDisplayValue();
 
   useEffect(() => {
     if (isEditing && inputRef.current) {

@@ -873,7 +873,7 @@ export function AdvancedTable<T>({
                 </button>
               </th>
               {hasActions ? (
-                <th className="text-left px-3 py-2 font-medium whitespace-nowrap" style={{ borderBottom: '1px solid #E5E7EB', backgroundColor: enableCRMFeatures ? '#FAFAFA' : '#F9FAFB', color: '#374151' }}>
+                <th className="text-left font-medium whitespace-nowrap" style={{ borderBottom: '1px solid #E5E7EB', backgroundColor: enableCRMFeatures ? '#FAFAFA' : '#F9FAFB', color: '#374151', width: '60px', minWidth: '60px', maxWidth: '60px', padding: enableCRMFeatures ? '12px 8px' : '8px 12px' }}>
                   Acciones
                 </th>
               ) : null}
@@ -889,8 +889,8 @@ export function AdvancedTable<T>({
                     </td>
                   ))}
                   {hasActions ? (
-                    <td className="px-3 py-3" style={{ borderBottom: '1px solid #E5E7EB' }}>
-                      <div className="h-3 rounded w-1/3" style={{ backgroundColor: '#E5E7EB' }} />
+                    <td className="px-3 py-3" style={{ borderBottom: '1px solid #E5E7EB', width: '60px', minWidth: '60px', maxWidth: '60px', textAlign: 'center' }}>
+                      <div className="h-3 rounded w-1/3 mx-auto" style={{ backgroundColor: '#E5E7EB' }} />
                     </td>
                   ) : null}
                 </tr>
@@ -923,19 +923,20 @@ export function AdvancedTable<T>({
                     // Si el valor es un ReactNode (badge, botón, etc.), renderizarlo directamente
                     if (React.isValidElement(cellValue) || (cellValue && typeof cellValue === 'object')) {
                       return (
-                        <td 
-                          key={col.field} 
-                          className={`whitespace-nowrap ${enableCRMFeatures ? 'px-4 py-3' : 'px-3 py-2'}`}
-                          style={{ 
-                            borderBottom: enableCRMFeatures ? '1px solid #F3F4F6' : '1px solid #E5E7EB',
-                            minWidth: col.width ? `${col.width}px` : 'auto',
-                            maxWidth: col.width ? `${col.width}px` : 'none',
-                            color: '#111827',
-                            fontSize: '13px'
-                          }}
-                        >
-                          {cellValue}
-                        </td>
+                      <td 
+                        key={col.field} 
+                        className={`whitespace-nowrap ${enableCRMFeatures ? 'px-4 py-3' : 'px-3 py-2'}`}
+                        style={{ 
+                          borderBottom: enableCRMFeatures ? '1px solid #F3F4F6' : '1px solid #E5E7EB',
+                          width: enableCRMFeatures ? 'auto' : (col.width ? `${col.width}px` : 'auto'),
+                          minWidth: enableCRMFeatures ? 'fit-content' : (col.width ? `${col.width}px` : 'auto'),
+                          maxWidth: enableCRMFeatures ? 'none' : (col.width ? `${col.width}px` : 'none'),
+                          color: '#111827',
+                          fontSize: '13px'
+                        }}
+                      >
+                        {cellValue}
+                      </td>
                       );
                     }
                     // Para strings y números, aplicar limitador de 7 caracteres solo si enableCRMFeatures está activo
@@ -961,7 +962,7 @@ export function AdvancedTable<T>({
                         title={enableCRMFeatures && textValue.length > 7 ? textValue : undefined}
                       >
                         {enableCRMFeatures ? (
-                          <span className="inline-block" style={{ maxWidth: '100px' }}>{truncated || ''}</span>
+                          <span className="inline-block">{truncated || ''}</span>
                         ) : (
                           cellValue
                         )}
@@ -969,7 +970,14 @@ export function AdvancedTable<T>({
                     );
                   })}
                   {hasActions ? (
-                    <td className={enableCRMFeatures ? 'px-4 py-3' : 'px-3 py-2'} style={{ borderBottom: enableCRMFeatures ? '1px solid #F3F4F6' : '1px solid #E5E7EB' }}>
+                    <td className="whitespace-nowrap" style={{ 
+                      borderBottom: enableCRMFeatures ? '1px solid #F3F4F6' : '1px solid #E5E7EB',
+                      width: '60px',
+                      minWidth: '60px',
+                      maxWidth: '60px',
+                      padding: enableCRMFeatures ? '12px 8px' : '8px 12px',
+                      textAlign: 'center'
+                    }}>
                       {renderActions ? renderActions(row) : null}
                     </td>
                   ) : null}
