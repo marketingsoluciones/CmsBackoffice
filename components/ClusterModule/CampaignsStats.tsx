@@ -36,9 +36,9 @@ export default function CampaignsStats({ campaigns, loading }: CampaignsStatsPro
   }
 
   const total = campaigns.length;
-  const active = campaigns.filter((c) => c.status === "RUNNING" || c.status === "SENDING").length;
+  const active = campaigns.filter((c) => c.status === "RUNNING").length;
   const paused = campaigns.filter((c) => c.status === "PAUSED").length;
-  const completed = campaigns.filter((c) => c.status === "COMPLETED" || c.status === "SENT").length;
+  const completed = campaigns.filter((c) => c.status === "COMPLETED").length;
   const totalBudget = campaigns.reduce((sum, c) => sum + (c.budget || 0), 0);
 
   const stats = [

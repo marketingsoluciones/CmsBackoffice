@@ -94,15 +94,23 @@ export const CRM_QUERIES = {
       }
     }
   `,
-  // GET_CAMPAIGNS: Versión compatible con el backend actual
+  // GET_CAMPAIGNS: Versión mejorada con templates, métricas y tracking
   GET_CAMPAIGNS: `
-    query GetCampaigns($pagination: CRM_PaginationInput!) {
-      getCRMCampaigns(pagination: $pagination) {
+    query GetCampaigns($pagination: CRM_PaginationInput!, $filters: CRM_CampaignFilters) {
+      getCRMCampaigns(pagination: $pagination, filters: $filters) {
         campaigns {
           id
           name
           type
           templateId
+          template {
+            id
+            name
+            type
+            subject
+            body
+            variables
+          }
           status
           scheduledAt
           notes
@@ -132,6 +140,46 @@ export const CRM_QUERIES = {
               lists
             }
           }
+          metrics {
+            sent
+            delivered
+            opened
+            clicked
+            converted
+            revenue
+            openRate
+            clickRate
+            conversionRate
+          }
+          communicationTracking {
+            totalSent
+            totalDelivered
+            totalOpened
+            totalClicked
+            totalReplied
+            totalBounced
+            byChannel {
+              email {
+                sent
+                opened
+                clicked
+                replied
+              }
+              whatsapp {
+                sent
+                delivered
+                read
+                replied
+              }
+              sms {
+                sent
+                delivered
+                replied
+              }
+            }
+            lastSentAt
+            lastOpenedAt
+          }
           createdAt
           updatedAt
         }
@@ -140,6 +188,39 @@ export const CRM_QUERIES = {
           page
           limit
           totalPages
+        }
+      }
+    }
+  `,
+  // GET_CAMPAIGN_TEMPLATES: Obtener templates de campañas
+  GET_CAMPAIGN_TEMPLATES: `
+    query GetCampaignTemplates($type: CRM_TemplateType, $whitelabelId: ID, $pagination: CRM_PaginationInput) {
+      getCampaignTemplates(type: $type, whitelabelId: $whitelabelId, pagination: $pagination) {
+        success
+        templates {
+          id
+          name
+          type
+          category
+          subject
+          body
+          variables
+          language
+          enabled
+          whitelabelId
+          createdAt
+          updatedAt
+        }
+        total
+        pagination {
+          page
+          limit
+          totalPages
+        }
+        errors {
+          field
+          message
+          code
         }
       }
     }
@@ -1641,6 +1722,101 @@ export const CRM_MUTATIONS = {
       }
     }
   `,
+
+  // ========== TEMPLATES DE CAMPAÑAS ==========
+  CREATE_CAMPAIGN_TEMPLATE: `
+    mutation CreateCampaignTemplate($input: CRM_CreateCampaignTemplateInput!) {
+      createCampaignTemplate(input: $input) {
+        success
+        template {
+          id
+          name
+          type
+          category
+          subject
+          body
+          variables
+          language
+          enabled
+          whitelabelId
+          createdAt
+          updatedAt
+        }
+        errors {
+          field
+          message
+          code
+        }
+      }
+    }
+  `,
+  UPDATE_CAMPAIGN_TEMPLATE: `
+    mutation UpdateCampaignTemplate($id: ID!, $input: CRM_UpdateCampaignTemplateInput!) {
+      updateCampaignTemplate(id: $id, input: $input) {
+        success
+        template {
+          id
+          name
+          type
+          category
+          subject
+          body
+          variables
+          language
+          enabled
+          updatedAt
+        }
+        errors {
+          field
+          message
+          code
+        }
+      }
+    }
+  `,
+  DELETE_CAMPAIGN_TEMPLATE: `
+    mutation DeleteCampaignTemplate($id: ID!) {
+      deleteCampaignTemplate(id: $id) {
+        success
+        message
+        errors {
+          field
+          message
+          code
+        }
+      }
+    }
+  `,
+  TRACK_CAMPAIGN_COMMUNICATION: `
+    mutation TrackCampaignCommunication($campaignId: ID!, $input: CRM_CommunicationTrackingInput!) {
+      trackCampaignCommunication(campaignId: $campaignId, input: $input) {
+        success
+        campaign {
+          id
+          metrics {
+            sent
+            opened
+            openRate
+          }
+          communicationTracking {
+            totalSent
+            totalOpened
+            byChannel {
+              email {
+                sent
+                opened
+              }
+            }
+          }
+        }
+        errors {
+          field
+          message
+          code
+        }
+      }
+    }
+  `,
 };
 
 // Enums frontend consistentes (referencia)
@@ -1650,6 +1826,6 @@ export type LeadSource = 'WEBSITE' | 'REFERRAL' | 'SOCIAL' | 'EVENT' | 'COLD_OUT
 export type ContactType = 'INDIVIDUAL' | 'ENTITY_CONTACT';
 export type ContactRelationship = 'CLIENTE' | 'PROSPECTO' | 'PROVEEDOR' | 'SOCIO' | 'REFERIDO' | 'OTRO';
 export type CampaignType = 'EMAIL' | 'WHATSAPP' | 'SMS';
-export type CampaignStatus = 'DRAFT' | 'SCHEDULED' | 'SENDING' | 'SENT' | 'PAUSED' | 'CANCELLED';
+export type CampaignStatus = 'DRAFT' | 'SCHEDULED' | 'RUNNING' | 'PAUSED' | 'COMPLETED' | 'CANCELLED';
 
 

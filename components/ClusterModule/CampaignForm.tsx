@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form } from "formik";
-import { CRM_MUTATIONS } from "../../utils/crmQueries";
+import { CRM_MUTATIONS, CRM_QUERIES } from "../../utils/crmQueries";
 import { fetchApiCRM } from "../../utils/CRMFetching";
 import { ToastContextProvider } from "../../context/ToastContext";
 import EventSelector from "./EventSelector";
 import ListSelector from "./ListSelector";
 import TagSelector from "./TagSelector";
+import TemplateSelector from "./TemplateSelector";
 import { useCRMLabels } from "../../hooks/useCRMLabels";
 
 interface CampaignFormProps {
@@ -40,8 +41,11 @@ export default function CampaignForm({
   const { labels } = useCRMLabels("CAMPAIGN");
   const availableTags = labels.map((l) => l.name);
 
-  if (!isOpen) return null;
+  // Estado para templates
+  const [templates, setTemplates] = useState<any[]>([]);
+  const [loadingTemplates, setLoadingTemplates] = useState(false);
 
+  // Definir initialValues antes de usarlo en useEffect
   const initialValues = {
     name: initialData?.name || "",
     type: initialData?.type || "EMAIL",
@@ -57,6 +61,38 @@ export default function CampaignForm({
     tags: initialData?.tags?.join(", ") || "",
   };
 
+  const loadTemplates = async () => {
+    try {
+      setLoadingTemplates(true);
+      const response = await fetchApiCRM({
+        query: CRM_QUERIES.GET_CAMPAIGN_TEMPLATES,
+        variables: {
+          type: initialValues.type, // EMAIL, WHATSAPP, SMS
+          pagination: { page: 1, limit: 100 },
+        },
+      });
+      if (response?.getCampaignTemplates?.success) {
+        setTemplates(response.getCampaignTemplates.templates || []);
+      } else {
+        console.error("Error loading templates:", response?.getCampaignTemplates?.errors);
+        setTemplates([]);
+      }
+    } catch (error) {
+      console.error("Error loading templates:", error);
+      setTemplates([]);
+    } finally {
+      setLoadingTemplates(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen && initialValues.type) {
+      loadTemplates();
+    }
+  }, [isOpen, initialData?.type]);
+
+  if (!isOpen) return null;
+
   const handleSubmit = async (values: any) => {
     try {
       const input: any = {
@@ -71,7 +107,18 @@ export default function CampaignForm({
       if (values.startDate) input.startDate = new Date(values.startDate).toISOString();
       if (values.endDate) input.endDate = new Date(values.endDate).toISOString();
       if (values.scheduledAt) input.scheduledAt = new Date(values.scheduledAt).toISOString();
-      if (values.templateId) input.templateId = values.templateId.trim();
+      
+      // Template es requerido para EMAIL, WHATSAPP y SMS según el backend
+      if (values.type === "EMAIL" || values.type === "WHATSAPP" || values.type === "SMS") {
+        if (!values.templateId || values.templateId.trim() === "") {
+          pushToast("error", "El template es requerido para este tipo de campaña");
+          return;
+        }
+        input.templateId = values.templateId.trim();
+      } else if (values.templateId) {
+        input.templateId = values.templateId.trim();
+      }
+      
       if (values.notes) input.notes = values.notes.trim();
       if (values.tags) {
         input.tags = values.tags
@@ -457,25 +504,27 @@ export default function CampaignForm({
 
               {activeTab === "settings" && (
                 <div className="space-y-4">
-                  <div>
-                    <label className="text-xs font-medium block mb-1" style={{ color: "#6B7280" }}>
-                      ID de Plantilla
-                    </label>
-                    <input
-                      type="text"
-                      name="templateId"
-                      value={values.templateId}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      className="w-full px-3 py-2 text-sm rounded-sm focus:outline-none"
-                      style={{
-                        border: "1px solid #E5E7EB",
-                        backgroundColor: "#FFFFFF",
-                        borderRadius: "2px",
-                      }}
-                      placeholder="Ej: plantilla-123"
-                    />
-                  </div>
+                  {['EMAIL', 'WHATSAPP', 'SMS'].includes(values.type) && (
+                    <div>
+                      <label className="text-xs font-medium block mb-1" style={{ color: "#6B7280" }}>
+                        Plantilla *
+                      </label>
+                      <TemplateSelector
+                        value={values.templateId}
+                        onChange={(templateId) => setFieldValue('templateId', templateId)}
+                        type={values.type as "EMAIL" | "WHATSAPP" | "SMS"}
+                        templates={templates}
+                        onCreateNew={() => {
+                          pushToast("info", "Funcionalidad de creación de plantillas próximamente");
+                        }}
+                      />
+                      {errors.templateId && touched.templateId && (
+                        <p className="text-xs mt-1" style={{ color: "#DC2626" }}>
+                          {errors.templateId}
+                        </p>
+                      )}
+                    </div>
+                  )}
 
                   <div>
                     <label className="text-xs font-medium block mb-1" style={{ color: "#6B7280" }}>

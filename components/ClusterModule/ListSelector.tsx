@@ -109,11 +109,21 @@ export default function ListSelector({ selectedLists, onChange, entityType }: Li
                     <div className="text-xs font-medium truncate" style={{ color: "#111827" }}>
                       {filter.name}
                     </div>
-                    {filter.conditions && filter.conditions.length > 0 && (
-                      <div className="text-[10px] mt-0.5" style={{ color: "#6B7280" }}>
-                        {filter.conditions.length} condición(es)
-                      </div>
-                    )}
+                    <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                      {filter.conditions && filter.conditions.length > 0 && (
+                        <span className="text-[10px]" style={{ color: "#6B7280" }}>
+                          {filter.conditions.length} condición(es)
+                        </span>
+                      )}
+                      {filter.itemCount !== undefined && (
+                        <span
+                          className="text-[10px] px-1.5 py-0.5 rounded-sm"
+                          style={{ backgroundColor: "#D1FAE5", color: "#047857", borderRadius: "2px" }}
+                        >
+                          {filter.itemCount} elementos
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
                 {isSelected && (
@@ -134,7 +144,7 @@ export default function ListSelector({ selectedLists, onChange, entityType }: Li
                 )}
               </div>
               {isSelected && isExpanded && (
-                <div className="mt-2 pt-2 border-t border-gray-200">
+                <div className="mt-2 pt-2 border-t border-gray-200 space-y-2">
                   <label className="flex items-center gap-2">
                     <input
                       type="checkbox"
@@ -147,6 +157,17 @@ export default function ListSelector({ selectedLists, onChange, entityType }: Li
                       Incluir todos los elementos de esta lista
                     </span>
                   </label>
+                  {!selectedList?.include_all && (
+                    <div className="mt-2">
+                      <label className="text-[10px] font-medium block mb-1" style={{ color: "#6B7280" }}>
+                        Estados a incluir (opcional)
+                      </label>
+                      <div className="text-[10px]" style={{ color: "#9CA3AF" }}>
+                        Selecciona estados específicos para filtrar elementos de esta lista
+                      </div>
+                      {/* TODO: Implementar selector de estados cuando el backend lo soporte */}
+                    </div>
+                  )}
                 </div>
               )}
             </div>

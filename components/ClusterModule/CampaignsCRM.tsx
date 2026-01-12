@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AdvancedTable, ColumnConfig } from "../Shared/AdvancedTable";
 import PipedriveDetailModal from "../Shared/PipedriveDetailModal";
 import EditableField from "../Shared/EditableField";
@@ -14,6 +14,7 @@ import ActionsMenu from "../Shared/ActionsMenu";
 import { getFieldIcon } from "../Icons/ProfessionalIcons";
 import CampaignForm from "./CampaignForm";
 import CampaignsStats from "./CampaignsStats";
+import CampaignsTableToolbar, { CampaignType, CampaignStatus, TYPE_OPTIONS } from "./CampaignsTableToolbar";
 
 const defaultCampaignColumns: ColumnConfig[] = [
   { field: "name", label: "Nombre", visible: true, order: 0, width: undefined, pinned: false, tooltip: "Nombre de la campaña" },
@@ -44,6 +45,17 @@ export default function CampaignsCRM() {
   const [owners] = useState<Array<{ id: string; name: string }>>([
     { id: "all", name: "Bodas de Hoy (you)" },
   ]);
+  // Filtros de campañas
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedTypes, setSelectedTypes] = useState<CampaignType[]>([]);
+  const [selectedStatuses, setSelectedStatuses] = useState<CampaignStatus[]>([]);
+  const [budgetRange, setBudgetRange] = useState<{ min: number | null; max: number | null }>({
+    min: null,
+    max: null,
+  });
+  const [sortBy, setSortBy] = useState("createdAt_desc");
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [toolbarFunctions, setToolbarFunctions] = useState<any>(null);
 
   useEffect(() => {
     loadCampaigns();
@@ -66,7 +78,7 @@ export default function CampaignsCRM() {
   };
 
   return (
-    <div className="flex flex-col h-full overflow-hidden" style={{ minHeight: 0, maxHeight: '100vh', padding: '16px', backgroundColor: '#F9FAFB' }}>
+    <div className="flex flex-col h-full overflow-y-auto" style={{ minHeight: 0, height: '100vh', padding: '16px', backgroundColor: '#F9FAFB', position: 'relative' }}>
       {/* Header compacto estilo Pipedrive */}
       <div className="flex items-center justify-between gap-4 flex-shrink-0 mb-3" style={{ paddingBottom: '12px', borderBottom: '1px solid #E5E7EB' }}>
         <div className="flex items-center gap-3">
@@ -103,7 +115,20 @@ export default function CampaignsCRM() {
         entityType="CAMPAIGN"
         defaultColumns={defaultCampaignColumns}
         query={GET_CRM_CAMPAIGNS}
-        variables={{ pagination: { page: 1, limit: 50 } }}
+        variables={{
+          pagination: { page: 1, limit: 50 },
+          filters: {
+            ...(searchQuery ? { search: searchQuery } : {}),
+            ...(selectedTypes.length > 0 ? { type: selectedTypes } : {}),
+            ...(selectedStatuses.length > 0 ? { status: selectedStatuses } : {}),
+            ...(budgetRange.min !== null ? { budgetMin: budgetRange.min } : {}),
+            ...(budgetRange.max !== null ? { budgetMax: budgetRange.max } : {}),
+          },
+          sortBy: sortBy ? {
+            field: sortBy.split('_')[0],
+            order: sortBy.split('_')[1] as 'asc' | 'desc',
+          } : undefined,
+        }}
         mapResponse={(resp: any) => {
           const campaignsList = resp?.getCRMCampaigns?.campaigns ?? [];
           setCampaigns(campaignsList);
@@ -121,6 +146,112 @@ export default function CampaignsCRM() {
         onCreateFilter={() => {
           console.log("Create filter clicked");
         }}
+        externalSearchText={searchQuery}
+        onExternalSearchTextChange={setSearchQuery}
+        onToolbarFunctionsReady={setToolbarFunctions}
+        customToolbar={toolbarFunctions ? (
+          <CampaignsTableToolbar
+            views={toolbarFunctions.views || []}
+            activeViewId={toolbarFunctions.activeViewId}
+            onChangeView={toolbarFunctions.onChangeView || (() => {})}
+            onOpenColumns={toolbarFunctions.onOpenColumns || (() => {})}
+            onOpenFilters={toolbarFunctions.onOpenFilters || (() => {})}
+            onSaveView={toolbarFunctions.onSaveView || (() => {})}
+            onExport={toolbarFunctions.onExport || (() => {})}
+            pageSize={toolbarFunctions.pageSize || 50}
+            onPageSizeChange={toolbarFunctions.onPageSizeChange || (() => {})}
+            isSaving={toolbarFunctions.isSaving || false}
+            searchInputRef={toolbarFunctions.searchInputRef}
+            viewsEnabled={toolbarFunctions.viewsEnabled !== undefined ? toolbarFunctions.viewsEnabled : true}
+            searchText={searchQuery}
+            onSearchTextChange={setSearchQuery}
+            entityType="CAMPAIGN"
+            labels={[]}
+            selectedLabels={selectedLabels}
+            onSelectLabels={setSelectedLabels}
+            owners={owners}
+            selectedOwnerId={selectedOwnerId}
+            onSelectOwner={setSelectedOwnerId}
+            selectedTypes={selectedTypes}
+            onTypesChange={setSelectedTypes}
+            selectedStatuses={selectedStatuses}
+            onStatusesChange={setSelectedStatuses}
+            budgetRange={budgetRange}
+            onBudgetRangeChange={setBudgetRange}
+            campaignSortBy={sortBy}
+            onCampaignSortChange={setSortBy}
+          />
+        ) : (
+          <div className="w-full flex flex-col gap-2 mb-2">
+            <div className="w-full flex flex-wrap gap-2 items-center justify-between">
+              <div className="flex items-center gap-2 flex-1 min-w-[220px]">
+                <div className="relative flex-1 min-w-[180px]">
+                  <span className="absolute left-2 top-1/2 transform -translate-y-1/2" style={{ color: '#9CA3AF' }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="11" cy="11" r="8"></circle>
+                      <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                  </span>
+                  <input
+                    ref={searchInputRef}
+                    value={searchQuery}
+                    placeholder="Buscar campañas..."
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full rounded-sm pl-8 pr-3 py-1.5 text-sm focus:outline-none transition-colors"
+                    style={{ border: '1px solid #E5E7EB', backgroundColor: '#FFFFFF', borderRadius: '2px' }}
+                    onFocus={(e) => e.currentTarget.style.borderColor = '#3B82F6'}
+                    onBlur={(e) => e.currentTarget.style.borderColor = '#E5E7EB'}
+                    title="Buscar (/)"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="w-full flex flex-wrap gap-2 items-center">
+              {TYPE_OPTIONS.map((type) => {
+                const isSelected = selectedTypes.includes(type.value);
+                return (
+                  <button
+                    key={type.value}
+                    type="button"
+                    onClick={() => {
+                      if (selectedTypes.includes(type.value)) {
+                        setSelectedTypes(selectedTypes.filter((t) => t !== type.value));
+                      } else {
+                        setSelectedTypes([...selectedTypes, type.value]);
+                      }
+                    }}
+                    className="px-2.5 py-1.5 text-xs font-medium rounded-sm transition-colors"
+                    style={{
+                      backgroundColor: isSelected ? type.color : "#F3F4F6",
+                      color: isSelected ? "#FFFFFF" : "#374151",
+                      borderRadius: "2px",
+                    }}
+                  >
+                    {type.label}
+                  </button>
+                );
+              })}
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="px-2.5 py-1.5 text-xs rounded-sm focus:outline-none"
+                style={{
+                  border: "1px solid #E5E7EB",
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: "2px",
+                  color: "#374151",
+                }}
+              >
+                <option value="createdAt_desc">Más recientes</option>
+                <option value="createdAt_asc">Más antiguos</option>
+                <option value="name_asc">Nombre A-Z</option>
+                <option value="name_desc">Nombre Z-A</option>
+                <option value="budget_desc">Mayor presupuesto</option>
+                <option value="budget_asc">Menor presupuesto</option>
+              </select>
+            </div>
+          </div>
+        )}
         renderCell={(row: any, col) => {
           const isLastColumn = col.field === defaultCampaignColumns[defaultCampaignColumns.length - 1].field;
           const actionsMenu = isLastColumn ? (
@@ -160,14 +291,12 @@ export default function CampaignsCRM() {
 
           if (col.field === "status") {
             const statusColors: Record<string, { bg: string; text: string }> = {
-              "SENT": { bg: "#D1FAE5", text: "#047857" },
-              "PAUSED": { bg: "#FEF3C7", text: "#B45309" },
-              "CANCELLED": { bg: "#FEE2E2", text: "#DC2626" },
               "DRAFT": { bg: "#DBEAFE", text: "#1D4ED8" },
               "SCHEDULED": { bg: "#DBEAFE", text: "#1D4ED8" },
-              "SENDING": { bg: "#DBEAFE", text: "#1D4ED8" },
               "RUNNING": { bg: "#D1FAE5", text: "#047857" },
+              "PAUSED": { bg: "#FEF3C7", text: "#B45309" },
               "COMPLETED": { bg: "#E9D5FF", text: "#6B21A8" },
+              "CANCELLED": { bg: "#FEE2E2", text: "#DC2626" },
             };
             const colors = statusColors[row.status] || { bg: "#DBEAFE", text: "#1D4ED8" };
             const statusText = truncateText(row.status || "-");
@@ -301,7 +430,6 @@ export default function CampaignsCRM() {
               { value: "RUNNING", label: "En ejecución" },
               { value: "PAUSED", label: "Pausada" },
               { value: "COMPLETED", label: "Completada" },
-              { value: "SENT", label: "Enviada" },
               { value: "CANCELLED", label: "Cancelada" }
             ],
             placeholder: "Seleccionar estado",
@@ -325,7 +453,7 @@ export default function CampaignsCRM() {
           
           if (v.name !== undefined) input.name = v.name?.trim() || "";
           if (v.type !== undefined) input.type = v.type || "EMAIL";
-          if (v.status !== undefined) input.status = v.status;
+          // status NO debe enviarse en el input (se maneja automáticamente por el backend)
           if (v.objective !== undefined) input.objective = v.objective?.trim() || undefined;
           if (v.budget !== undefined) input.budget = parseFloat(v.budget) || 0;
           if (v.targetAudience !== undefined) input.targetAudience = v.targetAudience?.trim() || undefined;
@@ -426,7 +554,6 @@ export default function CampaignsCRM() {
                   { value: "RUNNING", label: "En ejecución" },
                   { value: "PAUSED", label: "Pausada" },
                   { value: "COMPLETED", label: "Completada" },
-                  { value: "SENT", label: "Enviada" },
                   { value: "CANCELLED", label: "Cancelada" }
                 ]}
                 icon={getFieldIcon("status", 14)}
