@@ -146,8 +146,8 @@ export default function PipedriveDetailModal({
       <div
         className="fixed right-0 top-0 bottom-0"
         style={{
-          width: "650px",
-          maxWidth: "90vw",
+          width: "1000px",
+          maxWidth: "95vw",
           animation: "slideInRight 0.3s ease-out",
           zIndex: 9999,
         }}
@@ -848,11 +848,11 @@ export default function PipedriveDetailModal({
           <div className="flex-1 flex overflow-hidden">
             {/* Panel izquierdo - Detalles */}
             <div
-              className="flex-shrink-0 overflow-y-auto"
+              className={detailsSection ? "flex-1 overflow-y-auto" : "flex-shrink-0 overflow-y-auto"}
               style={{
-                width: "280px",
-                borderRight: "1px solid #E5E7EB",
-                padding: "16px",
+                ...(detailsSection ? {} : { width: "280px" }),
+                ...(detailsSection ? {} : { borderRight: "1px solid #E5E7EB" }),
+                padding: "24px",
               }}
             >
                 {/* Sección DETALLES */}
@@ -886,17 +886,19 @@ export default function PipedriveDetailModal({
               )}
             </div>
 
-            {/* Panel derecho - Tabs */}
-              <div className="flex-1 flex flex-col overflow-hidden" style={{ paddingRight: "16px" }}>
+            {/* Panel derecho - Tabs (solo si NO hay detailsSection con tabs integrados) */}
+            {!detailsSection && (
+            <div className="flex-1 flex flex-col overflow-hidden" style={{ paddingLeft: "24px", paddingRight: "24px" }}>
               {/* Tabs */}
-              <div className="flex-shrink-0 border-b" style={{ borderColor: "#E5E7EB" }}>
-                <div className="flex">
+              <div className="flex-shrink-0 border-b" style={{ borderColor: "#E5E7EB", paddingBottom: "0" }}>
+                <div className="flex gap-1">
                   <button
                     onClick={() => setActiveTab("notes")}
-                    className="px-3 py-2.5 text-xs font-medium transition-colors relative"
+                    className="px-4 py-3 text-sm font-medium transition-colors relative"
                     style={{
                       color: activeTab === "notes" ? "#1D4ED8" : "#6B7280",
                       borderBottom: activeTab === "notes" ? "2px solid #1D4ED8" : "2px solid transparent",
+                      backgroundColor: activeTab === "notes" ? "#F9FAFB" : "transparent",
                     }}
                   >
                     <div className="flex items-center gap-1.5">
@@ -920,10 +922,11 @@ export default function PipedriveDetailModal({
                   </button>
                   <button
                     onClick={() => setActiveTab("activity")}
-                    className="px-3 py-2.5 text-xs font-medium transition-colors relative"
+                    className="px-4 py-3 text-sm font-medium transition-colors relative"
                     style={{
                       color: activeTab === "activity" ? "#1D4ED8" : "#6B7280",
                       borderBottom: activeTab === "activity" ? "2px solid #1D4ED8" : "2px solid transparent",
+                      backgroundColor: activeTab === "activity" ? "#F9FAFB" : "transparent",
                     }}
                   >
                     <div className="flex items-center gap-1.5">
@@ -949,10 +952,11 @@ export default function PipedriveDetailModal({
                   </button>
                   <button
                     onClick={() => setActiveTab("email")}
-                    className="px-3 py-2.5 text-xs font-medium transition-colors relative"
+                    className="px-4 py-3 text-sm font-medium transition-colors relative"
                     style={{
                       color: activeTab === "email" ? "#1D4ED8" : "#6B7280",
                       borderBottom: activeTab === "email" ? "2px solid #1D4ED8" : "2px solid transparent",
+                      backgroundColor: activeTab === "email" ? "#F9FAFB" : "transparent",
                     }}
                   >
                     <div className="flex items-center gap-1.5">
@@ -979,10 +983,11 @@ export default function PipedriveDetailModal({
                   </button>
                   <button
                     onClick={() => setActiveTab("files")}
-                    className="px-3 py-2.5 text-xs font-medium transition-colors relative"
+                    className="px-4 py-3 text-sm font-medium transition-colors relative"
                     style={{
                       color: activeTab === "files" ? "#1D4ED8" : "#6B7280",
                       borderBottom: activeTab === "files" ? "2px solid #1D4ED8" : "2px solid transparent",
+                      backgroundColor: activeTab === "files" ? "#F9FAFB" : "transparent",
                     }}
                   >
                     <div className="flex items-center gap-1.5">
@@ -1008,7 +1013,7 @@ export default function PipedriveDetailModal({
               </div>
 
               {/* Contenido de tabs */}
-              <div className="flex-1 overflow-y-auto" style={{ padding: "16px" }}>
+              <div className="flex-1 overflow-y-auto" style={{ padding: "24px 0" }}>
                 {activeTab === "notes" && (
                   <div>
                     {notesContent || (
@@ -1185,6 +1190,7 @@ export default function PipedriveDetailModal({
                 )}
               </div>
             </div>
+            )}
           </div>
           )}
         </div>

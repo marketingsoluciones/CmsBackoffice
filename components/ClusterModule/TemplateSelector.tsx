@@ -24,6 +24,7 @@ interface TemplateSelectorProps {
   type: TemplateType;
   whitelabelId?: string;
   onCreateNew?: () => void;
+  onOpenModal?: () => void; // Para abrir el modal completo de templates
   templates?: Template[]; // Lista de templates disponibles
 }
 
@@ -33,6 +34,7 @@ export default function TemplateSelector({
   type,
   whitelabelId,
   onCreateNew,
+  onOpenModal,
   templates = [],
 }: TemplateSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -155,7 +157,20 @@ export default function TemplateSelector({
           <div className="max-h-64 overflow-y-auto">
             {filteredTemplates.length === 0 ? (
               <div className="p-4 text-center text-sm" style={{ color: "#6B7280" }}>
-                No hay plantillas disponibles
+                <div className="mb-2">No hay plantillas disponibles</div>
+                {onOpenModal && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsOpen(false);
+                      onOpenModal();
+                    }}
+                    className="px-3 py-1.5 text-xs font-medium rounded-sm text-white"
+                    style={{ backgroundColor: "#3B82F6", borderRadius: "2px" }}
+                  >
+                    Ver todas las plantillas
+                  </button>
+                )}
               </div>
             ) : (
               filteredTemplates.map((template) => (
@@ -213,9 +228,29 @@ export default function TemplateSelector({
             )}
           </div>
 
-          {/* Botón crear nuevo */}
-          {onCreateNew && (
-            <div className="p-2 border-t border-gray-200">
+          {/* Botones de acción */}
+          <div className="p-2 border-t border-gray-200 space-y-2">
+            {onOpenModal && (
+              <button
+                type="button"
+                onClick={() => {
+                  setIsOpen(false);
+                  onOpenModal();
+                }}
+                className="w-full px-3 py-2 text-sm font-medium rounded-sm transition-colors flex items-center justify-center gap-2"
+                style={{
+                  backgroundColor: "#EFF6FF",
+                  color: "#3B82F6",
+                  borderRadius: "2px",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#DBEAFE")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#EFF6FF")}
+              >
+                <SparklesIcon className="w-4 h-4" />
+                Ver todas las plantillas
+              </button>
+            )}
+            {onCreateNew && (
               <button
                 type="button"
                 onClick={() => {
@@ -234,8 +269,8 @@ export default function TemplateSelector({
                 <SparklesIcon className="w-4 h-4" />
                 Crear nueva plantilla
               </button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       )}
 

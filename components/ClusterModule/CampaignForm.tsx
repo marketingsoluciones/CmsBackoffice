@@ -7,6 +7,8 @@ import EventSelector from "./EventSelector";
 import ListSelector from "./ListSelector";
 import TagSelector from "./TagSelector";
 import TemplateSelector from "./TemplateSelector";
+import SearchTermsEditor, { SearchTerm } from "./SearchTermsEditor";
+import TemplatesModal from "./TemplatesModal";
 import { useCRMLabels } from "../../hooks/useCRMLabels";
 
 interface CampaignFormProps {
@@ -24,7 +26,7 @@ export default function CampaignForm({
   initialData,
   onSuccess,
 }: CampaignFormProps) {
-  const [activeTab, setActiveTab] = useState<"basic" | "recipients" | "settings">("basic");
+  const [activeTab, setActiveTab] = useState<"basic" | "scraping" | "recipients" | "settings">("basic");
   const { dispatch } = ToastContextProvider();
   const pushToast = (type: string, message: string) => {
     dispatch({ type: "ADD_TOAST", payload: { id: `${Date.now()}-${Math.random()}`, type, message } } as any);
@@ -44,6 +46,46 @@ export default function CampaignForm({
   // Estado para templates
   const [templates, setTemplates] = useState<any[]>([]);
   const [loadingTemplates, setLoadingTemplates] = useState(false);
+  const [templatesModalOpen, setTemplatesModalOpen] = useState(false);
+
+  // Estado para scraping
+  const [searchTerms, setSearchTerms] = useState<SearchTerm[]>(
+    initialData?.searchTerms || []
+  );
+  const [selectedCountries, setSelectedCountries] = useState<string[]>(
+    initialData?.searchConfig?.countries || []
+  );
+
+  // Lista de países disponibles
+  const availableCountries = [
+    { code: "ES", name: "España" },
+    { code: "MX", name: "México" },
+    { code: "AR", name: "Argentina" },
+    { code: "CO", name: "Colombia" },
+    { code: "CL", name: "Chile" },
+    { code: "PE", name: "Perú" },
+    { code: "EC", name: "Ecuador" },
+    { code: "VE", name: "Venezuela" },
+    { code: "GT", name: "Guatemala" },
+    { code: "CU", name: "Cuba" },
+    { code: "BO", name: "Bolivia" },
+    { code: "DO", name: "República Dominicana" },
+    { code: "HN", name: "Honduras" },
+    { code: "PY", name: "Paraguay" },
+    { code: "SV", name: "El Salvador" },
+    { code: "NI", name: "Nicaragua" },
+    { code: "CR", name: "Costa Rica" },
+    { code: "PA", name: "Panamá" },
+    { code: "UY", name: "Uruguay" },
+    { code: "PR", name: "Puerto Rico" },
+    { code: "US", name: "Estados Unidos" },
+    { code: "PT", name: "Portugal" },
+    { code: "BR", name: "Brasil" },
+    { code: "FR", name: "Francia" },
+    { code: "IT", name: "Italia" },
+    { code: "DE", name: "Alemania" },
+    { code: "GB", name: "Reino Unido" },
+  ];
 
   // Definir initialValues antes de usarlo en useEffect
   const initialValues = {
@@ -127,8 +169,14 @@ export default function CampaignForm({
           .filter((t: string) => t.length > 0);
       }
 
-      // Agregar selección de destinatarios si hay alguna seleccionada
-      if (selectedEvents.length > 0 || selectedLists.length > 0 || includeTags.length > 0 || excludeTags.length > 0) {
+      // Agregar selección de destinatarios si hay alguna seleccionada (solo para campañas de envío)
+      if (
+        values.type !== "SCRAPING" &&
+        (selectedEvents.length > 0 ||
+          selectedLists.length > 0 ||
+          includeTags.length > 0 ||
+          excludeTags.length > 0)
+      ) {
         input.recipient_selection = {
           events: selectedEvents,
           lists: selectedLists,
@@ -137,6 +185,22 @@ export default function CampaignForm({
             exclude_tags: excludeTags,
             match_all: matchAllTags,
           },
+        };
+      }
+
+      // Agregar configuración de scraping si es campaña de scraping
+      if (values.type === "SCRAPING") {
+        if (searchTerms.length === 0) {
+          pushToast("error", "Debes agregar al menos un término de búsqueda");
+          return;
+        }
+        if (selectedCountries.length === 0) {
+          pushToast("error", "Debes seleccionar al menos un país objetivo");
+          return;
+        }
+        input.searchTerms = searchTerms;
+        input.searchConfig = {
+          countries: selectedCountries,
         };
       }
 
@@ -163,7 +227,12 @@ export default function CampaignForm({
 
   const tabs = [
     { id: "basic", label: "Información Básica" },
-    { id: "recipients", label: "Destinatarios" },
+    ...(initialValues.type === "SCRAPING"
+      ? [{ id: "scraping" as const, label: "Scraping" }]
+      : []),
+    ...(initialValues.type !== "SCRAPING"
+      ? [{ id: "recipients" as const, label: "Destinatarios" }]
+      : []),
     { id: "settings", label: "Configuración" },
   ];
 
@@ -207,26 +276,83 @@ export default function CampaignForm({
 
         {/* Tabs */}
         <div className="flex border-b border-gray-200 px-4" style={{ backgroundColor: "#FFFFFF" }}>
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className="px-4 py-2 text-xs font-medium transition-colors relative"
-              style={{
-                color: activeTab === tab.id ? "#3B82F6" : "#6B7280",
-                borderBottom: activeTab === tab.id ? "2px solid #3B82F6" : "2px solid transparent",
-              }}
-            >
-              {tab.label}
-            </button>
-          ))}
+          {tabs.map((tab) => {
+            // Mostrar pestaña scraping solo si el tipo es SCRAPING
+            if (tab.id === "scraping" && initialValues.type !== "SCRAPING") return null;
+            // Mostrar pestaña recipients solo si el tipo NO es SCRAPING
+            if (tab.id === "recipients" && initialValues.type === "SCRAPING") return null;
+            
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className="px-4 py-2 text-xs font-medium transition-colors relative"
+                style={{
+                  color: activeTab === tab.id ? "#3B82F6" : "#6B7280",
+                  borderBottom: activeTab === tab.id ? "2px solid #3B82F6" : "2px solid transparent",
+                }}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
         </div>
 
         {/* Form */}
-        <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-          {({ values, handleChange, handleBlur, errors, touched, isSubmitting, setFieldValue }) => (
-            <Form className="flex-1 overflow-y-auto px-4 py-4">
-              {activeTab === "basic" && (
+        <Formik
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          enableReinitialize
+        >
+          {({ values, handleChange, handleBlur, errors, touched, isSubmitting, setFieldValue }) => {
+            // Escuchar evento de selección de template desde el modal
+            useEffect(() => {
+              const handleTemplateSelected = (e: any) => {
+                setFieldValue('templateId', e.detail.templateId);
+                // Recargar templates para que aparezca el seleccionado
+                loadTemplates();
+              };
+              if (typeof window !== 'undefined') {
+                window.addEventListener('templateSelected', handleTemplateSelected as any);
+                return () => window.removeEventListener('templateSelected', handleTemplateSelected as any);
+              }
+            }, [setFieldValue]);
+
+            // Actualizar tabs cuando cambia el tipo
+            const currentTabs = [
+              { id: "basic", label: "Información Básica" },
+              ...(values.type === "SCRAPING"
+                ? [{ id: "scraping" as const, label: "Scraping" }]
+                : []),
+              ...(values.type !== "SCRAPING"
+                ? [{ id: "recipients" as const, label: "Destinatarios" }]
+                : []),
+              { id: "settings", label: "Configuración" },
+            ];
+
+            // Si cambia el tipo y la pestaña actual no es válida, cambiar a basic
+            if (
+              activeTab === "recipients" &&
+              values.type === "SCRAPING"
+            ) {
+              setTimeout(() => setActiveTab("basic"), 0);
+            }
+            if (activeTab === "scraping" && values.type !== "SCRAPING") {
+              setTimeout(() => setActiveTab("basic"), 0);
+            }
+
+            // Limpiar templateId si cambia el tipo y no es compatible
+            if (
+              values.type === "SCRAPING" &&
+              values.templateId &&
+              !["EMAIL", "WHATSAPP", "SMS"].includes(values.type)
+            ) {
+              setTimeout(() => setFieldValue("templateId", ""), 0);
+            }
+
+            return (
+              <Form className="flex-1 overflow-y-auto px-4 py-4">
+                {activeTab === "basic" && (
                 <div className="space-y-4">
                   <div>
                     <label className="text-xs font-medium block mb-1" style={{ color: "#6B7280" }}>
@@ -261,7 +387,13 @@ export default function CampaignForm({
                       <select
                         name="type"
                         value={values.type}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                          handleChange(e);
+                          // Limpiar templateId si cambia a SCRAPING
+                          if (e.target.value === "SCRAPING") {
+                            setFieldValue("templateId", "");
+                          }
+                        }}
                         className="w-full px-3 py-2 text-sm rounded-sm focus:outline-none"
                         style={{
                           border: "1px solid #E5E7EB",
@@ -272,6 +404,8 @@ export default function CampaignForm({
                         <option value="EMAIL">Correo electrónico</option>
                         <option value="WHATSAPP">WhatsApp</option>
                         <option value="SMS">SMS</option>
+                        <option value="SOCIAL">Social Media</option>
+                        <option value="SCRAPING">Scraping</option>
                       </select>
                     </div>
 
@@ -425,6 +559,107 @@ export default function CampaignForm({
                 </div>
               )}
 
+              {activeTab === "scraping" && (
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-xs font-semibold mb-3" style={{ color: "#111827" }}>
+                      Configuración de Scraping
+                    </h4>
+                    <p className="text-xs mb-4" style={{ color: "#6B7280" }}>
+                      Configura los países objetivo y los términos de búsqueda para esta campaña de scraping.
+                    </p>
+                  </div>
+
+                  {/* Países objetivo */}
+                  <div>
+                    <label className="text-xs font-medium block mb-2" style={{ color: "#6B7280" }}>
+                      Países Objetivo *
+                    </label>
+                    <div
+                      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 max-h-64 overflow-y-auto p-2 rounded-sm"
+                      style={{
+                        border: "1px solid #E5E7EB",
+                        backgroundColor: "#F9FAFB",
+                        borderRadius: "2px",
+                      }}
+                    >
+                      {availableCountries.map((country) => {
+                        const isSelected = selectedCountries.includes(country.code);
+                        return (
+                          <label
+                            key={country.code}
+                            className="flex items-center gap-2 p-2 rounded-sm cursor-pointer transition-colors"
+                            style={{
+                              backgroundColor: isSelected ? "#EFF6FF" : "transparent",
+                              borderRadius: "2px",
+                            }}
+                          >
+                            <input
+                              type="checkbox"
+                              checked={isSelected}
+                              onChange={(e) => {
+                                if (e.target.checked) {
+                                  setSelectedCountries([...selectedCountries, country.code]);
+                                } else {
+                                  setSelectedCountries(
+                                    selectedCountries.filter((c) => c !== country.code)
+                                  );
+                                }
+                              }}
+                              className="w-4 h-4 rounded-sm"
+                              style={{ accentColor: "#3B82F6" }}
+                            />
+                            <span className="text-xs" style={{ color: "#374151" }}>
+                              {country.name}
+                            </span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                    {selectedCountries.length > 0 && (
+                      <div className="mt-2 text-[10px]" style={{ color: "#047857" }}>
+                        {selectedCountries.length} país(es) seleccionado(s)
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Términos de búsqueda */}
+                  <div>
+                    <label className="text-xs font-medium block mb-2" style={{ color: "#6B7280" }}>
+                      Términos de Búsqueda *
+                    </label>
+                    <SearchTermsEditor
+                      terms={searchTerms}
+                      onChange={setSearchTerms}
+                      showStats={false}
+                    />
+                  </div>
+
+                  {/* Resumen */}
+                  {searchTerms.length > 0 && selectedCountries.length > 0 && (
+                    <div
+                      className="p-3 rounded-sm"
+                      style={{
+                        backgroundColor: "#EFF6FF",
+                        border: "1px solid #BFDBFE",
+                        borderRadius: "2px",
+                      }}
+                    >
+                      <div className="text-xs font-medium mb-1" style={{ color: "#1E40AF" }}>
+                        Resumen de Configuración
+                      </div>
+                      <div className="text-[10px] space-y-1" style={{ color: "#3B82F6" }}>
+                        <div>
+                          • {searchTerms.filter((t) => t.enabled).length} término(s) activo(s) de{" "}
+                          {searchTerms.length} total
+                        </div>
+                        <div>• {selectedCountries.length} país(es) objetivo</div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {activeTab === "recipients" && (
                 <div className="space-y-6">
                   <div>
@@ -514,8 +749,11 @@ export default function CampaignForm({
                         onChange={(templateId) => setFieldValue('templateId', templateId)}
                         type={values.type as "EMAIL" | "WHATSAPP" | "SMS"}
                         templates={templates}
+                        onOpenModal={() => {
+                          setTemplatesModalOpen(true);
+                        }}
                         onCreateNew={() => {
-                          pushToast("info", "Funcionalidad de creación de plantillas próximamente");
+                          setTemplatesModalOpen(true);
                         }}
                       />
                       {errors.templateId && touched.templateId && (
@@ -610,10 +848,27 @@ export default function CampaignForm({
                   {isSubmitting ? "Guardando..." : campaignId ? "Actualizar" : "Crear Campaña"}
                 </button>
               </div>
-            </Form>
-          )}
+              </Form>
+            );
+          }}
         </Formik>
       </div>
+
+      {/* Modal de Templates */}
+      <TemplatesModal
+        isOpen={templatesModalOpen}
+        onClose={() => setTemplatesModalOpen(false)}
+        onSelectTemplate={(templateId) => {
+          // Disparar evento para que el form lo capture
+          if (typeof window !== 'undefined') {
+            const event = new CustomEvent('templateSelected', { detail: { templateId } });
+            window.dispatchEvent(event);
+          }
+          setTemplatesModalOpen(false);
+          pushToast('success', 'Plantilla seleccionada');
+        }}
+        type={initialValues.type as any}
+      />
     </div>
   );
 }

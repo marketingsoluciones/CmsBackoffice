@@ -5,6 +5,10 @@ import EditableField from "../Shared/EditableField";
 import NotesEditor from "../Shared/NotesEditor";
 import FileUploadZone from "../Shared/FileUploadZone";
 import FileGallery from "../Shared/FileGallery";
+import EmailList from "../Shared/EmailList";
+import EmailListERP from "../Shared/EmailListERP";
+import FileUploadZoneERP from "../Shared/FileUploadZoneERP";
+import FileGalleryERP from "../Shared/FileGalleryERP";
 import { CRM_MUTATIONS, CRM_QUERIES } from "../../utils/crmQueries";
 import ShareModal from "./ShareModal";
 import { ToastContextProvider } from "../../context/ToastContext";
@@ -15,6 +19,8 @@ import { getFieldIcon } from "../Icons/ProfessionalIcons";
 import CampaignForm from "./CampaignForm";
 import CampaignsStats from "./CampaignsStats";
 import CampaignsTableToolbar, { CampaignType, CampaignStatus, TYPE_OPTIONS } from "./CampaignsTableToolbar";
+import TemplatesModal from "./TemplatesModal";
+import CampaignDetailContent from "./CampaignDetailContent";
 
 const defaultCampaignColumns: ColumnConfig[] = [
   { field: "name", label: "Nombre", visible: true, order: 0, width: undefined, pinned: false, tooltip: "Nombre de la campaña" },
@@ -56,6 +62,7 @@ export default function CampaignsCRM() {
   const [sortBy, setSortBy] = useState("createdAt_desc");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [toolbarFunctions, setToolbarFunctions] = useState<any>(null);
+  const [templatesModalOpen, setTemplatesModalOpen] = useState(false);
 
   useEffect(() => {
     loadCampaigns();
@@ -92,22 +99,43 @@ export default function CampaignsCRM() {
             </p>
           </div>
         </div>
-        <button
-          className="px-3.5 py-1.5 rounded-sm text-xs font-semibold text-white transition-colors flex items-center gap-1.5"
-          style={{ backgroundColor: '#F59E0B', borderRadius: '2px' }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#D97706';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = '#F59E0B';
-          }}
-          onClick={() => setEditRow(null) || setOpenCreate(true)}
-        >
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-            <path d="M8 3V13M3 8H13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-          Crear Campaña
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            className="px-3.5 py-1.5 rounded-sm text-xs font-semibold text-white transition-colors flex items-center gap-1.5"
+            style={{ 
+              background: 'linear-gradient(135deg, #8B5CF6 0%, #6366F1 100%)',
+              borderRadius: '2px' 
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.opacity = '0.9';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.opacity = '1';
+            }}
+            onClick={() => setTemplatesModalOpen(true)}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 2v20M2 12h20" strokeLinecap="round" />
+            </svg>
+            Templates con IA
+          </button>
+          <button
+            className="px-3.5 py-1.5 rounded-sm text-xs font-semibold text-white transition-colors flex items-center gap-1.5"
+            style={{ backgroundColor: '#F59E0B', borderRadius: '2px' }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#D97706';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#F59E0B';
+            }}
+            onClick={() => setEditRow(null) || setOpenCreate(true)}
+          >
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+              <path d="M8 3V13M3 8H13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            Crear Campaña
+          </button>
+        </div>
       </div>
       <CampaignsStats campaigns={campaigns} loading={loading} />
       <AdvancedTable
@@ -494,6 +522,82 @@ export default function CampaignsCRM() {
           }
         }}
         detailsSection={
+          selectedRow ? (
+            <CampaignDetailContent
+              campaignId={selectedRow.id}
+              campaignData={selectedRow}
+              onEdit={() => {
+                setEditRow(selectedRow);
+                setSelectedRow(null);
+              }}
+              notesContent={
+                selectedRow ? (
+                  <div>
+                    <NotesEditor
+                      value={selectedRow.notes}
+                      placeholder="Take a note, @name..."
+                      entityType="CAMPAIGN"
+                      onSave={async (value) => {
+                        try {
+                          await fetchApiCRM({
+                            query: CRM_MUTATIONS.UPDATE_CAMPAIGN,
+                            variables: { id: selectedRow.id, input: { notes: value } }
+                          });
+                          setSelectedRow({ ...selectedRow, notes: value });
+                        } catch (e: any) {
+                          console.error("Error updating notes:", e);
+                          throw e;
+                        }
+                      }}
+                    />
+                  </div>
+                ) : null
+              }
+              activityContent={
+                <div>
+                  <input
+                    type="text"
+                    className="w-full rounded-sm p-3 text-sm"
+                    style={{ border: "1px solid #E5E7EB", backgroundColor: "#FFFFFF", borderRadius: "2px" }}
+                    placeholder="Click here to add an activity..."
+                  />
+                </div>
+              }
+              emailContent={
+                selectedRow ? (
+                  <EmailList
+                    entityId={selectedRow.id}
+                    entityType="CAMPAIGN"
+                  />
+                ) : (
+                  <div className="text-center py-12">
+                    <h3 className="font-semibold mb-2" style={{ color: "#111827" }}>
+                      Close deals faster with better email
+                    </h3>
+                    <p className="text-sm mb-4" style={{ color: "#6B7280" }}>
+                      Smart, secure, configurable Sales Inbox
+                    </p>
+                  </div>
+                )
+              }
+              filesContent={
+                selectedRow ? (
+                  <div className="space-y-4">
+                    <FileUploadZone
+                      entityId={selectedRow.id}
+                      entityType="CAMPAIGN"
+                    />
+                    <FileGallery
+                      entityId={selectedRow.id}
+                      entityType="CAMPAIGN"
+                    />
+                  </div>
+                ) : null
+              }
+            />
+          ) : null
+        }
+        _detailsSectionOld={
           selectedRow ? (
             <div className="space-y-1">
               <EditableField
@@ -921,6 +1025,12 @@ export default function CampaignsCRM() {
             </div>
           ) : null
         }
+      />
+      
+      {/* Modal de Templates */}
+      <TemplatesModal
+        isOpen={templatesModalOpen}
+        onClose={() => setTemplatesModalOpen(false)}
       />
     </div>
   );
