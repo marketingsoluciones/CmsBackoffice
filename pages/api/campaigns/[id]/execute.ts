@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { fetchApiCRM } from '../../../../utils/CRMFetching';
 import { CRM_QUERIES, CRM_MUTATIONS } from '../../../../utils/crmQueries';
 
+const CRM_ENDPOINT = (process.env.NEXT_PUBLIC_CRM_GRAPHQL || "https://api2.eventosorganizador.com/graphql").replace(/\/$/, "");
 const DEFAULT_DEVELOPMENT = process.env.NEXT_PUBLIC_DEVELOPMENT || 'bodasdehoy';
 
 const getDevelopment = (req: NextApiRequest): string => {
@@ -15,6 +15,71 @@ const getDevelopment = (req: NextApiRequest): string => {
   }
   
   return DEFAULT_DEVELOPMENT;
+};
+
+// Helper para obtener token desde cookies/headers
+const getToken = (req: NextApiRequest): string | undefined => {
+  const cookieToken = req.cookies?.['idTokenV0.1.0'];
+  if (cookieToken) return cookieToken;
+  
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    return authHeader.substring(7);
+  }
+  
+  return undefined;
+};
+
+// Función para hacer peticiones GraphQL desde el servidor
+const fetchApiCRMFromServer = async (
+  query: string,
+  variables: Record<string, any>,
+  development: string,
+  token?: string
+) => {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  };
+
+  const developmentValue = (development && typeof development === 'string' && development.trim()) || DEFAULT_DEVELOPMENT;
+  headers['X-Development'] = developmentValue;
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  if (process.env.NEXT_PUBLIC_PRODUCTION) {
+    headers['IsProduction'] = String(process.env.NEXT_PUBLIC_PRODUCTION);
+  }
+
+  const response = await fetch(CRM_ENDPOINT, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ query, variables }),
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    let errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+    try {
+      const json = JSON.parse(text);
+      if (json?.errors?.length) {
+        errorMessage = json.errors[0]?.message || errorMessage;
+      }
+    } catch {
+      errorMessage = text || errorMessage;
+    }
+    throw new Error(errorMessage);
+  }
+
+  const data = await response.json();
+  
+  if (data.errors && data.errors.length > 0) {
+    throw new Error(data.errors[0]?.message || 'Error en la petición GraphQL');
+  }
+
+  return data.data;
 };
 
 export default async function handler(
@@ -31,13 +96,15 @@ export default async function handler(
   try {
     if (req.method === 'GET') {
       // Obtener ejecuciones de la campaña
-      const campaignResponse = await fetchApiCRM({
-        query: CRM_QUERIES.GET_CAMPAIGNS,
-        variables: {
+      const token = getToken(req);
+      const campaignResponse = await fetchApiCRMFromServer(
+        CRM_QUERIES.GET_CAMPAIGNS,
+        {
           pagination: { page: 1, limit: 1000 },
         },
         development,
-      });
+        token
+      );
 
       const campaigns = campaignResponse?.getCRMCampaigns?.campaigns || [];
       const campaign = campaigns.find((c: any) => c.id === id);
@@ -65,19 +132,22 @@ export default async function handler(
     if (req.method === 'POST') {
       // Ejecutar campaña manualmente
       const { notes } = req.body;
+      const token = getToken(req);
 
-      // Actualizar estado a RUNNING para iniciar ejecución
-      const updateResponse = await fetchApiCRM({
-        query: CRM_MUTATIONS.UPDATE_CAMPAIGN,
-        variables: {
+      // Actualizar campaña para iniciar ejecución
+      // No podemos enviar status directamente, usar scheduledAt en el pasado para ejecutar inmediatamente
+      const updateResponse = await fetchApiCRMFromServer(
+        CRM_MUTATIONS.UPDATE_CAMPAIGN,
+        {
           id,
           input: {
-            status: 'RUNNING',
+            scheduledAt: new Date().toISOString(), // Fecha actual para ejecutar inmediatamente
             notes: notes || 'Ejecución manual',
           },
         },
         development,
-      });
+        token
+      );
 
       // Crear ejecución básica
       const execution = {
@@ -115,4 +185,3 @@ export default async function handler(
     });
   }
 }
-

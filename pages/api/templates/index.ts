@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { fetchApiCRM } from '../../../utils/CRMFetching';
 import { CRM_QUERIES, CRM_MUTATIONS } from '../../../utils/crmQueries';
 
+const CRM_ENDPOINT = (process.env.NEXT_PUBLIC_CRM_GRAPHQL || "https://api2.eventosorganizador.com/graphql").replace(/\/$/, "");
 const DEFAULT_DEVELOPMENT = process.env.NEXT_PUBLIC_DEVELOPMENT || 'bodasdehoy';
 
 const getDevelopment = (req: NextApiRequest): string => {
@@ -17,6 +17,76 @@ const getDevelopment = (req: NextApiRequest): string => {
   return DEFAULT_DEVELOPMENT;
 };
 
+// Helper para obtener token desde cookies/headers
+const getToken = (req: NextApiRequest): string | undefined => {
+  // Intentar obtener desde cookie
+  const cookieToken = req.cookies?.['idTokenV0.1.0'];
+  if (cookieToken) return cookieToken;
+  
+  // Intentar obtener desde header Authorization
+  const authHeader = req.headers.authorization;
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    return authHeader.substring(7);
+  }
+  
+  return undefined;
+};
+
+// Función para hacer peticiones GraphQL desde el servidor
+const fetchApiCRMFromServer = async (
+  query: string,
+  variables: Record<string, any>,
+  development: string,
+  token?: string
+) => {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  };
+
+  // SIEMPRE enviar X-Development
+  const developmentValue = (development && typeof development === 'string' && development.trim()) || DEFAULT_DEVELOPMENT;
+  headers['X-Development'] = developmentValue;
+
+  // Agregar token si existe
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  // Agregar header IsProduction si está definido
+  if (process.env.NEXT_PUBLIC_PRODUCTION) {
+    headers['IsProduction'] = String(process.env.NEXT_PUBLIC_PRODUCTION);
+  }
+
+  const response = await fetch(CRM_ENDPOINT, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ query, variables }),
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    let errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+    try {
+      const json = JSON.parse(text);
+      if (json?.errors?.length) {
+        errorMessage = json.errors[0]?.message || errorMessage;
+      }
+    } catch {
+      errorMessage = text || errorMessage;
+    }
+    throw new Error(errorMessage);
+  }
+
+  const data = await response.json();
+  
+  if (data.errors && data.errors.length > 0) {
+    throw new Error(data.errors[0]?.message || 'Error en la petición GraphQL');
+  }
+
+  return data.data;
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -28,9 +98,10 @@ export default async function handler(
       // Listar plantillas
       const { type, whitelabelId, category, status, search, page = 1, limit = 20 } = req.query;
 
-      const response = await fetchApiCRM({
-        query: CRM_QUERIES.GET_CAMPAIGN_TEMPLATES,
-        variables: {
+      const token = getToken(req);
+      const response = await fetchApiCRMFromServer(
+        CRM_QUERIES.GET_CAMPAIGN_TEMPLATES,
+        {
           type: type as any,
           whitelabelId: whitelabelId as string,
           pagination: {
@@ -39,7 +110,8 @@ export default async function handler(
           },
         },
         development,
-      });
+        token
+      );
 
       let templates = response?.getCampaignTemplates?.templates || [];
       const total = response?.getCampaignTemplates?.total || 0;
@@ -112,9 +184,10 @@ export default async function handler(
         });
       }
 
-      const response = await fetchApiCRM({
-        query: CRM_MUTATIONS.CREATE_CAMPAIGN_TEMPLATE,
-        variables: {
+      const token = getToken(req);
+      const response = await fetchApiCRMFromServer(
+        CRM_MUTATIONS.CREATE_CAMPAIGN_TEMPLATE,
+        {
           input: {
             name,
             type,
@@ -124,10 +197,12 @@ export default async function handler(
             variables: variables || [],
             whitelabelId,
             enabled: true,
+            language: 'es', // Idioma por defecto
           },
         },
         development,
-      });
+        token
+      );
 
       if (response?.createCampaignTemplate?.success) {
         const template = response.createCampaignTemplate.template;

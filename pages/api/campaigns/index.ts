@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { fetchApiCRM } from '../../../utils/CRMFetching';
 import { CRM_QUERIES, CRM_MUTATIONS } from '../../../utils/crmQueries';
 
 const DEFAULT_DEVELOPMENT = process.env.NEXT_PUBLIC_DEVELOPMENT || 'bodasdehoy';
@@ -29,9 +28,10 @@ export default async function handler(
       // Listar campañas
       const { page = 1, limit = 20, status, type, search } = req.query;
 
-      const response = await fetchApiCRM({
-        query: CRM_QUERIES.GET_CAMPAIGNS,
-        variables: {
+      const token = getToken(req);
+      const response = await fetchApiCRMFromServer(
+        CRM_QUERIES.GET_CAMPAIGNS,
+        {
           pagination: {
             page: parseInt(String(page)),
             limit: parseInt(String(limit)),
@@ -43,7 +43,8 @@ export default async function handler(
           },
         },
         development,
-      });
+        token
+      );
 
       const campaigns = response?.getCRMCampaigns?.campaigns || [];
       const total = response?.getCRMCampaigns?.total || 0;
@@ -71,11 +72,13 @@ export default async function handler(
         });
       }
 
-      const response = await fetchApiCRM({
-        query: CRM_MUTATIONS.CREATE_CAMPAIGN,
-        variables: { input },
+      const token = getToken(req);
+      const response = await fetchApiCRMFromServer(
+        CRM_MUTATIONS.CREATE_CAMPAIGN,
+        { input },
         development,
-      });
+        token
+      );
 
       if (response?.createCampaign?.success) {
         return res.status(201).json({
