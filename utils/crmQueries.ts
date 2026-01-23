@@ -124,6 +124,7 @@ export const CRM_QUERIES = {
             events {
               event_id
               auto_create_contacts
+              selected_invitado_ids
             }
             lists {
               list_id
@@ -189,6 +190,44 @@ export const CRM_QUERIES = {
           limit
           totalPages
         }
+      }
+    }
+  `,
+  // GET_EVENTOS: Obtener eventos para selector de destinatarios (API Local)
+  // NOTA: Esta query se usa con fetchApiEventos (API Local apiapp.bodasdehoy.com), NO con fetchApiCRM (API2)
+  // La API Local usa queryenEvento (no getEventos)
+  // IMPORTANTE: userID puede ser String o null, pero development es requerido
+  GET_EVENTOS: `
+    query SolicitarEventos($userID: String, $development: String!) {
+      queryenEvento(valor: $userID, development: $development) {
+        _id
+        nombre
+        fecha
+        tipo
+        poblacion
+        invitados_array {
+          _id
+          nombre
+          correo
+          telefono
+          movil
+        }
+      }
+    }
+  `,
+  // GET_SAVED_VIEWS: Obtener listas guardadas (vistas guardadas) para selector de destinatarios
+  // NOTA: Esta query se usa con fetchApiCRM (API2)
+  // API2 espera: CRM_SavedViewEntityType (enum) y respuesta sin "data", directa con savedViews
+  // El campo itemIds no existe en el schema, se removió temporalmente
+  GET_SAVED_VIEWS: `
+    query GetSavedViews($entityType: CRM_SavedViewEntityType!) {
+      getSavedViews(entityType: $entityType) {
+        savedViews {
+          id
+          name
+          entityType
+        }
+        total
       }
     }
   `,
@@ -1084,6 +1123,7 @@ export const CRM_MUTATIONS = {
             events {
               event_id
               auto_create_contacts
+              selected_invitado_ids
             }
             lists {
               list_id

@@ -432,77 +432,10 @@ export default function CampaignsCRM() {
         onClose={() => setSelectedRow(null)}
         title={selectedRow?.name || "Detalle de la Campaña"}
         entityType="CAMPAIGN"
-        editFields={[
-          { name: "name", label: "Nombre", required: true, placeholder: "Nombre de la campaña", column: "left" },
-          { 
-            name: "type", 
-            label: "Tipo", 
-            type: "select",
-            options: [
-              { value: "EMAIL", label: "Correo electrónico" },
-              { value: "WHATSAPP", label: "WhatsApp" },
-              { value: "SMS", label: "SMS" },
-              { value: "SOCIAL", label: "Social Media" },
-              { value: "SCRAPING", label: "Scraping" }
-            ],
-            placeholder: "Seleccionar tipo",
-            column: "left"
-          },
-          { 
-            name: "status", 
-            label: "Estado", 
-            type: "select",
-            options: [
-              { value: "DRAFT", label: "Borrador" },
-              { value: "SCHEDULED", label: "Programada" },
-              { value: "RUNNING", label: "En ejecución" },
-              { value: "PAUSED", label: "Pausada" },
-              { value: "COMPLETED", label: "Completada" },
-              { value: "CANCELLED", label: "Cancelada" }
-            ],
-            placeholder: "Seleccionar estado",
-            column: "left"
-          },
-          { name: "objective", label: "Objetivo", type: "textarea", placeholder: "Objetivo de la campaña", column: "left" },
-          { name: "budget", label: "Presupuesto (€)", type: "number", placeholder: "0", column: "left" },
-          { name: "targetAudience", label: "Audiencia Objetivo", placeholder: "Ej: Novias 2025", column: "left" },
-          { name: "startDate", label: "Fecha de Inicio", type: "date", placeholder: "YYYY-MM-DD", column: "left" },
-          { name: "endDate", label: "Fecha de Fin", type: "date", placeholder: "YYYY-MM-DD", column: "left" },
-          { name: "templateId", label: "ID de plantilla", placeholder: "Ej: plantilla-123", column: "left" },
-          { name: "scheduledAt", label: "Programado", type: "datetime-local", placeholder: "Fecha y hora programada", column: "left" },
-          { name: "notes", label: "Notas", type: "textarea", placeholder: "Notas adicionales...", column: "left" },
-          { name: "tags", label: "Etiquetas (separadas por comas)", placeholder: "Ej: marketing, promoción", column: "left" }
-        ]}
-        editMutation={CRM_MUTATIONS.UPDATE_CAMPAIGN}
-        editFetcher={fetchApiCRM}
-        editVariablesBuilder={(v, id) => {
-          // Construir input solo con campos presentes (actualización parcial)
-          const input: Record<string, any> = {};
-          
-          if (v.name !== undefined) input.name = v.name?.trim() || "";
-          if (v.type !== undefined) input.type = v.type || "EMAIL";
-          // status NO debe enviarse en el input (se maneja automáticamente por el backend)
-          if (v.objective !== undefined) input.objective = v.objective?.trim() || undefined;
-          if (v.budget !== undefined) input.budget = parseFloat(v.budget) || 0;
-          if (v.targetAudience !== undefined) input.targetAudience = v.targetAudience?.trim() || undefined;
-          if (v.startDate !== undefined) input.startDate = v.startDate ? new Date(v.startDate).toISOString().split('T')[0] : undefined;
-          if (v.endDate !== undefined) input.endDate = v.endDate ? new Date(v.endDate).toISOString().split('T')[0] : undefined;
-          if (v.templateId !== undefined) input.templateId = v.templateId?.trim() || undefined;
-          if (v.scheduledAt !== undefined) input.scheduledAt = v.scheduledAt ? new Date(v.scheduledAt).toISOString() : undefined;
-          if (v.notes !== undefined) input.notes = v.notes?.trim() || undefined;
-          if (v.tags !== undefined) {
-            input.tags = v.tags ? v.tags.split(',').map((t: string) => t.trim()).filter((t: string) => t.length > 0) : undefined;
-          }
-          // settings solo se incluye si se está modificando explícitamente
-          // Si no se envía, el backend mantendrá el settings actual
-          
-          return { id, input };
-        }}
-        editInitialData={selectedRow || undefined}
-        onEditSuccess={() => {
-          setSelectedRow(null);
-          loadCampaigns();
-        }}
+        // Removido editFields, editMutation, editFetcher, editVariablesBuilder, editInitialData y onEditSuccess
+        // para eliminar el botón de editar de la esquina superior izquierda del modal.
+        // El botón de editar está en CampaignDetailContent junto a los controles de estado (Programar, Pausar, etc.)
+        // y abre el formulario completo de crear/editar campaña.
         onShare={() => {
           setShareRow(selectedRow);
           setSelectedRow(null);

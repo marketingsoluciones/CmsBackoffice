@@ -33,11 +33,29 @@ export default function CampaignForm({
   };
 
   // Estado para selección de destinatarios
-  const [selectedEvents, setSelectedEvents] = useState<any[]>(initialData?.recipient_selection?.events || []);
-  const [selectedLists, setSelectedLists] = useState<any[]>(initialData?.recipient_selection?.lists || []);
-  const [includeTags, setIncludeTags] = useState<string[]>(initialData?.recipient_selection?.tags?.include_tags || []);
-  const [excludeTags, setExcludeTags] = useState<string[]>(initialData?.recipient_selection?.tags?.exclude_tags || []);
-  const [matchAllTags, setMatchAllTags] = useState<boolean>(initialData?.recipient_selection?.tags?.match_all || false);
+  const [selectedEvents, setSelectedEvents] = useState<any[]>([]);
+  const [selectedLists, setSelectedLists] = useState<any[]>([]);
+  const [includeTags, setIncludeTags] = useState<string[]>([]);
+  const [excludeTags, setExcludeTags] = useState<string[]>([]);
+  const [matchAllTags, setMatchAllTags] = useState<boolean>(false);
+
+  // Inicializar estados de destinatarios cuando cambia initialData
+  useEffect(() => {
+    if (initialData?.recipient_selection) {
+      setSelectedEvents(initialData.recipient_selection.events || []);
+      setSelectedLists(initialData.recipient_selection.lists || []);
+      setIncludeTags(initialData.recipient_selection.tags?.include_tags || []);
+      setExcludeTags(initialData.recipient_selection.tags?.exclude_tags || []);
+      setMatchAllTags(initialData.recipient_selection.tags?.match_all || false);
+    } else {
+      // Limpiar si no hay datos iniciales
+      setSelectedEvents([]);
+      setSelectedLists([]);
+      setIncludeTags([]);
+      setExcludeTags([]);
+      setMatchAllTags(false);
+    }
+  }, [initialData?.recipient_selection, isOpen]);
 
   // Cargar tags disponibles
   const { labels } = useCRMLabels("CAMPAIGN");
@@ -156,9 +174,22 @@ export default function CampaignForm({
           pushToast("error", "El template es requerido para este tipo de campaña");
           return;
         }
-        input.templateId = values.templateId.trim();
+        // Validar que templateId sea un ObjectId válido de MongoDB (24 caracteres hexadecimales)
+        const templateIdTrimmed = values.templateId.trim();
+        const isValidObjectId = /^[0-9a-fA-F]{24}$/.test(templateIdTrimmed);
+        if (!isValidObjectId) {
+          pushToast("error", "El ID de plantilla debe ser un ObjectId válido de MongoDB (24 caracteres hexadecimales). Por favor, selecciona una plantilla de la lista.");
+          return;
+        }
+        input.templateId = templateIdTrimmed;
       } else if (values.templateId) {
-        input.templateId = values.templateId.trim();
+        const templateIdTrimmed = values.templateId.trim();
+        // Solo validar si hay un valor, pero permitir vacío para SCRAPING
+        if (templateIdTrimmed && !/^[0-9a-fA-F]{24}$/.test(templateIdTrimmed)) {
+          pushToast("error", "El ID de plantilla debe ser un ObjectId válido de MongoDB (24 caracteres hexadecimales). Por favor, selecciona una plantilla de la lista.");
+          return;
+        }
+        input.templateId = templateIdTrimmed;
       }
       
       if (values.notes) input.notes = values.notes.trim();
@@ -169,20 +200,25 @@ export default function CampaignForm({
           .filter((t: string) => t.length > 0);
       }
 
-      // Agregar selección de destinatarios si hay alguna seleccionada (solo para campañas de envío)
-      if (
-        values.type !== "SCRAPING" &&
-        (selectedEvents.length > 0 ||
-          selectedLists.length > 0 ||
-          includeTags.length > 0 ||
-          excludeTags.length > 0)
-      ) {
+      // Agregar selección de destinatarios (solo para campañas de envío)
+      // Siempre incluir recipient_selection para campañas de envío, incluso si está vacío
+      // Esto permite que el backend preserve o actualice correctamente la configuración
+      if (values.type !== "SCRAPING") {
+        // Filtrar solo los campos que el backend acepta (event_id y auto_create_contacts)
+        // El campo 'event' es solo para uso interno del frontend, no debe enviarse
+        const eventsForBackend = selectedEvents.map((evt: any) => ({
+          event_id: evt.event_id || evt.event?._id || evt._id,
+          auto_create_contacts: evt.auto_create_contacts || false,
+          // Incluir selected_invitado_ids si existe
+          ...(evt.selected_invitado_ids && { selected_invitado_ids: evt.selected_invitado_ids }),
+        }));
+
         input.recipient_selection = {
-          events: selectedEvents,
-          lists: selectedLists,
+          events: eventsForBackend,
+          lists: selectedLists.length > 0 ? selectedLists : [],
           tags: {
-            include_tags: includeTags,
-            exclude_tags: excludeTags,
+            include_tags: includeTags.length > 0 ? includeTags : [],
+            exclude_tags: excludeTags.length > 0 ? excludeTags : [],
             match_all: matchAllTags,
           },
         };

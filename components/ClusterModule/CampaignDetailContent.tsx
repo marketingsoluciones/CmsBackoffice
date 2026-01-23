@@ -95,6 +95,19 @@ export default function CampaignDetailContent({
     }
   };
 
+  const handleSchedule = async (scheduledAt: string, notes?: string) => {
+    try {
+      await updateCampaign(campaignId, { 
+        scheduledAt: new Date(scheduledAt).toISOString(),
+        notes: notes ? `${currentCampaign?.notes || ''}\n\nProgramada: ${notes}`.trim() : currentCampaign?.notes
+      });
+      pushToast('success', `Campaña programada para ${new Date(scheduledAt).toLocaleString('es-ES')}`);
+      refetch();
+    } catch (err: any) {
+      pushToast('error', err?.message || 'Error al programar la campaña');
+    }
+  };
+
   const getStatusColor = (status: CampaignStatus) => {
     switch (status) {
       case 'DRAFT':
@@ -337,35 +350,147 @@ export default function CampaignDetailContent({
             campaignId={campaignId}
             executions={executions || []}
             onExecute={handleExecute}
+            onSchedule={handleSchedule}
             onRefresh={refetchExecutions}
+            campaignType={currentCampaign?.type}
           />
         )}
 
         {activeTab === 'recipients' && (
-          <div>
+          <div className="space-y-4">
             <div className="p-4 rounded-sm" style={{ backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '2px' }}>
-              <h3 className="text-sm font-semibold mb-4" style={{ color: '#111827' }}>Destinatarios</h3>
-              {currentCampaign.settings?.recipients ? (
-                <div className="space-y-2">
-                  {currentCampaign.settings.recipients.contacts && currentCampaign.settings.recipients.contacts.length > 0 && (
-                    <div>
-                      <div className="text-xs font-medium mb-1" style={{ color: '#6B7280' }}>Contactos</div>
-                      <div className="text-sm" style={{ color: '#111827' }}>
-                        {currentCampaign.settings.recipients.contacts.length} contacto(s)
+              <h3 className="text-sm font-semibold mb-4" style={{ color: '#111827' }}>Configuración de Destinatarios</h3>
+              {currentCampaign.recipient_selection ? (
+                <div className="space-y-4">
+                  {/* Eventos */}
+                  {currentCampaign.recipient_selection.events && currentCampaign.recipient_selection.events.length > 0 && (
+                    <div className="p-3 rounded-sm" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '2px' }}>
+                      <div className="text-xs font-semibold mb-2" style={{ color: '#111827' }}>Eventos</div>
+                      <div className="space-y-2">
+                        {currentCampaign.recipient_selection.events.map((event: any, index: number) => (
+                          <div key={index} className="text-xs" style={{ color: '#6B7280' }}>
+                            • Evento ID: {event.event_id || event.event?._id || 'N/A'}
+                            {event.auto_create_contacts && (
+                              <span className="ml-2 px-1.5 py-0.5 rounded-sm" style={{ backgroundColor: '#D1FAE5', color: '#047857', borderRadius: '2px' }}>
+                                Auto-crear contactos
+                              </span>
+                            )}
+                            {event.event?.nombre && (
+                              <span className="ml-2" style={{ color: '#111827' }}>{event.event.nombre}</span>
+                            )}
+                            {event.selected_invitado_ids && event.selected_invitado_ids.length > 0 && (
+                              <span className="ml-2 text-[10px]" style={{ color: '#6B7280' }}>
+                                ({event.selected_invitado_ids.length} invitado(s) seleccionado(s))
+                              </span>
+                            )}
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )}
-                  {currentCampaign.settings.recipients.businesses && currentCampaign.settings.recipients.businesses.length > 0 && (
-                    <div>
-                      <div className="text-xs font-medium mb-1" style={{ color: '#6B7280' }}>Negocios</div>
-                      <div className="text-sm" style={{ color: '#111827' }}>
-                        {currentCampaign.settings.recipients.businesses.length} negocio(s)
+
+                  {/* Listas */}
+                  {currentCampaign.recipient_selection.lists && currentCampaign.recipient_selection.lists.length > 0 && (
+                    <div className="p-3 rounded-sm" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '2px' }}>
+                      <div className="text-xs font-semibold mb-2" style={{ color: '#111827' }}>Listas Guardadas</div>
+                      <div className="space-y-2">
+                        {currentCampaign.recipient_selection.lists.map((list: any, index: number) => (
+                          <div key={index} className="text-xs" style={{ color: '#6B7280' }}>
+                            • Lista ID: {list.list_id || 'N/A'}
+                            {list.include_all !== false && (
+                              <span className="ml-2 px-1.5 py-0.5 rounded-sm" style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', borderRadius: '2px' }}>
+                                Incluir todos
+                              </span>
+                            )}
+                            {list.included_statuses && list.included_statuses.length > 0 && (
+                              <span className="ml-2 text-[10px]" style={{ color: '#6B7280' }}>
+                                Estados: {list.included_statuses.join(', ')}
+                              </span>
+                            )}
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )}
+
+                  {/* Tags */}
+                  {currentCampaign.recipient_selection.tags && (
+                    ((currentCampaign.recipient_selection.tags.include_tags && currentCampaign.recipient_selection.tags.include_tags.length > 0) ||
+                     (currentCampaign.recipient_selection.tags.exclude_tags && currentCampaign.recipient_selection.tags.exclude_tags.length > 0)) && (
+                      <div className="p-3 rounded-sm" style={{ backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB', borderRadius: '2px' }}>
+                        <div className="text-xs font-semibold mb-2" style={{ color: '#111827' }}>Tags</div>
+                        <div className="space-y-2">
+                          {currentCampaign.recipient_selection.tags.include_tags && currentCampaign.recipient_selection.tags.include_tags.length > 0 && (
+                            <div>
+                              <div className="text-[10px] font-medium mb-1" style={{ color: '#6B7280' }}>Incluir:</div>
+                              <div className="flex flex-wrap gap-1">
+                                {currentCampaign.recipient_selection.tags.include_tags.map((tag: string, index: number) => (
+                                  <span
+                                    key={index}
+                                    className="px-2 py-0.5 text-xs rounded-sm"
+                                    style={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', borderRadius: '2px' }}
+                                  >
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          {currentCampaign.recipient_selection.tags.exclude_tags && currentCampaign.recipient_selection.tags.exclude_tags.length > 0 && (
+                            <div>
+                              <div className="text-[10px] font-medium mb-1" style={{ color: '#6B7280' }}>Excluir:</div>
+                              <div className="flex flex-wrap gap-1">
+                                {currentCampaign.recipient_selection.tags.exclude_tags.map((tag: string, index: number) => (
+                                  <span
+                                    key={index}
+                                    className="px-2 py-0.5 text-xs rounded-sm"
+                                    style={{ backgroundColor: '#FEE2E2', color: '#991B1B', borderRadius: '2px' }}
+                                  >
+                                    {tag}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                          {currentCampaign.recipient_selection.tags.match_all && (
+                            <div className="text-[10px] mt-2" style={{ color: '#6B7280' }}>
+                              ✓ Requerir todos los tags (match all)
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  )}
+
+                  {/* Resumen */}
+                  <div className="p-3 rounded-sm" style={{ backgroundColor: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: '2px' }}>
+                    <div className="text-xs font-semibold mb-1" style={{ color: '#1E40AF' }}>Resumen</div>
+                    <div className="text-[10px] space-y-1" style={{ color: '#3B82F6' }}>
+                      {currentCampaign.recipient_selection.events && currentCampaign.recipient_selection.events.length > 0 && (
+                        <div>• {currentCampaign.recipient_selection.events.length} evento(s) seleccionado(s)</div>
+                      )}
+                      {currentCampaign.recipient_selection.lists && currentCampaign.recipient_selection.lists.length > 0 && (
+                        <div>• {currentCampaign.recipient_selection.lists.length} lista(s) seleccionada(s)</div>
+                      )}
+                      {currentCampaign.recipient_selection.tags?.include_tags && currentCampaign.recipient_selection.tags.include_tags.length > 0 && (
+                        <div>• {currentCampaign.recipient_selection.tags.include_tags.length} tag(s) a incluir</div>
+                      )}
+                      {currentCampaign.recipient_selection.tags?.exclude_tags && currentCampaign.recipient_selection.tags.exclude_tags.length > 0 && (
+                        <div>• {currentCampaign.recipient_selection.tags.exclude_tags.length} tag(s) a excluir</div>
+                      )}
+                      {(!currentCampaign.recipient_selection.events || currentCampaign.recipient_selection.events.length === 0) &&
+                       (!currentCampaign.recipient_selection.lists || currentCampaign.recipient_selection.lists.length === 0) &&
+                       (!currentCampaign.recipient_selection.tags?.include_tags || currentCampaign.recipient_selection.tags.include_tags.length === 0) &&
+                       (!currentCampaign.recipient_selection.tags?.exclude_tags || currentCampaign.recipient_selection.tags.exclude_tags.length === 0) && (
+                        <div>No hay destinatarios configurados</div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               ) : (
-                <div className="text-sm" style={{ color: '#6B7280' }}>No hay destinatarios configurados</div>
+                <div className="text-sm p-4 rounded-sm" style={{ backgroundColor: '#FEF2F2', border: '1px solid #FECACA', borderRadius: '2px', color: '#DC2626' }}>
+                  No hay destinatarios configurados para esta campaña. Edita la campaña para agregar destinatarios.
+                </div>
               )}
             </div>
           </div>

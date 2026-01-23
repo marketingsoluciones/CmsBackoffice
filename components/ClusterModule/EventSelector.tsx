@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { fetchApiEventos } from "../../utils/Fetching";
-import Cookies from "js-cookie";
+import { CRM_QUERIES } from "../../utils/crmQueries";
 import { ToastContextProvider } from "../../context/ToastContext";
+import { resolveDevelopment } from "../../utils/CRMFetching";
+import { getAuth } from "firebase/auth";
 
-const DEFAULT_DEVELOPMENT = process.env.NEXT_PUBLIC_DEVELOPMENT || "bodasdehoy";
-
-const resolveDevelopment = () => {
-  if (typeof window === "undefined") return DEFAULT_DEVELOPMENT;
-  return (
-    Cookies.get("development") ||
-    localStorage.getItem("development") ||
-    DEFAULT_DEVELOPMENT
-  );
-};
+// Nota: Ya no necesitamos resolveDevelopment porque fetchApiCRM lo maneja internamente
 
 interface Evento {
   _id: string;
@@ -61,47 +54,82 @@ export default function EventSelector({ selectedEvents, onChange, development }:
     setLoading(true);
     setError(null);
     try {
-      const dev = development || resolveDevelopment() || "bodasdehoy";
-      const response = await fetchApiEventos({
-        query: `query SolicitarEventos($userID : String, $development: String!) {
-          queryenEvento(valor: $userID, development: $development){
-            _id
-            nombre
-            fecha
-            tipo
-            poblacion
-            invitados_array {
-              _id
-              nombre
-              correo
-              telefono
-              movil
-            }
+      // Usar API Local (Python) para eventos, no API2
+      // Manejar resolveDevelopment de forma segura
+      let dev = development || "bodasdehoy";
+      try {
+        if (typeof resolveDevelopment === 'function') {
+          dev = development || resolveDevelopment() || "bodasdehoy";
+        } else if (typeof window !== 'undefined') {
+          // Fallback directo usando Cookies/localStorage
+          const Cookies = (await import('js-cookie')).default;
+          dev = development || Cookies.get("development") || 
+                localStorage.getItem("development") || "bodasdehoy";
+        }
+      } catch (e) {
+        console.warn("Error resolving development, using default:", e);
+        dev = development || "bodasdehoy";
+      }
+
+      // Obtener userID desde Firebase Auth si está disponible
+      // La query acepta userID como String o null, pero no string vacío
+      let userID: string | null = null;
+      try {
+        if (typeof window !== "undefined") {
+          const auth = getAuth();
+          if (auth?.currentUser?.uid) {
+            userID = auth.currentUser.uid;
           }
-        }`,
-        variables: { userID: "", development: dev },
-        domain: window.location.hostname,
+        }
+      } catch (e) {
+        console.warn("No se pudo obtener userID:", e);
+      }
+
+      const response = await fetchApiEventos({
+        query: CRM_QUERIES.GET_EVENTOS,
+        variables: {
+          userID: userID, // null es aceptado por la API
+          development: dev,
+        },
+        domain: dev,
       });
 
-      // fetchApiEventos retorna Object.values(data)[0], que debería ser el array de eventos
-      // Manejar diferentes formatos de respuesta y casos null/undefined
-      if (!response) {
-        // Si la respuesta es null o undefined, establecer array vacío
-        setEventos([]);
-      } else if (Array.isArray(response)) {
-        setEventos(response);
-      } else if (response?.queryenEvento && Array.isArray(response.queryenEvento)) {
-        setEventos(response.queryenEvento);
-      } else if (response?.data?.queryenEvento && Array.isArray(response.data.queryenEvento)) {
-        setEventos(response.data.queryenEvento);
-      } else {
-        // Si la respuesta no es un formato esperado, establecer array vacío
-        setEventos([]);
-      }
+      // fetchApiEventos retorna Object.values(data)[0], que es el array de eventos
+      // queryenEvento retorna un array directo de eventos según Fetching.js
+      const eventosData = Array.isArray(response) ? response : [];
+      
+      // Mapear eventos del formato del backend (_id) al formato interno
+      const eventosMapeados = eventosData.map((evento: any) => ({
+        _id: evento._id || evento.id || String(Math.random()),
+        nombre: evento.nombre || '',
+        fecha: evento.fecha,
+        tipo: evento.tipo,
+        poblacion: evento.poblacion,
+        invitados_array: (evento.invitados_array || []).map((inv: any) => ({
+          _id: inv._id || inv.id || String(Math.random()),
+          nombre: inv.nombre || '',
+          correo: inv.correo || '',
+          telefono: inv.telefono || '',
+          movil: inv.movil || '',
+        })),
+      }));
+
+      setEventos(eventosMapeados);
     } catch (err: any) {
       console.error("Error loading eventos:", err);
-      setError(err?.message || "Error al cargar eventos");
+      // Intentar obtener el mensaje de error del servidor
+      const errorMessage = err?.response?.data?.errors?.[0]?.message || 
+                          err?.response?.data?.error?.message ||
+                          err?.message || 
+                          "Error al cargar eventos";
+      console.error("Error details:", {
+        message: errorMessage,
+        response: err?.response?.data,
+        status: err?.response?.status,
+      });
+      setError(errorMessage);
       setEventos([]);
+      pushToast("error", `Error al cargar eventos: ${errorMessage}`);
     } finally {
       setLoading(false);
     }

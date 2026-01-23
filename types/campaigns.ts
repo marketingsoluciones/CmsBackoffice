@@ -70,12 +70,33 @@ export interface Template {
 
 export interface CampaignExecution {
   id: string;
+  executionNumber?: number;
   status: ExecutionStatus;
   startedAt: string;
   completedAt?: string;
+  config?: {
+    searchTerms?: string[];
+    countries?: string[];
+    regions?: string[];
+    cities?: string[];
+    sources?: string[];
+    templateId?: string;
+    recipient_selection?: any;
+  };
   results?: {
     total: number;
-    sent: number;
+    sent?: number;
+    failed?: number;
+    newBusinesses?: number;
+    updatedBusinesses?: number;
+    duplicatesSkipped?: number;
+    errorsCount?: number;
+  };
+  notes?: string;
+  queueStats?: {
+    pending: number;
+    processing: number;
+    completed: number;
     failed: number;
   };
 }

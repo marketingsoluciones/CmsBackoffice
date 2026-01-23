@@ -50,7 +50,7 @@ const readDocumentCookie = (key: string) => {
   return match ? decodeURIComponent(match.split("=")[1]) : undefined;
 };
 
-const resolveDevelopment = () => {
+export const resolveDevelopment = () => {
   if (typeof window === "undefined") return DEFAULT_DEVELOPMENT;
   return (
     Cookies.get("development") ||

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useSavedFilters } from "../../hooks/useSavedFilters";
+import { fetchApiCRM } from "../../utils/CRMFetching";
+import { CRM_QUERIES } from "../../utils/crmQueries";
 import { ToastContextProvider } from "../../context/ToastContext";
 
 interface ListSelectorProps {
@@ -18,9 +19,64 @@ interface ListSelectorProps {
   entityType: "LEAD" | "CONTACT" | "ENTITY" | "OPPORTUNITY" | "BUSINESS";
 }
 
+interface SavedView {
+  id: string;
+  name: string;
+  entityType: string;
+  itemIds?: string[];
+}
+
 export default function ListSelector({ selectedLists, onChange, entityType }: ListSelectorProps) {
-  const { filters, isLoading } = useSavedFilters(entityType);
+  const [savedViews, setSavedViews] = useState<SavedView[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [expandedLists, setExpandedLists] = useState<Set<string>>(new Set());
+  const { dispatch } = ToastContextProvider();
+
+  const pushToast = (type: string, message: string) => {
+    dispatch({ type: "ADD_TOAST", payload: { id: `${Date.now()}-${Math.random()}`, type, message } } as any);
+  };
+
+  useEffect(() => {
+    fetchSavedViews();
+  }, [entityType]);
+
+  const fetchSavedViews = async () => {
+    setIsLoading(true);
+    try {
+      // Mapear entityType del componente al enum que espera API2
+      // API2 usa: LEAD, CONTACT, COMPANY, BUSINESS, CAMPAIGN (enum CRM_SavedViewEntityType)
+      // El componente recibe: LEAD, CONTACT, ENTITY, OPPORTUNITY, BUSINESS
+      const backendEntityType = entityType === "ENTITY" ? "COMPANY" : 
+                                entityType === "OPPORTUNITY" ? "LEAD" : 
+                                entityType;
+
+      const response = await fetchApiCRM({
+        query: CRM_QUERIES.GET_SAVED_VIEWS,
+        variables: {
+          entityType: backendEntityType,
+        },
+      });
+
+      // La respuesta de API2 tiene estructura: { getSavedViews: { savedViews: [...], total: number } }
+      const viewsData = response?.getSavedViews?.savedViews || [];
+      
+      // Mapear a la estructura esperada (agregar itemIds si no viene)
+      const mappedViews = viewsData.map((view: any) => ({
+        id: view.id,
+        name: view.name,
+        entityType: view.entityType,
+        itemIds: view.itemIds || [], // Si el backend no retorna itemIds, usar array vacío
+      }));
+      
+      setSavedViews(mappedViews);
+    } catch (err: any) {
+      console.error("Error loading saved views:", err);
+      pushToast("error", `Error al cargar listas: ${err?.message || "Error desconocido"}`);
+      setSavedViews([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleToggleList = (filterId: string) => {
     const isSelected = selectedLists.some((l) => l.list_id === filterId);
@@ -65,11 +121,11 @@ export default function ListSelector({ selectedLists, onChange, entityType }: Li
     );
   }
 
-  if (filters.length === 0) {
+  if (savedViews.length === 0 && !isLoading) {
     return (
       <div className="p-4 rounded-sm" style={{ backgroundColor: "#F9FAFB", border: "1px solid #E5E7EB", borderRadius: "2px" }}>
         <div className="text-xs" style={{ color: "#6B7280" }}>
-          No hay listas guardadas disponibles. Crea filtros guardados para usarlos como listas de destinatarios.
+          No hay listas guardadas disponibles. Crea vistas guardadas para usarlas como listas de destinatarios.
         </div>
       </div>
     );
@@ -78,17 +134,17 @@ export default function ListSelector({ selectedLists, onChange, entityType }: Li
   return (
     <div className="space-y-2">
       <label className="text-xs font-medium block mb-2" style={{ color: "#6B7280" }}>
-        Listas Guardadas ({filters.length} disponibles)
+        Listas Guardadas ({savedViews.length} disponibles)
       </label>
       <div className="space-y-2 max-h-64 overflow-y-auto">
-        {filters.map((filter) => {
-          const isSelected = selectedLists.some((l) => l.list_id === filter.id);
-          const selectedList = selectedLists.find((l) => l.list_id === filter.id);
-          const isExpanded = expandedLists.has(filter.id);
+        {savedViews.map((view) => {
+          const isSelected = selectedLists.some((l) => l.list_id === view.id);
+          const selectedList = selectedLists.find((l) => l.list_id === view.id);
+          const isExpanded = expandedLists.has(view.id);
 
           return (
             <div
-              key={filter.id}
+              key={view.id}
               className="p-3 rounded-sm transition-colors"
               style={{
                 backgroundColor: isSelected ? "#EFF6FF" : "#FFFFFF",
@@ -101,26 +157,26 @@ export default function ListSelector({ selectedLists, onChange, entityType }: Li
                   <input
                     type="checkbox"
                     checked={isSelected}
-                    onChange={() => handleToggleList(filter.id)}
+                    onChange={() => handleToggleList(view.id)}
                     className="w-4 h-4 rounded-sm"
                     style={{ accentColor: "#3B82F6" }}
                   />
                   <div className="flex-1 min-w-0">
                     <div className="text-xs font-medium truncate" style={{ color: "#111827" }}>
-                      {filter.name}
+                      {view.name}
                     </div>
                     <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-                      {filter.conditions && filter.conditions.length > 0 && (
-                        <span className="text-[10px]" style={{ color: "#6B7280" }}>
-                          {filter.conditions.length} condición(es)
+                      {view.entityType && (
+                        <span className="text-[10px] px-1.5 py-0.5 rounded-sm" style={{ backgroundColor: "#F3F4F6", color: "#6B7280", borderRadius: "2px" }}>
+                          {view.entityType}
                         </span>
                       )}
-                      {filter.itemCount !== undefined && (
+                      {view.itemIds && view.itemIds.length > 0 && (
                         <span
                           className="text-[10px] px-1.5 py-0.5 rounded-sm"
                           style={{ backgroundColor: "#D1FAE5", color: "#047857", borderRadius: "2px" }}
                         >
-                          {filter.itemCount} elementos
+                          {view.itemIds.length} elementos
                         </span>
                       )}
                     </div>
@@ -129,7 +185,7 @@ export default function ListSelector({ selectedLists, onChange, entityType }: Li
                 {isSelected && (
                   <button
                     type="button"
-                    onClick={() => toggleExpand(filter.id)}
+                    onClick={() => toggleExpand(view.id)}
                     className="px-2 py-1 text-[10px] font-medium rounded-sm transition-colors"
                     style={{
                       color: "#3B82F6",
@@ -149,7 +205,7 @@ export default function ListSelector({ selectedLists, onChange, entityType }: Li
                     <input
                       type="checkbox"
                       checked={selectedList?.include_all ?? true}
-                      onChange={() => handleToggleIncludeAll(filter.id)}
+                      onChange={() => handleToggleIncludeAll(view.id)}
                       className="w-3 h-3 rounded-sm"
                       style={{ accentColor: "#3B82F6" }}
                     />
