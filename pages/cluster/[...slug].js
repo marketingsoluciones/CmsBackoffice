@@ -22,13 +22,13 @@ const Slug = ({ props }) => {
     }, [router])
 
     const handleClickOption = (idx) => {
-        //dispatch({ type: "VIEW", payload: `/${dataComponents[idx].route}` });
         router.push(`/${dataComponents[idx].route}`)
     };
 
     const newArryDataComponents = dataComponents.slice()
     newArryDataComponents.splice(8, 1)
 
+    console.log(44444,schemaChildren);
 
     return (
         <div className={`md:flex h-full w-full`}>
@@ -39,11 +39,7 @@ const Slug = ({ props }) => {
             />
             <div className="md:flex-1 items-center justify-center px-5 py-5">
                 {
-                    dataComponents[optionSelect]?.component != undefined
-                        ? dataComponents[optionSelect]?.component
-                        : dataComponents[optionSelect]
-                            ? <ColumnsDefTable schemaChildren={schemaChildren} />
-                            : null
+                    dataComponents[optionSelect]?.component 
                 }
             </div>
         </div>

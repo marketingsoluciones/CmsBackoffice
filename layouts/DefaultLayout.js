@@ -12,6 +12,7 @@ const Sidebar = dynamic(() => import('../components/Sidebar').then(mod => mod.Si
 const Navigation = dynamic(() => import('../components/Navigation').then(mod => mod.Navigation))
 const EventsGroupProvider = dynamic(() => import('../context/EventsGroupContext').then(mod => mod.EventsGroupProvider))
 const EventProvider = dynamic(() => import('../context/EventContext').then(mod => mod.EventProvider))
+const CRMProvider = dynamic(() => import('../context/CRMContext').then(mod => mod.CRMProvider))
 
 
 
@@ -37,9 +38,10 @@ export const DefaultLayout = ({ children }) => {
           <EventsGroupProvider>
             <EventProvider>
               <ToastProvider>
+                <CRMProvider>
                 {valir && <Flex h={"100vh"} w={"100%"} overflow={"hidden"} position={"relative"} >
                   {screen.width < 640
-                    ? <div className="absolute z-[100]">
+                    ? <div className="fixed z-[100] h-screen top-0 left-0">
                       <Sidebar state={show} setState={setShow} />
                     </div>
 
@@ -55,6 +57,7 @@ export const DefaultLayout = ({ children }) => {
                     </Box>
                   </Flex>
                 </Flex>}
+                </CRMProvider>
               </ToastProvider>
             </EventProvider>
           </EventsGroupProvider>

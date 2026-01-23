@@ -2,11 +2,12 @@ import { Text, Flex, Box, Menu, MenuItem, MenuGroup, MenuButton, MenuList } from
 import { BodyStaticAPP } from "../utils/schemas";
 import { AuthContextProvider } from "../context/AuthContext";
 import { useRouter } from "next/router";
-import { Tooltip } from "@chakra-ui/react";
 import { ArrowDownIcon, ArrowLeft, IconFolderOpenOutline } from "./../components/Icons/index";
 import { hasRole } from "../utils/auth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal } from "./modals/Alert";
+import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { clsx } from "clsx";
 
 export const Sidebar = ({ state, setState }) => {
   const { user, development, setDevelopment, dispatch, changedForm, setChangedForm } = AuthContextProvider()
@@ -14,165 +15,692 @@ export const Sidebar = ({ state, setState }) => {
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
   const [handle, setHandle] = useState()
+  const [expandedGroups, setExpandedGroups] = useState(new Set(['Mis Empresas', 'Módulos', 'Chat en línea', 'Formacion Enterprice']))
+  const [expandedSubComponents, setExpandedSubComponents] = useState(new Set())
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(typeof window !== 'undefined' && window.innerWidth < 640)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  const usesQueryParamNavigation = (subComponent, parentRoute) => {
+    if (subComponent.componentName) {
+      if (!subComponent.route) {
+        return true;
+      }
+      if (subComponent.route.includes("/")) {
+        return false;
+      }
+      if (subComponent.route.startsWith("/")) {
+        return false;
+      }
+      return true;
+    }
+    return false;
+  };
+
+  const isSubComponentActive = (subComponent, parentRoute) => {
+    const query = router.query;
+
+    if (usesQueryParamNavigation(subComponent, parentRoute) && parentRoute) {
+      const isOnParentRoute = asPath === "/" + parentRoute || asPath.startsWith("/" + parentRoute + "/");
+
+      if (isOnParentRoute) {
+        if (subComponent.route && query.subComponent === subComponent.route) return true;
+        if (subComponent.componentName && query.subComponent === subComponent.componentName) return true;
+      }
+    }
+
+    if (subComponent.route && !usesQueryParamNavigation(subComponent, parentRoute)) {
+      return subComponent.route === asPath.split("/")[1] ||
+        asPath === "/" + subComponent.route ||
+        asPath.startsWith("/" + subComponent.route + "/");
+    }
+
+    return false;
+  };
+
+  // Expandir automáticamente los grupos y subComponents que contienen el item activo
+  useEffect(() => {
+    if (!user || !development) return;
+
+    setExpandedGroups(prev => {
+      const newExpanded = new Set(prev);
+      BodyStaticAPP.forEach((group, groupIdx) => {
+        if (group.children && group.title) {
+          const hasActiveChild = group.children.some((child, childIdx) => {
+            if (!hasRole(development, user, child.roles) || child.hidden) return false;
+            const isActive = child.route === asPath.split("/")[1] || asPath === "/" + child.route || asPath.startsWith("/" + child.route + "/");
+
+            // Si el child tiene subComponents, verificar si alguno está activo
+            if (child.subComponents && child.subComponents.length > 0) {
+              const hasActiveSubComponent = child.subComponents.some(sub => {
+                return isSubComponentActive(sub, child.route);
+              });
+              if (hasActiveSubComponent) {
+                const childKey = `${groupIdx}-${childIdx}`;
+                setExpandedSubComponents(prev => new Set([...prev, childKey]));
+                return true;
+              }
+            }
+
+            return isActive;
+          });
+          if (hasActiveChild) {
+            newExpanded.add(group.title);
+          }
+        }
+      });
+      return newExpanded;
+    });
+  }, [asPath, development, user, router.query])
+
+  const toggleGroup = (groupName) => {
+    const newExpanded = new Set(expandedGroups);
+    if (newExpanded.has(groupName)) {
+      newExpanded.delete(groupName);
+    } else {
+      newExpanded.add(groupName);
+    }
+    setExpandedGroups(newExpanded);
+  };
+
+  const toggleSubComponent = (childKey) => {
+    const newExpanded = new Set(expandedSubComponents);
+    if (newExpanded.has(childKey)) {
+      newExpanded.delete(childKey);
+    } else {
+      newExpanded.add(childKey);
+    }
+    setExpandedSubComponents(newExpanded);
+  };
+
+  const isGroupActive = (group) => {
+    return group.children?.some(child => {
+      if (!hasRole(development, user, child.roles) || child.hidden) return false;
+      return child.route === asPath.split("/")[1] || asPath === "/" + child.route || asPath.startsWith("/" + child.route + "/");
+    });
+  };
+
+  const isItemActive = (item) => {
+    return item.route === asPath.split("/")[1] || asPath === "/" + item.route || asPath.startsWith("/" + item.route + "/");
+  };
 
   return (
-    <Flex
-      pos={"relative"}
-      w={"14rem"}
-      h={"100vh"}
-      shadow={"md"}
-      bg={"white"}
-      justifyContent={"start"}
-      flexDir={"column"}
-      /* marginLeft={`${state ? "" : "-9.5rem"}`} */
-      transitionProperty={"all"}
-      transitionTimingFunction={"cubic-bezier(0.4, 0, 0.2, 1)"}
-      transitionDuration={"150ms"}
-      className={`${state ? "" : "ml-[-15rem] md:ml-[-9.5rem]"}`}
-    >
+    <div className={clsx(
+      "flex h-full w-full flex-col bg-white shadow-sm border-r border-gray-200",
+      !state && "ml-[-15rem] md:ml-[-9.5rem]"
+    )}
+      style={{
+        width: state ? '220px' : 'auto',
+        transition: 'all 150ms cubic-bezier(0.4, 0, 0.2, 1)'
+      }}>
       {showModal && <Modal setShowModal={setShowModal} showModal={showModal} title={"Al salir perdera los cambios"} handle={handle} />}
-      <Flex alignItems={"center"} gap={"0.5rem"} p={"0.5rem"}>
-        <Tooltip label={`${state ? "" : development}`} ml="14" top="-10">
-          <div className={`flex  ${state ? "justify-star" : " justify-end "} items-center gap-2 w-full bg-gray-100 py-2 px-2 rounded-xl`}>
 
-            <div className={`${state ? "hidden" : "block"}`} >
-              <Menu autoSelect={false}  >
-                <MenuButton pr={"0.3rem"}>
-                  {<IconFolderOpenOutline className="w-8 h-8 text-gray-600" />}
+      {/* Header */}
+      <div className="flex  h-20 items-center space-x-4 justify-center px-1 border-b border-gray-200">
+
+        <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+          <IconFolderOpenOutline className="w-5 h-5 text-white" />
+        </div>
+        
+        <div className="flex flex-col items-center justify-center">
+          {state && (
+            <div className="flex items-center space-x-3">
+
+              <div>
+                <h1 className="text-lg font-semibold text-gray-900">CMS Portal</h1>
+                <p className="text-xs text-gray-500">Sistema Completo</p>
+              </div>
+            </div>
+          )}
+          {state && (
+            <div className="flex items-center gap-2">
+              
+              <Menu autoSelect={false}>
+                <MenuButton className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-semibold text-gray-500">{development?.toUpperCase()}</span>
+                    <ChevronDownIcon className="h-4 w-4" />
+                  </div>
                 </MenuButton>
-                <MenuList p={"0"} fontSize={"sm"} ml={"8"}>
+                <MenuList p="0" fontSize="sm">
                   {user?.authDevelopments?.map((item, idx) => (
-                    <div key={idx}>
-                      <MenuItem style={item.title === development ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }} color={"gray.500"} onClick={() => setDevelopment(item.title)}>{`${item.title}.com`}</MenuItem>
-                    </div>
+                    <MenuItem
+                      key={idx}
+                      style={item.title === development ? { backgroundColor: '#F3F4F6' } : { backgroundColor: '' }}
+                      color="gray.500"
+                      onClick={() => {
+                        if (changedForm) {
+                          setHandle(() => () => {
+                            router.push("/").then(() => {
+                              setDevelopment(item.title)
+                              setChangedForm(false)
+                            })
+                          })
+                          setShowModal(true)
+                        } else {
+                          router.push("/").then(() => {
+                            setDevelopment(item.title)
+                          })
+                        }
+                      }}
+                    >
+                      {`${item.title}.com`}
+                    </MenuItem>
                   ))}
                 </MenuList>
               </Menu>
             </div>
+          )}
 
-            <div className={`flex items-center justify-star w-full ${state ? "block" : "hidden"}`}>
-              {screen.width < 640 ?
-                <ArrowLeft className="w-8 h-8 mr-2 text-gray-600" onClick={() => setState(!state)} />
-                : <IconFolderOpenOutline className="w-8 h-8 mr-2 text-gray-600" />}
-              <div className={`w-full`}>
-                <div className={`flex gap-4 `}>
-                  <Text pl={"0.1rem"} className={`text-gray-500 font-semibold`}>{"Portal:"}</Text>
-                </div>
-                <div className="flex">
-                  <Menu autoSelect={false} foc >
-                    <MenuButton flex={"2"} w={"8rem"}>
-                      <div className="flex justify-between w-full">
-                        <Text noOfLines={1} textAlign={"start"} ml={"2px"} className={"font-semibold text-gray-500"} >{development?.toUpperCase()}</Text>
-                        <ArrowDownIcon h={2} w={3} />
-                      </div>
-                    </MenuButton>
-                    <MenuList p={"0"} fontSize={"sm"} justifyItems={"start"}>
-                      {user?.authDevelopments?.map((item, idx) => (
-                        <MenuItem key={idx} style={item.title === development ? { backgroundColor: '#F3F4F6' } : { backgroundColor: '' }} color={"gray.500"}
+        </div>
+
+
+        {!state && (
+          <Menu autoSelect={false}>
+            <MenuButton className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors">
+              <IconFolderOpenOutline className="w-5 h-5 text-gray-600" />
+            </MenuButton>
+            <MenuList p="0" fontSize="sm" ml="8">
+              {user?.authDevelopments?.map((item, idx) => (
+                <MenuItem
+                  key={idx}
+                  style={item.title === development ? { backgroundColor: '#F3F3F3' } : { backgroundColor: '' }}
+                  color="gray.500"
+                  onClick={() => setDevelopment(item.title)}
+                >
+                  {`${item.title}.com`}
+                </MenuItem>
+              ))}
+            </MenuList>
+          </Menu>
+        )}
+      </div>
+
+      {/* Navigation */}
+      <nav className="flex-1 px-2 py-4 space-y-1 overflow-y-auto">
+        {BodyStaticAPP.map((group, groupIdx) => {
+          if (!hasRole(development, user, group.roles)) return null;
+
+          // Si el grupo tiene children, renderizar como grupo expandible
+          if (group.children && group.children.length > 0) {
+            const isGroupOpen = expandedGroups.has(group.title || `group-${groupIdx}`);
+            const isActive = isGroupActive(group);
+
+            if (!state) {
+              // Cuando está colapsado, mostrar todos los items visibles como iconos
+              const visibleChildren = group.children.filter(child =>
+                hasRole(development, user, child.roles) && !child.hidden
+              );
+
+              if (visibleChildren.length === 0) return null;
+
+              return (
+                <div key={groupIdx} className="space-y-1">
+                  {visibleChildren.map((child, childIdx) => {
+                    const childIsActive = isItemActive(child);
+                    return (
+                      <div key={childIdx} className="relative">
+                        <button
+                          className={clsx(
+                            childIsActive
+                              ? 'bg-blue-50 text-blue-700'
+                              : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50',
+                            'group flex items-center justify-center w-full px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200',
+                            'relative'
+                          )}
+                          title={child.title}
                           onClick={() => {
                             if (changedForm) {
                               setHandle(() => () => {
-                                router.push("/").then(
-                                  () => {
-                                    setDevelopment(item.title)
-                                    setChangedForm(false)
-                                  }
-                                )
-                              }
-                              )
+                                dispatch({ type: "VIEW", payload: {} });
+                                router.push("/" + child.route)
+                                setChangedForm(false)
+                              })
                               setShowModal(true)
                             } else {
-                              router.push("/").then(
-                                () => {
-                                  setDevelopment(item.title)
-                                }
-                              )
+                              dispatch({ type: "VIEW", payload: {} });
+                              router.push("/" + child.route)
                             }
-                          }}>{`${item.title}.com`}</MenuItem>
-                      ))}
-                    </MenuList>
-                  </Menu>
+                          }}
+                        >
+                          <div className="h-5 w-5 flex items-center justify-center">
+                            {child.icon}
+                          </div>
+                        </button>
+                      </div>
+                    );
+                  })}
                 </div>
-              </div>
+              );
+            }
 
-            </div>
-          </div>
-        </Tooltip>
-      </Flex>
+            return (
+              <div key={groupIdx}>
+                {group.title ? (
+                  <>
+                    <button
+                      onClick={() => toggleGroup(group.title || `group-${groupIdx}`)}
+                      title={group.title && group.title.length > 20 ? group.title : undefined}
+                      className={clsx(
+                        isActive
+                          ? 'bg-blue-50 text-blue-700'
+                          : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50',
+                        'group flex items-center w-full px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 justify-between'
+                      )}
+                    >
+                      <div className="flex items-center min-w-0 flex-1">
+                        <span className="truncate text-xs font-semibold uppercase tracking-wider text-gray-500">
+                          {group.title}
+                        </span>
+                      </div>
+                      <ChevronDownIcon
+                        className={clsx(
+                          'h-4 w-4 text-gray-400 transition-transform duration-200 shrink-0 ml-2',
+                          isGroupOpen ? 'transform rotate-180' : ''
+                        )}
+                      />
+                    </button>
 
-      <Flex flexDir={"column"} className="overflow-y-auto overflow-x-hidden">
-        {(() => {
-          return (
-            <>
-              {
-                BodyStaticAPP.map((item, idx) => {
-                  if (hasRole(development, user, item.roles)) {
-                    return (
-                      <Box key={idx} >
-                        <Menu autoSelect={false}>
-                          <MenuGroup key={idx} title={item.title} fontSize={"sm"} className={` ${state ? "block" : "hidden"} text-tituloPrimario`}>
-                            {item.children.map((item, idx) => {
-                              if (hasRole(development, user, item.roles)) {
-                                if (!item.hidden) {
+                    {/* Subitems */}
+                    {isGroupOpen && (
+                      <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-2">
+                        {group.children.map((child, childIdx) => {
+                          if (!hasRole(development, user, child.roles) || child.hidden) return null;
+
+                          const childIsActive = isItemActive(child);
+                          const hasSubComponents = child.subComponents && child.subComponents.length > 0;
+                          const childKey = `${groupIdx}-${childIdx}`;
+                          const isSubComponentOpen = expandedSubComponents.has(childKey);
+                          const visibleSubComponents = hasSubComponents
+                            ? child.subComponents.filter(sub => !sub.hidden)
+                            : [];
+
+                          // Si tiene subComponents, renderizar como expandible
+                          if (hasSubComponents && visibleSubComponents.length > 0) {
+                            const isSubComponentGroupActive = visibleSubComponents.some(sub => isSubComponentActive(sub, child.route));
+
+                            return (
+                              <div key={childIdx}>
+                                <button
+                                  onClick={() => {
+                                    // Si ya estoy en la ruta, solo expando/colapso
+                                    if (childIsActive && child.route) {
+                                      toggleSubComponent(childKey);
+                                    }
+                                    // Si no estoy en la ruta y tiene route, redirijo y luego expando
+                                    else if (child.route) {
+                                      if (changedForm) {
+                                        setHandle(() => () => {
+                                          isMobile ? setState(!state) : null
+                                          dispatch({ type: "VIEW", payload: {} });
+                                          router.push("/" + child.route).then(() => {
+                                            // Después de navegar, expandir los subComponents
+                                            setTimeout(() => {
+                                              if (!isSubComponentOpen) {
+                                                toggleSubComponent(childKey);
+                                              }
+                                            }, 100);
+                                          })
+                                          setChangedForm(false)
+                                        })
+                                        setShowModal(true)
+                                      } else {
+                                        isMobile ? setState(!state) : null
+                                        dispatch({ type: "VIEW", payload: {} });
+                                        router.push("/" + child.route).then(() => {
+                                          // Después de navegar, expandir los subComponents
+                                          setTimeout(() => {
+                                            if (!isSubComponentOpen) {
+                                              toggleSubComponent(childKey);
+                                            }
+                                          }, 100);
+                                        })
+                                      }
+                                    }
+                                    // Si no tiene route, solo expando/colapso
+                                    else {
+                                      toggleSubComponent(childKey);
+                                    }
+                                  }}
+                                  title={child.title && child.title.length > 20 ? child.title : undefined}
+                                  className={clsx(
+                                    childIsActive || isSubComponentGroupActive
+                                      ? 'bg-blue-50 text-blue-700'
+                                      : 'text-gray-600 hover:text-blue-700 hover:bg-gray-50',
+                                    'group flex items-center w-full px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 justify-between'
+                                  )}
+                                >
+                                  <div className="flex items-center min-w-0 flex-1">
+                                    <div className="h-4 w-4 shrink-0 mr-2 flex items-center justify-center">
+                                      {child.icon}
+                                    </div>
+                                    <span className="truncate">{child.title}</span>
+                                  </div>
+                                  <ChevronDownIcon
+                                    className={clsx(
+                                      'h-4 w-4 text-gray-400 transition-transform duration-200 shrink-0 ml-2',
+                                      isSubComponentOpen ? 'transform rotate-180' : ''
+                                    )}
+                                  />
+                                </button>
+
+                                {/* SubComponents */}
+                                {isSubComponentOpen && (
+                                  <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-2">
+                                    {visibleSubComponents.map((subComponent, subIdx) => {
+                                      const subIsActive = isSubComponentActive(subComponent, child.route);
+                                      const getNavigationPath = () => {
+                                        if (usesQueryParamNavigation(subComponent, child.route) && child.route) {
+                                          if (subComponent.route) {
+                                            return { pathname: "/" + child.route, query: { subComponent: subComponent.route } }
+                                          } else if (subComponent.componentName) {
+                                            return { pathname: "/" + child.route, query: { subComponent: subComponent.componentName } }
+                                          }
+                                          return { pathname: "/" + child.route }
+                                        }
+                                        if (subComponent.route) {
+                                          return { pathname: "/" + subComponent.route }
+                                        }
+                                        return null
+                                      }
+
+                                      return (
+                                        <button
+                                          key={subIdx}
+                                          onClick={() => {
+                                            const navPath = getNavigationPath()
+                                            if (!navPath) return
+
+                                            if (changedForm) {
+                                              setHandle(() => () => {
+                                                isMobile ? setState(!state) : null
+                                                dispatch({ type: "VIEW", payload: {} });
+                                                router.push(navPath)
+                                                setChangedForm(false)
+                                              })
+                                              setShowModal(true)
+                                            } else {
+                                              isMobile ? setState(!state) : null
+                                              dispatch({ type: "VIEW", payload: {} });
+                                              router.push(navPath)
+                                            }
+                                          }}
+                                          title={subComponent.title && subComponent.title.length > 20 ? subComponent.title : undefined}
+                                          className={clsx(
+                                            subIsActive
+                                              ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
+                                              : 'text-gray-600 hover:text-blue-700 hover:bg-gray-50',
+                                            'group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer w-full'
+                                          )}
+                                        >
+                                          {subComponent.icon && (
+                                            <div className="h-4 w-4 shrink-0 mr-2 flex items-center justify-center">
+                                              {subComponent.icon}
+                                            </div>
+                                          )}
+                                          <span className="truncate">{subComponent.title}</span>
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          }
+
+                          return (
+                            <button
+                              key={childIdx}
+                              onClick={() => {
+                                if (changedForm) {
+                                  setHandle(() => () => {
+                                    isMobile ? setState(!state) : null
+                                    dispatch({ type: "VIEW", payload: {} });
+                                    router.push("/" + child.route)
+                                    setChangedForm(false)
+                                  })
+                                  setShowModal(true)
+                                } else {
+                                  isMobile ? setState(!state) : null
+                                  dispatch({ type: "VIEW", payload: {} });
+                                  router.push("/" + child.route)
+                                }
+                              }}
+                              title={child.title && child.title.length > 20 ? child.title : undefined}
+                              className={clsx(
+                                childIsActive
+                                  ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
+                                  : 'text-gray-600 hover:text-blue-700 hover:bg-gray-50',
+                                'group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer w-full'
+                              )}
+                            >
+                              <div className="h-4 w-4 shrink-0 mr-2 flex items-center justify-center">
+                                {child.icon}
+                              </div>
+                              <span className="truncate">{child.title}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="space-y-1">
+                    {group.children.map((child, childIdx) => {
+                      if (!hasRole(development, user, child.roles) || child.hidden) return null;
+
+                      const childIsActive = isItemActive(child);
+                      const hasSubComponents = child.subComponents && child.subComponents.length > 0;
+                      const childKey = `no-title-${groupIdx}-${childIdx}`;
+                      const isSubComponentOpen = expandedSubComponents.has(childKey);
+                      const visibleSubComponents = hasSubComponents
+                        ? child.subComponents.filter(sub => !sub.hidden)
+                        : [];
+
+                      if (hasSubComponents && visibleSubComponents.length > 0) {
+                        const isSubComponentGroupActive = visibleSubComponents.some(sub => isSubComponentActive(sub, child.route));
+
+                        return (
+                          <div key={childIdx}>
+                            <button
+                              onClick={() => {
+                                if (childIsActive && child.route) {
+                                  toggleSubComponent(childKey);
+                                }
+                                else if (child.route) {
+                                  if (changedForm) {
+                                    setHandle(() => () => {
+                                      isMobile ? setState(!state) : null
+                                      dispatch({ type: "VIEW", payload: {} });
+                                      router.push("/" + child.route).then(() => {
+                                        setTimeout(() => {
+                                          if (!isSubComponentOpen) {
+                                            toggleSubComponent(childKey);
+                                          }
+                                        }, 100);
+                                      })
+                                      setChangedForm(false)
+                                    })
+                                    setShowModal(true)
+                                  } else {
+                                    isMobile ? setState(!state) : null
+                                    dispatch({ type: "VIEW", payload: {} });
+                                    router.push("/" + child.route).then(() => {
+                                      // Después de navegar, expandir los subComponents
+                                      setTimeout(() => {
+                                        if (!isSubComponentOpen) {
+                                          toggleSubComponent(childKey);
+                                        }
+                                      }, 100);
+                                    })
+                                  }
+                                }
+                                // Si no tiene route, solo expando/colapso
+                                else {
+                                  toggleSubComponent(childKey);
+                                }
+                              }}
+                              title={child.title && child.title.length > 20 ? child.title : undefined}
+                              className={clsx(
+                                childIsActive || isSubComponentGroupActive
+                                  ? 'bg-blue-50 text-blue-700'
+                                  : 'text-gray-600 hover:text-blue-700 hover:bg-gray-50',
+                                'group flex items-center w-full px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 justify-between'
+                              )}
+                            >
+                              <div className="flex items-center min-w-0 flex-1">
+                                <div className="h-4 w-4 shrink-0 mr-2 flex items-center justify-center">
+                                  {child.icon}
+                                </div>
+                                <span className="truncate">{child.title}</span>
+                              </div>
+                              <ChevronDownIcon
+                                className={clsx(
+                                  'h-4 w-4 text-gray-400 transition-transform duration-200 shrink-0 ml-2',
+                                  isSubComponentOpen ? 'transform rotate-180' : ''
+                                )}
+                              />
+                            </button>
+
+                            {/* SubComponents */}
+                            {isSubComponentOpen && (
+                              <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-2">
+                                {visibleSubComponents.map((subComponent, subIdx) => {
+                                  const subIsActive = isSubComponentActive(subComponent, child.route);
+
+                                  const getNavigationPath = () => {
+                                    if (usesQueryParamNavigation(subComponent, child.route) && child.route) {
+                                      if (subComponent.route) {
+                                        return { pathname: "/" + child.route, query: { subComponent: subComponent.route } }
+                                      } else if (subComponent.componentName) {
+                                        return { pathname: "/" + child.route, query: { subComponent: subComponent.componentName } }
+                                      }
+                                      return { pathname: "/" + child.route }
+                                    }
+                                    if (subComponent.route) {
+                                      return { pathname: "/" + subComponent.route }
+                                    }
+                                    return null
+                                  }
+
                                   return (
-                                    <MenuItem
-                                      _hover={{ bg: "#F3F3F3" }}
-                                      key={idx}
-                                      color={"#637381"}
-                                      padding={`${state ? "2" : ""}`}
-                                      marginLeft={"2"}
-                                      w={"95%"}
-                                      fontSize={"sm"}
-                                      className={` flex  ${state ? "justify-star" : "justify-end"} items-center w-full rounded-md `}
-                                      style={item.route === asPath.split("/")[1]
-                                        ? { backgroundColor: '#F3F3F3', color: "#FF5887" }
-                                        : { backgroundColor: '' } && item.route === asPath
-                                          ? { backgroundColor: '#F3F3F3' }
-                                          : { backgroundColor: '' }}
+                                    <button
+                                      key={subIdx}
                                       onClick={() => {
+                                        const navPath = getNavigationPath()
+                                        if (!navPath) return
+
                                         if (changedForm) {
                                           setHandle(() => () => {
-                                            screen.width < 640 ? setState(!state) : null
+                                            isMobile ? setState(!state) : null
                                             dispatch({ type: "VIEW", payload: {} });
-                                            router.push("/" + item.route)
+                                            router.push(navPath)
                                             setChangedForm(false)
-                                          }
-                                          )
+                                          })
                                           setShowModal(true)
                                         } else {
-                                          screen.width < 640 ? setState(!state) : null
+                                          isMobile ? setState(!state) : null
                                           dispatch({ type: "VIEW", payload: {} });
-                                          router.push("/" + item.route)
+                                          router.push(navPath)
                                         }
                                       }}
+                                      title={subComponent.title && subComponent.title.length > 20 ? subComponent.title : undefined}
+                                      className={clsx(
+                                        subIsActive
+                                          ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
+                                          : 'text-gray-600 hover:text-blue-700 hover:bg-gray-50',
+                                        'group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer w-full'
+                                      )}
                                     >
-                                      <Tooltip label={`${state ? "" : item.title}`} ml="14" top="-10">
-                                        <div className={`flex justify-estar items-center  ${state ? "" : `relative`}`} data-tip={`${item.title}`}>
-                                          <div className={` pr-2 `}>
-                                            {item.icon}
-                                          </div>
-                                          <div className={`${state ? "block " : "hidden"}`}>
-                                            {item.title}
-                                          </div>
+                                      {subComponent.icon && (
+                                        <div className="h-4 w-4 shrink-0 mr-2 flex items-center justify-center">
+                                          {subComponent.icon}
                                         </div>
-                                      </Tooltip>
-                                    </MenuItem>
-                                  )
-                                }
-                              }
-                            })}
-                          </MenuGroup>
-                        </Menu>
-                      </Box>
-                    )
-                  }
-                })
-              }
-            </>
-          )
-        })()}
-      </Flex>
-    </Flex>
+                                      )}
+                                      <span className="truncate">{subComponent.title}</span>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        );
+                      }
+
+                      // Si no tiene subComponents, renderizar como item normal
+                      return (
+                        <button
+                          key={childIdx}
+                          onClick={() => {
+                            if (changedForm) {
+                              setHandle(() => () => {
+                                isMobile ? setState(!state) : null
+                                dispatch({ type: "VIEW", payload: {} });
+                                router.push("/" + child.route)
+                                setChangedForm(false)
+                              })
+                              setShowModal(true)
+                            } else {
+                              isMobile ? setState(!state) : null
+                              dispatch({ type: "VIEW", payload: {} });
+                              router.push("/" + child.route)
+                            }
+                          }}
+                          title={child.title && child.title.length > 20 ? child.title : undefined}
+                          className={clsx(
+                            childIsActive
+                              ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
+                              : 'text-gray-600 hover:text-blue-700 hover:bg-gray-50',
+                            'group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 cursor-pointer w-full'
+                          )}
+                        >
+                          <div className="h-4 w-4 shrink-0 mr-2 flex items-center justify-center">
+                            {child.icon}
+                          </div>
+                          <span className="truncate">{child.title}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          }
+
+          // Si no tiene children, no renderizar nada (no debería pasar según la estructura)
+          return null;
+        })}
+      </nav>
+
+      {/* User Profile */}
+      {state && user && (
+        <div className="p-4 border-t border-gray-200">
+          <div className="flex items-center rounded-lg bg-gray-50 p-3">
+            <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+              <span className="text-sm font-semibold text-white">
+                {user?.email?.charAt(0)?.toUpperCase() || 'U'}
+              </span>
+            </div>
+            <div className="ml-3 flex-1 min-w-0">
+              <p className="text-sm font-medium text-gray-900 truncate">
+                {user?.email?.split('@')[0] || 'Usuario'}
+              </p>
+              <p className="text-xs text-gray-500 truncate">
+                {user?.email || ''}
+              </p>
+            </div>
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

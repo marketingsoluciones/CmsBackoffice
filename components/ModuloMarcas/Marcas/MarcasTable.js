@@ -3,7 +3,7 @@ import GlobalFilter from "../../Datatable/GlobalFilter"
 import { ArrowLeft, SearchIcon } from "../../Icons/index"
 import { OnlyViewTable } from "../../OnlyViewTable"
 
-export const MarcasTable = ({ dispatch }) => {
+export const MarcasTable = ({ dispatch, ComponentControl }) => {
     const [global, setGlobal] = useState()
     const [seteador, setSeteador] = useState(() => () => { })
 
@@ -31,7 +31,7 @@ export const MarcasTable = ({ dispatch }) => {
                 </div>
             </div>
             <div className="bg-white space-y-5 rounded-xl flex flex-col py-2 px-4   ">
-                <OnlyViewTable dispatch={dispatch} setbuscador={setSeteador} />
+                <OnlyViewTable dispatch={dispatch} setbuscador={setSeteador} slug={"brands"} ComponentControl={ComponentControl} />
             </div>
         </div>
     )

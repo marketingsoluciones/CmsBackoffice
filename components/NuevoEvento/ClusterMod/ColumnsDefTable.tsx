@@ -47,6 +47,8 @@ export const ColumnsDefTable: FC<props> = ({ schemaChildren, ButtonActive, title
       return colum
     }), [router?.asPath])
 
+  console.log(55555,columnsDef);
+
 
   return (
     <>

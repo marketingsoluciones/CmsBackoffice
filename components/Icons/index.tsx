@@ -1,5 +1,14 @@
 import { createIcon } from "@chakra-ui/react";
 import { MouseEventHandler, FC } from "react";
+import {
+  ArrowLeftIcon,
+  ChevronDownIcon,
+  MagnifyingGlassIcon,
+  XMarkIcon,
+  PlusIcon as HeroPlusIcon,
+  ExclamationTriangleIcon,
+  FolderOpenIcon,
+} from "@heroicons/react/24/outline";
 
 export interface PropsIcon {
   className?: string;
@@ -113,6 +122,14 @@ export const ClusterIcon: FC<PropsIcon> = (props) => {
   return (
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+</svg>
+  );
+};
+
+export const ERPIcon: FC<PropsIcon> = (props) => {
+  return (
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6" {...props}>
+  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
 </svg>
   );
 };
@@ -3154,6 +3171,19 @@ export const Cocteles: FC<PropsIcon> = (props) => {
 };
 
 export const AddIcon: FC<PropsIcon> = (props) => {
+  const { width = 24, className = "", ...rest } = props;
+  return (
+    <HeroPlusIcon
+      width={width}
+      height={width}
+      className={className}
+      {...rest}
+    />
+  );
+};
+
+// Icono AddIcon antiguo (mantenido para compatibilidad, pero no se usa)
+export const AddIconOld: FC<PropsIcon> = (props) => {
   return (
     <svg
       width="40"
@@ -3976,23 +4006,15 @@ export const EyeIcon: FC<PropsIcon> = (props) => {
 };
 
 export const WarningIcon: FC<PropsIcon> = (props) => {
+  const { width = 24, className = "", ...rest } = props;
   return (
-    <svg
-      className="absolute left-2 top-2 overflow-visible"
-      style={{}}
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M22.5601 16.3001L14.8901 3.58006C14.2598 2.59406 13.1703 1.99744 12.0001 1.99744C10.8299 1.99744 9.74038 2.59406 9.1101 3.58006L1.4401 16.3001C0.888647 17.2193 0.869586 18.3629 1.3901 19.3001C1.99207 20.3552 3.11533 21.0047 4.3301 21.0001H19.6701C20.8766 21.0129 21.9979 20.3798 22.6101 19.3401C23.1462 18.3927 23.1271 17.2293 22.5601 16.3001ZM12.0001 17.0001C11.4478 17.0001 11.0001 16.5523 11.0001 16.0001C11.0001 15.4478 11.4478 15.0001 12.0001 15.0001C12.5524 15.0001 13.0001 15.4478 13.0001 16.0001C13.0001 16.5523 12.5524 17.0001 12.0001 17.0001ZM12.0001 14.0001C12.5524 14.0001 13.0001 13.5523 13.0001 13.0001V9.00006C13.0001 8.44778 12.5524 8.00006 12.0001 8.00006C11.4478 8.00006 11.0001 8.44778 11.0001 9.00006V13.0001C11.0001 13.5523 11.4478 14.0001 12.0001 14.0001Z"
-        fill="#FFC107"
-      />
-    </svg>
+    <ExclamationTriangleIcon
+      width={width}
+      height={width}
+      className={className}
+      style={{ color: "#FFC107" }}
+      {...rest}
+    />
   );
 };
 
@@ -4093,22 +4115,14 @@ export const CamaraIcon: FC<PropsIcon> = (props) => {
 };
 
 export const CloseIcon: FC<PropsIcon> = (props) => {
+  const { width = 24, className = "", ...rest } = props;
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      {...props}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M6 18L18 6M6 6l12 12"
-      />
-    </svg>
+    <XMarkIcon
+      width={width}
+      height={width}
+      className={className}
+      {...rest}
+    />
   );
 };
 
@@ -4579,21 +4593,14 @@ export const FiltrarIcon: FC<PropsIcon> = (props) => {
   );
 };
 export const SearchIcon: FC<PropsIcon> = (props) => {
+  const { width = 24, className = "", ...rest } = props;
   return (
-    <svg
-      width="21"
-      height="19"
-      viewBox="0 0 21 19"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M16.0146 12.9L19.7361 16.29C19.9433 16.4778 20.0599 16.7334 20.0599 17C20.0599 17.2666 19.9433 17.5222 19.7361 17.71C19.5306 17.8993 19.2508 18.0058 18.959 18.0058C18.6671 18.0058 18.3874 17.8993 18.1819 17.71L14.4713 14.31C12.9416 15.407 11.0526 16.0022 9.10799 16C4.27193 16 0.35154 12.4183 0.35154 8C0.35154 3.58172 4.27193 0 9.10799 0C13.944 0 17.8644 3.58172 17.8644 8C17.8669 9.77666 17.2153 11.5025 16.0146 12.9ZM9.10799 2C5.48095 2 2.54065 4.68629 2.54065 8C2.54065 11.3137 5.48095 14 9.10799 14C12.735 14 15.6753 11.3137 15.6753 8C15.6753 4.68629 12.735 2 9.10799 2Z"
-        fill="#919EAB"
-      />
-    </svg>
+    <MagnifyingGlassIcon
+      width={width}
+      height={width}
+      className={className}
+      {...rest}
+    />
   );
 };
 export const AddUserIcon: FC<PropsIcon> = (props) => {
@@ -4980,22 +4987,14 @@ export const SeccionesIcon: FC<PropsIcon> = (props) => {
   );
 };
 export const ArrowDownIcon: FC<PropsIcon> = (props) => {
+  const { width = 24, className = "", ...rest } = props;
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
-      className="w-6 h-6"
-      {...props}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-      />
-    </svg>
+    <ChevronDownIcon
+      width={width}
+      height={width}
+      className={className}
+      {...rest}
+    />
   );
 };
 
@@ -5021,24 +5020,30 @@ export const ArrowDownBodasIcon: FC<PropsIcon> = (props) => {
 };
 
 export const ArrowLeft: FC<PropsIcon> = (props) => {
+  const { width = 24, className = "", ...rest } = props;
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      strokeWidth="1.5"
-      stroke="currentColor"
-      {...props}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-      />
-    </svg>
+    <ArrowLeftIcon
+      width={width}
+      height={width}
+      className={className}
+      {...rest}
+    />
   );
 };
 export const IconFolderOpenOutline: FC<PropsIcon> = (props) => {
+  const { width = 24, className = "", ...rest } = props;
+  return (
+    <FolderOpenIcon
+      width={width}
+      height={width}
+      className={className}
+      {...rest}
+    />
+  );
+};
+
+// Icono antiguo mantenido para compatibilidad
+export const IconFolderOpenOutlineOld: FC<PropsIcon> = (props) => {
   return (
     <svg
       viewBox="0 0 512 512"
@@ -5298,3 +5303,6 @@ export const Icon145Unlocked: FC<PropsIcon> = (props) => {
     </svg>
   );
 };
+
+// Exportar iconos CRM
+export { LeadsIcon, ContactsIcon, EntitiesIcon, CampaignsIcon } from "./CRMIcons";
