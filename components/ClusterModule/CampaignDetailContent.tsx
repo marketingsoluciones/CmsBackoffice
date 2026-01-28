@@ -57,9 +57,16 @@ export default function CampaignDetailContent({
   // Usar datos iniciales mientras carga
   const currentCampaign = campaign || campaignData;
 
+  // Polling inteligente: activar si hay ejecuciones RUNNING
+  const hasRunningExecutions = campaign?.executions?.some((exec: any) => 
+    exec.status === 'RUNNING' || 
+    exec.status === 'running' ||
+    (exec.queueStats && (exec.queueStats.pending > 0 || exec.queueStats.processing > 0))
+  ) || false;
+
   const { data: executions, refetch: refetchExecutions } = useCampaignExecutions(
     campaignId,
-    campaign?.status === 'RUNNING' ? 5000 : undefined
+    hasRunningExecutions ? 4000 : undefined // Polling cada 4 segundos si hay ejecuciones RUNNING
   );
 
   const { data: trackingEvents, refetch: refetchTracking } = useCampaignTracking(

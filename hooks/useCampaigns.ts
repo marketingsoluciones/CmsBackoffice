@@ -181,16 +181,71 @@ export function useCampaignExecutions(campaignId: string | null, pollInterval?: 
     }
   }, [campaignId]);
 
+  // Polling inteligente: activar si hay ejecuciones RUNNING o si se especifica pollInterval
+  const hasRunningExecutions = data.some(exec => 
+    exec.status === 'RUNNING' || 
+    exec.status === 'running' ||
+    (exec.queueStats && (exec.queueStats.pending > 0 || exec.queueStats.processing > 0))
+  );
+
   useEffect(() => {
     fetchExecutions();
     
-    if (pollInterval && campaignId) {
-      const interval = setInterval(fetchExecutions, pollInterval);
+    // Polling automático si hay ejecuciones RUNNING o si se especifica pollInterval
+    const shouldPoll = pollInterval || (hasRunningExecutions && campaignId);
+    const intervalTime = pollInterval || 4000; // 4 segundos por defecto si hay ejecuciones RUNNING
+    
+    if (shouldPoll && campaignId) {
+      const interval = setInterval(fetchExecutions, intervalTime);
       return () => clearInterval(interval);
     }
-  }, [fetchExecutions, pollInterval, campaignId]);
+  }, [fetchExecutions, pollInterval, campaignId, hasRunningExecutions]);
 
   return { data, loading, error, refetch: fetchExecutions };
+}
+
+// Cola de emails (estado global de la cola de envíos)
+export function useQueueEmails(pollInterval?: number) {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  const fetchQueue = useCallback(async () => {
+    try {
+      setError(null);
+      
+      // Usar el proxy de Next.js para evitar problemas de CORS
+      const response = await apiClient.get<ApiResponse<any>>('/queue/emails', {
+        limit: 100,
+      });
+
+      if (response.success) {
+        // Si el endpoint no está disponible aún, data será null
+        setData(response.data || null);
+      } else {
+        throw new Error(response.error || 'Error al obtener la cola de emails');
+      }
+    } catch (err: any) {
+      setError(err);
+      // No mostrar error si el endpoint no existe aún
+      if (err.message?.includes('404') || err.message?.includes('Not Found') || err.message?.includes('not available')) {
+        setData(null);
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchQueue();
+    
+    if (pollInterval) {
+      const interval = setInterval(fetchQueue, pollInterval);
+      return () => clearInterval(interval);
+    }
+  }, [fetchQueue, pollInterval]);
+
+  return { data, loading, error, refetch: fetchQueue };
 }
 
 // Tracking de campaña

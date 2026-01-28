@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { CampaignExecution } from '../../types/campaigns';
 import { PlayIcon, ArrowPathIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { useQueueEmails } from '../../hooks/useCampaigns';
 
 interface CampaignExecutionsPanelProps {
   campaignId: string;
@@ -22,6 +23,15 @@ export default function CampaignExecutionsPanel({
   const [showScheduleModal, setShowScheduleModal] = useState(false);
   const [scheduledDateTime, setScheduledDateTime] = useState('');
   const [scheduleNotes, setScheduleNotes] = useState('');
+
+  // Consultar cola global de emails (cada 5 segundos si hay ejecuciones RUNNING)
+  const hasRunningExecutions = executions.some(exec => 
+    exec.status === 'RUNNING' || 
+    exec.status === 'running' ||
+    (exec.queueStats && (exec.queueStats.pending > 0 || exec.queueStats.processing > 0))
+  );
+  
+  const { data: queueData } = useQueueEmails(hasRunningExecutions ? 5000 : undefined);
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'running':
@@ -38,7 +48,7 @@ export default function CampaignExecutionsPanel({
   };
 
   const getStatusLabel = (status: string) => {
-    switch (status) {
+    switch (status?.toLowerCase()) {
       case 'running':
         return 'En Ejecución';
       case 'completed':
@@ -47,13 +57,64 @@ export default function CampaignExecutionsPanel({
         return 'Pausada';
       case 'failed':
         return 'Fallida';
+      case 'pending':
+        return 'Pendiente';
+      case 'cancelled':
+        return 'Cancelada';
       default:
-        return status;
+        return status || 'Desconocido';
     }
+  };
+
+  // Calcular tiempo transcurrido desde el inicio
+  const getElapsedTime = (startedAt: string) => {
+    const start = new Date(startedAt);
+    const now = new Date();
+    const diff = now.getTime() - start.getTime();
+    const minutes = Math.floor(diff / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+    
+    if (minutes > 0) {
+      return `${minutes}m ${seconds}s`;
+    }
+    return `${seconds}s`;
   };
 
   return (
     <div className="max-w-6xl space-y-4">
+      {/* Resumen de cola global */}
+      {queueData?.summary && (
+        <div className="p-4 rounded-sm" style={{ backgroundColor: '#F0F9FF', border: '1px solid #BFDBFE', borderRadius: '2px' }}>
+          <div className="text-xs font-semibold mb-2" style={{ color: '#1E40AF' }}>Estado de la Cola Global</div>
+          <div className="grid grid-cols-4 gap-3">
+            <div>
+              <div className="text-xs font-medium mb-1" style={{ color: '#6B7280' }}>Total en Cola</div>
+              <div className="text-sm font-semibold" style={{ color: '#111827' }}>
+                {queueData.summary.total?.toLocaleString('es-ES') || 0}
+              </div>
+            </div>
+            <div>
+              <div className="text-xs font-medium mb-1" style={{ color: '#6B7280' }}>Email Messages</div>
+              <div className="text-sm font-semibold" style={{ color: '#3B82F6' }}>
+                {queueData.summary.email_messages?.toLocaleString('es-ES') || 0}
+              </div>
+            </div>
+            <div>
+              <div className="text-xs font-medium mb-1" style={{ color: '#6B7280' }}>CRM Emails</div>
+              <div className="text-sm font-semibold" style={{ color: '#10B981' }}>
+                {queueData.summary.crm_emails?.toLocaleString('es-ES') || 0}
+              </div>
+            </div>
+            <div>
+              <div className="text-xs font-medium mb-1" style={{ color: '#6B7280' }}>Pendientes</div>
+              <div className="text-sm font-semibold" style={{ color: '#F59E0B' }}>
+                {queueData.summary.pending_emails?.toLocaleString('es-ES') || 0}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Botones de acción */}
       {(onExecute || onSchedule) && (
         <div className="flex items-center justify-between">
@@ -240,6 +301,11 @@ export default function CampaignExecutionsPanel({
                       </div>
                       <div className="text-xs" style={{ color: '#6B7280' }}>
                         Iniciada: {new Date(execution.startedAt).toLocaleString('es-ES')}
+                        {(execution.status === 'RUNNING' || execution.status === 'running') && (
+                          <span className="ml-2" style={{ color: '#10B981' }}>
+                            • Tiempo: {getElapsedTime(execution.startedAt)}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -251,6 +317,37 @@ export default function CampaignExecutionsPanel({
                   </span>
                 </div>
 
+                {/* Estado de la cola (queueStats) */}
+                {execution.queueStats && (
+                  <div className="grid grid-cols-4 gap-3 mt-3 pt-3 border-t" style={{ borderColor: '#E5E7EB' }}>
+                    <div>
+                      <div className="text-xs font-medium mb-1" style={{ color: '#6B7280' }}>Pendientes</div>
+                      <div className="text-sm font-semibold" style={{ color: '#F59E0B' }}>
+                        {execution.queueStats.pending?.toLocaleString('es-ES') || 0}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-xs font-medium mb-1" style={{ color: '#6B7280' }}>En Proceso</div>
+                      <div className="text-sm font-semibold" style={{ color: '#3B82F6' }}>
+                        {execution.queueStats.processing?.toLocaleString('es-ES') || 0}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-xs font-medium mb-1" style={{ color: '#6B7280' }}>Completados</div>
+                      <div className="text-sm font-semibold" style={{ color: '#10B981' }}>
+                        {execution.queueStats.completed?.toLocaleString('es-ES') || 0}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-xs font-medium mb-1" style={{ color: '#6B7280' }}>Fallidos</div>
+                      <div className="text-sm font-semibold" style={{ color: '#DC2626' }}>
+                        {execution.queueStats.failed?.toLocaleString('es-ES') || 0}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Progreso de resultados */}
                 {execution.results && (
                   <div className={`grid gap-4 mt-3 pt-3 border-t ${campaignType === 'SCRAPING' ? 'grid-cols-5' : 'grid-cols-3'}`} style={{ borderColor: '#E5E7EB' }}>
                     <div>
@@ -258,6 +355,18 @@ export default function CampaignExecutionsPanel({
                       <div className="text-sm font-semibold" style={{ color: '#111827' }}>
                         {execution.results.total?.toLocaleString('es-ES') || 0}
                       </div>
+                      {/* Barra de progreso si hay total y enviados */}
+                      {execution.results.total > 0 && execution.results.sent !== null && execution.results.sent !== undefined && (
+                        <div className="mt-1 w-full bg-gray-200 rounded-full h-1.5" style={{ backgroundColor: '#E5E7EB' }}>
+                          <div
+                            className="h-1.5 rounded-full transition-all"
+                            style={{
+                              backgroundColor: '#10B981',
+                              width: `${Math.min(100, (execution.results.sent / execution.results.total) * 100)}%`
+                            }}
+                          />
+                        </div>
+                      )}
                     </div>
                     {campaignType === 'SCRAPING' ? (
                       <>
@@ -291,13 +400,23 @@ export default function CampaignExecutionsPanel({
                         <div>
                           <div className="text-xs font-medium mb-1" style={{ color: '#6B7280' }}>Enviados</div>
                           <div className="text-sm font-semibold" style={{ color: '#10B981' }}>
-                            {execution.results.sent?.toLocaleString('es-ES') || 0}
+                            {execution.results.sent !== null && execution.results.sent !== undefined 
+                              ? execution.results.sent.toLocaleString('es-ES') 
+                              : 'En preparación'}
                           </div>
+                          {/* Mostrar progreso si hay datos */}
+                          {execution.results.total > 0 && execution.results.sent !== null && execution.results.sent !== undefined && (
+                            <div className="text-xs mt-0.5" style={{ color: '#6B7280' }}>
+                              {Math.round((execution.results.sent / execution.results.total) * 100)}% completado
+                            </div>
+                          )}
                         </div>
                         <div>
                           <div className="text-xs font-medium mb-1" style={{ color: '#6B7280' }}>Fallidos</div>
                           <div className="text-sm font-semibold" style={{ color: '#DC2626' }}>
-                            {execution.results.failed?.toLocaleString('es-ES') || 0}
+                            {execution.results.failed !== null && execution.results.failed !== undefined 
+                              ? execution.results.failed.toLocaleString('es-ES') 
+                              : '-'}
                           </div>
                         </div>
                       </>
