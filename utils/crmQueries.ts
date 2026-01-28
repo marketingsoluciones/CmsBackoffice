@@ -183,6 +183,58 @@ export const CRM_QUERIES = {
           }
           createdAt
           updatedAt
+          executions {
+            id
+            executionNumber
+            status
+            startedAt
+            completedAt
+            config {
+              searchTerms
+              countries
+              regions
+              cities
+              sources
+              templateId
+              recipient_selection {
+                events {
+                  event_id
+                  auto_create_contacts
+                  selected_invitado_ids
+                }
+                lists {
+                  list_id
+                  include_all
+                  included_statuses
+                }
+                tags {
+                  include_tags
+                  exclude_tags
+                  match_all
+                }
+                exclusions {
+                  events
+                  lists
+                }
+              }
+            }
+            results {
+              total
+              sent
+              failed
+              newBusinesses
+              updatedBusinesses
+              duplicatesSkipped
+              errorsCount
+            }
+            notes
+            queueStats {
+              pending
+              processing
+              completed
+              failed
+            }
+          }
         }
         total
         pagination {
