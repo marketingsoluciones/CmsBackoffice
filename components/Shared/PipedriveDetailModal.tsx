@@ -93,6 +93,12 @@ export default function PipedriveDetailModal({
     dispatch({ type: "ADD_TOAST", payload: { id: `${Date.now()}-${Math.random()}`, type, message } } as any);
   };
 
+  // Determinar el layout según el tipo de entidad
+  // Para CAMPAIGN usar detailsSection directamente (tabs integradas)
+  // Para LEAD, CONTACT y ENTITY mostrar tabs horizontales arriba con contenido debajo
+  const isCampaign = entityType === "CAMPAIGN";
+  const showHorizontalTabs = entityType === "LEAD" || entityType === "CONTACT" || entityType === "ENTITY";
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -846,350 +852,669 @@ export default function PipedriveDetailModal({
           ) : (
             /* Vista de detalles normal */
           <div className="flex-1 flex overflow-hidden">
-            {/* Panel izquierdo - Detalles */}
-            <div
-              className={detailsSection ? "flex-1 overflow-y-auto" : "flex-shrink-0 overflow-y-auto"}
-              style={{
-                ...(detailsSection ? {} : { width: "280px" }),
-                ...(detailsSection ? {} : { borderRight: "1px solid #E5E7EB" }),
-                padding: "24px",
-              }}
-            >
-                {/* Sección DETALLES */}
-              {detailsSection && (
-                <div className="mb-4">
-                  <h3 className="font-medium mb-2 uppercase text-xs tracking-wider" style={{ color: "#9CA3AF", letterSpacing: "0.05em" }}>
-                      DETALLES
-                  </h3>
-                  {detailsSection}
-                </div>
-              )}
-
-                {/* Sección PERSONA */}
-              {personSection && (
-                <div className="mb-4">
-                  <h3 className="font-medium mb-2 uppercase text-xs tracking-wider" style={{ color: "#9CA3AF", letterSpacing: "0.05em" }}>
-                      PERSONA
-                  </h3>
-                  {personSection}
-                </div>
-              )}
-
-                {/* Sección ORGANIZACIÓN */}
-              {organizationSection && (
-                <div className="mb-4">
-                  <h3 className="font-medium mb-2 uppercase text-xs tracking-wider" style={{ color: "#9CA3AF", letterSpacing: "0.05em" }}>
-                      ORGANIZACIÓN
-                  </h3>
-                  {organizationSection}
-                </div>
-              )}
-            </div>
-
-            {/* Panel derecho - Tabs (solo si NO hay detailsSection con tabs integrados) */}
-            {!detailsSection && (
-            <div className="flex-1 flex flex-col overflow-hidden" style={{ paddingLeft: "24px", paddingRight: "24px" }}>
-              {/* Tabs */}
-              <div className="flex-shrink-0 border-b" style={{ borderColor: "#E5E7EB", paddingBottom: "0" }}>
-                <div className="flex gap-1">
-                  <button
-                    onClick={() => setActiveTab("notes")}
-                    className="px-4 py-3 text-sm font-medium transition-colors relative"
-                    style={{
-                      color: activeTab === "notes" ? "#1D4ED8" : "#6B7280",
-                      borderBottom: activeTab === "notes" ? "2px solid #1D4ED8" : "2px solid transparent",
-                      backgroundColor: activeTab === "notes" ? "#F9FAFB" : "transparent",
-                    }}
-                  >
-                    <div className="flex items-center gap-1.5">
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                        <path
-                          d="M2 3H14V13H2V3Z"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M5 6H11M5 9H11"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                      Notas
-                    </div>
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("activity")}
-                    className="px-4 py-3 text-sm font-medium transition-colors relative"
-                    style={{
-                      color: activeTab === "activity" ? "#1D4ED8" : "#6B7280",
-                      borderBottom: activeTab === "activity" ? "2px solid #1D4ED8" : "2px solid transparent",
-                      backgroundColor: activeTab === "activity" ? "#F9FAFB" : "transparent",
-                    }}
-                  >
-                    <div className="flex items-center gap-1.5">
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                        <rect
-                          x="2"
-                          y="2"
-                          width="12"
-                          height="12"
-                          rx="2"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                        />
-                        <path
-                          d="M5 2V6M11 2V6M2 8H14"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                      Actividad
-                    </div>
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("email")}
-                    className="px-4 py-3 text-sm font-medium transition-colors relative"
-                    style={{
-                      color: activeTab === "email" ? "#1D4ED8" : "#6B7280",
-                      borderBottom: activeTab === "email" ? "2px solid #1D4ED8" : "2px solid transparent",
-                      backgroundColor: activeTab === "email" ? "#F9FAFB" : "transparent",
-                    }}
-                  >
-                    <div className="flex items-center gap-1.5">
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                        <rect
-                          x="2"
-                          y="3"
-                          width="12"
-                          height="10"
-                          rx="1"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                        />
-                        <path
-                          d="M2 5L8 9L14 5"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      Email
-                    </div>
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("files")}
-                    className="px-4 py-3 text-sm font-medium transition-colors relative"
-                    style={{
-                      color: activeTab === "files" ? "#1D4ED8" : "#6B7280",
-                      borderBottom: activeTab === "files" ? "2px solid #1D4ED8" : "2px solid transparent",
-                      backgroundColor: activeTab === "files" ? "#F9FAFB" : "transparent",
-                    }}
-                  >
-                    <div className="flex items-center gap-1.5">
-                      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                        <path
-                          d="M8 2V10M8 10L5 7M8 10L11 7"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path
-                          d="M2 12H14"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                      Archivos
-                    </div>
-                  </button>
-                </div>
+            {isCampaign && detailsSection ? (
+              /* Layout para CAMPAIGN con detailsSection (tabs integradas) */
+              <div className="flex-1 overflow-y-auto" style={{ padding: "24px" }}>
+                {detailsSection}
               </div>
+            ) : showHorizontalTabs ? (
+              /* Layout con panel izquierdo (información) y panel derecho (tabs) para LEAD, CONTACT, ENTITY */
+              <>
+                {/* Panel izquierdo - Información del lead/contacto/entidad */}
+                {detailsSection && (
+                  <div
+                    className="flex-shrink-0 overflow-y-auto"
+                    style={{
+                      width: "280px",
+                      borderRight: "1px solid #E5E7EB",
+                      padding: "24px",
+                    }}
+                  >
+                    {detailsSection}
+                  </div>
+                )}
 
-              {/* Contenido de tabs */}
-              <div className="flex-1 overflow-y-auto" style={{ padding: "24px 0" }}>
-                {activeTab === "notes" && (
-                  <div>
-                    {notesContent || (
-                      <div>
-                        <textarea
-                            className="w-full rounded-sm p-3 text-sm resize-none"
-                          style={{
-                            backgroundColor: "#FEF9C3",
-                            border: "1px solid #FDE047",
-                            minHeight: "120px",
-                              borderRadius: "2px",
-                          }}
-                            placeholder="Escribe una nota, @nombre..."
-                        />
-                        <div className="mt-4">
-                          <div className="flex items-center justify-between mb-2">
-                            <h4 className="font-medium text-sm" style={{ color: "#111827" }}>
-                                Enfoque
-                            </h4>
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                              <path
-                                d="M4 6L8 10L12 6"
-                                stroke="#6B7280"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                          <p className="text-sm" style={{ color: "#6B7280" }}>
-                              Aún no hay elementos de enfoque
-                          </p>
-                          <p className="text-xs mt-1" style={{ color: "#9CA3AF" }}>
-                              Las actividades programadas, notas fijadas, borradores de email y emails programados aparecerán aquí.
-                          </p>
+                {/* Panel derecho - Tabs horizontales y contenido */}
+                <div className="flex-1 flex flex-col overflow-hidden" style={{ paddingLeft: detailsSection ? "24px" : "24px", paddingRight: "24px", paddingTop: "24px", paddingBottom: "24px" }}>
+                  {/* Tabs horizontales */}
+                  <div className="flex-shrink-0 border-b mb-4" style={{ borderColor: "#E5E7EB", paddingBottom: "0" }}>
+                    <div className="flex gap-1">
+                      <button
+                        onClick={() => setActiveTab("notes")}
+                        className="px-4 py-3 text-sm font-medium transition-colors relative"
+                        style={{
+                          color: activeTab === "notes" ? "#1D4ED8" : "#6B7280",
+                          borderBottom: activeTab === "notes" ? "2px solid #1D4ED8" : "2px solid transparent",
+                          backgroundColor: activeTab === "notes" ? "#F9FAFB" : "transparent",
+                        }}
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <path
+                              d="M2 3H14V13H2V3Z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M5 6H11M5 9H11"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                          Notas
                         </div>
-                        <div className="mt-6">
-                          <div className="flex items-center justify-between mb-2">
-                            <h4 className="font-medium text-sm" style={{ color: "#111827" }}>
-                                Historial
-                            </h4>
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                              <path
-                                d="M4 6L8 10L12 6"
-                                stroke="#6B7280"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                          <div className="text-sm" style={{ color: "#6B7280" }}>
-                            <div className="flex items-start gap-2">
-                              <div className="w-2 h-2 rounded-full mt-1.5" style={{ backgroundColor: "#6B7280" }} />
-                              <div>
-                                  <div>Lead creado</div>
-                                <div className="text-xs mt-0.5" style={{ color: "#9CA3AF" }}>
-                                    3 noviembre 2025 a las 13:03 · Bodas de Hoy
+                      </button>
+                      <button
+                        onClick={() => setActiveTab("activity")}
+                        className="px-4 py-3 text-sm font-medium transition-colors relative"
+                        style={{
+                          color: activeTab === "activity" ? "#1D4ED8" : "#6B7280",
+                          borderBottom: activeTab === "activity" ? "2px solid #1D4ED8" : "2px solid transparent",
+                          backgroundColor: activeTab === "activity" ? "#F9FAFB" : "transparent",
+                        }}
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <rect
+                              x="2"
+                              y="2"
+                              width="12"
+                              height="12"
+                              rx="2"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                            />
+                            <path
+                              d="M5 2V6M11 2V6M2 8H14"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                          Actividad
+                        </div>
+                      </button>
+                      <button
+                        onClick={() => setActiveTab("email")}
+                        className="px-4 py-3 text-sm font-medium transition-colors relative"
+                        style={{
+                          color: activeTab === "email" ? "#1D4ED8" : "#6B7280",
+                          borderBottom: activeTab === "email" ? "2px solid #1D4ED8" : "2px solid transparent",
+                          backgroundColor: activeTab === "email" ? "#F9FAFB" : "transparent",
+                        }}
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <rect
+                              x="2"
+                              y="3"
+                              width="12"
+                              height="10"
+                              rx="1"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                            />
+                            <path
+                              d="M2 5L8 9L14 5"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                          Email
+                        </div>
+                      </button>
+                      <button
+                        onClick={() => setActiveTab("files")}
+                        className="px-4 py-3 text-sm font-medium transition-colors relative"
+                        style={{
+                          color: activeTab === "files" ? "#1D4ED8" : "#6B7280",
+                          borderBottom: activeTab === "files" ? "2px solid #1D4ED8" : "2px solid transparent",
+                          backgroundColor: activeTab === "files" ? "#F9FAFB" : "transparent",
+                        }}
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <path
+                              d="M8 2V10M8 10L5 7M8 10L11 7"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M2 12H14"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                          Archivos
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Contenido de tabs */}
+                  <div className="flex-1 overflow-y-auto">
+                    {activeTab === "notes" && (
+                      <div>
+                        {notesContent || (
+                          <div>
+                            <textarea
+                              className="w-full rounded-sm p-3 text-sm resize-none"
+                              style={{
+                                backgroundColor: "#FEF9C3",
+                                border: "1px solid #FDE047",
+                                minHeight: "120px",
+                                borderRadius: "2px",
+                              }}
+                              placeholder="Escribe una nota, @nombre..."
+                            />
+                            <div className="mt-4">
+                              <div className="flex items-center justify-between mb-2">
+                                <h4 className="font-medium text-sm" style={{ color: "#111827" }}>
+                                  Enfoque
+                                </h4>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path
+                                    d="M4 6L8 10L12 6"
+                                    stroke="#6B7280"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+                              </div>
+                              <p className="text-sm" style={{ color: "#6B7280" }}>
+                                Aún no hay elementos de enfoque
+                              </p>
+                              <p className="text-xs mt-1" style={{ color: "#9CA3AF" }}>
+                                Las actividades programadas, notas fijadas, borradores de email y emails programados aparecerán aquí.
+                              </p>
+                            </div>
+                            <div className="mt-6">
+                              <div className="flex items-center justify-between mb-2">
+                                <h4 className="font-medium text-sm" style={{ color: "#111827" }}>
+                                  Historial
+                                </h4>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path
+                                    d="M4 6L8 10L12 6"
+                                    stroke="#6B7280"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+                              </div>
+                              <div className="text-sm" style={{ color: "#6B7280" }}>
+                                <div className="flex items-start gap-2">
+                                  <div className="w-2 h-2 rounded-full mt-1.5" style={{ backgroundColor: "#6B7280" }} />
+                                  <div>
+                                    <div>Lead creado</div>
+                                    <div className="text-xs mt-0.5" style={{ color: "#9CA3AF" }}>
+                                      3 noviembre 2025 a las 13:03 · Bodas de Hoy
+                                    </div>
                                   </div>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        )}
                       </div>
                     )}
-                  </div>
-                )}
-                {activeTab === "activity" && (
-                  <div>
-                    {activityContent || (
+                    {activeTab === "activity" && (
                       <div>
-                        <div className="text-sm" style={{ color: "#6B7280" }}>
-                          <input
-                            type="text"
-                              className="w-full rounded-sm p-3 text-sm"
-                            style={{
-                              border: "1px solid #E5E7EB",
+                        {activityContent || (
+                          <div>
+                            <div className="text-sm" style={{ color: "#6B7280" }}>
+                              <input
+                                type="text"
+                                className="w-full rounded-sm p-3 text-sm"
+                                style={{
+                                  border: "1px solid #E5E7EB",
+                                  borderRadius: "2px",
+                                }}
+                                placeholder="Haz clic aquí para añadir una actividad..."
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    {activeTab === "email" && (
+                      <div>
+                        {emailContent || (entityType && editInitialData?.id ? (
+                          entityType === "BUSINESS" ? (
+                            <EmailListERP
+                              entityId={editInitialData.id}
+                              entityType={entityType}
+                            />
+                          ) : entityType === "WHITELABEL" ? (
+                            <div className="text-center py-12">
+                              <h3 className="font-semibold mb-2" style={{ color: "#111827" }}>
+                                Emails no disponibles para este tipo de entidad
+                              </h3>
+                            </div>
+                          ) : (
+                            <EmailList
+                              entityId={editInitialData.id}
+                              entityType={entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN"}
+                            />
+                          )
+                        ) : (
+                          <div className="text-center py-12">
+                            <h3 className="font-semibold mb-2" style={{ color: "#111827" }}>
+                              Cierra tratos más rápido con mejor email
+                            </h3>
+                            <p className="text-sm mb-4" style={{ color: "#6B7280" }}>
+                              Bandeja de entrada de ventas inteligente, segura y configurable
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {activeTab === "files" && (
+                      <div>
+                        {filesContent || (entityType && editInitialData?.id ? (
+                          entityType === "BUSINESS" ? (
+                            <div className="space-y-4">
+                              <FileUploadZoneERP
+                                entityId={editInitialData.id}
+                                entityType={entityType}
+                              />
+                              <FileGalleryERP
+                                entityId={editInitialData.id}
+                                entityType={entityType}
+                              />
+                            </div>
+                          ) : entityType === "WHITELABEL" ? (
+                            <div className="text-center py-12">
+                              <h3 className="font-semibold mb-2" style={{ color: "#111827" }}>
+                                Archivos no disponibles para este tipo de entidad
+                              </h3>
+                            </div>
+                          ) : (
+                            <div className="space-y-4">
+                              <FileUploadZone
+                                entityId={editInitialData.id}
+                                entityType={entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN"}
+                              />
+                              <FileGallery
+                                entityId={editInitialData.id}
+                                entityType={entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN"}
+                              />
+                            </div>
+                          )
+                        ) : (
+                          <div>
+                            <div
+                              className="w-full rounded-sm border-2 border-dashed p-8 text-center"
+                              style={{
+                                borderColor: "#D1D5DB",
+                                backgroundColor: "#F9FAFB",
                                 borderRadius: "2px",
-                            }}
-                              placeholder="Haz clic aquí para añadir una actividad..."
-                          />
-                        </div>
+                              }}
+                            >
+                              <button
+                                className="px-4 py-2 rounded-sm text-sm font-medium text-white mb-2"
+                                style={{ backgroundColor: "#10B981", borderRadius: "2px" }}
+                              >
+                                Subir archivos
+                              </button>
+                              <p className="text-sm" style={{ color: "#6B7280" }}>
+                                o arrastra archivos aquí
+                              </p>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     )}
                   </div>
-                )}
-                {activeTab === "email" && (
-                  <div>
-                    {emailContent || (entityType && editInitialData?.id ? (
-                      entityType === "BUSINESS" ? (
-                        <EmailListERP
-                          entityId={editInitialData.id}
-                          entityType={entityType}
-                        />
-                      ) : entityType === "WHITELABEL" ? (
-                        <div className="text-center py-12">
-                          <h3 className="font-semibold mb-2" style={{ color: "#111827" }}>
-                            Emails no disponibles para este tipo de entidad
-                          </h3>
+                </div>
+              </>
+            ) : (
+              /* Layout original con panel izquierdo de detalles y panel derecho de tabs horizontales */
+              <>
+                {/* Panel izquierdo - Detalles */}
+                <div
+                  className="flex-shrink-0 overflow-y-auto"
+                  style={{
+                    width: "280px",
+                    borderRight: "1px solid #E5E7EB",
+                    padding: "24px",
+                  }}
+                >
+                  {/* Sección PERSONA */}
+                  {personSection && (
+                    <div className="mb-4">
+                      <h3 className="font-medium mb-2 uppercase text-xs tracking-wider" style={{ color: "#9CA3AF", letterSpacing: "0.05em" }}>
+                        PERSONA
+                      </h3>
+                      {personSection}
+                    </div>
+                  )}
+
+                  {/* Sección ORGANIZACIÓN */}
+                  {organizationSection && (
+                    <div className="mb-4">
+                      <h3 className="font-medium mb-2 uppercase text-xs tracking-wider" style={{ color: "#9CA3AF", letterSpacing: "0.05em" }}>
+                        ORGANIZACIÓN
+                      </h3>
+                      {organizationSection}
+                    </div>
+                  )}
+                </div>
+
+                {/* Panel derecho - Tabs horizontales */}
+                <div className="flex-1 flex flex-col overflow-hidden" style={{ paddingLeft: "24px", paddingRight: "24px" }}>
+                  {/* Tabs */}
+                  <div className="flex-shrink-0 border-b" style={{ borderColor: "#E5E7EB", paddingBottom: "0" }}>
+                    <div className="flex gap-1">
+                      <button
+                        onClick={() => setActiveTab("notes")}
+                        className="px-4 py-3 text-sm font-medium transition-colors relative"
+                        style={{
+                          color: activeTab === "notes" ? "#1D4ED8" : "#6B7280",
+                          borderBottom: activeTab === "notes" ? "2px solid #1D4ED8" : "2px solid transparent",
+                          backgroundColor: activeTab === "notes" ? "#F9FAFB" : "transparent",
+                        }}
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <path
+                              d="M2 3H14V13H2V3Z"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M5 6H11M5 9H11"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                          Notas
                         </div>
-                      ) : (
-                        <EmailList
-                          entityId={editInitialData.id}
-                          entityType={entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN"}
-                        />
-                      )
-                    ) : (
-                      <div className="text-center py-12">
-                        <h3 className="font-semibold mb-2" style={{ color: "#111827" }}>
-                            Cierra tratos más rápido con mejor email
-                        </h3>
-                        <p className="text-sm mb-4" style={{ color: "#6B7280" }}>
-                            Bandeja de entrada de ventas inteligente, segura y configurable
-                        </p>
-                      </div>
-                    ))}
+                      </button>
+                      <button
+                        onClick={() => setActiveTab("activity")}
+                        className="px-4 py-3 text-sm font-medium transition-colors relative"
+                        style={{
+                          color: activeTab === "activity" ? "#1D4ED8" : "#6B7280",
+                          borderBottom: activeTab === "activity" ? "2px solid #1D4ED8" : "2px solid transparent",
+                          backgroundColor: activeTab === "activity" ? "#F9FAFB" : "transparent",
+                        }}
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <rect
+                              x="2"
+                              y="2"
+                              width="12"
+                              height="12"
+                              rx="2"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                            />
+                            <path
+                              d="M5 2V6M11 2V6M2 8H14"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                          Actividad
+                        </div>
+                      </button>
+                      <button
+                        onClick={() => setActiveTab("email")}
+                        className="px-4 py-3 text-sm font-medium transition-colors relative"
+                        style={{
+                          color: activeTab === "email" ? "#1D4ED8" : "#6B7280",
+                          borderBottom: activeTab === "email" ? "2px solid #1D4ED8" : "2px solid transparent",
+                          backgroundColor: activeTab === "email" ? "#F9FAFB" : "transparent",
+                        }}
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <rect
+                              x="2"
+                              y="3"
+                              width="12"
+                              height="10"
+                              rx="1"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                            />
+                            <path
+                              d="M2 5L8 9L14 5"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                          Email
+                        </div>
+                      </button>
+                      <button
+                        onClick={() => setActiveTab("files")}
+                        className="px-4 py-3 text-sm font-medium transition-colors relative"
+                        style={{
+                          color: activeTab === "files" ? "#1D4ED8" : "#6B7280",
+                          borderBottom: activeTab === "files" ? "2px solid #1D4ED8" : "2px solid transparent",
+                          backgroundColor: activeTab === "files" ? "#F9FAFB" : "transparent",
+                        }}
+                      >
+                        <div className="flex items-center gap-1.5">
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <path
+                              d="M8 2V10M8 10L5 7M8 10L11 7"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                            <path
+                              d="M2 12H14"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                          Archivos
+                        </div>
+                      </button>
+                    </div>
                   </div>
-                )}
-                {activeTab === "files" && (
-                  <div>
-                    {filesContent || (entityType && editInitialData?.id ? (
-                      entityType === "BUSINESS" ? (
-                        <div className="space-y-4">
-                          <FileUploadZoneERP
-                            entityId={editInitialData.id}
-                            entityType={entityType}
-                          />
-                          <FileGalleryERP
-                            entityId={editInitialData.id}
-                            entityType={entityType}
-                          />
-                        </div>
-                      ) : entityType === "WHITELABEL" ? (
-                        <div className="text-center py-12">
-                          <h3 className="font-semibold mb-2" style={{ color: "#111827" }}>
-                            Archivos no disponibles para este tipo de entidad
-                          </h3>
-                        </div>
-                      ) : (
-                        <div className="space-y-4">
-                          <FileUploadZone
-                            entityId={editInitialData.id}
-                            entityType={entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN"}
-                          />
-                          <FileGallery
-                            entityId={editInitialData.id}
-                            entityType={entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN"}
-                          />
-                        </div>
-                      )
-                    ) : (
+
+                  {/* Contenido de tabs */}
+                  <div className="flex-1 overflow-y-auto" style={{ padding: "24px 0" }}>
+                    {activeTab === "notes" && (
                       <div>
-                        <div
-                            className="w-full rounded-sm border-2 border-dashed p-8 text-center"
-                          style={{
-                            borderColor: "#D1D5DB",
-                            backgroundColor: "#F9FAFB",
-                              borderRadius: "2px",
-                          }}
-                        >
-                          <button
-                              className="px-4 py-2 rounded-sm text-sm font-medium text-white mb-2"
-                              style={{ backgroundColor: "#10B981", borderRadius: "2px" }}
-                          >
-                              Subir archivos
-                          </button>
-                          <p className="text-sm" style={{ color: "#6B7280" }}>
-                              o arrastra archivos aquí
-                          </p>
-                        </div>
+                        {notesContent || (
+                          <div>
+                            <textarea
+                              className="w-full rounded-sm p-3 text-sm resize-none"
+                              style={{
+                                backgroundColor: "#FEF9C3",
+                                border: "1px solid #FDE047",
+                                minHeight: "120px",
+                                borderRadius: "2px",
+                              }}
+                              placeholder="Escribe una nota, @nombre..."
+                            />
+                            <div className="mt-4">
+                              <div className="flex items-center justify-between mb-2">
+                                <h4 className="font-medium text-sm" style={{ color: "#111827" }}>
+                                  Enfoque
+                                </h4>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path
+                                    d="M4 6L8 10L12 6"
+                                    stroke="#6B7280"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+                              </div>
+                              <p className="text-sm" style={{ color: "#6B7280" }}>
+                                Aún no hay elementos de enfoque
+                              </p>
+                              <p className="text-xs mt-1" style={{ color: "#9CA3AF" }}>
+                                Las actividades programadas, notas fijadas, borradores de email y emails programados aparecerán aquí.
+                              </p>
+                            </div>
+                            <div className="mt-6">
+                              <div className="flex items-center justify-between mb-2">
+                                <h4 className="font-medium text-sm" style={{ color: "#111827" }}>
+                                  Historial
+                                </h4>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                  <path
+                                    d="M4 6L8 10L12 6"
+                                    stroke="#6B7280"
+                                    strokeWidth="1.5"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  />
+                                </svg>
+                              </div>
+                              <div className="text-sm" style={{ color: "#6B7280" }}>
+                                <div className="flex items-start gap-2">
+                                  <div className="w-2 h-2 rounded-full mt-1.5" style={{ backgroundColor: "#6B7280" }} />
+                                  <div>
+                                    <div>Lead creado</div>
+                                    <div className="text-xs mt-0.5" style={{ color: "#9CA3AF" }}>
+                                      3 noviembre 2025 a las 13:03 · Bodas de Hoy
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    ))}
+                    )}
+                    {activeTab === "activity" && (
+                      <div>
+                        {activityContent || (
+                          <div>
+                            <div className="text-sm" style={{ color: "#6B7280" }}>
+                              <input
+                                type="text"
+                                className="w-full rounded-sm p-3 text-sm"
+                                style={{
+                                  border: "1px solid #E5E7EB",
+                                  borderRadius: "2px",
+                                }}
+                                placeholder="Haz clic aquí para añadir una actividad..."
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    {activeTab === "email" && (
+                      <div>
+                        {emailContent || (entityType && editInitialData?.id ? (
+                          entityType === "BUSINESS" ? (
+                            <EmailListERP
+                              entityId={editInitialData.id}
+                              entityType={entityType}
+                            />
+                          ) : entityType === "WHITELABEL" ? (
+                            <div className="text-center py-12">
+                              <h3 className="font-semibold mb-2" style={{ color: "#111827" }}>
+                                Emails no disponibles para este tipo de entidad
+                              </h3>
+                            </div>
+                          ) : (
+                            <EmailList
+                              entityId={editInitialData.id}
+                              entityType={entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN"}
+                            />
+                          )
+                        ) : (
+                          <div className="text-center py-12">
+                            <h3 className="font-semibold mb-2" style={{ color: "#111827" }}>
+                              Cierra tratos más rápido con mejor email
+                            </h3>
+                            <p className="text-sm mb-4" style={{ color: "#6B7280" }}>
+                              Bandeja de entrada de ventas inteligente, segura y configurable
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {activeTab === "files" && (
+                      <div>
+                        {filesContent || (entityType && editInitialData?.id ? (
+                          entityType === "BUSINESS" ? (
+                            <div className="space-y-4">
+                              <FileUploadZoneERP
+                                entityId={editInitialData.id}
+                                entityType={entityType}
+                              />
+                              <FileGalleryERP
+                                entityId={editInitialData.id}
+                                entityType={entityType}
+                              />
+                            </div>
+                          ) : entityType === "WHITELABEL" ? (
+                            <div className="text-center py-12">
+                              <h3 className="font-semibold mb-2" style={{ color: "#111827" }}>
+                                Archivos no disponibles para este tipo de entidad
+                              </h3>
+                            </div>
+                          ) : (
+                            <div className="space-y-4">
+                              <FileUploadZone
+                                entityId={editInitialData.id}
+                                entityType={entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN"}
+                              />
+                              <FileGallery
+                                entityId={editInitialData.id}
+                                entityType={entityType as "LEAD" | "CONTACT" | "ENTITY" | "CAMPAIGN"}
+                              />
+                            </div>
+                          )
+                        ) : (
+                          <div>
+                            <div
+                              className="w-full rounded-sm border-2 border-dashed p-8 text-center"
+                              style={{
+                                borderColor: "#D1D5DB",
+                                backgroundColor: "#F9FAFB",
+                                borderRadius: "2px",
+                              }}
+                            >
+                              <button
+                                className="px-4 py-2 rounded-sm text-sm font-medium text-white mb-2"
+                                style={{ backgroundColor: "#10B981", borderRadius: "2px" }}
+                              >
+                                Subir archivos
+                              </button>
+                              <p className="text-sm" style={{ color: "#6B7280" }}>
+                                o arrastra archivos aquí
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            </div>
+                </div>
+              </>
             )}
           </div>
           )}
