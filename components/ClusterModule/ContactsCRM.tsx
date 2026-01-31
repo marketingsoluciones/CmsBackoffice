@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AdvancedTable, ColumnConfig } from "../Shared/AdvancedTable";
 import PipedriveFormModal from "../Shared/PipedriveFormModal";
 import PipedriveDetailModal from "../Shared/PipedriveDetailModal";
@@ -13,13 +13,19 @@ import { fetchApiCRM } from "../../utils/CRMFetching";
 import { ContactsIcon } from "../Icons/index";
 import ActionsMenu from "../Shared/ActionsMenu";
 import { getFieldIcon } from "../Icons/ProfessionalIcons";
+import VerificationBadge from "../Shared/VerificationBadge";
+import DataQualityIndicator from "../Shared/DataQualityIndicator";
+import ContactsStats from "./ContactsStats";
+import { calculateDataQualityScore, calculateCompleteness } from "../../utils/contactDataQuality";
 
 const defaultContactColumns: ColumnConfig[] = [
-  { field: "fullName", label: "Nombre Completo", visible: true, order: 0, width: 200, pinned: false, tooltip: "Nombre y apellido del contacto" },
-  { field: "email", label: "Email", visible: true, order: 1, width: 250, pinned: false, tooltip: "Correo electrónico" },
-  { field: "phone", label: "Teléfono", visible: true, order: 2, width: 150, pinned: false, tooltip: "Número telefónico" },
-  { field: "company", label: "Compañía", visible: true, order: 3, width: 200, pinned: false, tooltip: "Empresa asociada" },
-  { field: "status", label: "Estado", visible: true, order: 4, width: 120, pinned: false, tooltip: "Estado del contacto" }
+  { field: "fullName", label: "Nombre", visible: true, order: 0, width: 200, pinned: true, tooltip: "Nombre y apellido del contacto" },
+  { field: "relationship", label: "Relación", visible: true, order: 1, width: 120, pinned: false, tooltip: "Tipo de relación" },
+  { field: "email", label: "Email", visible: true, order: 2, width: 250, pinned: false, tooltip: "Correo electrónico" },
+  { field: "phone", label: "Teléfono", visible: true, order: 3, width: 150, pinned: false, tooltip: "Número telefónico" },
+  { field: "company", label: "Compañía", visible: true, order: 4, width: 200, pinned: false, tooltip: "Empresa asociada" },
+  { field: "status", label: "Estado", visible: true, order: 5, width: 120, pinned: false, tooltip: "Estado del contacto" },
+  { field: "dataQualityScore", label: "Calidad", visible: true, order: 6, width: 100, pinned: false, tooltip: "Score de calidad de datos" }
 ];
 
 const GET_CRM_CONTACTS = CRM_QUERIES.GET_CONTACTS;
@@ -43,6 +49,72 @@ export default function ContactsCRM() {
     dispatch({ type: "ADD_TOAST", payload: { id: `${Date.now()}-${Math.random()}`, type, message } } as any);
   };
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [stats, setStats] = useState<{ total: number; favorites: number; clients: number; providers: number } | null>(null);
+  const [loadingStats, setLoadingStats] = useState(false);
+
+  // Función para mapear valores de verificación del backend
+  const mapVerificationStatus = (status: string | undefined, type: "email" | "phone" | "whatsapp"): "verified" | "unverified" | "bounced" | "invalid" | "active" | "inactive" | "not_registered" => {
+    if (!status) return type === "whatsapp" ? "not_registered" : "unverified";
+    // Backend usa: ACTIVE, INACTIVE, BOUNCED, UNSUBSCRIBED, BLOCKED, INVALID
+    // Frontend espera: verified, unverified, bounced, invalid, active, inactive, not_registered
+    const statusUpper = status.toUpperCase();
+    if (statusUpper === "ACTIVE") return type === "whatsapp" ? "active" : "verified";
+    if (statusUpper === "INACTIVE") return type === "whatsapp" ? "inactive" : "unverified";
+    if (statusUpper === "BOUNCED") return "bounced";
+    if (statusUpper === "INVALID") return "invalid";
+    if (statusUpper === "BLOCKED") return "inactive";
+    if (statusUpper === "UNSUBSCRIBED") return "inactive";
+    return type === "whatsapp" ? "not_registered" : "unverified";
+  };
+
+  // Cargar estadísticas
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        setLoadingStats(true);
+        const response = await fetchApiCRM({ 
+          query: CRM_QUERIES.GET_CONTACTS_STATS,
+          variables: {}
+        });
+        if (response?.getCRMContactsStats?.success) {
+          const statsData = response.getCRMContactsStats;
+          // Calcular clientes y proveedores desde byRelationship
+          const clients = statsData.byRelationship?.find((r: any) => r.key === "CLIENTE")?.count || 0;
+          const providers = statsData.byRelationship?.find((r: any) => r.key === "PROVEEDOR")?.count || 0;
+          setStats({
+            total: statsData.total || 0,
+            favorites: statsData.favorites || 0,
+            clients,
+            providers
+          });
+        }
+      } catch (e: any) {
+        console.error("Error loading stats:", e);
+      } finally {
+        setLoadingStats(false);
+      }
+    };
+    loadStats();
+  }, []);
+
+  // Función para toggle de favorito
+  const handleToggleStar = async (contactId: string, currentStarred: boolean) => {
+    try {
+      await fetchApiCRM({
+        query: CRM_MUTATIONS.TOGGLE_CONTACT_STAR,
+        variables: { id: contactId }
+      });
+      // Actualizar el contacto en selectedRow si está abierto
+      if (selectedRow && selectedRow.id === contactId) {
+        setSelectedRow({ ...selectedRow, starred: !currentStarred });
+      }
+      pushToast("success", `Contacto ${!currentStarred ? "agregado a" : "removido de"} favoritos`);
+      // Recargar estadísticas
+      window.location.reload();
+    } catch (e: any) {
+      pushToast("error", e?.message || "Error al actualizar favorito");
+    }
+  };
   return (
     <div className="flex flex-col h-full overflow-hidden" style={{ minHeight: 0, maxHeight: '100vh', padding: '16px', backgroundColor: '#F9FAFB' }}>
       {/* Header compacto estilo Pipedrive */}
@@ -75,6 +147,14 @@ export default function ContactsCRM() {
           Crear Contacto
         </button>
       </div>
+      {/* Estadísticas */}
+      <ContactsStats
+        total={stats?.total}
+        favorites={stats?.favorites}
+        clients={stats?.clients}
+        providers={stats?.providers}
+        loading={loadingStats}
+      />
       <AdvancedTable
         title="Listado"
         entityType="CONTACT"
@@ -106,29 +186,59 @@ export default function ContactsCRM() {
             const colors = statusColors[row.status] || { bg: "#DBEAFE", text: "#1D4ED8" };
             return <span className="px-2 py-0.5 rounded text-xs" style={{ backgroundColor: colors.bg, color: colors.text }}>{row.status}</span>;
           }
+          if (col.field === "relationship") {
+            const relationshipColors: Record<string, { bg: string; text: string }> = {
+              "CLIENTE": { bg: "#D1FAE5", text: "#047857" },
+              "PROSPECTO": { bg: "#DBEAFE", text: "#1D4ED8" },
+              "PROVEEDOR": { bg: "#FEF3C7", text: "#D97706" },
+              "SOCIO": { bg: "#EDE9FE", text: "#7C3AED" },
+              "REFERIDO": { bg: "#FCE7F3", text: "#BE185D" },
+              "PARTNER": { bg: "#E0E7FF", text: "#4F46E5" },
+              "OTRO": { bg: "#F3F4F6", text: "#374151" },
+            };
+            const colors = relationshipColors[row.relationship] || { bg: "#F3F4F6", text: "#374151" };
+            return <span className="px-2 py-0.5 rounded text-xs" style={{ backgroundColor: colors.bg, color: colors.text }}>{row.relationship || "-"}</span>;
+          }
+          if (col.field === "dataQualityScore") {
+            const score = row.dataQualityScore ?? calculateDataQualityScore(row);
+            return <DataQualityIndicator score={score} size="sm" />;
+          }
+          if (col.field === "email" && row.email) {
+            const emailText = String(row.email);
+            const truncatedEmail = emailText.length > 7 ? emailText.substring(0, 7) + '...' : emailText;
+            return (
+              <div className="flex items-center gap-2" style={{ width: '100%', minWidth: 0 }}>
+                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1, minWidth: 0 }} title={emailText}>
+                  {truncatedEmail}
+                </span>
+                <VerificationBadge 
+                  status={mapVerificationStatus(row.emailStatus, "email")} 
+                  type="email" 
+                  size="sm" 
+                  showText={false}
+                />
+              </div>
+            );
+          }
+          if (col.field === "phone" && row.phone) {
+            const phoneText = String(row.phone);
+            const truncatedPhone = phoneText.length > 7 ? phoneText.substring(0, 7) + '...' : phoneText;
+            return (
+              <div className="flex items-center gap-2" style={{ width: '100%', minWidth: 0 }}>
+                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1, minWidth: 0 }} title={phoneText}>
+                  {truncatedPhone}
+                </span>
+                <VerificationBadge 
+                  status={mapVerificationStatus(row.phoneStatus, "phone")} 
+                  type="phone" 
+                  size="sm" 
+                  showText={false}
+                />
+              </div>
+            );
+          }
           return (row as any)[col.field];
         }}
-        renderActions={(row: any) => (
-          <ActionsMenu
-            onEdit={() => setEditRow(row)}
-            onDelete={async () => {
-              try {
-                setDeletingId(row.id);
-                await fetchApiCRM({ query: CRM_MUTATIONS.DELETE_CONTACT, variables: { id: row.id } });
-                pushToast("success", "El contacto ha sido eliminado.");
-              } catch (e: any) {
-                pushToast("error", e?.message || "Error al eliminar");
-              } finally {
-                setDeletingId(null);
-              }
-            }}
-            onShare={() => setShareRow(row)}
-            isDeleting={deletingId === row.id}
-            editLabel="Editar contacto"
-            deleteLabel="Eliminar contacto"
-            shareLabel="Compartir contacto"
-          />
-        )}
       />
       <PipedriveFormModal
         isOpen={openCreate}
@@ -145,6 +255,7 @@ export default function ContactsCRM() {
             { value: "PROVEEDOR", label: "Proveedor" },
             { value: "SOCIO", label: "Socio" },
             { value: "REFERIDO", label: "Referido" },
+            { value: "PARTNER", label: "Partner" },
             { value: "OTRO", label: "Otro" }
           ], placeholder: "Seleccionar relación", column: "left" },
           { name: "status", label: "Estado", type: "select", options: [
@@ -155,10 +266,20 @@ export default function ContactsCRM() {
             { value: "INDIVIDUAL", label: "Individual" },
             { value: "ENTITY_CONTACT", label: "Contacto de entidad" }
           ], placeholder: "Seleccionar tipo", column: "left" },
+          { name: "department", label: "Departamento", placeholder: "Departamento", column: "left" },
+          { name: "industry", label: "Industria", placeholder: "Industria", column: "left" },
+          { name: "website", label: "Sitio web", type: "text", placeholder: "https://ejemplo.com", column: "left" },
+          { name: "linkedin", label: "LinkedIn", type: "text", placeholder: "URL de perfil de LinkedIn", column: "left" },
+          { name: "address", label: "Dirección", type: "textarea", placeholder: "Dirección completa", column: "left" },
+          { name: "state", label: "Estado/Provincia", placeholder: "Estado o provincia", column: "left" },
+          { name: "postalCode", label: "Código postal", placeholder: "Código postal", column: "left" },
           { name: "country", label: "País", placeholder: "País", column: "left" },
           { name: "city", label: "Ciudad", placeholder: "Ciudad", column: "left" },
           { name: "phone", label: "Teléfono", type: "phone", placeholder: "+34 600 000 000", column: "right" },
-          { name: "email", label: "Correo electrónico", type: "email", placeholder: "ejemplo@empresa.com", column: "right" }
+          { name: "whatsapp", label: "WhatsApp", type: "phone", placeholder: "+34 600 000 000", column: "right" },
+          { name: "email", label: "Correo electrónico", type: "email", placeholder: "ejemplo@empresa.com", column: "right" },
+          { name: "observations", label: "Observaciones", type: "textarea", placeholder: "Notas adicionales", column: "right" },
+          { name: "nextAction", label: "Próxima acción", placeholder: "Próxima acción a realizar", column: "right" }
         ]}
         mutation={CRM_MUTATIONS.CREATE_CONTACT}
         fetcher={fetchApiCRM}
@@ -168,13 +289,23 @@ export default function ContactsCRM() {
             lastName: v.lastName?.trim() || "",
             email: v.email?.trim() || undefined,
             phone: v.phone?.trim() || undefined,
+            whatsapp: v.whatsapp?.trim() || undefined,
             company: v.company?.trim() || undefined,
             position: v.position?.trim() || undefined,
+            department: v.department?.trim() || undefined,
+            industry: v.industry?.trim() || undefined,
+            website: v.website?.trim() || undefined,
+            linkedin: v.linkedin?.trim() || undefined,
             relationship: v.relationship || undefined,
             status: v.status || undefined,
             type: v.type || "INDIVIDUAL",
+            address: v.address?.trim() || undefined,
+            state: v.state?.trim() || undefined,
+            postalCode: v.postalCode?.trim() || undefined,
             country: v.country?.trim() || undefined,
-            city: v.city?.trim() || undefined
+            city: v.city?.trim() || undefined,
+            observations: v.observations?.trim() || undefined,
+            nextAction: v.nextAction?.trim() || undefined
           }
         })}
         onSuccess={() => {
@@ -207,6 +338,7 @@ export default function ContactsCRM() {
             { value: "PROVEEDOR", label: "Proveedor" },
             { value: "SOCIO", label: "Socio" },
             { value: "REFERIDO", label: "Referido" },
+            { value: "PARTNER", label: "Partner" },
             { value: "OTRO", label: "Otro" }
           ], placeholder: "Seleccionar relación", column: "left" },
           { name: "status", label: "Estado", type: "select", options: [
@@ -217,10 +349,20 @@ export default function ContactsCRM() {
             { value: "INDIVIDUAL", label: "Individual" },
             { value: "ENTITY_CONTACT", label: "Contacto de entidad" }
           ], placeholder: "Seleccionar tipo", column: "left" },
+          { name: "department", label: "Departamento", placeholder: "Departamento", column: "left" },
+          { name: "industry", label: "Industria", placeholder: "Industria", column: "left" },
+          { name: "website", label: "Sitio web", type: "text", placeholder: "https://ejemplo.com", column: "left" },
+          { name: "linkedin", label: "LinkedIn", type: "text", placeholder: "URL de perfil de LinkedIn", column: "left" },
+          { name: "address", label: "Dirección", type: "textarea", placeholder: "Dirección completa", column: "left" },
+          { name: "state", label: "Estado/Provincia", placeholder: "Estado o provincia", column: "left" },
+          { name: "postalCode", label: "Código postal", placeholder: "Código postal", column: "left" },
           { name: "country", label: "País", placeholder: "País", column: "left" },
           { name: "city", label: "Ciudad", placeholder: "Ciudad", column: "left" },
           { name: "phone", label: "Teléfono", type: "phone", placeholder: "+34 600 000 000", column: "right" },
-          { name: "email", label: "Correo electrónico", type: "email", placeholder: "ejemplo@empresa.com", column: "right" }
+          { name: "whatsapp", label: "WhatsApp", type: "phone", placeholder: "+34 600 000 000", column: "right" },
+          { name: "email", label: "Correo electrónico", type: "email", placeholder: "ejemplo@empresa.com", column: "right" },
+          { name: "observations", label: "Observaciones", type: "textarea", placeholder: "Notas adicionales", column: "right" },
+          { name: "nextAction", label: "Próxima acción", placeholder: "Próxima acción a realizar", column: "right" }
         ]}
         editMutation={CRM_MUTATIONS.UPDATE_CONTACT}
         editFetcher={fetchApiCRM}
@@ -232,13 +374,23 @@ export default function ContactsCRM() {
           if (v.lastName !== undefined) input.lastName = v.lastName?.trim() || "";
           if (v.email !== undefined) input.email = v.email?.trim() || undefined;
           if (v.phone !== undefined) input.phone = v.phone?.trim() || undefined;
+          if (v.whatsapp !== undefined) input.whatsapp = v.whatsapp?.trim() || undefined;
           if (v.company !== undefined) input.company = v.company?.trim() || undefined;
           if (v.position !== undefined) input.position = v.position?.trim() || undefined;
+          if (v.department !== undefined) input.department = v.department?.trim() || undefined;
+          if (v.industry !== undefined) input.industry = v.industry?.trim() || undefined;
+          if (v.website !== undefined) input.website = v.website?.trim() || undefined;
+          if (v.linkedin !== undefined) input.linkedin = v.linkedin?.trim() || undefined;
           if (v.relationship !== undefined) input.relationship = v.relationship || undefined;
           if (v.status !== undefined) input.status = v.status || undefined;
           if (v.type !== undefined) input.type = v.type || "INDIVIDUAL";
+          if (v.address !== undefined) input.address = v.address?.trim() || undefined;
+          if (v.state !== undefined) input.state = v.state?.trim() || undefined;
+          if (v.postalCode !== undefined) input.postalCode = v.postalCode?.trim() || undefined;
           if (v.country !== undefined) input.country = v.country?.trim() || undefined;
           if (v.city !== undefined) input.city = v.city?.trim() || undefined;
+          if (v.observations !== undefined) input.observations = v.observations?.trim() || undefined;
+          if (v.nextAction !== undefined) input.nextAction = v.nextAction?.trim() || undefined;
           
           return { id, input };
         }}
@@ -402,10 +554,13 @@ export default function ContactsCRM() {
                 type="select"
                 fieldType="Relationship"
                 options={[
-                  { value: "CLIENT", label: "Client" },
-                  { value: "PROSPECT", label: "Prospect" },
+                  { value: "CLIENTE", label: "Cliente" },
+                  { value: "PROSPECTO", label: "Prospecto" },
+                  { value: "PROVEEDOR", label: "Proveedor" },
+                  { value: "SOCIO", label: "Socio" },
+                  { value: "REFERIDO", label: "Referido" },
                   { value: "PARTNER", label: "Partner" },
-                  { value: "VENDOR", label: "Vendor" }
+                  { value: "OTRO", label: "Otro" }
                 ]}
                 icon={getFieldIcon("source", 14)}
                 onSave={async (value) => {
@@ -421,6 +576,25 @@ export default function ContactsCRM() {
                   }
                 }}
               />
+              {/* Calidad de datos */}
+              {selectedRow && (
+                <div className="mt-2 pt-2" style={{ borderTop: "1px solid #E5E7EB" }}>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-medium" style={{ color: "#6B7280" }}>Calidad de datos</span>
+                    <DataQualityIndicator 
+                      score={selectedRow.dataQualityScore ?? calculateDataQualityScore(selectedRow)} 
+                      size="sm"
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-medium" style={{ color: "#6B7280" }}>Completitud</span>
+                    <DataQualityIndicator 
+                      score={selectedRow.completeness ?? calculateCompleteness(selectedRow)} 
+                      size="sm"
+                    />
+                  </div>
+                </div>
+              )}
               <EditableField
                 label="Country"
                 value={selectedRow.country}
@@ -467,46 +641,99 @@ export default function ContactsCRM() {
         personSection={
           selectedRow ? (
             <div className="space-y-1">
-              <EditableField
-                label="Phone"
-                value={selectedRow.phone}
-                type="phone"
-                fieldType="Phone"
-                placeholder="+34 600 000 000"
-                icon={getFieldIcon("phone", 14)}
-                onSave={async (value) => {
-                  try {
-                    await fetchApiCRM({
-                      query: CRM_MUTATIONS.UPDATE_CONTACT,
-                      variables: { id: selectedRow.id, input: { phone: String(value) } }
-                    });
-                    setSelectedRow({ ...selectedRow, phone: value });
-                  } catch (e: any) {
-                    console.error("Error updating phone:", e);
-                    throw e;
-                  }
-                }}
-              />
-              <EditableField
-                label="Email"
-                value={selectedRow.email}
-                type="email"
-                fieldType="Email"
-                placeholder="ejemplo@empresa.com"
-                icon={getFieldIcon("email", 14)}
-                onSave={async (value) => {
-                  try {
-                    await fetchApiCRM({
-                      query: CRM_MUTATIONS.UPDATE_CONTACT,
-                      variables: { id: selectedRow.id, input: { email: String(value) } }
-                    });
-                    setSelectedRow({ ...selectedRow, email: value });
-                  } catch (e: any) {
-                    console.error("Error updating email:", e);
-                    throw e;
-                  }
-                }}
-              />
+              <div>
+                <EditableField
+                  label="Phone"
+                  value={selectedRow.phone}
+                  type="phone"
+                  fieldType="Phone"
+                  placeholder="+34 600 000 000"
+                  icon={getFieldIcon("phone", 14)}
+                  onSave={async (value) => {
+                    try {
+                      await fetchApiCRM({
+                        query: CRM_MUTATIONS.UPDATE_CONTACT,
+                        variables: { id: selectedRow.id, input: { phone: String(value) } }
+                      });
+                      setSelectedRow({ ...selectedRow, phone: value });
+                    } catch (e: any) {
+                      console.error("Error updating phone:", e);
+                      throw e;
+                    }
+                  }}
+                />
+                {selectedRow.phone && (
+                  <div className="mt-1 ml-6">
+                    <VerificationBadge 
+                      status={mapVerificationStatus(selectedRow.phoneStatus, "phone")} 
+                      type="phone" 
+                      size="sm" 
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
+                <EditableField
+                  label="Email"
+                  value={selectedRow.email}
+                  type="email"
+                  fieldType="Email"
+                  placeholder="ejemplo@empresa.com"
+                  icon={getFieldIcon("email", 14)}
+                  onSave={async (value) => {
+                    try {
+                      await fetchApiCRM({
+                        query: CRM_MUTATIONS.UPDATE_CONTACT,
+                        variables: { id: selectedRow.id, input: { email: String(value) } }
+                      });
+                      setSelectedRow({ ...selectedRow, email: value });
+                    } catch (e: any) {
+                      console.error("Error updating email:", e);
+                      throw e;
+                    }
+                  }}
+                />
+                {selectedRow.email && (
+                  <div className="mt-1 ml-6">
+                    <VerificationBadge 
+                      status={mapVerificationStatus(selectedRow.emailStatus, "email")} 
+                      type="email" 
+                      size="sm" 
+                    />
+                  </div>
+                )}
+              </div>
+              {selectedRow.whatsapp && (
+                <div>
+                  <EditableField
+                    label="WhatsApp"
+                    value={selectedRow.whatsapp}
+                    type="phone"
+                    fieldType="Phone"
+                    placeholder="+34 600 000 000"
+                    icon={getFieldIcon("phone", 14)}
+                    onSave={async (value) => {
+                      try {
+                        await fetchApiCRM({
+                          query: CRM_MUTATIONS.UPDATE_CONTACT,
+                          variables: { id: selectedRow.id, input: { whatsapp: String(value) } }
+                        });
+                        setSelectedRow({ ...selectedRow, whatsapp: value });
+                      } catch (e: any) {
+                        console.error("Error updating whatsapp:", e);
+                        throw e;
+                      }
+                    }}
+                  />
+                  <div className="mt-1 ml-6">
+                    <VerificationBadge 
+                      status={mapVerificationStatus(selectedRow.whatsappStatus, "whatsapp")} 
+                      type="whatsapp" 
+                      size="sm" 
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           ) : null
         }

@@ -35,10 +35,10 @@ export const CRM_QUERIES = {
       }
     }
   `,
-  // GET_CONTACTS: Versión compatible con el backend actual
+  // GET_CONTACTS: Versión completa con todos los campos implementados
   GET_CONTACTS: `
-    query GetContacts($pagination: CRM_PaginationInput!) {
-      getCRMContacts(pagination: $pagination) {
+    query GetContacts($pagination: CRM_PaginationInput!, $filters: CRM_ContactFilters, $sortBy: CRM_SortByInput) {
+      getCRMContacts(pagination: $pagination, filters: $filters, sortBy: $sortBy) {
         contacts {
           id
           firstName
@@ -46,8 +46,13 @@ export const CRM_QUERIES = {
           fullName
           email
           phone
+          whatsapp
           company
           position
+          department
+          industry
+          website
+          linkedin
           relationship
           status
           type
@@ -55,9 +60,26 @@ export const CRM_QUERIES = {
           sentiment
           country
           city
+          state
+          postalCode
+          address
           emailStatus
+          phoneStatus
           whatsappStatus
+          tags
+          assignedTo
+          observations
+          lastContact
+          lastContactDate
+          nextAction
+          nextReminder
+          nextActionDate
+          dataQualityScore
+          completeness
           createdAt
+          updatedAt
+          createdBy
+          updatedBy
         }
         total
         pagination {
@@ -68,10 +90,47 @@ export const CRM_QUERIES = {
       }
     }
   `,
-  // GET_ENTITIES: Versión compatible con el backend actual
+  // GET_CONTACTS_STATS: Query de estadísticas implementada
+  GET_CONTACTS_STATS: `
+    query GetContactsStats($filters: CRM_ContactFilters) {
+      getCRMContactsStats(filters: $filters) {
+        success
+        total
+        favorites
+        byRelationship {
+          key
+          count
+        }
+        byStatus {
+          key
+          count
+        }
+        byEmailStatus {
+          key
+          count
+        }
+        byPhoneStatus {
+          key
+          count
+        }
+        byWhatsappStatus {
+          key
+          count
+        }
+        averageDataQuality
+        averageCompleteness
+        errors {
+          field
+          message
+          code
+        }
+      }
+    }
+  `,
+  // GET_ENTITIES: Versión actualizada con todos los campos implementados
   GET_ENTITIES: `
-    query GetEntities($pagination: CRM_PaginationInput!) {
-      getCRMEntities(pagination: $pagination) {
+    query GetEntities($pagination: CRM_PaginationInput!, $filters: CRM_EntityFilters, $sortBy: CRM_SortByInput) {
+      getCRMEntities(pagination: $pagination, filters: $filters, sortBy: $sortBy) {
         entities {
           id
           name
@@ -82,14 +141,113 @@ export const CRM_QUERIES = {
           description
           sentiment
           tags
+          phone
+          email
+          phoneStatus
+          emailStatus
+          websiteStatus
+          socialMedia
+          services
+          products
+          prices
+          targetAudience
+          dataQualityScore
+          source
+          scrapedAt
+          enrichedAt
+          enrichmentLevel
+          rating
+          reviewsCount
+          reviews {
+            author
+            rating
+            text
+            date
+          }
+          whatsappNumbers
+          hasWhatsapp
+          images
+          verified
+          searchKeyword
+          searchLocation
+          assignedTo
+          address {
+            street
+            city
+            state
+            zipCode
+            country
+            coordinates {
+              lat
+              lng
+            }
+          }
+          campaignHistory {
+            campaignId
+            campaignName
+            executionId
+            executionNumber
+            searchTermUsed
+            scrapingSource
+            acquiredAt
+            updatedAt
+            isNewAcquisition
+            communication {
+              status
+              channel
+              lastContactAt
+              lastResponseAt
+              messagesSent
+              notes
+            }
+          }
           createdAt
           updatedAt
+          createdBy
+          updatedBy
         }
         total
         pagination {
           page
           limit
           totalPages
+        }
+      }
+    }
+  `,
+  // GET_ENTITIES_STATS: Query de estadísticas implementada
+  GET_ENTITIES_STATS: `
+    query GetEntitiesStats($filters: CRM_EntityFilters) {
+      getCRMEntitiesStats(filters: $filters) {
+        success
+        total
+        byType {
+          key
+          count
+        }
+        byIndustry {
+          key
+          count
+        }
+        bySize {
+          key
+          count
+        }
+        bySource {
+          key
+          count
+        }
+        averageDataQuality
+        averageRating
+        verifiedCount
+        withPhone
+        withEmail
+        withWebsite
+        withWhatsapp
+        errors {
+          field
+          message
+          code
         }
       }
     }
@@ -1053,7 +1211,48 @@ export const CRM_MUTATIONS = {
           message
           code
         }
-        contact { id firstName lastName fullName email phone company position relationship status type starred sentiment country city createdAt }
+        contact { 
+          id 
+          firstName 
+          lastName 
+          fullName 
+          email 
+          phone 
+          whatsapp
+          company 
+          position 
+          department
+          industry
+          website
+          linkedin
+          relationship 
+          status 
+          type 
+          starred 
+          sentiment 
+          country 
+          city 
+          state
+          postalCode
+          address
+          emailStatus
+          phoneStatus
+          whatsappStatus
+          tags
+          assignedTo
+          observations
+          lastContact
+          lastContactDate
+          nextAction
+          nextReminder
+          nextActionDate
+          dataQualityScore
+          completeness
+          createdAt 
+          updatedAt
+          createdBy
+          updatedBy
+        }
       }
     }
   `,
@@ -1061,7 +1260,46 @@ export const CRM_MUTATIONS = {
     mutation UpdateContact($id: ID!, $input: CRM_ContactUpdateInput!) {
       updateCRMContact(id: $id, input: $input) {
         success
-        contact { id firstName lastName fullName email phone company position relationship status type starred sentiment country city updatedAt }
+        contact { 
+          id 
+          firstName 
+          lastName 
+          fullName 
+          email 
+          phone 
+          whatsapp
+          company 
+          position 
+          department
+          industry
+          website
+          linkedin
+          relationship 
+          status 
+          type 
+          starred 
+          sentiment 
+          country 
+          city 
+          state
+          postalCode
+          address
+          emailStatus
+          phoneStatus
+          whatsappStatus
+          tags
+          assignedTo
+          observations
+          lastContact
+          lastContactDate
+          nextAction
+          nextReminder
+          nextActionDate
+          dataQualityScore
+          completeness
+          updatedAt
+          updatedBy
+        }
         errors { field message code }
       }
     }
@@ -1073,7 +1311,25 @@ export const CRM_MUTATIONS = {
       }
     }
   `,
-  // Entities (no email/phone/status en selection set; address omitida)
+  // TOGGLE_CONTACT_STAR: Mutation para toggle de favorito implementada
+  TOGGLE_CONTACT_STAR: `
+    mutation ToggleContactStar($id: ID!) {
+      toggleCRMContactStar(id: $id) {
+        success
+        contact {
+          id
+          starred
+          updatedAt
+        }
+        errors {
+          field
+          message
+          code
+        }
+      }
+    }
+  `,
+  // Entities - Actualizado con nuevos campos implementados
   CREATE_ENTITY: `
     mutation CreateEntity($input: CRM_EntityInput!) {
       createCRMEntity(input: $input) {
@@ -1083,7 +1339,62 @@ export const CRM_MUTATIONS = {
           message
           code
         }
-        entity { id name type website industry size description sentiment tags createdAt updatedAt }
+        entity { 
+          id 
+          name 
+          type 
+          website 
+          industry 
+          size 
+          description 
+          sentiment 
+          tags 
+          phone
+          email
+          phoneStatus
+          emailStatus
+          websiteStatus
+          socialMedia
+          services
+          products
+          prices
+          targetAudience
+          dataQualityScore
+          source
+          scrapedAt
+          enrichedAt
+          enrichmentLevel
+          rating
+          reviewsCount
+          reviews {
+            author
+            rating
+            text
+            date
+          }
+          whatsappNumbers
+          hasWhatsapp
+          images
+          verified
+          searchKeyword
+          searchLocation
+          assignedTo
+          address {
+            street
+            city
+            state
+            zipCode
+            country
+            coordinates {
+              lat
+              lng
+            }
+          }
+          createdAt 
+          updatedAt 
+          createdBy
+          updatedBy
+        }
       }
     }
   `,
@@ -1091,7 +1402,60 @@ export const CRM_MUTATIONS = {
     mutation UpdateEntity($id: ID!, $input: CRM_EntityUpdateInput!) {
       updateCRMEntity(id: $id, input: $input) {
         success
-        entity { id name type website industry size description sentiment tags updatedAt }
+        entity { 
+          id 
+          name 
+          type 
+          website 
+          industry 
+          size 
+          description 
+          sentiment 
+          tags 
+          phone
+          email
+          phoneStatus
+          emailStatus
+          websiteStatus
+          socialMedia
+          services
+          products
+          prices
+          targetAudience
+          dataQualityScore
+          source
+          scrapedAt
+          enrichedAt
+          enrichmentLevel
+          rating
+          reviewsCount
+          reviews {
+            author
+            rating
+            text
+            date
+          }
+          whatsappNumbers
+          hasWhatsapp
+          images
+          verified
+          searchKeyword
+          searchLocation
+          assignedTo
+          address {
+            street
+            city
+            state
+            zipCode
+            country
+            coordinates {
+              lat
+              lng
+            }
+          }
+          updatedAt
+          updatedBy
+        }
         errors { field message code }
       }
     }

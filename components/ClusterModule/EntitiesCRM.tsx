@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AdvancedTable, ColumnConfig } from "../Shared/AdvancedTable";
 import PipedriveFormModal from "../Shared/PipedriveFormModal";
 import PipedriveDetailModal from "../Shared/PipedriveDetailModal";
@@ -13,12 +13,19 @@ import { fetchApiCRM } from "../../utils/CRMFetching";
 import { EntitiesIcon } from "../Icons/index";
 import ActionsMenu from "../Shared/ActionsMenu";
 import { getFieldIcon } from "../Icons/ProfessionalIcons";
+import VerificationBadge from "../Shared/VerificationBadge";
+import DataQualityIndicator from "../Shared/DataQualityIndicator";
+import EntitiesStats from "./EntitiesStats";
+import { calculateEntityDataQualityScore, calculateEntityCompleteness } from "../../utils/entityDataQuality";
 
 const defaultEntityColumns: ColumnConfig[] = [
-  { field: "name", label: "Nombre", visible: true, order: 0, width: 200, pinned: false, tooltip: "Nombre de la entidad/empresa" },
+  { field: "name", label: "Nombre", visible: true, order: 0, width: 200, pinned: true, tooltip: "Nombre de la entidad/empresa" },
   { field: "type", label: "Tipo", visible: true, order: 1, width: 150, pinned: false, tooltip: "Tipo de entidad" },
   { field: "industry", label: "Industria", visible: true, order: 2, width: 150, pinned: false, tooltip: "Sector/industria" },
   { field: "size", label: "Tamaño", visible: true, order: 3, width: 120, pinned: false, tooltip: "Tamaño de la empresa" },
+  { field: "email", label: "Email", visible: true, order: 4, width: 200, pinned: false, tooltip: "Correo electrónico" },
+  { field: "phone", label: "Teléfono", visible: true, order: 5, width: 150, pinned: false, tooltip: "Número telefónico" },
+  { field: "dataQualityScore", label: "Calidad", visible: true, order: 6, width: 100, pinned: false, tooltip: "Score de calidad de datos" },
 ];
 
 const GET_CRM_ENTITIES = CRM_QUERIES.GET_ENTITIES;
@@ -39,6 +46,51 @@ export default function EntitiesCRM() {
   const [owners] = useState<Array<{ id: string; name: string }>>([
     { id: "all", name: "Bodas de Hoy (you)" },
   ]);
+  const [stats, setStats] = useState<{ total: number; companies: number; organizations: number; partners: number } | null>(null);
+  const [loadingStats, setLoadingStats] = useState(false);
+
+  // Función para mapear valores de verificación del backend
+  const mapVerificationStatus = (status: string | undefined, type: "email" | "phone" | "website"): "verified" | "unverified" | "bounced" | "invalid" | "active" | "inactive" => {
+    if (!status) return type === "website" ? "unverified" : "unverified";
+    const statusUpper = status.toUpperCase();
+    if (statusUpper === "ACTIVE") return type === "website" ? "verified" : "verified";
+    if (statusUpper === "INACTIVE") return "unverified";
+    if (statusUpper === "BOUNCED") return "bounced";
+    if (statusUpper === "INVALID") return "invalid";
+    if (statusUpper === "UNSUBSCRIBED") return "inactive";
+    return "unverified";
+  };
+
+  // Cargar estadísticas
+  useEffect(() => {
+    const loadStats = async () => {
+      try {
+        setLoadingStats(true);
+        const response = await fetchApiCRM({ 
+          query: CRM_QUERIES.GET_ENTITIES_STATS,
+          variables: {}
+        });
+        if (response?.getCRMEntitiesStats?.success) {
+          const statsData = response.getCRMEntitiesStats;
+          // Calcular empresas, organizaciones y socios desde byType
+          const companies = statsData.byType?.find((t: any) => t.key === "COMPANY")?.count || 0;
+          const organizations = statsData.byType?.find((t: any) => t.key === "ORGANIZATION")?.count || 0;
+          const partners = statsData.byType?.find((t: any) => t.key === "ASSOCIATION")?.count || 0;
+          setStats({
+            total: statsData.total || 0,
+            companies,
+            organizations,
+            partners
+          });
+        }
+      } catch (e: any) {
+        console.error("Error loading stats:", e);
+      } finally {
+        setLoadingStats(false);
+      }
+    };
+    loadStats();
+  }, []);
   return (
     <div className="flex flex-col h-full overflow-hidden" style={{ minHeight: 0, maxHeight: '100vh', padding: '16px', backgroundColor: '#F9FAFB' }}>
       {/* Header compacto estilo Pipedrive */}
@@ -71,6 +123,14 @@ export default function EntitiesCRM() {
           Crear Entidad
         </button>
       </div>
+      {/* Estadísticas */}
+      <EntitiesStats
+        total={stats?.total}
+        companies={stats?.companies}
+        organizations={stats?.organizations}
+        partners={stats?.partners}
+        loading={loadingStats}
+      />
       <AdvancedTable
         title="Listado"
         entityType="COMPANY"
@@ -101,29 +161,58 @@ export default function EntitiesCRM() {
             const colors = sizeColors[row.size] || { bg: "#D1FAE5", text: "#047857" };
             return <span className="px-2 py-0.5 rounded text-xs" style={{ backgroundColor: colors.bg, color: colors.text }}>{row.size}</span>;
           }
+          if (col.field === "type") {
+            const typeColors: Record<string, { bg: string; text: string }> = {
+              "COMPANY": { bg: "#DBEAFE", text: "#1D4ED8" },
+              "ORGANIZATION": { bg: "#D1FAE5", text: "#047857" },
+              "ASSOCIATION": { bg: "#FEF3C7", text: "#D97706" },
+              "GOVERNMENT": { bg: "#E5E7EB", text: "#374151" },
+              "NON_PROFIT": { bg: "#FCE7F3", text: "#BE185D" },
+              "INDIVIDUAL": { bg: "#EDE9FE", text: "#7C3AED" },
+            };
+            const colors = typeColors[row.type] || { bg: "#F3F4F6", text: "#374151" };
+            return <span className="px-2 py-0.5 rounded text-xs" style={{ backgroundColor: colors.bg, color: colors.text }}>{row.type || "-"}</span>;
+          }
+          if (col.field === "dataQualityScore") {
+            const score = row.dataQualityScore ?? calculateEntityDataQualityScore(row);
+            return <DataQualityIndicator score={score} size="sm" />;
+          }
+          if (col.field === "email" && row.email) {
+            const emailText = String(row.email);
+            const truncatedEmail = emailText.length > 7 ? emailText.substring(0, 7) + '...' : emailText;
+            return (
+              <div className="flex items-center gap-2" style={{ width: '100%', minWidth: 0 }}>
+                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1, minWidth: 0 }} title={emailText}>
+                  {truncatedEmail}
+                </span>
+                <VerificationBadge 
+                  status={mapVerificationStatus(row.emailStatus, "email")} 
+                  type="email" 
+                  size="sm" 
+                  showText={false}
+                />
+              </div>
+            );
+          }
+          if (col.field === "phone" && row.phone) {
+            const phoneText = String(row.phone);
+            const truncatedPhone = phoneText.length > 7 ? phoneText.substring(0, 7) + '...' : phoneText;
+            return (
+              <div className="flex items-center gap-2" style={{ width: '100%', minWidth: 0 }}>
+                <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1, minWidth: 0 }} title={phoneText}>
+                  {truncatedPhone}
+                </span>
+                <VerificationBadge 
+                  status={mapVerificationStatus(row.phoneStatus, "phone")} 
+                  type="phone" 
+                  size="sm" 
+                  showText={false}
+                />
+              </div>
+            );
+          }
           return (row as any)[col.field];
         }}
-        renderActions={(row: any) => (
-          <ActionsMenu
-            onEdit={() => setEditRow(row)}
-            onDelete={async () => {
-              try {
-                setDeletingId(row.id);
-                await fetchApiCRM({ query: CRM_MUTATIONS.DELETE_ENTITY, variables: { id: row.id } });
-                pushToast("success", "La entidad ha sido eliminada.");
-              } catch (e: any) {
-                pushToast("error", e?.message || "Error al eliminar");
-              } finally {
-                setDeletingId(null);
-              }
-            }}
-            onShare={() => setShareRow(row)}
-            isDeleting={deletingId === row.id}
-            editLabel="Editar entidad"
-            deleteLabel="Eliminar entidad"
-            shareLabel="Compartir entidad"
-          />
-        )}
       />
       <PipedriveFormModal
         isOpen={openCreate}
@@ -138,7 +227,10 @@ export default function EntitiesCRM() {
             options: [
               { value: "COMPANY", label: "Empresa" },
               { value: "ORGANIZATION", label: "Organización" },
-              { value: "PARTNER", label: "Socio" }
+              { value: "ASSOCIATION", label: "Asociación" },
+              { value: "GOVERNMENT", label: "Gobierno" },
+              { value: "NON_PROFIT", label: "Sin ánimo de lucro" },
+              { value: "INDIVIDUAL", label: "Individual" }
             ],
             placeholder: "Seleccionar tipo",
             column: "left"
@@ -172,9 +264,12 @@ export default function EntitiesCRM() {
             name: v.name?.trim() || "",
             type: v.type || "COMPANY",
             website: v.website?.trim() || undefined,
+            phone: v.phone?.trim() || undefined,
+            email: v.email?.trim() || undefined,
             industry: v.industry?.trim() || undefined,
             size: v.size || undefined,
             description: v.description?.trim() || undefined,
+            source: v.source?.trim() || undefined,
             address: (v.address_street || v.address_city || v.address_state || v.address_zipCode || v.address_country) ? {
               street: v.address_street?.trim() || undefined,
               city: v.address_city?.trim() || undefined,
@@ -212,7 +307,10 @@ export default function EntitiesCRM() {
             options: [
               { value: "COMPANY", label: "Empresa" },
               { value: "ORGANIZATION", label: "Organización" },
-              { value: "PARTNER", label: "Socio" }
+              { value: "ASSOCIATION", label: "Asociación" },
+              { value: "GOVERNMENT", label: "Gobierno" },
+              { value: "NON_PROFIT", label: "Sin ánimo de lucro" },
+              { value: "INDIVIDUAL", label: "Individual" }
             ],
             placeholder: "Seleccionar tipo",
             column: "left"
@@ -248,9 +346,12 @@ export default function EntitiesCRM() {
           if (v.name !== undefined) input.name = v.name?.trim() || "";
           if (v.type !== undefined) input.type = v.type || "COMPANY";
           if (v.website !== undefined) input.website = v.website?.trim() || undefined;
+          if (v.phone !== undefined) input.phone = v.phone?.trim() || undefined;
+          if (v.email !== undefined) input.email = v.email?.trim() || undefined;
           if (v.industry !== undefined) input.industry = v.industry?.trim() || undefined;
           if (v.size !== undefined) input.size = v.size || undefined;
           if (v.description !== undefined) input.description = v.description?.trim() || undefined;
+          if (v.source !== undefined) input.source = v.source?.trim() || undefined;
           
           // Manejar address parcialmente - solo incluir si hay algún campo de address
           if (v.address_street !== undefined || v.address_city !== undefined || 
@@ -328,7 +429,10 @@ export default function EntitiesCRM() {
                 options={[
                   { value: "COMPANY", label: "Company" },
                   { value: "ORGANIZATION", label: "Organization" },
-                  { value: "PARTNER", label: "Partner" }
+                  { value: "ASSOCIATION", label: "Association" },
+                  { value: "GOVERNMENT", label: "Government" },
+                  { value: "NON_PROFIT", label: "Non-profit" },
+                  { value: "INDIVIDUAL", label: "Individual" }
                 ]}
                 icon={getFieldIcon("type", 14)}
                 onSave={async (value) => {
@@ -364,6 +468,77 @@ export default function EntitiesCRM() {
                   }
                 }}
               />
+              {selectedRow.website && (
+                <div className="mt-1 ml-6">
+                  <VerificationBadge 
+                    status={mapVerificationStatus(selectedRow.websiteStatus, "website")} 
+                    type="email" 
+                    size="sm" 
+                  />
+                </div>
+              )}
+              <div>
+                <EditableField
+                  label="Phone"
+                  value={selectedRow.phone}
+                  type="phone"
+                  fieldType="Phone"
+                  placeholder="+34 600 000 000"
+                  icon={getFieldIcon("phone", 14)}
+                  onSave={async (value) => {
+                    try {
+                      await fetchApiCRM({
+                        query: CRM_MUTATIONS.UPDATE_ENTITY,
+                        variables: { id: selectedRow.id, input: { phone: String(value) } }
+                      });
+                      setSelectedRow({ ...selectedRow, phone: value });
+                    } catch (e: any) {
+                      console.error("Error updating phone:", e);
+                      throw e;
+                    }
+                  }}
+                />
+                {selectedRow.phone && (
+                  <div className="mt-1 ml-6">
+                    <VerificationBadge 
+                      status={mapVerificationStatus(selectedRow.phoneStatus, "phone")} 
+                      type="phone" 
+                      size="sm" 
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
+                <EditableField
+                  label="Email"
+                  value={selectedRow.email}
+                  type="email"
+                  fieldType="Email"
+                  placeholder="ejemplo@empresa.com"
+                  icon={getFieldIcon("email", 14)}
+                  onSave={async (value) => {
+                    try {
+                      await fetchApiCRM({
+                        query: CRM_MUTATIONS.UPDATE_ENTITY,
+                        variables: { id: selectedRow.id, input: { email: String(value) } }
+                      });
+                      setSelectedRow({ ...selectedRow, email: value });
+                    } catch (e: any) {
+                      console.error("Error updating email:", e);
+                      throw e;
+                    }
+                  }}
+                />
+                {selectedRow.email && (
+                  <div className="mt-1 ml-6">
+                    <VerificationBadge 
+                      status={mapVerificationStatus(selectedRow.emailStatus, "email")} 
+                      type="email" 
+                      size="sm" 
+                    />
+                  </div>
+                )}
+              </div>
               <EditableField
                 label="Industry"
                 value={selectedRow.industry}
@@ -494,6 +669,25 @@ export default function EntitiesCRM() {
                     }}
                   />
                 </>
+              )}
+              {/* Calidad de datos */}
+              {selectedRow && (
+                <div className="mt-2 pt-2" style={{ borderTop: "1px solid #E5E7EB" }}>
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-xs font-medium" style={{ color: "#6B7280" }}>Calidad de datos</span>
+                    <DataQualityIndicator 
+                      score={selectedRow.dataQualityScore ?? calculateEntityDataQualityScore(selectedRow)} 
+                      size="sm"
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-medium" style={{ color: "#6B7280" }}>Completitud</span>
+                    <DataQualityIndicator 
+                      score={selectedRow.completeness ?? calculateEntityCompleteness(selectedRow)} 
+                      size="sm"
+                    />
+                  </div>
+                </div>
               )}
             </div>
           ) : null
